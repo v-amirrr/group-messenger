@@ -66,6 +66,7 @@ const MessengerContainer = styled.div`
 const MessengerTitle = styled.div`
     width: 100%;
     font-family: 'Kulim Park', sans-serif;
+    text-transform: uppercase;
 `;
 
 const MessengerInput = styled.div`

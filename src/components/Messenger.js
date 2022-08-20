@@ -6,6 +6,20 @@ import { IoSend } from 'react-icons/io5';
 
 import styled from 'styled-components';
 
+import { motion } from 'framer-motion';
+
+const messengerTitleVariants = {
+    hidden: { opacity: 0, y: -100, scaleX: 0 },
+    visible: { opacity: 1, y: 0, scaleX: 1 , transition: { duration: 0.5, type: 'tween' } },
+    exit: { opacity: 0, y: -100, scaleX: 0 }
+};
+
+const messengerInputVariants = {
+    hidden: { opacity: 0, y: 100, scaleX: 0 },
+    visible: { opacity: 1, y: 0, scaleX: 1 , transition: { duration: 0.5, type: 'tween' } },
+    exit: { opacity: 0, y: 100, scaleX: 0 }
+};
+
 const Messenger = () => {
 
     const [input, setInput] = useState("");
@@ -19,13 +33,13 @@ const Messenger = () => {
         <>
             <MessengerPage>
                 <MessengerContainer>
-                    <MessengerTitle>
+                    <MessengerTitle initial='hidden' animate='visible' exit='exit' variants={messengerTitleVariants}>
                         <h1>Group Messenger</h1>
                     </MessengerTitle>
 
                     {/* Messages */}
                     
-                    <MessengerInput>
+                    <MessengerInput initial='hidden' animate='visible' exit='exit' variants={messengerInputVariants}>
                         <form>
                             <Input 
                                 className='messenger-input' 
@@ -50,6 +64,7 @@ const MessengerPage = styled.section`
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    background-color: #000000dd;
 `;
 
 const MessengerContainer = styled.div`
@@ -60,16 +75,22 @@ const MessengerContainer = styled.div`
     text-align: center;
     width: 50%;
     height: 100%;
-    padding: 2rem 0;
+    padding: 1rem 0;
+
+    @media (max-width: 700px) {
+        width: 90%;
+    }
 `;
 
-const MessengerTitle = styled.div`
+const MessengerTitle = styled(motion.div)`
     width: 100%;
     font-family: 'Kulim Park', sans-serif;
     text-transform: uppercase;
+    font-size: 1.2rem;
+    white-space: nowrap;
 `;
 
-const MessengerInput = styled.div`
+const MessengerInput = styled(motion.div)`
     background-color: #ffffff08;
     border-radius: 12px;
     font-family: 'Kulim Park', sans-serif;

@@ -15,8 +15,7 @@
 
 html {
     font-size: calc(90% + .8vmin);
-    overflow-x: hidden;
-    overflow-y: scroll;
+    overflow: hidden;
     scroll-behavior: smooth;
     height: 100%;
 }

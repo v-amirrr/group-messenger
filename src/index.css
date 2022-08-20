@@ -1,13 +1,78 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url('https://fonts.googleapis.com/css2?family=Kulim+Park:wght@200;700&display=swap');
+
+:root {
+    color-scheme: dark;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+}
+
+html {
+    font-size: calc(90% + .8vmin);
+    overflow-x: hidden;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    height: 100%;
+}
+
+body {
+    font-family: 'Raleway', sans-serif;
+    color: #fff;
+    background-color: #000;
+}
+
+:any-link {
+    text-decoration: none;
+    cursor: pointer;
+    color: #fff;
+}
+
+::placeholder {
+}
+
+.link {
+    position: relative;
+    padding: .1rem;
+    color: #00b7ff;
+    z-index: 1;
+    transition: color .2s;
+    -webkit-transition: color .2s;
+    -moz-transition: color .2s;
+    -ms-transition: color .2s;
+    -o-transition: color .2s;
+    width: fit-content;
+    display: inline;
+}
+
+.link::after {
+    content: "";
+    z-index: -1;
+    position: absolute;
+    inset: 92% 0 0 0;
+    background-color: #00b7ff;
+    transition: inset .2s;
+    -webkit-transition: inset .2s;
+    -moz-transition: inset .2s;
+    -ms-transition: inset .2s;
+    -o-transition: inset .2s;
+    border: none;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+}
+
+.link:hover {
+    color: #000;
+}
+
+.link:hover::after {
+    inset: 0 0 0 0;
 }

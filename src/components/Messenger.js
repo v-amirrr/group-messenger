@@ -47,6 +47,7 @@ const Messenger = () => {
                                 value={input} 
                                 onChange={(e) => setInput(e.target.value)} 
                                 placeholder="Write a Message..." 
+                                autoFocus
                             />
                             <Button type="submit" className='messenger-submit' disabled={!input} onClick={sendMessage}><IoSend /></Button>
                         </form>

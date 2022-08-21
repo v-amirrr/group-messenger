@@ -26,13 +26,13 @@ const PopUp = () => {
     const [nameInput, setNameInput] = useState("");
 
     useEffect(() => {
-        if (JSON.parse(localStorage.getItem("name")) === true) {
+        if (!!localStorage.getItem("name") == true) {
             setName(false);
         } else {
             setName(true);
         }
 
-        if (JSON.parse(!!sessionStorage.getItem("vpn")) === true) {
+        if (!!sessionStorage.getItem("vpn") == true) {
             setVpn(false);
         } else {
             setVpn(true);
@@ -45,7 +45,7 @@ const PopUp = () => {
     };
 
     const namePopUpSubmitHandler = () => {
-        setName(false)
+        setName(false);
         localStorage.setItem("name", JSON.stringify(nameInput));
     };
 
@@ -64,7 +64,7 @@ const PopUp = () => {
                                 value={nameInput}
                                 onChange={e => setNameInput(e.target.value)}
                             />
-                            <button className='popup-button' onClick={namePopUpSubmitHandler}>OK</button>
+                            <button disabled={!nameInput} className='popup-button' onClick={namePopUpSubmitHandler}>OK</button>
                         </PopUpContainer>
                     </PopUpPage>
                 }

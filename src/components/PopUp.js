@@ -23,6 +23,8 @@ const PopUp = () => {
     const [name, setName] = useState(false);
     const [vpn, setVpn] = useState(false);
 
+    const [nameInput, setNameInput] = useState("");
+
     useEffect(() => {
         if (JSON.parse(localStorage.getItem("name")) === true) {
             setName(false);
@@ -44,7 +46,7 @@ const PopUp = () => {
 
     const namePopUpSubmitHandler = () => {
         setName(false)
-        localStorage.setItem("name", "true");
+        localStorage.setItem("name", JSON.stringify(nameInput));
     };
 
     return (
@@ -59,6 +61,8 @@ const PopUp = () => {
                                 className='popup-input'                            
                                 placeholder="Please Write Your Name..." 
                                 autoFocus 
+                                value={nameInput}
+                                onChange={e => setNameInput(e.target.value)}
                             />
                             <button className='popup-button' onClick={namePopUpSubmitHandler}>OK</button>
                         </PopUpContainer>

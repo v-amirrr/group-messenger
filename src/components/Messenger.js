@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+
+import { useSelector, useDispatch } from 'react-redux';
+import { getMessages } from '../redux/messages/messagesAction';
 
 import { Input, Button } from '@mui/material';
 
@@ -24,10 +27,19 @@ const Messenger = () => {
 
     const [input, setInput] = useState("");
 
+    const dispatch = useDispatch();
+
     const sendMessage = e => {
         e.preventDefault();
         setInput("");
     };
+
+    const messages = useSelector(state => state.messagesState);
+
+    useEffect(() => {
+        dispatch(getMessages());
+    }, []);
+
 
     return (
         <>

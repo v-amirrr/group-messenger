@@ -82,7 +82,6 @@ const PopUp = () => {
                     </PopUpPage>
                 }
             </AnimatePresence>
-
         </>
     );
 };

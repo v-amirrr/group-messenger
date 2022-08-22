@@ -57,14 +57,17 @@ const PopUp = () => {
                     &&
                     <PopUpPage initial='hidden' animate='visible' exit='exit' variants={popUpPageVariants}>
                         <PopUpContainer variants={popUpContainerVariants}>
-                           <Input
-                                className='popup-input'                            
-                                placeholder="Please Write Your Name..." 
-                                autoFocus 
-                                value={nameInput}
-                                onChange={e => setNameInput(e.target.value)}
-                            />
-                            <button disabled={!nameInput} className='popup-button' onClick={namePopUpSubmitHandler}>OK</button>
+                            <form>
+                                <input
+                                    type="text"
+                                    className='popup-input'                            
+                                    placeholder="Please Write Your Name..." 
+                                    autoFocus 
+                                    value={nameInput}
+                                    onChange={e => setNameInput(e.target.value)}
+                                />
+                                <button whileTap={nameInput && { scale: 0.5 }} type="submit" disabled={!nameInput} className='popup-button' onClick={namePopUpSubmitHandler}>OK</button>
+                            </form>
                         </PopUpContainer>
                     </PopUpPage>
                 }
@@ -76,8 +79,10 @@ const PopUp = () => {
                     &&
                     <PopUpPage initial='hidden' animate='visible' exit='exit' variants={popUpPageVariants}>
                         <PopUpContainer variants={popUpContainerVariants}>
-                            <p className='popup-text'>if you're in iran, for using this app you need to use VPN.</p>
-                            <button className='popup-button' onClick={vpnPopUpSubmitHandler}>OK</button>
+                            <form>
+                                <p className='popup-text'>if you're in iran, for using this app you need to turn on your VPN.</p>
+                                <motion.button type="submit" whileTap={nameInput && { scale: 0.5 }} className='popup-button' onClick={vpnPopUpSubmitHandler}>OK</motion.button>
+                            </form>
                         </PopUpContainer>
                     </PopUpPage>
                 }
@@ -93,9 +98,7 @@ const PopUpPage = styled(motion.section)`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: #000000ee;
-    backdrop-filter: blur(5px) saturate(180%);
-    -webkit-backdrop-filter: blur(5px) saturate(180%);
+    background-color: #000000;
     z-index: 9;
     position: absolute;
     inset: 0 0 0 0;
@@ -120,6 +123,7 @@ const PopUpContainer = styled(motion.div)`
         margin: 1rem 0;
         line-height: 2rem;
         text-transform: capitalize;
+        word-spacing: 5px;
     }
 
     .popup-button {
@@ -137,6 +141,11 @@ const PopUpContainer = styled(motion.div)`
     .popup-input {
         color: #fff;
         width: 70%;
+        padding: 1rem;
+        border: none;
+        background-color: #00000000;
+        font-size: 1rem;
+        text-align: center;
     }
 
     @media (max-width: 1300px) {
@@ -151,26 +160,12 @@ const PopUpContainer = styled(motion.div)`
         width: 70%;
     }
 
-    @media (max-width: 800px) {
+    @media (max-width: 900px) {
         width: 80%;
     }
 
-    @media (max-width: 700px) {
+    @media (max-width: 800px) {
         width: 90%;
-    }
-
-    @media (max-width: 600px) {
-        .popup-text {
-            font-size: .8rem;
-        }
-        
-        .popup-button {
-            font-size: 1rem;
-        }
-
-        .popup-input {
-            font-size: .8rem;
-        }
     }
 `;
 

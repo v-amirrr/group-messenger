@@ -3,8 +3,6 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getMessages } from '../redux/messages/messagesAction';
 
-import { Input, Button } from '@mui/material';
-
 import { IoSend } from 'react-icons/io5';
 
 import styled from 'styled-components';
@@ -29,17 +27,16 @@ const Messenger = () => {
 
     const dispatch = useDispatch();
 
+    const messages = useSelector(state => state.messagesState);
+
     const sendMessage = e => {
         e.preventDefault();
         setInput("");
     };
 
-    const messages = useSelector(state => state.messagesState);
-
     useEffect(() => {
         dispatch(getMessages());
     }, []);
-
 
     return (
         <>
@@ -53,7 +50,7 @@ const Messenger = () => {
                     
                     <MessengerInput initial='hidden' animate='visible' exit='exit' variants={messengerInputVariants}>
                         <form>
-                            <Input 
+                            <input 
                                 className='messenger-input' 
                                 type="text" 
                                 value={input} 
@@ -61,7 +58,7 @@ const Messenger = () => {
                                 placeholder="Write a Message..." 
                                 autoFocus
                             />
-                            <Button type="submit" className='messenger-submit' disabled={!input} onClick={sendMessage}><IoSend /></Button>
+                            <motion.button whileTap={input && { scale: 0.5 }} type="submit" className='messenger-submit' disabled={!input} onClick={sendMessage}><IoSend /></motion.button>
                         </form>
                     </MessengerInput>
                 </MessengerContainer>
@@ -77,7 +74,7 @@ const MessengerPage = styled.section`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: #000000dd;
+    background-color: #000000aa;
 `;
 
 const MessengerContainer = styled.div`
@@ -87,8 +84,9 @@ const MessengerContainer = styled.div`
     flex-direction: column;
     text-align: center;
     width: 50%;
-    height: 100%;
+    height: 95%;
     padding: 1rem 0;
+    font-family: 'Outfit', sans-serif;
 
     @media (max-width: 700px) {
         width: 90%;
@@ -97,17 +95,25 @@ const MessengerContainer = styled.div`
 
 const MessengerTitle = styled(motion.div)`
     width: 100%;
-    font-family: 'Kulim Park', sans-serif;
     text-transform: uppercase;
     font-size: 1.2rem;
+    font-weight: 900;
+    letter-spacing: -2px;
+    word-spacing: 5px;
     white-space: nowrap;
 `;
 
 const MessengerInput = styled(motion.div)`
-    background-color: #ffffff08;
+    background-color: #ffffff10;
     border-radius: 12px;
-    font-family: 'Kulim Park', sans-serif;
-
+    padding: .7rem 1rem;
+    backdrop-filter: blur(20px) saturate(100%);
+    -webkit-backdrop-filter: blur(20px) saturate(100%);
+    border: solid 3px #ffffff09;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
     form {
         display: flex;
         justify-content: center;
@@ -116,19 +122,35 @@ const MessengerInput = styled(motion.div)`
 
     .messenger-input {
         color: #fff;
-        margin: 1rem;
-        font-family: 'Kulim Park', sans-serif;
+        border: none;
+        padding: 1rem;
+        background-color: #00000000;
+        font-family: 'Outfit', sans-serif;
+        font-weight: 200;
+        font-size: 1rem;
     }
 
     .messenger-submit {
         font-size: 1.5rem;
         width: 3rem;
         height: 3rem;
-        margin: 1rem;
         border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        background-color: #00000000;
+        cursor: pointer;
+        transition: background .4s;
 
         &:disabled {
             color: #ffffffbb;
+        }
+
+        &:not(:disabled) {
+            &:hover {
+                background-color: #ffffff11;
+            }
         }
     }
 `;

@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
+import { db } from '../config/firebase';
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+
 import { useSelector, useDispatch } from 'react-redux';
 import { getMessages } from '../redux/messages/messagesAction';
 
@@ -29,9 +32,22 @@ const Messenger = () => {
 
     const messages = useSelector(state => state.messagesState);
 
+    const ref = collection(db, 'messages');
+    const username = localStorage.getItem("username")
+
     const sendMessage = e => {
         e.preventDefault();
-        setInput("");
+
+        addDoc(ref, {
+            message: input,
+            username: username,
+            time: serverTimestamp(),
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+
+        console.log(messages);
     };
 
     useEffect(() => {

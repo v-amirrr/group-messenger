@@ -1,5 +1,5 @@
 import { db } from "../../config/firebase";
-import { collection, onSnapshot} from "firebase/firestore";
+import { collection, onSnapshot } from "firebase/firestore";
 
 export const setMessages = (value=null) => {
     return { type: "SET_MESSAGES", payload: value };

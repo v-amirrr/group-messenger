@@ -26,7 +26,7 @@ const PopUp = () => {
     const [nameInput, setNameInput] = useState("");
 
     useEffect(() => {
-        if (!!localStorage.getItem("name") == true) {
+        if (!!localStorage.getItem("username") == true) {
             setName(false);
         } else {
             setName(true);
@@ -46,7 +46,7 @@ const PopUp = () => {
 
     const namePopUpSubmitHandler = () => {
         setName(false);
-        localStorage.setItem("name", JSON.stringify(nameInput));
+        localStorage.setItem("username", JSON.stringify(nameInput));
     };
 
     return (

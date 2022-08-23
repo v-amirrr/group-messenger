@@ -33,7 +33,7 @@ const Messenger = () => {
     const messages = useSelector(state => state.messagesState);
 
     const ref = collection(db, 'messages');
-    const username = localStorage.getItem("username")
+    const username = localStorage.getItem("username");
 
     const sendMessage = e => {
         e.preventDefault();
@@ -47,7 +47,7 @@ const Messenger = () => {
             console.log(err);
         });
 
-        console.log(messages);
+        setInput("");
     };
 
     useEffect(() => {
@@ -61,8 +61,10 @@ const Messenger = () => {
                     <MessengerTitle initial='hidden' animate='visible' exit='exit' variants={messengerTitleVariants}>
                         <h1>Group Messenger</h1>
                     </MessengerTitle>
-
-                    {/* Messages */}
+                    
+                    {
+                        messages?.messages?.map(item => <p key={item.id}>{item.message}</p>)
+                    }
                     
                     <MessengerInput initial='hidden' animate='visible' exit='exit' variants={messengerInputVariants}>
                         <form>

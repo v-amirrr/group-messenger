@@ -12,18 +12,23 @@ export const setError = (value=null) => {
 export const getMessages = () => {
     
     return (dispatch) => {
-
-        let messages = [];
-
+        
         const ref = collection(db, 'messages');
-
+        
         onSnapshot(ref, (snapshot) => {
+            let messages = [];
+            dispatch(setMessages(null));
 
-            snapshot.docs.map(doc => {
-                messages.push(doc.data())
+            snapshot.docs.forEach(doc => {
+                messages.push({
+                    username: doc.data().username,
+                    message: doc.data().message,
+                    id: doc.id,
+                });
             });
-
             dispatch(setMessages(messages));
+        }, (error) => {
+            console.log(error);
         });
     };
 };

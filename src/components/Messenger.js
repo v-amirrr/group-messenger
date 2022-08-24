@@ -10,7 +10,7 @@ import { IoSend } from 'react-icons/io5';
 
 import styled from 'styled-components';
 
-import { motion, LayoutGroup, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import FlipMove from 'react-flip-move';
 
 const messengerTitleVariants = {
@@ -67,7 +67,7 @@ const Messenger = () => {
                         <FlipMove>
                             {
                                 messages?.messages?.map(item => (
-                                    <Message key={item.id}>
+                                    <Message key={item.id} isUser={item.username == JSON.parse(username)}>
                                         <p className='username'>{item.username}:</p>
                                         <p className='message'>{item.message}</p>
                                     </Message>
@@ -209,17 +209,19 @@ const Messages = styled(motion.div)`
 
 const Message = styled(motion.div)`
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     flex-direction: row;
-    background-color: #ffffff11;
+    background-color: ${props => props.isUser ? "#ffffff11" : "#ffffff28"};
     margin: 1rem 0;
-    padding: .8rem;
+    margin-left: ${props => props.isUser && "auto"};
+    padding: .8rem; 
     border-radius: 12px;
     width: fit-content;
     max-width: 100%;
 
     .username {
+        display: ${props => props.isUser ? "none" : ""};
         color: #ccc;
         font-size: .8rem;
         margin-right: .5rem;

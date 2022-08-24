@@ -14,7 +14,7 @@ export const getMessages = () => {
     return (dispatch) => {
         
         const ref = collection(db, 'messages');
-        const q = query(ref, orderBy("time"));
+        const q = query(ref, orderBy("time", "desc"));
         
         onSnapshot(q, (snapshot) => {
             let messages = [];

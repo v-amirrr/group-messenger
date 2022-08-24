@@ -113,7 +113,7 @@ const MessengerContainer = styled.div`
     text-align: center;
     width: 50%;
     height: 95%;
-    padding: 1rem 0;
+    padding: .5rem 0;
     font-family: 'Outfit', sans-serif;
 
     @media (max-width: 700px) {
@@ -124,7 +124,7 @@ const MessengerContainer = styled.div`
 const MessengerTitle = styled(motion.div)`
     width: 100%;
     text-transform: uppercase;
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 900;
     letter-spacing: -2px;
     word-spacing: 5px;
@@ -132,12 +132,8 @@ const MessengerTitle = styled(motion.div)`
 `;
 
 const MessengerInput = styled(motion.div)`
-    background-color: #ffffff10;
-    border-radius: 12px;
-    padding: .7rem 1rem;
-    backdrop-filter: blur(20px) saturate(100%);
-    -webkit-backdrop-filter: blur(20px) saturate(100%);
-    border: solid 3px #ffffff09;
+    background-color: #ffffff08;
+    border-radius: 60px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -151,7 +147,7 @@ const MessengerInput = styled(motion.div)`
     .messenger-input {
         color: #fff;
         border: none;
-        padding: 1rem;
+        padding: .8rem;
         background-color: #00000000;
         font-family: 'Outfit', sans-serif;
         font-weight: 200;
@@ -172,7 +168,7 @@ const MessengerInput = styled(motion.div)`
         transition: background .4s;
 
         &:disabled {
-            color: #ffffffbb;
+            color: #ffffff44;
         }
 
         &:not(:disabled) {
@@ -185,7 +181,7 @@ const MessengerInput = styled(motion.div)`
 
 const Messages = styled(motion.div)`
     width: 100%;
-    height: 60%;
+    height: 70%;
     overflow: hidden scroll;
     padding: 1rem;
 
@@ -212,14 +208,14 @@ const Message = styled(motion.div)`
     justify-content: center;
     align-items: center;
     flex-direction: row;
-    background-color: ${props => props.isUser ? "#ffffff11" : "#ffffff28"};
-    margin: 1rem 0;
+    background-color: ${props => props.isUser ? "#ffffff10" : "#ffffff16"};
+    margin: .4rem 0;
     margin-left: ${props => props.isUser && "auto"};
-    padding: .8rem; 
-    border-radius: 12px;
+    padding: .5rem .8rem; 
+    border-radius: 20px;
     width: fit-content;
-    max-width: 100%;
-
+    max-width: 80%;
+    
     .username {
         display: ${props => props.isUser ? "none" : ""};
         color: #ccc;
@@ -230,6 +226,19 @@ const Message = styled(motion.div)`
     .message {
         text-align: left;
         word-spacing: 2px;
+    }
+
+    @media (max-width: 700px) {
+        padding: .4rem .6rem;
+        margin-left: ${props => props.isUser && "auto"};
+
+        .username {
+            font-size: .4rem;
+        }
+
+        .message {
+            font-size: .7rem;
+        }
     }
 `;
 

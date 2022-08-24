@@ -22,7 +22,7 @@ export const getMessages = () => {
 
             snapshot.docs.forEach(doc => {
                 messages.push({
-                    username: doc.data().username,
+                    username: JSON.parse(doc.data().username),
                     message: doc.data().message,
                     id: doc.id,
                 });

@@ -10,7 +10,8 @@ import { IoSend } from 'react-icons/io5';
 
 import styled from 'styled-components';
 
-import { motion } from 'framer-motion';
+import { motion, LayoutGroup, AnimatePresence } from 'framer-motion';
+import FlipMove from 'react-flip-move';
 
 const messengerTitleVariants = {
     hidden: { opacity: 0, y: -100, scaleX: 0 },
@@ -61,10 +62,19 @@ const Messenger = () => {
                     <MessengerTitle initial='hidden' animate='visible' exit='exit' variants={messengerTitleVariants}>
                         <h1>Group Messenger</h1>
                     </MessengerTitle>
-                    
-                    {
-                        messages?.messages?.map(item => <p key={item.id}>{item.message}</p>)
-                    }
+
+                    <Messages>
+                        <FlipMove>
+                            {
+                                messages?.messages?.map(item => (
+                                    <Message key={item.id}>
+                                        <p className='username'>{item.username}:</p>
+                                        <p className='message'>{item.message}</p>
+                                    </Message>
+                                ))
+                            }
+                        </FlipMove>
+                    </Messages>
                     
                     <MessengerInput initial='hidden' animate='visible' exit='exit' variants={messengerInputVariants}>
                         <form>
@@ -170,6 +180,54 @@ const MessengerInput = styled(motion.div)`
                 background-color: #ffffff11;
             }
         }
+    }
+`;
+
+const Messages = styled(motion.div)`
+    width: 100%;
+    height: 60%;
+    overflow: hidden scroll;
+    padding: 1rem;
+
+    /* width */
+    ::-webkit-scrollbar {
+        width: .2rem;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        border-radius: 50px;
+        background: #ffffff11;
+    }
+    
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #ffffff44;
+        border-radius: 50px;
+    }
+`;
+
+const Message = styled(motion.div)`
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    background-color: #ffffff11;
+    margin: 1rem 0;
+    padding: .8rem;
+    border-radius: 12px;
+    width: fit-content;
+    max-width: 100%;
+
+    .username {
+        color: #ccc;
+        font-size: .8rem;
+        margin-right: .5rem;
+    }
+
+    .message {
+        text-align: left;
+        word-spacing: 2px;
     }
 `;
 

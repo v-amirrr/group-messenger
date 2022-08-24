@@ -1,5 +1,5 @@
 import { db } from "../../config/firebase";
-import { collection, onSnapshot } from "firebase/firestore";
+import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
 
 export const setMessages = (value=null) => {
     return { type: "SET_MESSAGES", payload: value };
@@ -14,8 +14,9 @@ export const getMessages = () => {
     return (dispatch) => {
         
         const ref = collection(db, 'messages');
+        const q = query(ref, orderBy("time"));
         
-        onSnapshot(ref, (snapshot) => {
+        onSnapshot(q, (snapshot) => {
             let messages = [];
             dispatch(setMessages(null));
 

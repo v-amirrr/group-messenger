@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import Input from '@mui/material/Input';
+import { isRTL } from '../functions/isRlt';
 
 import styled from 'styled-components';
 
@@ -39,12 +39,14 @@ const PopUp = () => {
         }
     }, []);
     
-    const vpnPopUpSubmitHandler = () => {
+    const vpnPopUpSubmitHandler = e => {
+        e.preventDefault();
         setVpn(false);
         sessionStorage.setItem("vpn", "true");
     };
 
-    const namePopUpSubmitHandler = () => {
+    const namePopUpSubmitHandler = e => {
+        e.preventDefault();
         setName(false);
         localStorage.setItem("username", JSON.stringify(nameInput));
     };
@@ -61,12 +63,14 @@ const PopUp = () => {
                                 <input
                                     type="text"
                                     className='popup-input'                            
-                                    placeholder="Please Write Your Name..." 
+                                    placeholder="Please Enter Your Name..." 
                                     autoFocus 
                                     value={nameInput}
                                     onChange={e => setNameInput(e.target.value)}
+                                    dir="auto"
+                                    isPersian={isRTL(nameInput)}
                                 />
-                                <button whileTap={nameInput && { scale: 0.5 }} type="submit" disabled={!nameInput} className='popup-button' onClick={namePopUpSubmitHandler}>OK</button>
+                                <motion.button whileTap={nameInput && { scale: 0.5 }} type="submit" disabled={!nameInput} className='popup-button' onClick={namePopUpSubmitHandler}>OK</motion.button>
                             </form>
                         </PopUpContainer>
                     </PopUpPage>
@@ -80,8 +84,12 @@ const PopUp = () => {
                     <PopUpPage initial='hidden' animate='visible' exit='exit' variants={popUpPageVariants}>
                         <PopUpContainer variants={popUpContainerVariants}>
                             <form>
-                                <p className='popup-text'>if you're in iran, for using this app you need to turn on your VPN.</p>
-                                <motion.button type="submit" whileTap={nameInput && { scale: 0.5 }} className='popup-button' onClick={vpnPopUpSubmitHandler}>OK</motion.button>
+                                <h1 className='popup-title'>things you need to know</h1>
+                                <p className='popup-warning'>if you're countries like iran, syria, cuba and etc, you have to use <b>VPN</b> for using the app.</p>
+                                <p className='popup-text'>
+                                    in this app you can enter a message and also you can delete your any of your messages.for deleting a message just click on the message and the delete icon will be appeared. so feel free to send your messages.
+                                </p>
+                                <motion.button type="submit" whileTap={{ scale: 0.8 }} className='popup-button' onClick={vpnPopUpSubmitHandler}>OK</motion.button>
                             </form>
                         </PopUpContainer>
                     </PopUpPage>
@@ -93,15 +101,17 @@ const PopUp = () => {
 
 const PopUpPage = styled(motion.section)`
     width: 100vw;
-    height: 100vh;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: #000000;
+    background-color: #00000055;
     z-index: 9;
     position: absolute;
     inset: 0 0 0 0;
+    backdrop-filter: blur(8px) saturate(100%);
+    -webkit-backdrop-filter: blur(8px) saturate(100%);
 `;
 
 const PopUpContainer = styled(motion.div)`
@@ -109,63 +119,71 @@ const PopUpContainer = styled(motion.div)`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 40%;
-    height: 40%;
+    width: fit-content;
+    height: 50%;
+    max-width: 70%;
+    max-height: 50%;
+    padding: 2rem;
     text-align: center;
-    padding: .5rem;
-    background-color: #ffffff10;
-    border: solid 2px #ffffff11;
     border-radius: 12px;
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(17px) saturate(180%);
+
+    .popup-title {
+        text-transform: uppercase;
+        letter-spacing: -2px;
+        word-spacing: 6px;
+    }
+
+    .popup-warning {
+        text-transform: capitalize;
+        margin: 1rem;
+    }
     
     .popup-text {
-        margin: 1rem 0;
-        line-height: 2rem;
         text-transform: capitalize;
-        word-spacing: 5px;
+        word-spacing: 2px;
+        font-weight: 100;
+        font-size: .8rem;
     }
 
     .popup-button {
-        margin: 1rem 0;
+        margin-top: 1rem;
         font-size: 1.5rem;
         font-weight: 900;
-        width: 90%;
+        width: 60%;
         padding: .5rem 0;
-        border-radius: 12px;
+        border-radius: 20px;
         border: none;
         cursor: pointer;
-        background-color: #000000;
+        background-color: #ffffff11;
     }
     
     .popup-input {
         color: #fff;
-        width: 70%;
         padding: 1rem;
         border: none;
         background-color: #00000000;
         font-size: 1rem;
         text-align: center;
-    }
-
-    @media (max-width: 1300px) {
-        width: 50%;
-    }
-
-    @media (max-width: 1100px) {
-        width: 60%;
-    }
-
-    @media (max-width: 1000px) {
-        width: 70%;
+        font-family: ${props => props.isPersian ? "Vazirmatn" : "Outfit"}, "Vazirmatn", sans-serif;
+        font-weight: 200;
     }
 
     @media (max-width: 900px) {
-        width: 80%;
-    }
+        max-width: 80%;
+        max-height: 40%;
+        padding: .5rem;
 
-    @media (max-width: 800px) {
-        width: 90%;
+        .popup-title {
+            font-size: 1.2rem;
+        }
+
+        .popup-warning {
+            font-size: .8rem;
+        }
+    
+        .popup-text {
+            font-size: .6rem;
+        }
     }
 `;
 

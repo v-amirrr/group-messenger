@@ -44,6 +44,8 @@ const Message = forwardRef(( props, ref ) => {
                     {
                         menuShow
                         &&
+                        username == localStorageUsername
+                        &&
                         <Menu isUser={username == localStorageUsername} key={id} initial='hidden' animate='visible' exit='exit' variants={menuVariants}>
                             <div onClick={() => deleteMessage(id)}>
                                 <i><AiFillDelete /></i>
@@ -72,7 +74,7 @@ const MessageBox = styled.div`
     -webkit-backdrop-filter: blur(50px) saturate(150%);
     font-weight: 200;
     word-break: break-all;
-    cursor: pointer;
+    cursor: ${props => props.isUser && "pointer"};
 
     .username {
         display: ${props => props.isUser ? "none" : ""};

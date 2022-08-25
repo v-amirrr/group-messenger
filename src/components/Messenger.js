@@ -60,6 +60,13 @@ const Messenger = () => {
         dispatch(getMessages());
     }, []);
 
+    const isRTL = (text) => {           
+        let ltrChars = 'A-Za-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02B8\u0300-\u0590\u0800-\u1FFF'+'\u2C00-\uFB1C\uFDFE-\uFE6F\uFEFD-\uFFFF',
+            rtlChars = '\u0591-\u07FF\uFB1D-\uFDFD\uFE70-\uFEFC',
+            rtlDirCheck = new RegExp('^[^'+ltrChars+']*['+rtlChars+']');
+        return rtlDirCheck.test(text);
+    };
+
     return (
         <>
             <MessengerPage>
@@ -153,25 +160,26 @@ const MessengerInput = styled(motion.div)`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 70%;
+    min-width: 70%;
     backdrop-filter: blur(50px) saturate(180%);
     -webkit-backdrop-filter: blur(50px) saturate(180%);
-
+    
     form {
         display: flex;
         justify-content: space-between;
         align-items: center;
         width: 100%;
     }
-
+    
     .messenger-input {
         color: #fff;
         border: none;
         padding: .8rem;
         background-color: #00000000;
-        font-family: 'Outfit', sans-serif;
+        font-family: ${props => props.isPersian ? "Vazirmatn" : "Outfit"}, "Vazirmatn", sans-serif;
         font-weight: 200;
         font-size: 1rem;
+        width: 100%;
     }
 
     .messenger-submit {
@@ -185,7 +193,7 @@ const MessengerInput = styled(motion.div)`
         border: none;
         background-color: #00000000;
         cursor: pointer;
-        transition: background .4s;
+        transition: background .4s, color .4s;
 
         &:disabled {
             color: #ffffff44;

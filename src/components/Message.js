@@ -37,7 +37,7 @@ const Message = forwardRef(( props, ref ) => {
     return (
         <>
             <MessageBox ref={ref} key={id} isUser={username == localStorageUsername} isPersian={isRTL(message)} onClick={() => setMenuShow(prevState => !prevState)}>
-                <p className='username' dir="auto">{username}</p>
+                <p className='username'>{username}</p>
                 <p className='message'>{message}</p>
 
                 <AnimatePresence>
@@ -46,7 +46,7 @@ const Message = forwardRef(( props, ref ) => {
                         &&
                         username == localStorageUsername
                         &&
-                        <Menu isUser={username == localStorageUsername} key={id} initial='hidden' animate='visible' exit='exit' variants={menuVariants}>
+                        <Menu whileHover={{ sclae: 1.5 }} whileTap={{ scale: 0.8 }} isUser={username == localStorageUsername} key={id} initial='hidden' animate='visible' exit='exit' variants={menuVariants}>
                             <div onClick={() => deleteMessage(id)}>
                                 <i><AiFillDelete /></i>
                             </div>
@@ -81,14 +81,15 @@ const MessageBox = styled.div`
         color: #aaa;
         font-size: .8rem;
         margin-right: .5rem;
-        word-break: break-all;
+        white-space: nowrap;
     }
 
     .message {
         text-align: ${props => props.isPersian ? "right" : "left"};
         word-spacing: 1px;
         letter-spacing: -.5px;
-        word-break: break-all;
+        line-break: loose;
+        word-break: keep-all;
         font-family: ${props => props.isPersian ? "Vazirmatn" : "Outfit"}, "Vazirmatn", sans-serif;
     }
 `;
@@ -97,12 +98,14 @@ const Menu = styled(motion.div)`
     position: absolute;
     left: ${props => props.isUser && "-2.5rem"};
     right: ${props => props.isUser || "-2.5rem"};
-    background-color: #ffffff22;
+    background-color: #ffffff10;
     border-radius: 20px;
     overflow: hidden;
     z-index: 0;
     user-select: none;
-
+    backdrop-filter: blur(50px) saturate(150%);
+    -webkit-backdrop-filter: blur(50px) saturate(150%);
+    
     hr {
         opacity: 0.2;
     }
@@ -124,10 +127,6 @@ const Menu = styled(motion.div)`
             align-items: center;
             flex-direction: row;
             font-size: 1rem;
-        }
-
-        &:active {
-            background-color: #ffffff22;
         }
     }
 `;

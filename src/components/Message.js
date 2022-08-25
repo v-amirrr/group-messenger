@@ -1,16 +1,12 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 
 import styled from 'styled-components';
 
-import { useSelector } from 'react-redux';
+const Message = forwardRef(( props, ref ) => {
 
-import FlipMove from 'react-flip-move';
+    const localStorageUsername = JSON.parse(localStorage.getItem("username"));
 
-const Messages = () => {
-
-    const username = localStorage.getItem("username");
-
-    const messages = useSelector(state => state.messagesState);
+    const { message, id, username } = props;
 
     const isRTL = (text) => {           
         let ltrChars = 'A-Za-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02B8\u0300-\u0590\u0800-\u1FFF'+'\u2C00-\uFB1C\uFDFE-\uFE6F\uFEFD-\uFFFF',
@@ -21,47 +17,15 @@ const Messages = () => {
 
     return (
         <>
-            <MessagesContainer>
-                <FlipMove>
-                    {
-                        messages?.messages?.map(item => (
-                            <Message key={item.id} isUser={item.username == JSON.parse(username)} isPersian={isRTL(item.message)}>
-                                <p className='username' dir="auto">{item.username}</p>
-                                <p className='message'>{item.message}</p>
-                            </Message>
-                        ))
-                    }
-                </FlipMove>
-            </MessagesContainer>
+            <MessageBox ref={ref} key={id} isUser={username == localStorageUsername} isPersian={isRTL(message)}>
+                <p className='username' dir="auto">{username}</p>
+                <p className='message'>{message}</p>
+            </MessageBox>
         </>
     );
-};
+});
 
-const MessagesContainer = styled.div`
-    width: 100%;
-    height: 70%;
-    overflow: hidden scroll;
-    padding: 1rem;
-
-    /* width */
-    ::-webkit-scrollbar {
-        width: .2rem;
-    }
-
-    /* Track */
-    ::-webkit-scrollbar-track {
-        border-radius: 50px;
-        background: #ffffff11;
-    }
-    
-    /* Handle */
-    ::-webkit-scrollbar-thumb {
-        background: #ffffff44;
-        border-radius: 50px;
-    }
-`;
-
-const Message = styled.div`
+const MessageBox = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -77,6 +41,7 @@ const Message = styled.div`
     -webkit-backdrop-filter: blur(50px) saturate(150%);
     font-weight: 200;
     word-break: break-all;
+    cursor: pointer;
 
     .username {
         display: ${props => props.isUser ? "none" : ""};
@@ -95,4 +60,4 @@ const Message = styled.div`
     }
 `;
 
-export default Messages;
+export default Message;

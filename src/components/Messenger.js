@@ -6,12 +6,12 @@ import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { useSelector, useDispatch } from 'react-redux';
 import { getMessages } from '../redux/messages/messagesAction';
 
+import Message from './Message';
+
 import { IoSend } from 'react-icons/io5';
 
-import Messages from './Messages';
-
+import FlipMove from 'react-flip-move';
 import styled from 'styled-components';
-
 import { motion } from 'framer-motion';
 
 const messengerTitleVariants = {
@@ -32,9 +32,9 @@ const Messenger = () => {
 
     const dispatch = useDispatch();
 
-    const messages = useSelector(state => state.messagesState);
+    const messages = useSelector(state => state.messagesState.messages);
 
-    const ref = collection(db, 'messages');
+    const firebaseRef = collection(db, 'messages');
     const username = localStorage.getItem("username");
 
     const inputRef = useRef();
@@ -43,7 +43,7 @@ const Messenger = () => {
         e.preventDefault();
         inputRef.current.focus();
 
-        addDoc(ref, {
+        addDoc(firebaseRef, {
             message: input,
             username: username,
             time: serverTimestamp(),
@@ -68,7 +68,15 @@ const Messenger = () => {
                         <h1>Group Messenger</h1>
                     </MessengerTitle>
 
-                    <Messages />
+                    <MessagesContainer>
+                        <FlipMove>
+                            {
+                                messages?.map(message => (
+                                    <Message key={message.id} {...message} />
+                                ))
+                            }
+                        </FlipMove>
+                    </MessagesContainer>
                     
                     <MessengerInput initial='hidden' animate='visible' exit='exit' variants={messengerInputVariants}>
                         <form>
@@ -188,6 +196,30 @@ const MessengerInput = styled(motion.div)`
                 background-color: #ffffff11;
             }
         }
+    }
+`;
+
+const MessagesContainer = styled.div`
+    width: 100%;
+    height: 70%;
+    overflow: hidden scroll;
+    padding: 1rem;
+
+    /* width */
+    ::-webkit-scrollbar {
+        width: .2rem;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        border-radius: 50px;
+        background: #ffffff11;
+    }
+    
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #ffffff44;
+        border-radius: 50px;
     }
 `;
 

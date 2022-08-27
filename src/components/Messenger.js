@@ -16,21 +16,21 @@ import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const messengerTitleVariants = {
-    hidden: { opacity: 0, y: -100, scaleX: 0 },
-    visible: { opacity: 1, y: 0, scaleX: 1 , transition: { duration: 0.5, type: 'tween' } },
-    exit: { opacity: 0, y: -100, scaleX: 0 }
-};
-
-const messengerInputVariants = {
     hidden: { opacity: 0, y: 100, scaleX: 0 },
     visible: { opacity: 1, y: 0, scaleX: 1 , transition: { duration: 0.5, type: 'tween' } },
     exit: { opacity: 0, y: 100, scaleX: 0 }
 };
 
+const messengerInputVariants = {
+    hidden: { opacity: 0, y: -100, scaleX: 0 },
+    visible: { opacity: 1, y: 0, scaleX: 1 , transition: { duration: 0.5, type: 'tween' } },
+    exit: { opacity: 0, y: -100, scaleX: 0 }
+};
+
 const messagesContainerVariants = {
     hidden: { opacity: 0, scale: 0.8 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.4, type: 'tween' } },
-    exit: { opacity: 0, scale: 0.8, transition: { duration: 0.4, type: 'tween' } }
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.2, type: 'tween' } },
+    exit: { opacity: 0, scale: 0.8, transition: { duration: 0.2, type: 'tween' } }
 };
 
 const Messenger = () => {
@@ -99,7 +99,7 @@ const Messenger = () => {
                                 type="text" 
                                 value={input} 
                                 onChange={(e) => setInput(e.target.value)} 
-                                placeholder="Write a Message..." 
+                                placeholder="Send a Message..." 
                                 autoFocus
                                 ref={inputRef}
                                 dir="auto"

@@ -70,6 +70,7 @@ const MessageBox = styled.div`
     font-weight: 200;
     word-break: break-all;
     cursor: ${props => props.isUser && "pointer"};
+    transition: backdrop-filter .4s;
 
     .username {
         display: ${props => props.isUser ? "none" : ""};

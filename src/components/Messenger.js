@@ -7,12 +7,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getMessages } from '../redux/messages/messagesAction';
 
 import Message from './Message';
+import Loader from './Loader';
 
 import { IoSend } from 'react-icons/io5';
 
 import FlipMove from 'react-flip-move';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const messengerTitleVariants = {
     hidden: { opacity: 0, y: -100, scaleX: 0 },
@@ -26,6 +27,12 @@ const messengerInputVariants = {
     exit: { opacity: 0, y: 100, scaleX: 0 }
 };
 
+const messagesContainerVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.4, type: 'tween' } },
+    exit: { opacity: 0, scale: 0.8, transition: { duration: 0.4, type: 'tween' } }
+};
+
 const Messenger = () => {
 
     const [input, setInput] = useState("");
@@ -33,6 +40,7 @@ const Messenger = () => {
     const dispatch = useDispatch();
 
     const messages = useSelector(state => state.messagesState.messages);
+    const loading = useSelector(state => state.messagesState.loading);
 
     const firebaseRef = collection(db, 'messages');
     const username = localStorage.getItem("username");
@@ -66,15 +74,23 @@ const Messenger = () => {
                         <h1>Group Messenger</h1>
                     </MessengerTitle>
 
-                    <MessagesContainer>
-                        <FlipMove>
-                            {
-                                messages?.map(message => (
-                                    <Message key={message.id} {...message} />
-                                ))
-                            }
-                        </FlipMove>
-                    </MessagesContainer>
+                    <AnimatePresence>
+                    {
+                        loading
+                        ?
+                        <Loader key="loader" />
+                        :
+                        <MessagesContainer key="messages" initial='hidden' animate='visible' exit='exit' variants={messagesContainerVariants}>
+                            <FlipMove>
+                                {
+                                    messages?.map(message => (
+                                        <Message key={message.id} {...message} />
+                                    ))
+                                }
+                            </FlipMove>
+                        </MessagesContainer>
+                    }
+                    </AnimatePresence>
                     
                     <MessengerInput initial='hidden' animate='visible' exit='exit' variants={messengerInputVariants}>
                         <form>
@@ -198,7 +214,7 @@ const MessengerInput = styled(motion.div)`
     }
 `;
 
-const MessagesContainer = styled.div`
+const MessagesContainer = styled(motion.div)`
     width: 100%;
     height: 70%;
     overflow: hidden scroll;

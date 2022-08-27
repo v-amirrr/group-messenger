@@ -9,9 +9,19 @@ export const setError = (value=null) => {
     return { type: "SET_ERROR", payload: value };
 };
 
+export const setLoadingOn = () => {
+    return { type: "SET_LOADING_ON" };
+};
+
+export const setLoadingOff = () => {
+    return { type: "SET_LOADING_OFF" };
+};
+
 export const getMessages = () => {
     
     return (dispatch) => {
+
+        dispatch(setLoadingOn());
         
         const ref = collection(db, 'messages');
         const q = query(ref, orderBy("time", "desc"));
@@ -27,8 +37,12 @@ export const getMessages = () => {
                     id: doc.id,
                 });
             });
+
             dispatch(setMessages(messages));
+            dispatch(setLoadingOff());
+            
         }, (error) => {
+            dispatch(setLoadingOff());
             console.log(error);
         });
     };

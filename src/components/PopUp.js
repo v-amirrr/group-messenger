@@ -85,9 +85,9 @@ const PopUp = () => {
                         <PopUpContainer variants={popUpContainerVariants}>
                             <form>
                                 <h1 className='popup-title'>things you need to know</h1>
-                                <p className='popup-warning'>if you're countries like iran, syria, cuba and etc, you have to use <b>VPN</b> for using the app.</p>
+                                <p className='popup-warning'>if you're countries like iran, syria, cuba and etc, you have to turn on your <b>VPN</b> for using the app.</p>
                                 <p className='popup-text'>
-                                    in this app you can enter a message and also you can delete your any of your messages.for deleting a message just click on the message and the delete icon will be appeared. so feel free to send your messages.
+                                    in this app you can enter a message and also you can delete any of your messages. for deleting a message just click on the message and the delete icon will be appeared. so feel free to send your messages.
                                 </p>
                                 <motion.button type="submit" whileTap={{ scale: 0.8 }} className='popup-button' onClick={vpnPopUpSubmitHandler}>OK</motion.button>
                             </form>

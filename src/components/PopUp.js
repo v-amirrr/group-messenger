@@ -102,9 +102,10 @@ const PopUp = () => {
                         <PopUpContainer variants={popUpContainerVariants}>
                             <form>
                                 <h1 className='popup-title'>things you need to know</h1>
-                                <p className='popup-warning'>if you're countries like iran, syria, cuba and etc, you have to turn on your <b>VPN</b> for using the app.</p>
+                                <p className='popup-warning'>if you're in countries like iran, syria, cuba and etc, you have to turn on your <b>VPN</b> for using the app.</p>
                                 <p className='popup-text'>
-                                    in this app you can enter a message and also you can delete any of your messages. for deleting a message just click on the message and the delete icon will be appeared. so feel free to send your messages.
+                                    in this app you can send a message and also you can delete any of your messages. for deleting a message just click on the message and the delete icon will appear. so feel free to send your messages.
+                                    <p className='popup-text'>and just remember that the chat starts from bottom to top. that means the newest messages are at top and the oldest one are at bottom.</p>
                                 </p>
                                 <motion.button type="submit" whileTap={{ scale: 0.8 }} className='popup-button' onClick={vpnPopUpSubmitHandler}>OK</motion.button>
                             </form>
@@ -160,6 +161,7 @@ const PopUpContainer = styled(motion.div)`
         word-spacing: 2px;
         font-weight: 100;
         font-size: .8rem;
+        margin: .7rem;
     }
 
     .popup-button {

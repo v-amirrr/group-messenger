@@ -15,16 +15,15 @@
 
 html {
     font-size: calc(90% + .8vmin);
-    overflow: hidden;
+    overflow-x: hidden;
     scroll-behavior: smooth;
-    height: 100%;
 }
 
 body {
     font-family: 'Outfit', sans-serif;
     color: #fff;
     background: url("/public/img/bg-desktop.jpg") no-repeat;
-    background-size: 100% 100%;
+    background-size: 100% 120%;
 }
 
 @media (max-width: 700px) {

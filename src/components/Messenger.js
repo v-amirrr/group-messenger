@@ -46,6 +46,7 @@ const Messenger = () => {
     const username = localStorage.getItem("username");
 
     const inputRef = useRef();
+    const messagesContainerRef = useRef();
 
     const sendMessage = e => {
         e.preventDefault();
@@ -60,6 +61,11 @@ const Messenger = () => {
         });
         
         setInput("");
+        
+        messagesContainerRef.current.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+        });
     };
 
     useEffect(() => {
@@ -80,7 +86,7 @@ const Messenger = () => {
                         ?
                         <Loader key="loader" />
                         :
-                        <MessagesContainer key="messages" initial='hidden' animate='visible' exit='exit' variants={messagesContainerVariants}>
+                        <MessagesContainer ref={messagesContainerRef} key="messages" initial='hidden' animate='visible' exit='exit' variants={messagesContainerVariants}>
                             <FlipMove>
                                 {
                                     messages?.map(message => (

@@ -137,7 +137,7 @@ const MessengerContainer = styled.div`
     text-align: center;
     width: 50%;
     height: 95%;
-    padding: .5rem 0;
+    padding: .2rem 0;
     font-family: 'Outfit', sans-serif;
 
     @media (max-width: 1100px) {

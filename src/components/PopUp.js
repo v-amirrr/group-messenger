@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
+import { useSelector } from 'react-redux';
+
 import { isRTL } from '../functions/isRlt';
 
 import styled from 'styled-components';
-
 import { motion, AnimatePresence } from 'framer-motion';
 
 const popUpPageVariants = {
@@ -22,8 +23,9 @@ const PopUp = () => {
 
     const [name, setName] = useState(false);
     const [vpn, setVpn] = useState(false);
-
     const [nameInput, setNameInput] = useState("");
+
+    const messages = useSelector(state => state.messagesState.messages);
 
     useEffect(() => {
         if (!!localStorage.getItem("username") == true) {
@@ -44,11 +46,26 @@ const PopUp = () => {
         setVpn(false);
         sessionStorage.setItem("vpn", "true");
     };
-
+    
     const namePopUpSubmitHandler = e => {
         e.preventDefault();
-        setName(false);
-        localStorage.setItem("username", JSON.stringify(nameInput));
+
+        let sameName = false;
+
+        messages.map(message => {
+            if (message.username.toLowerCase() == nameInput.toLowerCase()) {
+                sameName = true;
+            }
+        });
+
+        if (sameName) {
+            alert("The name you've choosen is already used. Please choose another name.");
+            setNameInput("");
+        } else {
+            setName(false);
+            localStorage.setItem("username", JSON.stringify(nameInput));
+            setNameInput("");
+        }
     };
 
     return (

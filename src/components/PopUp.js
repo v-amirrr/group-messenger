@@ -70,7 +70,7 @@ const PopUp = () => {
                                     dir="auto"
                                     isPersian={isRTL(nameInput)}
                                 />
-                                <motion.button whileTap={nameInput && { scale: 0.5 }} type="submit" disabled={!nameInput} className='popup-button' onClick={namePopUpSubmitHandler}>OK</motion.button>
+                                <motion.button whileTap={nameInput && { scale: 0.8 }} type="submit" disabled={!nameInput} className='popup-button' onClick={namePopUpSubmitHandler}>OK</motion.button>
                             </form>
                         </PopUpContainer>
                     </PopUpPage>

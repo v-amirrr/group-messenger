@@ -65,8 +65,8 @@ const MessageBox = styled.div`
     border-radius: 20px;
     width: fit-content;
     max-width: 80%;
-    backdrop-filter: blur(50px) saturate(150%);
-    -webkit-backdrop-filter: blur(50px) saturate(150%);
+    backdrop-filter: blur(20px) saturate(120%);
+    -webkit-backdrop-filter: blur(20px) saturate(120%);
     font-weight: 200;
     word-break: break-all;
     cursor: ${props => props.isUser && "pointer"};
@@ -87,6 +87,17 @@ const MessageBox = styled.div`
         line-break: loose;
         word-break: keep-all;
         font-family: ${props => props.isPersian ? "Vazirmatn" : "Outfit"}, "Vazirmatn", sans-serif;
+        font-size: 1rem;
+    }
+
+    @media (max-width: 768px) {
+        .username {
+            font-size: .6rem;
+        }
+
+        .message {
+            font-size: .8rem;
+        }
     }
 `;
 

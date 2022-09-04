@@ -148,11 +148,7 @@ const MessengerContainer = styled.div`
         width: 75%;
     }
 
-    @media (max-width: 700px) {
-        width: 80%;
-    }
-
-    @media (max-width: 500px) {
+    @media (max-width: 768px) {
         width: 90%;
     }
 `;

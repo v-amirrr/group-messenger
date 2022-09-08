@@ -135,7 +135,7 @@ const MessengerContainer = styled.div`
     align-items: center;
     flex-direction: column;
     text-align: center;
-    width: 50%;
+    width: 55%;
     height: 95%;
     padding: .2rem 0;
     font-family: 'Outfit', sans-serif;
@@ -156,11 +156,13 @@ const MessengerContainer = styled.div`
 const MessengerTitle = styled(motion.div)`
     width: 100%;
     text-transform: uppercase;
-    font-size: 1rem;
+    font-size: .7rem;
     font-weight: 900;
-    letter-spacing: -2px;
+    color: #88888888;
+    letter-spacing: 2px;
     word-spacing: 5px;
     white-space: nowrap;
+    user-select: none;
 `;
 
 const MessengerInput = styled(motion.div)`
@@ -218,9 +220,9 @@ const MessengerInput = styled(motion.div)`
 
 const MessagesContainer = styled(motion.div)`
     width: 100%;
-    height: 70%;
+    height: 75%;
     overflow: hidden scroll;
-    padding: 1rem;
+    padding: 1rem 2rem;
 
     /* width */
     ::-webkit-scrollbar {
@@ -230,12 +232,12 @@ const MessagesContainer = styled(motion.div)`
     /* Track */
     ::-webkit-scrollbar-track {
         border-radius: 50px;
-        background: #ffffff11;
+        background: #ffffff08;
     }
     
     /* Handle */
     ::-webkit-scrollbar-thumb {
-        background: #ffffff44;
+        background: #ffffff0c;
         border-radius: 50px;
     }
 `;

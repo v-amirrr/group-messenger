@@ -9,8 +9,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const popUpPageVariants = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 0.4, type: 'tween', when: "beforeChildren", childrenDelay: 0.5 } },
-    exit: { opacity: 0, transition: { duration: 0.4, type: 'tween', when: "afterChildren" } }
+    visible: { opacity: 1, transition: { duration: 0.2, type: 'tween', when: "beforeChildren", childrenDelay: 0.2 } },
+    exit: { opacity: 0, transition: { duration: 0.2, type: 'tween', when: "afterChildren" } }
 };
 
 const popUpContainerVariants = {
@@ -87,7 +87,7 @@ const PopUp = () => {
                                     dir="auto"
                                     isPersian={isRTL(nameInput)}
                                 />
-                                <motion.button whileTap={nameInput && { scale: 0.8 }} type="submit" disabled={!nameInput} className='popup-button' onClick={namePopUpSubmitHandler}>OK</motion.button>
+                                <motion.button whileTap={nameInput && { scale: 0.9 }} type="submit" disabled={!nameInput} className='popup-button' onClick={namePopUpSubmitHandler}>OK</motion.button>
                             </form>
                         </PopUpContainer>
                     </PopUpPage>
@@ -107,7 +107,7 @@ const PopUp = () => {
                                     in this app you can send a message and also you can delete any of your messages. for deleting a message just click on the message and the delete icon will appear. so feel free to send your messages.
                                     <p className='popup-text'>and just remember that the chat starts from bottom to top. that means the newest messages are at top and the oldest one are at bottom.</p>
                                 </p>
-                                <motion.button type="submit" whileTap={{ scale: 0.8 }} className='popup-button' onClick={vpnPopUpSubmitHandler}>OK</motion.button>
+                                <motion.button type="submit" whileTap={{ scale: 0.9 }} className='popup-button' onClick={vpnPopUpSubmitHandler}>OK</motion.button>
                             </form>
                         </PopUpContainer>
                     </PopUpPage>
@@ -119,7 +119,7 @@ const PopUp = () => {
 
 const PopUpPage = styled(motion.section)`
     width: 100vw;
-    height: 100%;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;

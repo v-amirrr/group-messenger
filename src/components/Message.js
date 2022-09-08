@@ -58,10 +58,10 @@ const MessageBox = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: row;
-    background-color: ${props => props.isUser ? "#ffffff10" : "#ffffff15"};
-    margin: .4rem 0;
+    background-color: ${props => props.isUser ? "#ffffff0c" : "#ffffff0e"};
+    margin: .2rem 0;
     margin-left: ${props => props.isUser && "auto"};
-    padding: .5rem .8rem; 
+    padding: .5rem .8rem;
     border-radius: 20px;
     width: fit-content;
     max-width: 80%;
@@ -71,6 +71,7 @@ const MessageBox = styled.div`
     word-break: break-all;
     cursor: ${props => props.isUser && "pointer"};
     transition: backdrop-filter .4s;
+    user-select: ${props => props.isUser && "none"};
 
     .username {
         display: ${props => props.isUser ? "none" : ""};

@@ -52,20 +52,25 @@ const PopUp = () => {
 
         let sameName = false;
 
-        messages.map(message => {
-            if (message.username.toLowerCase() == nameInput.toLowerCase()) {
-                sameName = true;
+        if (messages.length) {
+            messages.map(message => {
+                if (message.username.toLowerCase() == nameInput.toLowerCase()) {
+                    sameName = true;
+                }
+            });
+    
+            if (sameName) {
+                alert("The name you've choosen is already used. Please choose another name.");
+                setNameInput("");
+            } else {
+                setName(false);
+                localStorage.setItem("username", JSON.stringify(nameInput));
+                setNameInput("");
             }
-        });
-
-        if (sameName) {
-            alert("The name you've choosen is already used. Please choose another name.");
-            setNameInput("");
         } else {
-            setName(false);
-            localStorage.setItem("username", JSON.stringify(nameInput));
-            setNameInput("");
+            alert("There's a problem in your connection. Please refresh the page and if you're in countries like iran, syria, cuba and etc, you have to turn on your VPN.")
         }
+
     };
 
     return (

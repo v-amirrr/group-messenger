@@ -47,6 +47,7 @@ const Messenger = () => {
 
     const inputRef = useRef();
     const messagesContainerRef = useRef();
+    const messagesEndRef = useRef();
 
     const sendMessage = e => {
         e.preventDefault();
@@ -61,16 +62,17 @@ const Messenger = () => {
         });
         
         setInput("");
-        
-        messagesContainerRef.current.scrollTo({
-            top: 0,
-            behavior: 'smooth',
-        });
     };
 
     useEffect(() => {
         dispatch(getMessages());
     }, []);
+
+    useEffect(() => {
+        messagesEndRef?.current.scrollIntoView({
+            behavior: 'smooth', block: "end"
+        }); 
+    }, [messages])
 
     return (
         <>
@@ -94,6 +96,7 @@ const Messenger = () => {
                                     ))
                                 }
                             </FlipMove>
+                            <div ref={messagesEndRef} />
                         </MessagesContainer>
                     }
                     </AnimatePresence>
@@ -222,7 +225,8 @@ const MessagesContainer = styled(motion.div)`
     width: 100%;
     height: 75%;
     overflow: hidden scroll;
-    padding: 1rem 2rem;
+    position: relative;
+    padding: 0 2rem;
 
     /* width */
     ::-webkit-scrollbar {

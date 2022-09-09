@@ -4,6 +4,23 @@
     color-scheme: dark;
 }
 
+/* width */
+::-webkit-scrollbar {
+    width: .5rem;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    border-radius: 50px;
+    background: #ffffff11;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #ffffff22;
+    border-radius: 50px;
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -15,7 +32,7 @@
 
 html {
     font-size: calc(90% + .8vmin);
-    overflow: hidden;
+    overflow-X: hidden;
     scroll-behavior: smooth;
 }
 

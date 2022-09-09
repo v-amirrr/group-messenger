@@ -168,15 +168,38 @@ const MessengerTitle = styled(motion.div)`
     user-select: none;
 `;
 
+const MessagesContainer = styled(motion.div)`
+    width: 100%;
+    height: 80%;
+    overflow: hidden scroll;
+    position: relative;
+    padding: 0 2rem;
+
+    /* width */
+    ::-webkit-scrollbar {
+        width: .2rem;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        border-radius: 50px;
+        background: #ffffff08;
+    }
+    
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #ffffff0c;
+        border-radius: 50px;
+    }
+`;
+
 const MessengerInput = styled(motion.div)`
-    background-color: #ffffff08;
+    background-color: #ffffff0a;
     border-radius: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
     min-width: 70%;
-    backdrop-filter: blur(50px) saturate(180%);
-    -webkit-backdrop-filter: blur(50px) saturate(180%);
     
     form {
         display: flex;
@@ -218,31 +241,6 @@ const MessengerInput = styled(motion.div)`
                 background-color: #ffffff11;
             }
         }
-    }
-`;
-
-const MessagesContainer = styled(motion.div)`
-    width: 100%;
-    height: 75%;
-    overflow: hidden scroll;
-    position: relative;
-    padding: 0 2rem;
-
-    /* width */
-    ::-webkit-scrollbar {
-        width: .2rem;
-    }
-
-    /* Track */
-    ::-webkit-scrollbar-track {
-        border-radius: 50px;
-        background: #ffffff08;
-    }
-    
-    /* Handle */
-    ::-webkit-scrollbar-thumb {
-        background: #ffffff0c;
-        border-radius: 50px;
     }
 `;
 

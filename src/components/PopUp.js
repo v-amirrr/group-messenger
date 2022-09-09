@@ -14,9 +14,14 @@ const popUpPageVariants = {
 };
 
 const popUpContainerVariants = {
-    hidden: { opacity: 0, scaleY: 0.8 },
-    visible: { opacity: 1, scaleY: 1, transition: { duration: 0.2, type: 'tween', when: "beforeChildren" } },
-    exit: { opacity: 0, scaleY: 0.8, transition: { duration: 0.2, type: 'tween', when: "afterChildren" } }
+    visible: { transition: { staggerChildren: 0.08 } },
+    exit: { transition: { staggerChildren: 0.08 } }
+};
+
+const popUpItemVariants = {
+    hidden: { opacity: 0, y: -20, scale: 0.8 },
+    visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.25, type: 'tween' } },
+    exit: { opacity: 0, y: 20, scale: 0.8, transition: { duration: 0.25, type: 'tween' } }
 };
 
 const PopUp = () => {
@@ -106,13 +111,12 @@ const PopUp = () => {
                     <PopUpPage initial='hidden' animate='visible' exit='exit' variants={popUpPageVariants}>
                         <PopUpContainer variants={popUpContainerVariants}>
                             <form>
-                                <h1 className='popup-title'>things you need to know</h1>
-                                <p className='popup-warning'>if you're in countries like iran, syria, cuba and etc, you have to turn on your <b>VPN</b> for using the app.</p>
-                                <p className='popup-text'>
+                                <motion.h1 variants={popUpItemVariants} className='popup-title'>things you need to know</motion.h1>
+                                <motion.p variants={popUpItemVariants} className='popup-warning'>if you're in sanctioned countries like <b>iran</b>, you have to turn on your <b>VPN</b> for using the app.</motion.p>
+                                <motion.p variants={popUpItemVariants} className='popup-text'>
                                     in this app you can send a message and also you can delete any of your messages. for deleting a message just click on the message and the delete icon will appear. so feel free to send your messages.
-                                    <p className='popup-text'>and just remember that the chat starts from bottom to top. that means the newest messages are at top and the oldest one are at bottom.</p>
-                                </p>
-                                <motion.button type="submit" whileTap={{ scale: 0.9 }} className='popup-button' onClick={vpnPopUpSubmitHandler}>OK</motion.button>
+                                </motion.p>
+                                <motion.button variants={popUpItemVariants} type="submit" whileTap={{ scale: 0.9 }} className='popup-button' onClick={vpnPopUpSubmitHandler}>let's go</motion.button>
                             </form>
                         </PopUpContainer>
                     </PopUpPage>
@@ -133,8 +137,8 @@ const PopUpPage = styled(motion.section)`
     z-index: 9;
     position: absolute;
     inset: 0 0 0 0;
-    backdrop-filter: blur(8px) saturate(100%);
-    -webkit-backdrop-filter: blur(8px) saturate(100%);
+    backdrop-filter: blur(15px) saturate(100%);
+    -webkit-backdrop-filter: blur(15px) saturate(100%);
 `;
 
 const PopUpContainer = styled(motion.div)`
@@ -148,7 +152,6 @@ const PopUpContainer = styled(motion.div)`
     max-height: 50%;
     padding: 2rem;
     text-align: center;
-    border-radius: 12px;
 
     .popup-title {
         text-transform: uppercase;
@@ -159,26 +162,33 @@ const PopUpContainer = styled(motion.div)`
     .popup-warning {
         text-transform: capitalize;
         margin: 1rem;
+        color: #ff0000;
+        font-weight: 400;
     }
     
     .popup-text {
         text-transform: capitalize;
         word-spacing: 2px;
-        font-weight: 100;
+        font-weight: 400;
         font-size: .8rem;
+        color: #ccc;
         margin: .7rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     .popup-button {
         margin-top: 1rem;
-        font-size: 1.5rem;
-        font-weight: 900;
+        font-size: 1.2rem;
+        font-weight: 600;
         width: 60%;
-        padding: .5rem 0;
+        padding: .8rem 0;
         border-radius: 20px;
         border: none;
         cursor: pointer;
         background-color: #ffffff11;
+        text-transform: uppercase;
     }
     
     .popup-input {

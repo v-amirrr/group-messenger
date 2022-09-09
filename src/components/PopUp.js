@@ -15,7 +15,7 @@ const popUpPageVariants = {
 
 const popUpContainerVariants = {
     visible: { transition: { staggerChildren: 0.08 } },
-    exit: { transition: { staggerChildren: 0.08 } }
+    exit: { transition: { staggerChildren: 0.02 } }
 };
 
 const popUpItemVariants = {
@@ -203,7 +203,7 @@ const PopUpContainer = styled(motion.div)`
     }
 
     @media (max-width: 900px) {
-        max-width: 80%;
+        max-width: 90%;
         max-height: 40%;
         padding: .5rem;
 

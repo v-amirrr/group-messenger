@@ -92,12 +92,15 @@ const MessageBox = styled.div`
     }
 
     @media (max-width: 768px) {
+        padding: .5rem;
+
         .username {
-            font-size: .6rem;
+            font-size: .5rem;
+            margin-right: .4rem;
         }
 
         .message {
-            font-size: .8rem;
+            font-size: .7rem;
         }
     }
 `;
@@ -135,6 +138,14 @@ const Menu = styled(motion.div)`
             align-items: center;
             flex-direction: row;
             font-size: 1rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        div {
+            i {
+                font-size: .8rem;
+            }
         }
     }
 `;

@@ -140,18 +140,17 @@ const MessengerContainer = styled.div`
     text-align: center;
     width: 55%;
     height: 95%;
-    padding: .2rem 0;
     font-family: 'Outfit', sans-serif;
 
-    @media (max-width: 1100px) {
+    @media (max-width: 1400px) {
         width: 70%;
     }
 
-    @media (max-width: 900px) {
-        width: 75%;
+    @media (max-width: 1100px) {
+        width: 80%;
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 800px) {
         width: 90%;
     }
 `;
@@ -174,6 +173,10 @@ const MessagesContainer = styled(motion.div)`
     overflow: hidden scroll;
     position: relative;
     padding: 0 2rem;
+
+    @media (max-width: 800px) {
+        padding: 0 1rem;
+    }
 
     /* width */
     ::-webkit-scrollbar {

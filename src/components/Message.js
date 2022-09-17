@@ -31,7 +31,7 @@ const Message = forwardRef(( props, ref ) => {
 
     return (
         <>
-            <MessageBox ref={ref} key={id} isUser={username == localStorageUsername} isPersian={isRTL(message)} onClick={() => setMenuShow(prevState => !prevState)}>
+            <MessageBox ref={ref} key={id} isuser={username == localStorageUsername} ispersian={isRTL(message)} onClick={() => setMenuShow(prevState => !prevState)}>
                 <p className='username'>{username}</p>
                 <p className='message'>{message}</p>
 
@@ -41,7 +41,7 @@ const Message = forwardRef(( props, ref ) => {
                         &&
                         username == localStorageUsername
                         &&
-                        <Menu whileHover={{ sclae: 1.5 }} whileTap={{ scale: 0.8 }} isUser={username == localStorageUsername} key={id} initial='hidden' animate='visible' exit='exit' variants={menuVariants}>
+                        <Menu whileHover={{ sclae: 1.5 }} whileTap={{ scale: 0.8 }} isuser={username == localStorageUsername} key={id} initial='hidden' animate='visible' exit='exit' variants={menuVariants}>
                             <div onClick={() => deleteMessage(id)}>
                                 <i><AiFillDelete /></i>
                             </div>
@@ -58,9 +58,9 @@ const MessageBox = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: row;
-    background-color: ${props => props.isUser ? "#ffffff0c" : "#ffffff0e"};
+    background-color: ${props => props.isuser ? "#ffffff0c" : "#ffffff0e"};
     margin: .2rem 0;
-    margin-left: ${props => props.isUser && "auto"};
+    margin-left: ${props => props.isuser && "auto"};
     padding: .5rem .8rem;
     border-radius: 20px;
     width: fit-content;
@@ -69,12 +69,12 @@ const MessageBox = styled.div`
     -webkit-backdrop-filter: blur(20px) saturate(120%);
     font-weight: 200;
     word-break: break-all;
-    cursor: ${props => props.isUser && "pointer"};
+    cursor: ${props => props.isuser && "pointer"};
     transition: backdrop-filter .4s;
-    user-select: ${props => props.isUser && "none"};
+    user-select: ${props => props.isuser && "none"};
 
     .username {
-        display: ${props => props.isUser ? "none" : ""};
+        display: ${props => props.isuser ? "none" : ""};
         color: #aaa;
         font-size: .8rem;
         margin-right: .5rem;
@@ -82,12 +82,12 @@ const MessageBox = styled.div`
     }
 
     .message {
-        text-align: ${props => props.isPersian ? "right" : "left"};
+        text-align: ${props => props.ispersian ? "right" : "left"};
         word-spacing: 1px;
         letter-spacing: -.5px;
         line-break: loose;
         word-break: keep-all;
-        font-family: ${props => props.isPersian ? "Vazirmatn" : "Outfit"}, "Vazirmatn", sans-serif;
+        font-family: ${props => props.ispersian ? "Vazirmatn" : "Outfit"}, "Vazirmatn", sans-serif;
         font-size: 1rem;
     }
 
@@ -107,8 +107,8 @@ const MessageBox = styled.div`
 
 const Menu = styled(motion.div)`
     position: absolute;
-    left: ${props => props.isUser && "-2.5rem"};
-    right: ${props => props.isUser || "-2.5rem"};
+    left: ${props => props.isuser && "-2.5rem"};
+    right: ${props => props.isuser || "-2.5rem"};
     background-color: #ffffff10;
     border-radius: 20px;
     overflow: hidden;

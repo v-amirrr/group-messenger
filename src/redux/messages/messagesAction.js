@@ -40,6 +40,10 @@ export const getMessages = () => {
 
             dispatch(setMessages(messages));
             dispatch(setLoadingOff());
+
+            if (!messages?.length) {
+                alert("There's a problem in your connection. If you're in sanctioned countries like Iran, you have to turn on your VPN for using the app. If you're already using VPN please use another VPN (also you can use shecan.ir).");
+            }
             
         }, (error) => {
             dispatch(setLoadingOff());

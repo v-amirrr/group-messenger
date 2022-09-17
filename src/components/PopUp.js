@@ -73,7 +73,7 @@ const PopUp = () => {
                 setNameInput("");
             }
         } else {
-            alert("There's a problem in your connection. Please refresh the page and if you're in countries like iran, syria, cuba and etc, you have to turn on your VPN.")
+            alert("There's a problem in your connection. If you're in sanctioned countries like Iran, you have to turn on your VPN for using the app. If you're already using VPN please use another VPN (also you can use shecan.ir).");
         }
 
     };
@@ -95,7 +95,7 @@ const PopUp = () => {
                                     value={nameInput}
                                     onChange={e => setNameInput(e.target.value)}
                                     dir="auto"
-                                    isPersian={isRTL(nameInput)}
+                                    ispersian={isRTL(nameInput)}
                                 />
                                 <motion.button whileTap={nameInput && { scale: 0.9 }} type="submit" disabled={!nameInput} className='popup-button' onClick={namePopUpSubmitHandler}>OK</motion.button>
                             </form>
@@ -198,7 +198,7 @@ const PopUpContainer = styled(motion.div)`
         background-color: #00000000;
         font-size: 1rem;
         text-align: center;
-        font-family: ${props => props.isPersian ? "Vazirmatn" : "Outfit"}, "Vazirmatn", sans-serif;
+        font-family: ${props => props.ispersian ? "Vazirmatn" : "Outfit"}, "Vazirmatn", sans-serif;
         font-weight: 200;
     }
 

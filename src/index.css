@@ -39,13 +39,13 @@ html {
 body {
     font-family: 'Outfit', sans-serif;
     color: #fff;
-    background: url("/public/img/bg-desktop.jpg") no-repeat;
+    background: url("/src/assets/images/bg-desktop.jpg") no-repeat;
     background-size: 100% 120%;
 }
 
 @media (max-width: 768px) {
     body {
-        background: url("/public/img/bg-mobile.jpg") no-repeat;
+        background: url("/src/assets/images/bg-mobile.jpg") no-repeat;
         background-size: 100% 100%;
     }
 }

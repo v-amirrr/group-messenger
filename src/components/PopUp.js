@@ -30,7 +30,7 @@ const PopUp = () => {
     const [vpn, setVpn] = useState(false);
     const [nameInput, setNameInput] = useState("");
 
-    const messages = useSelector(state => state.messagesState.messages);
+    const messages = useSelector(store => store.messagesStore.messages);
 
     useEffect(() => {
         if (!!localStorage.getItem("username") == true) {

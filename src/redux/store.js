@@ -1,6 +1,9 @@
-import { createStore, applyMiddleware } from "redux";
-import thunk from "redux-thunk";
+import { configureStore } from "@reduxjs/toolkit";
 
-import { rootReducer } from "./rootReducer";
+import messagesSlice from "./messagesSlice";
 
-export const store = createStore(rootReducer, applyMiddleware(thunk));
+export const store = configureStore({
+    reducer: {
+        messagesStore: messagesSlice,
+    },
+});

@@ -3,8 +3,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import { db } from '../config/firebase';
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
-import { useSelector, useDispatch } from 'react-redux';
-import { getMessages } from '../redux/messages/messagesAction';
+import { useSelector } from 'react-redux';
+
+import { useGetMessages } from '../hooks/useGetMessages';
 
 import Message from './Message';
 import Loader from './Loader';
@@ -37,10 +38,7 @@ const Messenger = () => {
 
     const [input, setInput] = useState("");
 
-    const dispatch = useDispatch();
-
-    const messages = useSelector(state => state.messagesState.messages);
-    const loading = useSelector(state => state.messagesState.loading);
+    const { messages, loading } = useSelector(store => store.messagesStore);
 
     const firebaseRef = collection(db, 'messages');
     const username = localStorage.getItem("username");
@@ -64,8 +62,10 @@ const Messenger = () => {
         setInput("");
     };
 
+    const { getMessages } = useGetMessages();
+
     useEffect(() => {
-        dispatch(getMessages());
+        getMessages();
     }, []);
 
     useEffect(() => {

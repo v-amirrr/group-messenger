@@ -45,13 +45,13 @@ const PopUp = () => {
             setVpn(true);
         }
     }, []);
-    
+
     const vpnPopUpSubmitHandler = e => {
         e.preventDefault();
         setVpn(false);
         sessionStorage.setItem("vpn", "true");
     };
-    
+
     const namePopUpSubmitHandler = e => {
         e.preventDefault();
 
@@ -103,21 +103,19 @@ const PopUp = () => {
                     </PopUpPage>
                 }
             </AnimatePresence>
-          
+
             <AnimatePresence>
                 {
                     vpn
                     &&
                     <PopUpPage initial='hidden' animate='visible' exit='exit' variants={popUpPageVariants}>
                         <PopUpContainer variants={popUpContainerVariants}>
-                            <form>
-                                <motion.h1 variants={popUpItemVariants} className='popup-title'>things you need to know</motion.h1>
-                                <motion.p variants={popUpItemVariants} className='popup-warning'>if you're in sanctioned countries like <b>iran</b>, you have to turn on your <b>VPN</b> for using the app.</motion.p>
-                                <motion.p variants={popUpItemVariants} className='popup-text'>
-                                    in this app you can send a message and also you can delete any of your messages. for deleting a message just click on the message and the delete icon will appear. so feel free to send your messages.
-                                </motion.p>
-                                <motion.button variants={popUpItemVariants} type="submit" whileTap={{ scale: 0.9 }} className='popup-button' onClick={vpnPopUpSubmitHandler}>let's go</motion.button>
-                            </form>
+                            <motion.h1 variants={popUpItemVariants} className='popup-title'>things you need to know</motion.h1>
+                            <motion.p variants={popUpItemVariants} className='popup-warning'>If you're in sanctioned countries like <b>Iran</b>, you have to turn on your <b>VPN</b> for using this app.</motion.p>
+                            <motion.p variants={popUpItemVariants} className='popup-text'>
+                                In this app you can send a message and also you can delete any of your messages. For deleting a message just click on the message and the delete icon will appear. So feel free to send your messages.
+                            </motion.p>
+                            <motion.button variants={popUpItemVariants} type="submit" whileTap={{ scale: 0.9 }} className='popup-button' onClick={vpnPopUpSubmitHandler}>let's go</motion.button>
                         </PopUpContainer>
                     </PopUpPage>
                 }
@@ -132,7 +130,6 @@ const PopUpPage = styled(motion.section)`
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
     background-color: #00000055;
     z-index: 9;
     position: absolute;
@@ -142,16 +139,13 @@ const PopUpPage = styled(motion.section)`
 `;
 
 const PopUpContainer = styled(motion.div)`
+    max-width: 40rem;
+    max-height: 50%;
+    text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: fit-content;
-    height: 50%;
-    max-width: 70%;
-    max-height: 50%;
-    padding: 2rem;
-    text-align: center;
 
     .popup-title {
         text-transform: uppercase;
@@ -160,35 +154,41 @@ const PopUpContainer = styled(motion.div)`
     }
 
     .popup-warning {
-        text-transform: capitalize;
-        margin: 1rem;
+        margin: 1rem 0;
         color: #ff0000;
         font-weight: 400;
     }
     
     .popup-text {
-        text-transform: capitalize;
+        margin-bottom: 1rem;
         word-spacing: 2px;
         font-weight: 400;
         font-size: .8rem;
         color: #ccc;
-        margin: .7rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        width: 60%;
     }
 
     .popup-button {
         margin-top: 1rem;
         font-size: 1.2rem;
         font-weight: 600;
-        width: 60%;
+        width: 50%;
         padding: .8rem 0;
         border-radius: 20px;
         border: none;
         cursor: pointer;
         background-color: #ffffff11;
         text-transform: uppercase;
+        user-select: none;
+        transition: background .3s;
+
+        &:hover {
+            background-color: #ffffff15;
+        }
+
+        &:active {
+            background-color: #ffffff22;
+        }
     }
     
     .popup-input {
@@ -217,6 +217,7 @@ const PopUpContainer = styled(motion.div)`
     
         .popup-text {
             font-size: .6rem;
+            width: 80%;
         }
     }
 `;

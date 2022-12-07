@@ -9,19 +9,18 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const popUpPageVariants = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 0.2, type: 'tween', when: "beforeChildren", childrenDelay: 0.2 } },
+    visible: { opacity: 1, transition: { duration: 0.2, type: 'tween', when: "beforeChildren" } },
     exit: { opacity: 0, transition: { duration: 0.2, type: 'tween', when: "afterChildren" } }
 };
 
 const popUpContainerVariants = {
-    visible: { transition: { staggerChildren: 0.08 } },
-    exit: { transition: { staggerChildren: 0.02 } }
+    visible: { transition: { staggerChildren: 0.1 } }
 };
 
 const popUpItemVariants = {
     hidden: { opacity: 0, y: -20, scale: 0.8 },
-    visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.25, type: 'tween' } },
-    exit: { opacity: 0, y: 20, scale: 0.8, transition: { duration: 0.25, type: 'tween' } }
+    visible: { opacity: 1, y: [-20, 20, 0], scale: 1, transition: { duration: 0.4, type: 'tween' } },
+    exit: { opacity: 0, y: 20, scaleX: 0, transition: { duration: 0.2, type: 'tween' } }
 };
 
 const PopUp = () => {
@@ -169,7 +168,6 @@ const PopUpContainer = styled(motion.div)`
     }
 
     .popup-button {
-        margin-top: 1rem;
         font-size: 1.2rem;
         font-weight: 600;
         width: 50%;

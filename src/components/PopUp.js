@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import { useSelector } from 'react-redux';
 
@@ -14,44 +14,33 @@ const popUpPageVariants = {
 };
 
 const popUpContainerVariants = {
-    visible: { transition: { staggerChildren: 0.1 } }
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { staggerChildren: 0.1, when: "beforeChildren" } },
+    exit: { opacity: 0, transition: { staggerChildren: 0.1, when: "afterChildren" } }
 };
 
 const popUpItemVariants = {
     hidden: { opacity: 0, y: -20, scale: 0.8 },
-    visible: { opacity: 1, y: [-20, 20, 0], scale: 1, transition: { duration: 0.4, type: 'tween' } },
-    exit: { opacity: 0, y: 20, scaleX: 0, transition: { duration: 0.2, type: 'tween' } }
+    visible: { opacity: 1, y: [-20, 20, 0], scale: 1, transition: { duration: 0.3, type: 'tween' } },
+    exit: { opacity: 0, y: 20, scaleX: 0, transition: { duration: 0.3, type: 'tween' } }
 };
 
 const PopUp = () => {
 
-    const [name, setName] = useState(false);
-    const [vpn, setVpn] = useState(false);
+    const [warningPopup, setWarningPopup] = useState(!!sessionStorage.getItem("warning"));
+    const [usernamePopup, setUsernamePopup] = useState(!!localStorage.getItem("username"));
+
     const [nameInput, setNameInput] = useState("");
 
     const messages = useSelector(store => store.messagesStore.messages);
 
-    useEffect(() => {
-        if (!!localStorage.getItem("username") == true) {
-            setName(false);
-        } else {
-            setName(true);
-        }
-
-        if (!!sessionStorage.getItem("vpn") == true) {
-            setVpn(false);
-        } else {
-            setVpn(true);
-        }
-    }, []);
-
-    const vpnPopUpSubmitHandler = e => {
+    const warningPopUpSubmitHandler = e => {
         e.preventDefault();
-        setVpn(false);
-        sessionStorage.setItem("vpn", "true");
+        sessionStorage.setItem("warning", "true");
+        setWarningPopup(!!sessionStorage.getItem("warning"));
     };
 
-    const namePopUpSubmitHandler = e => {
+    const getNameamePopUpSubmitHandler = e => {
         e.preventDefault();
 
         let sameName = false;
@@ -62,61 +51,64 @@ const PopUp = () => {
                     sameName = true;
                 }
             });
-    
+
             if (sameName) {
                 alert("The name you've choosen is already used. Please choose another name.");
                 setNameInput("");
             } else {
-                setName(false);
                 localStorage.setItem("username", JSON.stringify(nameInput));
                 setNameInput("");
+                setUsernamePopup(!!localStorage.getItem("username"));
             }
         } else {
             alert("There's a problem in your connection. If you're in sanctioned countries like Iran, you have to turn on your VPN for using the app. If you're already using VPN please use another VPN (also you can use shecan.ir).");
         }
-
     };
 
     return (
         <>
             <AnimatePresence>
                 {
-                    name
-                    &&
+                    !warningPopup || !usernamePopup
+                    ?
                     <PopUpPage initial='hidden' animate='visible' exit='exit' variants={popUpPageVariants}>
-                        <PopUpContainer variants={popUpContainerVariants}>
-                            <form>
-                                <input
-                                    type="text"
-                                    className='popup-input'                            
-                                    placeholder="Please Enter Your Name..." 
-                                    autoFocus 
-                                    value={nameInput}
-                                    onChange={e => setNameInput(e.target.value)}
-                                    dir="auto"
-                                    ispersian={isRTL(nameInput)}
-                                />
-                                <motion.button whileTap={nameInput && { scale: 0.9 }} type="submit" disabled={!nameInput} className='popup-button' onClick={namePopUpSubmitHandler}>OK</motion.button>
-                            </form>
-                        </PopUpContainer>
+                        <AnimatePresence exitBeforeEnter>
+                            {
+                                !warningPopup
+                                ?
+                                    <PopUpContainer initial='hidden' animate='visible' exit='exit' key="warning-popup" variants={popUpContainerVariants}>
+                                        <motion.h1 variants={popUpItemVariants} className='popup-title'>things you need to know</motion.h1>
+                                        <motion.p variants={popUpItemVariants} className='popup-warning'>If you're in sanctioned countries like <b>Iran</b>, you have to turn on your <b>VPN</b> for using this app.</motion.p>
+                                        <motion.p variants={popUpItemVariants} className='popup-text'>
+                                            In this app you can send a message and also you can delete any of your messages. For deleting a message just click on the message and the delete icon will appear. So feel free to send your messages.
+                                        </motion.p>
+                                        <motion.button variants={popUpItemVariants} type="submit" className='popup-button' onClick={warningPopUpSubmitHandler}>let's go</motion.button>
+                                    </PopUpContainer>
+                                :
+                                warningPopup && !usernamePopup
+                                ?
+                                    <PopUpContainer initial='hidden' animate='visible' exit='exit' key="getname-popup" variants={popUpContainerVariants}>
+                                        <form>
+                                            <input
+                                                type="text"
+                                                className='popup-input'                          
+                                                placeholder="Please Enter Your Name..."
+                                                dir="auto"
+                                                value={nameInput}
+                                                onChange={e => setNameInput(e.target.value)}
+                                                ispersian={isRTL(nameInput)}
+                                                autoFocus
+                                            />
+                                            <motion.button type="submit" className='popup-button' disabled={!nameInput} onClick={getNameamePopUpSubmitHandler}>OK</motion.button>
+                                        </form>
+                                    </PopUpContainer>
+                                :
+                                ""
+                            }
+                        </AnimatePresence>
                     </PopUpPage>
-                }
-            </AnimatePresence>
-
-            <AnimatePresence>
-                {
-                    vpn
-                    &&
-                    <PopUpPage initial='hidden' animate='visible' exit='exit' variants={popUpPageVariants}>
-                        <PopUpContainer variants={popUpContainerVariants}>
-                            <motion.h1 variants={popUpItemVariants} className='popup-title'>things you need to know</motion.h1>
-                            <motion.p variants={popUpItemVariants} className='popup-warning'>If you're in sanctioned countries like <b>Iran</b>, you have to turn on your <b>VPN</b> for using this app.</motion.p>
-                            <motion.p variants={popUpItemVariants} className='popup-text'>
-                                In this app you can send a message and also you can delete any of your messages. For deleting a message just click on the message and the delete icon will appear. So feel free to send your messages.
-                            </motion.p>
-                            <motion.button variants={popUpItemVariants} type="submit" whileTap={{ scale: 0.9 }} className='popup-button' onClick={vpnPopUpSubmitHandler}>let's go</motion.button>
-                        </PopUpContainer>
-                    </PopUpPage>
+                    :
+                    ""
                 }
             </AnimatePresence>
         </>
@@ -129,12 +121,11 @@ const PopUpPage = styled(motion.section)`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #00000055;
-    z-index: 9;
-    position: absolute;
-    inset: 0 0 0 0;
+    background-color: #000000aa;
     backdrop-filter: blur(15px) saturate(100%);
     -webkit-backdrop-filter: blur(15px) saturate(100%);
+    position: absolute;
+    z-index: 2;
 `;
 
 const PopUpContainer = styled(motion.div)`
@@ -168,23 +159,27 @@ const PopUpContainer = styled(motion.div)`
     }
 
     .popup-button {
+        margin-top: .5rem;
         font-size: 1.2rem;
         font-weight: 600;
         width: 50%;
         padding: .8rem 0;
         border-radius: 20px;
         border: none;
-        cursor: pointer;
         background-color: #ffffff11;
         text-transform: uppercase;
         user-select: none;
-        transition: background .3s;
+        transition: background .3s, color .3s;
+        
+        &:not([disabled]) {
+            cursor: pointer;
+        }
 
-        &:hover {
+        &:hover:not([disabled]) {
             background-color: #ffffff15;
         }
 
-        &:active {
+        &:active:not([disabled]) {
             background-color: #ffffff22;
         }
     }

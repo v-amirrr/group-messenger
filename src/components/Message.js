@@ -31,7 +31,7 @@ const Message = forwardRef(( props, ref ) => {
 
     return (
         <>
-            <MessageBox ref={ref} key={id} isuser={username == localStorageUsername} ispersian={isRTL(message)} onClick={() => setMenuShow(prevState => !prevState)}>
+            <MessageBox ref={ref} key={id} isuser={username == localStorageUsername} ispersian={isRTL(message) ? 1 : 0} onClick={() => setMenuShow(prevState => !prevState)}>
                 <p className='username'>{username}</p>
                 <p className='message'>{message}</p>
 
@@ -41,7 +41,7 @@ const Message = forwardRef(( props, ref ) => {
                         &&
                         username == localStorageUsername
                         &&
-                        <Menu whileHover={{ sclae: 1.5 }} whileTap={{ scale: 0.8 }} isuser={username == localStorageUsername} key={id} initial='hidden' animate='visible' exit='exit' variants={menuVariants}>
+                        <Menu whileHover={{ sclae: 1.5 }} whileTap={{ scale: 0.8 }} isuser={username == localStorageUsername ? 1 : 0} key={id} initial='hidden' animate='visible' exit='exit' variants={menuVariants}>
                             <div onClick={() => deleteMessage(id)}>
                                 <i><AiFillDelete /></i>
                             </div>

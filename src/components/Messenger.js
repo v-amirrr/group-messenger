@@ -38,7 +38,7 @@ const Messenger = () => {
 
     const [input, setInput] = useState("");
 
-    const { messages, loading } = useSelector(store => store.messagesStore);
+    const { messages, loading, error } = useSelector(store => store.messagesStore);
 
     const firebaseRef = collection(db, 'messages');
     const username = localStorage.getItem("username");
@@ -69,10 +69,10 @@ const Messenger = () => {
     }, []);
 
     useEffect(() => {
-        messagesEndRef?.current.scrollIntoView({
+        messagesEndRef?.current?.scrollIntoView({
             behavior: 'smooth', block: "end"
         }); 
-    }, [messages])
+    }, [messages]);
 
     return (
         <>
@@ -82,40 +82,46 @@ const Messenger = () => {
                         <h1>Group Messenger</h1>
                     </MessengerTitle>
 
-                    <AnimatePresence>
-                    {
-                        loading
-                        ?
-                        <Loader key="loader" />
-                        :
-                        <MessagesContainer ref={messagesContainerRef} key="messages" initial='hidden' animate='visible' exit='exit' variants={messagesContainerVariants}>
-                            <FlipMove>
-                                {
-                                    messages?.map(message => (
-                                        <Message key={message.id} {...message} />
-                                    ))
-                                }
-                            </FlipMove>
-                            <div ref={messagesEndRef} />
-                        </MessagesContainer>
-                    }
-                    </AnimatePresence>
-                    
+                        <AnimatePresence>
+                        {
+                            loading
+                            ?
+                            <Loader key="loader" />
+                            :
+                                error
+                                ?
+                                <motion.p className='error-message' key="error" initial='hidden' animate='visible' exit='exit' variants={messagesContainerVariants}>{error}</motion.p>
+                                :
+                                <MessagesContainer ref={messagesContainerRef} key="messages" initial='hidden' animate='visible' exit='exit' variants={messagesContainerVariants}>
+                                    <FlipMove>
+                                        {
+                                            messages?.map(message => (
+                                                <Message key={message.id} {...message} />
+                                            ))
+                                        }
+                                    </FlipMove>
+                                    <div ref={messagesEndRef} />
+                                </MessagesContainer>
+                        }
+                        </AnimatePresence>
+
                     <MessengerInput initial='hidden' animate='visible' exit='exit' variants={messengerInputVariants}>
                         <form>
-                            <input 
-                                className='messenger-input' 
-                                type="text" 
-                                value={input} 
-                                onChange={(e) => setInput(e.target.value)} 
-                                placeholder="Send a Message..." 
+                            <input
+                                className='messenger-input'
+                                type="text"
+                                value={input}
+                                onChange={(e) => setInput(e.target.value)}
+                                placeholder="Send a Message..."
                                 autoFocus
                                 ref={inputRef}
                                 dir="auto"
+                                disabled={!!error}
                             />
                             <motion.button whileTap={input && { scale: 0.5 }} type="submit" className='messenger-submit' disabled={!input} onClick={sendMessage}><IoSend /></motion.button>
                         </form>
                     </MessengerInput>
+
                 </MessengerContainer>
             </MessengerPage>
         </>
@@ -141,6 +147,11 @@ const MessengerContainer = styled.div`
     width: 55%;
     height: 95%;
     font-family: 'Outfit', sans-serif;
+
+    .error-message {
+        padding: 0 2rem;
+        line-height: 1.5;
+    }
 
     @media (max-width: 1400px) {
         width: 70%;

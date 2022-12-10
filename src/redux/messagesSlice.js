@@ -11,10 +11,10 @@ const messagesSlice = createSlice({
     initialState,
     reducers: {
         setMessages: (state, action) => {
-            return { ...state, messages: action.payload, error: null };
+            return { ...state, messages: action.payload };
         },
         setError: (state, action) => {
-            return { ...state, messages: null, error: action.payload };
+            return { ...state, error: action.payload };
         },
         setLoadingOn: state => {
             return { ...state, loading: true };

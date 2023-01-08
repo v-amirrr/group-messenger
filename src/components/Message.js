@@ -4,6 +4,7 @@ import { db } from '../config/firebase';
 import { doc, deleteDoc } from "firebase/firestore";
 
 import { isRTL } from '../functions/isRlt';
+import { isURL } from "../functions/isURL";
 
 import { AiFillDelete } from 'react-icons/ai';
 
@@ -27,17 +28,6 @@ const Message = forwardRef(( props, ref ) => {
     const deleteMessage = id => {
         const docRef = doc(db, "messages", id);
         deleteDoc(docRef);
-    };
-
-    const isURL = str => {
-        const pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
-            '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
-            '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
-            '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
-            '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
-            '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
-        
-        return !!pattern.test(str);
     };
 
     return (

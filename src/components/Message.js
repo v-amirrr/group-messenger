@@ -29,11 +29,28 @@ const Message = forwardRef(( props, ref ) => {
         deleteDoc(docRef);
     };
 
+    const isURL = str => {
+        const pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+            '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+            '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+            '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+            '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+            '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+        
+        return !!pattern.test(str);
+    };
+
     return (
         <>
             <MessageBox ref={ref} key={id} isuser={username == localStorageUsername} ispersian={isRTL(message) ? 1 : 0} onClick={() => setMenuShow(prevState => !prevState)}>
                 <p className='username'>{username}</p>
-                <p className='message'>{message}</p>
+                <p className='message'>
+                    {message.split(' ').map(word => (
+                        isURL(word) ? 
+                            <a className='link' href={word} target="_blank">{`${word} `}</a> : 
+                            <span>{`${word} `}</span>
+                    ))}
+                </p>
 
                 <AnimatePresence>
                     {

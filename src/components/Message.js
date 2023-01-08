@@ -59,14 +59,14 @@ const MessageBox = styled.div`
     align-items: center;
     flex-direction: row;
     background-color: ${props => props.isuser ? "#ffffff0c" : "#ffffff0e"};
-    margin: .2rem 0;
+    margin: .25rem 0;
     margin-left: ${props => props.isuser && "auto"};
-    padding: .5rem .8rem;
-    border-radius: 20px;
+    padding: .5rem 1rem;
+    border-radius: 50px;
     width: fit-content;
-    max-width: 80%;
-    backdrop-filter: blur(20px) saturate(120%);
-    -webkit-backdrop-filter: blur(20px) saturate(120%);
+    max-width: 75%;
+    backdrop-filter: blur(5px) saturate(100%);
+    -webkit-backdrop-filter: blur(5px) saturate(100%);
     font-weight: 200;
     word-break: break-all;
     cursor: ${props => props.isuser && "pointer"};
@@ -77,18 +77,17 @@ const MessageBox = styled.div`
         display: ${props => props.isuser ? "none" : ""};
         color: #aaa;
         font-size: .8rem;
-        margin-right: .5rem;
+        margin-right: .4rem;
         white-space: nowrap;
     }
 
     .message {
         text-align: ${props => props.ispersian ? "right" : "left"};
         word-spacing: 1px;
-        letter-spacing: -.5px;
         line-break: loose;
         word-break: keep-all;
         font-family: ${props => props.ispersian ? "Vazirmatn" : "Outfit"}, "Vazirmatn", sans-serif;
-        font-size: 1rem;
+        font-size: .9rem;
     }
 
     @media (max-width: 768px) {

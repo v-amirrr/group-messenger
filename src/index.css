@@ -32,8 +32,8 @@
 
 html {
     font-size: calc(90% + .8vmin);
-    overflow: hidden;
     scroll-behavior: smooth;
+    overflow: hidden scroll;
 }
 
 body {
@@ -41,6 +41,12 @@ body {
     color: #fff;
     background: url("/src/assets/images/bg-desktop.jpg") no-repeat;
     background-size: 100% 120%;
+}
+
+@media (hover: hover) and (pointer: fine) and (min-width: 745px) {
+    html {
+        overflow: hidden;
+    }
 }
 
 @media (max-width: 768px) {
@@ -58,7 +64,7 @@ body {
 
 .link {
     position: relative;
-    padding: .1rem;
+    padding: .05rem;
     color: #00b7ff;
     z-index: 1;
     transition: color .2s;
@@ -68,13 +74,14 @@ body {
     -o-transition: color .2s;
     width: fit-content;
     display: inline;
+    font-weight: 400;
 }
 
 .link::after {
     content: "";
     z-index: -1;
     position: absolute;
-    inset: 92% 0 0 0;
+    inset: 96% 1% 0 1%;
     background-color: #00b7ff;
     transition: inset .2s;
     -webkit-transition: inset .2s;

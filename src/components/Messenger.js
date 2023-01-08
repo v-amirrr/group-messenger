@@ -208,13 +208,15 @@ const MessagesContainer = styled(motion.div)`
 `;
 
 const MessengerInput = styled(motion.div)`
-    background-color: #ffffff0a;
-    border-radius: 20px;
+    background-color: #ffffff11;
+    backdrop-filter: blur(10px) saturate(120%);
+    -webkit-backdrop-filter: blur(10px) saturate(120%);
+    border-radius: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
     min-width: 70%;
-    
+
     form {
         display: flex;
         justify-content: space-between;
@@ -235,24 +237,24 @@ const MessengerInput = styled(motion.div)`
 
     .messenger-submit {
         font-size: 1.5rem;
-        width: 3rem;
-        height: 3rem;
-        border-radius: 20px;
+        padding: .5rem .8rem;
         display: flex;
         justify-content: center;
         align-items: center;
         border: none;
         background-color: #00000000;
+        color: #ffffff88;
         cursor: pointer;
-        transition: background .4s, color .4s;
+        transition: color .4s;
 
         &:disabled {
+            cursor: not-allowed;
             color: #ffffff44;
         }
 
         &:not(:disabled) {
             &:hover {
-                background-color: #ffffff11;
+                color: #ffffff;
             }
         }
     }

@@ -61,7 +61,7 @@ const PopUp = () => {
                 setUsernamePopup(!!localStorage.getItem("username"));
             }
         } else {
-            alert("There's a problem in your connection. If you're in sanctioned countries like Iran, you have to turn on your VPN for using the app. If you're already using VPN please use another VPN (also you can use shecan.ir).");
+            alert("There's a problem in your connection. If you're in sanctioned countries like Iran, you have to use VPN. If you're already using VPN please use another VPN (also you can use shecan.ir).");
         }
     };
 
@@ -160,11 +160,11 @@ const PopUpContainer = styled(motion.div)`
 
     .popup-button {
         margin-top: .5rem;
-        font-size: 1.2rem;
+        font-size: 1rem;
         font-weight: 600;
         width: 50%;
-        padding: .8rem 0;
-        border-radius: 20px;
+        padding: .5rem 0;
+        border-radius: 50px;
         border: none;
         background-color: #ffffff11;
         text-transform: uppercase;

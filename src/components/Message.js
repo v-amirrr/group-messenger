@@ -20,7 +20,7 @@ const Message = forwardRef(( props, ref ) => {
 
     const localStorageUsername = JSON.parse(localStorage.getItem("username"));
 
-    const { message, id, username } = props;
+    const { message, id, username, messageLength } = props;
 
     const [menuShow, setMenuShow] = useState(false);
 
@@ -31,7 +31,7 @@ const Message = forwardRef(( props, ref ) => {
 
     return (
         <>
-            <MessageBox ref={ref} key={id} isuser={username == localStorageUsername} ispersian={isRTL(message) ? 1 : 0} onClick={() => setMenuShow(prevState => !prevState)}>
+            <MessageBox ref={ref} key={id} isuser={username == localStorageUsername} ispersian={isRTL(message) ? 1 : 0} messagelength={messageLength} onClick={() => setMenuShow(prevState => !prevState)}>
                 <p className='username'>{username}</p>
                 <p className='message'>
                     {message?.map(item => (
@@ -66,7 +66,7 @@ const MessageBox = styled.div`
     margin: .25rem 0;
     margin-left: ${props => props.isuser && "auto"};
     padding: .5rem 1rem;
-    border-radius: 50px;
+    border-radius: ${props => props.messagelength > 60 ? "30px" : "50px"};
     width: fit-content;
     max-width: 75%;
     backdrop-filter: blur(5px) saturate(100%);

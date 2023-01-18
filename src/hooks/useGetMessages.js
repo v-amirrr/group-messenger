@@ -31,12 +31,19 @@ export const useGetMessages = () => {
 
             // detecting the links in the messages
             let modifiedMessages = messages?.map(item => {
+                let messageLength = 0; 
+                
+                item.message.map((word) => {
+                    messageLength = messageLength + word.length;
+                });
+
                 return {
                     ...item,
                     message: item.message.map((word) => {
                         let isLink = !!isURL(word);
                         return { word: word, link: isLink };
                     }),
+                    messageLength: messageLength,
                 }; 
             });
 

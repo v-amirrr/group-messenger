@@ -5,15 +5,15 @@ import { doc, deleteDoc } from "firebase/firestore";
 
 import { isRTL } from '../functions/isRlt';
 
-import { AiFillDelete } from 'react-icons/ai';
+import { AiFillDelete, AiFillCopy } from 'react-icons/ai';
 
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const menuVariants = {
-    hidden: { opacity: 0, scale: 0.6 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.2, type: 'tween' } },
-    exit: { opacity: 0, scale: 0.6, transition: { duration: 0.2, type: 'tween' } }
+    hidden: { opacity: 0, scale: 0.8, x: 20 },
+    visible: { opacity: 1, scale: 1, x: 0, transition: { duration: 0.2, type: 'tween' } },
+    exit: { opacity: 0, scale: 0.8, x: 20, transition: { duration: 0.2, type: 'tween' } }
 };
 
 const Message = forwardRef(( props, ref ) => {
@@ -27,6 +27,18 @@ const Message = forwardRef(( props, ref ) => {
     const deleteMessage = id => {
         const docRef = doc(db, "messages", id);
         deleteDoc(docRef);
+    };
+
+    const copyMessage = () => {
+        let messageText = [];
+
+        message.map(item => {
+            messageText.push(item.word);
+        });
+
+        messageText = messageText.join(" ");
+
+        navigator.clipboard.writeText(messageText);
     };
 
     return (
@@ -45,10 +57,14 @@ const Message = forwardRef(( props, ref ) => {
                         &&
                         username == localStorageUsername
                         &&
-                        <Menu whileHover={{ sclae: 1.5 }} whileTap={{ scale: 0.8 }} isuser={username == localStorageUsername ? 1 : 0} key={id} initial='hidden' animate='visible' exit='exit' variants={menuVariants}>
-                            <div onClick={() => deleteMessage(id)}>
+                        <Menu isuser={username == localStorageUsername ? 1 : 0} key={id} initial='hidden' animate='visible' exit='exit' variants={menuVariants}>
+                            <motion.div onClick={() => copyMessage()} whileTap={{ scale: 0.8 }}>
+                                <i><AiFillCopy /></i>
+                            </motion.div>
+
+                            <motion.div onClick={() => deleteMessage(id)} whileTap={{ scale: 0.8 }}>
                                 <i><AiFillDelete /></i>
-                            </div>
+                            </motion.div>
                         </Menu>
                     }
                 </AnimatePresence>
@@ -111,30 +127,30 @@ const MessageBox = styled.div`
 
 const Menu = styled(motion.div)`
     position: absolute;
-    left: ${props => props.isuser && "-2.5rem"};
-    right: ${props => props.isuser || "-2.5rem"};
-    background-color: #ffffff10;
-    border-radius: 20px;
-    overflow: hidden;
+    left: ${props => props.isuser && "-5rem"};
+    right: ${props => props.isuser || "-5rem"};
     z-index: 0;
     user-select: none;
-    backdrop-filter: blur(50px) saturate(150%);
-    -webkit-backdrop-filter: blur(50px) saturate(150%);
-    
-    hr {
-        opacity: 0.2;
-    }
+    display: flex;
+    justify-content: center;
+    align-items: center;
     
     div {
+        background-color: #ffffff10;
+        margin: 0 .15rem;
         display: flex;
-        justify-content: flex-start;
+        justify-content: center;
         align-items: center;
-        flex-direction: row;
+        border-radius: 50%;
         width: 100%;
         height: 50%;
         cursor: pointer;
         padding: .5rem;
-        transition: background .4s;
+        transition: background .2s;
+
+        &:hover {
+            background-color: #ffffff20;
+        }
 
         i {
             display: flex;

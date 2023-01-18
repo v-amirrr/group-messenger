@@ -1,10 +1,9 @@
-import React, { forwardRef, useState } from 'react';
+import React, { forwardRef, useState, useEffect } from 'react';
 
 import { db } from '../config/firebase';
 import { doc, deleteDoc } from "firebase/firestore";
 
 import { isRTL } from '../functions/isRlt';
-import { isURL } from "../functions/isURL";
 
 import { AiFillDelete } from 'react-icons/ai';
 
@@ -35,10 +34,8 @@ const Message = forwardRef(( props, ref ) => {
             <MessageBox ref={ref} key={id} isuser={username == localStorageUsername} ispersian={isRTL(message) ? 1 : 0} onClick={() => setMenuShow(prevState => !prevState)}>
                 <p className='username'>{username}</p>
                 <p className='message'>
-                    {message.split(' ').map(word => (
-                        isURL(word) ? 
-                            <a className='link' href={word} target="_blank">{`${word} `}</a> : 
-                            <span>{`${word} `}</span>
+                    {message?.map(item => (
+                        item.link ? <a className='link' href={item.word} target="_blank">{item.word}</a> : `${item.word} `
                     ))}
                 </p>
 
@@ -83,8 +80,9 @@ const MessageBox = styled.div`
     .username {
         display: ${props => props.isuser ? "none" : ""};
         color: #aaa;
-        font-size: .8rem;
-        margin-right: .4rem;
+        font-size: .7rem;
+        margin-right: .5rem;
+        margin-left: -.2rem;
         white-space: nowrap;
     }
 

@@ -10,10 +10,16 @@ import { AiFillDelete, AiFillCopy } from 'react-icons/ai';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const menuVariants = {
-    hidden: { opacity: 0, scale: 0.8, x: 20 },
+const menuUserVariants = {
+    hidden: { opacity: 0, scale: 0.9, x: 20 },
     visible: { opacity: 1, scale: 1, x: 0, transition: { duration: 0.2, type: 'tween' } },
-    exit: { opacity: 0, scale: 0.8, x: 20, transition: { duration: 0.2, type: 'tween' } }
+    exit: { opacity: 0, scale: 0.9, x: 20, transition: { duration: 0.2, type: 'tween' } }
+};
+
+const menuVariants = {
+    hidden: { opacity: 0, scale: 0.9, x: -20 },
+    visible: { opacity: 1, scale: 1, x: 0, transition: { duration: 0.2, type: 'tween' } },
+    exit: { opacity: 0, scale: 0.9, x: -20, transition: { duration: 0.2, type: 'tween' } }
 };
 
 const Message = forwardRef(( props, ref ) => {
@@ -43,7 +49,7 @@ const Message = forwardRef(( props, ref ) => {
 
     return (
         <>
-            <MessageBox ref={ref} key={id} isuser={username == localStorageUsername} ispersian={isRTL(message) ? 1 : 0} messagelength={messageLength} onClick={() => setMenuShow(prevState => !prevState)}>
+            <MessageBox ref={ref} key={id} isuser={username == localStorageUsername ? 1 : 0} ispersian={isRTL(message) ? 1 : 0} messagelength={messageLength} onClick={() => setMenuShow(prevState => !prevState)}>
                 <p className='username'>{username}</p>
                 <p className='message'>
                     {message?.map(item => (
@@ -52,28 +58,23 @@ const Message = forwardRef(( props, ref ) => {
                 </p>
 
                 <AnimatePresence>
-                    {
-                        menuShow
-                        &&
-                        username == localStorageUsername
-                        &&
-                        <Menu isuser={username == localStorageUsername ? 1 : 0} key={id} initial='hidden' animate='visible' exit='exit' variants={menuVariants}>
-                            <motion.div onClick={() => copyMessage()} whileTap={{ scale: 0.8 }}>
-                                <i><AiFillCopy /></i>
-                            </motion.div>
+                    {menuShow &&
+                    <Menu isuser={username == localStorageUsername ? 1 : 0} key={id} initial='hidden' animate='visible' exit='exit' variants={username == localStorageUsername ? menuUserVariants : menuVariants}>
+                        <motion.div className='copy' onClick={() => copyMessage()} whileTap={{ scale: 0.8 }}>
+                            <i><AiFillCopy /></i>
+                        </motion.div>
 
-                            <motion.div onClick={() => deleteMessage(id)} whileTap={{ scale: 0.8 }}>
-                                <i><AiFillDelete /></i>
-                            </motion.div>
-                        </Menu>
-                    }
+                        <motion.div className='delete' onClick={() => deleteMessage(id)} whileTap={{ scale: 0.8 }}>
+                            <i><AiFillDelete /></i>
+                        </motion.div>
+                    </Menu>}
                 </AnimatePresence>
             </MessageBox>
         </>
     );
 });
 
-const MessageBox = styled.div`
+const MessageBox = styled(motion.div)`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -89,9 +90,9 @@ const MessageBox = styled.div`
     -webkit-backdrop-filter: blur(5px) saturate(100%);
     font-weight: 200;
     word-break: break-all;
-    cursor: ${props => props.isuser && "pointer"};
+    cursor: pointer;
     transition: backdrop-filter .4s;
-    user-select: ${props => props.isuser && "none"};
+    user-select: none;
 
     .username {
         display: ${props => props.isuser ? "none" : ""};
@@ -127,8 +128,8 @@ const MessageBox = styled.div`
 
 const Menu = styled(motion.div)`
     position: absolute;
-    left: ${props => props.isuser && "-5rem"};
-    right: ${props => props.isuser || "-5rem"};
+    left: ${props => props.isuser ? "-5rem" : "auto"};
+    right: ${props => props.isuser ? "auto" : "-2.7rem"};
     z-index: 0;
     user-select: none;
     display: flex;
@@ -159,6 +160,14 @@ const Menu = styled(motion.div)`
             flex-direction: row;
             font-size: 1rem;
         }
+    }
+
+    .delete {
+        display: ${props => props.isuser ? "" : "none"};
+    }
+
+    .copy {
+        
     }
 
     @media (max-width: 768px) {

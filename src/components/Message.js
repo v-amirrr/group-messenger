@@ -1,9 +1,10 @@
 import React, { forwardRef, useState, useEffect } from 'react';
 
-import { db } from '../config/firebase';
-import { doc, deleteDoc } from "firebase/firestore";
+import { createPortal } from 'react-dom';
 
 import { isRTL } from '../functions/isRlt';
+
+import DeleteConfirmationPopup from './DeleteConfirmationPopup';
 
 import { AiFillDelete, AiFillCopy } from 'react-icons/ai';
 
@@ -29,10 +30,10 @@ const Message = forwardRef(( props, ref ) => {
     const { message, id, username, messageLength } = props;
 
     const [menuShow, setMenuShow] = useState(false);
+    const [deletePopup, setDeletePopup] = useState(false);
 
-    const deleteMessage = id => {
-        const docRef = doc(db, "messages", id);
-        deleteDoc(docRef);
+    const deleteMessage = () => {
+        setDeletePopup(true);
     };
 
     const copyMessage = () => {
@@ -64,12 +65,20 @@ const Message = forwardRef(( props, ref ) => {
                             <i><AiFillCopy /></i>
                         </motion.div>
 
-                        <motion.div className='delete' onClick={() => deleteMessage(id)} whileTap={{ scale: 0.8 }}>
+                        <motion.div className='delete' onClick={() => deleteMessage()} whileTap={{ scale: 0.8 }}>
                             <i><AiFillDelete /></i>
                         </motion.div>
                     </Menu>}
                 </AnimatePresence>
             </MessageBox>
+
+
+            {createPortal(
+                <AnimatePresence exitBeforeEnter>
+                    {deletePopup && <DeleteConfirmationPopup setDeletePopup={setDeletePopup} deletePopup={deletePopup} id={id} />}
+                </AnimatePresence>,
+                document.body
+            )}
         </>
     );
 });
@@ -83,7 +92,7 @@ const MessageBox = styled(motion.div)`
     margin: .25rem 0;
     margin-left: ${props => props.isuser && "auto"};
     padding: .5rem 1rem;
-    border-radius: ${props => props.messagelength > 60 ? "30px" : "50px"};
+    border-radius: ${props => props.messagelength > 60 ? "25px" : "50px"};
     width: fit-content;
     max-width: 75%;
     backdrop-filter: blur(5px) saturate(100%);

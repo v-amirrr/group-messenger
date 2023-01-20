@@ -87,7 +87,6 @@ const MessageBox = styled(motion.div)`
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: row;
     background-color: ${props => props.isuser ? "#ffffff0c" : "#ffffff0e"};
     margin: .25rem 0;
     margin-left: ${props => props.isuser && "auto"};
@@ -118,11 +117,15 @@ const MessageBox = styled(motion.div)`
         line-break: loose;
         word-break: keep-all;
         font-family: ${props => props.ispersian ? "Vazirmatn" : "Outfit"}, "Vazirmatn", sans-serif;
-        font-size: .9rem;
+        font-size: 1rem;
     }
 
     @media (max-width: 768px) {
-        padding: .5rem;
+        padding: .5rem .8rem;
+        margin-top: .3rem;
+        margin-bottom: .3rem;
+        border-radius: ${props => props.messagelength > 40 || props.messagelength < 20 ? "20px" : "50px"};
+        max-width: 80%;
 
         .username {
             font-size: .5rem;
@@ -130,7 +133,7 @@ const MessageBox = styled(motion.div)`
         }
 
         .message {
-            font-size: .7rem;
+            font-size: .8rem;
         }
     }
 `;
@@ -175,14 +178,16 @@ const Menu = styled(motion.div)`
         display: ${props => props.isuser ? "" : "none"};
     }
 
-    .copy {
-        
-    }
-
     @media (max-width: 768px) {
+        left: ${props => props.isuser ? "-4.2rem" : "auto"};
+        right: ${props => props.isuser ? "auto" : "-2.2rem"};
+
         div {
+            margin: 0 .1rem;
+            padding: .45rem;
+
             i {
-                font-size: .8rem;
+                font-size: .9rem;
             }
         }
     }

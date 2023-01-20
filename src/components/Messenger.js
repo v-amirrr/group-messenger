@@ -189,6 +189,11 @@ const MessagesContainer = styled(motion.div)`
         padding: 0 1rem;
     }
 
+    @media (max-width: 500px) {
+        width: 95vw;
+        padding: 0 .5rem;
+    }
+
     /* width */
     ::-webkit-scrollbar {
         width: .2rem;

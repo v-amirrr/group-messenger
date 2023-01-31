@@ -94,11 +94,19 @@ const Messenger = () => {
                                 :
                                 <MessagesContainer ref={messagesContainerRef} key="messages" initial='hidden' animate='visible' exit='exit' variants={messagesContainerVariants}>
                                     <FlipMove>
-                                        {
-                                            messages?.map(message => (
-                                                <Message key={message.id} {...message} />
-                                            ))
-                                        }
+                                        {messages?.map((message, index) => (
+                                            <Message 
+                                                key={message.id} 
+                                                message={{
+                                                    username: message.username,
+                                                    id: message.id,
+                                                    messageLength: message.messageLength,
+                                                    message: message.message,
+                                                    periorUsername: index != 0 ? messages[index-1].username : false, 
+                                                    nextUsername: index != messages.length-1 ? messages[index+1].username : false,
+                                                }}
+                                            />
+                                        ))}
                                     </FlipMove>
                                     <div ref={messagesEndRef} />
                                 </MessagesContainer>
@@ -184,6 +192,7 @@ const MessagesContainer = styled(motion.div)`
     overflow: hidden scroll;
     position: relative;
     padding: 0 2rem;
+    scroll-behavior: smooth;
 
     @media (max-width: 800px) {
         padding: 0 1rem;

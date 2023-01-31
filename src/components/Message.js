@@ -27,10 +27,11 @@ const Message = forwardRef(( props, ref ) => {
 
     const localStorageUsername = JSON.parse(localStorage.getItem("username"));
 
-    const { message, id, username, messageLength } = props;
+    const { message, id, username, messageLength, periorUsername, nextUsername } = props.message;
 
     const [menuShow, setMenuShow] = useState(false);
     const [deletePopup, setDeletePopup] = useState(false);
+    const [messageStyle, setMessageStyle] = useState("");
 
     const deleteMessage = () => {
         setDeletePopup(true);
@@ -48,9 +49,29 @@ const Message = forwardRef(( props, ref ) => {
         navigator.clipboard.writeText(messageText);
     };
 
+    useEffect(() => {
+        if (periorUsername == username && nextUsername == username) {
+            setMessageStyle(2);
+        } else if (periorUsername != username && nextUsername != username) {
+            setMessageStyle(0);
+        } else if (periorUsername != username && nextUsername == username) {
+            setMessageStyle(1);
+        } else if (periorUsername == username && nextUsername != username) {
+            setMessageStyle(3);
+        }
+    }, [periorUsername, nextUsername]);
+
     return (
         <>
-            <MessageBox ref={ref} key={id} isuser={username == localStorageUsername ? 1 : 0} ispersian={isRTL(message) ? 1 : 0} messagelength={messageLength} onClick={() => setMenuShow(prevState => !prevState)}>
+            <MessageBox 
+                key={id} 
+                ref={ref} 
+                isuser={username == localStorageUsername ? 1 : 0} 
+                ispersian={isRTL(message) ? 1 : 0} 
+                messagelength={messageLength} 
+                messageStyle={messageStyle} 
+                onClick={() => setMenuShow(prevState => !prevState)}
+            >
                 <p className='username'>{username}</p>
                 <p className='message'>
                     {message?.map(item => (
@@ -84,21 +105,47 @@ const Message = forwardRef(( props, ref ) => {
 
 const MessageBox = styled(motion.div)`
     display: flex;
-    justify-content: center;
     align-items: center;
     background-color: ${props => props.isuser ? "#ffffff0c" : "#ffffff0e"};
-    margin: .25rem 0;
+    margin: ${props => 
+        props.messageStyle == 0 ? 
+        ".4rem 0" : 
+        props.messageStyle == 1 ? 
+        ".4rem 0 .1rem 0" : 
+        props.messageStyle == 2 ? 
+        ".1rem 0" : 
+        props.messageStyle == 3 && 
+        ".1rem 0 .4rem 0"
+    };
     margin-left: ${props => props.isuser && "auto"};
     padding: .5rem 1rem;
-    border-radius: ${props => props.messagelength > 60 ? "25px" : "50px"};
+    border-radius: ${props => 
+        props.isuser ? 
+            props.messageStyle == 0 ? 
+                "30px" : 
+                props.messageStyle == 1 ? 
+                "30px 30px 10px 30px" : 
+                props.messageStyle == 2 ? 
+                "30px 10px 10px 30px" : 
+                props.messageStyle == 3 && 
+                "30px 10px 30px 30px" :
+            props.messageStyle == 0 ? 
+                "30px" : 
+                props.messageStyle == 1 ? 
+                "30px 30px 30px 10px" : 
+                props.messageStyle == 2 ? 
+                "10px 30px 30px 10px" : 
+                props.messageStyle == 3 && 
+                "10px 30px 30px 30px"
+    };
     width: fit-content;
-    max-width: 75%;
+    max-width: 65%;
     backdrop-filter: blur(5px) saturate(100%);
     -webkit-backdrop-filter: blur(5px) saturate(100%);
     font-weight: 200;
     word-break: break-all;
     cursor: pointer;
-    transition: backdrop-filter .4s;
+    transition: backdrop-filter .4s, border-radius .4s;
     user-select: none;
 
     .username {
@@ -123,7 +170,7 @@ const MessageBox = styled(motion.div)`
         padding: .5rem .8rem;
         margin-top: .3rem;
         margin-bottom: .3rem;
-        border-radius: ${props => props.messagelength > 40 || props.messagelength < 20 ? "20px" : "50px"};
+        /* border-radius: ${props => props.messagelength > 40 || props.messagelength < 20 ? "20px" : "50px"}; */
         max-width: 80%;
 
         .username {

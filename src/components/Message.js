@@ -168,10 +168,26 @@ const MessageBox = styled(motion.div)`
 
     @media (max-width: 768px) {
         padding: .5rem .8rem;
-        margin-top: .3rem;
-        margin-bottom: .3rem;
-        /* border-radius: ${props => props.messagelength > 40 || props.messagelength < 20 ? "20px" : "50px"}; */
         max-width: 80%;
+            border-radius: ${props => 
+        props.isuser ? 
+            props.messageStyle == 0 ? 
+                "20px" : 
+                props.messageStyle == 1 ? 
+                "20px 20px 5px 20px" : 
+                props.messageStyle == 2 ? 
+                "20px 5px 5px 20px" : 
+                props.messageStyle == 3 && 
+                "20px 5px 20px 20px" :
+            props.messageStyle == 0 ? 
+                "20px" : 
+                props.messageStyle == 1 ? 
+                "20px 20px 20px 5px" : 
+                props.messageStyle == 2 ? 
+                "5px 20px 20px 5px" : 
+                props.messageStyle == 3 && 
+                "5px 20px 20px 20px"
+    };
 
         .username {
             font-size: .5rem;

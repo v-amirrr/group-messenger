@@ -72,7 +72,6 @@ const Message = forwardRef(( props, ref ) => {
                 </AnimatePresence>
             </MessageBox>
 
-
             {createPortal(
                 <AnimatePresence exitBeforeEnter>
                     {deletePopup && <DeleteConfirmationPopup setDeletePopup={setDeletePopup} deletePopup={deletePopup} id={id} />}

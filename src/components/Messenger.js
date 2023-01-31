@@ -49,7 +49,7 @@ const Messenger = () => {
 
     const sendMessage = e => {
         e.preventDefault();
-        
+
         addDoc(firebaseRef, {
             message: input,
             username: username,
@@ -58,7 +58,7 @@ const Messenger = () => {
         .catch((err) => {
             console.log(err);
         });
-        
+
         setInput("");
     };
 
@@ -221,12 +221,18 @@ const MessengerInput = styled(motion.div)`
     justify-content: center;
     align-items: center;
     min-width: 70%;
+    height: 3rem;
+
+    &:disabled {
+        cursor: not-allowed;
+    }
 
     form {
         display: flex;
         justify-content: space-between;
         align-items: center;
         width: 100%;
+        height: 100%;
     }
     
     .messenger-input {
@@ -238,6 +244,13 @@ const MessengerInput = styled(motion.div)`
         font-weight: 200;
         font-size: 1rem;
         width: 100%;
+        height: 90%;
+        resize: none;
+
+        /* width */
+        ::-webkit-scrollbar {
+            width: 0;
+        }
     }
 
     .messenger-submit {

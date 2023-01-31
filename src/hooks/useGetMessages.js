@@ -40,8 +40,8 @@ export const useGetMessages = () => {
                 return {
                     ...item,
                     message: item.message.map((word) => {
-                        let isLink = !!isURL(word);
-                        return { word: word, link: isLink };
+                        let checkLink = isURL(word);
+                        return { word: checkLink.newWord, link: checkLink.isLink };
                     }),
                     messageLength: messageLength,
                 }; 
@@ -51,7 +51,7 @@ export const useGetMessages = () => {
             dispatch(setLoadingOff());
 
             if (!messages?.length) {
-                dispatch(setError("Looks like there's a problem with your connection. If you're in sanctioned countries like Iran, you have to turn on your VPN for using this app."));
+                dispatch(setError("Looks like there's a problem with your connection. If you're in sanctioned countries like Iran, you have to turn on your VPN for using this app and if you're already using a VPN you need to change it. (You can use checan.ir)"));
             };
 
         }, (error) => {

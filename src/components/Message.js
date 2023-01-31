@@ -5,22 +5,29 @@ import { createPortal } from 'react-dom';
 import { isRTL } from '../functions/isRlt';
 
 import DeleteConfirmationPopup from './DeleteConfirmationPopup';
+import EditPopup from './EditPopup';
 
-import { AiFillDelete, AiFillCopy } from 'react-icons/ai';
+import { AiFillDelete, AiFillCopy, AiFillEdit } from 'react-icons/ai';
 
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const menuUserVariants = {
-    hidden: { opacity: 0, scale: 0.9, x: 20 },
-    visible: { opacity: 1, scale: 1, x: 0, transition: { duration: 0.2, type: 'tween' } },
-    exit: { opacity: 0, scale: 0.9, x: 20, transition: { duration: 0.2, type: 'tween' } }
+const menuVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { duration: 0.2, staggerChildren: 0.08, when: "beforeChildren" } },
+    exit: { opacity: 0, transition: { duration: 0.2, staggerChildren: 0.05, when: "afterChidren" } }
 };
 
-const menuVariants = {
-    hidden: { opacity: 0, scale: 0.9, x: -20 },
-    visible: { opacity: 1, scale: 1, x: 0, transition: { duration: 0.2, type: 'tween' } },
-    exit: { opacity: 0, scale: 0.9, x: -20, transition: { duration: 0.2, type: 'tween' } }
+const menuItemUserVariants = {
+    hidden: { opacity: 0, x: 20, scale: 0.8 },
+    visible: { opacity: 1, x: 0, scale: 1, transition: { duration: 0.2, type: 'tween' } },
+    exit: { opacity: 0, x: 20, scale: 0.8, transition: { duration: 0.2, type: 'tween' } }
+};
+
+const menuItemVariants = {
+    hidden: { opacity: 0, x: -30, scale: 0.8 },
+    visible: { opacity: 1, x: 0, scale: 1, transition: { duration: 0.2, type: 'tween' } },
+    exit: { opacity: 0, x: -30, scale: 0.8, transition: { duration: 0.2, type: 'tween' } }
 };
 
 const Message = forwardRef(( props, ref ) => {
@@ -31,6 +38,7 @@ const Message = forwardRef(( props, ref ) => {
 
     const [menuShow, setMenuShow] = useState(false);
     const [deletePopup, setDeletePopup] = useState(false);
+    const [editPopup, setEditPopup] = useState(false);
     const [messageStyle, setMessageStyle] = useState("");
 
     const deleteMessage = () => {
@@ -47,6 +55,10 @@ const Message = forwardRef(( props, ref ) => {
         messageText = messageText.join(" ");
 
         navigator.clipboard.writeText(messageText);
+    };
+
+    const editMessage = () => {
+        setEditPopup(true);
     };
 
     useEffect(() => {
@@ -81,12 +93,16 @@ const Message = forwardRef(( props, ref ) => {
 
                 <AnimatePresence>
                     {menuShow &&
-                    <Menu isuser={username == localStorageUsername ? 1 : 0} key={id} initial='hidden' animate='visible' exit='exit' variants={username == localStorageUsername ? menuUserVariants : menuVariants}>
-                        <motion.div className='copy' onClick={() => copyMessage()} whileTap={{ scale: 0.8 }}>
+                    <Menu isuser={username == localStorageUsername ? 1 : 0} key={id} initial='hidden' animate='visible' exit='exit' variants={menuVariants}>
+                        <motion.div className='edit' onClick={() => editMessage()} whileTap={{ scale: 0.8 }} variants={username == localStorageUsername ? menuItemUserVariants : menuItemVariants}>
+                            <i><AiFillEdit /></i>
+                        </motion.div>
+
+                        <motion.div className='copy' onClick={() => copyMessage()} whileTap={{ scale: 0.8 }} variants={username == localStorageUsername ? menuItemUserVariants : menuItemVariants}>
                             <i><AiFillCopy /></i>
                         </motion.div>
 
-                        <motion.div className='delete' onClick={() => deleteMessage()} whileTap={{ scale: 0.8 }}>
+                        <motion.div className='delete' onClick={() => deleteMessage()} whileTap={{ scale: 0.8 }} variants={username == localStorageUsername ? menuItemUserVariants : menuItemVariants}>
                             <i><AiFillDelete /></i>
                         </motion.div>
                     </Menu>}
@@ -96,6 +112,13 @@ const Message = forwardRef(( props, ref ) => {
             {createPortal(
                 <AnimatePresence exitBeforeEnter>
                     {deletePopup && <DeleteConfirmationPopup setDeletePopup={setDeletePopup} deletePopup={deletePopup} id={id} />}
+                </AnimatePresence>,
+                document.body
+            )}
+
+            {createPortal(
+                <AnimatePresence exitBeforeEnter>
+                    {editPopup && <EditPopup setEditPopup={setEditPopup} editPopup={editPopup} id={id} message={message} />}
                 </AnimatePresence>,
                 document.body
             )}
@@ -122,21 +145,21 @@ const MessageBox = styled(motion.div)`
     border-radius: ${props => 
         props.isuser ? 
             props.messageStyle == 0 ? 
-                "30px" : 
-                props.messageStyle == 1 ? 
-                "30px 30px 10px 30px" : 
-                props.messageStyle == 2 ? 
-                "30px 10px 10px 30px" : 
-                props.messageStyle == 3 && 
-                "30px 10px 30px 30px" :
-            props.messageStyle == 0 ? 
-                "30px" : 
-                props.messageStyle == 1 ? 
-                "30px 30px 30px 10px" : 
-                props.messageStyle == 2 ? 
-                "10px 30px 30px 10px" : 
-                props.messageStyle == 3 && 
-                "10px 30px 30px 30px"
+            "30px" : 
+            props.messageStyle == 1 ? 
+            "30px 30px 10px 30px" : 
+            props.messageStyle == 2 ? 
+            "30px 10px 10px 30px" : 
+            props.messageStyle == 3 && 
+            "30px 10px 30px 30px" :
+        props.messageStyle == 0 ? 
+            "30px" : 
+            props.messageStyle == 1 ? 
+            "30px 30px 30px 10px" : 
+            props.messageStyle == 2 ? 
+            "10px 30px 30px 10px" : 
+            props.messageStyle == 3 && 
+            "10px 30px 30px 30px"
     };
     width: fit-content;
     max-width: 65%;
@@ -166,12 +189,12 @@ const MessageBox = styled(motion.div)`
         font-size: 1rem;
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 500px) {
         padding: .5rem .8rem;
-        max-width: 80%;
-            border-radius: ${props => 
-        props.isuser ? 
-            props.messageStyle == 0 ? 
+        max-width: 70%;
+        border-radius: ${props => 
+            props.isuser ? 
+                props.messageStyle == 0 ? 
                 "20px" : 
                 props.messageStyle == 1 ? 
                 "20px 20px 5px 20px" : 
@@ -187,7 +210,7 @@ const MessageBox = styled(motion.div)`
                 "5px 20px 20px 5px" : 
                 props.messageStyle == 3 && 
                 "5px 20px 20px 20px"
-    };
+        };
 
         .username {
             font-size: .5rem;
@@ -202,13 +225,14 @@ const MessageBox = styled(motion.div)`
 
 const Menu = styled(motion.div)`
     position: absolute;
-    left: ${props => props.isuser ? "-5rem" : "auto"};
+    left: ${props => props.isuser ? "-7.4rem" : "auto"};
     right: ${props => props.isuser ? "auto" : "-2.7rem"};
     z-index: 0;
     user-select: none;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: row-reverse;
     
     div {
         background-color: #ffffff10;
@@ -236,13 +260,13 @@ const Menu = styled(motion.div)`
         }
     }
 
-    .delete {
+    .delete, .edit {
         display: ${props => props.isuser ? "" : "none"};
     }
 
     @media (max-width: 768px) {
-        left: ${props => props.isuser ? "-4.2rem" : "auto"};
-        right: ${props => props.isuser ? "auto" : "-2.2rem"};
+        left: ${props => props.isuser ? "-6rem" : "auto"};
+        right: ${props => props.isuser ? "auto" : "-2rem"};
 
         div {
             margin: 0 .1rem;

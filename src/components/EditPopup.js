@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { db } from '../config/firebase';
 import { doc, updateDoc } from "firebase/firestore";
 
+import { isRTL } from '../functions/isRlt';
+
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
@@ -43,7 +45,7 @@ const EditPopup = ({ setEditPopup, id, message }) => {
     return (
         <>
             <PopupPage initial='hidden' animate='visible' exit='exit' variants={popupPageVariants}>
-                <PopupContainer variants={popupPageContainer}>
+                <PopupContainer variants={popupPageContainer} ispersian={isRTL(editInput) ? 1 : 0} dir={isRTL(editInput) ? "rtl" : "ltr"}>
                     <textarea value={editInput} onChange={e => setEditInput(e.target.value)} autoFocus/>
                     <div>
                         <motion.button className='cancel' whileTap={{ scale: 0.9 }} onClick={() => setEditPopup(false)}>Cancel</motion.button>
@@ -87,9 +89,12 @@ const PopupContainer = styled(motion.div)`
         font-weight: 200;
         line-height: 1.5;
         resize: none;
-        font-family: "Outfit", sans-serif;
         width: 25rem;
         height: 5rem;
+        text-align: ${props => props.ispersian ? "right" : "left"};
+        word-spacing: 1px;
+        line-break: loose;
+        font-family: ${props => props.ispersian ? "Vazirmatn" : "Outfit"}, "Vazirmatn", sans-serif;
     }
 
     div {

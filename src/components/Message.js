@@ -20,14 +20,14 @@ const menuVariants = {
 
 const menuItemUserVariants = {
     hidden: { opacity: 0, x: 20, scale: 0.8 },
-    visible: { opacity: 1, x: 0, scale: 1, transition: { duration: 0.2, type: 'tween' } },
-    exit: { opacity: 0, x: 20, scale: 0.8, transition: { duration: 0.2, type: 'tween' } }
+    visible: { opacity: 1, x: [20, -10, 0], scale: 1, transition: { duration: 0.4, type: 'tween' } },
+    exit: { opacity: 0, x: 20, scale: 0.5, transition: { duration: 0.3, type: 'tween' } }
 };
 
 const menuItemVariants = {
-    hidden: { opacity: 0, x: -30, scale: 0.8 },
-    visible: { opacity: 1, x: 0, scale: 1, transition: { duration: 0.2, type: 'tween' } },
-    exit: { opacity: 0, x: -30, scale: 0.8, transition: { duration: 0.2, type: 'tween' } }
+    hidden: { opacity: 0, x: -20, scale: 0.8 },
+    visible: { opacity: 1, x: [-20, 10, 0], scale: 1, transition: { duration: 0.3, type: 'tween' } },
+    exit: { opacity: 0, x: -20, scale: 1, transition: { duration: 0.2 , type: 'tween' } }
 };
 
 const Message = forwardRef(( props, ref ) => {
@@ -126,10 +126,10 @@ const Message = forwardRef(( props, ref ) => {
     );
 });
 
-const MessageBox = styled(motion.div)`
+const MessageBox = styled.div`
     display: flex;
     align-items: center;
-    background-color: ${props => props.isuser ? "#ffffff0c" : "#ffffff0e"};
+    background-color: #ffffff0c;
     margin: ${props => 
         props.messageStyle == 0 ? 
         ".4rem 0" : 
@@ -189,9 +189,10 @@ const MessageBox = styled(motion.div)`
         font-size: 1rem;
     }
 
-    @media (max-width: 500px) {
+    @media (max-width: 768px) {
         padding: .5rem .8rem;
         max-width: 70%;
+        background-color: #ffffff1a;
         border-radius: ${props => 
             props.isuser ? 
                 props.messageStyle == 0 ? 
@@ -227,7 +228,6 @@ const Menu = styled(motion.div)`
     position: absolute;
     left: ${props => props.isuser ? "-7.4rem" : "auto"};
     right: ${props => props.isuser ? "auto" : "-2.7rem"};
-    z-index: 0;
     user-select: none;
     display: flex;
     justify-content: center;
@@ -245,10 +245,12 @@ const Menu = styled(motion.div)`
         height: 50%;
         cursor: pointer;
         padding: .5rem;
-        transition: background .2s;
+        transition: background .3s;
 
-        &:hover {
-            background-color: #ffffff20;
+        @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
+            &:hover {
+                background-color: #ffffff30;
+            }
         }
 
         i {
@@ -271,6 +273,7 @@ const Menu = styled(motion.div)`
         div {
             margin: 0 .1rem;
             padding: .45rem;
+            background-color: #ffffff18;
 
             i {
                 font-size: .9rem;

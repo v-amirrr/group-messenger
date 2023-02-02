@@ -10,28 +10,16 @@ import { useGetMessages } from '../hooks/useGetMessages';
 import Message from './Message';
 import Loader from './Loader';
 
-import { IoSend } from 'react-icons/io5';
-
 import FlipMove from 'react-flip-move';
+
+import { IoSend } from 'react-icons/io5';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const messengerTitleVariants = {
-    hidden: { opacity: 0, y: 100, scaleX: 0 },
-    visible: { opacity: 1, y: 0, scaleX: 1 , transition: { duration: 0.5, type: 'tween' } },
-    exit: { opacity: 0, y: 100, scaleX: 0 }
-};
-
-const messengerInputVariants = {
-    hidden: { opacity: 0, y: -100, scaleX: 0 },
-    visible: { opacity: 1, y: 0, scaleX: 1 , transition: { duration: 0.5, type: 'tween' } },
-    exit: { opacity: 0, y: -100, scaleX: 0 }
-};
-
-const messagesContainerVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.2, type: 'tween' } },
-    exit: { opacity: 0, scale: 0.8, transition: { duration: 0.2, type: 'tween' } }
+const messengerVariants = {
+    hidden: { opacity: 0, scale: 0 },
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.4, type: 'tween' } },
+    exit: { opacity: 0, scale: 0, transition: { duration: 0.4, type: 'tween' } }
 };
 
 const Messenger = () => {
@@ -69,30 +57,34 @@ const Messenger = () => {
     }, []);
 
     useEffect(() => {
-        messagesEndRef?.current?.scrollIntoView({
-            behavior: 'smooth', block: "end"
-        }); 
+        if (!loading) {
+            messagesEndRef?.current?.scrollIntoView({
+                behavior: "smooth", block: "end"
+            });
+        }
     }, [messages]);
 
     return (
         <>
             <MessengerPage>
-                <MessengerContainer>
-                    <MessengerTitle initial='hidden' animate='visible' exit='exit' variants={messengerTitleVariants}>
+                <MessengerContainer initial='hidden' animate='visible' exit='exit' variants={messengerVariants}>
+                    <MessengerTitle>
                         <h1>Group Messenger</h1>
                     </MessengerTitle>
 
                         <AnimatePresence>
-                        {
-                            loading
-                            ?
-                            <Loader key="loader" />
-                            :
-                                error
-                                ?
-                                <motion.p className='error-message' key="error" initial='hidden' animate='visible' exit='exit' variants={messagesContainerVariants}>{error}</motion.p>
+                        {loading ?
+                            <Loader key="loader" /> :
+                                error ?
+                                    <motion.p 
+                                    className='error-message' 
+                                    key="error" 
+                                    initial='hidden' animate='visible' exit='exit' variants={messengerVariants}
+                                    >
+                                    {error}
+                                    </motion.p>
                                 :
-                                <MessagesContainer ref={messagesContainerRef} key="messages" initial='hidden' animate='visible' exit='exit' variants={messagesContainerVariants}>
+                                <MessagesContainer ref={messagesContainerRef} key="messages">
                                     <FlipMove>
                                         {messages?.map((message, index) => (
                                             <Message 
@@ -109,11 +101,10 @@ const Messenger = () => {
                                         ))}
                                     </FlipMove>
                                     <div ref={messagesEndRef} />
-                                </MessagesContainer>
-                        }
+                                </MessagesContainer>}
                         </AnimatePresence>
 
-                    <MessengerInput initial='hidden' animate='visible' exit='exit' variants={messengerInputVariants}>
+                    <MessengerInput>
                         <form>
                             <input
                                 className='messenger-input'
@@ -129,7 +120,6 @@ const Messenger = () => {
                             <motion.button whileTap={input && { scale: 0.5 }} type="submit" className='messenger-submit' disabled={!input} onClick={sendMessage}><IoSend /></motion.button>
                         </form>
                     </MessengerInput>
-
                 </MessengerContainer>
             </MessengerPage>
         </>
@@ -146,7 +136,7 @@ const MessengerPage = styled.section`
     background-color: #00000066;
 `;
 
-const MessengerContainer = styled.div`
+const MessengerContainer = styled(motion.div)`
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -174,7 +164,7 @@ const MessengerContainer = styled.div`
     }
 `;
 
-const MessengerTitle = styled(motion.div)`
+const MessengerTitle = styled.div`
     width: 100%;
     text-transform: uppercase;
     font-size: .7rem;
@@ -184,9 +174,10 @@ const MessengerTitle = styled(motion.div)`
     word-spacing: 5px;
     white-space: nowrap;
     user-select: none;
+    poab
 `;
 
-const MessagesContainer = styled(motion.div)`
+const MessagesContainer = styled.div`
     width: 100%;
     height: 80%;
     overflow: hidden scroll;
@@ -221,7 +212,7 @@ const MessagesContainer = styled(motion.div)`
     }
 `;
 
-const MessengerInput = styled(motion.div)`
+const MessengerInput = styled.div`
     background-color: #ffffff11;
     backdrop-filter: blur(10px) saturate(120%);
     -webkit-backdrop-filter: blur(10px) saturate(120%);

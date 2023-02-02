@@ -29,11 +29,16 @@ const menuItemVariants = {
     exit: { opacity: 0, x: -20, scale: 1, transition: { duration: 0.2 , type: 'tween' } }
 };
 
+const timeVariants = {
+    hidden: { opacity: 0, x: 20, y: 20, scale: 0 },
+    visible: { opacity: 1, x: 0, y: 0, scale: 1, transition: { duration: 0.4, type: 'tween' } }
+};
+
 const Message = forwardRef(( props, ref ) => {
 
     const localStorageUsername = JSON.parse(localStorage.getItem("username"));
 
-    const { message, id, username, messageLength, periorUsername, nextUsername } = props.message;
+    const { message, id, username, periorUsername, nextUsername, time } = props.message;
 
     const [menuShow, setMenuShow] = useState(false);
     const [showPopup, setShowPopup] = useState({ show: false, type: 0 });
@@ -71,6 +76,13 @@ const Message = forwardRef(( props, ref ) => {
         }
     }, [periorUsername, nextUsername]);
 
+    let total_miliseconds, messageTime;
+
+    if (time) {
+        total_miliseconds = (time.seconds+(time.nanoseconds)*0.00000001)*1000;
+        messageTime = new Date(total_miliseconds);
+    }
+
     return (
         <>
             <MessageBox 
@@ -78,7 +90,6 @@ const Message = forwardRef(( props, ref ) => {
                 ref={ref} 
                 isuser={username == localStorageUsername ? 1 : 0} 
                 ispersian={isRTL(message) ? 1 : 0} 
-                messagelength={messageLength} 
                 messageStyle={messageStyle} 
                 onClick={() => setMenuShow(prevState => !prevState)}
             >
@@ -88,6 +99,13 @@ const Message = forwardRef(( props, ref ) => {
                         item.link ? <a key={index} className='link' href={item.word} target="_blank">{item.word}</a> : `${item.word} `
                     ))}
                 </p>
+
+                <AnimatePresence>
+                    {time &&
+                    <motion.span className='time' initial='hidden' animate='visible' exit='exit' variants={timeVariants}>
+                        {messageTime.getHours() < 10 ? `0${messageTime.getHours()}` : messageTime.getHours()}:{messageTime.getMinutes() < 10 ? `0${messageTime.getMinutes()}` : messageTime.getMinutes()}
+                    </motion.span>}
+                </AnimatePresence>
 
                 <AnimatePresence>
                     {menuShow &&
@@ -138,25 +156,25 @@ const MessageBox = styled.div`
         ".1rem 0 .4rem 0"
     };
     margin-left: ${props => props.isuser && "auto"};
-    padding: .5rem 1rem;
+    padding: .5rem 2.8rem .5rem 1rem;
     border-radius: ${props => 
         props.isuser ? 
             props.messageStyle == 0 ? 
             "30px" : 
             props.messageStyle == 1 ? 
-            "30px 30px 10px 30px" : 
+            "30px 30px 5px 30px" : 
             props.messageStyle == 2 ? 
-            "30px 10px 10px 30px" : 
+            "30px 5px 5px 30px" : 
             props.messageStyle == 3 && 
-            "30px 10px 30px 30px" :
+            "30px 5px 30px 30px" :
         props.messageStyle == 0 ? 
             "30px" : 
             props.messageStyle == 1 ? 
-            "30px 30px 30px 10px" : 
+            "30px 30px 30px 5px" : 
             props.messageStyle == 2 ? 
-            "10px 30px 30px 10px" : 
+            "5px 30px 30px 5px" : 
             props.messageStyle == 3 && 
-            "10px 30px 30px 30px"
+            "5px 30px 30px 30px"
     };
     width: fit-content;
     max-width: 65%;
@@ -186,8 +204,20 @@ const MessageBox = styled.div`
         font-size: 1rem;
     }
 
+    .time {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        font-size: .55rem;
+        font-weight: 300;
+        letter-spacing: .5px;
+        color: #ffffff55;
+        white-space: nowrap;
+        margin: .4rem .8rem;
+    }
+
     @media (max-width: 768px) {
-        padding: .5rem .8rem;
+        padding: .5rem 2.5rem .5rem .8rem;
         max-width: 70%;
         background-color: #ffffff17;
         border-radius: ${props => 
@@ -217,6 +247,10 @@ const MessageBox = styled.div`
 
         .message {
             font-size: .8rem;
+        }
+
+        .time {
+            font-size: .45rem;
         }
     }
 `;

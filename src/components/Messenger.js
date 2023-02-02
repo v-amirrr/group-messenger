@@ -92,10 +92,10 @@ const Messenger = () => {
                                                 message={{
                                                     username: message.username,
                                                     id: message.id,
-                                                    messageLength: message.messageLength,
                                                     message: message.message,
                                                     periorUsername: index != 0 ? messages[index-1].username : false, 
                                                     nextUsername: index != messages.length-1 ? messages[index+1].username : false,
+                                                    time: message.time,
                                                 }}
                                             />
                                         ))}
@@ -174,7 +174,6 @@ const MessengerTitle = styled.div`
     word-spacing: 5px;
     white-space: nowrap;
     user-select: none;
-    poab
 `;
 
 const MessagesContainer = styled.div`

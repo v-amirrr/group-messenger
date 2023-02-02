@@ -1,5 +1,5 @@
 import { db } from "../config/firebase";
-import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
+import { collection, onSnapshot, query, orderBy, now, serverTimestamp } from "firebase/firestore";
 
 import { useDispatch } from "react-redux";
 import { setMessages, setError, setLoadingOn, setLoadingOff } from "../redux/messagesSlice";
@@ -25,25 +25,19 @@ export const useGetMessages = () => {
                 messages.push({
                     username: JSON.parse(doc.data().username),
                     message: doc.data().message.split(" "),
+                    time: doc.data().time,
                     id: doc.id,
                 });
             });
 
             // detecting the links in the messages
             let modifiedMessages = messages?.map(item => {
-                let messageLength = 0; 
-                
-                item.message.map((word) => {
-                    messageLength = messageLength + word.length;
-                });
-
                 return {
                     ...item,
                     message: item.message.map((word) => {
                         let checkLink = isURL(word);
                         return { word: checkLink.newWord, link: checkLink.isLink };
                     }),
-                    messageLength: messageLength,
                 }; 
             });
 

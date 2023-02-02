@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { db } from '../config/firebase';
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, deleteDoc, updateDoc } from "firebase/firestore";
 
 import { isRTL } from '../functions/isRlt';
 
@@ -20,37 +20,61 @@ const popupPageContainer = {
     exit: { opacity: 0, scale: 0.9, transition: { duration: 0.2, type: 'tween' } }
 };
 
-const EditPopup = ({ setEditPopup, id, message }) => {
+const Popups = ({ type, setShowPopup, message, id }) => {
 
     const [editInput, setEditInput] = useState("");
 
     useEffect(() => {
-        let messageText = [];
-
-        message.map(item => {
-            messageText.push(item.word);
-        });
-
-        setEditInput(messageText.join(" "));
+        if (type == 2) {
+            let messageText = [];
+    
+            message.map(item => {
+                messageText.push(item.word);
+            });
+    
+            setEditInput(messageText.join(" "));
+        }
     }, []);
+
+    const deleteMessage = () => {
+        const docRef = doc(db, "messages", id);
+        deleteDoc(docRef);
+        setShowPopup({ show: false, type: 0 });
+    };
 
     const editMessage = () => {
         const docRef = doc(db, "messages", id);
         updateDoc(docRef, {
             message: editInput,
         });
-        setEditPopup(false);
+        setShowPopup({ show: false, type: 0 });
     };
 
     return (
         <>
             <PopupPage initial='hidden' animate='visible' exit='exit' variants={popupPageVariants}>
-                <PopupContainer variants={popupPageContainer} ispersian={isRTL(editInput) ? 1 : 0} dir={isRTL(editInput) ? "rtl" : "ltr"}>
-                    <textarea value={editInput} onChange={e => setEditInput(e.target.value)} autoFocus/>
-                    <div>
-                        <motion.button className='cancel' whileTap={{ scale: 0.9 }} onClick={() => setEditPopup(false)}>Cancel</motion.button>
-                        <motion.button className='edit' whileTap={{ scale: 0.9 }} onClick={editMessage}>Edit it</motion.button>
-                    </div>
+                <PopupContainer 
+                    variants={popupPageContainer} 
+                    ispersian={isRTL(editInput) ? 1 : 0} 
+                    dir={isRTL(editInput) ? "rtl" : "ltr"}
+                >
+                    {type == 1 &&  
+                    <>
+                        <p>Are you sure that you want to delete this message?</p>
+                        <div>
+                            <motion.button whileTap={{ scale: 0.9 }} onClick={() => setShowPopup({ show: false, type: 0 })}>Cancel</motion.button>
+                            <motion.button className='delete' whileTap={{ scale: 0.9 }} onClick={deleteMessage}>Delete it</motion.button>
+                        </div>
+                    </>}
+
+                    {type == 2 &&
+                    <>
+                        <textarea value={editInput} onChange={e => setEditInput(e.target.value)} autoFocus/>
+                        <div>
+                            <motion.button whileTap={{ scale: 0.9 }} onClick={() => setShowPopup({ show: false, type: 0 })}>Cancel</motion.button>
+                            <motion.button className='edit' whileTap={{ scale: 0.9 }} onClick={editMessage}>Edit it</motion.button>
+                        </div>
+                    </>}
                 </PopupContainer>
             </PopupPage>
         </>
@@ -69,7 +93,7 @@ const PopupPage = styled(motion.section)`
     background-color: #00000088;
     backdrop-filter: blur(20px) saturate(100%);
     -webkit-backdrop-filter: blur(20px) saturate(100%);
-    z-index: 9;
+    z-index: 999;
 `;
 
 const PopupContainer = styled(motion.div)`
@@ -107,36 +131,35 @@ const PopupContainer = styled(motion.div)`
             margin: 0 .2rem;
             padding: .5rem 1rem;
             font-size: 1rem;
-            font-weight: 500;
+            font-weight: 900;
             font-family: "Outfit", sans-serif;
             cursor: pointer;
             user-select: none;
             transition: background-color .2s;
+            color: #fff;
 
-            &:hover {
-                background-color: #ffffff22;
+            @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
+                &:hover {
+                    background-color: #ffffff33;
+                }
             }
         }
 
-        .edit {
+        .edit, .delete {
             color: #ff0000;
-            font-weight: 900;
-        }
-
-        .cancel {
-            color: #fff;
-            font-weight: 900;
         }
     }
-
+    
     @media (max-width: 768px) {
         padding: 1.5rem;
-    }
 
-    @media (max-width: 768px) {
         textarea {
             font-size: .8rem;
             width: 15rem;
+        }
+
+        p {
+            font-size: .8rem;
         }
 
         div {
@@ -149,4 +172,4 @@ const PopupContainer = styled(motion.div)`
     }
 `;
 
-export default EditPopup;
+export default Popups;

@@ -1,12 +1,12 @@
 import React from 'react';
 
 import Messenger from './components/Messenger';
-import PopUp from './components/PopUp';
+import Modals from './components/Modals';
 
 const App = () => {
     return (
         <>
-            <PopUp />
+            <Modals />
             <Messenger />
         </>
     );

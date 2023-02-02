@@ -4,8 +4,7 @@ import { createPortal } from 'react-dom';
 
 import { isRTL } from '../functions/isRlt';
 
-import DeleteConfirmationPopup from './DeleteConfirmationPopup';
-import EditPopup from './EditPopup';
+import Popups from './Popups';
 
 import { AiFillDelete, AiFillCopy, AiFillEdit } from 'react-icons/ai';
 
@@ -37,12 +36,11 @@ const Message = forwardRef(( props, ref ) => {
     const { message, id, username, messageLength, periorUsername, nextUsername } = props.message;
 
     const [menuShow, setMenuShow] = useState(false);
-    const [deletePopup, setDeletePopup] = useState(false);
-    const [editPopup, setEditPopup] = useState(false);
+    const [showPopup, setShowPopup] = useState({ show: false, type: 0 });
     const [messageStyle, setMessageStyle] = useState("");
 
     const deleteMessage = () => {
-        setDeletePopup(true);
+        setShowPopup({ show: true, type: 1 });
     };
 
     const copyMessage = () => {
@@ -58,7 +56,7 @@ const Message = forwardRef(( props, ref ) => {
     };
 
     const editMessage = () => {
-        setEditPopup(true);
+        setShowPopup({ show: true, type: 2 });
     };
 
     useEffect(() => {
@@ -86,20 +84,20 @@ const Message = forwardRef(( props, ref ) => {
             >
                 <p className='username'>{username}</p>
                 <p className='message'>
-                    {message?.map(item => (
-                        item.link ? <a className='link' href={item.word} target="_blank">{item.word}</a> : `${item.word} `
+                    {message?.map((item, index) => (
+                        item.link ? <a key={index} className='link' href={item.word} target="_blank">{item.word}</a> : `${item.word} `
                     ))}
                 </p>
 
                 <AnimatePresence>
                     {menuShow &&
                     <Menu isuser={username == localStorageUsername ? 1 : 0} key={id} initial='hidden' animate='visible' exit='exit' variants={menuVariants}>
-                        <motion.div className='edit' onClick={() => editMessage()} whileTap={{ scale: 0.8 }} variants={username == localStorageUsername ? menuItemUserVariants : menuItemVariants}>
-                            <i><AiFillEdit /></i>
-                        </motion.div>
-
                         <motion.div className='copy' onClick={() => copyMessage()} whileTap={{ scale: 0.8 }} variants={username == localStorageUsername ? menuItemUserVariants : menuItemVariants}>
                             <i><AiFillCopy /></i>
+                        </motion.div>
+
+                        <motion.div className='edit' onClick={() => editMessage()} whileTap={{ scale: 0.8 }} variants={username == localStorageUsername ? menuItemUserVariants : menuItemVariants}>
+                            <i><AiFillEdit /></i>
                         </motion.div>
 
                         <motion.div className='delete' onClick={() => deleteMessage()} whileTap={{ scale: 0.8 }} variants={username == localStorageUsername ? menuItemUserVariants : menuItemVariants}>
@@ -111,14 +109,13 @@ const Message = forwardRef(( props, ref ) => {
 
             {createPortal(
                 <AnimatePresence exitBeforeEnter>
-                    {deletePopup && <DeleteConfirmationPopup setDeletePopup={setDeletePopup} deletePopup={deletePopup} id={id} />}
-                </AnimatePresence>,
-                document.body
-            )}
-
-            {createPortal(
-                <AnimatePresence exitBeforeEnter>
-                    {editPopup && <EditPopup setEditPopup={setEditPopup} editPopup={editPopup} id={id} message={message} />}
+                    {showPopup.show && 
+                    <Popups 
+                        setShowPopup={setShowPopup}
+                        id={id}
+                        message={message}
+                        type={showPopup.type}
+                    />}
                 </AnimatePresence>,
                 document.body
             )}
@@ -192,7 +189,7 @@ const MessageBox = styled.div`
     @media (max-width: 768px) {
         padding: .5rem .8rem;
         max-width: 70%;
-        background-color: #ffffff1a;
+        background-color: #ffffff17;
         border-radius: ${props => 
             props.isuser ? 
                 props.messageStyle == 0 ? 
@@ -273,7 +270,7 @@ const Menu = styled(motion.div)`
         div {
             margin: 0 .1rem;
             padding: .45rem;
-            background-color: #ffffff18;
+            background-color: #ffffff15;
 
             i {
                 font-size: .9rem;

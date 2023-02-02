@@ -12,7 +12,7 @@ import Loader from './Loader';
 
 import FlipMove from 'react-flip-move';
 
-import { IoSend } from 'react-icons/io5';
+import { IoSend, IoLogoGithub } from 'react-icons/io5';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -59,7 +59,7 @@ const Messenger = () => {
     useEffect(() => {
         if (!loading) {
             messagesEndRef?.current?.scrollIntoView({
-                behavior: "smooth", block: "end"
+                behavior: "smooth", block: "center", inline: "end"
             });
         }
     }, [messages]);
@@ -70,6 +70,9 @@ const Messenger = () => {
                 <MessengerContainer initial='hidden' animate='visible' exit='exit' variants={messengerVariants}>
                     <MessengerTitle>
                         <h1>Group Messenger</h1>
+                        <a href='https://github.com/v-amirrr' target="_blank" rel="noopener noreferror">
+                            <i><IoLogoGithub /></i>
+                        </a>
                     </MessengerTitle>
 
                         <AnimatePresence>
@@ -165,32 +168,67 @@ const MessengerContainer = styled(motion.div)`
 `;
 
 const MessengerTitle = styled.div`
-    width: 100%;
-    text-transform: uppercase;
-    font-size: .7rem;
-    font-weight: 900;
-    color: #88888888;
-    letter-spacing: 2px;
-    word-spacing: 5px;
-    white-space: nowrap;
-    user-select: none;
+    background-color: #ffffff08;
+    backdrop-filter: blur(20px) saturate(120%);
+    -webkit-backdrop-filter: blur(20px) saturate(120%);
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40%;
+    height: 3rem;
+    z-index: 2;
+    position: absolute;
+    top: 1rem;
+    display: none;
+    
+    h1 {
+        text-transform: uppercase;
+        font-size: .9rem;
+        font-weight: 900;
+        color: #88888888;
+        letter-spacing: 2px;
+        word-spacing: 5px;
+        white-space: nowrap;
+        user-select: none;
+    }
+
+    a {
+        position: absolute;
+        right: 1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        i {
+            font-size: 1.5rem;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }   
+    }
+
+    @media (max-width: 768px) {
+        width: 80%;
+    }
 `;
 
 const MessagesContainer = styled.div`
     width: 100%;
-    height: 80%;
+    height: 100%;
     overflow: hidden scroll;
     position: relative;
-    padding: 0 2rem;
+    padding: 1rem 2rem 5rem 2rem;
     scroll-behavior: smooth;
 
     @media (max-width: 800px) {
-        padding: 0 1rem;
+        padding: 5rem 1rem;
     }
 
     @media (max-width: 500px) {
         width: 95vw;
-        padding: 0 .5rem;
+        padding: 5rem .5rem;
     }
 
     /* width */
@@ -212,15 +250,17 @@ const MessagesContainer = styled.div`
 `;
 
 const MessengerInput = styled.div`
-    background-color: #ffffff11;
-    backdrop-filter: blur(10px) saturate(120%);
-    -webkit-backdrop-filter: blur(10px) saturate(120%);
+    background-color: #ffffff08;
+    backdrop-filter: blur(5px) saturate(120%);
+    -webkit-backdrop-filter: blur(20px) saturate(120%);
     border-radius: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-width: 70%;
+    min-width: 40%;
     height: 3rem;
+    position: absolute;
+    bottom: 1rem;
 
     &:disabled {
         cursor: not-allowed;

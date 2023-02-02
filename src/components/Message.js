@@ -218,7 +218,7 @@ const MessageBox = styled.div`
 
     @media (max-width: 768px) {
         padding: .5rem 2.5rem .5rem .8rem;
-        max-width: 70%;
+        max-width: 75%;
         background-color: #ffffff17;
         border-radius: ${props => 
             props.isuser ? 

@@ -49,12 +49,12 @@ body {
     }
 }
 
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
     body {
         background: url("/src/assets/images/bg-mobile.jpg") no-repeat;
         background-size: 100% 100%;
     }
-}
+} */
 
 :any-link {
     text-decoration: none;

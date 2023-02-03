@@ -141,12 +141,12 @@ const MessengerPage = styled.section`
 
 const MessengerContainer = styled(motion.div)`
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     flex-direction: column;
     text-align: center;
     width: 55%;
-    height: 95%;
+    height: 95vh;
     font-family: 'Outfit', sans-serif;
 
     .error-message {
@@ -223,12 +223,12 @@ const MessagesContainer = styled.div`
     scroll-behavior: smooth;
 
     @media (max-width: 800px) {
-        padding: 5rem 1rem;
+        padding: 1rem 2rem 5rem 2rem;
     }
 
     @media (max-width: 500px) {
-        width: 95vw;
-        padding: 5rem .5rem;
+        width: 100vw;
+        padding: 1rem .5rem 5rem .5rem;
     }
 
     /* width */
@@ -251,7 +251,7 @@ const MessagesContainer = styled.div`
 
 const MessengerInput = styled.div`
     background-color: #ffffff08;
-    backdrop-filter: blur(5px) saturate(120%);
+    backdrop-filter: blur(20px) saturate(120%);
     -webkit-backdrop-filter: blur(20px) saturate(120%);
     border-radius: 50px;
     display: flex;
@@ -314,6 +314,10 @@ const MessengerInput = styled.div`
                 color: #ffffff;
             }
         }
+    }
+
+    @media (max-width: 768px) {
+        bottom: -1rem;
     }
 `;
 

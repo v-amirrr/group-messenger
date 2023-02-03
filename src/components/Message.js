@@ -208,18 +208,28 @@ const MessageBox = styled.div`
         position: absolute;
         right: 0;
         bottom: 0;
-        font-size: .55rem;
+        font-size: .5rem;
         font-weight: 300;
-        letter-spacing: .5px;
         color: #ffffff55;
         white-space: nowrap;
-        margin: .4rem .8rem;
+        font-family: sans-serif;
+        margin: ${props => 
+            props.messageStyle == 0 ? 
+            ".6rem .5rem" : 
+            props.messageStyle == 1 ? 
+            ".3rem .5rem" : 
+            props.messageStyle == 2 ? 
+            ".3rem .5rem" : 
+            props.messageStyle == 3 && 
+            ".6rem .5rem"
+        };
+        transform: margin .4s;
     }
 
     @media (max-width: 768px) {
         padding: .5rem 2.5rem .5rem .8rem;
-        max-width: 75%;
-        background-color: #ffffff17;
+        max-width: 80%;
+        background-color: #ffffff10;
         border-radius: ${props => 
             props.isuser ? 
                 props.messageStyle == 0 ? 
@@ -298,16 +308,16 @@ const Menu = styled(motion.div)`
     }
 
     @media (max-width: 768px) {
-        left: ${props => props.isuser ? "-6rem" : "auto"};
-        right: ${props => props.isuser ? "auto" : "-2rem"};
+        left: ${props => props.isuser ? "-4.8rem" : "auto"};
+        right: ${props => props.isuser ? "auto" : "-1.6rem"};
 
         div {
-            margin: 0 .1rem;
-            padding: .45rem;
+            margin: 0 .08rem;
+            padding: .35rem;
             background-color: #ffffff15;
 
             i {
-                font-size: .9rem;
+                font-size: .7rem;
             }
         }
     }

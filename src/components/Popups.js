@@ -60,6 +60,16 @@ const Popups = ({ type, setShowPopup, message, id }) => {
         }
     };
 
+    const pressEnter = e => {
+        if (e.key == "Enter") {
+            if (type == 1) {
+                deleteMessage();
+            } else if (type == 2) {
+                editMessage();
+            }
+        }
+    };
+
     const popupPage = useRef();
 
     return (
@@ -70,13 +80,14 @@ const Popups = ({ type, setShowPopup, message, id }) => {
                     ispersian={isRTL(editInput) ? 1 : 0}
                     dir={isRTL(editInput) ? "rtl" : "ltr"}
                     ref={popupPage}
+                    onKeyUp={e => pressEnter(e)}
                 >
                     {type == 1 &&  
                     <>
                         <p>Are you sure that you want to delete this message?</p>
                         <div>
                             <motion.button whileTap={{ scale: 0.9 }} onClick={() => setShowPopup({ show: false, type: 0 })}>Cancel</motion.button>
-                            <motion.button className='delete' whileTap={{ scale: 0.9 }} onClick={deleteMessage}>Delete it</motion.button>
+                            <motion.button className='delete' whileTap={{ scale: 0.9 }} onClick={deleteMessage} autoFocus>Delete it</motion.button>
                         </div>
                     </>}
 

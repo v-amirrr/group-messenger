@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import { db } from '../config/firebase';
 import { doc, deleteDoc, updateDoc } from "firebase/firestore";
@@ -54,13 +54,22 @@ const Popups = ({ type, setShowPopup, message, id }) => {
         }
     };
 
+    const closePopup = e => {
+        if (!popupPage.current.contains(e.target)) {
+            setShowPopup({ show: false, type: 0 });
+        }
+    };
+
+    const popupPage = useRef();
+
     return (
         <>
-            <PopupPage initial='hidden' animate='visible' exit='exit' variants={popupPageVariants}>
+            <PopupPage initial='hidden' animate='visible' exit='exit' variants={popupPageVariants} onClick={e => closePopup(e)}>
                 <PopupContainer 
-                    variants={popupPageContainer} 
-                    ispersian={isRTL(editInput) ? 1 : 0} 
+                    variants={popupPageContainer}
+                    ispersian={isRTL(editInput) ? 1 : 0}
                     dir={isRTL(editInput) ? "rtl" : "ltr"}
+                    ref={popupPage}
                 >
                     {type == 1 &&  
                     <>
@@ -97,7 +106,7 @@ const PopupPage = styled(motion.section)`
     background-color: #00000088;
     backdrop-filter: blur(20px) saturate(100%);
     -webkit-backdrop-filter: blur(20px) saturate(100%);
-    z-index: 999;
+    z-index: 9;
 `;
 
 const PopupContainer = styled(motion.div)`

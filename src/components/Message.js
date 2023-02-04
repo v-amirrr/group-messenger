@@ -76,8 +76,15 @@ const Message = forwardRef(( props, ref ) => {
         }
     }, [periorUsername, nextUsername]);
 
-    let total_miliseconds, messageTime;
+    useEffect(() => {
+        if (!showPopup.show && showPopup.type) {
+            setTimeout(() => {
+                setShowPopup(prevState => ({ ...prevState, show: true }));
+            }, 300);
+        }
+    }, [showPopup]);
 
+    let total_miliseconds, messageTime;
     if (time) {
         total_miliseconds = (time.seconds+(time.nanoseconds)*0.00000001)*1000;
         messageTime = new Date(total_miliseconds);
@@ -209,19 +216,21 @@ const MessageBox = styled.div`
         right: 0;
         bottom: 0;
         font-size: .5rem;
-        font-weight: 300;
+        font-weight: 500;
+        letter-spacing: .5px;
         color: #ffffff55;
         white-space: nowrap;
-        font-family: sans-serif;
         margin: ${props => 
-            props.messageStyle == 0 ? 
-            ".6rem .5rem" : 
-            props.messageStyle == 1 ? 
-            ".3rem .5rem" : 
-            props.messageStyle == 2 ? 
-            ".3rem .5rem" : 
-            props.messageStyle == 3 && 
-            ".6rem .5rem"
+            props.isuser ? 
+                props.messageStyle == 0 ? 
+                ".6rem .5rem" : 
+                props.messageStyle == 1 ? 
+                ".3rem .5rem" : 
+                props.messageStyle == 2 ? 
+                ".3rem .5rem" : 
+                props.messageStyle == 3 && 
+                ".6rem .5rem" :
+            ".3rem .8rem"
         };
         transform: margin .4s;
     }

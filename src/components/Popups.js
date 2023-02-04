@@ -44,10 +44,14 @@ const Popups = ({ type, setShowPopup, message, id }) => {
 
     const editMessage = () => {
         const docRef = doc(db, "messages", id);
-        updateDoc(docRef, {
-            message: editInput,
-        });
-        setShowPopup({ show: false, type: 0 });
+        if (editInput) {
+            updateDoc(docRef, {
+                message: editInput,
+            });
+            setShowPopup({ show: false, type: 0 });
+        } else {
+            setShowPopup({ show: false, type: 1 });
+        }
     };
 
     return (

@@ -58,9 +58,11 @@ const Messenger = () => {
 
     useEffect(() => {
         if (!loading) {
-            messagesEndRef?.current?.scrollIntoView({
-                behavior: "smooth", block: "center", inline: "end"
-            });
+            setTimeout(() => {
+                messagesEndRef?.current?.scrollIntoView({
+                    behavior: "smooth", block: "center", inline: "end"
+                });
+            }, 500);
         }
     }, [messages]);
 
@@ -87,7 +89,7 @@ const Messenger = () => {
                                     {error}
                                     </motion.p>
                                 :
-                                <MessagesContainer ref={messagesContainerRef} key="messages">
+                                <MessagesContainer ref={messagesContainerRef} key="messages" initial='hidden' animate='visible' exit='exit' variants={messengerVariants}>
                                     <FlipMove>
                                         {messages?.map((message, index) => (
                                             <Message 
@@ -146,7 +148,7 @@ const MessengerContainer = styled(motion.div)`
     flex-direction: column;
     text-align: center;
     width: 55%;
-    height: 95vh;
+    height: 98vh;
     font-family: 'Outfit', sans-serif;
 
     .error-message {
@@ -168,8 +170,8 @@ const MessengerContainer = styled(motion.div)`
 `;
 
 const MessengerTitle = styled.div`
-    background-color: #ffffff08;
-    backdrop-filter: blur(20px) saturate(120%);
+    background-color: #00000099;
+    backdrop-filter: blur(5px) saturate(100%);
     -webkit-backdrop-filter: blur(20px) saturate(120%);
     border-radius: 50px;
     display: flex;
@@ -228,7 +230,7 @@ const MessagesContainer = styled.div`
 
     @media (max-width: 500px) {
         width: 100vw;
-        padding: 1rem .5rem 5rem .5rem;
+        padding: 1rem 1rem 5rem 1rem;
     }
 
     /* width */
@@ -251,7 +253,7 @@ const MessagesContainer = styled.div`
 
 const MessengerInput = styled.div`
     background-color: #ffffff08;
-    backdrop-filter: blur(20px) saturate(120%);
+    backdrop-filter: blur(5px) saturate(100%);
     -webkit-backdrop-filter: blur(20px) saturate(120%);
     border-radius: 50px;
     display: flex;

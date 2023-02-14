@@ -24,7 +24,7 @@ const Messenger = () => {
                     <AnimatePresence>
                         {loading ? <Loader key="loader" /> :
                         error ? <ErrorBox errorMessage={error} /> :
-                        !loading && !error ? <GroupChat messages={messages} loading={loading} /> : ""}
+                        !loading && !error ? <GroupChat /> : ""}
                     </AnimatePresence>
                 </MessengerContainer>
             </MessengerPage>

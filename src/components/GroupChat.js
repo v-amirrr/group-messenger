@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { useSelector } from 'react-redux';
 import Message from './Message';
 import MessengerInput from './MessengerInput';
 import FlipMove from 'react-flip-move';
@@ -11,7 +12,9 @@ const groupChatVariants = {
     exit: { opacity: 0, scaleX: 0.8, transition: { duration: 0.4, type: 'tween' } }
 };
 
-const GroupChat = ({ messages, loading }) => {
+const GroupChat = () => {
+
+    const { messages, loading, localUsername } = useSelector(store => store.messagesStore);
 
     const messagesContainerRef = useRef();
     const messagesEndRef = useRef();
@@ -34,12 +37,13 @@ const GroupChat = ({ messages, loading }) => {
                         <Message 
                             key={message.id} 
                             message={{
-                                username: message.username,
+                                messageUsername: message.username,
                                 id: message.id,
                                 message: message.message,
                                 periorUsername: index != 0 ? messages[index-1].username : false, 
                                 nextUsername: index != messages.length-1 ? messages[index+1].username : false,
                                 time: message.time,
+                                localUsername: localUsername,
                             }}
                         />
                     ))}

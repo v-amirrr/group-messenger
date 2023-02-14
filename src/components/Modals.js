@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-
-import { useSelector } from 'react-redux';
-
+import { useSelector, useDispatch } from 'react-redux';
 import { isRTL } from '../functions/isRlt';
-
+import { setLocalUsername } from '../redux/messagesSlice';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -26,6 +24,8 @@ const sameNameVariants = {
 };
 
 const Modals = () => {
+
+    const dispatch = useDispatch();
 
     const [warningPopup, setWarningPopup] = useState(!!sessionStorage.getItem("warning"));
     const [usernamePopup, setUsernamePopup] = useState(!!localStorage.getItem("username"));
@@ -55,6 +55,7 @@ const Modals = () => {
 
             if (!sameName) {
                 localStorage.setItem("username", JSON.stringify(nameInput));
+                dispatch(setLocalUsername(nameInput));
                 setUsernamePopup(!!localStorage.getItem("username"));
             } else {
                 setSameNameShow(true);

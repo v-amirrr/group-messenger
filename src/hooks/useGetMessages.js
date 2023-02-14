@@ -1,9 +1,7 @@
-import { db } from "../config/firebase";
-import { collection, onSnapshot, query, orderBy, now, serverTimestamp } from "firebase/firestore";
-
 import { useDispatch } from "react-redux";
-import { setMessages, setError, setLoadingOn, setLoadingOff } from "../redux/messagesSlice";
-
+import { db } from "../config/firebase";
+import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
+import { setMessages, setError, setLoadingOn, setLoadingOff, setLocalUsername } from "../redux/messagesSlice";
 import { isURL } from "../functions/isURL";
 
 export const useGetMessages = () => {
@@ -23,7 +21,7 @@ export const useGetMessages = () => {
             // getting the messages from Firebase
             snapshot.docs.forEach(doc => {
                 messages.push({
-                    username: JSON.parse(doc.data().username),
+                    username: doc.data().username,
                     message: doc.data().message.split(" "),
                     time: doc.data().time,
                     id: doc.id,
@@ -51,8 +49,13 @@ export const useGetMessages = () => {
         }, (error) => {
             dispatch(setError(error));
         });
+
+        const localStorageUsername = JSON.parse(localStorage.getItem("username"));
+        if (localStorageUsername) {
+            dispatch(setLocalUsername(localStorageUsername));
+        }
+
     };
 
     return { getMessages };
-
 };

@@ -71,18 +71,18 @@ const GroupChatContainer = styled(motion.div)`
 
     /* width */
     ::-webkit-scrollbar {
-        width: .2rem;
+        width: .5rem;
     }
 
     /* Track */
     ::-webkit-scrollbar-track {
         border-radius: 50px;
-        background: #ffffff08;
+        background: #ffffff04;
     }
     
     /* Handle */
     ::-webkit-scrollbar-thumb {
-        background: #ffffff0c;
+        background: #ffffff08;
         border-radius: 50px;
     }
 `;

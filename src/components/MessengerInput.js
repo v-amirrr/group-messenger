@@ -1,35 +1,23 @@
-import React, { useState, useRef  } from 'react';
+import React, { useState, useRef } from 'react';
+import useSendMessage from '../hooks/useSendMessage';
+import { isRTL } from '../functions/isRlt';
 import { useSelector } from 'react-redux';
-import { db } from '../config/firebase';
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { IoSend } from 'react-icons/io5';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
 const MessengerInput = () => {
 
-    const { error } = useSelector(store => store.messagesStore);
-
-    const firebaseRef = collection(db, 'messages');
-    const username = localStorage.getItem("username");
-
+    const [inputText, setInputText] = useState("");
     const inputRef = useRef();
 
-    const [input, setInput] = useState("");
+    const { error, localUsername } = useSelector(store => store.messagesStore);
+    const { sendMessage } = useSendMessage();
 
-    const sendMessage = e => {
+    const inputHandler = e => {
         e.preventDefault();
-
-        addDoc(firebaseRef, {
-            message: input,
-            username: username,
-            time: serverTimestamp(),
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-
-        setInput("");
+        sendMessage(inputText, localUsername);
+        setInputText("");
     };
 
     return (
@@ -39,15 +27,18 @@ const MessengerInput = () => {
                     <input
                         className='messenger-input'
                         type="text"
-                        value={input}
-                        onChange={(e) => setInput(e.target.value)}
+                        value={inputText}
+                        onChange={(e) => setInputText(e.target.value)}
                         placeholder="Send a Message..."
                         autoFocus
                         ref={inputRef}
                         dir="auto"
-                        disabled={!!error}
+                        disabled={!!error || !localUsername ? true: false}
+                        isrlt={isRTL(inputText) ? 1 : 0}
                     />
-                    <motion.button whileTap={input && { scale: 0.5 }} type="submit" className='messenger-submit' disabled={!input} onClick={sendMessage}><IoSend /></motion.button>
+                    <motion.button whileTap={inputText && { scale: 0.5 }} type="submit" className='messenger-submit' disabled={!inputText} onClick={inputHandler}>
+                        <IoSend />
+                    </motion.button>
                 </form>
             </MessengerInputContainer>
         </>
@@ -84,7 +75,7 @@ const MessengerInputContainer = styled.div`
         border: none;
         padding: .8rem;
         background-color: #00000000;
-        font-family: ${props => props.isPersian ? "Vazirmatn" : "Outfit"}, "Vazirmatn", sans-serif;
+        font-family: ${props => props.isrlt ? "Vazirmatn" : "Outfit"}, "Vazirmatn", sans-serif;
         font-weight: 200;
         font-size: 1rem;
         width: 100%;

@@ -1,12 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-
-import { db } from '../config/firebase';
-import { doc, deleteDoc, updateDoc } from "firebase/firestore";
-
 import { isRTL } from '../functions/isRlt';
-
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import useMessageOptions from '../hooks/useMessageOptions';
 
 const popupPageVariants = {
     hidden: { opacity: 0 },
@@ -20,61 +16,42 @@ const popupPageContainer = {
     exit: { opacity: 0, scale: 0.9, transition: { duration: 0.2, type: 'tween' } }
 };
 
-const Popups = ({ type, setShowPopup, message, id }) => {
+const Popups = ({ type, message, id }) => {
 
+    const popupPage = useRef();
     const [editInput, setEditInput] = useState("");
 
-    useEffect(() => {
-        if (type == 2) {
-            let messageText = [];
-    
-            message.map(item => {
-                messageText.push(item.word);
-            });
-    
-            setEditInput(messageText.join(" "));
-        }
-    }, []);
+    const { deleteMessage, editMessage, closePopup } = useMessageOptions();
 
-    const deleteMessage = () => {
-        const docRef = doc(db, "messages", id);
-        deleteDoc(docRef);
-        setShowPopup({ show: false, type: 0 });
-    };
-
-    const editMessage = () => {
-        const docRef = doc(db, "messages", id);
-        if (editInput) {
-            updateDoc(docRef, {
-                message: editInput,
-            });
-            setShowPopup({ show: false, type: 0 });
-        } else {
-            setShowPopup({ show: false, type: 1 });
-        }
-    };
-
-    const closePopup = e => {
+    const closePopupByTap = e => {
         if (!popupPage.current.contains(e.target)) {
-            setShowPopup({ show: false, type: 0 });
+            closePopup();
         }
     };
 
     const pressEnter = e => {
         if (e.key == "Enter") {
             if (type == 1) {
-                deleteMessage();
+                deleteMessage(id, 2);
             } else if (type == 2) {
-                editMessage();
+                editMessage(id, 2, editInput);
             }
         }
     };
 
-    const popupPage = useRef();
+    useEffect(() => {
+        if (type == 2) {
+            let messageText = [];
+            message.map(item => {
+                messageText.push(item.word);
+            });
+            setEditInput(messageText.join(" "));
+        }
+    }, []);
 
     return (
         <>
-            <PopupPage initial='hidden' animate='visible' exit='exit' variants={popupPageVariants} onClick={e => closePopup(e)}>
+            <PopupPage initial='hidden' animate='visible' exit='exit' variants={popupPageVariants} onClick={e => closePopupByTap(e)}>
                 <PopupContainer 
                     variants={popupPageContainer}
                     ispersian={isRTL(editInput) ? 1 : 0}
@@ -86,8 +63,8 @@ const Popups = ({ type, setShowPopup, message, id }) => {
                     <>
                         <p>Are you sure that you want to delete this message?</p>
                         <div>
-                            <motion.button whileTap={{ scale: 0.9 }} onClick={() => setShowPopup({ show: false, type: 0 })}>Cancel</motion.button>
-                            <motion.button className='delete' whileTap={{ scale: 0.9 }} onClick={deleteMessage} autoFocus>Delete it</motion.button>
+                            <motion.button whileTap={{ scale: 0.9 }} onClick={closePopup}>Cancel</motion.button>
+                            <motion.button className='delete' whileTap={{ scale: 0.9 }} onClick={() => deleteMessage(id, 2)} autoFocus>Delete it</motion.button>
                         </div>
                     </>}
 
@@ -95,8 +72,8 @@ const Popups = ({ type, setShowPopup, message, id }) => {
                     <>
                         <textarea value={editInput} onChange={e => setEditInput(e.target.value)} autoFocus/>
                         <div>
-                            <motion.button whileTap={{ scale: 0.9 }} onClick={() => setShowPopup({ show: false, type: 0 })}>Cancel</motion.button>
-                            <motion.button className='edit' whileTap={{ scale: 0.9 }} onClick={editMessage}>Edit it</motion.button>
+                            <motion.button whileTap={{ scale: 0.9 }} onClick={closePopup}>Cancel</motion.button>
+                            <motion.button className='edit' whileTap={{ scale: 0.9 }} onClick={() => editMessage(id, 2, editInput)}>Edit it</motion.button>
                         </div>
                     </>}
                 </PopupContainer>

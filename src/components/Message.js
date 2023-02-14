@@ -1,8 +1,10 @@
 import React, { forwardRef, useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { isRTL } from '../functions/isRlt';
 import Popups from './Popups';
 import MessageOptions from './MessageOptions';
+import { setPopup } from '../redux/messagesSlice';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -13,10 +15,12 @@ const timeVariants = {
 
 const Message = forwardRef(( props, ref ) => {
 
+    const dispatch = useDispatch();
+    const { popup } = useSelector(store => store.messagesStore);
+    
     const { message, id, messageUsername, periorUsername, nextUsername, time, localUsername } = props.message;
 
     const [menuShow, setMenuShow] = useState(false);
-    const [showPopup, setShowPopup] = useState({ show: false, type: 0 });
     const [messageStyle, setMessageStyle] = useState("");
 
     useEffect(() => {
@@ -32,12 +36,12 @@ const Message = forwardRef(( props, ref ) => {
     }, [periorUsername, nextUsername]);
 
     useEffect(() => {
-        if (!showPopup.show && showPopup.type) {
+        if (!popup.show && popup.type) {
             setTimeout(() => {
-                setShowPopup(prevState => ({ ...prevState, show: true }));
+                dispatch(setPopup({ show: true, type: popup.type }));
             }, 300);
         }
-    }, [showPopup]);
+    }, [popup]);
 
     let total_miliseconds, messageTime;
     if (time) {
@@ -75,21 +79,19 @@ const Message = forwardRef(( props, ref ) => {
                         messageUsername={messageUsername} 
                         localUsername={localUsername} 
                         id={id} 
-                        message={message} 
-                        setShowPopup={setShowPopup} 
+                        message={message}
                     /> : ""}
                 </AnimatePresence>
             </MessageBox>
 
             {createPortal(
                 <AnimatePresence exitBeforeEnter>
-                    {showPopup.show && 
-                    <Popups 
-                        setShowPopup={setShowPopup}
+                    {popup.show && popup.id == id ?
+                    <Popups
                         id={id}
                         message={message}
-                        type={showPopup.type}
-                    />}
+                        type={popup.type}
+                    /> : ""}
                 </AnimatePresence>,
                 document.body
             )}

@@ -43,12 +43,6 @@ const Message = forwardRef(( props, ref ) => {
         }
     }, [popup]);
 
-    let total_miliseconds, messageTime;
-    if (time) {
-        total_miliseconds = (time.seconds+(time.nanoseconds)*0.00000001)*1000;
-        messageTime = new Date(total_miliseconds);
-    }
-
     return (
         <>
             <MessageBox 
@@ -67,10 +61,14 @@ const Message = forwardRef(( props, ref ) => {
                 </p>
 
                 <AnimatePresence>
-                    {time &&
+                    {time.hour != null && time.minute != null ?
                     <motion.span className='time' initial='hidden' animate='visible' exit='exit' variants={timeVariants}>
-                        {messageTime.getHours() < 10 ? `0${messageTime.getHours()}` : messageTime.getHours()}:{messageTime.getMinutes() < 10 ? `0${messageTime.getMinutes()}` : messageTime.getMinutes()}
-                    </motion.span>}
+                        {time.hour < 10 ? 
+                        `0${time.hour}` : 
+                        time.hour}:{time.minute < 10 ? 
+                        `0${time.minute}` : 
+                        time.minute}
+                    </motion.span> : ""}
                 </AnimatePresence>
 
                 <AnimatePresence>

@@ -29,13 +29,23 @@ export const useGetMessages = () => {
             });
 
             // detecting the links in the messages
-            let modifiedMessages = messages?.map(item => {
+            let modifiedMessages = messages?.map((item, index) => {
                 return {
                     ...item,
                     message: item.message.map((word) => {
                         let checkLink = isURL(word);
                         return { word: checkLink.newWord, link: checkLink.isLink };
                     }),
+                    time: {
+                        year: item.time?.toDate()?.getFullYear(),
+                        month: item.time?.toDate()?.getMonth() + 1,
+                        day: item.time?.toDate()?.getDate(),
+                        hour: item.time?.toDate()?.getHours(),
+                        minute: item.time?.toDate()?.getMinutes(),
+                        second: item.time?.toDate()?.getSeconds(),
+                    },
+                    periorUsername: index != 0 ? messages[index-1].username : false, 
+                    nextUsername: index != messages.length-1 ? messages[index+1].username : false,
                 }; 
             });
 

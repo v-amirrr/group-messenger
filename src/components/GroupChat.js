@@ -33,15 +33,15 @@ const GroupChat = () => {
         <>
             <GroupChatContainer ref={messagesContainerRef} initial='hidden' animate='visible' exit='exit' variants={groupChatVariants}>
                 <FlipMove>
-                    {messages?.map((message, index) => (
+                    {messages?.map(message => (
                         <Message 
                             key={message.id} 
                             message={{
                                 messageUsername: message.username,
                                 id: message.id,
                                 message: message.message,
-                                periorUsername: index != 0 ? messages[index-1].username : false, 
-                                nextUsername: index != messages.length-1 ? messages[index+1].username : false,
+                                periorUsername: message.periorUsername, 
+                                nextUsername: message.nextUsername,
                                 time: message.time,
                                 localUsername: localUsername,
                             }}

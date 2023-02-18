@@ -1,10 +1,11 @@
 import React, { forwardRef, useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { setPopup } from '../redux/messagesSlice';
 import { isRTL } from '../functions/isRlt';
 import Popups from './Popups';
 import MessageOptions from './MessageOptions';
-import { setPopup } from '../redux/messagesSlice';
+import ChatDate from './ChatDate';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -18,22 +19,44 @@ const Message = forwardRef(( props, ref ) => {
     const dispatch = useDispatch();
     const { popup } = useSelector(store => store.messagesStore);
     
-    const { message, id, messageUsername, periorUsername, nextUsername, time, localUsername } = props.message;
+    const { message, id, messageUsername, periorUsername, nextUsername, time, localUsername, priorDifferentDate, nextDifferentDate } = props.message;
 
     const [menuShow, setMenuShow] = useState(false);
-    const [messageStyle, setMessageStyle] = useState("");
+    const [messagePosition, setMessagePosition] = useState("");
 
     useEffect(() => {
-        if (periorUsername == messageUsername && nextUsername == messageUsername) {
-            setMessageStyle(2);
-        } else if (periorUsername != messageUsername && nextUsername != messageUsername) {
-            setMessageStyle(0);
-        } else if (periorUsername != messageUsername && nextUsername == messageUsername) {
-            setMessageStyle(1);
-        } else if (periorUsername == messageUsername && nextUsername != messageUsername) {
-            setMessageStyle(3);
+        if (priorDifferentDate && nextDifferentDate) {
+            setMessagePosition(0);
         }
-    }, [periorUsername, nextUsername]);
+
+        if (priorDifferentDate && !nextDifferentDate) {
+            if (nextUsername == messageUsername) {
+                setMessagePosition(1);
+            } else {
+                setMessagePosition(0);
+            }
+        }
+
+        if (!priorDifferentDate && nextDifferentDate) {
+            if (periorUsername == messageUsername) {
+                setMessagePosition(3);
+            } else {
+                setMessagePosition(0);
+            }
+        }
+
+        if (!priorDifferentDate && !nextDifferentDate) {
+            if (periorUsername != messageUsername && nextUsername != messageUsername) {
+                setMessagePosition(0);
+            } else if (periorUsername != messageUsername && nextUsername == messageUsername) {
+                setMessagePosition(1);
+            } else if (periorUsername == messageUsername && nextUsername == messageUsername) {
+                setMessagePosition(2);
+            } else if (periorUsername == messageUsername && nextUsername != messageUsername) {
+                setMessagePosition(3);
+            }
+        }
+    }, [nextUsername, periorUsername, priorDifferentDate, nextDifferentDate]);
 
     useEffect(() => {
         if (!popup.show && popup.type) {
@@ -45,12 +68,14 @@ const Message = forwardRef(( props, ref ) => {
 
     return (
         <>
+            {priorDifferentDate ? <ChatDate dateObj={time} /> : ""}
+
             <MessageBox 
                 key={id} 
                 ref={ref} 
                 isuser={messageUsername == localUsername ? 1 : 0} 
                 ispersian={isRTL(message) ? 1 : 0} 
-                messageStyle={messageStyle} 
+                messagePosition={messagePosition} 
                 onClick={() => setMenuShow(prevState => !prevState)}
             >
                 <p className='username'>{messageUsername}</p>
@@ -102,36 +127,36 @@ const MessageBox = styled.div`
     align-items: center;
     background-color: #ffffff0c;
     margin: ${props => 
-        props.messageStyle == 0 ? 
+        props.messagePosition == 0 ? 
         ".4rem 0" : 
-        props.messageStyle == 1 ? 
+        props.messagePosition == 1 ? 
         ".4rem 0 .1rem 0" : 
-        props.messageStyle == 2 ? 
+        props.messagePosition == 2 ? 
         ".1rem 0" : 
-        props.messageStyle == 3 && 
+        props.messagePosition == 3 && 
         ".1rem 0 .4rem 0"
     };
-    margin-left: ${props => props.isuser && "auto"};
-    padding: .5rem 2.8rem .5rem 1rem;
     border-radius: ${props => 
         props.isuser ? 
-            props.messageStyle == 0 ? 
+            props.messagePosition == 0 ? 
             "30px" : 
-            props.messageStyle == 1 ? 
+            props.messagePosition == 1 ? 
             "30px 30px 5px 30px" : 
-            props.messageStyle == 2 ? 
+            props.messagePosition == 2 ? 
             "30px 5px 5px 30px" : 
-            props.messageStyle == 3 && 
+            props.messagePosition == 3 && 
             "30px 5px 30px 30px" :
-        props.messageStyle == 0 ? 
+        props.messagePosition == 0 ? 
             "30px" : 
-            props.messageStyle == 1 ? 
+            props.messagePosition == 1 ? 
             "30px 30px 30px 5px" : 
-            props.messageStyle == 2 ? 
+            props.messagePosition == 2 ? 
             "5px 30px 30px 5px" : 
-            props.messageStyle == 3 && 
+            props.messagePosition == 3 && 
             "5px 30px 30px 30px"
     };
+    margin-left: ${props => props.isuser && "auto"};
+    padding: .5rem 2.8rem .5rem .8rem;
     width: fit-content;
     max-width: 65%;
     backdrop-filter: blur(5px) saturate(100%);
@@ -171,13 +196,13 @@ const MessageBox = styled.div`
         white-space: nowrap;
         margin: ${props => 
             props.isuser ? 
-                props.messageStyle == 0 ? 
+                props.messagePosition == 0 ? 
                 ".6rem .5rem" : 
-                props.messageStyle == 1 ? 
+                props.messagePosition == 1 ? 
                 ".3rem .5rem" : 
-                props.messageStyle == 2 ? 
+                props.messagePosition == 2 ? 
                 ".3rem .5rem" : 
-                props.messageStyle == 3 && 
+                props.messagePosition == 3 && 
                 ".6rem .5rem" :
             ".3rem .8rem"
         };
@@ -190,21 +215,21 @@ const MessageBox = styled.div`
         background-color: #ffffff10;
         border-radius: ${props => 
             props.isuser ? 
-                props.messageStyle == 0 ? 
+                props.messagePosition == 0 ? 
                 "20px" : 
-                props.messageStyle == 1 ? 
+                props.messagePosition == 1 ? 
                 "20px 20px 5px 20px" : 
-                props.messageStyle == 2 ? 
+                props.messagePosition == 2 ? 
                 "20px 5px 5px 20px" : 
-                props.messageStyle == 3 && 
+                props.messagePosition == 3 && 
                 "20px 5px 20px 20px" :
-            props.messageStyle == 0 ? 
+            props.messagePosition == 0 ? 
                 "20px" : 
-                props.messageStyle == 1 ? 
+                props.messagePosition == 1 ? 
                 "20px 20px 20px 5px" : 
-                props.messageStyle == 2 ? 
+                props.messagePosition == 2 ? 
                 "5px 20px 20px 5px" : 
-                props.messageStyle == 3 && 
+                props.messagePosition == 3 && 
                 "5px 20px 20px 20px"
         };
 

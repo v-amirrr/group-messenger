@@ -43,19 +43,6 @@ body {
     background-size: 100% 120%;
 }
 
-@media (hover: hover) and (pointer: fine) and (min-width: 745px) {
-    html {
-        overflow: hidden;
-    }
-}
-
-/* @media (max-width: 768px) {
-    body {
-        background: url("/src/assets/images/bg-mobile.jpg") no-repeat;
-        background-size: 100% 100%;
-    }
-} */
-
 :any-link {
     text-decoration: none;
     cursor: pointer;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { isRTL } from '../functions/isRlt';
 import { setLocalUsername } from '../redux/messagesSlice';
@@ -29,6 +29,7 @@ const Modals = () => {
 
     const [warningPopup, setWarningPopup] = useState(!!sessionStorage.getItem("warning"));
     const [usernamePopup, setUsernamePopup] = useState(!!localStorage.getItem("username"));
+    const [warningModalCheckbox, setWarningModalCheckbox] = useState(false);
     const [sameNameShow, setSameNameShow] = useState(false);
 
     const [nameInput, setNameInput] = useState("");
@@ -41,6 +42,9 @@ const Modals = () => {
         e.preventDefault();
         sessionStorage.setItem("warning", "true");
         setWarningPopup(!!sessionStorage.getItem("warning"));
+        if (warningModalCheckbox) {
+            localStorage.setItem("warning-check", "true");
+        }
     };
     
     const getNameamePopUpSubmitHandler = e => {
@@ -68,6 +72,12 @@ const Modals = () => {
         }
     };
 
+    useEffect(() => {
+        if (!!localStorage.getItem("warning-check")) {
+            setWarningPopup(true);
+        }
+    }, []);
+
     return (
         <>
             <AnimatePresence>
@@ -83,6 +93,10 @@ const Modals = () => {
                                     <p className='modal-text'>
                                         In this app you can send a message and also you can delete any of your messages. For deleting a message just click on the message and the delete icon will appear. So feel free to send your messages.
                                     </p>
+                                    <div className='modal-warning-checkbox' onClick={() => setWarningModalCheckbox(!warningModalCheckbox)}>
+                                        <p>Don't show this again. </p>
+                                        <input type="checkbox" checked={warningModalCheckbox} onChange={() => setWarningModalCheckbox(!warningModalCheckbox)} />
+                                    </div>
                                     <motion.button type="submit" className='modal-button' onClick={warningPopUpSubmitHandler}>let's go</motion.button>
                                 </ModalContainer> :
                             warningPopup && !usernamePopup ?
@@ -152,6 +166,30 @@ const ModalContainer = styled(motion.div)`
         margin: 1rem 0;
         color: #ff0000;
         font-weight: 400;
+    }
+
+    .modal-warning-checkbox {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row-reverse;
+        margin: .5rem;
+        user-select: none;
+        cursor: pointer;
+
+        p {
+            font-weight: 200;
+            font-size: .8rem;
+        }
+
+        input {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: .8rem;
+            height: .8rem;
+            margin: 0 .4rem;
+        }
     }
     
     .modal-text {
@@ -241,6 +279,10 @@ const ModalContainer = styled(motion.div)`
         .modal-text {
             font-size: .6rem;
             width: 80%;
+        }
+
+        .modal-button {
+            width: 70%;
         }
     }
 `;

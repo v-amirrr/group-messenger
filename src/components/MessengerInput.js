@@ -111,10 +111,6 @@ const MessengerInputContainer = styled.div`
             }
         }
     }
-
-    @media (max-width: 768px) {
-        bottom: -1rem;
-    }
 `;
 
 

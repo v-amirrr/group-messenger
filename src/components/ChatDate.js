@@ -23,10 +23,11 @@ const ChatDate = ({ dateObj }) => {
 };
 
 const ChatDateContainer = styled(motion.div)`
-    padding: .35rem .5rem;
-    background-color: #ffffff10;
+    padding: .3rem .5rem;
+    background-color: #ffffff15;
     border-radius: 50px;
     font-size: .5rem;
+    font-weight: 500;
     width: fit-content;
     margin: .8rem auto;
     user-select: none;
@@ -35,8 +36,8 @@ const ChatDateContainer = styled(motion.div)`
     align-items: center;
 
     .month {
-        letter-spacing: .5px;
-        margin: 0 .15rem 0 .2rem;
+        letter-spacing: .8px;
+        margin: 0 .2rem 0 .25rem;
     }
 
     @media (max-width: 500px) {

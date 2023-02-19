@@ -39,8 +39,6 @@ html {
 body {
     font-family: 'Outfit', sans-serif;
     color: #fff;
-    background: url("/src/assets/images/bg-desktop.jpg") no-repeat;
-    background-size: 100% 120%;
 }
 
 :any-link {

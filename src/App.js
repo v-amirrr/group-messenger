@@ -22,7 +22,7 @@ const Background = styled.div`
     left: 0;
     z-index: -1;
     filter: blur(10px);
-    
+
     img {
         object-fit: cover;
         width: 100vw;

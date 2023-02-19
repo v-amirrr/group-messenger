@@ -14,32 +14,35 @@ const MessengerInput = () => {
     const { error, localUsername } = useSelector(store => store.messagesStore);
     const { sendMessage } = useSendMessage();
 
-    const inputHandler = e => {
-        e.preventDefault();
+    const inputSubmitHandler = () => {
         sendMessage(inputText, localUsername);
         setInputText("");
+    };
+
+    const inputKeyHandler = e => {
+        if (e.keyCode == 13 && !e.shiftKey) {
+            inputSubmitHandler();
+        }
     };
 
     return (
         <>
             <MessengerInputContainer>
-                <form>
-                    <input
-                        className='messenger-input'
-                        type="text"
-                        value={inputText}
-                        onChange={(e) => setInputText(e.target.value)}
-                        placeholder="Send a Message..."
-                        autoFocus
-                        ref={inputRef}
-                        dir="auto"
-                        disabled={!!error || !localUsername ? true: false}
-                        isrlt={isRTL(inputText) ? 1 : 0}
-                    />
-                    <motion.button whileTap={inputText && { scale: 0.5 }} type="submit" className='messenger-submit' disabled={!inputText} onClick={inputHandler}>
-                        <IoSend />
-                    </motion.button>
-                </form>
+                <textarea
+                    className='messenger-input'
+                    placeholder="Send a Message..."
+                    value={inputText}
+                    onChange={(e) => setInputText(e.target.value)}
+                    onKeyUp={e => inputKeyHandler(e)}
+                    disabled={!!error || !localUsername ? true: false}
+                    isrlt={isRTL(inputText) ? 1 : 0}
+                    ref={inputRef}
+                    dir="auto"
+                    autoFocus
+                />
+                <motion.button whileTap={inputText && { scale: 0.5 }} type="submit" className='messenger-submit' disabled={!inputText} onClick={inputSubmitHandler}>
+                    <IoSend />
+                </motion.button>
             </MessengerInputContainer>
         </>
     );

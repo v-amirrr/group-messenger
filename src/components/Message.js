@@ -181,6 +181,7 @@ const MessageBox = styled.div`
         word-spacing: 1px;
         line-break: loose;
         word-break: keep-all;
+        white-space: pre-wrap;
         font-family: ${props => props.ispersian ? "Vazirmatn" : "Outfit"}, "Vazirmatn", sans-serif;
         font-size: 1rem;
     }

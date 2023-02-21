@@ -21,6 +21,7 @@ const MessengerInput = () => {
 
     const inputKeyHandler = e => {
         if (e.keyCode == 13 && !e.shiftKey) {
+            e.preventDefault();
             inputSubmitHandler();
         }
     };
@@ -32,14 +33,13 @@ const MessengerInput = () => {
                     className='messenger-input'
                     placeholder="Send a Message..."
                     value={inputText}
-                    onChange={(e) => setInputText(e.target.value)}
-                    onKeyUp={e => inputKeyHandler(e)}
+                    onChange={e => setInputText(e.target.value)}
+                    onKeyDown={e => inputKeyHandler(e)}
                     disabled={!!error || !localUsername ? true: false}
                     isrlt={isRTL(inputText) ? 1 : 0}
                     ref={inputRef}
                     dir="auto"
-                    autoFocus
-                />
+                    autoFocus />
                 <motion.button whileTap={inputText && { scale: 0.5 }} type="submit" className='messenger-submit' disabled={!inputText} onClick={inputSubmitHandler}>
                     <IoSend />
                 </motion.button>

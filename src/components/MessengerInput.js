@@ -1,17 +1,24 @@
 import React, { useState, useRef } from 'react';
+import { useSelector } from 'react-redux';
 import useSendMessage from '../hooks/useSendMessage';
 import { isRTL } from '../functions/isRlt';
-import { useSelector } from 'react-redux';
-import { IoSend } from 'react-icons/io5';
+import Loader from "./Loader";
+import { IoSend, IoAlert } from 'react-icons/io5';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
+
+const sendInputIconVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.4, type: 'tween' } },
+    exit: { opacity: 0, scale: 0.8, transition: { duration: 0.4, type: 'tween' } }
+};
 
 const MessengerInput = () => {
 
     const [inputText, setInputText] = useState("");
     const inputRef = useRef();
 
-    const { error, localUsername } = useSelector(store => store.messagesStore);
+    const { error, localUsername, sendMessageSituation } = useSelector(store => store.messagesStore);
     const { sendMessage } = useSendMessage();
 
     const inputSubmitHandler = () => {
@@ -40,8 +47,15 @@ const MessengerInput = () => {
                     ref={inputRef}
                     dir="auto"
                     autoFocus />
+
                 <motion.button whileTap={inputText && { scale: 0.5 }} type="submit" className='messenger-submit' disabled={!inputText} onClick={inputSubmitHandler}>
-                    <IoSend />
+                    <AnimatePresence exitBeforeEnter>
+                        {sendMessageSituation == "pending" ?
+                        <div key="pending" className='loader'><Loader usage={2} /></div> : 
+                        sendMessageSituation == "error" ?
+                        <motion.div initial='hidden' animate='visible' exit='exit' variants={sendInputIconVariants} key="error"><IoAlert /></motion.div> :
+                        <motion.div initial='hidden' animate='visible' exit='exit' variants={sendInputIconVariants} key="send"><IoSend /></motion.div>}
+                    </AnimatePresence>
                 </motion.button>
             </MessengerInputContainer>
         </>
@@ -60,6 +74,7 @@ const MessengerInputContainer = styled.div`
     height: 3rem;
     position: absolute;
     bottom: 1rem;
+    overflow: hidden;
 
     &:disabled {
         cursor: not-allowed;
@@ -93,7 +108,8 @@ const MessengerInputContainer = styled.div`
 
     .messenger-submit {
         font-size: 1.5rem;
-        padding: .5rem .8rem;
+        width: 3.5rem;
+        height: 3rem;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -102,6 +118,12 @@ const MessengerInputContainer = styled.div`
         color: #ffffff88;
         cursor: pointer;
         transition: color .4s;
+
+        div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
         &:disabled {
             cursor: not-allowed;
@@ -115,6 +137,5 @@ const MessengerInputContainer = styled.div`
         }
     }
 `;
-
 
 export default MessengerInput;

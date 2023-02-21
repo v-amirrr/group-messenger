@@ -53,7 +53,7 @@ const Modals = () => {
         if (messages.length) {
             messages.map(message => {
                 if (message.username.toLowerCase() == nameInput.toLowerCase()) {
-                    // sameName = true;
+                    sameName = true;
                 }
             });
 

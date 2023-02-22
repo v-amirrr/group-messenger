@@ -72,7 +72,7 @@ const GroupChatContainer = styled(motion.div)`
 
     @media (max-width: 500px) {
         width: 100vw;
-        padding: 1rem 1rem 5rem 1rem;
+        padding: 1rem 1rem 8rem 1rem;
     }
 
     /* width */

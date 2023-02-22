@@ -70,14 +70,7 @@ const Message = forwardRef(( props, ref ) => {
         <>
             {priorDifferentDate ? <ChatDate dateObj={time} /> : ""}
 
-            <MessageBox 
-                key={id} 
-                ref={ref} 
-                isuser={messageUsername == localUsername ? 1 : 0} 
-                ispersian={isRTL(message) ? 1 : 0} 
-                messagePosition={messagePosition} 
-                onClick={() => setMenuShow(prevState => !prevState)}
-            >
+            <MessageBox key={id} ref={ref} onClick={() => setMenuShow(prevState => !prevState)} isuser={messageUsername == localUsername ? 1 : 0} ispersian={isRTL(message) ? 1 : 0} messagePosition={messagePosition}>
                 <p className='username'>{messageUsername}</p>
                 <p className='message'>
                     {message?.map((item, index) => (
@@ -88,11 +81,7 @@ const Message = forwardRef(( props, ref ) => {
                 <AnimatePresence>
                     {time.hour != null && time.minute != null ?
                     <motion.span className='time' initial='hidden' animate='visible' exit='exit' variants={timeVariants}>
-                        {time.hour < 10 ? 
-                        `0${time.hour}` : 
-                        time.hour}:{time.minute < 10 ? 
-                        `0${time.minute}` : 
-                        time.minute}
+                        {time.hour < 10 ? `0${time.hour}` : time.hour}:{time.minute < 10 ? `0${time.minute}` : time.minute}
                     </motion.span> : ""}
                 </AnimatePresence>
 

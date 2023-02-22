@@ -1,4 +1,5 @@
 import React from 'react';
+import {useGetMessages} from "../hooks/useGetMessages";
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
@@ -9,11 +10,15 @@ const errorBoxVariants = {
 };
 
 const ErrorBox = ({ errorMessage }) => {
+
+    const { getMessages } = useGetMessages();
+
     return (
         <>
             <ErrorBoxContainer initial='hidden' animate='visible' exit='exit' variants={errorBoxVariants}>
                 <h1>Looks like there's a problem</h1>
                 <p>{errorMessage}</p>
+                <button onClick={() => getMessages("try_again")}>Try Again</button>
             </ErrorBoxContainer>
         </>
     );
@@ -40,6 +45,27 @@ const ErrorBoxContainer = styled(motion.div)`
     p {
         max-width: 30rem;
     }
+
+    button {
+            border: none;
+            border-radius: 10px;
+            background-color: #ffffff11;
+            margin: 1rem;
+            padding: .5rem 1rem;
+            font-size: 1rem;
+            font-weight: 900;
+            font-family: "Outfit", sans-serif;
+            cursor: pointer;
+            user-select: none;
+            transition: background-color .2s;
+            color: #fff;
+
+            @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
+                &:hover {
+                    background-color: #ffffff33;
+                }
+            }
+        }
 `;
 
 export default ErrorBox;

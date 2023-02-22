@@ -25,8 +25,8 @@ const LoaderContainer = styled(motion.div)`
     justify-content: center;
     align-items: center;
     position: ${props => props.usage == 1 ? "absolute" : ""};
-    width: 50%;
-    height: 100%;
+    width: ${props => props.usage == 3 ? "20%" : "50%"};
+    height: ${props => props.usage == 3 ? "" : "100%"};
 
     .spinner {
         -webkit-animation: rotator 1.4s linear infinite;

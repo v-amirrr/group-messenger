@@ -2,6 +2,7 @@ import { db } from '../config/firebase';
 import { doc, deleteDoc, updateDoc } from "firebase/firestore";
 import { useDispatch } from 'react-redux';
 import { setPopup } from "../redux/messagesSlice";
+import { setSendMessageReplyTo, setClearReplyTo } from '../redux/sendMessageSlice';
 
 const useMessageOptions = () => {
 
@@ -47,11 +48,25 @@ const useMessageOptions = () => {
         }
     };
 
+    const replyMessage = (id, message, username) => {
+        let messageText = [];
+        message.map(item => {
+            messageText.push(item.word);
+        });
+        messageText = messageText.join(" ");
+
+        dispatch(setSendMessageReplyTo({ id, messageText, username }));
+    };
+
+    const clearReplyMessage = () => {
+        dispatch(setClearReplyTo());
+    };
+
     const closePopup = () => {
         dispatch(setPopup({ show: false, type: 0, id: null }));
     };
 
-    return { deleteMessage, copyMessage, editMessage, closePopup };
+    return { deleteMessage, copyMessage, editMessage, replyMessage, clearReplyMessage, closePopup };
 };
 
 export default useMessageOptions;

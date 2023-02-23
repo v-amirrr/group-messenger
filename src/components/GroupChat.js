@@ -46,6 +46,7 @@ const GroupChat = () => {
                                 localUsername: localUsername,
                                 priorDifferentDate: message.priorDifferentDate,
                                 nextDifferentDate: message.nextDifferentDate,
+                                replyTo: message.replyTo,
                             }}
                         />
                     ))}

@@ -29,7 +29,7 @@ const ChatDateContainer = styled(motion.div)`
     font-size: .5rem;
     font-weight: 500;
     width: fit-content;
-    margin: .8rem auto;
+    margin: .5rem auto;
     user-select: none;
     display: flex;
     justify-content: center;
@@ -42,7 +42,12 @@ const ChatDateContainer = styled(motion.div)`
 
     @media (max-width: 500px) {
         font-size: .4rem;
-        padding: .3rem .3rem;
+        padding: .2rem .3rem;
+
+        .month {
+            letter-spacing: 0;
+            margin: 0 .2rem 0 .25rem;
+        }
     }
 `;
 

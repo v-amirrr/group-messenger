@@ -6,7 +6,6 @@ const initialState = {
     error: null,
     loading: true,
     popup: { show: false, type: 0, id: null },
-    sendMessageSituation: null,
 };
 
 const messagesSlice = createSlice({
@@ -38,9 +37,6 @@ const messagesSlice = createSlice({
                 }
             };
         },
-        setSendMessageSituation: (state, action) => {
-            return { ...state, sendMessageSituation: action.payload };
-        },
     },
 });
 
@@ -51,7 +47,6 @@ export const {
     setLoadingOff, 
     setLocalUsername, 
     setPopup,
-    setSendMessageSituation,
 } = messagesSlice.actions;
 
 export default messagesSlice.reducer;

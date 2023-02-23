@@ -19,7 +19,7 @@ const Message = forwardRef(( props, ref ) => {
     const dispatch = useDispatch();
     const { popup } = useSelector(store => store.messagesStore);
     
-    const { message, id, messageUsername, periorUsername, nextUsername, time, localUsername, priorDifferentDate, nextDifferentDate } = props.message;
+    const { message, id, replyTo, messageUsername, periorUsername, nextUsername, time, localUsername, priorDifferentDate, nextDifferentDate } = props.message;
 
     const [menuShow, setMenuShow] = useState(false);
     const [messagePosition, setMessagePosition] = useState("");
@@ -70,7 +70,17 @@ const Message = forwardRef(( props, ref ) => {
         <>
             {priorDifferentDate ? <ChatDate dateObj={time} /> : ""}
 
-            <MessageBox key={id} ref={ref} onClick={() => setMenuShow(prevState => !prevState)} isuser={messageUsername == localUsername ? 1 : 0} ispersian={isRTL(message) ? 1 : 0} messagePosition={messagePosition}>
+            <MessageBox key={id} ref={ref} onClick={() => setMenuShow(!menuShow)} isuser={messageUsername == localUsername ? 1 : 0} ispersian={isRTL(message) ? 1 : 0} messagePosition={messagePosition} isreply={replyTo != "no_reply" ? 1 : 0}>
+                {replyTo != "no_reply" ? 
+                <div className='reply-section'>
+                    {replyTo ? 
+                    <>
+                        <p className='reply-username'>{replyTo?.username}</p>
+                        <p className='reply-message'>{replyTo?.message}</p>
+                    </>
+                    : <p className='reply-message'>Deleted Message</p>}
+                </div>
+                : ""}
                 <p className='username'>{messageUsername}</p>
                 <p className='message'>
                     {message?.map((item, index) => (
@@ -91,7 +101,8 @@ const Message = forwardRef(( props, ref ) => {
                         messageUsername={messageUsername} 
                         localUsername={localUsername} 
                         id={id} 
-                        message={message}
+                        message={message} 
+                        username={messageUsername}
                     /> : ""}
                 </AnimatePresence>
             </MessageBox>
@@ -145,7 +156,8 @@ const MessageBox = styled.div`
             "5px 30px 30px 30px"
     };
     margin-left: ${props => props.isuser && "auto"};
-    padding: .5rem 2.8rem .5rem .8rem;
+    padding: ${props => props.isreply ? "2.4rem 2.8rem .5rem .8rem" : ".5rem 2.8rem .5rem .8rem"};
+    min-width: ${props => props.isreply ? "22%" : ""};
     width: fit-content;
     max-width: 65%;
     backdrop-filter: blur(5px) saturate(100%);
@@ -199,9 +211,52 @@ const MessageBox = styled.div`
         transform: margin .4s;
     }
 
+    .reply-section {
+        background-color: #00000055;
+        position: absolute;
+        top: .4rem;
+        left: 50%;
+        padding: .3rem;
+        width: 90%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        color: #888;
+        transform: translate(-50%, 0);
+        border-radius: 30px;
+        white-space: nowrap;
+        transition: background .2s;
+        overflow: hidden;
+
+        .reply-username {
+            font-size: .5rem;
+            margin: 0 .2rem;
+        }
+
+        .reply-message {
+            font-size: .8rem;
+
+            :after {
+                content: '';
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 30%;
+                height: 100%;
+                pointer-events: none;
+                background-image: linear-gradient(to right, transparent, #000000);
+            }
+        }
+
+        &:hover {
+            background-color: #000;
+        }
+    }
+
     @media (max-width: 768px) {
-        padding: .5rem 2.5rem .5rem .8rem;
-        max-width: 80%;
+        padding: ${props => props.isreply ? "2.4rem 2.5rem .5rem .8rem" : ".5rem 2.5rem .5rem .8rem"};
+        max-width: 70%;
+        min-width: ${props => props.isreply ? "30%" : ""};
         background-color: #ffffff10;
         border-radius: ${props => 
             props.isuser ? 

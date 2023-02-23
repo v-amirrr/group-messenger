@@ -28,7 +28,7 @@ export const useGetMessages = () => {
             snapshot.docs.forEach(doc => {
                 messages.push({
                     username: doc.data().username,
-                    message: doc.data().message.split(" "),
+                    message: doc.data().message,
                     time: {
                         year: doc.data().time?.toDate()?.getFullYear(),
                         month: monthNames[doc.data().time?.toDate()?.getMonth()],
@@ -38,13 +38,14 @@ export const useGetMessages = () => {
                         second: doc.data().time?.toDate()?.getSeconds(),
                     },
                     id: doc.id,
+                    replyTo: doc.data().replyTo ? doc.data().replyTo : null,
                 });
             });
 
             let modifiedMessages = messages?.map((item, index) => {
                 return {
                     ...item,
-                    message: item.message.map((word) => {
+                    message: item.message.split(" ").map((word) => {
                         let checkLink = isURL(word);
                         return { word: checkLink.newWord, link: checkLink.isLink };
                     }),
@@ -60,7 +61,8 @@ export const useGetMessages = () => {
                         messages[index+1]?.time?.month != item?.time?.month ||
                         messages[index+1]?.time?.day != item?.time?.day ? true : false
                     : false,
-                }; 
+                    replyTo: item.replyTo ? messages.find((filteredMessage) => filteredMessage.id == item.replyTo) : "no_reply",
+                };
             });
 
             dispatch(setMessages(modifiedMessages));

@@ -56,7 +56,7 @@ const MessengerInput = () => {
         <>
             <AnimatePresence>
                 {replyTo.id ? 
-                <ReplyTo className='reply-section' initial='hidden' animate='visible' exit='exit' variants={replyVariants}>
+                <ReplyTo className='reply-section' initial='hidden' animate='visible' exit='exit' variants={replyVariants} messageletters={replyTo?.username?.length + replyTo?.message?.length}>
                     <button onClick={clearReplyMessage}><IoClose /></button>
                     <div className='message'>
                         <p className='username'>{replyTo.username}</p>
@@ -172,19 +172,17 @@ const MessengerInputContainer = styled.div`
 `;
 
 const ReplyTo = styled(motion.div)`
-    min-width: 10%;
-    max-width: 20%;
+    max-width: 25%;
+    height: 2rem;
+    padding: 0 .3rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #000000aa;
+    background-color: #0c0c0f;
     border-radius: 50px;
     position: absolute;
     bottom: 3.5rem;
-    height: 2rem;
     overflow: hidden;
-    backdrop-filter: blur(5px) saturate(100%);
-    -webkit-backdrop-filter: blur(20px) saturate(120%);
     user-select: none;
 
     button {
@@ -195,7 +193,12 @@ const ReplyTo = styled(motion.div)`
         font-size: 1.2rem;
         border-radius: 50%;
         cursor: pointer;
-        margin: 0 .2rem 0 .3rem;
+        transition: background .2s, padding .2s;
+        
+        &:hover {
+            padding: .2rem;
+            background-color: #f5f0f011;
+        }
     }
 
     .message {
@@ -204,6 +207,7 @@ const ReplyTo = styled(motion.div)`
         align-items: center;
         width: 100%;
         height: 100%;
+        margin: 0 .2rem;
         font-weight: 100;
         overflow: hidden;
 
@@ -223,8 +227,8 @@ const ReplyTo = styled(motion.div)`
                 position: absolute;
                 top: 0;
                 right: 0;
-                width: 30%;
-                height: 100%;
+                width: 20%;
+                height: ${props => props.messageletters > 50 ? "100%" : "0"};
                 pointer-events: none;
                 background-image: linear-gradient(to right, transparent, #000000);
             }

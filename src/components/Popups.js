@@ -6,14 +6,14 @@ import useMessageOptions from '../hooks/useMessageOptions';
 
 const popupPageVariants = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 0.2, type: 'tween', when: "beforeChildren" } },
-    exit: { opacity: 0, transition: { duration: 0.2, type: 'tween', when: "afterChildren" } }
+    visible: { opacity: 1, transition: { duration: 0.2, when: "beforeChildren" } },
+    exit: { opacity: 0, transition: { duration: 0.2, when: "afterChildren" } }
 };
 
 const popupPageContainer = {
     hidden: { opacity: 0, scale: 0.9 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.2, type: 'tween' } },
-    exit: { opacity: 0, scale: 0.9, transition: { duration: 0.2, type: 'tween' } }
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.2, type: "spring", stiffness: 100 } },
+    exit: { opacity: 0, scale: 0.9, transition: { duration: 0.2 } }
 };
 
 const Popups = ({ type, message, id }) => {
@@ -70,7 +70,7 @@ const Popups = ({ type, message, id }) => {
 
                     {type == 2 &&
                     <>
-                        <textarea value={editInput} onChange={e => setEditInput(e.target.value)} autoFocus/>
+                        <textarea value={editInput} onChange={e => setEditInput(e.target.value)} autoFocus={document.documentElement.offsetWidth > 500}/>
                         <div>
                             <motion.button whileTap={{ scale: 0.9 }} onClick={closePopup}>Cancel</motion.button>
                             <motion.button className='edit' whileTap={{ scale: 0.9 }} onClick={() => editMessage(id, 2, editInput)}>Edit it</motion.button>
@@ -132,7 +132,7 @@ const PopupContainer = styled(motion.div)`
             margin: 0 .2rem;
             padding: .5rem 1rem;
             font-size: 1rem;
-            font-weight: 900;
+            font-weight: 700;
             font-family: "Outfit", sans-serif;
             cursor: pointer;
             user-select: none;
@@ -146,8 +146,12 @@ const PopupContainer = styled(motion.div)`
             }
         }
 
-        .edit, .delete {
+        .delete {
             color: #ff0000;
+        }
+
+        .edit {
+            color: #00ff00;
         }
     }
     

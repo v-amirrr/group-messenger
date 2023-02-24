@@ -100,6 +100,7 @@ const Message = forwardRef(( props, ref ) => {
                     <MessageOptions 
                         messageUsername={messageUsername} 
                         localUsername={localUsername} 
+                        isUser={messageUsername == localUsername}
                         id={id} 
                         message={message} 
                         username={messageUsername}
@@ -123,6 +124,10 @@ const Message = forwardRef(( props, ref ) => {
 });
 
 const MessageBox = styled.div`
+    display: flex;
+    justify-content: ${props => props.isuser ? "flex-end" : ""};
+    align-items: center;
+    flex-direction: ${ props => props.isuser ? "row-reverse" : "row"};
     display: flex;
     align-items: center;
     background-color: #ffffff0c;
@@ -255,7 +260,7 @@ const MessageBox = styled.div`
 
     @media (max-width: 768px) {
         padding: ${props => props.isreply ? "2.4rem 2.5rem .5rem .8rem" : ".5rem 2.5rem .5rem .8rem"};
-        max-width: 70%;
+        max-width: 80%;
         min-width: ${props => props.isreply ? "30%" : ""};
         background-color: #ffffff10;
         border-radius: ${props => 

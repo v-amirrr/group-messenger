@@ -4,8 +4,8 @@ import { motion } from 'framer-motion';
 
 const loaderVariants = {
     hidden: { opacity: 0, scale: 0.5 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.4, type: 'tween' } },
-    exit: { opacity: 0, scale: 0.5, transition: { duration: 0.4, type: 'tween' } }
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.4 } },
+    exit: { opacity: 0, scale: 0.5, transition: { duration: 0.4 } }
 };
 
 const Loader = ({ usage }) => {

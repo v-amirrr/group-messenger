@@ -8,8 +8,8 @@ import { motion } from 'framer-motion';
 
 const groupChatVariants = {
     hidden: { opacity: 0, scaleX: 0.5 },
-    visible: { opacity: 1, scaleX: 1, transition: { duration: 0.4, type: 'tween' } },
-    exit: { opacity: 0, scaleX: 0.8, transition: { duration: 0.4, type: 'tween' } }
+    visible: { opacity: 1, scaleX: 1, transition: { duration: 0.4 } },
+    exit: { opacity: 0, scaleX: 0.8, transition: { duration: 0.4 } }
 };
 
 const GroupChat = () => {
@@ -68,12 +68,12 @@ const GroupChatContainer = styled(motion.div)`
     scroll-behavior: smooth;
 
     @media (max-width: 800px) {
-        padding: 1rem 2rem 5rem 2rem;
+        padding: 1rem 1.5rem 5rem 1.5rem;
     }
 
     @media (max-width: 500px) {
         width: 100vw;
-        padding: 1rem 1rem 8rem 1rem;
+        padding: 1rem 1rem 10rem 1rem;
     }
 
     /* width */

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import useSendMessage from '../hooks/useSendMessage';
 import { isRTL } from '../functions/isRlt';
@@ -10,14 +10,14 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 const sendInputIconVariants = {
     hidden: { opacity: 0, scale: 0.8 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.4, type: 'tween' } },
-    exit: { opacity: 0, scale: 0.8, transition: { duration: 0.4, type: 'tween' } }
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.4 } },
+    exit: { opacity: 0, scale: 0.8, transition: { duration: 0.4 } }
 };
 
 const replyVariants = {
     hidden: { opacity: 0, scaleX: 0, y: -10 },
-    visible: { opacity: 1, scaleX: 1, y: 0, transition: { duration: 0.3, type: 'tween' } },
-    exit: { opacity: 0, scaleY: 0, transition: { duration: 0.3, type: 'tween' } }
+    visible: { opacity: 1, scaleX: 1, y: 0, transition: { duration: 0.3, type: "spring", stiffness: 100 } },
+    exit: { opacity: 0, scaleY: 0, transition: { duration: 0.3 } }
 };
 
 const MessengerInput = () => {
@@ -45,9 +45,12 @@ const MessengerInput = () => {
         }
     };
 
-    useEffect(() => {
-        inputRef.current.focus();
-    }, [replyTo]);
+    const focusHandler = e => {
+        e.preventDefault();
+        if (document.documentElement.offsetWidth > 500) {
+            inputRef.current.focus();
+        }
+    };
 
     return (
         <>
@@ -71,6 +74,7 @@ const MessengerInput = () => {
                         value={inputText}
                         onChange={e => setInputText(e.target.value)}
                         onKeyDown={e => inputKeyHandler(e)}
+                        onBlur={e => focusHandler(e)}
                         disabled={!!error || !localUsername ? true: false}
                         isrlt={isRTL(inputText) ? 1 : 0}
                         ref={inputRef}

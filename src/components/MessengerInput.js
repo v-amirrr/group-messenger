@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import useSendMessage from '../hooks/useSendMessage';
 import { isRTL } from '../functions/isRlt';
@@ -26,7 +26,7 @@ const MessengerInput = () => {
 
     const inputRef = useRef();
 
-    const { error, localUsername } = useSelector(store => store.messagesStore);
+    const { error, localUsername, popup } = useSelector(store => store.messagesStore);
     const { error: sendMessageError, loading: sendMessageLoading, replyTo } = useSelector(store => store.sendMessageStore);
 
     const { sendMessage } = useSendMessage();
@@ -45,12 +45,15 @@ const MessengerInput = () => {
         }
     };
 
-    const focusHandler = e => {
-        e.preventDefault();
-        if (document.documentElement.offsetWidth > 500) {
+    const focusHandler = () => {
+        if (document.documentElement.offsetWidth > 500 && !popup.show) {
             inputRef.current.focus();
         }
     };
+
+    useEffect(() => {
+        focusHandler();
+    }, [popup]);
 
     return (
         <>
@@ -74,7 +77,7 @@ const MessengerInput = () => {
                         value={inputText}
                         onChange={e => setInputText(e.target.value)}
                         onKeyDown={e => inputKeyHandler(e)}
-                        onBlur={e => focusHandler(e)}
+                        onBlur={() => focusHandler()}
                         disabled={!!error || !localUsername ? true: false}
                         isrlt={isRTL(inputText) ? 1 : 0}
                         ref={inputRef}

@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
 const chatDateVariants = {
-    hidden: { opacity: 0, scaleX: 0.5 },
+    hidden: { opacity: 0, scaleX: 0.8 },
     visible: { opacity: 1, scaleX: 1, transition: { duration: 0.4 } },
-    exit: { opacity: 0, scaleX: 0.5, transition: { duration: 0.4 } }
+    exit: { opacity: 0, scaleX: 0.8, transition: { duration: 0.4 } }
 };
 
 const ChatDate = ({ dateObj }) => {
@@ -24,7 +24,7 @@ const ChatDate = ({ dateObj }) => {
 
 const ChatDateContainer = styled(motion.div)`
     padding: .3rem .5rem;
-    background-color: #ffffff15;
+    background-color: #ffffff10;
     border-radius: 50px;
     font-size: .5rem;
     font-weight: 500;

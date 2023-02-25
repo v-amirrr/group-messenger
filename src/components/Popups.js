@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import AddReplyEditPopup from './AddReplyEditPopup';
 import { isRTL } from '../functions/isRlt';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
@@ -12,11 +13,11 @@ const popupPageVariants = {
 
 const popupPageContainer = {
     hidden: { opacity: 0, scale: 0.9 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.2, type: "spring", stiffness: 100 } },
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.2 } },
     exit: { opacity: 0, scale: 0.9, transition: { duration: 0.2 } }
 };
 
-const Popups = ({ type, message, id }) => {
+const Popups = ({ type, message, id, replyTo }) => {
 
     const popupPage = useRef();
     const [editInput, setEditInput] = useState("");
@@ -62,8 +63,8 @@ const Popups = ({ type, message, id }) => {
                     {type == 1 &&  
                     <>
                         <p>Are you sure that you want to delete this message?</p>
-                        <div>
-                            <motion.button whileTap={{ scale: 0.9 }} onClick={closePopup}>Cancel</motion.button>
+                        <div className='buttons'>
+                            <motion.button className='cancel' whileTap={{ scale: 0.9 }} onClick={closePopup}>Cancel</motion.button>
                             <motion.button className='delete' whileTap={{ scale: 0.9 }} onClick={() => deleteMessage(id, 2)} autoFocus>Delete it</motion.button>
                         </div>
                     </>}
@@ -71,10 +72,11 @@ const Popups = ({ type, message, id }) => {
                     {type == 2 &&
                     <>
                         <textarea value={editInput} onChange={e => setEditInput(e.target.value)} autoFocus={document.documentElement.offsetWidth > 500}/>
-                        <div>
-                            <motion.button whileTap={{ scale: 0.9 }} onClick={closePopup}>Cancel</motion.button>
-                            <motion.button className='edit' whileTap={{ scale: 0.9 }} onClick={() => editMessage(id, 2, editInput)}>Edit it</motion.button>
+                        <div className='buttons'>
+                            <motion.button className='cancel' whileTap={{ scale: 0.9 }} onClick={closePopup}>Cancel</motion.button>
+                            <motion.button className='edit' whileTap={{ scale: 0.9 }} onClick={() => editMessage(id, 2, editInput, replyTo.id)}>Edit it</motion.button>
                         </div>
+                        <AddReplyEditPopup replyTo={replyTo} />
                     </>}
                 </PopupContainer>
             </PopupPage>
@@ -106,6 +108,8 @@ const PopupContainer = styled(motion.div)`
     flex-direction: column;
     background-color: #ffffff0a;
     border-radius: 25px;
+    position: relative;
+    overflow: hidden;
 
     textarea {
         border: none;
@@ -122,10 +126,10 @@ const PopupContainer = styled(motion.div)`
         font-family: ${props => props.ispersian ? "Vazirmatn" : "Outfit"}, "Vazirmatn", sans-serif;
     }
 
-    div {
+    .buttons {
         margin-top: 2rem;
 
-        button {
+        .edit, .delete, .cancel {
             border: none;
             border-radius: 10px;
             background-color: #ffffff11;
@@ -167,7 +171,7 @@ const PopupContainer = styled(motion.div)`
             font-size: .8rem;
         }
 
-        div {
+        .buttons {
             margin-top: 1.5rem;
 
             button {

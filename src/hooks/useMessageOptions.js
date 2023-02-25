@@ -1,12 +1,15 @@
+import React, { useState } from 'react';
 import { db } from '../config/firebase';
 import { doc, deleteDoc, updateDoc } from "firebase/firestore";
-import { useDispatch } from 'react-redux';
-import { setPopup } from "../redux/messagesSlice";
+import { useDispatch, useSelector } from 'react-redux';
+import { setPopup, setEditedReply } from "../redux/messagesSlice";
 import { setSendMessageReplyTo, setClearReplyTo } from '../redux/sendMessageSlice';
 
 const useMessageOptions = () => {
 
     const dispatch = useDispatch();
+
+    const { popup } = useSelector(store => store.messagesStore);
 
     const copyMessage = message => {
         let messageText = [];
@@ -29,14 +32,15 @@ const useMessageOptions = () => {
     };
 
     // type 1 means showing the popup and type 2 means doing the job
-    const editMessage = (id, type, editInput) => {
+    const editMessage = (id, type, editInput, prevReply) => {
         if (type == 1) {
             dispatch(setPopup({ show: true, type: 2, id: id }));
-        } else {
+        } else if (type == 2) {
             const docRef = doc(db, "messages", id);
             if (editInput) {
                 updateDoc(docRef, {
                     message: editInput,
+                    replyTo: popup.editedReply ? popup.editedReply : prevReply ? prevReply : popup.editedReply,
                 });
                 closePopup();
             } else {
@@ -45,6 +49,8 @@ const useMessageOptions = () => {
                     dispatch(setPopup({ show: true, type: 1, id: id }));
                 }, 200);
             }
+        } else if (type == 3) {
+            dispatch(setEditedReply(id));
         }
     };
 
@@ -66,7 +72,14 @@ const useMessageOptions = () => {
         dispatch(setPopup({ show: false, type: 0, id: null }));
     };
 
-    return { deleteMessage, copyMessage, editMessage, replyMessage, clearReplyMessage, closePopup };
+    return { 
+        deleteMessage, 
+        copyMessage, 
+        editMessage, 
+        replyMessage, 
+        clearReplyMessage, 
+        closePopup,  
+    };
 };
 
 export default useMessageOptions;

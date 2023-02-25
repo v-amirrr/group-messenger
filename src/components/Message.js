@@ -115,6 +115,7 @@ const Message = forwardRef(( props, ref ) => {
                         id={id}
                         message={message}
                         type={popup.type}
+                        replyTo={replyTo}
                     /> : ""}
                 </AnimatePresence>,
                 document.body
@@ -128,8 +129,6 @@ const MessageBox = styled.div`
     justify-content: ${props => props.isuser ? "flex-end" : ""};
     align-items: center;
     flex-direction: ${ props => props.isuser ? "row-reverse" : "row"};
-    display: flex;
-    align-items: center;
     background-color: #ffffff0c;
     margin: ${props => 
         props.messagePosition == 0 ? 

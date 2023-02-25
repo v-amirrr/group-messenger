@@ -5,7 +5,7 @@ const initialState = {
     messages: null,
     error: null,
     loading: true,
-    popup: { show: false, type: 0, id: null },
+    popup: { show: false, type: 0, id: null, editedReply: null },
 };
 
 const messagesSlice = createSlice({
@@ -37,6 +37,15 @@ const messagesSlice = createSlice({
                 }
             };
         },
+        setEditedReply: (state, action) => {
+            return {
+                ...state,
+                popup: {
+                    ...state.popup,
+                    editedReply: action.payload,
+                }
+            };
+        },
     },
 });
 
@@ -47,6 +56,7 @@ export const {
     setLoadingOff, 
     setLocalUsername, 
     setPopup,
+    setEditedReply,
 } = messagesSlice.actions;
 
 export default messagesSlice.reducer;

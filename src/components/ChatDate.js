@@ -24,10 +24,11 @@ const ChatDate = ({ dateObj }) => {
 
 const ChatDateContainer = styled(motion.div)`
     padding: .3rem .5rem;
-    background-color: #ffffff10;
+    background-color: #ffffff0a;
+    color: #f0f0f5;
     border-radius: 50px;
     font-size: .5rem;
-    font-weight: 500;
+    font-weight: 400;
     width: fit-content;
     margin: .5rem auto;
     user-select: none;

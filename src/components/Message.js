@@ -216,7 +216,7 @@ const MessageBox = styled.div`
     }
 
     .reply-section {
-        background-color: #00000055;
+        background-color: #13131f;
         position: absolute;
         top: .4rem;
         left: 50%;
@@ -249,11 +249,12 @@ const MessageBox = styled.div`
                 height: 100%;
                 pointer-events: none;
                 background-image: linear-gradient(to right, transparent, #000000);
+                display: none;
             }
         }
 
         &:hover {
-            background-color: #000;
+            background-color: #000000;
         }
     }
 

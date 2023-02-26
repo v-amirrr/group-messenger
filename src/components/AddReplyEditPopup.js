@@ -9,14 +9,14 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 const replyAddSectionVariants = {
     hidden: { opacity: 0, scale: 0.8 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.4, delay: 0.5 } },
-    exit: { opacity: 0, scale: 0, transition: { duration: 0.4 } }
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.2 } },
+    exit: { opacity: 0, scale: 0, transition: { duration: 0.2, delay: 0.2 } }
 };
 
 const replyButtonVariants = {
     hidden: { opacity: 0, scale: 0.5 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.2 } },
-    exit: { opacity: 0, scale: 0.5, transition: { duration: 0.2 } }
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.4, delay: 0.5 } },
+    exit: { opacity: 0, scale: 0.5, transition: { duration: 0.01 } }
 };
 
 const AddReplyEditPopup = ({ replyTo }) => {
@@ -35,10 +35,12 @@ const AddReplyEditPopup = ({ replyTo }) => {
     }, [newReply]);
 
     useEffect(() => {
-        messagesEndRef?.current?.scrollIntoView({
-            behavior: "smooth", block: "center", inline: "end"
-        });
-    }, []);
+        setTimeout(() => {
+            messagesEndRef?.current?.scrollIntoView({
+                behavior: "smooth", block: "center", inline: "end"
+            });
+        }, 600);
+    }, [replySectionOpen]);
 
     return (
         <>
@@ -72,13 +74,15 @@ const AddReplyEditPopup = ({ replyTo }) => {
                         <div ref={messagesEndRef} />
                     </motion.div>
                     : ""}
-                    <button className='reply-button' onClick={() => setReplySectionOpen(!replySectionOpen)}>
-                        <AnimatePresence exitBeforeEnter>
-                            {!replySectionOpen ? 
-                            <motion.i initial='hidden' animate='visible' exit='exit' variants={replyButtonVariants}><BsReplyFill /></motion.i> : 
-                            <motion.i initial='hidden' animate='visible' exit='exit' variants={replyButtonVariants}><IoClose /></motion.i>}
-                        </AnimatePresence>
-                    </button>
+                    <AnimatePresence>
+                        {!replySectionOpen ? 
+                        <motion.button key="open-icon" className='reply-button' onClick={() => setReplySectionOpen(!replySectionOpen)} initial='hidden' animate='visible' exit='exit' variants={replyButtonVariants}>
+                            <BsReplyFill />
+                        </motion.button> :
+                        <motion.button key="close-icon" className='reply-button' onClick={() => setReplySectionOpen(!replySectionOpen)} initial='hidden' animate='visible' exit='exit' variants={replyButtonVariants}>
+                            <IoClose />
+                        </motion.button>}
+                    </AnimatePresence>
                 </AnimatePresence>
             </ReplyConatiner>
         </>
@@ -98,7 +102,7 @@ const ReplyConatiner = styled(motion.div)`
     border-radius: 25px;
     background-color: #0c0c0f;
     z-index: 10;
-    transition: margin .5s, width .5s cubic-bezier(.53,0,0,.98), height .7s cubic-bezier(.53,0,0,.98);
+    transition: margin .5s, width .5s cubic-bezier(.53,0,0,.98), height .5s cubic-bezier(.53,0,0,.98);
 
     .reply-button {
         all: unset;
@@ -110,16 +114,12 @@ const ReplyConatiner = styled(motion.div)`
         position: absolute;
         top: ${props => props.replysectionopen ? "1rem" : ""};
         left: ${props => props.replysectionopen ? "1rem" : ""};
-        background-color: ${props => props.replySectionOpen ? "#ffffff11" : ""};
+        background-color: ${props => props.replysectionopen ? "#ffffff11" : "#0c0c0f"};
+        backdrop-filter: blur(20px) saturate(100%);
+        -webkit-backdrop-filter: blur(20px) saturate(100%);
         border-radius: 25px;
         padding: .3rem;
         transition: top .3s, left .3s;
-
-        i {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
     }
 
     .reply-messages {

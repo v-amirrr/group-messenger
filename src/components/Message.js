@@ -1,7 +1,7 @@
 import React, { forwardRef, useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setPopup } from '../redux/messagesSlice';
+import { setPopup } from '../redux/popupSlice';
 import { isRTL } from '../functions/isRlt';
 import Popups from './Popups';
 import MessageOptions from './MessageOptions';
@@ -16,13 +16,24 @@ const timeVariants = {
 
 const Message = forwardRef(( props, ref ) => {
 
-    const dispatch = useDispatch();
-    const { popup } = useSelector(store => store.messagesStore);
-    
-    const { message, id, replyTo, messageUsername, periorUsername, nextUsername, time, localUsername, priorDifferentDate, nextDifferentDate } = props.message;
-
     const [menuShow, setMenuShow] = useState(false);
     const [messagePosition, setMessagePosition] = useState("");
+
+    const dispatch = useDispatch();
+    const { popupShow, popupName, popupMessageId } = useSelector(store => store.popupStore);
+
+    const {
+        message,
+        id,
+        replyTo,
+        messageUsername,
+        periorUsername,
+        nextUsername,
+        time,
+        localUsername,
+        priorDifferentDate,
+        nextDifferentDate
+    } = props.message;
 
     useEffect(() => {
         if (priorDifferentDate && nextDifferentDate) {
@@ -59,12 +70,12 @@ const Message = forwardRef(( props, ref ) => {
     }, [nextUsername, periorUsername, priorDifferentDate, nextDifferentDate]);
 
     useEffect(() => {
-        if (!popup.show && popup.type) {
+        if (!popupShow && popupName) {
             setTimeout(() => {
-                dispatch(setPopup({ show: true, type: popup.type }));
+                dispatch(setPopup({ show: true, type: popupName }));
             }, 300);
         }
-    }, [popup]);
+    }, [popupShow, popupName]);
 
     return (
         <>
@@ -110,12 +121,12 @@ const Message = forwardRef(( props, ref ) => {
 
             {createPortal(
                 <AnimatePresence exitBeforeEnter>
-                    {popup.show && popup.id == id ?
+                    {popupShow && popupMessageId == id ?
                     <Popups
-                        id={id}
-                        message={message}
-                        type={popup.type}
-                        replyTo={replyTo}
+                        popupMessageId={popupMessageId}
+                        popupMessageText={message}
+                        popupName={popupName}
+                        popupMessageReplyTo={replyTo}
                     /> : ""}
                 </AnimatePresence>,
                 document.body
@@ -216,7 +227,7 @@ const MessageBox = styled.div`
     }
 
     .reply-section {
-        background-color: #13131f;
+        background-color: #000;
         position: absolute;
         top: .4rem;
         left: 50%;
@@ -229,15 +240,16 @@ const MessageBox = styled.div`
         transform: translate(-50%, 0);
         border-radius: 30px;
         white-space: nowrap;
-        transition: background .2s;
         overflow: hidden;
-
+        
         .reply-username {
             font-size: .5rem;
             margin: 0 .2rem;
         }
-
+        
         .reply-message {
+            text-overflow: ellipsis;
+            overflow: hidden;
             font-size: .8rem;
 
             :after {
@@ -251,10 +263,6 @@ const MessageBox = styled.div`
                 background-image: linear-gradient(to right, transparent, #000000);
                 display: none;
             }
-        }
-
-        &:hover {
-            background-color: #000000;
         }
     }
 

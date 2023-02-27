@@ -5,7 +5,6 @@ const initialState = {
     messages: null,
     error: null,
     loading: true,
-    popup: { show: false, type: 0, id: null, editedReply: null },
 };
 
 const messagesSlice = createSlice({
@@ -27,25 +26,6 @@ const messagesSlice = createSlice({
         setLocalUsername: (state, action) => {
             return { ...state, localUsername: action.payload };
         },
-        setPopup: (state, action) => {
-            return { 
-                ...state, 
-                popup: { 
-                    show: action.payload.show, 
-                    type: action.payload.type,
-                    id: action.payload.id
-                }
-            };
-        },
-        setEditedReply: (state, action) => {
-            return {
-                ...state,
-                popup: {
-                    ...state.popup,
-                    editedReply: action.payload,
-                }
-            };
-        },
     },
 });
 
@@ -54,9 +34,7 @@ export const {
     setError, 
     setLoadingOn, 
     setLoadingOff, 
-    setLocalUsername, 
-    setPopup,
-    setEditedReply,
+    setLocalUsername,
 } = messagesSlice.actions;
 
 export default messagesSlice.reducer;

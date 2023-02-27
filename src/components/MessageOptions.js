@@ -39,13 +39,13 @@ const MessageOptions = ({ messageUsername, localUsername, id, message, username,
 
     const messageOptionsRef = useRef();
 
-    const { deleteMessage, copyMessage, editMessage, replyMessage } = useMessageOptions();
+    const { openPopup, copyMessage, replyMessage } = useMessageOptions();
 
     let size = document.documentElement.offsetWidth;
 
     return (
         <>
-            <MessageOptionsContainer key={id} ref={messageOptionsRef} initial='hidden' animate='visible' exit='exit' variants={size < 500 && messageUsername == localUsername ? menuMobileVariants : menuDesktopVariants} isuser={isUser} mobile={size < 500 ? 1 : 0}>
+            <MessageOptionsContainer key={id} ref={messageOptionsRef} initial='hidden' animate='visible' exit='exit' variants={size < 500 && messageUsername == localUsername ? menuMobileVariants : menuDesktopVariants} isuser={isUser ? 1 : 0} mobile={size < 500 ? 1 : 0}>
                 <motion.div className='reply' onClick={() => replyMessage(id, message, username)} whileTap={{ scale: 0.8 }} variants={messageUsername == localUsername ? size < 500 ? menuItemUserMobileVariants : menuItemUserDesktopVariants : menuItemVariants}>
                     <i><BsReplyFill /></i>
                 </motion.div>
@@ -54,14 +54,13 @@ const MessageOptions = ({ messageUsername, localUsername, id, message, username,
                 </motion.div>
                 {isUser ? 
                 <>
-                    <motion.div className='edit' onClick={() => editMessage(id, 1)} whileTap={{ scale: 0.8 }} variants={messageUsername == localUsername ? size < 500 ? menuItemUserMobileVariants : menuItemUserDesktopVariants : menuItemVariants}>
+                    <motion.div className='edit' onClick={() => openPopup("EDIT_POPUP", id)} whileTap={{ scale: 0.8 }} variants={messageUsername == localUsername ? size < 500 ? menuItemUserMobileVariants : menuItemUserDesktopVariants : menuItemVariants}>
                         <i><AiFillEdit /></i>
                     </motion.div>
-                    <motion.div className='delete' onClick={() => deleteMessage(id, 1)} whileTap={{ scale: 0.8 }} variants={messageUsername == localUsername ? size < 500 ? menuItemUserMobileVariants : menuItemUserDesktopVariants : menuItemVariants}>
+                    <motion.div className='delete' onClick={() => openPopup("DELETE_POPUP", id)} whileTap={{ scale: 0.8 }} variants={messageUsername == localUsername ? size < 500 ? menuItemUserMobileVariants : menuItemUserDesktopVariants : menuItemVariants}>
                         <i><AiFillDelete /></i>
                     </motion.div>
-                </>
-                : ""}
+                </> : ""}
             </MessageOptionsContainer>
         </>
     );

@@ -17,7 +17,7 @@ const popupPageContainer = {
     exit: { opacity: 0, scale: 0.9, transition: { duration: 0.2 } }
 };
 
-const Popups = ({ type, message, id, replyTo }) => {
+const Popups = ({ popupMessageId, popupMessageText, popupName, popupMessageReplyTo }) => {
 
     const popupPage = useRef();
     const [editInput, setEditInput] = useState("");
@@ -32,18 +32,19 @@ const Popups = ({ type, message, id, replyTo }) => {
 
     const pressEnter = e => {
         if (e.key == "Enter") {
-            if (type == 1) {
-                deleteMessage(id, 2);
-            } else if (type == 2) {
-                editMessage(id, 2, editInput);
+            if (popupName == "DELETE_POPUP") {
+                deleteMessage(popupMessageId);
+            } else if (popupName == "EDIT_POPUP" && !e.shiftKey) {
+                e.preventDefault();
+                editMessage(popupMessageId, editInput, popupMessageReplyTo);
             }
         }
     };
 
     useEffect(() => {
-        if (type == 2) {
+        if (popupName == "EDIT_POPUP") {
             let messageText = [];
-            message.map(item => {
+            popupMessageText.map(item => {
                 messageText.push(item.word);
             });
             setEditInput(messageText.join(" "));
@@ -52,32 +53,36 @@ const Popups = ({ type, message, id, replyTo }) => {
 
     return (
         <>
-            <PopupPage initial='hidden' animate='visible' exit='exit' variants={popupPageVariants} onClick={e => closePopupByTap(e)}>
+            <PopupPage initial='hidden' animate='visible' exit='exit' variants={popupPageVariants} onClick={(e) => closePopupByTap(e)}>
                 <PopupContainer 
                     variants={popupPageContainer}
                     ispersian={isRTL(editInput) ? 1 : 0}
                     dir={isRTL(editInput) ? "rtl" : "ltr"}
                     ref={popupPage}
-                    onKeyUp={e => pressEnter(e)}
+                    onKeyDown={e => pressEnter(e)}
                 >
-                    {type == 1 &&  
+                    {popupName == "DELETE_POPUP" ? 
                     <>
                         <p>Are you sure that you want to delete this message?</p>
                         <div className='buttons'>
                             <motion.button className='cancel' whileTap={{ scale: 0.9 }} onClick={closePopup}>Cancel</motion.button>
-                            <motion.button className='delete' whileTap={{ scale: 0.9 }} onClick={() => deleteMessage(id, 2)} autoFocus>Delete it</motion.button>
+                            <motion.button className='delete' whileTap={{ scale: 0.9 }} onClick={() => deleteMessage(popupMessageId)} autoFocus>Delete it</motion.button>
                         </div>
-                    </>}
+                    </> : ""}
 
-                    {type == 2 &&
+                    {popupName == "EDIT_POPUP" ?
                     <>
-                        <textarea value={editInput} onChange={e => setEditInput(e.target.value)} autoFocus={document.documentElement.offsetWidth > 500}/>
+                        <textarea value={editInput} onChange={e => setEditInput(e.target.value)} autoFocus={document.documentElement.offsetWidth > 500} />
                         <div className='buttons'>
-                            <motion.button className='cancel' whileTap={{ scale: 0.9 }} onClick={closePopup}>Cancel</motion.button>
-                            <motion.button className='edit' whileTap={{ scale: 0.9 }} onClick={() => editMessage(id, 2, editInput, replyTo.id)}>Edit it</motion.button>
+                            <motion.button className='cancel' whileTap={{ scale: 0.9 }} onClick={closePopup}>
+                                Cancel
+                            </motion.button>
+                            <motion.button className='edit' whileTap={{ scale: 0.9 }} onClick={() => editMessage(popupMessageId, editInput, popupMessageReplyTo)}>
+                                Edit
+                            </motion.button>
                         </div>
-                        <AddReplyEditPopup replyTo={replyTo} />
-                    </>}
+                        <AddReplyEditPopup replyTo={popupMessageReplyTo} popupMessageId={popupMessageId} />
+                    </> : ""}
                 </PopupContainer>
             </PopupPage>
         </>
@@ -111,6 +116,10 @@ const PopupContainer = styled(motion.div)`
     position: relative;
     overflow: hidden;
 
+    p {
+        font-weight: 200;
+    }
+
     textarea {
         border: none;
         background-color: #ffffff00;
@@ -136,7 +145,7 @@ const PopupContainer = styled(motion.div)`
             margin: 0 .2rem;
             padding: .5rem 1rem;
             font-size: 1rem;
-            font-weight: 700;
+            font-weight: 600;
             font-family: "Outfit", sans-serif;
             cursor: pointer;
             user-select: none;

@@ -19,19 +19,20 @@ const replyButtonVariants = {
     exit: { opacity: 0, scale: 0.5, transition: { duration: 0.01 } }
 };
 
-const AddReplyEditPopup = ({ replyTo }) => {
+const AddReplyEditPopup = ({ replyTo, popupMessageId }) => {
 
     const [replySectionOpen, setReplySectionOpen] = useState(false);
-    const [newReply, setNewReply] = useState(replyTo.id);
+    const [newReply, setNewReply] = useState(replyTo?.id);
+    const [messagesBefore, setMessagesBefore] = useState([]);
 
     const messagesEndRef = useRef();
 
     const { messages, localUsername } = useSelector(store => store.messagesStore);
 
-    const { editMessage } = useMessageOptions();
+    const { editReply } = useMessageOptions();
 
     useEffect(() => {
-        editMessage(newReply, 3);
+        editReply(newReply);
     }, [newReply]);
 
     useEffect(() => {
@@ -42,14 +43,26 @@ const AddReplyEditPopup = ({ replyTo }) => {
         }, 600);
     }, [replySectionOpen]);
 
+    useEffect(() => {
+        let newMessages = [];
+        for (let i = 0; i < messages.length; i++) {
+            if (messages[i].id == popupMessageId) {
+                break;
+            } else {
+                newMessages.push(messages[i]);
+            }
+        };
+        setMessagesBefore(newMessages);
+    }, []);
+
     return (
         <>
             <ReplyConatiner replysectionopen={replySectionOpen ? 1 : 0}>
                 <AnimatePresence>
                     {replySectionOpen ? 
                     <motion.div key="open" className='reply-messages' initial='hidden' animate='visible' exit='exit' variants={replyAddSectionVariants}>
-                        {messages?.map(message => (
-                            <AddMessageContainer key={message.id} onClick={() => newReply == message.id ? setNewReply(null) : setNewReply(message.id)} isuser={message.username == localUsername ? 1 : 0} ispersian={isRTL(message.message) ? 1 : 0} isreply={message.replyTo != "no_reply" ? 1 : 0} selected={message.id == newReply ? 1 : 0}>
+                        {messagesBefore?.map(message => (
+                            <AddMessageContainer key={message.id} onClick={() => newReply == message.id ? setNewReply("deleted") : setNewReply(message.id)} isuser={message.username == localUsername ? 1 : 0} ispersian={isRTL(message.message) ? 1 : 0} isreply={message.replyTo != "no_reply" ? 1 : 0} selected={message.id == newReply ? 1 : 0}>
                                 {message.replyTo != "no_reply" ? 
                                 <div className='reply-section'>
                                     {message.replyTo ? 
@@ -100,8 +113,9 @@ const ReplyConatiner = styled(motion.div)`
     width: ${props => props.replysectionopen ? "100%" : "2.2rem"};
     height: ${props => props.replysectionopen ? "100%" : "2.2rem"};
     border-radius: 25px;
-    background-color: #0c0c0f;
+    background-color: #020208;
     z-index: 10;
+    overflow: hidden;
     transition: margin .5s, width .5s cubic-bezier(.53,0,0,.98), height .5s cubic-bezier(.53,0,0,.98);
 
     .reply-button {
@@ -112,9 +126,9 @@ const ReplyConatiner = styled(motion.div)`
         align-items: center;
         cursor: pointer;
         position: absolute;
-        top: ${props => props.replysectionopen ? "1rem" : ""};
-        left: ${props => props.replysectionopen ? "1rem" : ""};
-        background-color: ${props => props.replysectionopen ? "#ffffff11" : "#0c0c0f"};
+        top: ${props => props.replysectionopen ? ".5rem" : ""};
+        left: ${props => props.replysectionopen ? ".5rem" : ""};
+        background-color: ${props => props.replysectionopen ? "#ffffff11" : "#020208"};
         backdrop-filter: blur(20px) saturate(100%);
         -webkit-backdrop-filter: blur(20px) saturate(100%);
         border-radius: 25px;
@@ -162,7 +176,7 @@ const AddMessageContainer = styled.div`
     display: flex;
     align-items: center;
     border-radius: 20px;
-    background-color: ${props => props.selected ? "#ffffff33" : "#ffffff0c"};
+    background-color: ${props => props.selected ? "#ffffff33" : "#ffffff07"};
     margin: .4rem 0;
     margin-left: ${props => props.isuser && "auto"};
     padding: ${props => props.isreply ? "2.4rem 2.8rem .5rem .8rem" : ".5rem 2.8rem .5rem .8rem"};
@@ -208,28 +222,29 @@ const AddMessageContainer = styled.div`
     }
 
     .reply-section {
-        background-color: #00000055;
+        background-color: #000;
         position: absolute;
         top: .4rem;
         left: 50%;
-        transform: translate(-50%, 0);
         padding: .3rem;
         width: 90%;
         display: flex;
         justify-content: flex-start;
         align-items: center;
         color: #888;
+        transform: translate(-50%, 0);
         border-radius: 30px;
         white-space: nowrap;
-        transition: background .2s;
         overflow: hidden;
-
+        
         .reply-username {
             font-size: .5rem;
             margin: 0 .2rem;
         }
-
+        
         .reply-message {
+            text-overflow: ellipsis;
+            overflow: hidden;
             font-size: .8rem;
 
             :after {
@@ -241,11 +256,8 @@ const AddMessageContainer = styled.div`
                 height: 100%;
                 pointer-events: none;
                 background-image: linear-gradient(to right, transparent, #000000);
+                display: none;
             }
-        }
-
-        &:hover {
-            background-color: #000;
         }
     }
 

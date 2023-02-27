@@ -20,7 +20,7 @@ export const useGetMessages = () => {
         if (localStorageUsername) {
             dispatch(setLocalUsername(localStorageUsername));
         }
-    
+
         const unsub = onSnapshot(q, (snapshot) => {
             let messages = [];
             dispatch(setMessages(null));
@@ -45,7 +45,7 @@ export const useGetMessages = () => {
             let modifiedMessages = messages?.map((item, index) => {
                 return {
                     ...item,
-                    message: item.message.split(" ").map((word) => {
+                    message: item.message.toString().split(" ").map((word) => {
                         let checkLink = isURL(word);
                         return { word: checkLink.newWord, link: checkLink.isLink };
                     }),

@@ -26,8 +26,9 @@ const MessengerInput = () => {
 
     const inputRef = useRef();
 
-    const { error, localUsername, popup } = useSelector(store => store.messagesStore);
+    const { error, localUsername } = useSelector(store => store.messagesStore);
     const { error: sendMessageError, loading: sendMessageLoading, replyTo } = useSelector(store => store.sendMessageStore);
+    const { popupShow, popupName, popupMessageId } = useSelector(store => store.popupStore);
 
     const { sendMessage } = useSendMessage();
     const { clearReplyMessage } = useMessageOptions();
@@ -46,14 +47,14 @@ const MessengerInput = () => {
     };
 
     const focusHandler = () => {
-        if (document.documentElement.offsetWidth > 500 && !popup.show) {
+        if (document.documentElement.offsetWidth > 500 && !popupShow) {
             inputRef.current.focus();
         }
     };
 
     useEffect(() => {
         focusHandler();
-    }, [popup]);
+    }, [popupShow, popupName]);
 
     return (
         <>
@@ -77,7 +78,7 @@ const MessengerInput = () => {
                         value={inputText}
                         onChange={e => setInputText(e.target.value)}
                         onKeyDown={e => inputKeyHandler(e)}
-                        onBlur={() => focusHandler()}
+                        onBlur={focusHandler}
                         disabled={!!error || !localUsername ? true: false}
                         isrlt={isRTL(inputText) ? 1 : 0}
                         ref={inputRef}
@@ -111,12 +112,13 @@ const MessengerInputContainer = styled.div`
     min-width: 40%;
     position: absolute;
     bottom: ${props => props.isreplyto ? "0" : "1rem"};
+    overflow: hidden;
     transition: bottom .3s;
 
     &:disabled {
         cursor: not-allowed;
     }
-    
+
     .input-section {
         display: flex;
         justify-content: center;
@@ -134,13 +136,14 @@ const MessengerInputContainer = styled.div`
             width: 100%;
             height: 3rem;
             resize: none;
+            overflow: hidden scroll;
     
             /* width */
             ::-webkit-scrollbar {
-                width: 0;
+                width: .3rem;
             }
         }
-    
+
         .messenger-submit {
             font-size: 1.5rem;
             width: 3.5rem;

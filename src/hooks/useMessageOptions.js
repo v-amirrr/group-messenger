@@ -1,17 +1,16 @@
-import React, { useState } from 'react';
 import { db } from '../config/firebase';
 import { doc, deleteDoc, updateDoc } from "firebase/firestore";
 import { useDispatch, useSelector } from 'react-redux';
-import { setPopup, setEditedReply } from "../redux/messagesSlice";
+import { setPopup, setEditedReply } from '../redux/popupSlice';
 import { setSendMessageReplyTo, setClearReplyTo } from '../redux/sendMessageSlice';
 
 const useMessageOptions = () => {
 
     const dispatch = useDispatch();
 
-    const { popup } = useSelector(store => store.messagesStore);
+    const { popupMessageEditedReply } = useSelector(store => store.popupStore);
 
-    const copyMessage = message => {
+    const copyMessage = (message) => {
         let messageText = [];
         message.map(item => {
             messageText.push(item.word);
@@ -20,38 +19,39 @@ const useMessageOptions = () => {
         navigator.clipboard.writeText(messageText);
     };
 
-    // type 1 means showing the popup and type 2 means doing the job
-    const deleteMessage = (id, type) => {
-        if (type == 1) {
-            dispatch(setPopup({ show: true, type: 1, id: id }));
-        } else {
-            const docRef = doc(db, "messages", id);
-            deleteDoc(docRef);
+    const openPopup = (popupName, id) => {
+        dispatch(setPopup({ popupShow: true, popupName: popupName, popupMessageId: id }));
+    };
+
+    const closePopup = () => {
+        dispatch(setPopup({ popupShow: false, popupName: null, popupMessageId: null }));
+    };
+
+    const deleteMessage = (id) => {
+        const docRef = doc(db, "messages", id);
+        deleteDoc(docRef);
+        closePopup();
+    };
+
+    const editMessage = (messageId, newEditedText, prevReply) => {
+        const docRef = doc(db, "messages", messageId);
+        console.log(!!newEditedText);
+        if (newEditedText) {
+            updateDoc(docRef, {
+                message: newEditedText,
+                replyTo: popupMessageEditedReply == "deleted" ? null : popupMessageEditedReply ? popupMessageEditedReply : prevReply == "no_reply" ? null : prevReply.id,
+            });
             closePopup();
+        } else {
+            closePopup();
+            setTimeout(() => {
+                openPopup("DELETE_POPUP", messageId);
+            }, 200);
         }
     };
 
-    // type 1 means showing the popup and type 2 means doing the job
-    const editMessage = (id, type, editInput, prevReply) => {
-        if (type == 1) {
-            dispatch(setPopup({ show: true, type: 2, id: id }));
-        } else if (type == 2) {
-            const docRef = doc(db, "messages", id);
-            if (editInput) {
-                updateDoc(docRef, {
-                    message: editInput,
-                    replyTo: popup.editedReply ? popup.editedReply : prevReply ? prevReply : popup.editedReply,
-                });
-                closePopup();
-            } else {
-                closePopup();
-                setTimeout(() => {
-                    dispatch(setPopup({ show: true, type: 1, id: id }));
-                }, 200);
-            }
-        } else if (type == 3) {
-            dispatch(setEditedReply(id));
-        }
+    const editReply = (id) => {
+        dispatch(setEditedReply(id));
     };
 
     const replyMessage = (id, message, username) => {
@@ -68,17 +68,15 @@ const useMessageOptions = () => {
         dispatch(setClearReplyTo());
     };
 
-    const closePopup = () => {
-        dispatch(setPopup({ show: false, type: 0, id: null }));
-    };
-
-    return { 
-        deleteMessage, 
-        copyMessage, 
-        editMessage, 
-        replyMessage, 
-        clearReplyMessage, 
-        closePopup,  
+    return {
+        copyMessage,
+        openPopup,
+        closePopup,
+        deleteMessage,
+        editMessage,
+        editReply,
+        replyMessage,
+        clearReplyMessage,
     };
 };
 

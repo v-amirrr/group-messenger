@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import AddReplyEditPopup from './AddReplyEditPopup';
+import EditReply from './EditReply';
 import { isRTL } from '../functions/isRlt';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
@@ -21,6 +21,7 @@ const Popups = ({ popupMessageId, popupMessageText, popupName, popupMessageReply
 
     const popupPage = useRef();
     const [editInput, setEditInput] = useState("");
+    const [editReplyOpen, setEditReplyOpen] = useState(false);
 
     const { deleteMessage, editMessage, closePopup } = useMessageOptions();
 
@@ -56,10 +57,11 @@ const Popups = ({ popupMessageId, popupMessageText, popupName, popupMessageReply
             <PopupPage initial='hidden' animate='visible' exit='exit' variants={popupPageVariants} onClick={(e) => closePopupByTap(e)}>
                 <PopupContainer 
                     variants={popupPageContainer}
-                    ispersian={isRTL(editInput) ? 1 : 0}
-                    dir={isRTL(editInput) ? "rtl" : "ltr"}
-                    ref={popupPage}
                     onKeyDown={e => pressEnter(e)}
+                    ref={popupPage}
+                    dir={isRTL(editInput) ? "rtl" : "ltr"}
+                    ispersian={isRTL(editInput) ? 1 : 0}
+                    editreplyopen={editReplyOpen ? 1 : 0}
                 >
                     {popupName == "DELETE_POPUP" ? 
                     <>
@@ -81,7 +83,7 @@ const Popups = ({ popupMessageId, popupMessageText, popupName, popupMessageReply
                                 Edit
                             </motion.button>
                         </div>
-                        <AddReplyEditPopup replyTo={popupMessageReplyTo} popupMessageId={popupMessageId} />
+                        <EditReply replyTo={popupMessageReplyTo} popupMessageId={popupMessageId} editReplyOpen={editReplyOpen} setEditReplyOpen={setEditReplyOpen} />
                     </> : ""}
                 </PopupContainer>
             </PopupPage>
@@ -105,7 +107,7 @@ const PopupPage = styled(motion.section)`
 `;
 
 const PopupContainer = styled(motion.div)`
-    padding: 2rem;
+    padding: ${props => props.editreplyopen ? "8rem 2rem" : "2rem"};
     text-align: center;
     display: flex;
     justify-content: center;
@@ -115,6 +117,7 @@ const PopupContainer = styled(motion.div)`
     border-radius: 25px;
     position: relative;
     overflow: hidden;
+    transition: padding 1s cubic-bezier(.53,0,0,.98);
 
     p {
         font-weight: 200;
@@ -169,7 +172,7 @@ const PopupContainer = styled(motion.div)`
     }
     
     @media (max-width: 768px) {
-        padding: 1.5rem;
+        padding: ${props => props.editreplyopen ? "8rem 1.5rem" : "1.5rem"};
 
         textarea {
             font-size: .8rem;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
+import ChatDate from "./ChatDate";
 import { isRTL } from '../functions/isRlt';
 import useMessageOptions from "../hooks/useMessageOptions";
-import backgroundSRC from '../assets/images/bg.webp';
 import { useSelector } from 'react-redux';
 import { BsReplyFill } from 'react-icons/bs';
 import { IoClose } from 'react-icons/io5';
@@ -111,27 +111,30 @@ const EditReply = ({ replyTo, popupMessageId, editReplyOpen, setEditReplyOpen })
                     {editReplyOpen ? 
                     <motion.div key="open" className='reply-messages' initial='hidden' animate='visible' exit='exit' variants={replyAddSectionVariants}>
                         {messagesBefore?.map(message => (
-                            <AddMessageContainer key={message.id} onClick={() => newReply == message.id ? setNewReply("deleted") : setNewReply(message.id)} isuser={message.username == localUsername ? 1 : 0} ispersian={isRTL(message.message) ? 1 : 0} isreply={message.replyTo != "no_reply" ? 1 : 0} selected={message.id == newReply ? 1 : 0} messagePosition={message.messagePosition}>
-                                {message.replyTo != "no_reply" ? 
-                                <div className='reply-section'>
-                                    {message.replyTo ? 
-                                    <>
-                                        <p className='reply-username'>{message.replyTo?.username}</p>
-                                        <p className='reply-message'>{message.replyTo?.message}</p>
-                                    </>
-                                    : <p className='reply-message'>Deleted Message</p>}
-                                </div>
-                                : ""}
-                                <p className='username'>{message.username}</p>
-                                <p className='message'>
-                                    {message.message?.map((item, index) => (
-                                        item.link ? <p key={index} className='link' href={item.word} target="_blank">{item.word}</p> : `${item.word} `
-                                    ))}
-                                </p>
-                                <span className='time'>
-                                    {message.time.hour < 10 ? `0${message.time.hour}` : message.time.hour}:{message.time.minute < 10 ? `0${message.time.minute}` : message.time.minute}
-                                </span>
-                            </AddMessageContainer>
+                            <>
+                                {message.priorDifferentDate ? <ChatDate dateObj={message.time} /> : ""}
+                                <AddMessageContainer key={message.id} onClick={() => newReply == message.id ? setNewReply("deleted") : setNewReply(message.id)} isuser={message.username == localUsername ? 1 : 0} ispersian={isRTL(message.message) ? 1 : 0} isreply={message.replyTo != "no_reply" ? 1 : 0} selected={message.id == newReply ? 1 : 0} messagePosition={message.messagePosition}>
+                                    {message.replyTo != "no_reply" ? 
+                                    <div className='reply-section'>
+                                        {message.replyTo ? 
+                                        <>
+                                            <p className='reply-username'>{message.replyTo?.username}</p>
+                                            <p className='reply-message'>{message.replyTo?.message}</p>
+                                        </>
+                                        : <p className='reply-message'>Deleted Message</p>}
+                                    </div>
+                                    : ""}
+                                    <p className='username'>{message.username}</p>
+                                    <p className='message'>
+                                        {message.message?.map((item, index) => (
+                                            item.link ? <p key={index} className='link' href={item.word} target="_blank">{item.word}</p> : `${item.word} `
+                                        ))}
+                                    </p>
+                                    <span className='time'>
+                                        {message.time.hour < 10 ? `0${message.time.hour}` : message.time.hour}:{message.time.minute < 10 ? `0${message.time.minute}` : message.time.minute}
+                                    </span>
+                                </AddMessageContainer>
+                            </>
                         ))}
                         <div ref={messagesEndRef} />
                     </motion.div>

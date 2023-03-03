@@ -178,18 +178,18 @@ const ReplyConatiner = styled(motion.div)`
 
     .reply-button {
         all: unset;
-        font-size: 1.5rem;
+        font-size: ${props => props.editReplyOpen ? "2rem" : "1.5rem"};
         display: flex;
         justify-content: center;
         align-items: center;
         cursor: pointer;
         position: absolute;
-        top: ${props => props.editReplyOpen ? ".5rem" : ""};
-        left: ${props => props.editReplyOpen ? ".5rem" : ""};
+        top: ${props => props.editReplyOpen ? "1rem" : ""};
+        left: ${props => props.editReplyOpen ? "1rem" : ""};
         background-color: ${props => props.editReplyOpen ? "#ffffff11" : "#020208"};
         backdrop-filter: blur(20px) saturate(100%);
         -webkit-backdrop-filter: blur(20px) saturate(100%);
-        border-radius: 25px;
+        border-radius: 50%;
         padding: .3rem;
         transition: top .3s, left .3s;
     }

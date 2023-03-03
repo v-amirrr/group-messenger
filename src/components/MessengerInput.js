@@ -70,7 +70,7 @@ const MessengerInput = () => {
                 : ""}
             </AnimatePresence>
 
-            <MessengerInputContainer isreplyto={replyTo.id ? 1: 0}>
+            <MessengerInputContainer isreplyto={replyTo.id ? 1: 0} isrlt={isRTL(inputText) ? 1 : 0}>
                 <div className='input-section'>
                     <textarea
                         className='messenger-input'
@@ -80,10 +80,10 @@ const MessengerInput = () => {
                         onKeyDown={e => inputKeyHandler(e)}
                         onBlur={focusHandler}
                         disabled={!!error || !localUsername ? true: false}
-                        isrlt={isRTL(inputText) ? 1 : 0}
                         ref={inputRef}
                         dir="auto"
-                        autoFocus />
+                        autoFocus 
+                    />
 
                     <motion.button whileTap={inputText && { scale: 0.5 }} type="submit" className='messenger-submit' disabled={!inputText} onClick={inputSubmitHandler}>
                         <AnimatePresence exitBeforeEnter>
@@ -124,6 +124,8 @@ const MessengerInputContainer = styled.div`
         justify-content: center;
         align-items: center;
         width: 100%;
+        padding: ${props => props.isrlt ? "0 0 0 1rem" : ""};
+        transition: padding .2s;
 
         .messenger-input {
             color: #fff;

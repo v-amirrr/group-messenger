@@ -59,7 +59,6 @@ const Popups = ({ popupMessageId, popupMessageText, popupName, popupMessageReply
                     variants={popupPageContainer}
                     onKeyDown={e => pressEnter(e)}
                     ref={popupPage}
-                    
                     ispersian={isRTL(editInput) ? 1 : 0}
                     editreplyopen={editReplyOpen ? 1 : 0}
                 >
@@ -107,7 +106,7 @@ const PopupPage = styled(motion.section)`
 `;
 
 const PopupContainer = styled(motion.div)`
-    padding: ${props => props.editreplyopen ? "8rem 2rem" : "2rem"};
+    padding: ${props => props.editreplyopen ? "8rem 4rem" : "2rem"};
     text-align: center;
     display: flex;
     justify-content: center;
@@ -118,6 +117,11 @@ const PopupContainer = styled(motion.div)`
     position: relative;
     overflow: hidden;
     transition: padding 1s cubic-bezier(.53,0,0,.98);
+
+    textarea, .buttons {
+        transform: ${props => props.editreplyopen ? "scale(0.5)" : ""};
+        transition: transform 1s cubic-bezier(.53,0,0,.98);
+    }
 
     p {
         font-weight: 200;
@@ -172,7 +176,7 @@ const PopupContainer = styled(motion.div)`
     }
     
     @media (max-width: 768px) {
-        padding: ${props => props.editreplyopen ? "8rem 1.5rem" : "1.5rem"};
+        padding: ${props => props.editreplyopen ? "8rem 2.5rem" : "1.5rem"};
 
         textarea {
             font-size: .8rem;

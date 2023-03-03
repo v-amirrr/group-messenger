@@ -59,7 +59,7 @@ const Popups = ({ popupMessageId, popupMessageText, popupName, popupMessageReply
                     variants={popupPageContainer}
                     onKeyDown={e => pressEnter(e)}
                     ref={popupPage}
-                    dir={isRTL(editInput) ? "rtl" : "ltr"}
+                    
                     ispersian={isRTL(editInput) ? 1 : 0}
                     editreplyopen={editReplyOpen ? 1 : 0}
                 >
@@ -74,7 +74,7 @@ const Popups = ({ popupMessageId, popupMessageText, popupName, popupMessageReply
 
                     {popupName == "EDIT_POPUP" ?
                     <>
-                        <textarea value={editInput} onChange={e => setEditInput(e.target.value)} autoFocus={document.documentElement.offsetWidth > 500} />
+                        <textarea value={editInput} onChange={e => setEditInput(e.target.value)} autoFocus={document.documentElement.offsetWidth > 500} dir={isRTL(editInput) ? "rtl" : "ltr"} />
                         <div className='buttons'>
                             <motion.button className='cancel' whileTap={{ scale: 0.9 }} onClick={closePopup}>
                                 Cancel

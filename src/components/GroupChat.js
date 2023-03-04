@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
-import Message from './Message';
+import Message from './message/Message';
 import MessengerInput from './MessengerInput';
 import FlipMove from 'react-flip-move';
 import styled from 'styled-components';

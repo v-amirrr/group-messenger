@@ -40,6 +40,10 @@ const TimeContainer = styled(motion.div)`
         ".3rem .8rem"
     };
     transform: margin .4s;
+
+    @media (max-width: 768px) {
+        font-size: .45rem;
+    }
 `;
 
 export default MessageTime;

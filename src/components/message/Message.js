@@ -9,6 +9,7 @@ import ChatDate from '../ChatDate';
 import MessageTime from './MessageTime';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
+import MessageReply from './MessageReply';
 
 const Message = forwardRef(( props, ref ) => {
 
@@ -78,16 +79,8 @@ const Message = forwardRef(( props, ref ) => {
             {priorDifferentDate ? <ChatDate dateObj={time} /> : ""}
 
             <MessageBox key={id} ref={ref} onClick={() => setMenuShow(!menuShow)} isuser={messageUsername == localUsername ? 1 : 0} ispersian={isRTL(message) ? 1 : 0} messagePosition={messagePosition} isreply={replyTo != "no_reply" ? 1 : 0}>
-                {replyTo != "no_reply" ? 
-                <div className='reply-section'>
-                    {replyTo ? 
-                    <>
-                        <p className='reply-username'>{replyTo?.username}</p>
-                        <p className='reply-message'>{replyTo?.message}</p>
-                    </>
-                    : <p className='reply-message'>Deleted Message</p>}
-                </div>
-                : ""}
+                <MessageReply replyTo={replyTo} />
+
                 <p className='username'>{messageUsername}</p>
                 <p className='message'>
                     {message?.map((item, index) => (
@@ -195,46 +188,6 @@ const MessageBox = styled.div`
         font-size: 1rem;
     }
 
-    .reply-section {
-        background: linear-gradient(39deg, rgba(0,59,94,1) 0%, rgba(0,26,42,1) 0%, rgba(0,27,43,1) 1%, rgba(0,0,0,1) 50%, rgba(0,22,27,1) 99%, rgba(0,27,33,1) 100%, rgba(0,69,83,1) 100%);
-        position: absolute;
-        top: .4rem;
-        left: 50%;
-        padding: .3rem;
-        width: 90%;
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        color: #888;
-        transform: translate(-50%, 0);
-        border-radius: 30px;
-        white-space: nowrap;
-        overflow: hidden;
-        
-        .reply-username {
-            font-size: .5rem;
-            margin: 0 .2rem;
-        }
-        
-        .reply-message {
-            text-overflow: ellipsis;
-            overflow: hidden;
-            font-size: .8rem;
-
-            :after {
-                content: '';
-                position: absolute;
-                top: 0;
-                right: 0;
-                width: 30%;
-                height: 100%;
-                pointer-events: none;
-                background-image: linear-gradient(to right, transparent, #000000);
-                display: none;
-            }
-        }
-    }
-
     @media (max-width: 768px) {
         padding: ${props => props.isreply ? "2.4rem 2.5rem .5rem .8rem" : ".5rem 2.5rem .5rem .8rem"};
         max-width: 80%;
@@ -267,10 +220,6 @@ const MessageBox = styled.div`
 
         .message {
             font-size: .8rem;
-        }
-
-        .time {
-            font-size: .45rem;
         }
     }
 `;

@@ -82,7 +82,7 @@ const MessengerInput = () => {
                         disabled={!!error || !localUsername ? true: false}
                         ref={inputRef}
                         dir="auto"
-                        autoFocus 
+                        autoFocus={document.documentElement.offsetWidth > 500 ? true : false}
                     />
 
                     <motion.button whileTap={inputText && { scale: 0.5 }} type="submit" className='messenger-submit' disabled={!inputText} onClick={inputSubmitHandler}>
@@ -186,7 +186,7 @@ const ReplyTo = styled(motion.div)`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #0c0c0f;
+    background: linear-gradient(39deg, rgba(0,59,94,1) 0%, rgba(0,26,42,1) 0%, rgba(0,27,43,1) 1%, rgba(0,0,0,1) 50%, rgba(0,22,27,1) 99%, rgba(0,27,33,1) 100%, rgba(0,69,83,1) 100%);
     border-radius: 50px;
     position: absolute;
     bottom: 3.5rem;
@@ -235,7 +235,7 @@ const ReplyTo = styled(motion.div)`
                 position: absolute;
                 top: 0;
                 right: 0;
-                width: 20%;
+                width: 40%;
                 height: ${props => props.messageletters > 50 ? "100%" : "0"};
                 pointer-events: none;
                 background-image: linear-gradient(to right, transparent, #000000);

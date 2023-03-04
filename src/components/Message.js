@@ -95,7 +95,7 @@ const Message = forwardRef(( props, ref ) => {
                 <p className='username'>{messageUsername}</p>
                 <p className='message'>
                     {message?.map((item, index) => (
-                        item.link ? <a key={index} className='link' href={item.word} target="_blank">{item.word}</a> : `${item.word} `
+                        item.link ? <a key={index} className='link' href={item.word} target="_blank" rel='noopener nereferrer'>{item.word}</a> : `${item.word} `
                     ))}
                 </p>
 
@@ -227,7 +227,7 @@ const MessageBox = styled.div`
     }
 
     .reply-section {
-        background-color: #000;
+        background: linear-gradient(39deg, rgba(0,59,94,1) 0%, rgba(0,26,42,1) 0%, rgba(0,27,43,1) 1%, rgba(0,0,0,1) 50%, rgba(0,22,27,1) 99%, rgba(0,27,33,1) 100%, rgba(0,69,83,1) 100%);
         position: absolute;
         top: .4rem;
         left: 50%;

@@ -112,7 +112,14 @@ const EditReply = ({ replyTo, popupMessageId, editReplyOpen, setEditReplyOpen })
                     <motion.div key="open" className='reply-messages' initial='hidden' animate='visible' exit='exit' variants={replyAddSectionVariants}>
                         {messagesBefore?.map(message => (
                             <>
-                                {message.priorDifferentDate ? <ChatDate dateObj={message.time} /> : ""}
+                                {message.priorDifferentDate ? 
+                                    message.time.year != null && message.time.month != null && message.time.day != null ?
+                                    <div className='date'>
+                                        <p className='year'>{message.time.year}</p>
+                                        <p className='month'>{message.time.month}</p>
+                                        <p className='day'>{message.time.day}</p>
+                                    </div> : ""
+                                : ""}
                                 <AddMessageContainer key={message.id} onClick={() => newReply == message.id ? setNewReply("deleted") : setNewReply(message.id)} isuser={message.username == localUsername ? 1 : 0} ispersian={isRTL(message.message) ? 1 : 0} isreply={message.replyTo != "no_reply" ? 1 : 0} selected={message.id == newReply ? 1 : 0} messagePosition={message.messagePosition}>
                                     {message.replyTo != "no_reply" ? 
                                     <div className='reply-section'>
@@ -165,13 +172,8 @@ const ReplyConatiner = styled(motion.div)`
     width: ${props => props.editReplyOpen ? "100%" : "2.2rem"};
     height: ${props => props.editReplyOpen ? "100%" : "2.2rem"};
     border-radius: 25px;
-    background-image: linear-gradient(
-        45deg,
-        hsl(0deg 0% 0%) 60%,
-        hsl(195deg 100% 10%) 100%,
-        hsl(10deg 0% 0%) 60%,
-        hsl(360deg 100% 10%) 100%
-    );
+    background: rgb(0,59,94);
+    background: linear-gradient(39deg, rgba(0,59,94,1) 0%, rgba(0,26,42,1) 0%, rgba(0,27,43,1) 1%, rgba(0,0,0,1) 50%, rgba(0,22,27,1) 99%, rgba(0,27,33,1) 100%, rgba(0,69,83,1) 100%);
     z-index: 10;
     overflow: hidden;
     transition: margin .5s, width .8s cubic-bezier(.53,0,0,.98), height .8s cubic-bezier(.53,0,0,.98);
@@ -220,11 +222,40 @@ const ReplyConatiner = styled(motion.div)`
         }
     }
 
-    @media (max-width: 768px) {
-        margin: ${props => props.editReplyOpen ? "" : "1.5rem .5rem"};
-
-        .reply-messages {
-            padding: 1rem .5rem;
+    .date {
+        padding: .3rem .5rem;
+        background-color: #ffffff0c;
+        color: #f0f0f5;
+        border-radius: 50px;
+        font-size: .4rem;
+        font-weight: 800;
+        width: fit-content;
+        margin: .5rem auto;
+        user-select: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    
+        .month {
+            margin: 0 .1rem 0 .15rem;
+        }
+    
+        @media (max-width: 500px) {
+            font-size: .4rem;
+            padding: .2rem .3rem;
+    
+            .month {
+                letter-spacing: 0;
+                margin: 0 .2rem 0 .25rem;
+            }
+        }
+    
+        @media (max-width: 768px) {
+            margin: ${props => props.editReplyOpen ? "" : "1.5rem .5rem"};
+    
+            .reply-messages {
+                padding: 1rem .5rem;
+            }
         }
     }
 `;
@@ -233,7 +264,7 @@ const AddMessageContainer = styled.div`
     position: relative;
     display: flex;
     align-items: center;
-    background-color: ${props => props.selected ? "#ffffff33" : "#ffffff0f"};
+    background-color: ${props => props.selected ? "#ffffff33" : "#ffffff0c"};
     margin: ${props => 
         props.messagePosition == 0 ? 
         ".4rem 0" : 

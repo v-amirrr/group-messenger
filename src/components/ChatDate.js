@@ -8,15 +8,17 @@ const chatDateVariants = {
     exit: { opacity: 0, scaleX: 0.8, transition: { duration: 0.4 } }
 };
 
-const ChatDate = ({ dateObj }) => {
+const ChatDate = ({ dateObj, priorDifferentDate }) => {
     return (
         <>
-            {dateObj.year != null && dateObj.month != null && dateObj.day != null ?
-            <ChatDateContainer initial='hidden' animate='visible' exit='exit' variants={chatDateVariants}>
-                <p className='year'>{dateObj.year}</p>
-                <p className='month'>{dateObj.month}</p>
-                <p className='day'>{dateObj.day}</p>
-            </ChatDateContainer>
+            {priorDifferentDate ? 
+                dateObj.year != null && dateObj.month != null && dateObj.day != null ?
+                <ChatDateContainer initial='hidden' animate='visible' exit='exit' variants={chatDateVariants}>
+                    <p className='year'>{dateObj.year}</p>
+                    <p className='month'>{dateObj.month}</p>
+                    <p className='day'>{dateObj.day}</p>
+                </ChatDateContainer>
+                : ""
             : ""}
         </>
     );

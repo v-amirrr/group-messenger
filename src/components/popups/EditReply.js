@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import ChatDate from "./ChatDate";
-import { isRTL } from '../functions/isRlt';
-import useMessageOptions from "../hooks/useMessageOptions";
+import ChatDate from "../ChatDate";
+import { isRTL } from '../../functions/isRlt';
+import useMessageOptions from "../../hooks/useMessageOptions";
 import { useSelector } from 'react-redux';
 import { BsReplyFill } from 'react-icons/bs';
 import { IoClose } from 'react-icons/io5';
@@ -227,34 +227,39 @@ const ReplyConatiner = styled(motion.div)`
         background-color: #ffffff0c;
         color: #f0f0f5;
         border-radius: 50px;
-        font-size: .4rem;
-        font-weight: 800;
         width: fit-content;
         margin: .5rem auto;
         user-select: none;
         display: flex;
         justify-content: center;
         align-items: center;
+        
+        p {
+            font-size: .4rem;
+            font-weight: 400;
+        }
     
         .month {
             margin: 0 .1rem 0 .15rem;
         }
-    
-        @media (max-width: 500px) {
-            font-size: .4rem;
+    }
+
+    @media (max-width: 768px) {
+        margin: ${props => props.editReplyOpen ? "" : "1.5rem .5rem"};
+
+        .reply-messages {
+            padding: 1rem .5rem;
+        }
+
+        .date {
             padding: .2rem .3rem;
+            
+            p {
+                font-size: .4rem;
+            }
     
             .month {
-                letter-spacing: 0;
                 margin: 0 .2rem 0 .25rem;
-            }
-        }
-    
-        @media (max-width: 768px) {
-            margin: ${props => props.editReplyOpen ? "" : "1.5rem .5rem"};
-    
-            .reply-messages {
-                padding: 1rem .5rem;
             }
         }
     }

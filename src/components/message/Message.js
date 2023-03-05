@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPopup } from '../../redux/popupSlice';
 import { isRTL } from '../../functions/isRlt';
-import Popups from '../Popups';
+import Popup from '../popups/Popup';
 import MessageOptions from '../MessageOptions';
 import ChatDate from '../ChatDate';
 import MessageTime from './MessageTime';
@@ -76,7 +76,7 @@ const Message = forwardRef(( props, ref ) => {
 
     return (
         <>
-            {priorDifferentDate ? <ChatDate dateObj={time} /> : ""}
+            <ChatDate dateObj={time} priorDifferentDate={priorDifferentDate} />
 
             <MessageBox key={id} ref={ref} onClick={() => setMenuShow(!menuShow)} isuser={messageUsername == localUsername ? 1 : 0} ispersian={isRTL(message) ? 1 : 0} messagePosition={messagePosition} isreply={replyTo != "no_reply" ? 1 : 0}>
                 <MessageReply replyTo={replyTo} />
@@ -108,7 +108,7 @@ const Message = forwardRef(( props, ref ) => {
             {createPortal(
                 <AnimatePresence exitBeforeEnter>
                     {popupShow && popupMessageId == id ?
-                    <Popups
+                    <Popup
                         popupMessageId={popupMessageId}
                         popupMessageText={message}
                         popupName={popupName}

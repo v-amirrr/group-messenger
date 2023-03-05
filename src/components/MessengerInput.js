@@ -28,7 +28,7 @@ const MessengerInput = () => {
 
     const { error, localUsername } = useSelector(store => store.messagesStore);
     const { error: sendMessageError, loading: sendMessageLoading, replyTo } = useSelector(store => store.sendMessageStore);
-    const { popupShow, popupName, popupMessageId } = useSelector(store => store.popupStore);
+    const { popupShow, popupName } = useSelector(store => store.popupStore);
 
     const { sendMessage } = useSendMessage();
     const { clearReplyMessage } = useMessageOptions();
@@ -49,6 +49,8 @@ const MessengerInput = () => {
     const focusHandler = () => {
         if (document.documentElement.offsetWidth > 500 && !popupShow) {
             inputRef.current.focus();
+        } else if (popupShow) {
+            inputRef.current.blur();
         }
     };
 
@@ -82,7 +84,7 @@ const MessengerInput = () => {
                         disabled={!!error || !localUsername ? true: false}
                         ref={inputRef}
                         dir="auto"
-                        autoFocus={document.documentElement.offsetWidth > 500 ? true : false}
+                        autoFocus={document.documentElement.offsetWidth > 500 && !popupShow ? true : false}
                     />
 
                     <motion.button whileTap={inputText && { scale: 0.5 }} type="submit" className='messenger-submit' disabled={!inputText} onClick={inputSubmitHandler}>

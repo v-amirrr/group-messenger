@@ -1,15 +1,25 @@
 import React from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Messenger from './components/Messenger';
 import Modals from './components/Modals';
 import backgroundSRC from './assets/images/bg.webp';
 import styled from 'styled-components';
+import { AnimatePresence } from 'framer-motion';
 
 const App = () => {
+
+    const location = useLocation();
+
     return (
         <>
             <Modals />
-            <Messenger />
             <Background><img src={backgroundSRC} /></Background>
+
+            <AnimatePresence exitBeforeEnter>
+                <Routes location={location} key={location.key}>
+                    <Route path="/" element={<Messenger />} />
+                </Routes>
+            </AnimatePresence>
         </>
     );
 };

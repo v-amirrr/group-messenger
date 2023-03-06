@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "@firebase/firestore";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyAGLqhKynNvGcNv9iJVLe7AakneRvPBYHM",
+    apiKey: process.env.REACT_APP_API_KEY,
     authDomain: "group-messenger-a5d6d.firebaseapp.com",
     projectId: "group-messenger-a5d6d",
     storageBucket: "group-messenger-a5d6d.appspot.com",

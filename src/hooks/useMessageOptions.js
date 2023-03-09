@@ -35,7 +35,6 @@ const useMessageOptions = () => {
 
     const editMessage = (messageId, newEditedText, prevReply) => {
         const docRef = doc(db, "messages", messageId);
-        console.log(!!newEditedText);
         if (newEditedText) {
             updateDoc(docRef, {
                 message: newEditedText,

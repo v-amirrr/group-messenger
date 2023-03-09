@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux";
 import { db } from "../config/firebase";
 import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
 import { setMessages, setError, setLoadingOn, setLoadingOff, setLocalUsername } from "../redux/messagesSlice";
+import { setWarningShow, setWarningPageNeverShowCheck } from "../redux/userSlice";
 import { isURL } from "../functions/isURL";
 
 export const useGetMessages = () => {
@@ -16,9 +17,16 @@ export const useGetMessages = () => {
         const q = query(ref, orderBy("time", "asc"));
         const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
         const localStorageUsername = JSON.parse(localStorage.getItem("username"));
+        const warningPupupNeverShowLocalStorage = localStorage.getItem("warning-check");
 
         if (localStorageUsername) {
             dispatch(setLocalUsername(localStorageUsername));
+        }
+
+        if (warningPupupNeverShowLocalStorage) {
+            sessionStorage.setItem("warning", "true");
+            dispatch(setWarningShow(true));
+            dispatch(setWarningPageNeverShowCheck(true));
         }
 
         const unsub = onSnapshot(q, (snapshot) => {

@@ -1,25 +1,24 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
-import { useGetMessages } from '../hooks/useGetMessages';
 import Loader from './Loader';
 import ErrorBox from './ErrorBox';
 import GroupChat from './GroupChat';
 import styled from 'styled-components';
-import { AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+
+const messengerVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { duration: 0.2 } },
+    exit: { opacity: 0, transition: { duration: 0.2 } }
+};
 
 const Messenger = () => {
 
-    const { messages, loading, error } = useSelector(store => store.messagesStore);
-
-    const { getMessages } = useGetMessages();
-
-    useEffect(() => {
-        getMessages();
-    }, []);
+    const { loading, error } = useSelector(store => store.messagesStore);
 
     return (
         <>
-            <MessengerPage>
+            <MessengerPage initial='hidden' animate='visible' exit='exit' variants={messengerVariants}>
                 <MessengerContainer>
                     <AnimatePresence>
                         {loading ? <Loader key="loader" usage={1} /> :
@@ -32,7 +31,7 @@ const Messenger = () => {
     );
 };
 
-const MessengerPage = styled.section`
+const MessengerPage = styled(motion.main)`
     width: 100vw;
     height: 100vh;
     display: flex;

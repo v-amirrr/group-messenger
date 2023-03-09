@@ -1,12 +1,18 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import useSendMessage from '../hooks/useSendMessage';
+import useMessageOptions from '../hooks/useMessageOptions';
 import { isRTL } from '../functions/isRlt';
 import Loader from "./Loader";
-import useMessageOptions from '../hooks/useMessageOptions';
 import { IoSend, IoAlert, IoClose } from 'react-icons/io5';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
+
+const messengerInputVariants = {
+    hidden: { opacity: 0, scaleX: 0, y: 10 },
+    visible: { opacity: 1, scaleX: 1, y: 0, transition: { duration: 0.3, type: "spring", stiffness: 100 } },
+    exit: { opacity: 0, scaleY: 0, transition: { duration: 0.3 } }
+};
 
 const sendInputIconVariants = {
     hidden: { opacity: 0, scale: 0.8 },
@@ -72,7 +78,7 @@ const MessengerInput = () => {
                 : ""}
             </AnimatePresence>
 
-            <MessengerInputContainer isreplyto={replyTo.id ? 1: 0} isrlt={isRTL(inputText) ? 1 : 0}>
+            <MessengerInputContainer isreplyto={replyTo.id ? 1: 0} isrlt={isRTL(inputText) ? 1 : 0} inputtext={inputText ? 1 : 0} initial='hidden' animate='visible' exit='exit' variants={messengerInputVariants}>
                 <div className='input-section'>
                     <textarea
                         className='messenger-input'
@@ -102,7 +108,7 @@ const MessengerInput = () => {
     );
 };
 
-const MessengerInputContainer = styled.div`
+const MessengerInputContainer = styled(motion.section)`
     background-color: #ffffff08;
     backdrop-filter: blur(5px) saturate(100%);
     -webkit-backdrop-filter: blur(20px) saturate(120%);
@@ -140,7 +146,7 @@ const MessengerInputContainer = styled.div`
             width: 100%;
             height: 3rem;
             resize: none;
-            overflow: hidden scroll;
+            overflow: ${props => props.inputtext ? "hidden scroll" : ""};
     
             /* width */
             ::-webkit-scrollbar {

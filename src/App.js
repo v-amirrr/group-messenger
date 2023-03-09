@@ -4,6 +4,7 @@ import backgroundSRC from './assets/images/bg.webp';
 import Messenger from './components/Messenger';
 import WarningPage from './components/WarningPage';
 import Login from './components/Login';
+import Settings from './components/Settings';
 import { useGetMessages } from './hooks/useGetMessages';
 import { useWarningPage } from './hooks/useWarningPage';
 import styled from 'styled-components';
@@ -30,6 +31,7 @@ const App = () => {
                     <Route path="/" element={<Messenger />} />
                     <Route path="/warning" element={<WarningPage />} />
                     <Route path="/login" element={<Login />} />
+                    <Route path="/settings" element={<Settings />} />
                 </Routes>
             </AnimatePresence>
         </>

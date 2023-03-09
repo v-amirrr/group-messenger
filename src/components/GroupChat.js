@@ -2,14 +2,15 @@ import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import Message from './message/Message';
 import MessengerInput from './MessengerInput';
+import MessengerHeader from './MessengerHeader';
 import FlipMove from 'react-flip-move';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
 const groupChatVariants = {
     hidden: { opacity: 0, scaleX: 0.5 },
-    visible: { opacity: 1, scaleX: 1, transition: { duration: 0.4 } },
-    exit: { opacity: 0, scaleX: 0.8, transition: { duration: 0.4 } }
+    visible: { opacity: 1, scaleX: 1, transition: { duration: 0.4, when: "beforeChildren" } },
+    exit: { opacity: 0, scaleX: 0.8, transition: { duration: 0.4, when: "afterChildren" } }
 };
 
 const GroupChat = () => {
@@ -31,6 +32,8 @@ const GroupChat = () => {
 
     return (
         <>
+            <MessengerHeader />
+
             <GroupChatContainer ref={messagesContainerRef} initial='hidden' animate='visible' exit='exit' variants={groupChatVariants}>
                 <FlipMove>
                     {messages?.map(message => (
@@ -64,7 +67,7 @@ const GroupChatContainer = styled(motion.div)`
     height: 100%;
     overflow: hidden scroll;
     position: relative;
-    padding: 1rem 2rem 5rem 2rem;
+    padding: 5rem 2rem 5rem 2rem;
     scroll-behavior: smooth;
 
     @media (max-width: 800px) {

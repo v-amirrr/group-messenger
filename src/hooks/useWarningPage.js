@@ -9,12 +9,13 @@ export const useWarningPage = () => {
 
     let warningPupupSessionStorage = sessionStorage.getItem("warning");
     let warningPupupNeverShowLocalStorage = localStorage.getItem("warning-check");
+    let loginAsGuestLocalStorage = JSON.parse(localStorage.getItem("guest-login"));
     let usernameLocalStorage = localStorage.getItem("username");
 
     const showWelcomePages = () => {
         if (!warningPupupSessionStorage && !warningPupupNeverShowLocalStorage) {
             navigate("/warning", { replace: true });
-        } else if (!usernameLocalStorage) {
+        } else if (!usernameLocalStorage && !loginAsGuestLocalStorage) {
             navigate("/login", { replace: true });
         }
     };

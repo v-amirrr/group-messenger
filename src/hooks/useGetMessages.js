@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { db } from "../config/firebase";
 import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
 import { setMessages, setError, setLoadingOn, setLoadingOff, setLocalUsername } from "../redux/messagesSlice";
-import { setWarningShow, setWarningPageNeverShowCheck } from "../redux/userSlice";
+import { setWarningShow, setWarningPageNeverShowCheck, setLoginAsGuest } from "../redux/userSlice";
 import { isURL } from "../functions/isURL";
 
 export const useGetMessages = () => {
@@ -18,9 +18,14 @@ export const useGetMessages = () => {
         const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
         const localStorageUsername = JSON.parse(localStorage.getItem("username"));
         const warningPupupNeverShowLocalStorage = localStorage.getItem("warning-check");
+        let loginAsGuestLocalStorage = JSON.parse(localStorage.getItem("guest-login"));
 
         if (localStorageUsername) {
             dispatch(setLocalUsername(localStorageUsername));
+        }
+
+        if (loginAsGuestLocalStorage) {
+            dispatch(setLoginAsGuest());
         }
 
         if (warningPupupNeverShowLocalStorage) {

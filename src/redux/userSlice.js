@@ -20,8 +20,8 @@ const userSlice = createSlice({
         setWarningPageNeverShowCheck: (state, action) => {
             return { ...state, warningPageNeverShowCheck: action.payload };
         },
-        setLoginAsGuest: (state) => {
-            return { ...state, loginAsGuest: true };
+        setLoginAsGuest: (state, action) => {
+            return { ...state, loginAsGuest: action.payload };
         },
     },
 });

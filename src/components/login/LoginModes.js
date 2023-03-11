@@ -1,5 +1,6 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { useLogin } from "../../hooks/useLogin";
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
@@ -18,7 +19,19 @@ const loginPageItemsVariants = {
 
 const Login = () => {
 
-    const { loginAsGuest } = useLogin();
+    const navigate = useNavigate();
+
+    const { loginAsGuest, clearLoginErorrs } = useLogin();
+
+    const { localUsername } = useSelector(store => store.messagesStore);
+    const { loginAsGuest: loginAsGuestUserStore } = useSelector(store => store.userStore);
+
+    useEffect(() => {
+        clearLoginErorrs();
+        if (localUsername || loginAsGuestUserStore) {
+            navigate("/", { replace: true });
+        }
+    }, []);
 
     return (
         <>
@@ -88,7 +101,7 @@ const LoginPage = styled(motion.section)`
                 text-align: center;
                 font-size: .5rem;
                 margin: .2rem;
-                background-color: #ffffff11;
+                background-color: #ffffff08;
                 padding: .4rem .3rem;
                 border-radius: 10px;
             }

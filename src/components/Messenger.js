@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import Loader from './Loader';
 import ErrorBox from './ErrorBox';
 import GroupChat from './GroupChat';
+import MessengerMenu from './MessengerMenu';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -15,11 +16,15 @@ const messengerVariants = {
 const Messenger = () => {
 
     const { loading, error } = useSelector(store => store.messagesStore);
+    const { loginAsGuest } = useSelector(store => store.userStore)
 
     return (
         <>
             <MessengerPage initial='hidden' animate='visible' exit='exit' variants={messengerVariants}>
                 <MessengerContainer>
+                    {loginAsGuest ? 
+                    <MessengerMenu />
+                    : ""}
                     <AnimatePresence>
                         {loading ? <Loader key="loader" usage={1} /> :
                         error ? <ErrorBox errorMessage={error} /> :
@@ -50,6 +55,7 @@ const MessengerContainer = styled.div`
     width: 55%;
     height: 98vh;
     font-family: 'Outfit', sans-serif;
+    position: relative;
 
     .error-message {
         padding: 0 2rem;

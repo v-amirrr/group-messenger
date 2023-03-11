@@ -4,6 +4,7 @@ const initialState = {
     loginError: null,
     warningPageShow: false,
     warningPageNeverShowCheck: false,
+    loginAsGuest: false,
 };
 
 const userSlice = createSlice({
@@ -19,9 +20,17 @@ const userSlice = createSlice({
         setWarningPageNeverShowCheck: (state, action) => {
             return { ...state, warningPageNeverShowCheck: action.payload };
         },
+        setLoginAsGuest: (state) => {
+            return { ...state, loginAsGuest: true };
+        },
     },
 });
 
-export const { setLoginError, setWarningShow, setWarningPageNeverShowCheck } = userSlice.actions;
+export const { 
+    setLoginError, 
+    setWarningShow, 
+    setWarningPageNeverShowCheck, 
+    setLoginAsGuest 
+} = userSlice.actions;
 
 export default userSlice.reducer;

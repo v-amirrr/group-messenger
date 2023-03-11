@@ -3,8 +3,8 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import backgroundSRC from './assets/images/bg.webp';
 import Messenger from './components/Messenger';
 import WarningPage from './components/WarningPage';
-import Login from './components/Login';
-import Settings from './components/Settings';
+import LoginModes from './components/login/LoginModes';
+import LoginWithName from './components/login/LoginWithName';
 import { useGetMessages } from './hooks/useGetMessages';
 import { useWarningPage } from './hooks/useWarningPage';
 import styled from 'styled-components';
@@ -30,8 +30,8 @@ const App = () => {
                 <Routes location={location} key={location.key}>
                     <Route path="/" element={<Messenger />} />
                     <Route path="/warning" element={<WarningPage />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/settings" element={<Settings />} />
+                    <Route path="/login" element={<LoginModes />} />
+                    <Route path='/login/login-with-name' element={<LoginWithName />} />
                 </Routes>
             </AnimatePresence>
         </>

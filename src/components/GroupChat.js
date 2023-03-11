@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import Message from './message/Message';
 import MessengerInput from './MessengerInput';
-import MessengerHeader from './MessengerHeader';
 import FlipMove from 'react-flip-move';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
@@ -16,6 +15,7 @@ const groupChatVariants = {
 const GroupChat = () => {
 
     const { messages, loading, localUsername } = useSelector(store => store.messagesStore);
+    const { loginAsGuest } = useSelector(store => store.userStore);
 
     const messagesContainerRef = useRef();
     const messagesEndRef = useRef();
@@ -32,8 +32,6 @@ const GroupChat = () => {
 
     return (
         <>
-            <MessengerHeader />
-
             <GroupChatContainer ref={messagesContainerRef} initial='hidden' animate='visible' exit='exit' variants={groupChatVariants}>
                 <FlipMove>
                     {messages?.map(message => (
@@ -57,7 +55,7 @@ const GroupChat = () => {
                 <div ref={messagesEndRef} />
             </GroupChatContainer>
 
-            <MessengerInput />
+            {loginAsGuest ? "" : <MessengerInput />}
         </>
     );
 };

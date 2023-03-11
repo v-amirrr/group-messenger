@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useLogin } from '../hooks/useLogin';
-import { isRTL } from '../functions/isRlt';
+import { useLogin } from '../../hooks/useLogin';
+import { isRTL } from '../../functions/isRlt';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const loginPageVariatns = {
+const loginVariants = {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { duration: 0.2, when: "beforeChildren", staggerChildren: 0.05 } },
     exit: { opacity: 0, transition: { duration: 0.2, when: "afterChildren", staggerChildren: 0.05 } }
@@ -24,7 +24,7 @@ const loginErrorVariants = {
     exit: { opacity: 0, scaleX: [1, 1.2, 0.8], transition: { duration: 0.6 } }
 };
 
-const Login = () => {
+const LoginWithName = () => {
 
     const navigate = useNavigate();
 
@@ -33,7 +33,7 @@ const Login = () => {
 
     const [loginInput, setLoginInput] = useState("");
 
-    const { login } = useLogin();
+    const { login, clearLoginErorrs } = useLogin();
 
     const loginSubmitHandler = (e) => {
         e.preventDefault();
@@ -41,6 +41,7 @@ const Login = () => {
     };
 
     useEffect(() => {
+        clearLoginErorrs();
         if (localUsername) {
             navigate("/", { replace: true });
         }
@@ -48,19 +49,19 @@ const Login = () => {
 
     return (
         <>
-            <LoginPage initial='hidden' animate='visible' exit='exit' variants={loginPageVariatns}>
-                <form>
-                    <motion.input type="text" className='login-input' placeholder="Enter Your Name..." dir="auto" value={loginInput} onChange={e => setLoginInput(e.target.value)} ispersian={isRTL(loginInput) ? 1 : 0} autoFocus variants={loginPageItemsVariants}/>
-                    <motion.button type="submit" className='submit-button' disabled={!loginInput} onClick={(e) => loginSubmitHandler(e)} variants={loginPageItemsVariants}>OK</motion.button>
-                </form>
-                <AnimatePresence>
-                    {loginError ?
-                        <motion.div className='login-error' initial='hidden' animate='visible' exit='exit' variants={loginErrorVariants}>
-                            <p>{loginError}</p>
-                        </motion.div>
-                    : "" }
-                </AnimatePresence>
-            </LoginPage>
+        <LoginPage initial='hidden' animate='visible' exit='exit' variants={loginVariants}>
+            <form>
+                <motion.input type="text" className='login-input' placeholder="Enter Your Name..." dir="auto" value={loginInput} onChange={e => setLoginInput(e.target.value)} ispersian={isRTL(loginInput) ? 1 : 0} autoFocus variants={loginPageItemsVariants}/>
+                <motion.button type="submit" className='submit-button' disabled={!loginInput} onClick={(e) => loginSubmitHandler(e)} variants={loginPageItemsVariants}>OK</motion.button>
+            </form>
+            <AnimatePresence>
+                {loginError ?
+                    <motion.div className='login-error' initial='hidden' animate='visible' exit='exit' variants={loginErrorVariants}>
+                        <p>{loginError}</p>
+                    </motion.div>
+                : "" }
+            </AnimatePresence>
+        </LoginPage>
         </>
     );
 };
@@ -152,4 +153,4 @@ const LoginPage = styled(motion.section)`
     }
 `;
 
-export default Login;
+export default LoginWithName;

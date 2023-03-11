@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { setLoginError } from "../redux/userSlice";
+import { setLoginAsGuest, setLoginError } from "../redux/userSlice";
 import { setLocalUsername } from "../redux/messagesSlice";
 
 export const useLogin = () => {
@@ -41,5 +41,14 @@ export const useLogin = () => {
         }
     };
 
-    return { login };
+    const clearLoginErorrs = () => {
+        dispatch(setLoginError(null));
+    };
+
+    const loginAsGuest = () => {
+        dispatch(setLoginAsGuest());
+        navigate("/", { replace: true });
+    };
+
+    return { login, clearLoginErorrs, loginAsGuest };
 };

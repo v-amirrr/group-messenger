@@ -4,11 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setPopup } from '../../redux/popupSlice';
 import { isRTL } from '../../functions/isRlt';
 import Popup from '../popups/Popup';
-import MessageOptions from '../MessageOptions';
+import MessageOptions from '../message/MessageOptions';
 import ChatDate from '../ChatDate';
 import MessageTime from './MessageTime';
 import styled from 'styled-components';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import MessageReply from './MessageReply';
 
 const Message = forwardRef(( props, ref ) => {

@@ -19,7 +19,7 @@ export const useLogin = () => {
         if (messages?.length) {
             messages.map(message => {
                 if (message?.username?.toLowerCase() == loginInput?.toLowerCase()) {
-                    // sameName = true;
+                    sameName = true;
                 }
             });
 

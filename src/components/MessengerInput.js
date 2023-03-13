@@ -40,7 +40,6 @@ const MessengerInput = () => {
     const { clearReplyMessage } = useMessageOptions();
     
     const inputRef = useRef();
-    const emojiPickerRef = useRef();
     
     const [inputText, setInputText] = useState("");
     const [showEmojiPicker, setShowEmojiPicker] = useState(false);
@@ -120,7 +119,7 @@ const MessengerInput = () => {
                 </div>
             </MessengerInputContainer>
 
-            <EmojiPickerContainer ref={emojiPickerRef} initial='hidden' animate='visible' exit='exit' variants={emojiPickerContainerVariatns} showemojipicker={showEmojiPicker ? 1 : 0} isreplyto={replyTo.id ? 1: 0}>
+            <EmojiPickerContainer initial='hidden' animate='visible' exit='exit' variants={emojiPickerContainerVariatns} showemojipicker={showEmojiPicker ? 1 : 0} isreplyto={replyTo.id ? 1: 0}>
                 <EmojiPicker theme="dark" autoFocusSearch={false} width="18rem" height="25rem" onEmojiClick={(e) => setInputText(`${inputText}${e.emoji}`)} />
             </EmojiPickerContainer>
         </>

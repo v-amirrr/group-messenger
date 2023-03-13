@@ -51,8 +51,8 @@ const Login = () => {
                 <motion.div onClick={loginAsGuest} whileTap={{ scale: 0.8 }} className='login-mode' initial='hidden' animate='visible' exit='exit' variants={loginPageItemsVariants}>
                     <h3>Enter as a Guest</h3>
                     <div className='list'>
+                        <span>You can login again with a name.</span>
                         <span>You can't send any message.</span>
-                        <span>You can't login again with a name.</span>
                         <span>You can't reply to any message.</span>
                     </div>
                 </motion.div>

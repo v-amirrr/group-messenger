@@ -10,29 +10,13 @@ export const useGetMessages = () => {
     const dispatch = useDispatch();
 
     const getMessages = (type) => {
-        dispatch(setLoadingOn());
         dispatch(setError(null));
+        dispatch(setLoadingOn());
 
         const ref = collection(db, 'messages');
         const q = query(ref, orderBy("time", "asc"));
+
         const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        const localStorageUsername = JSON.parse(localStorage.getItem("username"));
-        const warningPupupNeverShowLocalStorage = localStorage.getItem("warning-check");
-        let loginAsGuestLocalStorage = JSON.parse(localStorage.getItem("guest-login"));
-
-        if (localStorageUsername) {
-            dispatch(setLocalUsername(localStorageUsername));
-        }
-
-        if (loginAsGuestLocalStorage) {
-            dispatch(setLoginAsGuest(true));
-        }
-
-        if (warningPupupNeverShowLocalStorage) {
-            sessionStorage.setItem("warning", "true");
-            dispatch(setWarningShow(true));
-            dispatch(setWarningPageNeverShowCheck(true));
-        }
 
         const unsub = onSnapshot(q, (snapshot) => {
             let messages = [];

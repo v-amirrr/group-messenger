@@ -3,8 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     loginError: null,
     warningPageShow: false,
-    warningPageNeverShowCheck: false,
-    loginAsGuest: false,
+    warningPageNeverShowCheck: JSON.parse(localStorage.getItem("warning-check")),
+    loginAsGuest: JSON.parse(localStorage.getItem("guest-login")),
 };
 
 const userSlice = createSlice({

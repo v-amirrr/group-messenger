@@ -1,18 +1,24 @@
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { setWarningShow } from "../redux/userSlice";
+import { setWarningShow, setWarningPageNeverShowCheck } from "../redux/userSlice";
 
 export const useWarningPage = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    let warningPupupSessionStorage = sessionStorage.getItem("warning");
-    let warningPupupNeverShowLocalStorage = localStorage.getItem("warning-check");
+    let warningPupupSessionStorage = JSON.parse(sessionStorage.getItem("warning"));
+    let warningPupupNeverShowLocalStorage = JSON.parse(localStorage.getItem("warning-check"));
     let loginAsGuestLocalStorage = JSON.parse(localStorage.getItem("guest-login"));
-    let usernameLocalStorage = localStorage.getItem("username");
+    let usernameLocalStorage = JSON.parse(localStorage.getItem("username"));
 
     const showWelcomePages = () => {
+        if (warningPupupNeverShowLocalStorage) {
+            sessionStorage.setItem("warning", "true");
+            dispatch(setWarningShow(true));
+            dispatch(setWarningPageNeverShowCheck(true));
+        }
+
         if (!warningPupupSessionStorage && !warningPupupNeverShowLocalStorage) {
             navigate("/warning", { replace: true });
         } else if (!usernameLocalStorage && !loginAsGuestLocalStorage) {

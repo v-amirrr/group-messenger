@@ -26,16 +26,26 @@ const loginErrorVariants = {
 
 const LoginWithName = () => {
 
-    const { loginError } = useSelector(store => store.userStore);
+    const navigate = useNavigate();
+    const { login, clearLoginErorrs } = useLogin();
+
+    const { loginError, localUsername } = useSelector(store => store.userStore);
+    const { loginAsGuest: loginAsGuestUserStore } = useSelector(store => store.userStore);
 
     const [loginInput, setLoginInput] = useState("");
-
-    const { login } = useLogin();
 
     const loginSubmitHandler = (e) => {
         e.preventDefault();
         login(loginInput);
     };
+
+    useEffect(() => {
+        clearLoginErorrs();
+        console.log(localUsername, loginAsGuestUserStore);
+        if (localUsername || loginAsGuestUserStore) {
+            navigate("/", { replace: true });
+        }
+    }, [localUsername, loginAsGuestUserStore]);
 
     return (
         <>

@@ -19,7 +19,7 @@ const menuIconVariants = {
 
 const menuListVariants = {
     hidden: { opacity: 0, scale: 0.5, x: 50 },
-    visible: { opacity: 1, scale: 1, x: 0, transition: { duration: 0.4, type: 'tween' } },
+    visible: { opacity: 1, scale: 1, x: 0, transition: { duration: 0.8, type: 'tween' } },
     exit: { opacity: 0, scale: 0.5, x: 50, transition: { duration: 0.4, type: 'tween' } }
 };
 
@@ -45,7 +45,12 @@ const MessengerMenu = () => {
                 <AnimatePresence>
                     {openMenu ?
                     <motion.div key="menu" className='list' initial='hidden' animate='visible' exit='exit' variants={menuListVariants}>
-                        <motion.div onClick={logoutAsGuest} className='list-item' whileTap={{ scale: 0.9 }}>Logout As Guest</motion.div>
+                        <motion.div onClick={logoutAsGuest} className='list-item' whileTap={{ scale: 0.9 }}>
+                            <p>Logout As Guest</p>
+                        </motion.div>
+                        <motion.div onClick={() => logoutAsGuest("LOGIN_WITH_NAME")} className='list-item' whileTap={{ scale: 0.9 }}>
+                            <p>Login With Name</p>
+                        </motion.div>
                     </motion.div>
                     : ""}
                 </AnimatePresence>
@@ -69,11 +74,11 @@ const MessengerMenuContainer = styled(motion.div)`
     justify-content: center;
     align-items: center;
     width: ${props => props.openmenu ? "8rem" : "2.5rem"};
-    height: ${props => props.openmenu ? "6rem" : "2.5rem"};
+    height: ${props => props.openmenu ? "8rem" : "2.5rem"};
     overflow: hidden;
     transition: width .8s cubic-bezier(.53,0,0,.98), height .8s cubic-bezier(.53,0,0,.98);
 
-    i {
+    .back-icon, .menu-icon {
         position: absolute;
         cursor: pointer;
         font-size: 1.5rem;
@@ -112,7 +117,19 @@ const MessengerMenuContainer = styled(motion.div)`
             background-color: #ffffff08;
             white-space: nowrap;
             cursor: pointer;
+            margin-bottom: .3rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            p {
+                font-size: .8rem;
+            }
         }
+    }
+
+    @media (max-width: 768px) {
+        margin: 3rem .5rem;
     }
 `;
 

@@ -25,7 +25,7 @@ export const useGetMessages = () => {
         }
 
         if (loginAsGuestLocalStorage) {
-            dispatch(setLoginAsGuest());
+            dispatch(setLoginAsGuest(true));
         }
 
         if (warningPupupNeverShowLocalStorage) {

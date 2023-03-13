@@ -19,7 +19,7 @@ export const useLogin = () => {
         if (messages?.length) {
             messages.map(message => {
                 if (message?.username?.toLowerCase() == loginInput?.toLowerCase()) {
-                    // sameName = true;
+                    sameName = true;
                 }
             });
 
@@ -51,10 +51,14 @@ export const useLogin = () => {
         navigate("/", { replace: true });
     };
 
-    const logoutAsGuest = () => {
+    const logoutAsGuest = (situation) => {
         localStorage.setItem("guest-login", "false");
         dispatch(setLoginAsGuest(false));
-        navigate("/login");
+        if (situation == "LOGIN_WITH_NAME") {
+            navigate("/login/login-with-name", { replace: true });
+        } else {
+            navigate("/login", { replace: true });
+        }
     };
 
     return { login, clearLoginErorrs, loginAsGuest, logoutAsGuest };

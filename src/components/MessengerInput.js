@@ -40,6 +40,7 @@ const MessengerInput = () => {
     const { clearReplyMessage } = useMessageOptions();
     
     const inputRef = useRef();
+    const emojiPickerRef = useRef();
     
     const [inputText, setInputText] = useState("");
     const [showEmojiPicker, setShowEmojiPicker] = useState(false);
@@ -119,7 +120,7 @@ const MessengerInput = () => {
                 </div>
             </MessengerInputContainer>
 
-            <EmojiPickerContainer initial='hidden' animate='visible' exit='exit' variants={emojiPickerContainerVariatns} showemojipicker={showEmojiPicker ? 1 : 0} isreplyto={replyTo.id ? 1: 0}>
+            <EmojiPickerContainer ref={emojiPickerRef} initial='hidden' animate='visible' exit='exit' variants={emojiPickerContainerVariatns} showemojipicker={showEmojiPicker ? 1 : 0} isreplyto={replyTo.id ? 1: 0}>
                 <EmojiPicker theme="dark" autoFocusSearch={false} width="18rem" height="25rem" onEmojiClick={(e) => setInputText(`${inputText}${e.emoji}`)} />
             </EmojiPickerContainer>
         </>
@@ -300,11 +301,11 @@ const EmojiPickerContainer = styled(motion.div)`
     height: ${props => props.showemojipicker ? "25rem" : "0"};
     opacity: ${props => props.showemojipicker ? "1" : "0"};
     overflow: hidden;
-    border-radius: 20px;
+    border-radius: 8px;
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: height 1s cubic-bezier(.53,0,0,.98), bottom .5s;
+    transition: height 1.5s cubic-bezier(.53,0,0,.98), bottom .5s;
 `;
 
 export default MessengerInput;

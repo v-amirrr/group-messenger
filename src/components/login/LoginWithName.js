@@ -129,7 +129,7 @@ const LoginPage = styled(motion.section)`
     .login-error {
         max-width: 50%;
         position: absolute;
-        top: 0;
+        top: 2rem;
         display: flex;
         justify-content: center;
         align-items: center;

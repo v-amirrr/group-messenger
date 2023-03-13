@@ -47,7 +47,7 @@ const EditPopup = ({ popupMessageId, popupMessageText, popupMessageReplyTo }) =>
 };
 
 const EditPopupContainer = styled.div`
-    padding: ${props => props.editreplyopen ? "6rem 3rem" : ""};
+    padding: ${props => props.editreplyopen ? "6rem 5rem" : ""};
     transform: ${props => props.editreplyopen ? "scale(0.5)" : ""};
     transition: transform 1s cubic-bezier(.53,0,0,.98), padding 1s cubic-bezier(.53,0,0,.98);
 
@@ -67,7 +67,7 @@ const EditPopupContainer = styled.div`
     }
 
     @media (max-width: 768px) {
-        padding: ${props => props.editreplyopen ? "5rem 1rem" : ""};
+        padding: ${props => props.editreplyopen ? "6rem 2rem" : ""};
 
         textarea {
             font-size: .8rem;

@@ -19,7 +19,7 @@ const menuIconVariants = {
 
 const menuListVariants = {
     hidden: { opacity: 0, scale: 0.5, x: 50 },
-    visible: { opacity: 1, scale: 1, x: 0, transition: { duration: 0.8, type: 'tween' } },
+    visible: { opacity: 1, scale: 1, x: 0, transition: { duration: 0.6, type: 'tween' } },
     exit: { opacity: 0, scale: 0.5, x: 50, transition: { duration: 0.4, type: 'tween' } }
 };
 
@@ -68,7 +68,7 @@ const MessengerMenuContainer = styled(motion.div)`
     user-select: none;
     backdrop-filter: blur(15px) saturate(100%);
     -webkit-backdrop-filter: blur(15px) saturate(100%);
-    background-color: #ffffff08;
+    background-color: #ffffff11;
     border-radius: 25px;
     display: flex;
     justify-content: center;
@@ -114,7 +114,7 @@ const MessengerMenuContainer = styled(motion.div)`
             width: 90%;
             border-radius: 15px;
             padding: .5rem 0;
-            background-color: #ffffff08;
+            background-color: #ffffff11;
             white-space: nowrap;
             cursor: pointer;
             margin-bottom: .3rem;
@@ -129,7 +129,7 @@ const MessengerMenuContainer = styled(motion.div)`
     }
 
     @media (max-width: 768px) {
-        margin: 3rem .5rem;
+        margin: 4rem .5rem;
     }
 `;
 

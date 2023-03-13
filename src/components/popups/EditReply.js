@@ -22,15 +22,13 @@ const replyButtonVariants = {
 
 const EditReply = ({ replyTo, popupMessageId, editReplyOpen, setEditReplyOpen }) => {
 
-    const { editReply } = useMessageOptions();
-
     const messagesEndRef = useRef();
+    const { messages, localUsername } = useSelector(store => store.messagesStore);
+    
+    const { editReply } = useMessageOptions();
 
     const [newReply, setNewReply] = useState(replyTo?.id);
     const [messagesBefore, setMessagesBefore] = useState([]);
-
-    const { messages, localUsername } = useSelector(store => store.messagesStore);
-
 
     useEffect(() => {
         editReply(newReply);
@@ -41,7 +39,7 @@ const EditReply = ({ replyTo, popupMessageId, editReplyOpen, setEditReplyOpen })
             messagesEndRef?.current?.scrollIntoView({
                 behavior: "smooth", block: "center", inline: "end"
             });
-        }, 1000);
+        }, 1500);
     }, [editReplyOpen]);
 
     useEffect(() => {

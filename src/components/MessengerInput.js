@@ -4,6 +4,8 @@ import useSendMessage from '../hooks/useSendMessage';
 import useMessageOptions from '../hooks/useMessageOptions';
 import { isRTL } from '../functions/isRlt';
 import Loader from "./Loader";
+import EmojiPicker from 'emoji-picker-react';
+import { GrEmoji } from "react-icons/gr";
 import { IoSend, IoAlert, IoClose } from 'react-icons/io5';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -26,20 +28,28 @@ const replyVariants = {
     exit: { opacity: 0, scaleY: 0, transition: { duration: 0.3 } }
 };
 
+const emojiPickerContainerVariatns = {
+    hidden: { opacity: 0, scale: 0.5, y: -50, x: 50 },
+    visible: { opacity: 1, scale: 1, y: 0, x: 0, transition: { duration: 0.2, type: 'tween' } },
+    exit: { opacity: 0, scale: 0.5, y: -50, x: 50, transition: { duration: 0.2, type: 'tween' } }
+};
+
 const MessengerInput = () => {
 
-    const [inputText, setInputText] = useState("");
-
+    const { sendMessage } = useSendMessage();
+    const { clearReplyMessage } = useMessageOptions();
+    
     const inputRef = useRef();
+    
+    const [inputText, setInputText] = useState("");
+    const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
     const { error, localUsername } = useSelector(store => store.messagesStore);
     const { error: sendMessageError, loading: sendMessageLoading, replyTo } = useSelector(store => store.sendMessageStore);
     const { popupShow, popupName } = useSelector(store => store.popupStore);
 
-    const { sendMessage } = useSendMessage();
-    const { clearReplyMessage } = useMessageOptions();
-
     const inputSubmitHandler = () => {
+        setShowEmojiPicker(false);
         sendMessage(inputText, localUsername);
         setInputText("");
         inputRef.current.focus();
@@ -53,7 +63,7 @@ const MessengerInput = () => {
     };
 
     const focusHandler = () => {
-        if (document.documentElement.offsetWidth > 500 && !popupShow) {
+        if (document.documentElement.offsetWidth > 500 && !popupShow && !showEmojiPicker) {
             inputRef.current.focus();
         } else if (popupShow) {
             inputRef.current.blur();
@@ -93,6 +103,10 @@ const MessengerInput = () => {
                         autoFocus={document.documentElement.offsetWidth > 500 && !popupShow ? true : false}
                     />
 
+                    <motion.button whileTap={{ scale: 0.5 }} type="submit" className='messenger-emoji-icon' onClick={() => setShowEmojiPicker(!showEmojiPicker)}>
+                        <GrEmoji />
+                    </motion.button>
+
                     <motion.button whileTap={inputText && { scale: 0.5 }} type="submit" className='messenger-submit' disabled={!inputText} onClick={inputSubmitHandler}>
                         <AnimatePresence exitBeforeEnter>
                             {sendMessageLoading ?
@@ -104,6 +118,10 @@ const MessengerInput = () => {
                     </motion.button>
                 </div>
             </MessengerInputContainer>
+
+            <EmojiPickerContainer initial='hidden' animate='visible' exit='exit' variants={emojiPickerContainerVariatns} showemojipicker={showEmojiPicker ? 1 : 0} isreplyto={replyTo.id ? 1: 0}>
+                <EmojiPicker theme="dark" autoFocusSearch={false} width="18rem" height="25rem" onEmojiClick={(e) => setInputText(`${inputText}${e.emoji}`)} />
+            </EmojiPickerContainer>
         </>
     );
 };
@@ -117,7 +135,7 @@ const MessengerInputContainer = styled(motion.section)`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    min-width: 40%;
+    min-width: 60%;
     position: absolute;
     bottom: ${props => props.isreplyto ? "0" : "1rem"};
     overflow: hidden;
@@ -183,6 +201,17 @@ const MessengerInputContainer = styled(motion.section)`
                     color: #ffffff;
                 }
             }
+        }
+
+        .messenger-emoji-icon {
+            all: unset;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #ffffff88;
         }
     }
 `;
@@ -262,6 +291,20 @@ const ReplyTo = styled(motion.div)`
     @media (max-width: 500px) {
         max-width: 50%;
     }
+`;
+
+const EmojiPickerContainer = styled(motion.div)`
+    position: absolute;
+    bottom: ${props => props.isreplyto ? "6rem" : "5rem"};
+    width: 18rem;
+    height: ${props => props.showemojipicker ? "25rem" : "0"};
+    opacity: ${props => props.showemojipicker ? "1" : "0"};
+    overflow: hidden;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: height 1s cubic-bezier(.53,0,0,.98), bottom .5s;
 `;
 
 export default MessengerInput;

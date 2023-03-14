@@ -1,8 +1,7 @@
 import { useDispatch } from "react-redux";
 import { db } from "../config/firebase";
 import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
-import { setMessages, setError, setLoadingOn, setLoadingOff, setLocalUsername } from "../redux/messagesSlice";
-import { setWarningShow, setWarningPageNeverShowCheck, setLoginAsGuest } from "../redux/userSlice";
+import { setMessages, setError, setLoadingOn, setLoadingOff } from "../redux/messagesSlice";
 import { isURL } from "../functions/isURL";
 
 export const useGetMessages = () => {

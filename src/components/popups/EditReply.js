@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import ChatDate from "../ChatDate";
-import { isRTL } from '../../functions/isRlt';
-import useMessageOptions from "../../hooks/useMessageOptions";
 import { useSelector } from 'react-redux';
+import useMessageOptions from "../../hooks/useMessageOptions";
+import { isRTL } from '../../functions/isRlt';
 import { BsReplyFill } from 'react-icons/bs';
 import { IoClose } from 'react-icons/io5';
 import styled from 'styled-components';
@@ -145,6 +144,7 @@ const EditReply = ({ replyTo, popupMessageId, editReplyOpen, setEditReplyOpen })
                         <div ref={messagesEndRef} />
                     </motion.div>
                     : ""}
+
                     <AnimatePresence>
                         {!editReplyOpen ? 
                         <motion.button key="open-icon" className='reply-button' onClick={() => setEditReplyOpen(!editReplyOpen)} initial='hidden' animate='visible' exit='exit' variants={replyButtonVariants}>
@@ -193,6 +193,7 @@ const ReplyConatiner = styled(motion.div)`
         border-radius: 50%;
         padding: .3rem;
         transition: top .3s, left .3s;
+        z-index: 999;
     }
 
     .reply-messages {
@@ -382,7 +383,38 @@ const AddMessageContainer = styled.div`
     }
 
     @media (max-width: 768px) {
+        padding: ${props => props.isreply ? "2.4rem 2.5rem .5rem .8rem" : ".5rem 2.5rem .5rem .8rem"};
         max-width: 90%;
+        min-width: ${props => props.isreply ? "30%" : ""};
+        background-color: #ffffff10;
+        border-radius: ${props => 
+            props.isuser ? 
+                props.messagePosition == 0 ? 
+                "20px" : 
+                props.messagePosition == 1 ? 
+                "20px 20px 5px 20px" : 
+                props.messagePosition == 2 ? 
+                "20px 5px 5px 20px" : 
+                props.messagePosition == 3 && 
+                "20px 5px 20px 20px" :
+            props.messagePosition == 0 ? 
+                "20px" : 
+                props.messagePosition == 1 ? 
+                "20px 20px 20px 5px" : 
+                props.messagePosition == 2 ? 
+                "5px 20px 20px 5px" : 
+                props.messagePosition == 3 && 
+                "5px 20px 20px 20px"
+        };
+
+        .username {
+            font-size: .5rem;
+            margin-right: .4rem;
+        }
+
+        .message {
+            font-size: .8rem;
+        }
     }
 `;
 

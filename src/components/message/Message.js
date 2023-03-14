@@ -1,23 +1,23 @@
 import React, { forwardRef, useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setPopup } from '../../redux/popupSlice';
-import { isRTL } from '../../functions/isRlt';
 import Popup from '../popups/Popup';
 import MessageOptions from '../message/MessageOptions';
 import ChatDate from '../ChatDate';
 import MessageTime from './MessageTime';
+import MessageReply from './MessageReply';
+import { setPopup } from '../../redux/popupSlice';
+import { isRTL } from '../../functions/isRlt';
 import styled from 'styled-components';
 import { AnimatePresence } from 'framer-motion';
-import MessageReply from './MessageReply';
 
 const Message = forwardRef(( props, ref ) => {
 
-    const [menuShow, setMenuShow] = useState(false);
-    const [messagePosition, setMessagePosition] = useState("");
-
     const dispatch = useDispatch();
     const { popupShow, popupName, popupMessageId } = useSelector(store => store.popupStore);
+
+    const [menuShow, setMenuShow] = useState(false);
+    const [messagePosition, setMessagePosition] = useState("");
 
     const {
         message,

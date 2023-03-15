@@ -4,11 +4,10 @@ import useSendMessage from '../hooks/useSendMessage';
 import useMessageOptions from '../hooks/useMessageOptions';
 import { isRTL } from '../functions/isRlt';
 import Loader from "./Loader";
-import EmojiPicker from 'emoji-picker-react';
-import { GrEmoji } from "react-icons/gr";
 import { IoSend, IoAlert, IoClose } from 'react-icons/io5';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
+import Emoji from './Emoji';
 
 const messengerInputVariants = {
     hidden: { opacity: 0, scaleX: 0, y: 10 },
@@ -26,12 +25,6 @@ const replyVariants = {
     hidden: { opacity: 0, scaleX: 0, y: -10 },
     visible: { opacity: 1, scaleX: 1, y: 0, transition: { duration: 0.3, type: "spring", stiffness: 100 } },
     exit: { opacity: 0, scaleY: 0, transition: { duration: 0.3 } }
-};
-
-const emojiPickerContainerVariatns = {
-    hidden: { opacity: 0, scale: 0.5, y: -50, x: 50 },
-    visible: { opacity: 1, scale: 1, y: 0, x: 0, transition: { duration: 0.2, type: 'tween' } },
-    exit: { opacity: 0, scale: 0.5, y: -50, x: 50, transition: { duration: 0.2, type: 'tween' } }
 };
 
 const MessengerInput = () => {
@@ -103,9 +96,7 @@ const MessengerInput = () => {
                         autoFocus={document.documentElement.offsetWidth > 500 && !popupShow ? true : false}
                     />
 
-                    <motion.button whileTap={{ scale: 0.5 }} type="submit" className='messenger-emoji-icon' onClick={() => setShowEmojiPicker(!showEmojiPicker)}>
-                        <GrEmoji />
-                    </motion.button>
+                    <Emoji replyToId={replyTo.id} inputText={inputText} setInputText={setInputText} />
 
                     <motion.button whileTap={inputText && { scale: 0.5 }} type="submit" className='messenger-submit' disabled={!inputText} onClick={inputSubmitHandler}>
                         <AnimatePresence exitBeforeEnter>
@@ -118,10 +109,6 @@ const MessengerInput = () => {
                     </motion.button>
                 </div>
             </MessengerInputContainer>
-
-            <EmojiPickerContainer initial='hidden' animate='visible' exit='exit' variants={emojiPickerContainerVariatns} showemojipicker={showEmojiPicker ? 1 : 0} isreplyto={replyTo.id ? 1: 0}>
-                <EmojiPicker theme="dark" autoFocusSearch={false} width="18rem" height="25rem" onEmojiClick={(e) => setInputText(`${inputText}${e.emoji}`)} />
-            </EmojiPickerContainer>
         </>
     );
 };
@@ -138,8 +125,7 @@ const MessengerInputContainer = styled(motion.section)`
     min-width: 60%;
     position: absolute;
     bottom: ${props => props.isreplyto ? "0" : "1rem"};
-    overflow: hidden;
-    transition: bottom .3s;
+    transition: bottom .5s;
 
     &:disabled {
         cursor: not-allowed;
@@ -291,20 +277,6 @@ const ReplyTo = styled(motion.div)`
     @media (max-width: 500px) {
         max-width: 50%;
     }
-`;
-
-const EmojiPickerContainer = styled(motion.div)`
-    position: absolute;
-    bottom: ${props => props.isreplyto ? "6rem" : "5rem"};
-    width: 18rem;
-    height: ${props => props.showemojipicker ? "25rem" : "0"};
-    opacity: ${props => props.showemojipicker ? "1" : "0"};
-    overflow: hidden;
-    border-radius: 8px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: height 1.5s cubic-bezier(.53,0,0,.98), bottom .5s;
 `;
 
 export default MessengerInput;

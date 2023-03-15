@@ -70,7 +70,7 @@ const PopupContainer = styled(motion.div)`
     background-color: #ffffff0a;
     border-radius: 25px;
     position: relative;
-    overflow: hidden;
+    /* overflow: hidden; */
 
     p {
         font-weight: 200;

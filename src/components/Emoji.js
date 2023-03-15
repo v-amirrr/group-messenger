@@ -1,6 +1,4 @@
-import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { setEmojiPickerShow } from '../redux/userSlice';
+import React from 'react';
 import EmojiPicker from 'emoji-picker-react';
 import { GrEmoji } from "react-icons/gr";
 import styled from 'styled-components';
@@ -8,26 +6,21 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 const emojiPickerContainerVariatns = {
     hidden: { height: 0 },
-    visible: { height: "25rem", transition: { duration: 1.5, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } },
+    visible: { height: "22rem", transition: { duration: 1.5, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } },
     exit: { height: 0, transition: { duration: 1, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } }
 };
 
-const Emoji = ({ replyToId, inputText, setInputText }) => {
-
-    const dispatch = useDispatch();
-
-    const { emojiPickerShow } = useSelector(store => store.userStore);
-
+const Emoji = ({ replyToId, inputText, setInputText, show, setShow, place }) => {
     return (
         <>
-            <EmojiPickerIcon onClick={() => dispatch(setEmojiPickerShow(!emojiPickerShow))} whileTap={{ scale: 0.8 }}>
+            <EmojiPickerIcon onClick={() => setShow(!show)} whileTap={{ scale: 0.8 }}>
                 <GrEmoji />
             </EmojiPickerIcon>
 
             <AnimatePresence>
-                {emojiPickerShow ?
-                <EmojiPickerContainer initial='hidden' animate='visible' exit='exit' variants={emojiPickerContainerVariatns} isreplyto={replyToId ? 1: 0}>
-                    <EmojiPicker theme="dark" autoFocusSearch={false} width="18rem" height="25rem" onEmojiClick={(e) => setInputText(`${inputText}${e.emoji}`)} />
+                {show ?
+                <EmojiPickerContainer initial='hidden' animate='visible' exit='exit' variants={emojiPickerContainerVariatns} isreplyto={replyToId ? 1: 0} editpopup={place == "EDIT_POPUP" ? 1 : 0}>
+                    <EmojiPicker theme="dark" autoFocusSearch={false} width="18rem" height="22rem" onEmojiClick={(e) => setInputText(`${inputText}${e.emoji}`)} />
                 </EmojiPickerContainer>
                 : ""}
             </AnimatePresence>
@@ -45,9 +38,11 @@ const EmojiPickerIcon = styled(motion.div)`
 
 const EmojiPickerContainer = styled(motion.div)`
     position: absolute;
-    bottom: ${props => props.isreplyto ? "6rem" : "3.5rem"};
+    bottom: ${props => props.isreplyto ? props.editpopup ? "6rem" : "6rem" : "3.5rem"};
+    top: ${props => props.editpopup ? "2rem" : ""};
+    right: ${props => props.editpopup ? "0" : ""};
     width: 18rem;
-    height: 25rem;
+    height: 22rem;
     overflow: hidden;
     border-radius: 8px;
     display: flex;

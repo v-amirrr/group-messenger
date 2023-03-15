@@ -35,14 +35,14 @@ const MessengerInput = () => {
     const inputRef = useRef();
     
     const [inputText, setInputText] = useState("");
-    const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+    const [emojiPickerShow, setEmojiPickerShow] = useState(false);
 
     const { error, localUsername } = useSelector(store => store.messagesStore);
     const { error: sendMessageError, loading: sendMessageLoading, replyTo } = useSelector(store => store.sendMessageStore);
     const { popupShow, popupName } = useSelector(store => store.popupStore);
 
     const inputSubmitHandler = () => {
-        setShowEmojiPicker(false);
+        setEmojiPickerShow(false);
         sendMessage(inputText, localUsername);
         setInputText("");
         inputRef.current.focus();
@@ -56,7 +56,7 @@ const MessengerInput = () => {
     };
 
     const focusHandler = () => {
-        if (document.documentElement.offsetWidth > 500 && !popupShow && !showEmojiPicker) {
+        if (document.documentElement.offsetWidth > 500 && !popupShow && !emojiPickerShow) {
             inputRef.current.focus();
         } else if (popupShow) {
             inputRef.current.blur();
@@ -96,7 +96,7 @@ const MessengerInput = () => {
                         autoFocus={document.documentElement.offsetWidth > 500 && !popupShow ? true : false}
                     />
 
-                    <Emoji replyToId={replyTo.id} inputText={inputText} setInputText={setInputText} />
+                    <Emoji replyToId={replyTo.id} inputText={inputText} setInputText={setInputText} show={emojiPickerShow} setShow={setEmojiPickerShow} />
 
                     <motion.button whileTap={inputText && { scale: 0.5 }} type="submit" className='messenger-submit' disabled={!inputText} onClick={inputSubmitHandler}>
                         <AnimatePresence exitBeforeEnter>

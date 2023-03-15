@@ -4,13 +4,22 @@ import useMessageoptions from '../../hooks/useMessageOptions';
 import { isRTL } from '../../functions/isRlt';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import Emoji from '../Emoji';
 
 const EditPopup = ({ popupMessageId, popupMessageText, popupMessageReplyTo }) => {
 
     const [editInput, setEditInput] = useState("");
     const [editReplyOpen, setEditReplyOpen] = useState(false);
+    const [emojiPickerShow, setEmojiPickerShow] = useState(false);
 
     const { editMessage, closePopup } = useMessageoptions();
+
+    const pressEnter = e => {
+        if (e.key == "Enter" && !e.shiftKey) {
+            e.preventDefault();
+            editMessage(popupMessageId, editInput, popupMessageReplyTo);
+        }
+    };
 
     useEffect(() => {
         let messageText = [];
@@ -20,12 +29,11 @@ const EditPopup = ({ popupMessageId, popupMessageText, popupMessageReplyTo }) =>
         setEditInput(messageText.join(" "));
     }, []);
 
-    const pressEnter = e => {
-        if (e.key == "Enter" && !e.shiftKey) {
-            e.preventDefault();
-            editMessage(popupMessageId, editInput, popupMessageReplyTo);
+    useEffect(() => {
+        if (editReplyOpen) {
+            setEmojiPickerShow(false);
         }
-    };
+    }, [editReplyOpen]);
 
     return (
         <>
@@ -39,6 +47,9 @@ const EditPopup = ({ popupMessageId, popupMessageText, popupMessageReplyTo }) =>
                         Edit
                     </motion.button>
                 </div>
+                <div className='emoji-picker'>
+                    <Emoji replyToId={0} inputText={editInput} setInputText={setEditInput} show={emojiPickerShow} setShow={setEmojiPickerShow} place={"EDIT_POPUP"} />
+                </div>
             </EditPopupContainer>
 
             <EditReply replyTo={popupMessageReplyTo} popupMessageId={popupMessageId} editReplyOpen={editReplyOpen} setEditReplyOpen={setEditReplyOpen} />
@@ -50,6 +61,7 @@ const EditPopupContainer = styled.div`
     padding: ${props => props.editreplyopen ? "6rem 3rem" : ""};
     transform: ${props => props.editreplyopen ? "scale(0.5)" : ""};
     transition: transform 1s cubic-bezier(.53,0,0,.98), padding 1s cubic-bezier(.53,0,0,.98);
+    position: relative;
 
     textarea {
         border: none;
@@ -64,6 +76,13 @@ const EditPopupContainer = styled.div`
         word-spacing: 1px;
         line-break: loose;
         font-family: ${props => props.ispersian ? "Vazirmatn" : "Outfit"}, "Vazirmatn", sans-serif;
+    }
+
+    .emoji-picker {
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 99;
     }
 
     @media (max-width: 768px) {

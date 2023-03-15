@@ -167,7 +167,7 @@ const ReplyConatiner = styled(motion.div)`
     position: absolute;
     right: 0;
     bottom: 0;
-    margin: ${props => props.editReplyOpen ? "" : "2rem 1rem"};
+    margin: ${props => props.editReplyOpen ? "" : "2rem 1.6rem"};
     width: ${props => props.editReplyOpen ? "100%" : "2.2rem"};
     height: ${props => props.editReplyOpen ? "100%" : "2.2rem"};
     border-radius: 25px;

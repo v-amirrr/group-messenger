@@ -5,7 +5,6 @@ const initialState = {
     warningPageShow: false,
     warningPageNeverShowCheck: JSON.parse(localStorage.getItem("warning-check")),
     loginAsGuest: JSON.parse(localStorage.getItem("guest-login")),
-    emojiPickerShow: false,
 };
 
 const userSlice = createSlice({
@@ -24,9 +23,6 @@ const userSlice = createSlice({
         setLoginAsGuest: (state, action) => {
             return { ...state, loginAsGuest: action.payload };
         },
-        setEmojiPickerShow: (state, action) => {
-            return { ...state, emojiPickerShow: action.payload };
-        },
     },
 });
 
@@ -34,8 +30,7 @@ export const {
     setLoginError, 
     setWarningShow, 
     setWarningPageNeverShowCheck, 
-    setLoginAsGuest,
-    setEmojiPickerShow
+    setLoginAsGuest
 } = userSlice.actions;
 
 export default userSlice.reducer;

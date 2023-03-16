@@ -65,7 +65,7 @@ const GroupChatContainer = styled(motion.div)`
     height: 100%;
     overflow: hidden scroll;
     position: relative;
-    padding: 5rem 2rem 5rem 2rem;
+    padding: 5rem 2rem 6rem 2rem;
     scroll-behavior: smooth;
 
     @media (max-width: 800px) {

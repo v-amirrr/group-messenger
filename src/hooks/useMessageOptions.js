@@ -3,6 +3,7 @@ import { doc, deleteDoc, updateDoc } from "firebase/firestore";
 import { useDispatch, useSelector } from 'react-redux';
 import { setPopup, setEditedReply } from '../redux/popupSlice';
 import { setSendMessageReplyTo, setClearReplyTo } from '../redux/sendMessageSlice';
+import { setMessageIdOptionsShow } from '../redux/userSlice';
 
 const useMessageOptions = () => {
 
@@ -11,6 +12,7 @@ const useMessageOptions = () => {
     const { popupMessageEditedReply } = useSelector(store => store.popupStore);
 
     const copyMessage = (message) => {
+        dispatch(setMessageIdOptionsShow(null));
         let messageText = [];
         message.map(item => {
             messageText.push(item.word);
@@ -20,6 +22,7 @@ const useMessageOptions = () => {
     };
 
     const openPopup = (popupName, id) => {
+        dispatch(setMessageIdOptionsShow(null));
         dispatch(setPopup({ popupShow: true, popupName: popupName, popupMessageId: id }));
     };
 
@@ -54,6 +57,7 @@ const useMessageOptions = () => {
     };
 
     const replyMessage = (id, message, username) => {
+        dispatch(setMessageIdOptionsShow(null));
         let messageText = [];
         message.map(item => {
             messageText.push(item.word);

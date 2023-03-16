@@ -33,6 +33,10 @@ When you click on the edit reply icon, you'll the all the messages that were sen
 
 ## How It Works
 
+We have 5 custom hooks. One is for getting messages named useGetMessage, one is for login named useLogin, one is for messages options like delete and edit named useMessageOptions, one is for sending messages named useSendMessage, and the last one is for showing the warning page named useWarningPage.
+<br />
+We have 4 redux slices, one for storing the messages we get from Firebase Firestore, one is for popups information like when and which popup is showed, one is the information about the message user is trying to send like errors and loading, and the last one is the information about the user like wheather user has seen the warning page or not.
+<br />
 <br />
 <br />
 <br />
@@ -41,3 +45,4 @@ When you click on the edit reply icon, you'll the all the messages that were sen
 
 ## The Story Behind It
 
+This project first was a really simple project. I didn't have reply, delete, edit, guest mode and etc. In short you could just send message and read messages. But I decided to improve it and add features that I really wanted the messengers I'm using to have them. Like editing replies. So I added those features and still adding new features. The biggest challenge in this project was keeping the codes clean and readable. I'm still trying to do that.

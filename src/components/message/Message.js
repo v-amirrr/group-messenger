@@ -2,6 +2,7 @@ import React, { forwardRef, useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPopup } from '../../redux/popupSlice';
+import { setMessageIdOptionsShow } from '../../redux/userSlice';
 import Popup from '../popups/Popup';
 import MessageOptions from '../message/MessageOptions';
 import ChatDate from '../ChatDate';
@@ -13,14 +14,22 @@ import { AnimatePresence } from 'framer-motion';
 
 const Message = forwardRef(( props, ref ) => {
 
-    const dispatch = useDispatch();
-    
     const { message, id, replyTo, messageUsername, periorUsername, nextUsername, time, localUsername, priorDifferentDate, nextDifferentDate } = props.message;
 
-    const { popupShow, popupName, popupMessageId } = useSelector(store => store.popupStore);
+    const dispatch = useDispatch();    
 
-    const [menuShow, setMenuShow] = useState(false);
+    const { popupShow, popupName, popupMessageId } = useSelector(store => store.popupStore);
+    const { messageIdOptionsShow } = useSelector(store => store.userStore);
+
     const [messagePosition, setMessagePosition] = useState(null);
+
+    const messageClickHandler = () => {
+        if (messageIdOptionsShow == id) {
+            dispatch(setMessageIdOptionsShow(null));
+        } else {
+            dispatch(setMessageIdOptionsShow(id));
+        }
+    };
 
     useEffect(() => {
         if (priorDifferentDate && nextDifferentDate) {
@@ -68,7 +77,7 @@ const Message = forwardRef(( props, ref ) => {
         <>
             <ChatDate dateObj={time} priorDifferentDate={priorDifferentDate} />
 
-            <MessageBox key={id} ref={ref} onClick={() => setMenuShow(!menuShow)} isuser={messageUsername == localUsername ? 1 : 0} ispersian={isRTL(message) ? 1 : 0} messagePosition={messagePosition} isreply={replyTo != "no_reply" ? 1 : 0}>
+            <MessageBox key={id} ref={ref} onClick={messageClickHandler} isuser={messageUsername == localUsername ? 1 : 0} ispersian={isRTL(message) ? 1 : 0} messagePosition={messagePosition} isreply={replyTo != "no_reply" ? 1 : 0}>
 
                 <MessageReply replyTo={replyTo} />
 
@@ -87,7 +96,7 @@ const Message = forwardRef(( props, ref ) => {
                 </AnimatePresence>
 
                 <AnimatePresence>
-                    {menuShow ? 
+                    {messageIdOptionsShow == id ? 
                     <MessageOptions 
                         messageUsername={messageUsername} 
                         localUsername={localUsername} 

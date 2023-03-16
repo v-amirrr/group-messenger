@@ -77,23 +77,25 @@ const Message = forwardRef(( props, ref ) => {
         <>
             <ChatDate dateObj={time} priorDifferentDate={priorDifferentDate} />
 
-            <MessageBox key={id} ref={ref} onClick={messageClickHandler} isuser={messageUsername == localUsername ? 1 : 0} ispersian={isRTL(message) ? 1 : 0} messagePosition={messagePosition} isreply={replyTo != "no_reply" ? 1 : 0}>
+            <MessageBox key={id} ref={ref} isuser={messageUsername == localUsername ? 1 : 0} ispersian={isRTL(message) ? 1 : 0} messagePosition={messagePosition} isreply={replyTo != "no_reply" ? 1 : 0}>
 
-                <MessageReply replyTo={replyTo} />
+                <div className='message-box' onClick={messageClickHandler}>
+                    <MessageReply replyTo={replyTo} />
 
-                <p className='username'>
-                    {messageUsername}
-                </p>
+                    <p className='username'>
+                        {messageUsername}
+                    </p>
 
-                <p className='message'>
-                    {message?.map((item, index) => (
-                        item.link ? <a key={index} className='link' href={item.word} target="_blank" rel='noopener nereferrer'>{item.word}</a> : `${item.word} `
-                    ))}
-                </p>
+                    <p className='message'>
+                        {message?.map((item, index) => (
+                            item.link ? <a key={index} className='link' href={item.word} target="_blank" rel='noopener nereferrer'>{item.word}</a> : `${item.word} `
+                        ))}
+                    </p>
 
-                <AnimatePresence>
-                    <MessageTime time={time} messagePosition={messagePosition} />
-                </AnimatePresence>
+                    <AnimatePresence>
+                        <MessageTime time={time} messagePosition={messagePosition} />
+                    </AnimatePresence>
+                </div>
 
                 <AnimatePresence>
                     {messageIdOptionsShow == id ? 
@@ -128,51 +130,57 @@ const Message = forwardRef(( props, ref ) => {
 
 const MessageBox = styled.div`
     display: flex;
-    justify-content: ${props => props.isuser ? "flex-end" : ""};
+    justify-content: flex-start;
     align-items: center;
     flex-direction: ${ props => props.isuser ? "row-reverse" : "row"};
-    background-color: #ffffff0c;
-    margin: ${props => 
-        props.messagePosition == 0 ? 
-        ".4rem 0" : 
-        props.messagePosition == 1 ? 
-        ".4rem 0 .1rem 0" : 
-        props.messagePosition == 2 ? 
-        ".1rem 0" : 
-        props.messagePosition == 3 && 
-        ".1rem 0 .4rem 0"
-    };
-    border-radius: ${props => 
-        props.isuser ? 
+
+    .message-box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: ${ props => props.isuser ? "row-reverse" : "row"};
+        background-color: #ffffff0c;
+        margin: ${props => 
             props.messagePosition == 0 ? 
-            "30px" : 
+            ".4rem 0" : 
             props.messagePosition == 1 ? 
-            "30px 30px 5px 30px" : 
+            ".4rem 0 .1rem 0" : 
             props.messagePosition == 2 ? 
-            "30px 5px 5px 30px" : 
+            ".05rem 0" : 
             props.messagePosition == 3 && 
-            "30px 5px 30px 30px" :
-        props.messagePosition == 0 ? 
-            "30px" : 
-            props.messagePosition == 1 ? 
-            "30px 30px 30px 5px" : 
-            props.messagePosition == 2 ? 
-            "5px 30px 30px 5px" : 
-            props.messagePosition == 3 && 
-            "5px 30px 30px 30px"
-    };
-    margin-left: ${props => props.isuser && "auto"};
-    padding: ${props => props.isreply ? "2.4rem 2.8rem .5rem .8rem" : ".5rem 2.8rem .5rem .8rem"};
-    min-width: ${props => props.isreply ? "22%" : ""};
-    width: fit-content;
-    max-width: 65%;
-    backdrop-filter: blur(5px) saturate(100%);
-    -webkit-backdrop-filter: blur(5px) saturate(100%);
-    font-weight: 200;
-    word-break: break-all;
-    cursor: pointer;
-    transition: backdrop-filter .4s, border-radius .4s;
-    user-select: none;
+            ".1rem 0 .4rem 0"
+        };
+        border-radius: ${props => 
+            props.isuser ? 
+                props.messagePosition == 0 ? 
+                "30px" : 
+                props.messagePosition == 1 ? 
+                "30px 30px 5px 30px" : 
+                props.messagePosition == 2 ? 
+                "30px 5px 5px 30px" : 
+                props.messagePosition == 3 && 
+                "30px 5px 30px 30px" :
+            props.messagePosition == 0 ? 
+                "30px" : 
+                props.messagePosition == 1 ? 
+                "30px 30px 30px 5px" : 
+                props.messagePosition == 2 ? 
+                "5px 30px 30px 5px" : 
+                props.messagePosition == 3 && 
+                "5px 30px 30px 30px"
+        };
+        padding: ${props => props.isreply ? "2.4rem 2.8rem .5rem .8rem" : ".5rem 2.8rem .5rem .8rem"};
+        min-width: ${props => props.isreply ? "22%" : ""};
+        width: fit-content;
+        max-width: 65%;
+        backdrop-filter: blur(5px) saturate(100%);
+        -webkit-backdrop-filter: blur(5px) saturate(100%);
+        font-weight: 200;
+        word-break: break-all;
+        cursor: pointer;
+        transition: backdrop-filter .4s, border-radius .4s;
+        user-select: none;
+    }
 
     .username {
         display: ${props => props.isuser ? "none" : ""};
@@ -194,29 +202,31 @@ const MessageBox = styled.div`
     }
 
     @media (max-width: 768px) {
-        padding: ${props => props.isreply ? "2.4rem 2.5rem .5rem .8rem" : ".5rem 2.5rem .5rem .8rem"};
-        max-width: 80%;
-        min-width: ${props => props.isreply ? "30%" : ""};
-        background-color: #ffffff10;
-        border-radius: ${props => 
-            props.isuser ? 
+        .message-box {
+            padding: ${props => props.isreply ? "2.4rem 2.5rem .5rem .8rem" : ".5rem 2.5rem .5rem .8rem"};
+            max-width: 80%;
+            min-width: ${props => props.isreply ? "30%" : ""};
+            background-color: #ffffff10;
+            border-radius: ${props => 
+                props.isuser ? 
+                    props.messagePosition == 0 ? 
+                    "20px" : 
+                    props.messagePosition == 1 ? 
+                    "20px 20px 5px 20px" : 
+                    props.messagePosition == 2 ? 
+                    "20px 5px 5px 20px" : 
+                    props.messagePosition == 3 && 
+                    "20px 5px 20px 20px" :
                 props.messagePosition == 0 ? 
-                "20px" : 
-                props.messagePosition == 1 ? 
-                "20px 20px 5px 20px" : 
-                props.messagePosition == 2 ? 
-                "20px 5px 5px 20px" : 
-                props.messagePosition == 3 && 
-                "20px 5px 20px 20px" :
-            props.messagePosition == 0 ? 
-                "20px" : 
-                props.messagePosition == 1 ? 
-                "20px 20px 20px 5px" : 
-                props.messagePosition == 2 ? 
-                "5px 20px 20px 5px" : 
-                props.messagePosition == 3 && 
-                "5px 20px 20px 20px"
-        };
+                    "20px" : 
+                    props.messagePosition == 1 ? 
+                    "20px 20px 20px 5px" : 
+                    props.messagePosition == 2 ? 
+                    "5px 20px 20px 5px" : 
+                    props.messagePosition == 3 && 
+                    "5px 20px 20px 20px"
+            };
+        }
 
         .username {
             font-size: .5rem;

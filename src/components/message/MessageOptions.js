@@ -72,9 +72,7 @@ const MessageOptions = ({ messageUsername, localUsername, id, message, username,
 };
 
 const MessageOptionsContainer = styled(motion.div)`
-    position: absolute;
-    left: ${props => props.isuser ? "-9.5rem" : "auto"};
-    right: ${props => props.isuser ? "auto" : "-5rem"};
+    margin: 0 1rem;
     user-select: none;
     display: flex;
     justify-content: center;

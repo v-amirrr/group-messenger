@@ -45,15 +45,17 @@ const MessageOptions = ({ messageUsername, localUsername, id, message, username,
 
     return (
         <>
-            <MessageOptionsContainer key={id} ref={messageOptionsRef} initial='hidden' animate='visible' exit='exit' variants={size < 500 && messageUsername == localUsername ? menuMobileVariants : menuDesktopVariants} isuser={isUser ? 1 : 0} mobile={size < 500 ? 1 : 0}>
+            <MessageOptionsContainer key={id} ref={messageOptionsRef} initial='hidden' animate='visible' exit='exit' variants={size < 500 && messageUsername == localUsername ? menuMobileVariants : menuDesktopVariants} isuser={isUser ? 1 : 0}>
                 {localUsername ? 
                 <motion.div className='reply' onClick={() => replyMessage(id, message, username)} whileTap={{ scale: 0.8 }} variants={messageUsername == localUsername ? size < 500 ? menuItemUserMobileVariants : menuItemUserDesktopVariants : menuItemVariants}>
                     <i><BsReplyFill /></i>
                 </motion.div>
                 : ""}
+
                 <motion.div className='copy' onClick={() => copyMessage(message)} whileTap={{ scale: 0.8 }} variants={messageUsername == localUsername ? size < 500 ? menuItemUserMobileVariants : menuItemUserDesktopVariants : menuItemVariants}>
                     <i><AiFillCopy /></i>
                 </motion.div>
+
                 {isUser ? 
                 <>
                     <motion.div className='edit' onClick={() => openPopup("EDIT_POPUP", id)} whileTap={{ scale: 0.8 }} variants={messageUsername == localUsername ? size < 500 ? menuItemUserMobileVariants : menuItemUserDesktopVariants : menuItemVariants}>
@@ -62,7 +64,8 @@ const MessageOptions = ({ messageUsername, localUsername, id, message, username,
                     <motion.div className='delete' onClick={() => openPopup("DELETE_POPUP", id)} whileTap={{ scale: 0.8 }} variants={messageUsername == localUsername ? size < 500 ? menuItemUserMobileVariants : menuItemUserDesktopVariants : menuItemVariants}>
                         <i><AiFillDelete /></i>
                     </motion.div>
-                </> : ""}
+                </>
+                : ""}
             </MessageOptionsContainer>
         </>
     );

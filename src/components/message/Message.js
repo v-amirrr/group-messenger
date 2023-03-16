@@ -1,12 +1,12 @@
 import React, { forwardRef, useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { setPopup } from '../../redux/popupSlice';
 import Popup from '../popups/Popup';
 import MessageOptions from '../message/MessageOptions';
 import ChatDate from '../ChatDate';
 import MessageTime from './MessageTime';
 import MessageReply from './MessageReply';
-import { setPopup } from '../../redux/popupSlice';
 import { isRTL } from '../../functions/isRlt';
 import styled from 'styled-components';
 import { AnimatePresence } from 'framer-motion';
@@ -14,23 +14,13 @@ import { AnimatePresence } from 'framer-motion';
 const Message = forwardRef(( props, ref ) => {
 
     const dispatch = useDispatch();
+    
+    const { message, id, replyTo, messageUsername, periorUsername, nextUsername, time, localUsername, priorDifferentDate, nextDifferentDate } = props.message;
+
     const { popupShow, popupName, popupMessageId } = useSelector(store => store.popupStore);
 
     const [menuShow, setMenuShow] = useState(false);
-    const [messagePosition, setMessagePosition] = useState("");
-
-    const {
-        message,
-        id,
-        replyTo,
-        messageUsername,
-        periorUsername,
-        nextUsername,
-        time,
-        localUsername,
-        priorDifferentDate,
-        nextDifferentDate
-    } = props.message;
+    const [messagePosition, setMessagePosition] = useState(null);
 
     useEffect(() => {
         if (priorDifferentDate && nextDifferentDate) {
@@ -79,9 +69,13 @@ const Message = forwardRef(( props, ref ) => {
             <ChatDate dateObj={time} priorDifferentDate={priorDifferentDate} />
 
             <MessageBox key={id} ref={ref} onClick={() => setMenuShow(!menuShow)} isuser={messageUsername == localUsername ? 1 : 0} ispersian={isRTL(message) ? 1 : 0} messagePosition={messagePosition} isreply={replyTo != "no_reply" ? 1 : 0}>
+
                 <MessageReply replyTo={replyTo} />
 
-                <p className='username'>{messageUsername}</p>
+                <p className='username'>
+                    {messageUsername}
+                </p>
+
                 <p className='message'>
                     {message?.map((item, index) => (
                         item.link ? <a key={index} className='link' href={item.word} target="_blank" rel='noopener nereferrer'>{item.word}</a> : `${item.word} `
@@ -89,7 +83,7 @@ const Message = forwardRef(( props, ref ) => {
                 </p>
 
                 <AnimatePresence>
-                    <MessageTime hour={time.hour} minute={time.minute} messagePosition={messagePosition} />
+                    <MessageTime time={time} messagePosition={messagePosition} />
                 </AnimatePresence>
 
                 <AnimatePresence>
@@ -101,7 +95,8 @@ const Message = forwardRef(( props, ref ) => {
                         id={id} 
                         message={message} 
                         username={messageUsername}
-                    /> : ""}
+                    />
+                    : ""}
                 </AnimatePresence>
             </MessageBox>
 
@@ -113,7 +108,8 @@ const Message = forwardRef(( props, ref ) => {
                         popupMessageText={message}
                         popupName={popupName}
                         popupMessageReplyTo={replyTo}
-                    /> : ""}
+                    />
+                    : ""}
                 </AnimatePresence>,
                 document.body
             )}

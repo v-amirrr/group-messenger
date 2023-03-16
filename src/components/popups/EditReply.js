@@ -22,43 +22,13 @@ const replyButtonVariants = {
 const EditReply = ({ replyTo, popupMessageId, editReplyOpen, setEditReplyOpen }) => {
 
     const messagesEndRef = useRef();
-    const { messages, localUsername } = useSelector(store => store.messagesStore);
-    
+
     const { editReply } = useMessageOptions();
+
+    const { messages, localUsername } = useSelector(store => store.messagesStore);    
 
     const [newReply, setNewReply] = useState(replyTo?.id);
     const [messagesBefore, setMessagesBefore] = useState([]);
-
-    useEffect(() => {
-        editReply(newReply);
-    }, [newReply]);
-
-    useEffect(() => {
-        setTimeout(() => {
-            messagesEndRef?.current?.scrollIntoView({
-                behavior: "smooth", block: "center", inline: "end"
-            });
-        }, 1500);
-    }, [editReplyOpen]);
-
-    useEffect(() => {
-        let newMessages = [];
-        for (let i = 0; i < messages.length; i++) {
-            if (messages[i].id == popupMessageId) {
-                break;
-            } else {
-                newMessages.push(messages[i]);
-            }
-        };
-        let messagesWithPostion = newMessages.map((message, index) => {
-            let lastMessage = index+1 == newMessages.length;
-            return {
-                ...message,
-                messagePosition: handleMessagePosition(message.priorDifferentDate, message.nextDifferentDate, message.periorUsername, message.nextUsername, message.username, lastMessage)
-            };
-        });
-        setMessagesBefore(messagesWithPostion);
-    }, []);
 
     const handleMessagePosition = (priorDifferentDate, nextDifferentDate, periorUsername, nextUsername, messageUsername, lastMessage) => {
         if (lastMessage) {
@@ -101,6 +71,37 @@ const EditReply = ({ replyTo, popupMessageId, editReplyOpen, setEditReplyOpen })
             }
         }
     };
+
+    useEffect(() => {
+        editReply(newReply);
+    }, [newReply]);
+
+    useEffect(() => {
+        setTimeout(() => {
+            messagesEndRef?.current?.scrollIntoView({
+                behavior: "smooth", block: "center", inline: "end"
+            });
+        }, 1500);
+    }, [editReplyOpen]);
+
+    useEffect(() => {
+        let newMessages = [];
+        for (let i = 0; i < messages.length; i++) {
+            if (messages[i].id == popupMessageId) {
+                break;
+            } else {
+                newMessages.push(messages[i]);
+            }
+        };
+        let messagesWithPostion = newMessages.map((message, index) => {
+            let lastMessage = index+1 == newMessages.length;
+            return {
+                ...message,
+                messagePosition: handleMessagePosition(message.priorDifferentDate, message.nextDifferentDate, message.periorUsername, message.nextUsername, message.username, lastMessage)
+            };
+        });
+        setMessagesBefore(messagesWithPostion);
+    }, []);
 
     return (
         <>

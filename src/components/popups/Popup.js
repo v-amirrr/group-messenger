@@ -1,8 +1,7 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import DeletePopup from './DeletePopup';
 import EditPopup from './EditPopup';
 import useMessageOptions from '../../hooks/useMessageOptions';
-import { isRTL } from '../../functions/isRlt';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
@@ -70,7 +69,6 @@ const PopupContainer = styled(motion.div)`
     background-color: #ffffff0a;
     border-radius: 25px;
     position: relative;
-    /* overflow: hidden; */
 
     p {
         font-weight: 200;

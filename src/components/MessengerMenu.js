@@ -25,9 +25,9 @@ const menuListVariants = {
 
 const MessengerMenu = () => {
 
-    const [openMenu, setOpenMenu] = useState(false);
-
     const { logoutAsGuest } = useLogin();
+
+    const [openMenu, setOpenMenu] = useState(false);
 
     return (
         <>

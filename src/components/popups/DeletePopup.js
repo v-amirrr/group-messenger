@@ -26,8 +26,6 @@ const DeletePopup = ({ popupMessageId }) => {
     );
 };
 
-const DeletePopupContainer = styled.div`
-
-`;
+const DeletePopupContainer = styled.div``;
 
 export default DeletePopup;

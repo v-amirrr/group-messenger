@@ -27,6 +27,7 @@ const loginErrorVariants = {
 const LoginWithName = () => {
 
     const navigate = useNavigate();
+
     const { login, clearLoginErorrs } = useLogin();
 
     const { loginError, localUsername } = useSelector(store => store.userStore);
@@ -49,19 +50,19 @@ const LoginWithName = () => {
 
     return (
         <>
-        <LoginPage initial='hidden' animate='visible' exit='exit' variants={loginVariants}>
-            <form>
-                <motion.input type="text" className='login-input' placeholder="Enter Your Name..." dir="auto" value={loginInput} onChange={e => setLoginInput(e.target.value)} ispersian={isRTL(loginInput) ? 1 : 0} autoFocus variants={loginPageItemsVariants}/>
-                <motion.button type="submit" className='submit-button' disabled={!loginInput} onClick={(e) => loginSubmitHandler(e)} variants={loginPageItemsVariants}>OK</motion.button>
-            </form>
-            <AnimatePresence>
-                {loginError ?
-                    <motion.div className='login-error' initial='hidden' animate='visible' exit='exit' variants={loginErrorVariants}>
-                        <p>{loginError}</p>
-                    </motion.div>
-                : "" }
-            </AnimatePresence>
-        </LoginPage>
+            <LoginPage initial='hidden' animate='visible' exit='exit' variants={loginVariants}>
+                <form>
+                    <motion.input type="text" className='login-input' placeholder="Enter Your Name..." dir="auto" value={loginInput} onChange={e => setLoginInput(e.target.value)} ispersian={isRTL(loginInput) ? 1 : 0} autoFocus variants={loginPageItemsVariants}/>
+                    <motion.button type="submit" className='submit-button' disabled={!loginInput} onClick={(e) => loginSubmitHandler(e)} variants={loginPageItemsVariants}>OK</motion.button>
+                </form>
+                <AnimatePresence>
+                    {loginError ?
+                        <motion.div className='login-error' initial='hidden' animate='visible' exit='exit' variants={loginErrorVariants}>
+                            <p>{loginError}</p>
+                        </motion.div>
+                    : ""}
+                </AnimatePresence>
+            </LoginPage>
         </>
     );
 };

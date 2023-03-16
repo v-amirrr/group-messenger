@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
+import FlipMove from 'react-flip-move';
 import Message from './message/Message';
 import MessengerInput from './MessengerInput';
-import FlipMove from 'react-flip-move';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
@@ -14,11 +14,11 @@ const groupChatVariants = {
 
 const GroupChat = () => {
 
-    const { messages, loading, localUsername } = useSelector(store => store.messagesStore);
-    const { loginAsGuest } = useSelector(store => store.userStore);
-
     const messagesContainerRef = useRef();
     const messagesEndRef = useRef();
+
+    const { messages, loading, localUsername } = useSelector(store => store.messagesStore);
+    const { loginAsGuest } = useSelector(store => store.userStore);
 
     useEffect(() => {
         if (!loading) {

@@ -7,7 +7,10 @@ const timeVariants = {
     visible: { opacity: 1, x: 0, y: 0, scale: 1, transition: { duration: 0.4, type: 'tween' } }
 };
 
-const MessageTime = ({ hour, minute, messagePosition }) => {
+const MessageTime = ({ time, messagePosition }) => {
+
+    const { hour, minute } = time;
+
     return (
         <>
             {hour != null && minute != null ?

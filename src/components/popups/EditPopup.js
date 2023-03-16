@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import EditReply from './EditReply';
 import useMessageoptions from '../../hooks/useMessageOptions';
+import EditReply from './EditReply';
+import Emoji from '../Emoji';
 import { isRTL } from '../../functions/isRlt';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import Emoji from '../Emoji';
 
 const EditPopup = ({ popupMessageId, popupMessageText, popupMessageReplyTo }) => {
+
+    const { editMessage, closePopup } = useMessageoptions();
 
     const [editInput, setEditInput] = useState("");
     const [editReplyOpen, setEditReplyOpen] = useState(false);
     const [emojiPickerShow, setEmojiPickerShow] = useState(false);
-
-    const { editMessage, closePopup } = useMessageoptions();
 
     const pressEnter = e => {
         if (e.key == "Enter" && !e.shiftKey) {
@@ -39,6 +39,7 @@ const EditPopup = ({ popupMessageId, popupMessageText, popupMessageReplyTo }) =>
         <>
             <EditPopupContainer onKeyDown={e => pressEnter(e)} editreplyopen={editReplyOpen} ispersian={isRTL(editInput) ? 1 : 0}>
                 <textarea value={editInput} onChange={e => setEditInput(e.target.value)} autoFocus={document.documentElement.offsetWidth > 500} dir={isRTL(editInput) ? "rtl" : "ltr"} />
+
                 <div className='buttons'>
                     <motion.button className='cancel' whileTap={{ scale: 0.9 }} onClick={closePopup}>
                         Cancel
@@ -47,6 +48,7 @@ const EditPopup = ({ popupMessageId, popupMessageText, popupMessageReplyTo }) =>
                         Edit
                     </motion.button>
                 </div>
+
                 <div className='emoji-picker'>
                     <Emoji replyToId={0} inputText={editInput} setInputText={setEditInput} show={emojiPickerShow} setShow={setEmojiPickerShow} place={"EDIT_POPUP"} />
                 </div>

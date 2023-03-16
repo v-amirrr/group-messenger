@@ -77,11 +77,12 @@ const EditReply = ({ replyTo, popupMessageId, editReplyOpen, setEditReplyOpen })
     }, [newReply]);
 
     useEffect(() => {
-        setTimeout(() => {
+        const goBottom = setTimeout(() => {
             messagesEndRef?.current?.scrollIntoView({
                 behavior: "smooth", block: "center", inline: "end"
             });
-        }, 1500);
+        }, 1000);
+        return () => clearTimeout(goBottom);
     }, [editReplyOpen]);
 
     useEffect(() => {

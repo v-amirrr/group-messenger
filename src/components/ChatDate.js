@@ -30,7 +30,7 @@ const ChatDateContainer = styled(motion.div)`
     color: #f0f0f5;
     border-radius: 50px;
     font-size: .5rem;
-    font-weight: 400;
+    font-weight: 700;
     width: fit-content;
     margin: .5rem auto;
     user-select: none;
@@ -49,7 +49,7 @@ const ChatDateContainer = styled(motion.div)`
 
         .month {
             letter-spacing: 0;
-            margin: 0 .2rem 0 .25rem;
+            margin: 0 .15rem 0 .2rem;
         }
     }
 `;

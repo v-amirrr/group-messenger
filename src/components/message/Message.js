@@ -133,22 +133,24 @@ const MessageBox = styled.div`
     justify-content: flex-start;
     align-items: center;
     flex-direction: ${ props => props.isuser ? "row-reverse" : "row"};
-
+    user-select: none;
+    
     .message-box {
+        z-index: 2;
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: ${ props => props.isuser ? "row-reverse" : "row"};
-        background-color: #ffffff0c;
+        background-color: #ffffff08;
         margin: ${props => 
             props.messagePosition == 0 ? 
-            ".4rem 0" : 
+            ".2rem 0" : 
             props.messagePosition == 1 ? 
-            ".4rem 0 .1rem 0" : 
+            ".2rem 0 .05rem 0" : 
             props.messagePosition == 2 ? 
             ".05rem 0" : 
             props.messagePosition == 3 && 
-            ".1rem 0 .4rem 0"
+            ".05rem 0 .2rem 0"
         };
         border-radius: ${props => 
             props.isuser ? 
@@ -179,7 +181,6 @@ const MessageBox = styled.div`
         word-break: break-all;
         cursor: pointer;
         transition: backdrop-filter .4s, border-radius .4s;
-        user-select: none;
     }
 
     .username {

@@ -68,7 +68,7 @@ const MessengerMenuContainer = styled(motion.div)`
     user-select: none;
     backdrop-filter: blur(15px) saturate(100%);
     -webkit-backdrop-filter: blur(15px) saturate(100%);
-    background-color: #ffffff11;
+    background-color: #ffffff08;
     border-radius: 25px;
     display: flex;
     justify-content: center;
@@ -94,11 +94,16 @@ const MessengerMenuContainer = styled(motion.div)`
         display: flex;
         justify-content: center;
         align-items: center;
-        margin: .3rem;
-        background-color: #ffffff11;
+        margin: .45rem;
+        background-color: #ffffff08;
         padding: .4rem;
         border-radius: 50%;
         font-size: 1.2rem;
+        transition: background .4s;
+
+        &:hover {
+            background-color: #ffffff15;
+        }
     }
 
     .list {
@@ -114,16 +119,21 @@ const MessengerMenuContainer = styled(motion.div)`
             width: 90%;
             border-radius: 15px;
             padding: .5rem 0;
-            background-color: #ffffff11;
+            background-color: #ffffff08;
             white-space: nowrap;
             cursor: pointer;
             margin-bottom: .3rem;
             display: flex;
             justify-content: center;
             align-items: center;
+            transition: background .4s;
 
             p {
                 font-size: .8rem;
+            }
+
+            &:hover {
+                background-color: #ffffff15;
             }
         }
     }

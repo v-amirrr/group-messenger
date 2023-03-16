@@ -23,8 +23,8 @@ const sendInputIconVariants = {
 
 const replyVariants = {
     hidden: { opacity: 0, scaleX: 0, y: -10 },
-    visible: { opacity: 1, scaleX: 1, y: 0, transition: { duration: 0.3, type: "spring", stiffness: 100 } },
-    exit: { opacity: 0, scaleY: 0, transition: { duration: 0.3 } }
+    visible: { opacity: 1, scaleX: 1, y: 0, transition: { duration: 0.4, type: "spring", stiffness: 100 } },
+    exit: { opacity: 0, scaleX: [1, 1.2, 0.8], transition: { duration: 0.4 } }
 };
 
 const MessengerInput = () => {
@@ -125,7 +125,8 @@ const MessengerInputContainer = styled(motion.section)`
     min-width: 60%;
     position: absolute;
     bottom: ${props => props.isreplyto ? "0" : "1rem"};
-    transition: bottom .5s;
+    transition: bottom .6s;
+    z-index: 5;
 
     &:disabled {
         cursor: not-allowed;

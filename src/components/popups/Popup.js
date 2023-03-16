@@ -80,20 +80,22 @@ const PopupContainer = styled(motion.div)`
         .edit, .delete, .cancel {
             border: none;
             border-radius: 10px;
-            background-color: #ffffff11;
-            margin: 0 .2rem;
-            padding: .5rem 1rem;
+            background-color: #ffffff08;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 8px 0px;
+            margin: 0 .3rem;
+            width: 5rem;
+            height: 2.3rem;
             font-size: 1rem;
             font-weight: 600;
             font-family: "Outfit", sans-serif;
             cursor: pointer;
             user-select: none;
-            transition: background-color .2s;
+            transition: background-color .4s;
             color: #fff;
 
             @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
                 &:hover {
-                    background-color: #ffffff33;
+                    background-color: #ffffff15;
                 }
             }
         }

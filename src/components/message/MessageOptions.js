@@ -19,8 +19,8 @@ const menuDesktopVariants = {
 
 const menuItemUserDesktopVariants = {
     hidden: { opacity: 0, x: 20 },
-    visible: { opacity: 1, x: [20, -20, 0], transition: { duration: 0.4, type: 'tween' } },
-    exit: { opacity: 0, x: 20, transition: { duration: 0.2, type: 'tween' } }
+    visible: { opacity: 1, x: [20, -20, 0], transition: { duration: 0.6, type: 'tween' } },
+    exit: { opacity: 0, x: 80, transition: { duration: 0.5, type: 'tween' } }
 };
 
 const menuItemUserMobileVariants = {
@@ -31,8 +31,8 @@ const menuItemUserMobileVariants = {
 
 const menuItemVariants = {
     hidden: { opacity: 0, x: -20 },
-    visible: { opacity: 1, x: [-20, 20, 0], transition: { duration: 0.4, type: 'tween' } },
-    exit: { opacity: 0, x: -20, transition: { duration: 0.2, type: 'tween' } }
+    visible: { opacity: 1, x: [-20, 20, 0], transition: { duration: 0.6, type: 'tween' } },
+    exit: { opacity: 0, x: -80, transition: { duration: 0.5, type: 'tween' } }
 };
 
 const MessageOptions = ({ messageUsername, localUsername, id, message, username, isUser }) => {
@@ -72,7 +72,7 @@ const MessageOptions = ({ messageUsername, localUsername, id, message, username,
 };
 
 const MessageOptionsContainer = styled(motion.div)`
-    margin: 0 1rem;
+    margin: ${props => props.isuser ? "0 .4rem 0 0" : "0 0 0 .4rem"};
     user-select: none;
     display: flex;
     justify-content: center;
@@ -84,7 +84,7 @@ const MessageOptionsContainer = styled(motion.div)`
     }
 
     .reply, .copy, .edit, .delete {
-        background-color: #ffffff10;
+        background-color: #ffffff11;
         margin: 0 .15rem;
         display: flex;
         justify-content: center;
@@ -94,11 +94,11 @@ const MessageOptionsContainer = styled(motion.div)`
         height: 50%;
         cursor: pointer;
         padding: .5rem;
-        transition: background .3s;
+        transition: background .4s;
 
         @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
             &:hover {
-                background-color: #ffffff30;
+                background-color: #ffffff22;
             }
         }
 

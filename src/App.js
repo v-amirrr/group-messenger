@@ -45,7 +45,7 @@ const Background = styled.div`
     top: 0;
     left: 0;
     z-index: -1;
-    filter: blur(10px);
+    filter: blur(5px);
 
     img {
         object-fit: cover;

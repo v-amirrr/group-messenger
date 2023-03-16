@@ -41,6 +41,10 @@ body {
     color: #fff;
 }
 
+::placeholder {
+    user-select: none;
+}
+
 :any-link {
     text-decoration: none;
     cursor: pointer;

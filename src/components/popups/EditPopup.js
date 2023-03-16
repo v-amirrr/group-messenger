@@ -60,7 +60,7 @@ const EditPopup = ({ popupMessageId, popupMessageText, popupMessageReplyTo }) =>
 };
 
 const EditPopupContainer = styled.div`
-    padding: ${props => props.editreplyopen ? "6rem 3rem" : ""};
+    padding: ${props => props.editreplyopen ? "6rem 3rem" : "0 1rem"};
     transform: ${props => props.editreplyopen ? "scale(0.5)" : ""};
     transition: transform 1s cubic-bezier(.53,0,0,.98), padding 1s cubic-bezier(.53,0,0,.98);
     position: relative;
@@ -82,8 +82,8 @@ const EditPopupContainer = styled.div`
 
     .emoji-picker {
         position: absolute;
-        top: 0;
-        right: 0;
+        bottom: 0;
+        left: 0;
         z-index: 99;
     }
 

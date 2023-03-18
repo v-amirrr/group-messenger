@@ -12,9 +12,14 @@ const Loader = ({ usage }) => {
     return (
         <>
             <LoaderContainer initial='hidden' animate='visible' exit='exit' variants={loaderVariants} usage={usage}>
-                <svg className="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-                    <circle className="path" fill="none" strokeWidth="6" strokeLinecap="round" cx="33" cy="33" r="30"></circle>
-                </svg>
+                <div class="gooey">
+                    <span class="dot"></span>
+                    <div class="dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
             </LoaderContainer>
         </>
     );
@@ -28,98 +33,89 @@ const LoaderContainer = styled(motion.div)`
     width: ${props => props.usage == 3 ? "20%" : "50%"};
     height: ${props => props.usage == 3 ? "" : "100%"};
 
-    .spinner {
-        -webkit-animation: rotator 1.4s linear infinite;
-        animation: rotator 1.4s linear infinite;
+    .gooey {
+        background-color: #000000;
+        border-radius: 50px;
+        filter: contrast(20);
+        width: 142px;
+        height: 40px;
     }
 
-    @-webkit-keyframes rotator {
-        0% {
-            transform: rotate(0deg);
-        }
-        100% {
-            transform: rotate(270deg);
-        }
+    .gooey .dot {
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        top: 12px;
+        left: 15px;
+        filter: blur(4px);
+        background: #fff;
+        border-radius: 50%;
+        transform: translateX(0);
+        animation: dot 3s infinite;
     }
 
-    @keyframes rotator {
-        0% {
-            transform: rotate(0deg);
-        }
-        100% {
-            transform: rotate(270deg);
-        }
+    .gooey .dots {
+        transform: translateX(0);
+        margin-top: 12px;
+        margin-left: 31px;
+        animation: dots 3s infinite;
     }
 
-    .path {
-        stroke-dasharray: 187;
-        stroke-dashoffset: 0;
-        transform-origin: center;
-        -webkit-animation: dash 1.4s ease-in-out infinite, colors 5.6s ease-in-out infinite;
-        animation: dash 1.4s ease-in-out infinite, colors 5.6s ease-in-out infinite;
+    .gooey .dots span {
+        display: block;
+        float: left;
+        width: 16px;
+        height: 16px;
+        margin-left: 16px;
+        filter: blur(4px);
+        background: #fff;
+        border-radius: 50%;
     }
 
-    @-webkit-keyframes colors {
-        0% {
-            stroke: #4285F4;
-        }
-        25% {
-            stroke: #DE3E35;
-        }
+    @-moz-keyframes dot {
         50% {
-            stroke: #F7C223;
-        }
-        75% {
-            stroke: #1B9A59;
-        }
-        100% {
-            stroke: #4285F4;
+            transform: translateX(96px);
         }
     }
 
-    @keyframes colors {
-        0% {
-            stroke: #4285F4;
-        }
-        25% {
-            stroke: #DE3E35;
-        }
+    @-webkit-keyframes dot {
         50% {
-            stroke: #F7C223;
+            transform: translateX(96px);
         }
-        75% {
-            stroke: #1B9A59;
-        }
-        100% {
-            stroke: #4285F4;
+    }
+    @-o-keyframes dot {
+        50% {
+            transform: translateX(96px);
         }
     }
 
-    @-webkit-keyframes dash {
-        0% {
-            stroke-dashoffset: 187;
-        }
+    @keyframes dot {
         50% {
-            stroke-dashoffset: 46.75;
-            transform: rotate(135deg);
-        }
-        100% {
-            stroke-dashoffset: 187;
-            transform: rotate(450deg);
+            transform: translateX(96px);
         }
     }
 
-    @keyframes dash {
-        0% {
-            stroke-dashoffset: 187;
-        }
+    @-moz-keyframes dots {
         50% {
-            stroke-dashoffset: 46.75;
-            transform: rotate(135deg);
+            transform: translateX(-31px);
         }
-        100% {
-            stroke-dashoffset: 187;
-            transform: rotate(450deg);
+    }
+
+    @-webkit-keyframes dots {
+        50% {
+            transform: translateX(-31px);
+        }
+    }
+
+    @-o-keyframes dots {
+        50% {
+            transform: translateX(-31px);
+        }
+    }
+
+    @keyframes dots {
+        50% {
+            transform: translateX(-31px);
         }
     }
 `;

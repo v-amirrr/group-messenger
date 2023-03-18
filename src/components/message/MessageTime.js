@@ -1,6 +1,7 @@
 import React from 'react';
+import MessageLoader from './MessageLoader';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const timeVariants = {
     hidden: { opacity: 0, x: 20, y: 20, scale: 0 },
@@ -13,10 +14,17 @@ const MessageTime = ({ time, messagePosition }) => {
 
     return (
         <>
-            {hour != null && minute != null ?
-            <TimeContainer initial='hidden' animate='visible' exit='exit' variants={timeVariants} messageposition={messagePosition}>
-                {hour < 10 ? `0${hour}` : hour}:{minute < 10 ? `0${minute}` : minute}
-            </TimeContainer> : ""}
+            <TimeContainer messageposition={messagePosition}>
+                <AnimatePresence exitBeforeEnter>
+                    {hour != null && minute != null ?
+                        <motion.div key="time" initial='hidden' animate='visible' exit='exit' variants={timeVariants}>
+                            <span>{hour < 10 ? `0${hour}` : hour}</span>
+                            :
+                            <span>{minute < 10 ? `0${minute}` : minute}</span>
+                        </motion.div> :
+                    <MessageLoader key="message-loader" />}
+                </AnimatePresence>
+            </TimeContainer>
         </>
     );
 };
@@ -25,6 +33,7 @@ const TimeContainer = styled(motion.div)`
     position: absolute;
     right: 0;
     bottom: 0;
+    width: 2rem;
     font-size: .5rem;
     font-weight: 500;
     letter-spacing: .5px;

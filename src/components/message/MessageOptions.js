@@ -18,8 +18,8 @@ const menuDesktopVariants = {
 };
 
 const menuItemUserDesktopVariants = {
-    hidden: { opacity: 0, x: 20 },
-    visible: { opacity: 1, x: [20, -20, 0], transition: { duration: 0.6, type: 'tween' } },
+    hidden: { opacity: 0, x: 20, scale: 0.8 },
+    visible: { opacity: 1, x: [20, -20, 0], scale: 1, transition: { duration: 0.6, type: 'tween' } },
     exit: { opacity: 0, x: 80, transition: { duration: 0.5, type: 'tween' } }
 };
 
@@ -30,8 +30,8 @@ const menuItemUserMobileVariants = {
 };
 
 const menuItemVariants = {
-    hidden: { opacity: 0, x: -20 },
-    visible: { opacity: 1, x: [-20, 20, 0], transition: { duration: 0.6, type: 'tween' } },
+    hidden: { opacity: 0, x: -20, scale: 0.8 },
+    visible: { opacity: 1, x: [-20, 20, 0], scale: 1, transition: { duration: 0.6, type: 'tween' } },
     exit: { opacity: 0, x: -80, transition: { duration: 0.5, type: 'tween' } }
 };
 

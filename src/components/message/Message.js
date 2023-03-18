@@ -10,7 +10,13 @@ import MessageTime from './MessageTime';
 import MessageReply from './MessageReply';
 import { isRTL } from '../../functions/isRlt';
 import styled from 'styled-components';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
+
+const userMessageVariants = {
+    hidden: { opacity: 0, x: 20 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.4, type: 'tween' } },
+    exit: { opacity: 0, transition: { duration: 0.4, type: 'tween' } }
+};
 
 const Message = forwardRef(( props, ref ) => {
 
@@ -77,7 +83,7 @@ const Message = forwardRef(( props, ref ) => {
         <>
             <ChatDate dateObj={time} priorDifferentDate={priorDifferentDate} />
 
-            <MessageBox key={id} ref={ref} isuser={messageUsername == localUsername ? 1 : 0} ispersian={isRTL(message) ? 1 : 0} messagePosition={messagePosition} isreply={replyTo != "no_reply" ? 1 : 0}>
+            <MessageBox key={id} ref={ref} isuser={messageUsername == localUsername ? 1 : 0} ispersian={isRTL(message) ? 1 : 0} messagePosition={messagePosition} isreply={replyTo != "no_reply" ? 1 : 0} initial='hidden' animate='visible' exit='exit' variants={userMessageVariants}>
 
                 <div className='message-box' onClick={messageClickHandler}>
                     <MessageReply replyTo={replyTo} />
@@ -128,7 +134,7 @@ const Message = forwardRef(( props, ref ) => {
     );
 });
 
-const MessageBox = styled.div`
+const MessageBox = styled(motion.div)`
     display: flex;
     justify-content: flex-start;
     align-items: center;

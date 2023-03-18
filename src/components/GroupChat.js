@@ -8,8 +8,8 @@ import { motion } from 'framer-motion';
 
 const groupChatVariants = {
     hidden: { opacity: 0, scaleX: 0.5 },
-    visible: { opacity: 1, scaleX: 1, transition: { duration: 0.4, when: "beforeChildren" } },
-    exit: { opacity: 0, scaleX: 0.8, transition: { duration: 0.4, when: "afterChildren" } }
+    visible: { opacity: 1, scaleX: 1, transition: { duration: 1, when: "beforeChildren", staggerChildren: 0.05 } },
+    exit: { opacity: 0, scaleX: 0.8, transition: { duration: 1, when: "afterChildren" } }
 };
 
 const GroupChat = () => {
@@ -21,13 +21,15 @@ const GroupChat = () => {
     const { loginAsGuest } = useSelector(store => store.userStore);
 
     useEffect(() => {
-        if (!loading) {
-            setTimeout(() => {
+        const goBottom = setTimeout(() => {
+            if (!loading) {
                 messagesEndRef?.current?.scrollIntoView({
                     behavior: "smooth", block: "center", inline: "end"
                 });
-            }, 500);
-        }
+            }
+        }, 1200);
+
+        return () => clearTimeout(goBottom);
     }, [messages]);
 
     return (

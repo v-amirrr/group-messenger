@@ -9,6 +9,8 @@ export const useGetMessages = () => {
     const dispatch = useDispatch();
 
     const getMessages = (type) => {
+        let firstTime = performance.now();
+
         dispatch(setError(null));
         dispatch(setLoadingOn());
 
@@ -63,14 +65,6 @@ export const useGetMessages = () => {
 
             dispatch(setMessages(modifiedMessages));
 
-            if (type == "try_again") {
-                setTimeout(() => {
-                    dispatch(setLoadingOff());
-                }, 500);
-            } else {
-                dispatch(setLoadingOff());
-            }
-
             if (!messages?.length) {
                 dispatch(setError("There's a problem with your connection. If you're in sanctioned countries like Iran, you have to turn on your VPN for using this app and if you're already using a VPN you need to change it. (You can use checan.ir)"));
             }
@@ -78,6 +72,15 @@ export const useGetMessages = () => {
         }, (error) => {
             dispatch(setError(error));
         });
+
+        let lastTime = performance.now();
+        let time = ~~lastTime - ~~firstTime;
+
+        if (time < 1000) {
+            setTimeout(() => {
+                dispatch(setLoadingOff());
+            }, 2500 - time);
+        }
     };
 
     return { getMessages };

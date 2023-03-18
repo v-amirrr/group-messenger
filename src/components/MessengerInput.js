@@ -1,18 +1,18 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, memo } from 'react';
 import { useSelector } from 'react-redux';
 import useSendMessage from '../hooks/useSendMessage';
 import useMessageOptions from '../hooks/useMessageOptions';
+import MessageLoader from './message/MessageLoader';
+import Emoji from './Emoji';
 import { isRTL } from '../functions/isRlt';
-import Loader from "./Loader";
 import { IoSend, IoAlert, IoClose } from 'react-icons/io5';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
-import Emoji from './Emoji';
 
 const messengerInputVariants = {
-    hidden: { opacity: 0, scaleX: 0, y: 10 },
-    visible: { opacity: 1, scaleX: 1, y: 0, transition: { duration: 0.3, type: "spring", stiffness: 100 } },
-    exit: { opacity: 0, scaleY: 0, transition: { duration: 0.3 } }
+    hidden: { opacity: 0, scale: 0.5, y: 50 },
+    visible: { opacity: 1, scale: 1, y: 0, transition: { duration: 1, when: "beforeChildren" } },
+    exit: { opacity: 0, scale: 0.8, y: 50, transition: { duration: 1, when: "afterChildren" } }
 };
 
 const sendInputIconVariants = {
@@ -23,7 +23,7 @@ const sendInputIconVariants = {
 
 const replyVariants = {
     hidden: { opacity: 0, scaleX: 0, y: -10 },
-    visible: { opacity: 1, scaleX: 1, y: 0, transition: { duration: 0.4, type: "spring", stiffness: 100 } },
+    visible: { opacity: 1, scaleX: 1, y: 0, transition: { type: "spring", stiffness: 100 } },
     exit: { opacity: 0, scaleX: [1, 1.2, 0.8], transition: { duration: 0.4 } }
 };
 
@@ -101,7 +101,7 @@ const MessengerInput = () => {
                     <motion.button whileTap={inputText && { scale: 0.5 }} type="submit" className='messenger-submit' disabled={!inputText} onClick={inputSubmitHandler}>
                         <AnimatePresence exitBeforeEnter>
                             {sendMessageLoading ?
-                            <div key="pending" className='loader'><Loader usage={2} /></div> : 
+                            <div key="pending" className='loader'><MessageLoader /></div> : 
                             sendMessageError ?
                             <motion.div initial='hidden' animate='visible' exit='exit' variants={sendInputIconVariants} key="error"><IoAlert /></motion.div> :
                             <motion.div initial='hidden' animate='visible' exit='exit' variants={sendInputIconVariants} key="send"><IoSend /></motion.div>}
@@ -114,9 +114,9 @@ const MessengerInput = () => {
 };
 
 const MessengerInputContainer = styled(motion.section)`
-    background-color: #ffffff08;
-    backdrop-filter: blur(5px) saturate(100%);
-    -webkit-backdrop-filter: blur(20px) saturate(120%);
+    background-color: #ffffff06;
+    backdrop-filter: blur(8px) saturate(100%);
+    -webkit-backdrop-filter: blur(8px) saturate(120%);
     border-radius: 50px;
     display: flex;
     justify-content: center;
@@ -125,7 +125,7 @@ const MessengerInputContainer = styled(motion.section)`
     min-width: 60%;
     position: absolute;
     bottom: ${props => props.isreplyto ? "0" : "1rem"};
-    transition: bottom .6s;
+    transition: bottom .4s;
     z-index: 5;
 
     &:disabled {
@@ -153,7 +153,6 @@ const MessengerInputContainer = styled(motion.section)`
             resize: none;
             overflow: ${props => props.inputtext ? "hidden scroll" : ""};
     
-            /* width */
             ::-webkit-scrollbar {
                 width: .3rem;
             }
@@ -216,6 +215,7 @@ const ReplyTo = styled(motion.div)`
     bottom: 3.5rem;
     overflow: hidden;
     user-select: none;
+    z-index: 2;
 
     button {
         all: unset;
@@ -280,4 +280,4 @@ const ReplyTo = styled(motion.div)`
     }
 `;
 
-export default MessengerInput;
+export default memo(MessengerInput);

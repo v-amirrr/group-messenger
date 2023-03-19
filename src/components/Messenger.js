@@ -10,21 +10,17 @@ import { motion, AnimatePresence } from 'framer-motion';
 const messengerVariants = {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { duration: 0.2 } },
-    exit: { opacity: 0, transition: { duration: 0.2 } }
+    exit: { opacity: 0, transition: { duration: 0.2, when: "afterChildren" } }
 };
 
 const Messenger = () => {
 
     const { loading, error } = useSelector(store => store.messagesStore);
-    const { loginAsGuest } = useSelector(store => store.userStore)
 
     return (
         <>
             <MessengerPage initial='hidden' animate='visible' exit='exit' variants={messengerVariants}>
                 <MessengerContainer>
-                    {loginAsGuest ? 
-                    <MessengerMenu />
-                    : ""}
                     <AnimatePresence>
                         {loading ? <Loader key="loader" usage={1} /> :
                         error ? <ErrorBox errorMessage={error} /> :

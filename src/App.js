@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import backgroundSRC from './assets/images/bg.webp';
+import backgroundSRC from './assets/images/0.webp';
 import Messenger from './components/Messenger';
 import WarningPage from './components/WarningPage';
 import LoginModes from './components/login/LoginModes';
 import LoginWithName from './components/login/LoginWithName';
+import Settings from './components/settings/Settings';
 import { useGetMessages } from './hooks/useGetMessages';
 import { useWarningPage } from './hooks/useWarningPage';
 import styled from 'styled-components';
@@ -32,6 +33,7 @@ const App = () => {
                     <Route path="/warning" element={<WarningPage />} />
                     <Route path="/login" element={<LoginModes />} />
                     <Route path='/login/login-with-name' element={<LoginWithName />} />
+                    <Route path='/settings' element={<Settings />} />
                 </Routes>
             </AnimatePresence>
         </>

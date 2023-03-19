@@ -5,6 +5,7 @@ import Message from './message/Message';
 import MessengerInput from './MessengerInput';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import MessengerMenu from './MessengerMenu';
 
 const groupChatVariants = {
     hidden: { opacity: 0, scaleX: 0.5 },
@@ -34,6 +35,8 @@ const GroupChat = () => {
 
     return (
         <>
+            <MessengerMenu />
+
             <GroupChatContainer ref={messagesContainerRef} initial='hidden' animate='visible' exit='exit' variants={groupChatVariants}>
                 <FlipMove>
                     {messages?.map(message => (

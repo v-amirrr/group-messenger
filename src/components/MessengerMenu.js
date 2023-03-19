@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { useLogin } from '../hooks/useLogin';
 import { HiDotsVertical } from "react-icons/hi";
 import { FaArrowRight } from "react-icons/fa";
+import { FcSettings } from "react-icons/fc";
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 
@@ -25,6 +28,8 @@ const menuListVariants = {
 
 const MessengerMenu = () => {
 
+    const { loginAsGuest } = useSelector(store => store.userStore);
+
     const { logoutAsGuest } = useLogin();
 
     const [openMenu, setOpenMenu] = useState(false);
@@ -44,6 +49,7 @@ const MessengerMenu = () => {
 
                 <AnimatePresence>
                     {openMenu ?
+                    loginAsGuest ?
                     <motion.div key="menu" className='list' initial='hidden' animate='visible' exit='exit' variants={menuListVariants}>
                         <motion.div onClick={logoutAsGuest} className='list-item' whileTap={{ scale: 0.9 }}>
                             <p>Logout As Guest</p>
@@ -51,6 +57,14 @@ const MessengerMenu = () => {
                         <motion.div onClick={() => logoutAsGuest("LOGIN_WITH_NAME")} className='list-item' whileTap={{ scale: 0.9 }}>
                             <p>Login With Name</p>
                         </motion.div>
+                    </motion.div> :
+                    <motion.div key="menu" className='list' initial='hidden' animate='visible' exit='exit' variants={menuListVariants}>
+                        <Link to="/settings">
+                            <motion.div className='list-item' whileTap={{ scale: 0.9 }}>
+                                <i><FcSettings /></i>
+                                <p>Settings</p>
+                            </motion.div>
+                        </Link>
                     </motion.div>
                     : ""}
                 </AnimatePresence>
@@ -66,9 +80,9 @@ const MessengerMenuContainer = styled(motion.div)`
     margin: 1rem 1.5rem;
     z-index: 3;
     user-select: none;
-    backdrop-filter: blur(15px) saturate(100%);
+    backdrop-filter: blur(10px) saturate(100%);
     -webkit-backdrop-filter: blur(15px) saturate(100%);
-    background-color: #ffffff08;
+    background-color: #000000bb;
     border-radius: 25px;
     display: flex;
     justify-content: center;
@@ -115,6 +129,14 @@ const MessengerMenuContainer = styled(motion.div)`
         flex-direction: column;
         font-size: .8rem;
 
+        a {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row;
+        }
+
         .list-item {
             width: 90%;
             border-radius: 15px;
@@ -130,6 +152,14 @@ const MessengerMenuContainer = styled(motion.div)`
 
             p {
                 font-size: .8rem;
+            }
+
+            i {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 1.2rem;
+                margin-right: .2rem;
             }
 
             &:hover {

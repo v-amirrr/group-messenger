@@ -1,5 +1,5 @@
 import React from 'react';
-import {useGetMessages} from "../hooks/useGetMessages";
+import { useGetMessages } from "../hooks/useGetMessages";
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 

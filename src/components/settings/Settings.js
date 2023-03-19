@@ -12,9 +12,9 @@ const settingsPageVariants = {
 };
 
 const settingsContainerVariants = {
-    hidden: { opacity: 0, width: "0", height: "0" },
-    visible: { opacity: 1, width: "20rem", height: "30rem", transition: { duration: 1, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } },
-    exit: { opacity: 0, width: "10rem", height: "20rem", transition: { duration: 0.5, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } }
+    hidden: { opacity: 0, scale: 0 },
+    visible: { opacity: 1, scale: 1, transition: { duration: 1, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } },
+    exit: { opacity: 0, scale: 0.8, transition: { duration: 0.5, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } }
 };
 
 const Settings = () => {
@@ -89,8 +89,10 @@ const SettingsContainer = styled(motion.section)`
                 font-size: 2rem;
             }
 
-            &:hover {
-                background-color: #ffffff11;
+            @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
+                &:hover {
+                    background-color: #ffffff11;
+                }
             }
         }
     }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, memo } from 'react';
 import { useSelector } from 'react-redux';
 import useMessageOptions from "../../hooks/useMessageOptions";
 import { isRTL } from '../../functions/isRlt';
@@ -420,4 +420,4 @@ const AddMessageContainer = styled.div`
     }
 `;
 
-export default EditReply;
+export default memo(EditReply);

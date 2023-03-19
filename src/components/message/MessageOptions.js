@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { memo, useRef } from 'react';
 import useMessageOptions from '../../hooks/useMessageOptions';
 import { AiFillDelete, AiFillCopy, AiFillEdit } from 'react-icons/ai';
 import { BsReplyFill } from 'react-icons/bs';
@@ -129,4 +129,4 @@ const MessageOptionsContainer = styled(motion.div)`
     }
 `;
 
-export default MessageOptions;
+export default memo(MessageOptions);

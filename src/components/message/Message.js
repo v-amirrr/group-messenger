@@ -1,4 +1,4 @@
-import React, { forwardRef, useState, useEffect } from 'react';
+import React, { forwardRef, useState, useEffect, memo } from 'react';
 import { createPortal } from 'react-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPopup } from '../../redux/popupSlice';
@@ -240,4 +240,4 @@ const MessageBox = styled.div`
     }
 `;
 
-export default Message;
+export default memo(Message);

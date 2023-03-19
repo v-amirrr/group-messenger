@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import { useChangeTheme } from '../../hooks/useChangeTheme';
 import themeOneImageSRC from '../../assets/images/1.webp';
 import themeTowImageSRC from '../../assets/images/2.webp';
@@ -21,7 +21,7 @@ const themesOpenVariants = {
 
 const themesCloseVariants = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.4, delay: 0.2 } },
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.4 } },
     exit: { opacity: 0, scale: 0.5, transition: { duration: 0.4 } }
 };
 
@@ -98,7 +98,7 @@ const SettingsThemesContainer = styled.div`
     overflow: hidden;
     position: relative;
     background-color: #ffffff08;
-    transition: background .2s, border .2s, width 1s cubic-bezier(.53,0,0,.98), height 1s cubic-bezier(.53,0,0,.98), padding .2s;
+    transition: background .2s, border .2s, width .8s cubic-bezier(.53,0,0,.98), height .8s cubic-bezier(.53,0,0,.98), padding .2s;
 
     .theme-close {
         display: flex;
@@ -142,8 +142,7 @@ const SettingsThemesContainer = styled.div`
             position: absolute;
             top: 0;
             left: 0;
-            margin: .4rem;
-            padding: .1rem;
+            margin: .3rem;
             display: flex;
             justify-content: flex-start;
             align-items: center;
@@ -181,14 +180,16 @@ const SettingsThemesContainer = styled.div`
         }
 
     }
-    
-    &:hover {
-        border: ${props => props.open ? "" : "solid 1px #ffffff00"};
 
-        .list-item-back {
-            font-size: 2rem;
+    @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
+        &:hover {
+            border: ${props => props.open ? "" : "solid 1px #ffffff00"};
+    
+            .list-item-back {
+                font-size: 2rem;
+            }
         }
     }
 `;
 
-export default SettingsThemes;
+export default memo(SettingsThemes);

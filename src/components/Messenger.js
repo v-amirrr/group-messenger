@@ -9,8 +9,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const messengerVariants = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 0.2, when: "beforeChildren" } },
-    exit: { opacity: 0, transition: { duration: 0.2, when: "afterChildren" } }
+    visible: { opacity: 1, transition: { duration: 0.4 } },
+    exit: { opacity: 0, transition: { duration: 0.4 } }
 };
 
 const Messenger = () => {

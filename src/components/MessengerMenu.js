@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useLogin } from '../hooks/useLogin';
@@ -115,8 +115,10 @@ const MessengerMenuContainer = styled(motion.div)`
         font-size: 1.2rem;
         transition: background .4s;
 
-        &:hover {
-            background-color: #ffffff15;
+        @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
+            &:hover {
+                background-color: #ffffff15;
+            }
         }
     }
 
@@ -162,8 +164,10 @@ const MessengerMenuContainer = styled(motion.div)`
                 margin-right: .2rem;
             }
 
-            &:hover {
-                background-color: #ffffff15;
+            @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
+                &:hover {
+                    background-color: #ffffff15;
+                }
             }
         }
     }
@@ -173,4 +177,4 @@ const MessengerMenuContainer = styled(motion.div)`
     }
 `;
 
-export default MessengerMenu;
+export default memo(MessengerMenu);

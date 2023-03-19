@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import MessageLoader from './MessageLoader';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -58,4 +58,4 @@ const TimeContainer = styled(motion.div)`
     }
 `;
 
-export default MessageTime;
+export default memo(MessageTime);

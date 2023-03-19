@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import EmojiPicker from 'emoji-picker-react';
 import { GrEmoji } from "react-icons/gr";
 import styled from 'styled-components';
@@ -53,4 +53,4 @@ const EmojiPickerContainer = styled(motion.div)`
     transition: bottom .6s;
 `;
 
-export default Emoji;
+export default memo(Emoji);

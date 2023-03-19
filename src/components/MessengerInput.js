@@ -226,10 +226,12 @@ const ReplyTo = styled(motion.div)`
         border-radius: 50%;
         cursor: pointer;
         transition: background .2s, padding .2s;
-        
-        &:hover {
-            padding: .2rem;
-            background-color: #f5f0f011;
+
+        @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
+            &:hover {
+                padding: .2rem;
+                background-color: #f5f0f011;
+            }
         }
     }
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styled from 'styled-components';
 
 const MessageReply = ({ replyTo }) => {
@@ -58,4 +58,4 @@ const ReplySection = styled.div`
     }
 `;
 
-export default MessageReply;
+export default memo(MessageReply);

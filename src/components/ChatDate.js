@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 
@@ -59,4 +59,4 @@ const ChatDateContainer = styled(motion.div)`
     }
 `;
 
-export default ChatDate;
+export default memo(ChatDate);

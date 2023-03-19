@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
@@ -120,4 +120,4 @@ const LoaderContainer = styled(motion.div)`
     }
 `;
 
-export default Loader;
+export default memo(Loader);

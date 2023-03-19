@@ -6,6 +6,7 @@ const initialState = {
     warningPageNeverShowCheck: JSON.parse(localStorage.getItem("warning-check")),
     loginAsGuest: JSON.parse(localStorage.getItem("guest-login")),
     messageIdOptionsShow: null,
+    theme: 0,
 };
 
 const userSlice = createSlice({
@@ -27,6 +28,9 @@ const userSlice = createSlice({
         setMessageIdOptionsShow: (state, action) => {
             return { ...state, messageIdOptionsShow: action.payload };
         },
+        setTheme: (state, action) => {
+            return { ...state, theme: action.payload };
+        },
     },
 });
 
@@ -35,7 +39,8 @@ export const {
     setWarningShow, 
     setWarningPageNeverShowCheck, 
     setLoginAsGuest,
-    setMessageIdOptionsShow
+    setMessageIdOptionsShow,
+    setTheme,
 } = userSlice.actions;
 
 export default userSlice.reducer;

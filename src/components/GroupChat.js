@@ -9,8 +9,8 @@ import MessengerMenu from './MessengerMenu';
 
 const groupChatVariants = {
     hidden: { opacity: 0, scaleX: 0.5 },
-    visible: { opacity: 1, scaleX: 1, transition: { duration: 1, when: "beforeChildren", staggerChildren: 0.05 } },
-    exit: { opacity: 0, scaleX: 0.8, transition: { duration: 1, when: "afterChildren" } }
+    visible: { opacity: 1, scaleX: 1, transition: { duration: 0.4, when: "beforeChildren" } },
+    exit: { opacity: 0, scaleX: 0.5, transition: { duration: 0.4, when: "afterChildren" } }
 };
 
 const GroupChat = () => {

@@ -9,7 +9,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const messengerVariants = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 0.2 } },
+    visible: { opacity: 1, transition: { duration: 0.2, when: "beforeChildren" } },
     exit: { opacity: 0, transition: { duration: 0.2, when: "afterChildren" } }
 };
 
@@ -39,7 +39,6 @@ const MessengerPage = styled(motion.main)`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: #00000066;
 `;
 
 const MessengerContainer = styled.div`

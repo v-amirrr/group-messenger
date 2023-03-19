@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import backgroundSRC from './assets/images/0.webp';
 import Messenger from './components/Messenger';
 import WarningPage from './components/WarningPage';
 import LoginModes from './components/login/LoginModes';
 import LoginWithName from './components/login/LoginWithName';
 import Settings from './components/settings/Settings';
+import MessengerBackground from './components/MessengerBackground';
 import { useGetMessages } from './hooks/useGetMessages';
 import { useWarningPage } from './hooks/useWarningPage';
-import styled from 'styled-components';
 import { AnimatePresence } from 'framer-motion';
+import { useChangeTheme } from './hooks/useChangeTheme';
 
 const App = () => {
 
@@ -17,15 +17,17 @@ const App = () => {
 
     const { getMessages } = useGetMessages();
     const { showWelcomePages } = useWarningPage();
+    const { setDefaultTheme } = useChangeTheme();
 
     useEffect(() => {
+        setDefaultTheme();
         getMessages();
         showWelcomePages();
     }, []);
 
     return (
         <>
-            <Background><img src={backgroundSRC} /></Background>
+            <MessengerBackground />
 
             <AnimatePresence exitBeforeEnter>
                 <Routes location={location} key={location.key}>
@@ -39,21 +41,5 @@ const App = () => {
         </>
     );
 };
-
-const Background = styled.div`
-    width: 100vw;
-    height: 100vh;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    filter: blur(5px);
-
-    img {
-        object-fit: cover;
-        width: 100vw;
-        height: 100vh;
-    }
-`;
 
 export default App;

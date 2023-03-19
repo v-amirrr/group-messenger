@@ -11,8 +11,8 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 const messengerInputVariants = {
     hidden: { opacity: 0, scale: 0.5, y: 50 },
-    visible: { opacity: 1, scale: 1, y: 0, transition: { duration: 1, when: "beforeChildren" } },
-    exit: { opacity: 0, scale: 0.8, y: 50, transition: { duration: 1, when: "afterChildren" } }
+    visible: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.4, when: "beforeChildren" } },
+    exit: { opacity: 0, scale: 0.8, y: 50, transition: { duration: 0.4, when: "afterChildren" } }
 };
 
 const sendInputIconVariants = {

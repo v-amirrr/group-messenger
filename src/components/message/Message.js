@@ -134,7 +134,7 @@ const MessageBox = styled.div`
     align-items: center;
     flex-direction: ${ props => props.isuser ? "row-reverse" : "row"};
     user-select: none;
-    
+
     .message-box {
         z-index: 2;
         display: flex;

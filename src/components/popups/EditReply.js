@@ -274,32 +274,32 @@ const AddMessageContainer = styled.div`
     background-color: ${props => props.selected ? "#ffffff33" : "#ffffff0c"};
     margin: ${props => 
         props.messagePosition == 0 ? 
-        ".4rem 0" : 
+        ".2rem 0" : 
         props.messagePosition == 1 ? 
-        ".4rem 0 .1rem 0" : 
+        ".2rem 0 .04rem 0" : 
         props.messagePosition == 2 ? 
-        ".1rem 0" : 
+        ".04rem 0" : 
         props.messagePosition == 3 && 
-        ".1rem 0 .4rem 0"
+        ".04rem 0 .2rem 0"
     };
     border-radius: ${props => 
         props.isuser ? 
             props.messagePosition == 0 ? 
-            "30px" : 
+            "25px" : 
             props.messagePosition == 1 ? 
-            "30px 30px 5px 30px" : 
+            "25px 25px 2px 25px" : 
             props.messagePosition == 2 ? 
-            "30px 5px 5px 30px" : 
+            "25px 2px 2px 25px" : 
             props.messagePosition == 3 && 
-            "30px 5px 30px 30px" :
+            "25px 2px 25px 25px" :
         props.messagePosition == 0 ? 
-            "30px" : 
+            "25px" : 
             props.messagePosition == 1 ? 
-            "30px 30px 30px 5px" : 
+            "25px 25px 25px 2px" : 
             props.messagePosition == 2 ? 
-            "5px 30px 30px 5px" : 
+            "5px 25px 25px 2px" : 
             props.messagePosition == 3 && 
-            "5px 30px 30px 30px"
+            "2px 25px 25px 25px"
     };
     margin-left: ${props => props.isuser && "auto"};
     padding: ${props => props.isreply ? "2.4rem 2.8rem .5rem .8rem" : ".5rem 2.8rem .5rem .8rem"};

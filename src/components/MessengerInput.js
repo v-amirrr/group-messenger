@@ -24,7 +24,7 @@ const sendInputIconVariants = {
 const replyVariants = {
     hidden: { opacity: 0, scaleX: 0, y: -10 },
     visible: { opacity: 1, scaleX: 1, y: 0, transition: { type: "spring", stiffness: 100 } },
-    exit: { opacity: 0, scaleX: [1, 1.2, 0.8], transition: { duration: 0.4 } }
+    exit: { opacity: 0, scale: 0.8, y: -10, transition: { duration: 0.4 } }
 };
 
 const MessengerInput = () => {

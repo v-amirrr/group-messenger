@@ -95,13 +95,7 @@ const MessengerMenuContainer = styled(motion.div)`
     height: ${props => props.openmenu ? "8rem" : "2.5rem"};
     cursor: ${props => props.openmenu ? "" : "pointer"};
     overflow: hidden;
-    transition: width .8s cubic-bezier(.53,0,0,.98), height .8s cubic-bezier(.53,0,0,.98), background .4s;
-
-    @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
-        &:hover {
-            background-color: ${props => props.openmenu ? "" : "var(--menu-hover)"};
-        }
-    }
+    transition: width .8s cubic-bezier(.53,0,0,.98), height .8s cubic-bezier(.53,0,0,.98);
 
     .back-icon, .menu-icon {
         position: absolute;
@@ -110,6 +104,8 @@ const MessengerMenuContainer = styled(motion.div)`
         display: flex;
         justify-content: center;
         align-items: center;
+        border-radius: 50%;
+        transition: background .4s;
     }
 
     .back-icon {
@@ -122,9 +118,21 @@ const MessengerMenuContainer = styled(motion.div)`
         margin: .45rem;
         background-color: var(--menu-back);
         padding: .4rem;
-        border-radius: 50%;
         font-size: 1.2rem;
-        transition: background .4s;
+
+        @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
+            &:hover {
+                background-color: var(--menu-back-hover);
+            }
+        }
+    }
+
+    .menu-icon {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
         @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
             &:hover {

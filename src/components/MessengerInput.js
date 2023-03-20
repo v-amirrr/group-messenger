@@ -69,7 +69,7 @@ const MessengerInput = () => {
 
     return (
         <>
-            <AnimatePresence>
+            <AnimatePresence exitBeforeEnter>
                 {replyTo.id ? 
                 <ReplyTo className='reply-section' initial='hidden' animate='visible' exit='exit' variants={replyVariants} messageletters={replyTo?.username?.length + replyTo?.message?.length}>
                     <button onClick={clearReplyMessage}><IoClose /></button>

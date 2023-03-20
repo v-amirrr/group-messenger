@@ -10,6 +10,7 @@ const useMessageOptions = () => {
     const dispatch = useDispatch();
 
     const { popupMessageEditedReply } = useSelector(store => store.popupStore);
+    const { replyTo } = useSelector(store => store.sendMessageStore);
 
     const copyMessage = (message) => {
         dispatch(setMessageIdOptionsShow(null));
@@ -58,13 +59,21 @@ const useMessageOptions = () => {
 
     const replyMessage = (id, message, username) => {
         dispatch(setMessageIdOptionsShow(null));
+    
         let messageText = [];
         message.map(item => {
             messageText.push(item.word);
         });
         messageText = messageText.join(" ");
 
-        dispatch(setSendMessageReplyTo({ id, messageText, username }));
+        if (replyTo.id) {
+            dispatch(setClearReplyTo());
+            setTimeout(() => {
+                dispatch(setSendMessageReplyTo({ id, messageText, username }));
+            }, 500);
+        } else {
+            dispatch(setSendMessageReplyTo({ id, messageText, username }));
+        }
     };
 
     const clearReplyMessage = () => {

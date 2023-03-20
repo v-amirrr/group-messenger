@@ -93,7 +93,7 @@ const Message = forwardRef(( props, ref ) => {
                     </p>
 
                     <AnimatePresence>
-                        <MessageTime time={time} messagePosition={messagePosition} />
+                        <MessageTime time={time} messagePosition={messagePosition} isUser={messageUsername == localUsername ? 1 : 0} />
                     </AnimatePresence>
                 </div>
 
@@ -141,42 +141,42 @@ const MessageBox = styled.div`
         justify-content: center;
         align-items: center;
         flex-direction: ${ props => props.isuser ? "row-reverse" : "row"};
-        background-color: #ffffff08;
+        background-color: var(--message);
         margin: ${props => 
             props.messagePosition == 0 ? 
             ".2rem 0" : 
             props.messagePosition == 1 ? 
-            ".2rem 0 .05rem 0" : 
+            ".2rem 0 .04rem 0" : 
             props.messagePosition == 2 ? 
-            ".05rem 0" : 
+            ".04rem 0" : 
             props.messagePosition == 3 && 
-            ".05rem 0 .2rem 0"
+            ".04rem 0 .2rem 0"
         };
         border-radius: ${props => 
             props.isuser ? 
                 props.messagePosition == 0 ? 
-                "30px" : 
+                "25px" : 
                 props.messagePosition == 1 ? 
-                "30px 30px 5px 30px" : 
+                "25px 25px 2px 25px" : 
                 props.messagePosition == 2 ? 
-                "30px 5px 5px 30px" : 
+                "25px 2px 2px 25px" : 
                 props.messagePosition == 3 && 
-                "30px 5px 30px 30px" :
+                "25px 2px 25px 25px" :
             props.messagePosition == 0 ? 
-                "30px" : 
+                "25px" : 
                 props.messagePosition == 1 ? 
-                "30px 30px 30px 5px" : 
+                "25px 25px 25px 2px" : 
                 props.messagePosition == 2 ? 
-                "5px 30px 30px 5px" : 
+                "5px 25px 25px 2px" : 
                 props.messagePosition == 3 && 
-                "5px 30px 30px 30px"
+                "2px 25px 25px 25px"
         };
         padding: ${props => props.isreply ? "2.4rem 2.8rem .5rem .8rem" : ".5rem 2.8rem .5rem .8rem"};
         min-width: ${props => props.isreply ? "22%" : ""};
         width: fit-content;
         max-width: 65%;
-        backdrop-filter: blur(5px) saturate(100%);
-        -webkit-backdrop-filter: blur(5px) saturate(100%);
+        backdrop-filter: blur(var(--message-blur)) saturate(100%);
+        -webkit-backdrop-filter: blur(var(--message-blur)) saturate(100%);
         font-weight: 200;
         word-break: break-all;
         cursor: pointer;
@@ -185,8 +185,9 @@ const MessageBox = styled.div`
 
     .username {
         display: ${props => props.isuser ? "none" : ""};
-        color: #aaa;
+        color: var(--message-username);
         font-size: .7rem;
+        font-weight: 300;
         margin-right: .5rem;
         margin-left: -.2rem;
         white-space: nowrap;

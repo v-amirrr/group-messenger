@@ -84,7 +84,7 @@ const MessageOptionsContainer = styled(motion.div)`
     }
 
     .reply, .copy, .edit, .delete {
-        background-color: #ffffff11;
+        background-color: var(--message-options);
         margin: 0 .15rem;
         display: flex;
         justify-content: center;
@@ -98,7 +98,7 @@ const MessageOptionsContainer = styled(motion.div)`
 
         @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
             &:hover {
-                background-color: #ffffff22;
+                background-color: var(--message-options-hover);
             }
         }
 
@@ -124,7 +124,7 @@ const MessageOptionsContainer = styled(motion.div)`
 
         .reply, .copy, .edit, .delete {
             padding: .35rem;
-            background-color: #ffffff15;
+            background-color: var(--message-options);
         }
     }
 `;

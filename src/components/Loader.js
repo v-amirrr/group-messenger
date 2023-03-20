@@ -8,10 +8,10 @@ const loaderVariants = {
     exit: { opacity: 0, scale: 0.5, transition: { duration: 0.4 } }
 };
 
-const Loader = ({ usage }) => {
+const Loader = () => {
     return (
         <>
-            <LoaderContainer initial='hidden' animate='visible' exit='exit' variants={loaderVariants} usage={usage}>
+            <LoaderContainer initial='hidden' animate='visible' exit='exit' variants={loaderVariants}>
                 <div class="gooey">
                     <span class="dot"></span>
                     <div class="dots">
@@ -29,12 +29,12 @@ const LoaderContainer = styled(motion.div)`
     display: flex;
     justify-content: center;
     align-items: center;
-    position: ${props => props.usage == 1 ? "absolute" : ""};
-    width: ${props => props.usage == 3 ? "20%" : "50%"};
-    height: ${props => props.usage == 3 ? "" : "100%"};
+    width: 100%;
+    height: 100vh;
+    position: absolute;
 
     .gooey {
-        background-color: #000000;
+        background-color: var(--messenger-loader);
         border-radius: 50px;
         filter: contrast(20);
         width: 142px;
@@ -48,7 +48,7 @@ const LoaderContainer = styled(motion.div)`
         top: 12px;
         left: 15px;
         filter: blur(4px);
-        background: #fff;
+        background: var(--messenger-loader-dots);
         border-radius: 50%;
         transform: translateX(0);
         animation: dot 3s infinite;
@@ -68,7 +68,7 @@ const LoaderContainer = styled(motion.div)`
         height: 16px;
         margin-left: 16px;
         filter: blur(4px);
-        background: #fff;
+        background: var(--messenger-loader-dots);
         border-radius: 50%;
     }
 

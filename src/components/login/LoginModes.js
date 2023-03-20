@@ -67,7 +67,7 @@ const LoginPage = styled(motion.section)`
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(39deg, rgba(0,26,42,0.1) 0%, rgba(0,0,0,1) 50%, rgba(0,21,26,0.1) 100%);
+    background: var(--login);
     position: absolute;
     z-index: 2;
     user-select: none;
@@ -77,14 +77,13 @@ const LoginPage = styled(motion.section)`
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        background-color: #00000044;
+        background-color: var(--login-mode);
         padding: .5rem;
         width: 15rem;
         height: 14rem;
         border-radius: 25px;
         cursor: pointer;
         margin: 1rem;
-        background-color: #ffffff08;
 
         h3 {
             margin-bottom: 1rem;
@@ -96,13 +95,13 @@ const LoginPage = styled(motion.section)`
             align-items: center;
             flex-direction: column;
             width: 100%;
-            
+
             span {
                 width: 70%;
                 text-align: center;
                 font-size: .5rem;
                 margin: .2rem;
-                background-color: #ffffff08;
+                background-color: var(--login-mode-features);
                 padding: .4rem .3rem;
                 border-radius: 10px;
             }

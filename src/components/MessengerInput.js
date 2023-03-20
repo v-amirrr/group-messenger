@@ -114,7 +114,7 @@ const MessengerInput = () => {
 };
 
 const MessengerInputContainer = styled(motion.section)`
-    background-color: #ffffff06;
+    background-color: var(--messenger-input);
     backdrop-filter: blur(8px) saturate(100%);
     -webkit-backdrop-filter: blur(8px) saturate(120%);
     border-radius: 50px;
@@ -144,14 +144,20 @@ const MessengerInputContainer = styled(motion.section)`
             color: #fff;
             border: none;
             padding: .8rem;
-            background-color: #00000000;
+            background-color: transparent;
             font-family: ${props => props.isrlt ? "Vazirmatn" : "Outfit"}, "Vazirmatn", sans-serif;
             font-weight: 200;
             font-size: 1rem;
+            border-radius: 50px;
             width: 100%;
             height: 3rem;
+            margin-right: .5rem;
             resize: none;
             overflow: ${props => props.inputtext ? "hidden scroll" : ""};
+
+            &::placeholder {
+                color: var(--messenger-input-placeholder);
+            }
     
             ::-webkit-scrollbar {
                 width: .3rem;
@@ -159,6 +165,7 @@ const MessengerInputContainer = styled(motion.section)`
         }
 
         .messenger-submit {
+            all: unset;
             font-size: 1.5rem;
             width: 3.5rem;
             height: 3rem;
@@ -166,8 +173,7 @@ const MessengerInputContainer = styled(motion.section)`
             justify-content: center;
             align-items: center;
             border: none;
-            background-color: #00000000;
-            color: #ffffff88;
+            color: var(--messenger-input-submit-enable);
             cursor: pointer;
             transition: color .4s;
     
@@ -179,12 +185,14 @@ const MessengerInputContainer = styled(motion.section)`
     
             &:disabled {
                 cursor: not-allowed;
-                color: #ffffff44;
+                color: var(--messenger-input-submit-disable);
             }
-    
-            &:not(:disabled) {
-                &:hover {
-                    color: #ffffff;
+
+            @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
+                &:not(:disabled) {
+                    &:hover {
+                        color: var(--messenger-input-submit-enable-hover);
+                    }
                 }
             }
         }
@@ -197,7 +205,14 @@ const MessengerInputContainer = styled(motion.section)`
             border-radius: 50%;
             font-size: 1.5rem;
             cursor: pointer;
-            color: #ffffff88;
+            color: var(--messenger-input-emoji);
+            transition: color .4s;
+
+            @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
+                &:hover {
+                    color: var(--messenger-input-emoji-hover);
+                }
+            }
         }
     }
 `;

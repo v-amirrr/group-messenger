@@ -8,13 +8,13 @@ const timeVariants = {
     visible: { opacity: 1, x: 0, y: 0, scale: 1, transition: { duration: 0.4, type: 'tween' } }
 };
 
-const MessageTime = ({ time, messagePosition }) => {
+const MessageTime = ({ time, messagePosition, isUser }) => {
 
     const { hour, minute } = time;
 
     return (
         <>
-            <TimeContainer messageposition={messagePosition}>
+            <TimeContainer messageposition={messagePosition} isuser={isUser}>
                 <AnimatePresence exitBeforeEnter>
                     {hour != null && minute != null ?
                         <motion.div key="time" initial='hidden' animate='visible' exit='exit' variants={timeVariants}>
@@ -35,21 +35,21 @@ const TimeContainer = styled(motion.div)`
     bottom: 0;
     width: 2rem;
     font-size: .5rem;
-    font-weight: 500;
+    font-weight: 600;
     letter-spacing: .5px;
-    color: #ffffff55;
+    color: var(--message-time);
     white-space: nowrap;
     margin: ${props => 
         props.isuser ? 
-            props.messagePosition == 0 ? 
-            ".6rem .5rem" : 
-            props.messagePosition == 1 ? 
-            ".3rem .5rem" : 
-            props.messagePosition == 2 ? 
-            ".3rem .5rem" : 
-            props.messagePosition == 3 && 
-            ".6rem .5rem" :
-        ".3rem .8rem"
+            props.messageposition == 0 ? 
+            "0 .4rem .5rem 0" : 
+            props.messageposition == 1 ? 
+            "0 .1rem .3rem 0" : 
+            props.messageposition == 2 ? 
+            "0 .1rem .3rem 0" : 
+            props.messageposition == 3 && 
+            "0 .1rem .5rem 0" :
+        "0 .4rem .3rem 0"
     };
     transform: margin .4s;
 

@@ -53,7 +53,7 @@ const PopupPage = styled(motion.section)`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #00000088;
+    background-color: var(--popup);
     backdrop-filter: blur(20px) saturate(100%);
     -webkit-backdrop-filter: blur(20px) saturate(100%);
     z-index: 9;
@@ -66,7 +66,7 @@ const PopupContainer = styled(motion.div)`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: #ffffff0a;
+    background-color: var(--popup-container);
     border-radius: 25px;
     position: relative;
 
@@ -80,7 +80,7 @@ const PopupContainer = styled(motion.div)`
         .edit, .delete, .cancel {
             border: none;
             border-radius: 10px;
-            background-color: #ffffff08;
+            background-color: var(--popup-buttons);
             box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 8px 0px;
             margin: 0 .3rem;
             width: 5rem;
@@ -95,7 +95,7 @@ const PopupContainer = styled(motion.div)`
 
             @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
                 &:hover {
-                    background-color: #ffffff15;
+                    background-color: var(--popup-buttons-hover);
                 }
             }
         }
@@ -108,7 +108,7 @@ const PopupContainer = styled(motion.div)`
             color: #00ff00;
         }
     }
-    
+
     @media (max-width: 768px) {
         padding: 1.5rem;
 

@@ -67,7 +67,7 @@ const EditPopupContainer = styled.div`
 
     textarea {
         border: none;
-        background-color: #ffffff00;
+        background-color: transparent;
         font-size: 1rem;
         font-weight: 200;
         line-height: 1.5;

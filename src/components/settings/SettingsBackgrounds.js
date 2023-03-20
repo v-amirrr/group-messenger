@@ -37,7 +37,7 @@ const themeVariants = {
     exit: { opacity: 0, y: -50, transition: { duration: 0.6 } }
 };
 
-const SettingsThemes = () => {
+const SettingsBackgrounds = () => {
 
     const { changeTheme } = useChangeTheme();
 
@@ -76,7 +76,7 @@ const SettingsThemes = () => {
                     </motion.div> :
                     <motion.div key="theme-close" onClick={() => setOpen(true)} className='theme-close' initial='hidden' animate='visible' exit='exit' variants={themesCloseVariants}>
                         <i className='list-item-icon'><FcPicture /></i>
-                        <p>Themes</p>
+                        <p>Backgrounds</p>
                         <i className='list-item-back'><RiArrowRightSLine /></i>
                     </motion.div>}
                 </AnimatePresence>
@@ -88,7 +88,7 @@ const SettingsThemes = () => {
 const SettingsThemesContainer = styled.div`
     width: ${props => props.open ? "80%" : "60%"};
     height: ${props => props.open ? "18rem" : "2rem"};
-    border: ${props => props.open ? "solid 1px #ffffff00" : "solid 1px #ffffff11"};
+    border: ${props => props.open ? "solid 1px #ffffff00" : "solid 1px var(--settings-item-border)"};
     padding: ${props => props.open ? "" : "0 .5rem"};
     display: flex;
     justify-content: flex-start;
@@ -97,7 +97,7 @@ const SettingsThemesContainer = styled.div`
     cursor: ${props => props.open ? "" : "pointer"};
     overflow: hidden;
     position: relative;
-    background-color: #ffffff08;
+    background-color: var(--settings-item);
     transition: background .2s, border .2s, width .8s cubic-bezier(.53,0,0,.98), height .8s cubic-bezier(.53,0,0,.98), padding .2s;
 
     .theme-close {
@@ -149,7 +149,7 @@ const SettingsThemesContainer = styled.div`
             font-size: 2rem;
             z-index: 99;
             cursor: pointer;
-            background-color: #ffffff11;
+            background-color: var(--settings-back-hover);
             border-radius: 50%;
         }
 
@@ -183,7 +183,7 @@ const SettingsThemesContainer = styled.div`
 
     @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
         &:hover {
-            border: ${props => props.open ? "" : "solid 1px #ffffff00"};
+            border: ${props => props.open ? "" : "solid 1px var(--settings-item-border-hover)"};
     
             .list-item-back {
                 font-size: 2rem;
@@ -192,4 +192,4 @@ const SettingsThemesContainer = styled.div`
     }
 `;
 
-export default memo(SettingsThemes);
+export default memo(SettingsBackgrounds);

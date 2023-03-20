@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { useLogin } from '../hooks/useLogin';
 import { HiDotsVertical } from "react-icons/hi";
 import { FaArrowRight } from "react-icons/fa";
-import { FcSettings } from "react-icons/fc";
+import { FcSettings, FcRightUp2 } from "react-icons/fc";
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 
@@ -52,11 +52,15 @@ const MessengerMenu = () => {
                     loginAsGuest ?
                     <motion.div key="menu" className='list' initial='hidden' animate='visible' exit='exit' variants={menuListVariants}>
                         <motion.div onClick={logoutAsGuest} className='list-item' whileTap={{ scale: 0.9 }}>
-                            <p>Logout As Guest</p>
+                            <i><FcRightUp2 /></i>
+                            <p>Logout</p>
                         </motion.div>
-                        <motion.div onClick={() => logoutAsGuest("LOGIN_WITH_NAME")} className='list-item' whileTap={{ scale: 0.9 }}>
-                            <p>Login With Name</p>
-                        </motion.div>
+                        <Link to="/settings">
+                            <motion.div className='list-item' whileTap={{ scale: 0.9 }}>
+                                <i><FcSettings /></i>
+                                <p>Settings</p>
+                            </motion.div>
+                        </Link>
                     </motion.div> :
                     <motion.div key="menu" className='list' initial='hidden' animate='visible' exit='exit' variants={menuListVariants}>
                         <Link to="/settings">
@@ -82,15 +86,22 @@ const MessengerMenuContainer = styled(motion.div)`
     user-select: none;
     backdrop-filter: blur(10px) saturate(100%);
     -webkit-backdrop-filter: blur(15px) saturate(100%);
-    background-color: #000000bb;
+    background-color: var(--menu);
     border-radius: 25px;
     display: flex;
     justify-content: center;
     align-items: center;
     width: ${props => props.openmenu ? "8rem" : "2.5rem"};
     height: ${props => props.openmenu ? "8rem" : "2.5rem"};
+    cursor: ${props => props.openmenu ? "" : "pointer"};
     overflow: hidden;
-    transition: width .8s cubic-bezier(.53,0,0,.98), height .8s cubic-bezier(.53,0,0,.98);
+    transition: width .8s cubic-bezier(.53,0,0,.98), height .8s cubic-bezier(.53,0,0,.98), background .4s;
+
+    @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
+        &:hover {
+            background-color: ${props => props.openmenu ? "" : "var(--menu-hover)"};
+        }
+    }
 
     .back-icon, .menu-icon {
         position: absolute;
@@ -109,7 +120,7 @@ const MessengerMenuContainer = styled(motion.div)`
         justify-content: center;
         align-items: center;
         margin: .45rem;
-        background-color: #ffffff08;
+        background-color: var(--menu-back);
         padding: .4rem;
         border-radius: 50%;
         font-size: 1.2rem;
@@ -117,13 +128,13 @@ const MessengerMenuContainer = styled(motion.div)`
 
         @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
             &:hover {
-                background-color: #ffffff15;
+                background-color: var(--menu-back-hover);
             }
         }
     }
 
     .list {
-        margin-top: 3rem;
+        margin-top: 2.5rem;
         width: 100%;
         display: flex;
         justify-content: center;
@@ -137,16 +148,18 @@ const MessengerMenuContainer = styled(motion.div)`
             justify-content: center;
             align-items: center;
             flex-direction: row;
+            height: 2rem;
+
         }
 
         .list-item {
             width: 90%;
             border-radius: 15px;
-            padding: .5rem 0;
-            background-color: #ffffff08;
+            height: 2rem;
+            background-color: var(--menu-item);
             white-space: nowrap;
             cursor: pointer;
-            margin-bottom: .3rem;
+            margin: .3rem 0;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -166,7 +179,7 @@ const MessengerMenuContainer = styled(motion.div)`
 
             @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
                 &:hover {
-                    background-color: #ffffff15;
+                    background-color: var(--menu-item-hover);
                 }
             }
         }

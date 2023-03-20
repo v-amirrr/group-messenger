@@ -28,10 +28,10 @@ const ChatDate = ({ dateObj, priorDifferentDate }) => {
 
 const ChatDateContainer = styled(motion.div)`
     padding: .3rem .5rem;
-    background-color: #ffffff0a;
+    background-color: var(--date);
     backdrop-filter: blur(20px) saturate(100%);
     -webkit-backdrop-filter: blur(8px) saturate(120%);
-    color: #f0f0f5;
+    color: var(--date-color);
     border-radius: 50px;
     font-size: .5rem;
     font-weight: 400;

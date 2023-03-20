@@ -52,7 +52,7 @@ const Background = styled.div`
     top: 0;
     left: 0;
     z-index: -1;
-    filter: blur(10px);
+    filter: blur(var(--background-blur));
 
     img {
         object-fit: cover;

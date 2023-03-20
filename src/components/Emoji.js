@@ -38,7 +38,7 @@ const EmojiPickerIcon = styled(motion.div)`
     height: ${props => props.editpopup ? "2.2rem" : ""};
     background-color: ${props => props.editpopup ? "#000" : ""};
     border-radius: 50%;
-    `;
+`;
 
 const EmojiPickerContainer = styled(motion.div)`
     position: absolute;

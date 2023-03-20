@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
-import SettingsThemes from './SettingsThemes';
+import SettingsBackgrounds from './SettingsBackgrounds';
 import { TiArrowLeft } from "react-icons/ti";
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
@@ -30,7 +30,7 @@ const Settings = () => {
                     </header>
 
                     <ul>
-                        <SettingsThemes />
+                        <SettingsBackgrounds />
                     </ul>
                 </SettingsContainer>
             <Outlet />
@@ -48,7 +48,7 @@ const SettingsPage = styled(motion.section)`
     align-items: center;
     position: absolute;
     inset: 0 0 0 0;
-    background-color: #00000088;
+    background-color: var(--settings-page);
     backdrop-filter: blur(20px) saturate(100%);
     -webkit-backdrop-filter: blur(20px) saturate(100%);
     user-select: none;
@@ -59,7 +59,7 @@ const SettingsContainer = styled(motion.section)`
     justify-content: center;
     align-items: center;
     border-radius: 25px;
-    background-color: #000000bb;
+    background-color: var(--settings);
     width: 20rem;
     height: 30rem;
     position: relative;
@@ -73,12 +73,12 @@ const SettingsContainer = styled(motion.section)`
         position: absolute;
         top: 0;
         padding: 1rem 0;
-        border-bottom: solid 1px #ffffff11;
+        border-bottom: solid 1px var(--settings-header-border);
 
         a {
             position: absolute;
             left: .7rem;
-            background-color: #ffffff08;
+            background-color: var(--settings-back);
             transition: background .4s;
             border-radius: 50%;
             
@@ -91,7 +91,7 @@ const SettingsContainer = styled(motion.section)`
 
             @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
                 &:hover {
-                    background-color: #ffffff11;
+                    background-color: var(--settings-back-hover);
                 }
             }
         }

@@ -55,7 +55,7 @@ const WarningModalPage = styled(motion.section)`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #000000aa;
+    background-color: var(--warning-page);
     backdrop-filter: blur(15px) saturate(100%);
     -webkit-backdrop-filter: blur(15px) saturate(100%);
     position: absolute;
@@ -118,7 +118,7 @@ const WarningModalPage = styled(motion.section)`
         .submit-button {
             all: unset;
             border-radius: 30px;
-            background-color: #ffffff11;
+            background-color: var(--warning-page-button);
             display: flex;
             justify-content: center;
             align-items: center;

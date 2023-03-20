@@ -73,9 +73,7 @@ const LoginPage = styled(motion.section)`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #000000aa;
-    backdrop-filter: blur(15px) saturate(100%);
-    -webkit-backdrop-filter: blur(15px) saturate(100%);
+    background-color: var(--login-name-page);
     position: absolute;
     z-index: 2;
     user-select: none;
@@ -91,17 +89,21 @@ const LoginPage = styled(motion.section)`
             color: #fff;
             padding: 1rem;
             border: none;
-            background-color: #00000000;
+            background-color: transparent;
             font-size: 1rem;
             text-align: center;
             font-family: ${props => props.ispersian ? "Vazirmatn" : "Outfit"}, "Vazirmatn", sans-serif;
             font-weight: 200;
+
+            &::placeholder {
+                color: var(--login-name-placeholder);
+            }
         }
     
         .submit-button {
             all: unset;
             border-radius: 30px;
-            background-color: #ffffff11;
+            background-color: var(--login-name-button);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -120,8 +122,10 @@ const LoginPage = styled(motion.section)`
                 cursor: pointer;
                 color: #fff;
 
-                &:hover {
-                    background-color: #ffffff22;
+                @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
+                    &:hover {
+                        background-color: var(--login-name-button-hover);
+                    }
                 }
             }
         }
@@ -135,7 +139,7 @@ const LoginPage = styled(motion.section)`
         justify-content: center;
         align-items: center;
         text-align: center;
-        background-color: #ffffff08;
+        background-color: var(--login-name-error);
         border-radius: 20px;
         padding: 1rem;
         margin: 1rem;

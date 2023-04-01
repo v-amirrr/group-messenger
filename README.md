@@ -9,6 +9,23 @@ In this messenger you can login either with a name or as a guest. You can send m
 <br />
 
 
+## Features
+- Login as a guest just to read messages.
+- Logout from guest mode and login with name to send message.
+- Change background and theme.
+- Send message, read other's messages realtime.
+- Delete any of your messages.
+- Edit any of your messages.
+- Reply to someone's message.
+- Edit or add reply after you sent the message.
+- include emojis in your message text.
+- Copy any message text.
+<br />
+<br />
+<br />
+<br />
+
+
 ## How To Use It
 
 First you have to choose a way to login. You can login as a guest or login with a name. 

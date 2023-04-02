@@ -1,4 +1,4 @@
-# Lyrics Search
+# Group Messenger
 
 In this messenger you can login either with a name or as a guest. You can send message and delete them or edit them later. You can reply to other's messages. And you can edit your replies later.
 <br />
@@ -51,9 +51,11 @@ When you click on the edit reply icon, you'll the all the messages that were sen
 
 ## How It Works
 
-THis app has 5 custom hooks. One is for getting messages named useGetMessage, another one is for login named useLogin, another one is for messages options like delete and edit named useMessageOptions, another one is for sending messages named useSendMessage, and the last another one is for showing the warning page named useWarningPage.
+This app has 5 custom hooks. One is for getting messages named useGetMessage, another one is for login named useLogin, another one is for messages options like delete and edit named useMessageOptions, another one is for sending messages named useSendMessage, and the last another one is for showing the warning page named useWarningPage.
+<br />
 <br />
 We have 4 redux slices, one for storing the messages we get from Firebase Firestore, one is for popups status, one is the information about the message user is trying to send like errors and loading, and the last one is the information about the overall user status.
+<br />
 <br />
 We use React Portals to show the delete and edit popups. We have four routes. One is the main route which shows everything include messages, input and menu. Another one for warning page that is shown everytime user opens the app. Another one is for login page which shows different login modes when user hasn't logged in and opens the app. Another on is for loggin in with name which is a nested route in the login route. And the last one is for settings page.
 <br />

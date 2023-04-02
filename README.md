@@ -10,6 +10,7 @@ In this messenger you can login either with a name or as a guest. You can send m
 
 
 ## Features
+
 - Login as a guest just to read messages.
 - Logout from guest mode and login with name to send message.
 - Change background and theme.
@@ -50,9 +51,11 @@ When you click on the edit reply icon, you'll the all the messages that were sen
 
 ## How It Works
 
-We have 5 custom hooks. One is for getting messages named useGetMessage, one is for login named useLogin, one is for messages options like delete and edit named useMessageOptions, one is for sending messages named useSendMessage, and the last one is for showing the warning page named useWarningPage.
+THis app has 5 custom hooks. One is for getting messages named useGetMessage, another one is for login named useLogin, another one is for messages options like delete and edit named useMessageOptions, another one is for sending messages named useSendMessage, and the last another one is for showing the warning page named useWarningPage.
 <br />
-We have 4 redux slices, one for storing the messages we get from Firebase Firestore, one is for popups information like when and which popup is showed, one is the information about the message user is trying to send like errors and loading, and the last one is the information about the user like wheather user has seen the warning page or not.
+We have 4 redux slices, one for storing the messages we get from Firebase Firestore, one is for popups status, one is the information about the message user is trying to send like errors and loading, and the last one is the information about the overall user status.
+<br />
+We use React Portals to show the delete and edit popups. We have four routes. One is the main route which shows everything include messages, input and menu. Another one for warning page that is shown everytime user opens the app. Another one is for login page which shows different login modes when user hasn't logged in and opens the app. Another on is for loggin in with name which is a nested route in the login route. And the last one is for settings page.
 <br />
 <br />
 <br />

@@ -52,14 +52,19 @@ When you click on the edit reply icon, you'll the all the messages that were sen
 ## How It Works
 
 - Custom Hooks
+<br />
 This app has 5 custom hooks. One is for getting messages named useGetMessage, another one is for login named useLogin, another one is for messages options like delete and edit named useMessageOptions, another one is for sending messages named useSendMessage, and the last another one is for showing the warning page named useWarningPage.
 <br />
 <br />
+
 - Redux Slices
+<br />
 We have 4 redux slices, one for storing the messages we get from Firebase Firestore, one is for popups status, one is the information about the message user is trying to send like errors and loading, and the last one is the information about the overall user status.
 <br />
 <br />
+
 - Routes
+<br />
 We have four routes. One is the main route which shows everything include messages, input and menu. Another one for warning page that is shown everytime user opens the app. Another one is for login page which shows different login modes when user hasn't logged in and opens the app. Another on is for loggin in with name which is a nested route in the login route. And the last one is for settings page.
 <br />
 <br />

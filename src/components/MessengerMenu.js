@@ -34,6 +34,13 @@ const MessengerMenu = () => {
 
     const [openMenu, setOpenMenu] = useState(false);
 
+    const logoutClickHandler = () => {
+        setOpenMenu(false);
+        setTimeout(() => {
+            logoutAsGuest();
+        }, 600);
+    };
+
     return (
         <>
             <MessengerMenuContainer openmenu={openMenu ? 1 : 0}>
@@ -51,7 +58,7 @@ const MessengerMenu = () => {
                     {openMenu ?
                     loginAsGuest ?
                     <motion.div key="menu" className='list' initial='hidden' animate='visible' exit='exit' variants={menuListVariants}>
-                        <motion.div onClick={logoutAsGuest} className='list-item' whileTap={{ scale: 0.9 }}>
+                        <motion.div onClick={logoutClickHandler} className='list-item' whileTap={{ scale: 0.9 }}>
                             <i><FcRightUp2 /></i>
                             <p>Logout</p>
                         </motion.div>

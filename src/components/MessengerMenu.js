@@ -164,7 +164,6 @@ const MessengerMenuContainer = styled(motion.div)`
             align-items: center;
             flex-direction: row;
             height: 2rem;
-
         }
 
         .list-item {

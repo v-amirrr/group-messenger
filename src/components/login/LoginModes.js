@@ -28,7 +28,6 @@ const Login = () => {
 
     useEffect(() => {
         clearLoginErorrs();
-        console.log(localUsername, loginAsGuestUserStore);
         if (localUsername || loginAsGuestUserStore) {
             navigate("/", { replace: true });
         }

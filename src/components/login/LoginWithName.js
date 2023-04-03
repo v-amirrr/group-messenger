@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useLogin } from '../../hooks/useLogin';
 import { isRTL } from '../../functions/isRlt';
 import styled from 'styled-components';
@@ -42,7 +42,6 @@ const LoginWithName = () => {
 
     useEffect(() => {
         clearLoginErorrs();
-        console.log(localUsername, loginAsGuestUserStore);
         if (localUsername || loginAsGuestUserStore) {
             navigate("/", { replace: true });
         }
@@ -53,7 +52,12 @@ const LoginWithName = () => {
             <LoginPage initial='hidden' animate='visible' exit='exit' variants={loginVariants}>
                 <form>
                     <motion.input type="text" className='login-input' placeholder="Enter Your Name..." dir="auto" value={loginInput} onChange={e => setLoginInput(e.target.value)} ispersian={isRTL(loginInput) ? 1 : 0} autoFocus variants={loginPageItemsVariants}/>
-                    <motion.button type="submit" className='submit-button' disabled={!loginInput} onClick={(e) => loginSubmitHandler(e)} variants={loginPageItemsVariants}>OK</motion.button>
+                    <div className='buttons'>
+                        <Link to="/login">
+                            <motion.button className='back-button' variants={loginPageItemsVariants}>Back</motion.button>
+                        </Link>
+                        <motion.button type="submit" className='submit-button' disabled={!loginInput} onClick={(e) => loginSubmitHandler(e)} variants={loginPageItemsVariants}>OK</motion.button>
+                    </div>
                 </form>
                 <AnimatePresence>
                     {loginError ?
@@ -99,6 +103,21 @@ const LoginPage = styled(motion.section)`
                 color: var(--login-name-placeholder);
             }
         }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        a {
+            width: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row;
+        }
     
         .submit-button {
             all: unset;
@@ -112,6 +131,7 @@ const LoginPage = styled(motion.section)`
             letter-spacing: -1px;
             word-spacing: 5px;
             padding: .5rem 0;
+            margin: .2rem;
             width: 50%;
             white-space: nowrap;
             color: #ffffff11;
@@ -126,6 +146,34 @@ const LoginPage = styled(motion.section)`
                     &:hover {
                         background-color: var(--login-name-button-hover);
                     }
+                }
+            }
+        }
+
+        .back-button {
+            all: unset;
+            border-radius: 30px;
+            background-color: var(--login-name-button);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            word-spacing: 5px;
+            padding: .5rem 0;
+            margin: .2rem;
+            width: 100%;
+            white-space: nowrap;
+            color: #ffffff11;
+            cursor: not-allowed;
+            transition: color .2s, background .2s;
+            cursor: pointer;
+            color: #fff;
+
+            @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
+                &:hover {
+                    background-color: var(--login-name-button-hover);
                 }
             }
         }

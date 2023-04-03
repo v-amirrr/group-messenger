@@ -8,7 +8,7 @@ export const useGetMessages = () => {
 
     const dispatch = useDispatch();
 
-    const getMessages = (type) => {
+    const getMessages = () => {
         let firstTime = performance.now();
 
         dispatch(setError(null));
@@ -80,6 +80,8 @@ export const useGetMessages = () => {
             setTimeout(() => {
                 dispatch(setLoadingOff());
             }, 2500 - time);
+        } else {
+            dispatch(setLoadingOff());
         }
     };
 

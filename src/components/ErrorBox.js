@@ -47,25 +47,25 @@ const ErrorBoxContainer = styled(motion.div)`
     }
 
     button {
-            border: none;
-            border-radius: 10px;
-            background-color: #ffffff11;
-            margin: 1rem;
-            padding: .5rem 1rem;
-            font-size: 1rem;
-            font-weight: 900;
-            font-family: "Outfit", sans-serif;
-            cursor: pointer;
-            user-select: none;
-            transition: background-color .2s;
-            color: #fff;
+        border: none;
+        border-radius: 10px;
+        background-color: #ffffff11;
+        margin: 1rem;
+        padding: .5rem 1rem;
+        font-size: 1rem;
+        font-weight: 700;
+        font-family: "Outfit", sans-serif;
+        cursor: pointer;
+        user-select: none;
+        transition: background-color .2s;
+        color: #fff;
 
-            @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
-                &:hover {
-                    background-color: #ffffff33;
-                }
+        @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
+            &:hover {
+                background-color: #ffffff33;
             }
         }
+    }
 `;
 
 export default ErrorBox;

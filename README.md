@@ -70,7 +70,6 @@ We have four routes. One is the main route which shows everything include messag
 <br />
 <br />
 <br />
-<br />
 
 
 ## The Story Behind It

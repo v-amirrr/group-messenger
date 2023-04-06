@@ -30,19 +30,19 @@ const WarningPage = () => {
     return (
         <>
             <WarningModalPage initial='hidden' animate='visible' exit='exit' variants={warningModalVariants} onKeyDown={(e) => pressEnter(e)}>
-                <div className='warning-modal-container'>
+                <div className='container'>
                     <motion.h1 className='title' variants={warningModalItemsVariants}>things you need to know</motion.h1>
                     <motion.p className='warning' variants={warningModalItemsVariants}>
                         If you're in sanctioned countries like <b>Iran</b>, you have to turn on your <b>VPN</b> in order to use this app.
                     </motion.p>
                     <motion.p className='guide' variants={warningModalItemsVariants}>
-                        In this app you can send a message, reply to a message, delete your messeges, edit your message also edit your replies. For doing those things you just need to hit on one of your message to see the options. Feel free to send message.
+                        In this app you can send message, reply to a message, delete your messege, edit your message also edit your message's replies. For doing those things you just need to hit on one of your message to see the options. You also can change background of the app.
                     </motion.p>
                     <motion.div className='show-again' onClick={() => setWarningModalCheckbox(!warningModalCheckbox)} variants={warningModalItemsVariants}>
                         <p>Don't show this again. </p>
                         <input type="checkbox" autoFocus checked={warningModalCheckbox} onChange={() => setWarningModalCheckbox(!warningModalCheckbox)} />
                     </motion.div>
-                    <motion.button type="submit" className='submit-button' onClick={() => warningPageSubmit(warningModalCheckbox)} variants={warningModalItemsVariants} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.8 }}>LET'S GO</motion.button>
+                    <motion.button type="submit" className='submit' onClick={() => warningPageSubmit(warningModalCheckbox)} variants={warningModalItemsVariants} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.8 }}>LET'S GO</motion.button>
                 </div>
             </WarningModalPage>
         </>
@@ -62,7 +62,7 @@ const WarningModalPage = styled(motion.section)`
     z-index: 2;
     user-select: none;
 
-    .warning-modal-container {
+    .container {
         max-width: 100%;
         display: flex;
         justify-content: center;
@@ -83,7 +83,6 @@ const WarningModalPage = styled(motion.section)`
         .warning {
             font-size: .8rem;
             font-weight: 500;
-            text-transform: capitalize;
             margin-bottom: .8rem;
             color: #ff0000;
         }
@@ -115,7 +114,7 @@ const WarningModalPage = styled(motion.section)`
             }
         }
     
-        .submit-button {
+        .submit {
             all: unset;
             border-radius: 30px;
             background-color: var(--warning-page-button);
@@ -134,7 +133,7 @@ const WarningModalPage = styled(motion.section)`
     }
 
     @media (max-width: 1000px) {
-        .warning-modal-container {
+        .container {
             .title {
                 font-size: 1.5rem;
             }
@@ -148,7 +147,7 @@ const WarningModalPage = styled(motion.section)`
                 max-width: 50%;
             }
 
-            .submit-button {
+            .submit {
                 width: 40%;
             }
         }

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
+import { useRedirection } from '../hooks/useRedirection';
 import FlipMove from 'react-flip-move';
 import Message from './message/Message';
 import MessengerInput from './MessengerInput';
@@ -17,11 +18,14 @@ const GroupChat = () => {
 
     const messagesContainerRef = useRef();
     const messagesEndRef = useRef();
+    const { groupChatRedirection } = useRedirection();
 
     const { messages, loading } = useSelector(store => store.messagesStore);
     const { enterAsAGuest, user } = useSelector(store => store.userStore);
 
     useEffect(() => {
+        groupChatRedirection();
+
         const goBottom = setTimeout(() => {
             if (!loading) {
                 messagesEndRef?.current?.scrollIntoView({

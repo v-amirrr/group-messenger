@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import useMessageoptions from '../../hooks/useMessageOptions';
+import { useMessageOptions } from '../../hooks/useMessageOptions';
 import EditReply from './EditReply';
 import Emoji from '../Emoji';
 import { isRTL } from '../../functions/isRlt';
@@ -8,7 +8,7 @@ import { motion } from 'framer-motion';
 
 const EditPopup = ({ popupMessageId, popupMessageText, popupMessageReplyTo }) => {
 
-    const { editMessage, closePopup } = useMessageoptions();
+    const { editMessage, closePopup } = useMessageOptions();
 
     const [editInput, setEditInput] = useState("");
     const [editReplyOpen, setEditReplyOpen] = useState(false);

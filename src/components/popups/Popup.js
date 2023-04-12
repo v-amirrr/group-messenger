@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import DeletePopup from './DeletePopup';
 import EditPopup from './EditPopup';
-import useMessageOptions from '../../hooks/useMessageOptions';
+import { useMessageOptions } from '../../hooks/useMessageOptions';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 

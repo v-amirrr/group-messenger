@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import styled from 'styled-components';
+import { useAuth } from '../../hooks/useAuth';
+import { useRedirection } from '../../hooks/useRedirection';
 import MessageLoader from '../message/MessageLoader';
 import AuthError from './AuthError';
 import { motion } from 'framer-motion';
-import { useAuth } from '../../hooks/useAuth';
+import styled from 'styled-components';
 
 const signupVariants = {
     hidden: { opacity: 0 },
@@ -23,6 +24,7 @@ const Signup = () => {
 
     const navigate = useNavigate();
     const { signup, clearAuthErrors } = useAuth();
+    const { authRedirection } = useRedirection();
     const { signup: signupDataFromUserStore } = useSelector(store => store.userStore);
 
     const [username, setUsername] = useState("");
@@ -40,6 +42,7 @@ const Signup = () => {
 
     useEffect(() => {
         clearAuthErrors();
+        authRedirection();
     }, []);
 
     return (

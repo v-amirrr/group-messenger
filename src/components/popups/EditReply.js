@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, memo } from 'react';
 import { useSelector } from 'react-redux';
-import useMessageOptions from "../../hooks/useMessageOptions";
+import { useMessageOptions } from "../../hooks/useMessageOptions";
 import { isRTL } from '../../functions/isRlt';
 import { BsReplyFill } from 'react-icons/bs';
 import { IoClose } from 'react-icons/io5';

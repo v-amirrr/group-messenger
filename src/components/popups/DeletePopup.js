@@ -1,11 +1,11 @@
 import React from 'react';
-import useMessageoptions from "../../hooks/useMessageOptions";
+import { useMessageOptions } from '../../hooks/useMessageOptions';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
 const DeletePopup = ({ popupMessageId }) => {
 
-    const { deleteMessage, closePopup } = useMessageoptions();
+    const { deleteMessage, closePopup } = useMessageOptions();
 
     const pressEnter = e => {
         if (e.key == "Enter") {

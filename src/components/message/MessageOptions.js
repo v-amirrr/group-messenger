@@ -1,5 +1,5 @@
 import React, { memo, useRef } from 'react';
-import useMessageOptions from '../../hooks/useMessageOptions';
+import { useMessageOptions } from '../../hooks/useMessageOptions';
 import { AiFillDelete, AiFillCopy, AiFillEdit } from 'react-icons/ai';
 import { BsReplyFill } from 'react-icons/bs';
 import styled from 'styled-components';

@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
+import { useRedirection } from '../../hooks/useRedirection';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
@@ -19,6 +20,11 @@ const boxesVariants = {
 const EnterModes = () => {
 
     const { enterAsAGuest } = useAuth();
+    const { authRedirection } = useRedirection();
+
+    useEffect(() => {
+        authRedirection();
+    }, []);
 
     return (
         <>

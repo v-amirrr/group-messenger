@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, Outlet } from 'react-router-dom';
+import { useRedirection } from '../../hooks/useRedirection';
 import SettingsBackgrounds from './SettingsBackgrounds';
 import { TiArrowLeft } from "react-icons/ti";
 import styled from 'styled-components';
@@ -18,6 +19,13 @@ const settingsContainerVariants = {
 };
 
 const Settings = () => {
+
+    const { groupChatRedirection } = useRedirection();
+
+    useEffect(() => {
+        groupChatRedirection();
+    }, []);
+
     return (
         <>
             <SettingsPage initial='hidden' animate='visible' exit='exit' variants={settingsPageVariants}>

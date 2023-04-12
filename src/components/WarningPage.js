@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useWarningPage } from '../hooks/useWarningPage';
+import { useRedirection } from '../hooks/useRedirection';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
@@ -18,6 +19,7 @@ const warningModalItemsVariants = {
 const WarningPage = () => {
 
     const { warningPageSubmit } = useWarningPage();
+    const { warningRedirection } = useRedirection();
 
     const [warningModalCheckbox, setWarningModalCheckbox] = useState(false);
 
@@ -26,6 +28,10 @@ const WarningPage = () => {
             warningPageSubmit(warningModalCheckbox);
         }
     };
+
+    useEffect(() => {
+        warningRedirection();
+    }, []);
 
     return (
         <>

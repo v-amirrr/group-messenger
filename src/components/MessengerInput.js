@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect, memo } from 'react';
 import { useSelector } from 'react-redux';
-import useSendMessage from '../hooks/useSendMessage';
-import useMessageOptions from '../hooks/useMessageOptions';
+import { useSendMessage } from '../hooks/useSendMessage';
+import { useMessageOptions } from '../hooks/useMessageOptions';
 import MessageLoader from './message/MessageLoader';
 import Emoji from './Emoji';
 import { isRTL } from '../functions/isRlt';

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useAuth } from '../../hooks/useAuth';
+import { useRedirection } from '../../hooks/useRedirection';
 import AuthError from './AuthError';
 import MessageLoader from '../message/MessageLoader';
 import styled from 'styled-components';
@@ -23,6 +24,7 @@ const Login = () => {
 
     const navigate = useNavigate();
     const { login, clearAuthErrors } = useAuth();
+    const { authRedirection } = useRedirection();
     const { login: loginDataFromUserStore } = useSelector(store => store.userStore);
 
     const [email, setEmail] = useState("");
@@ -39,6 +41,7 @@ const Login = () => {
 
     useEffect(() => {
         clearAuthErrors();
+        authRedirection();
     }, []);
 
     return (

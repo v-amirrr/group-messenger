@@ -5,7 +5,7 @@ import { setPopup, setEditedReply } from '../redux/popupSlice';
 import { setSendMessageReplyTo, setClearReplyTo } from '../redux/sendMessageSlice';
 import { setMessageIdOptionsShow } from '../redux/userSlice';
 
-const useMessageOptions = () => {
+export const useMessageOptions = () => {
 
     const dispatch = useDispatch();
 
@@ -91,5 +91,3 @@ const useMessageOptions = () => {
         clearReplyMessage,
     };
 };
-
-export default useMessageOptions;

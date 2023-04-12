@@ -3,7 +3,7 @@ import { db } from '../config/firebase';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSendMessageError, setSendMessageLoading, setClearReplyTo } from '../redux/sendMessageSlice';
 
-const useSendMessage = () => {
+export const useSendMessage = () => {
 
     const dispatch = useDispatch();
 
@@ -37,5 +37,3 @@ const useSendMessage = () => {
 
     return { sendMessage };
 };
-
-export default useSendMessage;

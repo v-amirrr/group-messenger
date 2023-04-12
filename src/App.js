@@ -2,8 +2,9 @@ import React, { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Messenger from './components/Messenger';
 import WarningPage from './components/WarningPage';
-import LoginModes from './components/login/LoginModes';
-import LoginWithName from './components/login/LoginWithName';
+import EnterModes from './components/Authentication/EnterModes';
+import Signup from './components/Authentication/Signup';
+import Login from './components/Authentication/Login';
 import Settings from './components/settings/Settings';
 import MessengerBackground from './components/MessengerBackground';
 import { useGetMessages } from './hooks/useGetMessages';
@@ -33,8 +34,9 @@ const App = () => {
                 <Routes location={location} key={location.key}>
                     <Route path="/" element={<Messenger />} />
                     <Route path="/warning" element={<WarningPage />} />
-                    <Route path="/login" element={<LoginModes />} />
-                    <Route path='/login/login-with-name' element={<LoginWithName />} />
+                    <Route path="/enter" element={<EnterModes />} />
+                    <Route path="/signup" element={<Signup />} />
+                    <Route path="/login" element={<Login />} />
                     <Route path='/settings' element={<Settings />} />
                 </Routes>
             </AnimatePresence>

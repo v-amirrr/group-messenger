@@ -22,7 +22,7 @@ const MessageTime = ({ time, messagePosition, isUser }) => {
                             :
                             <span>{minute < 10 ? `0${minute}` : minute}</span>
                         </motion.div> :
-                    <MessageLoader key="message-loader" />}
+                    <MessageLoader key="message-loader" size={"1rem"} />}
                 </AnimatePresence>
             </TimeContainer>
         </>

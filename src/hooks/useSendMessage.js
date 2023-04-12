@@ -8,17 +8,19 @@ const useSendMessage = () => {
     const dispatch = useDispatch();
 
     const { replyTo } = useSelector(store => store.sendMessageStore);
+    const { user } = useSelector(store => store.userStore);
 
     const firebaseRef = collection(db, 'messages');
 
-    const sendMessage = (messagesText, username) => {
+    const sendMessage = (messageText) => {
         dispatch(setSendMessageLoading(true));
         dispatch(setSendMessageError(null));
         dispatch(setClearReplyTo());
 
         addDoc(firebaseRef, {
-            message: messagesText,
-            username: username,
+            message: messageText,
+            uid: user.uid,
+            username: user?.displayName,
             time: serverTimestamp(),
             replyTo: replyTo.id,
         })

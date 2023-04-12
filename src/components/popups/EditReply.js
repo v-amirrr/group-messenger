@@ -98,7 +98,7 @@ const EditReply = ({ replyTo, popupMessageId, editReplyOpen, setEditReplyOpen })
             let lastMessage = index+1 == newMessages.length;
             return {
                 ...message,
-                messagePosition: handleMessagePosition(message.priorDifferentDate, message.nextDifferentDate, message.periorUsername, message.nextUsername, message.username, lastMessage)
+                messagePosition: handleMessagePosition(message.priorDifferentDate, message.nextDifferentDate, message.periorUsername, message.nextUsername, message.uid, lastMessage)
             };
         });
         setMessagesBefore(messagesWithPostion);

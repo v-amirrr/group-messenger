@@ -14,7 +14,7 @@ import { AnimatePresence } from 'framer-motion';
 
 const Message = forwardRef(( props, ref ) => {
 
-    const { message, id, replyTo, messageUsername, periorUsername, nextUsername, time, localUsername, priorDifferentDate, nextDifferentDate } = props.message;
+    const { messageUid, localUid, localUsername, message, id, replyTo, messageUsername, periorUsername, nextUsername, time, priorDifferentDate, nextDifferentDate } = props.message;
 
     const dispatch = useDispatch();    
 
@@ -37,7 +37,7 @@ const Message = forwardRef(( props, ref ) => {
         }
 
         if (priorDifferentDate && !nextDifferentDate) {
-            if (nextUsername == messageUsername) {
+            if (nextUsername == messageUid) {
                 setMessagePosition(1);
             } else {
                 setMessagePosition(0);
@@ -45,7 +45,7 @@ const Message = forwardRef(( props, ref ) => {
         }
 
         if (!priorDifferentDate && nextDifferentDate) {
-            if (periorUsername == messageUsername) {
+            if (periorUsername == messageUid) {
                 setMessagePosition(3);
             } else {
                 setMessagePosition(0);
@@ -53,13 +53,13 @@ const Message = forwardRef(( props, ref ) => {
         }
 
         if (!priorDifferentDate && !nextDifferentDate) {
-            if (periorUsername != messageUsername && nextUsername != messageUsername) {
+            if (periorUsername != messageUid && nextUsername != messageUid) {
                 setMessagePosition(0);
-            } else if (periorUsername != messageUsername && nextUsername == messageUsername) {
+            } else if (periorUsername != messageUid && nextUsername == messageUid) {
                 setMessagePosition(1);
-            } else if (periorUsername == messageUsername && nextUsername == messageUsername) {
+            } else if (periorUsername == messageUid && nextUsername == messageUid) {
                 setMessagePosition(2);
-            } else if (periorUsername == messageUsername && nextUsername != messageUsername) {
+            } else if (periorUsername == messageUid && nextUsername != messageUid) {
                 setMessagePosition(3);
             }
         }
@@ -77,7 +77,7 @@ const Message = forwardRef(( props, ref ) => {
         <>
             <ChatDate dateObj={time} priorDifferentDate={priorDifferentDate} />
 
-            <MessageBox key={id} ref={ref} isuser={messageUsername == localUsername ? 1 : 0} ispersian={isRTL(message) ? 1 : 0} messagePosition={messagePosition} isreply={replyTo != "no_reply" ? 1 : 0}>
+            <MessageBox key={id} ref={ref} isMessageFromLocalUser={messageUid == localUid ? 1 : 0} ispersian={isRTL(message) ? 1 : 0} messagePosition={messagePosition} isreply={replyTo != "no_reply" ? 1 : 0}>
 
                 <div className='message-box' onClick={messageClickHandler}>
                     <MessageReply replyTo={replyTo} />
@@ -93,19 +93,18 @@ const Message = forwardRef(( props, ref ) => {
                     </p>
 
                     <AnimatePresence>
-                        <MessageTime time={time} messagePosition={messagePosition} isUser={messageUsername == localUsername ? 1 : 0} />
+                        <MessageTime time={time} messagePosition={messagePosition} isMessageFromLocalUser={messageUid == localUid ? 1 : 0} />
                     </AnimatePresence>
                 </div>
 
                 <AnimatePresence>
                     {messageIdOptionsShow == id ? 
                     <MessageOptions 
-                        messageUsername={messageUsername} 
-                        localUsername={localUsername} 
-                        isUser={messageUsername == localUsername}
-                        id={id} 
-                        message={message} 
-                        username={messageUsername}
+                        messageUsername={messageUsername}
+                        localUsername={localUsername}
+                        isMessageFromLocalUser={messageUid == localUid ? 1 : 0}
+                        messageId={id}
+                        messageText={message}
                     />
                     : ""}
                 </AnimatePresence>
@@ -132,7 +131,7 @@ const MessageBox = styled.div`
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    flex-direction: ${ props => props.isuser ? "row-reverse" : "row"};
+    flex-direction: ${ props => props.isMessageFromLocalUser ? "row-reverse" : "row"};
     user-select: none;
 
     .message-box {
@@ -140,7 +139,7 @@ const MessageBox = styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
-        flex-direction: ${ props => props.isuser ? "row-reverse" : "row"};
+        flex-direction: ${ props => props.isMessageFromLocalUser ? "row-reverse" : "row"};
         background-color: var(--message);
         margin: ${props => 
             props.messagePosition == 0 ? 
@@ -153,7 +152,7 @@ const MessageBox = styled.div`
             ".04rem 0 .2rem 0"
         };
         border-radius: ${props => 
-            props.isuser ? 
+            props.isMessageFromLocalUser ? 
                 props.messagePosition == 0 ? 
                 "25px" : 
                 props.messagePosition == 1 ? 
@@ -180,11 +179,11 @@ const MessageBox = styled.div`
         font-weight: 200;
         word-break: break-all;
         cursor: pointer;
-        transition: backdrop-filter .4s, border-radius .4s;
+        transition: backdrop-filter .4s, border-radius .4s, margin .4s;
     }
 
     .username {
-        display: ${props => props.isuser ? "none" : ""};
+        display: ${props => props.isMessageFromLocalUser ? "none" : ""};
         color: var(--message-username);
         font-size: .7rem;
         font-weight: 300;
@@ -210,7 +209,7 @@ const MessageBox = styled.div`
             min-width: ${props => props.isreply ? "30%" : ""};
             background-color: #ffffff10;
             border-radius: ${props => 
-                props.isuser ? 
+                props.isMessageFromLocalUser ? 
                     props.messagePosition == 0 ? 
                     "20px" : 
                     props.messagePosition == 1 ? 

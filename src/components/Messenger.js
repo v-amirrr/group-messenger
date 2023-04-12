@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import Loader from './Loader';
 import ErrorBox from './ErrorBox';
 import GroupChat from './GroupChat';
-import MessengerMenu from './MessengerMenu';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 

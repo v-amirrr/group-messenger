@@ -25,6 +25,7 @@ export const useGetMessages = () => {
 
             snapshot.docs.forEach(doc => {
                 messages.push({
+                    uid: doc.data().uid,
                     username: doc.data().username,
                     message: doc.data().message,
                     time: {
@@ -47,8 +48,8 @@ export const useGetMessages = () => {
                         let checkLink = isURL(word);
                         return { word: checkLink.newWord, link: checkLink.isLink };
                     }),
-                    periorUsername: index != 0 ? messages[index-1].username : false, 
-                    nextUsername: index != messages.length-1 ? messages[index+1].username : false,
+                    periorUsername: index != 0 ? messages[index-1].uid : false, 
+                    nextUsername: index != messages.length-1 ? messages[index+1].uid : false,
                     priorDifferentDate: index != 0 ? 
                         messages[index-1]?.time?.year != item?.time?.year ||
                         messages[index-1]?.time?.month != item?.time?.month ||

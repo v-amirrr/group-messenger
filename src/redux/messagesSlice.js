@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    localUsername: JSON.parse(localStorage.getItem("username")),
     messages: null,
     error: null,
     loading: true,
@@ -23,9 +22,6 @@ const messagesSlice = createSlice({
         setLoadingOff: state => {
             return { ...state, loading: false };
         },
-        setLocalUsername: (state, action) => {
-            return { ...state, localUsername: action.payload };
-        },
     },
 });
 
@@ -34,7 +30,6 @@ export const {
     setError, 
     setLoadingOn, 
     setLoadingOff, 
-    setLocalUsername,
 } = messagesSlice.actions;
 
 export default messagesSlice.reducer;

@@ -8,10 +8,10 @@ const messageLoaderVariants = {
     exit: { opacity: 0, scale: 0.5, transition: { duration: 0.4, type: 'tween' } }
 };
 
-const MessageLoader = () => {
+const MessageLoader = ({ size }) => {
     return (
         <>
-            <MessageLoaderContainer initial='hidden' animate='visible' exit='exit' variants={messageLoaderVariants}>
+            <MessageLoaderContainer initial='hidden' animate='visible' exit='exit' variants={messageLoaderVariants} size={size}>
                 <svg className="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
                     <circle className="path" fill="none" strokeWidth="6" strokeLinecap="round" cx="33" cy="33" r="30"></circle>
                 </svg>
@@ -28,8 +28,8 @@ const MessageLoaderContainer = styled(motion.div)`
     height: 100%;
 
     .spinner {
-        width: 60%;
-        height: 60%;
+        width: ${props => props.size};
+        height: ${props => props.size};
         -webkit-animation: rotator 1.4s linear infinite;
         animation: rotator 1.4s linear infinite;
     }

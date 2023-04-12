@@ -4,6 +4,7 @@ import { AiFillDelete, AiFillCopy, AiFillEdit } from 'react-icons/ai';
 import { BsReplyFill } from 'react-icons/bs';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import { useSelector } from 'react-redux';
 
 const menuMobileVariants = {
     hidden: { x: 50, scaleX: 0 },
@@ -35,33 +36,35 @@ const menuItemVariants = {
     exit: { opacity: 0, x: -80, transition: { duration: 0.5, type: 'tween' } }
 };
 
-const MessageOptions = ({ messageUsername, localUsername, id, message, username, isUser }) => {
+const MessageOptions = ({ messageUsername, localUsername, isMessageFromLocalUser, messageId, messageText }) => {
 
     const messageOptionsRef = useRef();
 
     const { openPopup, copyMessage, replyMessage } = useMessageOptions();
 
+    const { enterAsAGuest } = useSelector(store => store.userStore);
+
     let size = document.documentElement.offsetWidth;
 
     return (
         <>
-            <MessageOptionsContainer key={id} ref={messageOptionsRef} initial='hidden' animate='visible' exit='exit' variants={size < 500 && messageUsername == localUsername ? menuMobileVariants : menuDesktopVariants} isuser={isUser ? 1 : 0}>
-                {localUsername ? 
-                <motion.div className='reply' onClick={() => replyMessage(id, message, username)} whileTap={{ scale: 0.8 }} variants={messageUsername == localUsername ? size < 500 ? menuItemUserMobileVariants : menuItemUserDesktopVariants : menuItemVariants}>
+            <MessageOptionsContainer key={messageId} ref={messageOptionsRef} initial='hidden' animate='visible' exit='exit' variants={size < 500 && isMessageFromLocalUser ? menuMobileVariants : menuDesktopVariants} isMessageFromLocalUser={isMessageFromLocalUser ? 1 : 0}>
+                {localUsername && !enterAsAGuest ? 
+                <motion.div className='reply' onClick={() => replyMessage(messageId, messageText, messageUsername)} whileTap={{ scale: 0.8 }} variants={isMessageFromLocalUser ? size < 500 ? menuItemUserMobileVariants : menuItemUserDesktopVariants : menuItemVariants}>
                     <i><BsReplyFill /></i>
                 </motion.div>
                 : ""}
 
-                <motion.div className='copy' onClick={() => copyMessage(message)} whileTap={{ scale: 0.8 }} variants={messageUsername == localUsername ? size < 500 ? menuItemUserMobileVariants : menuItemUserDesktopVariants : menuItemVariants}>
+                <motion.div className='copy' onClick={() => copyMessage(messageText)} whileTap={{ scale: 0.8 }} variants={isMessageFromLocalUser ? size < 500 ? menuItemUserMobileVariants : menuItemUserDesktopVariants : menuItemVariants}>
                     <i><AiFillCopy /></i>
                 </motion.div>
 
-                {isUser ? 
+                {isMessageFromLocalUser && !enterAsAGuest ? 
                 <>
-                    <motion.div className='edit' onClick={() => openPopup("EDIT_POPUP", id)} whileTap={{ scale: 0.8 }} variants={messageUsername == localUsername ? size < 500 ? menuItemUserMobileVariants : menuItemUserDesktopVariants : menuItemVariants}>
+                    <motion.div className='edit' onClick={() => openPopup("EDIT_POPUP", messageId)} whileTap={{ scale: 0.8 }} variants={isMessageFromLocalUser ? size < 500 ? menuItemUserMobileVariants : menuItemUserDesktopVariants : menuItemVariants}>
                         <i><AiFillEdit /></i>
                     </motion.div>
-                    <motion.div className='delete' onClick={() => openPopup("DELETE_POPUP", id)} whileTap={{ scale: 0.8 }} variants={messageUsername == localUsername ? size < 500 ? menuItemUserMobileVariants : menuItemUserDesktopVariants : menuItemVariants}>
+                    <motion.div className='delete' onClick={() => openPopup("DELETE_POPUP", messageId)} whileTap={{ scale: 0.8 }} variants={isMessageFromLocalUser ? size < 500 ? menuItemUserMobileVariants : menuItemUserDesktopVariants : menuItemVariants}>
                         <i><AiFillDelete /></i>
                     </motion.div>
                 </>
@@ -72,12 +75,12 @@ const MessageOptions = ({ messageUsername, localUsername, id, message, username,
 };
 
 const MessageOptionsContainer = styled(motion.div)`
-    margin: ${props => props.isuser ? "0 .4rem 0 0" : "0 0 0 .4rem"};
+    margin: ${props => props.isMessageFromLocalUser ? "0 .4rem 0 0" : "0 0 0 .4rem"};
     user-select: none;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: ${props => props.isuser ? "row-reverse" : "row"};
+    flex-direction: ${props => props.isMessageFromLocalUser ? "row-reverse" : "row"};
 
     ::-webkit-scrollbar {
         height: 0;
@@ -112,12 +115,12 @@ const MessageOptionsContainer = styled(motion.div)`
     }
 
     @media (max-width: 768px) {
-        left: ${props => props.isuser ? "-5.2rem" : "auto"};
-        width: ${props => props.isuser ? "5rem" : ""};
-        background-color: ${props => props.isuser ? "#000000aa" : ""};
+        left: ${props => props.isMessageFromLocalUser ? "-5.2rem" : "auto"};
+        width: ${props => props.isMessageFromLocalUser ? "5rem" : ""};
+        background-color: ${props => props.isMessageFromLocalUser ? "#000000aa" : ""};
         border-radius: 50px;
         padding: .2rem .05rem;
-        overflow: ${props => props.isuser ? "scroll hidden" : ""};
+        overflow: ${props => props.isMessageFromLocalUser ? "scroll hidden" : ""};
         display: flex;
         justify-content: flex-start;
         align-items: center;

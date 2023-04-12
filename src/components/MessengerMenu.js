@@ -1,7 +1,7 @@
 import React, { memo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { useLogin } from '../hooks/useLogin';
+import { useAuth } from '../hooks/useAuth';
 import { HiDotsVertical } from "react-icons/hi";
 import { FaArrowRight } from "react-icons/fa";
 import { FcSettings, FcRightUp2 } from "react-icons/fc";
@@ -28,16 +28,14 @@ const menuListVariants = {
 
 const MessengerMenu = () => {
 
-    const { loginAsGuest } = useSelector(store => store.userStore);
-
-    const { logoutAsGuest } = useLogin();
+    const { logout } = useAuth();
 
     const [openMenu, setOpenMenu] = useState(false);
 
     const logoutClickHandler = () => {
         setOpenMenu(false);
         setTimeout(() => {
-            logoutAsGuest();
+            logout();
         }, 600);
     };
 
@@ -56,20 +54,11 @@ const MessengerMenu = () => {
 
                 <AnimatePresence>
                     {openMenu ?
-                    loginAsGuest ?
                     <motion.div key="menu" className='list' initial='hidden' animate='visible' exit='exit' variants={menuListVariants}>
                         <motion.div onClick={logoutClickHandler} className='list-item' whileTap={{ scale: 0.9 }}>
                             <i><FcRightUp2 /></i>
                             <p>Logout</p>
                         </motion.div>
-                        <Link to="/settings">
-                            <motion.div className='list-item' whileTap={{ scale: 0.9 }}>
-                                <i><FcSettings /></i>
-                                <p>Settings</p>
-                            </motion.div>
-                        </Link>
-                    </motion.div> :
-                    <motion.div key="menu" className='list' initial='hidden' animate='visible' exit='exit' variants={menuListVariants}>
                         <Link to="/settings">
                             <motion.div className='list-item' whileTap={{ scale: 0.9 }}>
                                 <i><FcSettings /></i>

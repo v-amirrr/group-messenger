@@ -24,7 +24,7 @@ const sendInputIconVariants = {
 const replyVariants = {
     hidden: { opacity: 0, scaleX: 0, y: -10 },
     visible: { opacity: 1, scaleX: 1, y: 0, transition: { type: "spring", stiffness: 100 } },
-    exit: { opacity: 0, scale: 0.8, y: -10, transition: { duration: 0.4 } }
+    exit: { opacity: 0, scale: 0.8, y: -10, transition: { duration: 0.2 } }
 };
 
 const MessengerInput = () => {
@@ -90,7 +90,7 @@ const MessengerInput = () => {
                         onChange={e => setInputText(e.target.value)}
                         onKeyDown={e => inputKeyHandler(e)}
                         onBlur={focusHandler}
-                        disabled={!!error || !localUsername ? true: false}
+                        disabled={!!error ? true : false}
                         ref={inputRef}
                         dir="auto"
                         autoFocus={document.documentElement.offsetWidth > 500 && !popupShow ? true : false}
@@ -101,7 +101,7 @@ const MessengerInput = () => {
                     <motion.button whileTap={inputText && { scale: 0.5 }} type="submit" className='messenger-submit' disabled={!inputText} onClick={inputSubmitHandler}>
                         <AnimatePresence exitBeforeEnter>
                             {sendMessageLoading ?
-                            <div key="pending" className='loader'><MessageLoader /></div> : 
+                            <div key="pending" className='loader'><MessageLoader size={"1.5rem"} /></div> : 
                             sendMessageError ?
                             <motion.div initial='hidden' animate='visible' exit='exit' variants={sendInputIconVariants} key="error"><IoAlert /></motion.div> :
                             <motion.div initial='hidden' animate='visible' exit='exit' variants={sendInputIconVariants} key="send"><IoSend /></motion.div>}

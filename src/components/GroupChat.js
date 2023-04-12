@@ -18,8 +18,8 @@ const GroupChat = () => {
     const messagesContainerRef = useRef();
     const messagesEndRef = useRef();
 
-    const { messages, loading, localUsername } = useSelector(store => store.messagesStore);
-    const { loginAsGuest } = useSelector(store => store.userStore);
+    const { messages, loading } = useSelector(store => store.messagesStore);
+    const { enterAsAGuest, user } = useSelector(store => store.userStore);
 
     useEffect(() => {
         const goBottom = setTimeout(() => {
@@ -43,13 +43,15 @@ const GroupChat = () => {
                         <Message 
                             key={message.id} 
                             message={{
+                                messageUid: message.uid,
+                                localUid: user?.uid,
+                                localUsername: user?.displayName,
                                 messageUsername: message.username,
                                 id: message.id,
                                 message: message.message,
                                 periorUsername: message.periorUsername, 
                                 nextUsername: message.nextUsername,
                                 time: message.time,
-                                localUsername: localUsername,
                                 priorDifferentDate: message.priorDifferentDate,
                                 nextDifferentDate: message.nextDifferentDate,
                                 replyTo: message.replyTo,
@@ -60,7 +62,7 @@ const GroupChat = () => {
                 <div ref={messagesEndRef} />
             </GroupChatContainer>
 
-            {loginAsGuest ? "" : <MessengerInput />}
+            {enterAsAGuest ? "" : <MessengerInput />}
         </>
     );
 };

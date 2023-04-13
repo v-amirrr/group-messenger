@@ -36,7 +36,7 @@ const MessengerMenu = () => {
         setOpenMenu(false);
         setTimeout(() => {
             logout();
-        }, 600);
+        }, 200);
     };
 
     return (

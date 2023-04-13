@@ -1,8 +1,8 @@
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { auth } from "../config/firebase";
-import { createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { setUser, setLogin, setSignup, setEnterAsAGuest } from '../redux/userSlice';
+import { auth, googleProvider } from "../config/firebase";
+import { createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { setUser, setLogin, setSignup, setEnterAsAGuest, setGoogleLogin } from '../redux/userSlice';
 
 export const useAuth = () => {
 
@@ -62,6 +62,7 @@ export const useAuth = () => {
     const clearAuthErrors = () => {
         dispatch(setLogin({ loading: false, error: null }));
         dispatch(setSignup({ loading: false, error: null }));
+        dispatch(setGoogleLogin({ loading: false, error: null }));
     };
 
     const logout = () => {
@@ -72,5 +73,20 @@ export const useAuth = () => {
         dispatch(setEnterAsAGuest(false));
     };
 
-    return { login, signup, enterAsAGuest, clearAuthErrors, logout };
+    const googleLogin = () => {
+        dispatch(setGoogleLogin({ loading: true, error: null }));
+
+        signInWithPopup(auth, googleProvider)
+            .then(res => {
+                dispatch(setGoogleLogin({ loading: false, error: null }));
+                localStorage.setItem("user", JSON.stringify(res.user));
+                dispatch(setUser(res.user));
+                navigate("/");
+            })
+            .catch(err => {
+                dispatch(setGoogleLogin({ loading: false, error: err.message }));
+            });
+    };
+
+    return { login, signup, enterAsAGuest, clearAuthErrors, logout, googleLogin };
 };

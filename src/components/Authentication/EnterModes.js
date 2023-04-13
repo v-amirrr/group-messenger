@@ -31,7 +31,7 @@ const EnterModes = () => {
             <Container initial='hidden' animate='visible' exit='exit' variants={enterPageVariants}>
                 <Link to="/signup">
                     <motion.a className='box' initial='hidden' animate='visible' exit='exit' variants={boxesVariants}>
-                        <h3>Create an Account</h3>
+                        <h4>Create an account</h4>
                         <div className='list'>
                             <span>Login, logout in other devices.</span>
                             <span>Send, delete, edit, reply.</span>
@@ -42,7 +42,7 @@ const EnterModes = () => {
 
                 <Link to="/login">
                     <motion.a className='box' initial='hidden' animate='visible' exit='exit' variants={boxesVariants}>
-                        <h3>Login with your Account</h3>
+                        <h4>Login with account or Google</h4>
                         <div className='list'>
                             <span>Send message.</span>
                             <span>Delete your messages.</span>
@@ -52,7 +52,7 @@ const EnterModes = () => {
                 </Link>
 
                 <motion.a className='box' initial='hidden' animate='visible' exit='exit' variants={boxesVariants} onClick={enterAsAGuest}>
-                    <h3>Enter as a Guest</h3>
+                    <h4>Login as a guest</h4>
                     <div className='list'>
                         <span>You can't send any message.</span>
                         <span>You can't reply to any message.</span>
@@ -89,7 +89,7 @@ const Container = styled(motion.section)`
         margin: 1rem;
         transition: background .3s, border .3s;
 
-        h3 {
+        h4 {
             margin-bottom: 1rem;
             white-space: nowrap;
         }

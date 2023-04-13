@@ -4,6 +4,7 @@ const initialState = {
     user: JSON.parse(localStorage.getItem("user")),
     login: { loading: false, error: null },
     signup: { loading: false, error: null },
+    googleLogin: { loading: false, error: null },
     enterAsAGuest: JSON.parse(localStorage.getItem("guest-login")),
     warningPageShowed: false,
     warningPageNeverShowCheck: JSON.parse(localStorage.getItem("warning-check")),
@@ -39,6 +40,9 @@ const userSlice = createSlice({
         setEnterAsAGuest: (state, action) => {
             return { ...state, enterAsAGuest: action.payload };
         },
+        setGoogleLogin: (state, action) => {
+            return { ...state, googleLogin: { loading: action.payload.loading, error: action.payload.error } };
+        },
     },
 });
 
@@ -51,6 +55,7 @@ export const {
     setLogin,
     setSignup,
     setEnterAsAGuest,
+    setGoogleLogin,
 } = userSlice.actions;
 
 export default userSlice.reducer;

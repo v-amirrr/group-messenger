@@ -5,6 +5,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { useRedirection } from '../../hooks/useRedirection';
 import MessageLoader from '../message/MessageLoader';
 import AuthError from './AuthError';
+import { FaRegEye } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
@@ -30,6 +31,7 @@ const Signup = () => {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
 
     const backHandler = () => {
         clearAuthErrors();
@@ -47,7 +49,7 @@ const Signup = () => {
 
     return (
         <>
-            <SignupPage signuploading={signupDataFromUserStore.loading ? 1 : 0}>
+            <SignupPage signuploading={signupDataFromUserStore.loading ? 1 : 0} showpassword={showPassword ? 1 : 0}>
                 <AuthError />
 
                 <div className='signup-container' initial='hidden' animate='visible' exit='exit' variants={signupVariants}>
@@ -60,7 +62,11 @@ const Signup = () => {
                             <input type='email' placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} />
                         </motion.div>
                         <motion.div className='signup-field' initial='hidden' animate='visible' exit='exit' variants={signupItemVariants}>
-                            <input type='password' placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} />
+                            <input type={showPassword ? 'text' : 'password'} placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} />
+                            <button className='signup-password-button' onClick={() => setShowPassword(!showPassword)}>
+                                <i><FaRegEye /></i>
+                                <hr />
+                            </button>
                         </motion.div>
                     </ul>
                     <div className='signup-buttons'>
@@ -106,6 +112,10 @@ const SignupPage = styled(motion.div)`
                 margin: .2rem;
                 font-size: 1rem;
                 overflow: hidden;
+                position: relative;
+                display: flex;
+                justify-content: center;
+                align-items: center;
                 
                 input {
                     all: unset;
@@ -114,6 +124,40 @@ const SignupPage = styled(motion.div)`
 
                     ::placeholder {
                         color: #ffffff55;
+                    }
+                }
+
+                .signup-password-button {
+                    all: unset;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    position: absolute;
+                    right: .2rem;
+                    padding: .4rem;
+                    border-radius: 50%;
+                    cursor: pointer;
+                    transition: background .2s;
+
+                    i {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                    }
+
+                    hr {
+                        width: ${props => props.showpassword ? "0" : "1rem"};
+                        height: .1rem;
+                        border: none;
+                        border-radius: 50px;
+                        background-color: #fff;
+                        position: absolute;
+                        transform: rotate(45deg);
+                        transition: width .3s;
+                    }
+
+                    &:hover {
+                        background-color: #ffffff08;
                     }
                 }
             }

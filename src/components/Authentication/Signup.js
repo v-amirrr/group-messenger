@@ -62,7 +62,7 @@ const Signup = () => {
                             <input type='email' placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} />
                         </motion.div>
                         <motion.div className='signup-field' initial='hidden' animate='visible' exit='exit' variants={signupItemVariants}>
-                            <input type={showPassword ? 'text' : 'password'} placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} />
+                            <input type={showPassword ? 'text' : 'password'} placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} onPaste={(e) => e.preventDefault()} />
                             <button className='signup-password-button' onClick={() => setShowPassword(!showPassword)}>
                                 <i><FaRegEye /></i>
                                 <hr />

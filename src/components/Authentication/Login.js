@@ -66,7 +66,7 @@ const Login = () => {
                             <input type='email' placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} autoFocus />
                         </motion.div>
                         <motion.div className='login-field' initial='hidden' animate='visible' exit='exit' variants={loginItemVariants}>
-                            <input type={showPassword ? 'text' : 'password'} placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} />
+                            <input type={showPassword ? 'text' : 'password'} placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} onPaste={(e) => e.preventDefault()} />
                             <button className='login-password-button' onClick={() => setShowPassword(!showPassword)}>
                                 <i><FaRegEye /></i>
                                 <hr />

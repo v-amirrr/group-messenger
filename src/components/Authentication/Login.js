@@ -5,6 +5,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { useRedirection } from '../../hooks/useRedirection';
 import AuthError from './AuthError';
 import MessageLoader from '../message/MessageLoader';
+import { FaRegEye } from 'react-icons/fa';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
@@ -29,6 +30,7 @@ const Login = () => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
 
     const backHandler = () => {
         clearAuthErrors();
@@ -54,7 +56,7 @@ const Login = () => {
 
     return (
         <>
-            <LoginPage loginloading={loginDataFromUserStore.loading ? 1 : 0} googleloading={googleLoginDataFromUserStore.loading ? 1 : 0}>
+            <LoginPage loginloading={loginDataFromUserStore.loading ? 1 : 0} googleloading={googleLoginDataFromUserStore.loading ? 1 : 0} showpassword={showPassword ? 1 : 0}>
                 <AuthError />
 
                 <div className='login-container' initial='hidden' animate='visible' exit='exit' variants={loginVariants}>
@@ -64,7 +66,11 @@ const Login = () => {
                             <input type='email' placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} autoFocus />
                         </motion.div>
                         <motion.div className='login-field' initial='hidden' animate='visible' exit='exit' variants={loginItemVariants}>
-                            <input type='password' placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} />
+                            <input type={showPassword ? 'text' : 'password'} placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} />
+                            <button className='login-password-button' onClick={() => setShowPassword(!showPassword)}>
+                                <i><FaRegEye /></i>
+                                <hr />
+                            </button>
                         </motion.div>
                     </ul>
                     <div className='login-buttons'>
@@ -74,7 +80,9 @@ const Login = () => {
                         <motion.button className='submit-button' onClick={submitHandler} initial='hidden' animate='visible' exit='exit' variants={loginItemVariants}>
                             <p>OK</p>
                         </motion.button>
-                        <div className='login-loader'><MessageLoader size={"1.5rem"} /></div>
+                        <div className='login-loader'>
+                            <MessageLoader size={"1.5rem"} />
+                        </div>
                     </div>
                     <motion.div className='login-google' initial='hidden' animate='visible' exit='exit' variants={loginItemVariants}>
                         <button className='google-submit' onClick={googleLoginHandler}>
@@ -116,7 +124,11 @@ const LoginPage = styled(motion.div)`
                 margin: .2rem;
                 font-size: 1rem;
                 overflow: hidden;
-                
+                position: relative;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
                 input {
                     all: unset;
                     width: 100%;
@@ -124,6 +136,40 @@ const LoginPage = styled(motion.div)`
 
                     ::placeholder {
                         color: #ffffff55;
+                    }
+                }
+
+                .login-password-button {
+                    all: unset;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    position: absolute;
+                    right: .2rem;
+                    padding: .4rem;
+                    border-radius: 50%;
+                    cursor: pointer;
+                    transition: background .2s;
+
+                    i {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                    }
+
+                    hr {
+                        width: ${props => props.showpassword ? "0" : "1rem"};
+                        height: .1rem;
+                        border: none;
+                        border-radius: 50px;
+                        background-color: #fff;
+                        position: absolute;
+                        transform: rotate(45deg);
+                        transition: width .3s;
+                    }
+
+                    &:hover {
+                        background-color: #ffffff08;
                     }
                 }
             }

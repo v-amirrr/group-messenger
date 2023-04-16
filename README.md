@@ -1,6 +1,6 @@
 # Group Messenger
 
-In this messenger you can login either with a name or as a guest. You can send message and delete them or edit them later. You can reply to other's messages. And you can edit your replies later.
+In this project you can login with email or with Google. You can send message, delete or edit them later.
 <br />
 <a href="https://group-messenger.vercel.app">Check it out :)<a/>
 <br />
@@ -11,16 +11,17 @@ In this messenger you can login either with a name or as a guest. You can send m
 
 ## Features
 
-- Login as a guest just to read messages.
-- Logout from guest mode and login with name to send message.
-- Change background and theme.
+- Create an account, Login with it in other devices, Logout whenever you want.
+- Login directly with Google.
+- Login as a guest to just read the messages without anything.
 - Send message, read other's messages realtime.
 - Delete any of your messages.
 - Edit any of your messages.
 - Reply to someone's message.
-- Edit or add reply after you sent the message.
-- include emojis in your message text.
-- Copy any message text.
+- Edit or add reply after you sent your message.
+- Include emojis in your message text.
+- Copy anyone's message text.
+- Change background and theme.
 <br />
 <br />
 <br />
@@ -29,11 +30,8 @@ In this messenger you can login either with a name or as a guest. You can send m
 
 ## How To Use It
 
-First you have to choose a way to login. You can login as a guest or login with a name. 
-In Guest mode login you won't be able to send any message but you can logout and login with name whenever you want.
-For loggin out as a guest you just need to click on the three-dots menu at the top left of the page then click on of the options.
-In login with name mode the name you choose should be uniuqe and it shouldn't be used before by someone else. 
-Remeber you can't logout or change the name YET.
+First you have to choose a way to login. You can login with by creating an account with an email or login directly with Google account. You also just can login as a guest. 
+In Guest mode login you won't be able to send any message but you can logout and login with an account later.
 <br />
 <br />
 After you logged in you easily send any message you want. To see message options you ust need to click on a message. Based on the message you'll see a bunch of options. If it's one of your messages you'll see reply, copy, edit and delete icon. If it's someone else's message you'll only see reply and copy icon and if you're in guest mode you'll just see copy icon.
@@ -53,19 +51,19 @@ When you click on the edit reply icon, you'll the all the messages that were sen
 
 <strong>Custom Hooks</strong>
 <br />
-This app has 5 custom hooks. One is for getting messages named useGetMessage, another one is for login named useLogin, another one is for messages options like delete and edit named useMessageOptions, another one is for sending messages named useSendMessage, and the last another one is for showing the warning page named useWarningPage.
+This app has 7 custom hooks. One is for getting messages named useGetMessage, another one is for login, signup, logout, login as a guest and login with Google named useAuth, another one is for messages options like delete and edit named useMessageOptions, another one is for sending messages named useSendMessage, and another one is for showing the warning page named useWarningPage, and another one is for rediction when user go to url where they're not sppusoed to be like going to the login page when you're already logged in named useRediction, and the last one if for change the theme and the background named useChangeTheme.
 <br />
 <br />
 
 <strong>Redux Slices</strong>
 <br />
-We have 4 redux slices, one for storing the messages we get from Firebase Firestore, one is for popups status, one is the information about the message user is trying to send like errors and loading, and the last one is the information about the overall user status.
+We have 4 redux slices, one for storing the messages we get from Firebase Firestore, one is for popups status, one is the information about the message user is trying to send like errors and loading, and the last one is the information about the overall user status and data.
 <br />
 <br />
 
 <strong>Routes</strong>
 <br />
-We have four routes. One is the main route which shows everything include messages, input and menu. Another one for warning page that is shown everytime user opens the app. Another one is for login page which shows different login modes when user hasn't logged in and opens the app. Another on is for loggin in with name which is a nested route in the login route. And the last one is for settings page.
+We have 6 routes. One is the main route which shows everything include messages, input and menu. Another one for warning page that is shown everytime user opens the app. Another one is for entering to the app page which shows different login modes when user hasn't logged in and opens the app. Another on is for login, Another one if for signup. And the last one is for settings page.
 <br />
 <br />
 <br />

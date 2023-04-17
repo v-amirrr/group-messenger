@@ -64,6 +64,36 @@ We have 4 redux slices, one for storing the messages we get from Firebase Firest
 <strong>Routes</strong>
 <br />
 We have 6 routes. One is the main route which shows everything include messages, input and menu. Another one for warning page that is shown everytime user opens the app. Another one is for entering to the app page which shows different login modes when user hasn't logged in and opens the app. Another on is for login, Another one if for signup. And the last one is for settings page.
+
+<strong>Components</strong>
+<br />
+We have 5 components to show a message box. Message.js for the message box, MessageLoader.js for showing the loader instead of time when the user sends a message, MessageOptions.js for showing options like delete, edit, copy, and reply, MessageReply.js for showing that the message is a reply to another message, and finally MessageTime.js for showing the time that message was sent.
+<br />
+We've got 4 components. Delete and edit popups. Popup.js is for the popup page, and inside it, we render different components depending on what the user wants. If the user clicks on the delete icon, we render DeletePopup.js, and if the user clicks on the edit icon, we render EditPopup.js. But the overall style and structure for both popups are defined in Popup.js. We also have EditReply.js, which is a component that we render inside EditPopup.js, and it's for changing what message the user wants their message to be replied to.
+<br />
+We have 2 components for the settings page. One is Settings.js, which is the settings page itself. Another one is SettingsBackgrounds.js. We yet only have one option in settings, which is to change backgrounds, and that's what this component does.
+<br />
+The whole authentication process has 4 components. EnterModes.js is for showing different modes of entering the app, like login or signup. Login.js is for the login page. Signup.js is for the signup page. We also have AuthError.js, which is for showing the possible errors that we get while logging in or signing up.
+<br />
+We have the ChatDate.js component to show the date inside the chat. Before the first message that is sent into the chat, we show the new day date to spread each day in the chat.
+<br />
+We have the Emoji.js component, which is used to show the emoji picker. We've used it both in MessengerInput.js and EditPopup.js.
+<br />
+We have a component named ErrorBox.js for showing the potential errors that we get while loading the message.
+<br />
+We have a component named Loader.js to show a loader while messages are loading.
+<br />
+We have the GroupChat.js component. It's in this component that we map through those messages and pass data to the Message.js component. Also, MessengerMenu.js and MessengerInput.js are both rendered inside this component.
+<br />
+Messenger.js is the component that we pass inside the main root. Inside this component, we have 3 components, and based on the data in the message slice, we decide which to render. We have Loader.js, which is shown when messages are loading. We have GroupChat.js, which is shown when all the messages are ready. And at the end, we have ErrorBox.js, which is shown when we have an error and when messages are not ready. We render these components based on two object values. With the useSelector hook, we get loading errors from messagesStore. And we decide which one to render by using ternary operators.
+<br />
+We have MessengerInput.js. We use this component to render an input where the user can write and send their message.
+<br />
+We have MessengerBackground.js to render the background of the app, and the user can choose it inside the settings page.
+<br />
+We have MessengerMenu.js. It's a simple component, and it shows two buttons: one for going into the settings page, and the other for logging out.
+<br />
+We have WarningPage.js. This component renders inside its own route, and that user automatically gets redirected to that route every time they open the app. Unless they checked the never show again checkbox in that way redirection never happens.
 <br />
 <br />
 <br />

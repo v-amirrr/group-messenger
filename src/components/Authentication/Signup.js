@@ -11,8 +11,8 @@ import styled from 'styled-components';
 
 const signupVariants = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 0.2, when: "beforeChildren", staggerChildren: 0.05 } },
-    exit: { opacity: 0, transition: { duration: 0.2, when: "afterChildren", staggerChildren: 0.05 } }
+    visible: { opacity: 1, transition: { duration: 0.4, when: "beforeChildren", staggerChildren: 0.05 } },
+    exit: { opacity: 0, transition: { duration: 0.4, when: "afterChildren", staggerChildren: 0.05 } }
 };
 
 const signupItemVariants = {
@@ -49,10 +49,10 @@ const Signup = () => {
 
     return (
         <>
-            <SignupPage signuploading={signupDataFromUserStore.loading ? 1 : 0} showpassword={showPassword ? 1 : 0}>
+            <SignupPage initial='hidden' animate='visible' exit='exit' variants={signupVariants} signuploading={signupDataFromUserStore.loading ? 1 : 0} showpassword={showPassword ? 1 : 0}>
                 <AuthError />
 
-                <div className='signup-container' initial='hidden' animate='visible' exit='exit' variants={signupVariants}>
+                <div className='signup-container'>
                     <motion.h2 initial='hidden' animate='visible' exit='exit' variants={signupItemVariants}>Create an account</motion.h2>
                     <ul className='signup-fields'>
                         <motion.div className='signup-field' initial='hidden' animate='visible' exit='exit' variants={signupItemVariants}>
@@ -90,6 +90,8 @@ const SignupPage = styled(motion.div)`
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: var(--auth-background);
+    user-select: none;
 
     .signup-container {
         display: flex;
@@ -105,7 +107,7 @@ const SignupPage = styled(motion.div)`
             margin: 1rem;
 
             .signup-field {
-                background-color: #ffffff08;
+                background-color: var(--auth-feild);
                 border-radius: 15px;
                 padding: .5rem .8rem;
                 width: 12rem;
@@ -123,7 +125,7 @@ const SignupPage = styled(motion.div)`
                     height: 100%;
 
                     ::placeholder {
-                        color: #ffffff55;
+                        color: var(--auth-feild-placeholder);
                     }
                 }
 
@@ -156,8 +158,10 @@ const SignupPage = styled(motion.div)`
                         transition: width .3s;
                     }
 
-                    &:hover {
-                        background-color: #ffffff08;
+                    @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
+                        &:hover {
+                            background-color: var(--auth-button-hover);
+                        }
                     }
                 }
             }
@@ -181,7 +185,7 @@ const SignupPage = styled(motion.div)`
                 width: ${props => props.loginloading ? "5.8rem" : "4.5rem"};
                 height: 2.2rem;
                 cursor: ${props => props.loginloading ? "" : "pointer"};
-                background-color: #ffffff08;
+                background-color: var(--auth-button);
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -201,7 +205,7 @@ const SignupPage = styled(motion.div)`
 
                 @media (hover: hover) and (pointer: fine) and (min-width: 745px) { 
                     &:hover {
-                        background-color: ${props => props.loginloading ? "" : "#ffffff11"};
+                        background-color: ${props => props.loginloading ? "#ffffff00" : "var(--auth-button-hover)"};
                     }
                 }
             }

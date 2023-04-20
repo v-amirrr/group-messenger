@@ -4,9 +4,6 @@ import themeOneImageSRC from '../../assets/images/1.webp';
 import themeTowImageSRC from '../../assets/images/2.webp';
 import themeThreeImageSRC from '../../assets/images/3.webp';
 import themeFourImageSRC from '../../assets/images/4.webp';
-import themeFiveImageSRC from '../../assets/images/5.webp';
-import themeSixImageSRC from '../../assets/images/6.webp';
-import themeSevenImageSRC from '../../assets/images/7.webp';
 import { FcPicture } from "react-icons/fc";
 import { RiArrowRightSLine } from "react-icons/ri";
 import { TiArrowLeft } from "react-icons/ti";
@@ -62,15 +59,6 @@ const SettingsBackgrounds = () => {
                             </motion.div>
                             <motion.div className='theme' onClick={() => changeTheme(4)} variants={themeVariants}>
                                 <img src={themeFourImageSRC} />
-                            </motion.div>
-                            <motion.div className='theme' onClick={() => changeTheme(5)} variants={themeVariants}>
-                                <img src={themeFiveImageSRC} />
-                            </motion.div>
-                            <motion.div className='theme' onClick={() => changeTheme(6)} variants={themeVariants}>
-                                <img src={themeSixImageSRC} />
-                            </motion.div>
-                            <motion.div className='theme' onClick={() => changeTheme(7)} variants={themeVariants}>
-                                <img src={themeSevenImageSRC} />
                             </motion.div>
                         </motion.div>
                     </motion.div> :

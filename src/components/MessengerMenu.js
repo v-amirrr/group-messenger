@@ -129,10 +129,11 @@ const MessengerMenuContainer = styled(motion.div)`
         display: flex;
         justify-content: center;
         align-items: center;
+        background-color: var(--menu-icon);
 
         @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
             &:hover {
-                background-color: var(--menu-back-hover);
+                background-color: var(--menu-icon-hover);
             }
         }
     }

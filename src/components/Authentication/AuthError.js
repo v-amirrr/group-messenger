@@ -40,7 +40,7 @@ const ErrorContainer = styled(motion.div)`
     justify-content: center;
     align-items: center;
     text-align: center;
-    background-color: #ffffff08;
+    background-color: var(--auth-error);
     border-radius: 15px;
     padding: .5rem 2rem .5rem .5rem;
     margin: 1rem;
@@ -54,7 +54,7 @@ const ErrorContainer = styled(motion.div)`
     .close-button {
         position: absolute;
         right: .2rem;
-        background-color: #ffffff08;
+        background-color: var(--auth-error);
         display: flex;
         justify-content: center;
         align-items: center;

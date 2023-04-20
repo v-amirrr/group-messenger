@@ -11,8 +11,8 @@ import { motion } from 'framer-motion';
 
 const loginVariants = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 0.2, when: "beforeChildren", staggerChildren: 0.05 } },
-    exit: { opacity: 0, transition: { duration: 0.2, when: "afterChildren", staggerChildren: 0.05 } }
+    visible: { opacity: 1, transition: { duration: 0.4, when: "beforeChildren", staggerChildren: 0.05 } },
+    exit: { opacity: 0, transition: { duration: 0.4, when: "afterChildren", staggerChildren: 0.05 } }
 };
 
 const loginItemVariants = {
@@ -56,7 +56,7 @@ const Login = () => {
 
     return (
         <>
-            <LoginPage loginloading={loginDataFromUserStore.loading ? 1 : 0} googleloading={googleLoginDataFromUserStore.loading ? 1 : 0} showpassword={showPassword ? 1 : 0}>
+            <LoginPage initial='hidden' animate='visible' exit='exit' variants={loginVariants} loginloading={loginDataFromUserStore.loading ? 1 : 0} googleloading={googleLoginDataFromUserStore.loading ? 1 : 0} showpassword={showPassword ? 1 : 0}>
                 <AuthError />
 
                 <div className='login-container' initial='hidden' animate='visible' exit='exit' variants={loginVariants}>
@@ -102,6 +102,8 @@ const LoginPage = styled(motion.div)`
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: var(--auth-background);
+    user-select: none;
 
     .login-container {
         display: flex;
@@ -117,7 +119,7 @@ const LoginPage = styled(motion.div)`
             margin: 1rem;
 
             .login-field {
-                background-color: #ffffff08;
+                background-color: var(--auth-feild);
                 border-radius: 15px;
                 padding: .5rem .8rem;
                 width: 12rem;
@@ -135,7 +137,7 @@ const LoginPage = styled(motion.div)`
                     height: 100%;
 
                     ::placeholder {
-                        color: #ffffff55;
+                        color: var(--auth-feild-placeholder);
                     }
                 }
 
@@ -168,8 +170,10 @@ const LoginPage = styled(motion.div)`
                         transition: width .3s;
                     }
 
-                    &:hover {
-                        background-color: #ffffff08;
+                    @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
+                        &:hover {
+                            background-color: var(--auth-button-hover);
+                        }
                     }
                 }
             }
@@ -193,7 +197,7 @@ const LoginPage = styled(motion.div)`
                 width: ${props => props.loginloading ? "5rem" : "4.5rem"};
                 height: 2.2rem;
                 cursor: ${props => props.loginloading ? "" : "pointer"};
-                background-color: #ffffff08;
+                background-color: var(--auth-button);
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -213,7 +217,7 @@ const LoginPage = styled(motion.div)`
 
                 @media (hover: hover) and (pointer: fine) and (min-width: 745px) { 
                     &:hover {
-                        background-color: ${props => props.loginloading ? "" : "#ffffff11"};
+                        background-color: ${props => props.loginloading ? "" : "var(--auth-button-hover)"};
                     }
                 }
             }
@@ -245,7 +249,7 @@ const LoginPage = styled(motion.div)`
             .google-submit {
                 border-radius: 15px;
                 border: none;
-                background-color: #ffffff08;
+                background-color: var(--auth-button);
                 width: 10rem;
                 height: 2.2rem;
                 cursor: ${props => props.googleloading ? "" : "pointer"};
@@ -275,7 +279,7 @@ const LoginPage = styled(motion.div)`
 
                 @media (hover: hover) and (pointer: fine) and (min-width: 745px) { 
                     &:hover {
-                        background-color: ${props => props.googleloading ? "" : "#ffffff11"};
+                        background-color: ${props => props.googleloading ? "" : "var(--auth-button-hover)"};
                     }
                 }
             }

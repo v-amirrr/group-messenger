@@ -1,12 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 [data-theme="1"] {
-    --menu: #ffffff11;
-    --menu-hover: #ffffff22;
-    --menu-item: #ffffff11;
-    --menu-item-hover: #ffffff22;
-    --menu-back: #ffffff11;
-    --menu-back-hover: #ffffff22;
+    --menu: #000000aa;
+    --menu-icon: #ffffff08;
+    --menu-icon-hover: #ffffff11;
+    --menu-item: #ffffff08;
+    --menu-item-hover: #ffffff11;
+    --menu-back: #ffffff08;
+    --menu-back-hover: #ffffff11;
 
     --settings-page: #000000aa;
     --settings: #ffffff08;
@@ -17,7 +18,7 @@
     --settings-item-border: #ffffff11;
     --settings-item-border-hover: #ffffff00;
 
-    --warning-page: #000000bb;
+    --warning-page: #000000dd;
     --warning-page-button: #ffffff08;
 
     --messenger-input: #ffffff08;
@@ -36,10 +37,10 @@
     --date: #ffffff11;
     --date-color: #fff;
 
-    --popup: #000000bb;
-    --popup-container: #ffffff08;
-    --popup-buttons: #ffffff08;
-    --popup-buttons-hover: #ffffff15;
+    --popup: #000000dd;
+    --popup-container: #ffffff06;
+    --popup-buttons: #ffffff06;
+    --popup-buttons-hover: #ffffff10;
 
     --message: #ffffff11;
     --message-blur: 5px;
@@ -49,20 +50,22 @@
     --message-options: #ffffff11;
     --message-options-hover: #ffffff25;
 
-    --login: linear-gradient(39deg, rgba(0,26,42,0.1) 0%, rgba(0,0,0,1) 50%, rgba(0,21,26,0.1) 100%);
-    --login-mode: #ffffff08;
-    --login-mode-features: #ffffff08;
-
-    --login-name-page: #000000bb;
-    --login-name-placeholder: #ffffff44;
-    --login-name-button: #ffffff08;
-    --login-name-button-hover: #ffffff11;
-    --login-name-error: #ffffff08;
+    --auth-background: #000000dd;
+    --enter-modes-box: #ffffff02;
+    --enter-modes-box-border: #ffffff11;
+    --enter-modes-box-item: #ffffff04;
+    --enter-modes-box-hover: #ffffff04;
+    --auth-error: #ffffff08;
+    --auth-feild: #ffffff08;
+    --auth-feild-placeholder: #ffffff55;
+    --auth-button: #ffffff08;
+    --auth-button-hover: #ffffff08;
 }
 
 [data-theme="2"] {
-    --menu: #00000088;
-    --menu-hover: #000000;
+    --menu: #000000aa;
+    --menu-icon: #ffffff08;
+    --menu-icon-hover: #ffffff11;
     --menu-item: #ffffff08;
     --menu-item-hover: #ffffff11;
     --menu-back: #ffffff08;
@@ -113,20 +116,26 @@
     --login-mode: #ffffff08;
     --login-mode-features: #ffffff08;
 
-    --login-name-page: #00000088;
-    --login-name-placeholder: #ffffff44;
-    --login-name-button: #ffffff08;
-    --login-name-button-hover: #ffffff11;
-    --login-name-error: #ffffff08;
+    --enter-modes: #00000088;
+    --enter-modes-box: #ffffff02;
+    --enter-modes-box-border: #ffffff08;
+    --enter-modes-box-item: #ffffff08;
+    --enter-modes-box-hover: #ffffff08;
+    --auth-error: #ffffff08;
+    --auth-feild: #ffffff08;
+    --auth-feild-placeholder: #ffffff55;
+    --auth-button: #ffffff08;
+    --auth-button-hover: #ffffff08;
 }
 
 [data-theme="3"] {
-    --menu: #ffffff11;
-    --menu-hover: #ffffff22;
+    --menu: #ffffff15;
+    --menu-icon: #ffffff00;
+    --menu-icon-hover: #ffffff22;
     --menu-item: #ffffff08;
-    --menu-item-hover: #ffffff15;
-    --menu-back: #ffffff08;
-    --menu-back-hover: #ffffff15;
+    --menu-item-hover: #ffffff11;
+    --menu-back: #ffffff15;
+    --menu-back-hover: #ffffff22;
 
     --settings-page: #00000088;
     --settings: #ffffff11;
@@ -173,19 +182,25 @@
     --login-mode: #ffffff08;
     --login-mode-features: #ffffff08;
 
-    --login-name-page: #00000088;
-    --login-name-placeholder: #ffffff44;
-    --login-name-button: #ffffff08;
-    --login-name-button-hover: #ffffff11;
-    --login-name-error: #ffffff08;
+    --enter-modes: #00000088;
+    --enter-modes-box: #ffffff02;
+    --enter-modes-box-border: #ffffff08;
+    --enter-modes-box-item: #ffffff08;
+    --enter-modes-box-hover: #ffffff08;
+    --auth-error: #ffffff08;
+    --auth-feild: #ffffff08;
+    --auth-feild-placeholder: #ffffff55;
+    --auth-button: #ffffff08;
+    --auth-button-hover: #ffffff08;
 }
 
 [data-theme="4"] {
-    --menu: #ffffff11;
-    --menu-hover: #ffffff22;
-    --menu-item: #ffffff11;
-    --menu-item-hover: #ffffff22;
-    --menu-back: #ffffff11;
+    --menu: #000000aa;
+    --menu-icon: #ffffff15;
+    --menu-icon-hover: #ffffff22;
+    --menu-item: #ffffff08;
+    --menu-item-hover: #ffffff11;
+    --menu-back: #ffffff15;
     --menu-back-hover: #ffffff22;
 
     --settings-page: #000000aa;
@@ -229,195 +244,16 @@
     --message-options: #ffffff11;
     --message-options-hover: #ffffff25;
 
-    --login: linear-gradient(39deg, rgba(0,26,42,0.1) 0%, rgba(0,0,0,1) 50%, rgba(0,21,26,0.1) 100%);
-    --login-mode: #ffffff08;
-    --login-mode-features: #ffffff08;
-
-    --login-name-page: #000000bb;
-    --login-name-placeholder: #ffffff44;
-    --login-name-button: #ffffff08;
-    --login-name-button-hover: #ffffff11;
-    --login-name-error: #ffffff08;
-}
-
-[data-theme="5"] {
-    --menu: #ffffff11;
-    --menu-hover: #ffffff22;
-    --menu-item: #ffffff11;
-    --menu-item-hover: #ffffff22;
-    --menu-back: #ffffff11;
-    --menu-back-hover: #ffffff22;
-
-    --settings-page: #00000088;
-    --settings: #ffffff08;
-    --settings-header-border: #ffffff11;
-    --settings-back: #ffffff11;
-    --settings-back-hover: #ffffff22;
-    --settings-item: #ffffff05;
-    --settings-item-border: #ffffff11;
-    --settings-item-border-hover: #ffffff00;
-
-    --warning-page: #00000088;
-    --warning-page-button: #ffffff11;
-
-    --messenger-input: #ffffff11;
-    --messenger-input-submit-disable: #ffffff22;
-    --messenger-input-submit-enable: #ffffff44;
-    --messenger-input-submit-enable-hover: #ffffff88;
-    --messenger-input-emoji: #ffffff08;
-    --messenger-input-emoji-hover: #ffffff11;
-    --messenger-input-placeholder: #ffffff44;
-
-    --background-blur: 20px;
-
-    --messenger-loader: #000;
-    --messenger-loader-dots: #fff;
-
-    --date: #ffffff11;
-    --date-color: #fff;
-
-    --popup: #000000bb;
-    --popup-container: #ffffff08;
-    --popup-buttons: #ffffff08;
-    --popup-buttons-hover: #ffffff15;
-
-    --message: #ffffff11;
-    --message-blur: 5px;
-    --message-username: #ffffff55;
-    --message-time: #ffffff55;
-
-    --message-options: #ffffff11;
-    --message-options-hover: #ffffff25;
-
-    --login: linear-gradient(39deg, rgba(0,26,42,0) 0%, rgba(0,0,0,0.8) 50%, rgba(0,21,26,0) 100%);
-    --login-mode: #ffffff08;
-    --login-mode-features: #ffffff08;
-
-    --login-name-page: #000000aa;
-    --login-name-placeholder: #ffffff44;
-    --login-name-button: #ffffff08;
-    --login-name-button-hover: #ffffff11;
-    --login-name-error: #ffffff08;
-}
-
-[data-theme="6"] {
-    --menu: #ffffff11;
-    --menu-hover: #ffffff22;
-    --menu-item: #ffffff11;
-    --menu-item-hover: #ffffff22;
-    --menu-back: #ffffff11;
-    --menu-back-hover: #ffffff22;
-
-    --settings-page: #00000088;
-    --settings: #ffffff08;
-    --settings-header-border: #ffffff11;
-    --settings-back: #ffffff11;
-    --settings-back-hover: #ffffff22;
-    --settings-item: #ffffff05;
-    --settings-item-border: #ffffff11;
-    --settings-item-border-hover: #ffffff00;
-
-    --warning-page: #00000088;
-    --warning-page-button: #ffffff11;
-
-    --messenger-input: #ffffff08;
-    --messenger-input-submit-disable: #ffffff22;
-    --messenger-input-submit-enable: #ffffff44;
-    --messenger-input-submit-enable-hover: #ffffff88;
-    --messenger-input-emoji: #ffffff08;
-    --messenger-input-emoji-hover: #ffffff11;
-    --messenger-input-placeholder: #ffffff44;
-
-    --background-blur: 10px;
-
-    --messenger-loader: #000;
-    --messenger-loader-dots: #fff;
-
-    --date: #ffffff11;
-    --date-color: #fff;
-
-    --popup: #00000088;
-    --popup-container: #ffffff05;
-    --popup-buttons: #ffffff08;
-    --popup-buttons-hover: #ffffff15;
-
-    --message: #ffffff11;
-    --message-blur: 5px;
-    --message-username: #ffffff55;
-    --message-time: #ffffff55;
-
-    --message-options: #ffffff11;
-    --message-options-hover: #ffffff25;
-
-    --login: linear-gradient(39deg, rgba(0,26,42,0) 0%, rgba(0,0,0,0.8) 50%, rgba(0,21,26,0) 100%);
-    --login-mode: #ffffff08;
-    --login-mode-features: #ffffff08;
-
-    --login-name-page: #000000aa;
-    --login-name-placeholder: #ffffff44;
-    --login-name-button: #ffffff08;
-    --login-name-button-hover: #ffffff11;
-    --login-name-error: #ffffff22;
-}
-
-[data-theme="7"] {
-    --menu: #000000cc;
-    --menu-hover: #000000;
-    --menu-item: #ffffff08;
-    --menu-item-hover: #ffffff11;
-    --menu-back: #ffffff08;
-    --menu-back-hover: #ffffff11;
-
-    --settings-page: #00000088;
-    --settings: #000000cc;
-    --settings-header-border: #ffffff08;
-    --settings-back: #ffffff08;
-    --settings-back-hover: #ffffff11;
-    --settings-item: #ffffff08;
-    --settings-item-border: #ffffff11;
-    --settings-item-border-hover: #ffffff00;
-
-    --warning-page: #000000cc;
-    --warning-page-button: #ffffff08;
-
-    --messenger-input: #000000cc;
-    --messenger-input-submit-disable: #ffffff22;
-    --messenger-input-submit-enable: #ffffff44;
-    --messenger-input-submit-enable-hover: #ffffff88;
-    --messenger-input-emoji: #ffffff08;
-    --messenger-input-emoji-hover: #ffffff11;
-    --messenger-input-placeholder: #ffffff44;
-
-    --background-blur: 20px;
-
-    --messenger-loader: #000;
-    --messenger-loader-dots: #fff;
-
-    --date: #000000cc;
-    --date-color: #fff;
-
-    --popup: #000000cc;
-    --popup-container: #ffffff08;
-    --popup-buttons: #ffffff08;
-    --popup-buttons-hover: #ffffff15;
-
-    --message: #000000cc;
-    --message-blur: 5px;
-    --message-username: #ffffff55;
-    --message-time: #ffffff55;
-
-    --message-options: #000000cc;
-    --message-options-hover: #000000;
-
-    --login: linear-gradient(39deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,1) 50%, rgba(0,0,0,0.5) 100%);
-    --login-mode: #ffffff08;
-    --login-mode-features: #ffffff08;
-
-    --login-name-page: #00000088;
-    --login-name-placeholder: #ffffff44;
-    --login-name-button: #ffffff08;
-    --login-name-button-hover: #ffffff11;
-    --login-name-error: #ffffff08;
+    --enter-modes: #00000088;
+    --enter-modes-box: #ffffff02;
+    --enter-modes-box-border: #ffffff08;
+    --enter-modes-box-item: #ffffff08;
+    --enter-modes-box-hover: #ffffff08;
+    --auth-error: #ffffff08;
+    --auth-feild: #ffffff08;
+    --auth-feild-placeholder: #ffffff55;
+    --auth-button: #ffffff08;
+    --auth-button-hover: #ffffff08;
 }
 
 /* width */

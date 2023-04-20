@@ -70,7 +70,7 @@ const Container = styled(motion.section)`
     display: flex;
     justify-content: center;
     align-items: center;
-    background: var(--login);
+    background: var(--auth-background);
     position: absolute;
     z-index: 2;
     user-select: none;
@@ -106,7 +106,7 @@ const Container = styled(motion.section)`
                 text-align: center;
                 font-size: .5rem;
                 margin: .2rem;
-                background-color: var(--login-mode-features);
+                background-color: var(--enter-modes-box-item);
                 padding: .4rem .3rem;
                 border-radius: 10px;
             }
@@ -114,7 +114,7 @@ const Container = styled(motion.section)`
 
         @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
             &:hover {
-                background-color: #ffffff08;
+                background-color: var(--enter-modes-box-hover);
                 border: solid 1px #ffffff00;
             }
         }

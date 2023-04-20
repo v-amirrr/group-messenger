@@ -103,7 +103,7 @@ const MessengerInput = () => {
                             {sendMessageLoading ?
                             <div key="pending" className='loader'><MessageLoader size={"1.5rem"} /></div> : 
                             sendMessageError ?
-                            <motion.div initial='hidden' animate='visible' exit='exit' variants={sendInputIconVariants} key="error"><IoAlert /></motion.div> :
+                            <motion.div initial='hidden' animate='visible' exit='exit' variants={sendInputIconVariants} key="error"><IoAlert color='red' /></motion.div> :
                             <motion.div initial='hidden' animate='visible' exit='exit' variants={sendInputIconVariants} key="send"><IoSend /></motion.div>}
                         </AnimatePresence>
                     </motion.button>

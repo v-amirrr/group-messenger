@@ -17,22 +17,33 @@ export const useSendMessage = () => {
         dispatch(setSendMessageError(null));
         dispatch(setClearReplyTo());
 
-        addDoc(firebaseRef, {
-            message: messageText,
-            uid: user.uid,
-            username: user?.displayName,
-            time: serverTimestamp(),
-            replyTo: replyTo.id,
-        })
-        .then(() => {
-            setTimeout(() => {
+        if (navigator.onLine) {
+            addDoc(firebaseRef, {
+                message: messageText,
+                uid: user.uid,
+                username: user?.displayName,
+                time: serverTimestamp(),
+                replyTo: replyTo.id,
+            })
+            .then(() => {
+                setTimeout(() => {
+                    dispatch(setSendMessageLoading(false));
+                }, 1000);
+            })
+            .catch(() => {
+                dispatch(setSendMessageError(true));
                 dispatch(setSendMessageLoading(false));
-        }, 500);
-        })
-        .catch(() => {
-            dispatch(setSendMessageError(true));
-            dispatch(setSendMessageLoading(false));
-        });
+            });
+        } else {
+            setTimeout(() => {
+                dispatch(setSendMessageError(true));
+                dispatch(setSendMessageLoading(false));
+
+                setTimeout(() => {
+                    dispatch(setSendMessageError(null));
+                }, 3000);
+            }, 1000);
+        }
     };
 
     return { sendMessage };

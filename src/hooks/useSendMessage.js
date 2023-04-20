@@ -1,7 +1,7 @@
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from '../config/firebase';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSendMessageError, setSendMessageLoading, setClearReplyTo } from '../redux/sendMessageSlice';
+import { setSendMessageError, setSendMessageLoading, setClearReplyTo, setRestoredText } from '../redux/sendMessageSlice';
 
 export const useSendMessage = () => {
 
@@ -15,6 +15,7 @@ export const useSendMessage = () => {
     const sendMessage = (messageText) => {
         dispatch(setSendMessageLoading(true));
         dispatch(setSendMessageError(null));
+        dispatch(setRestoredText(null));
         dispatch(setClearReplyTo());
 
         if (navigator.onLine) {
@@ -33,11 +34,13 @@ export const useSendMessage = () => {
             .catch(() => {
                 dispatch(setSendMessageError(true));
                 dispatch(setSendMessageLoading(false));
+                dispatch(setRestoredText(messageText));
             });
         } else {
             setTimeout(() => {
                 dispatch(setSendMessageError(true));
                 dispatch(setSendMessageLoading(false));
+                dispatch(setRestoredText(messageText));
 
                 setTimeout(() => {
                     dispatch(setSendMessageError(null));

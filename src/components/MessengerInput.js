@@ -38,7 +38,7 @@ const MessengerInput = () => {
     const [emojiPickerShow, setEmojiPickerShow] = useState(false);
 
     const { error, localUsername } = useSelector(store => store.messagesStore);
-    const { error: sendMessageError, loading: sendMessageLoading, replyTo } = useSelector(store => store.sendMessageStore);
+    const { error: sendMessageError, loading: sendMessageLoading, replyTo, restoredText } = useSelector(store => store.sendMessageStore);
     const { popupShow, popupName } = useSelector(store => store.popupStore);
 
     const inputSubmitHandler = () => {
@@ -66,6 +66,12 @@ const MessengerInput = () => {
     useEffect(() => {
         focusHandler();
     }, [popupShow, popupName]);
+
+    useEffect(() => {
+        if (restoredText) {
+            setInputText(restoredText);
+        }
+    }, [sendMessageError]);
 
     return (
         <>

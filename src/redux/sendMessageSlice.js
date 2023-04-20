@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     error: null,
     loading: false,
+    restoredText: null,
     replyTo: { id: null, message: null, username: null },
 };
 
@@ -36,6 +37,9 @@ const messagesSlice = createSlice({
                 }
             }
         },
+        setRestoredText: (state, action) => {
+            return { ...state, restoredText: action.payload };
+        },
     },
 });
 
@@ -44,6 +48,7 @@ export const {
     setSendMessageLoading,
     setSendMessageReplyTo,
     setClearReplyTo,
+    setRestoredText,
 } = messagesSlice.actions;
 
 export default messagesSlice.reducer;

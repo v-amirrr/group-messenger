@@ -90,7 +90,7 @@ const PopupContainer = styled(motion.div)`
             font-family: "Outfit", sans-serif;
             cursor: pointer;
             user-select: none;
-            transition: background-color .4s;
+            transition: background-color .2s;
             color: #fff;
 
             @media (hover: hover) and (pointer: fine) and (min-width: 745px) {

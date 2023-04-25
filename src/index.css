@@ -17,6 +17,7 @@
     --settings-item: #ffffff05;
     --settings-item-border: #ffffff11;
     --settings-item-border-hover: #ffffff00;
+    --settings-submit: #000000;
 
     --warning-page: #000000dd;
     --warning-page-button: #ffffff08;
@@ -79,6 +80,7 @@
     --settings-item: #ffffff08;
     --settings-item-border: #ffffff11;
     --settings-item-border-hover: #ffffff00;
+    --settings-submit: #000000;
 
     --warning-page: #00000088;
     --warning-page-button: #ffffff08;
@@ -138,13 +140,14 @@
     --menu-back-hover: #ffffff22;
 
     --settings-page: #00000088;
-    --settings: #ffffff11;
-    --settings-header-border: #ffffff11;
-    --settings-back: #ffffff11;
+    --settings: #ffffff08;
+    --settings-header-border: #ffffff08;
+    --settings-back: #ffffff08;
     --settings-back-hover: #ffffff22;
-    --settings-item: #ffffff05;
-    --settings-item-border: #ffffff11;
+    --settings-item: #ffffff08;
+    --settings-item-border: #ffffff22;
     --settings-item-border-hover: #ffffff00;
+    --settings-submit: #000000;
 
     --warning-page: #00000088;
     --warning-page-button: #ffffff11;
@@ -166,9 +169,9 @@
     --date-color: #fff;
 
     --popup: #00000088;
-    --popup-container: #ffffff11;
+    --popup-container: #ffffff08;
     --popup-buttons: #ffffff08;
-    --popup-buttons-hover: #ffffff15;
+    --popup-buttons-hover: #ffffff11;
 
     --message: #ffffff15;
     --message-blur: 5px;
@@ -211,6 +214,7 @@
     --settings-item: #ffffff05;
     --settings-item-border: #ffffff11;
     --settings-item-border-hover: #ffffff00;
+    --settings-submit: #000000;
 
     --warning-page: #000000bb;
     --warning-page-button: #ffffff08;

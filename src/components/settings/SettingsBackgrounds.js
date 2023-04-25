@@ -1,4 +1,5 @@
 import React, { memo, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useChangeTheme } from '../../hooks/useChangeTheme';
 import themeOneImageSRC from '../../assets/images/1.webp';
 import themeTowImageSRC from '../../assets/images/2.webp';
@@ -6,7 +7,6 @@ import themeThreeImageSRC from '../../assets/images/3.webp';
 import themeFourImageSRC from '../../assets/images/4.webp';
 import { FcPicture } from "react-icons/fc";
 import { RiArrowRightSLine } from "react-icons/ri";
-import { TiArrowLeft } from "react-icons/ti";
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 
@@ -36,17 +36,18 @@ const themeVariants = {
 
 const SettingsBackgrounds = () => {
 
+    const { theme } = useSelector(store => store.userStore);
+
     const { changeTheme } = useChangeTheme();
 
     const [open, setOpen] = useState(false);
 
     return (
         <>
-            <SettingsThemesContainer open={open ? 1 : 0}>
+            <SettingsThemesContainer open={open ? 1 : 0} theme={theme}>
                 <AnimatePresence exitBeforeEnter>
                     {open ? 
                     <motion.div key="theme-open" className='theme-open' initial='hidden' animate='visible' exit='exit' variants={themesOpenVariants}>
-                        <div className='theme-open-back' onClick={() => setOpen(false)}><TiArrowLeft /></div>
                         <motion.div className='themes' variants={themesVariants}>
                             <motion.div className='theme' onClick={() => changeTheme(1)} variants={themeVariants}>
                                 <img src={themeOneImageSRC} />
@@ -61,6 +62,7 @@ const SettingsBackgrounds = () => {
                                 <img src={themeFourImageSRC} />
                             </motion.div>
                         </motion.div>
+                        <button className='theme-open-submit' onClick={() => setOpen(false)}>Done</button>
                     </motion.div> :
                     <motion.div key="theme-close" onClick={() => setOpen(true)} className='theme-close' initial='hidden' animate='visible' exit='exit' variants={themesCloseVariants}>
                         <i className='list-item-icon'><FcPicture /></i>
@@ -74,8 +76,8 @@ const SettingsBackgrounds = () => {
 };
 
 const SettingsThemesContainer = styled.div`
-    width: ${props => props.open ? "80%" : "60%"};
-    height: ${props => props.open ? "18rem" : "2rem"};
+    width: ${props => props.open ? "70%" : "65%"};
+    height: ${props => props.open ? "18rem" : "2.2rem"};
     border: ${props => props.open ? "solid 1px #ffffff00" : "solid 1px var(--settings-item-border)"};
     padding: ${props => props.open ? "" : "0 .5rem"};
     display: flex;
@@ -115,7 +117,6 @@ const SettingsThemesContainer = styled.div`
             font-size: 1.5rem;
             position: absolute;
             right: 0;
-            transition: font-size .2s;
         }
     }
 
@@ -149,33 +150,60 @@ const SettingsThemesContainer = styled.div`
             flex-direction: column;
             width: 100%;
             height: 100%;
-            padding: 2rem 0;
+            padding: 1rem 0 3rem 0;
             overflow: hidden scroll;
 
             .theme {
                 border-radius: 20px;
-                width: 70%;
+                width: 80%;
                 height: 8rem;
                 margin: .4rem 0;
                 cursor: pointer;
+                border: solid 5px #ffffff00;
+                transition: border .2s;
 
                 img {
                     width: 100%;
                     height: 100%;
                     border-radius: 20px;
                 }
+
+                &:nth-child(1) {
+                    border: ${props => props.theme == 1 ? "solid 5px #fff" : ""};
+                }
+    
+                &:nth-child(2) {
+                    border: ${props => props.theme == 2 ? "solid 5px #fff" : ""};
+                }
+    
+                &:nth-child(3) {
+                    border: ${props => props.theme == 3 ? "solid 5px #fff" : ""};
+                }
+    
+                &:nth-child(4) {
+                    border: ${props => props.theme == 4 ? "solid 5px #fff" : ""};
+                }
             }
         }
 
+        .theme-open-submit {
+            position: absolute;
+            bottom: 0;
+            padding: .5rem;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--settings-submit);
+            border: none;
+            cursor: pointer;
+            font-size: .8rem;
+        }
     }
 
     @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
         &:hover {
             border: ${props => props.open ? "" : "solid 1px var(--settings-item-border-hover)"};
-    
-            .list-item-back {
-                font-size: 2rem;
-            }
         }
     }
 `;

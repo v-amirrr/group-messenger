@@ -29,6 +29,7 @@
     --messenger-input-emoji: #ffffff08;
     --messenger-input-emoji-hover: #ffffff11;
     --messenger-input-placeholder: #ffffff44;
+    --messenger-input-reply: #ffffff08;
 
     --background-blur: 20px;
 
@@ -81,6 +82,7 @@
     --settings-item-border: #ffffff11;
     --settings-item-border-hover: #ffffff00;
     --settings-submit: #000000;
+    --messenger-input-reply: #00000088;
 
     --warning-page: #00000088;
     --warning-page-button: #ffffff08;
@@ -131,8 +133,8 @@
 }
 
 [data-theme="3"] {
-    --menu: #ffffff15;
-    --menu-icon: #ffffff00;
+    --menu: #000000aa;
+    --menu-icon: #ffffff15;
     --menu-icon-hover: #ffffff22;
     --menu-item: #ffffff08;
     --menu-item-hover: #ffffff11;
@@ -159,6 +161,7 @@
     --messenger-input-emoji: #ffffff08;
     --messenger-input-emoji-hover: #ffffff11;
     --messenger-input-placeholder: #ffffff44;
+    --messenger-input-reply: #ffffff15;
 
     --background-blur: 20px;
 
@@ -226,6 +229,7 @@
     --messenger-input-emoji: #ffffff08;
     --messenger-input-emoji-hover: #ffffff11;
     --messenger-input-placeholder: #ffffff44;
+    --messenger-input-reply: #00000044;
 
     --background-blur: 20px;
 

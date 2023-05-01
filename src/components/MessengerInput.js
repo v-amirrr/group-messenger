@@ -226,11 +226,13 @@ const MessengerInputContainer = styled(motion.section)`
 const ReplyTo = styled(motion.div)`
     max-width: 25%;
     height: 2rem;
-    padding: 0 .3rem;
+    padding: 0 .2rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(39deg, rgba(0,59,94,1) 0%, rgba(0,26,42,1) 0%, rgba(0,27,43,1) 1%, rgba(0,0,0,1) 50%, rgba(0,22,27,1) 99%, rgba(0,27,33,1) 100%, rgba(0,69,83,1) 100%);
+    background-color: var(--messenger-input-reply);
+    backdrop-filter: blur(20px) saturate(100%);
+    -webkit-backdrop-filter: blur(20px) saturate(100%);
     border-radius: 50px;
     position: absolute;
     bottom: 3.5rem;
@@ -246,11 +248,11 @@ const ReplyTo = styled(motion.div)`
         font-size: 1.2rem;
         border-radius: 50%;
         cursor: pointer;
-        transition: background .2s, padding .2s;
+        padding: .2rem;
+        transition: background .2s;
 
         @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
             &:hover {
-                padding: .2rem;
                 background-color: #f5f0f011;
             }
         }
@@ -274,19 +276,9 @@ const ReplyTo = styled(motion.div)`
         .text {
             font-size: .8rem;
             font-weight: 200;
-            text-overflow: clip;
+            overflow: hidden;
+            text-overflow: ellipsis;
             white-space: nowrap;
-            
-            :after {
-                content: '';
-                position: absolute;
-                top: 0;
-                right: 0;
-                width: 40%;
-                height: ${props => props.messageletters > 50 ? "100%" : "0"};
-                pointer-events: none;
-                background-image: linear-gradient(to right, transparent, #000000);
-            }
         }
     }
 

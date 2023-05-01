@@ -33,17 +33,16 @@ export const useAuth = () => {
         if (username && email && password) {
             createUserWithEmailAndPassword(auth, email, password)
                 .then((res) => {
-                    updateProfile(auth.currentUser, { displayName: username });
                     updateProfile(auth.currentUser, {
                         displayName: username,
-                      }).then(() => {
-                          dispatch(setSignup({ loading: false, error: null }));
-                          localStorage.setItem("user", JSON.stringify(res.user));
-                          dispatch(setUser(res.user));
-                          navigate("/");
-                      }).catch((err) => {
-                        dispatch(setSignup({ loading: false, error: err.message }));
-                      });
+                    }).then(() => {
+                        dispatch(setSignup({ loading: false, error: null }));
+                        localStorage.setItem("user", JSON.stringify(res.user));
+                        dispatch(setUser(res.user));
+                        navigate("/");
+                    }).catch((err) => {
+                    dispatch(setSignup({ loading: false, error: err.message }));
+                    });
                 })
                 .catch((err) => {
                     dispatch(setSignup({ loading: false, error: err.message }));

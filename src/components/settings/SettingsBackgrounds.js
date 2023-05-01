@@ -76,7 +76,7 @@ const SettingsBackgrounds = () => {
 };
 
 const SettingsThemesContainer = styled.div`
-    width: ${props => props.open ? "70%" : "65%"};
+    width: 65%;
     height: ${props => props.open ? "18rem" : "2.2rem"};
     border: ${props => props.open ? "solid 1px #ffffff00" : "solid 1px var(--settings-item-border)"};
     padding: ${props => props.open ? "" : "0 .5rem"};
@@ -87,8 +87,9 @@ const SettingsThemesContainer = styled.div`
     cursor: ${props => props.open ? "" : "pointer"};
     overflow: hidden;
     position: relative;
+    margin: .3rem;
     background-color: var(--settings-item);
-    transition: background .2s, border .2s, width .8s cubic-bezier(.53,0,0,.98), height .8s cubic-bezier(.53,0,0,.98), padding .2s;
+    transition: background .2s, border .2s, height .8s cubic-bezier(.53,0,0,.98), padding .2s;
 
     .theme-close {
         display: flex;

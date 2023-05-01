@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { useRedirection } from '../../hooks/useRedirection';
 import SettingsBackgrounds from './SettingsBackgrounds';
+import SettingsUser from './SettingsUser';
 import { TiArrowLeft } from "react-icons/ti";
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
@@ -21,6 +23,7 @@ const settingsContainerVariants = {
 const Settings = () => {
 
     const { groupChatRedirection } = useRedirection();
+    const { enterAsAGuest } = useSelector(store => store.userStore);
 
     useEffect(() => {
         groupChatRedirection();
@@ -39,9 +42,9 @@ const Settings = () => {
 
                     <ul>
                         <SettingsBackgrounds />
+                        {enterAsAGuest ? "" : <SettingsUser />}
                     </ul>
                 </SettingsContainer>
-            <Outlet />
             </SettingsPage>
 
         </>

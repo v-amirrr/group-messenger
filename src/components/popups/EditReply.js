@@ -26,6 +26,7 @@ const EditReply = ({ replyTo, popupMessageId, editReplyOpen, setEditReplyOpen })
     const { editReply } = useMessageOptions();
 
     const { messages, localUsername } = useSelector(store => store.messagesStore);    
+    const { user } = useSelector(store => store.userStore);
 
     const [newReply, setNewReply] = useState(replyTo?.id);
     const [messagesBefore, setMessagesBefore] = useState([]);
@@ -38,11 +39,11 @@ const EditReply = ({ replyTo, popupMessageId, editReplyOpen, setEditReplyOpen })
                 return 0;
             }
         }
-        
+
         if (priorDifferentDate && nextDifferentDate) {
             return 0;
         }
-        
+
         if (priorDifferentDate && !nextDifferentDate) {
             if (nextUsername == messageUsername) {
                 return 1;
@@ -50,7 +51,7 @@ const EditReply = ({ replyTo, popupMessageId, editReplyOpen, setEditReplyOpen })
                 return 0;
             }
         }
-        
+
         if (!priorDifferentDate && nextDifferentDate) {
             if (periorUsername == messageUsername) {
                 return 3;
@@ -110,6 +111,13 @@ const EditReply = ({ replyTo, popupMessageId, editReplyOpen, setEditReplyOpen })
                 <AnimatePresence>
                     {editReplyOpen ? 
                     <motion.div key="open" className='reply-messages' initial='hidden' animate='visible' exit='exit' variants={replyAddSectionVariants}>
+                        <header>
+                            <h3>Choose the message you want to reply to</h3>
+                            <hr />
+                            <motion.button key="close-icon" className='close-button' onClick={() => setEditReplyOpen(!editReplyOpen)} whileTap={{ scale: 0.8 }}>
+                                <IoClose />
+                            </motion.button>
+                        </header>
                         {messagesBefore?.map(message => (
                             <>
                                 {message.priorDifferentDate ? 
@@ -120,7 +128,7 @@ const EditReply = ({ replyTo, popupMessageId, editReplyOpen, setEditReplyOpen })
                                         <p className='day'>{message.time.day}</p>
                                     </div> : ""
                                 : ""}
-                                <AddMessageContainer key={message.id} onClick={() => newReply == message.id ? setNewReply("deleted") : setNewReply(message.id)} isuser={message.username == localUsername ? 1 : 0} ispersian={isRTL(message.message) ? 1 : 0} isreply={message.replyTo != "no_reply" ? 1 : 0} selected={message.id == newReply ? 1 : 0} messagePosition={message.messagePosition}>
+                                <AddMessageContainer key={message.id} onClick={() => newReply == message.id ? setNewReply("deleted") : setNewReply(message.id)} isuser={message.username == localUsername ? 1 : 0} ispersian={isRTL(message.message) ? 1 : 0} isreply={message.replyTo != "no_reply" ? 1 : 0} selected={message.id == newReply ? 1 : 0} messagePosition={message.messagePosition} isMessageFromLocalUser={message.uid == user.uid ? 1 : 0}>
                                     {message.replyTo != "no_reply" ? 
                                     <div className='reply-section'>
                                         {message.replyTo ? 
@@ -149,12 +157,9 @@ const EditReply = ({ replyTo, popupMessageId, editReplyOpen, setEditReplyOpen })
 
                     <AnimatePresence>
                         {!editReplyOpen ? 
-                        <motion.button key="open-icon" className='reply-button' onClick={() => setEditReplyOpen(!editReplyOpen)} initial='hidden' animate='visible' exit='exit' variants={replyButtonVariants}>
+                        <motion.button className='open-button' onClick={() => setEditReplyOpen(!editReplyOpen)} initial='hidden' animate='visible' exit='exit' variants={replyButtonVariants}>
                             <BsReplyFill />
-                        </motion.button> :
-                        <motion.button key="close-icon" className='reply-button' onClick={() => setEditReplyOpen(!editReplyOpen)} initial='hidden' animate='visible' exit='exit' variants={replyButtonVariants}>
-                            <IoClose />
-                        </motion.button>}
+                        </motion.button> : ""}
                     </AnimatePresence>
                 </AnimatePresence>
             </ReplyConatiner>
@@ -173,28 +178,70 @@ const ReplyConatiner = styled(motion.div)`
     width: ${props => props.editReplyOpen ? "100%" : "2.2rem"};
     height: ${props => props.editReplyOpen ? "100%" : "2.2rem"};
     border-radius: 25px;
-    background: rgb(0,59,94);
-    background: linear-gradient(39deg, rgba(0,59,94,1) 0%, rgba(0,26,42,1) 0%, rgba(0,27,43,1) 1%, rgba(0,0,0,1) 50%, rgba(0,22,27,1) 99%, rgba(0,27,33,1) 100%, rgba(0,69,83,1) 100%);
+    background-color: var(--edit-reply-background);
     z-index: 10;
     overflow: hidden;
     transition: margin .5s, width .8s cubic-bezier(.53,0,0,.98), height .8s cubic-bezier(.53,0,0,.98);
 
-    .reply-button {
+    header {
+        position: relative;
+        margin-bottom: 2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        user-select: none;
+
+        h3 {
+            white-space: nowrap;
+            word-spacing: 3px;
+            letter-spacing: -1px;
+        }
+
+        hr {
+            width: 100%;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0));
+            border: none;
+            height: 2px;
+            position: absolute;
+            bottom: -.8rem;
+        }
+
+        .close-button {
+            all: unset;
+            font-size: 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            position: absolute;
+            left: 0;
+            background-color: #ffffff11;
+            backdrop-filter: blur(20px) saturate(100%);
+            -webkit-backdrop-filter: blur(20px) saturate(100%);
+            border-radius: 50%;
+            padding: .3rem;
+            z-index: 999;
+            transition: background .3s;
+
+            &:hover {
+                background-color: #ffffff22;
+            }
+        }
+    }
+
+    .open-button {
         all: unset;
-        font-size: ${props => props.editReplyOpen ? "2rem" : "1.5rem"};
+        font-size: 1.5rem;
         display: flex;
         justify-content: center;
         align-items: center;
         cursor: pointer;
         position: absolute;
-        top: ${props => props.editReplyOpen ? "1rem" : ""};
-        left: ${props => props.editReplyOpen ? "1rem" : ""};
-        background-color: ${props => props.editReplyOpen ? "#ffffff11" : "#020208"};
         backdrop-filter: blur(20px) saturate(100%);
         -webkit-backdrop-filter: blur(20px) saturate(100%);
         border-radius: 50%;
         padding: .3rem;
-        transition: top .3s, left .3s;
         z-index: 999;
     }
 
@@ -268,10 +315,13 @@ const ReplyConatiner = styled(motion.div)`
 `;
 
 const AddMessageContainer = styled.div`
+    background-color: ${props => props.selected ? "#ffffff33" : "#ffffff0c"};
     position: relative;
     display: flex;
     align-items: center;
-    background-color: ${props => props.selected ? "#ffffff33" : "#ffffff0c"};
+    flex-direction: ${ props => props.isMessageFromLocalUser ? "row-reverse" : "row"};
+    user-select: none;
+    z-index: 2;
     margin: ${props => 
         props.messagePosition == 0 ? 
         ".2rem 0" : 
@@ -283,7 +333,7 @@ const AddMessageContainer = styled.div`
         ".04rem 0 .2rem 0"
     };
     border-radius: ${props => 
-        props.isuser ? 
+        props.isMessageFromLocalUser ? 
             props.messagePosition == 0 ? 
             "25px" : 
             props.messagePosition == 1 ? 
@@ -301,21 +351,23 @@ const AddMessageContainer = styled.div`
             props.messagePosition == 3 && 
             "2px 25px 25px 25px"
     };
-    margin-left: ${props => props.isuser && "auto"};
+    margin-left: ${props => props.isMessageFromLocalUser && "auto"};
     padding: ${props => props.isreply ? "2.4rem 2.8rem .5rem .8rem" : ".5rem 2.8rem .5rem .8rem"};
     min-width: ${props => props.isreply ? "22%" : ""};
     width: fit-content;
-    max-width: 80%;
+    max-width: 65%;
+    backdrop-filter: blur(var(--message-blur)) saturate(100%);
+    -webkit-backdrop-filter: blur(var(--message-blur)) saturate(100%);
     font-weight: 200;
-    cursor: pointer;
     word-break: break-all;
-    user-select: none;
+    cursor: pointer;
     transition: background .2s;
 
     .username {
-        display: ${props => props.isuser ? "none" : ""};
-        color: #aaa;
-        font-size: .5rem;
+        display: ${props => props.isMessageFromLocalUser ? "none" : ""};
+        color: var(--message-username);
+        font-size: .7rem;
+        font-weight: 300;
         margin-right: .5rem;
         margin-left: -.2rem;
         white-space: nowrap;
@@ -328,7 +380,7 @@ const AddMessageContainer = styled.div`
         word-break: keep-all;
         white-space: pre-wrap;
         font-family: ${props => props.ispersian ? "Vazirmatn" : "Outfit"}, "Vazirmatn", sans-serif;
-        font-size: .8rem;
+        font-size: 1rem;
     }
 
     .time {
@@ -340,7 +392,7 @@ const AddMessageContainer = styled.div`
         letter-spacing: .5px;
         color: #ffffff55;
         white-space: nowrap;
-        margin: ${props => props.isuser ? ".6rem .5rem" : ".3rem .8rem"};
+        margin: ${props => props.isMessageFromLocalUser ? ".6rem .5rem" : ".3rem .8rem"};
         transform: margin .4s;
     }
 
@@ -385,29 +437,31 @@ const AddMessageContainer = styled.div`
     }
 
     @media (max-width: 768px) {
-        padding: ${props => props.isreply ? "2.4rem 2.5rem .5rem .8rem" : ".5rem 2.5rem .5rem .8rem"};
-        max-width: 90%;
-        min-width: ${props => props.isreply ? "30%" : ""};
-        background-color: #ffffff10;
-        border-radius: ${props => 
-            props.isuser ? 
+        .message-box {
+            padding: ${props => props.isreply ? "2.4rem 2.5rem .5rem .8rem" : ".5rem 2.5rem .5rem .8rem"};
+            max-width: 80%;
+            min-width: ${props => props.isreply ? "30%" : ""};
+            background-color: #ffffff10;
+            border-radius: ${props => 
+                props.isMessageFromLocalUser ? 
+                    props.messagePosition == 0 ? 
+                    "20px" : 
+                    props.messagePosition == 1 ? 
+                    "20px 20px 5px 20px" : 
+                    props.messagePosition == 2 ? 
+                    "20px 5px 5px 20px" : 
+                    props.messagePosition == 3 && 
+                    "20px 5px 20px 20px" :
                 props.messagePosition == 0 ? 
-                "20px" : 
-                props.messagePosition == 1 ? 
-                "20px 20px 5px 20px" : 
-                props.messagePosition == 2 ? 
-                "20px 5px 5px 20px" : 
-                props.messagePosition == 3 && 
-                "20px 5px 20px 20px" :
-            props.messagePosition == 0 ? 
-                "20px" : 
-                props.messagePosition == 1 ? 
-                "20px 20px 20px 5px" : 
-                props.messagePosition == 2 ? 
-                "5px 20px 20px 5px" : 
-                props.messagePosition == 3 && 
-                "5px 20px 20px 20px"
-        };
+                    "20px" : 
+                    props.messagePosition == 1 ? 
+                    "20px 20px 20px 5px" : 
+                    props.messagePosition == 2 ? 
+                    "5px 20px 20px 5px" : 
+                    props.messagePosition == 3 && 
+                    "5px 20px 20px 20px"
+            };
+        }
 
         .username {
             font-size: .5rem;

@@ -43,6 +43,7 @@
     --popup-container: #ffffff06;
     --popup-buttons: #ffffff06;
     --popup-buttons-hover: #ffffff10;
+    --edit-reply-background: #000000;
 
     --message: #ffffff11;
     --message-blur: 5px;
@@ -107,6 +108,7 @@
     --popup-container: #00000088;
     --popup-buttons: #ffffff08;
     --popup-buttons-hover: #ffffff15;
+    --edit-reply-background: #ffffff11;
 
     --message: #ffffff09;
     --message-blur: 5px;
@@ -175,6 +177,7 @@
     --popup-container: #ffffff08;
     --popup-buttons: #ffffff08;
     --popup-buttons-hover: #ffffff11;
+    --edit-reply-background: #000000;
 
     --message: #ffffff15;
     --message-blur: 5px;
@@ -243,6 +246,7 @@
     --popup-container: #ffffff08;
     --popup-buttons: #ffffff08;
     --popup-buttons-hover: #ffffff15;
+    --edit-reply-background: #000000;
 
     --message: #ffffff11;
     --message-blur: 5px;

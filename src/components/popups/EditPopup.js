@@ -61,8 +61,8 @@ const EditPopup = ({ popupMessageId, popupMessageText, popupMessageReplyTo }) =>
 
 const EditPopupContainer = styled.div`
     padding: ${props => props.editreplyopen ? "6rem 3rem" : "0 1rem"};
-    transform: ${props => props.editreplyopen ? "scale(0.5)" : ""};
-    transition: transform 1s cubic-bezier(.53,0,0,.98), padding 1s cubic-bezier(.53,0,0,.98);
+    transform: ${props => props.editreplyopen ? "scale(0)" : ""};
+    transition: transform 1s cubic-bezier(.53,0,0,.98), padding 1.2s cubic-bezier(.53,0,0,.98);
     position: relative;
 
     textarea {

@@ -19,8 +19,8 @@ export const useChangeTheme = () => {
             document.documentElement.setAttribute('data-theme', themeLocalSotrage);
         } else {
             dispatch(setTheme(4));
-            localStorage.setItem("theme", 4);
-            document.documentElement.setAttribute('data-theme', 4);
+            localStorage.setItem("theme", 3);
+            document.documentElement.setAttribute('data-theme', 3);
         }
     };
 

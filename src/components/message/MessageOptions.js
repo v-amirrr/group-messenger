@@ -52,20 +52,24 @@ const MessageOptions = ({ messageUsername, localUsername, isMessageFromLocalUser
                 {localUsername && !enterAsAGuest ? 
                 <motion.div className='reply' onClick={() => replyMessage(messageId, messageText, messageUsername)} whileTap={{ scale: 0.8 }} variants={isMessageFromLocalUser ? size < 500 ? menuItemUserMobileVariants : menuItemUserDesktopVariants : menuItemVariants}>
                     <i><BsReplyFill /></i>
+                    <p>Reply</p>
                 </motion.div>
                 : ""}
 
                 <motion.div className='copy' onClick={() => copyMessage(messageText)} whileTap={{ scale: 0.8 }} variants={isMessageFromLocalUser ? size < 500 ? menuItemUserMobileVariants : menuItemUserDesktopVariants : menuItemVariants}>
                     <i><AiFillCopy /></i>
+                    <p>Copy</p>
                 </motion.div>
 
                 {isMessageFromLocalUser && !enterAsAGuest ? 
                 <>
                     <motion.div className='edit' onClick={() => openPopup("EDIT_POPUP", messageId)} whileTap={{ scale: 0.8 }} variants={isMessageFromLocalUser ? size < 500 ? menuItemUserMobileVariants : menuItemUserDesktopVariants : menuItemVariants}>
                         <i><AiFillEdit /></i>
+                        <p>Edit</p>
                     </motion.div>
                     <motion.div className='delete' onClick={() => openPopup("DELETE_POPUP", messageId)} whileTap={{ scale: 0.8 }} variants={isMessageFromLocalUser ? size < 500 ? menuItemUserMobileVariants : menuItemUserDesktopVariants : menuItemVariants}>
                         <i><AiFillDelete /></i>
+                        <p>Delete</p>
                     </motion.div>
                 </>
                 : ""}
@@ -87,23 +91,18 @@ const MessageOptionsContainer = styled(motion.div)`
     }
 
     .reply, .copy, .edit, .delete {
+        position: relative;
         background-color: var(--message-options);
         margin: 0 .15rem;
         display: flex;
         justify-content: center;
         align-items: center;
-        border-radius: 50%;
+        border-radius: 25px;
         width: 100%;
         height: 50%;
         cursor: pointer;
         padding: .5rem;
-        transition: background .4s;
-
-        @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
-            &:hover {
-                background-color: var(--message-options-hover);
-            }
-        }
+        transition: padding .3s;
 
         i {
             display: flex;
@@ -111,6 +110,56 @@ const MessageOptionsContainer = styled(motion.div)`
             align-items: center;
             flex-direction: row;
             font-size: 1rem;
+        }
+
+        p {
+            font-size: .75rem;
+            position: absolute;
+            right: .6rem;
+            transform: scale(0.5);
+            opacity: 0;
+            transition: transform .3s, opacity .3s;
+        }
+
+        @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
+            &:hover {
+                p {
+                    transform: scale(1);
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
+    .reply {
+        @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
+            &:hover {
+                padding: .5rem 2.7rem .5rem .5rem;
+            }
+        }
+    }
+
+    .copy {
+        @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
+            &:hover {
+                padding: .5rem 2.7rem .5rem .5rem;
+            }
+        }
+    }
+
+    .edit {
+        @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
+            &:hover {
+                padding: .5rem 2.3rem .5rem .5rem;
+            }
+        }
+    }
+
+    .delete {
+        @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
+            &:hover {
+                padding: .5rem 3.2rem .5rem .5rem;
+            }
         }
     }
 
@@ -127,6 +176,10 @@ const MessageOptionsContainer = styled(motion.div)`
         .reply, .copy, .edit, .delete {
             padding: .35rem;
             background-color: var(--message-options);
+
+            p {
+                display: none;
+            }
         }
     }
 `;

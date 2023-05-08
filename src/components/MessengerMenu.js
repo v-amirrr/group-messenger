@@ -75,9 +75,8 @@ const MessengerMenu = () => {
 
 const MessengerMenuContainer = styled(motion.div)`
     position: absolute;
-    top: 0;
-    right: 0;
-    margin: 1rem 1.5rem;
+    top: 1rem;
+    right: 1rem;
     z-index: 3;
     user-select: none;
     backdrop-filter: blur(10px) saturate(100%);
@@ -187,10 +186,6 @@ const MessengerMenuContainer = styled(motion.div)`
                 }
             }
         }
-    }
-
-    @media (max-width: 768px) {
-        margin: 4rem .5rem;
     }
 `;
 

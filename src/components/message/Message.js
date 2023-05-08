@@ -143,11 +143,11 @@ const MessageBox = styled.div`
         background-color: var(--message);
         margin: ${props => 
             props.messagePosition == 0 ? 
-            ".2rem 0" : 
+            ".2rem 0 .2rem 0" : 
             props.messagePosition == 1 ? 
             ".2rem 0 .04rem 0" : 
             props.messagePosition == 2 ? 
-            ".04rem 0" : 
+            ".04rem 0 .04rem 0" : 
             props.messagePosition == 3 && 
             ".04rem 0 .2rem 0"
         };

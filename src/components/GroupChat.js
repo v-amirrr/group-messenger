@@ -39,9 +39,9 @@ const GroupChat = () => {
 
     return (
         <>
-            <MessengerMenu />
-
             <GroupChatContainer ref={messagesContainerRef} initial='hidden' animate='visible' exit='exit' variants={groupChatVariants}>
+                <MessengerMenu />
+
                 <FlipMove>
                     {messages?.map(message => (
                         <Message 

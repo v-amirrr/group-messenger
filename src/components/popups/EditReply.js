@@ -296,6 +296,16 @@ const ReplyConatiner = styled(motion.div)`
     @media (max-width: 768px) {
         margin: ${props => props.editReplyOpen ? "" : "1.5rem .5rem"};
 
+        header {
+            h3 {
+                font-size: .9rem;
+            }
+
+            hr {
+                bottom: -.5rem;
+            }
+        }
+
         .reply-messages {
             padding: 1rem .5rem;
         }
@@ -315,7 +325,7 @@ const ReplyConatiner = styled(motion.div)`
 `;
 
 const AddMessageContainer = styled.div`
-    background-color: ${props => props.selected ? "#ffffff33" : "#ffffff0c"};
+    background-color: ${props => props.selected ? "#ffffff33" : "#ffffff15"};
     position: relative;
     display: flex;
     align-items: center;
@@ -324,13 +334,13 @@ const AddMessageContainer = styled.div`
     z-index: 2;
     margin: ${props => 
         props.messagePosition == 0 ? 
-        ".2rem 0" : 
+        ".4rem 0" : 
         props.messagePosition == 1 ? 
-        ".2rem 0 .04rem 0" : 
+        ".4rem 0 .1rem 0" : 
         props.messagePosition == 2 ? 
-        ".04rem 0" : 
+        ".1rem 0" : 
         props.messagePosition == 3 && 
-        ".04rem 0 .2rem 0"
+        ".1rem 0 .4rem 0"
     };
     border-radius: ${props => 
         props.isMessageFromLocalUser ? 
@@ -355,7 +365,7 @@ const AddMessageContainer = styled.div`
     padding: ${props => props.isreply ? "2.4rem 2.8rem .5rem .8rem" : ".5rem 2.8rem .5rem .8rem"};
     min-width: ${props => props.isreply ? "22%" : ""};
     width: fit-content;
-    max-width: 65%;
+    max-width: 85%;
     backdrop-filter: blur(var(--message-blur)) saturate(100%);
     -webkit-backdrop-filter: blur(var(--message-blur)) saturate(100%);
     font-weight: 200;

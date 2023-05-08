@@ -115,8 +115,7 @@ const MessageOptionsContainer = styled(motion.div)`
     }
 
     @media (max-width: 768px) {
-        left: ${props => props.isMessageFromLocalUser ? "-5.2rem" : "auto"};
-        width: ${props => props.isMessageFromLocalUser ? "5rem" : ""};
+        width: ${props => props.isMessageFromLocalUser ? "4.7rem" : ""};
         background-color: ${props => props.isMessageFromLocalUser ? "#000000aa" : ""};
         border-radius: 50px;
         padding: .2rem .05rem;

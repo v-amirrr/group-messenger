@@ -52,6 +52,8 @@
 
     --message-options: #ffffff11;
     --message-options-hover: #ffffff25;
+    --options-mobile-background: #000000aa;
+    --options-mobile-item: #ffffff08;
 
     --auth-background: #000000dd;
     --enter-modes-box: #ffffff02;
@@ -117,6 +119,8 @@
 
     --message-options: #ffffff09;
     --message-options-hover: #ffffff15;
+    --options-mobile-background: #000000aa;
+    --options-mobile-item: #ffffff08;
 
     --login: linear-gradient(39deg, rgba(0,26,42,0) 0%, rgba(0,0,0,0.8) 50%, rgba(0,21,26,0) 100%);
     --login-mode: #ffffff08;
@@ -186,6 +190,8 @@
 
     --message-options: #ffffff15;
     --message-options-hover: #ffffff33;
+    --options-mobile-background: #000000aa;
+    --options-mobile-item: #ffffff08;
 
     --login: linear-gradient(39deg, rgba(0,26,42,0) 0%, rgba(0,0,0,0.6) 50%, rgba(0,21,26,0) 100%);
     --login-mode: #ffffff08;
@@ -255,6 +261,8 @@
 
     --message-options: #ffffff11;
     --message-options-hover: #ffffff25;
+    --options-mobile-background: #000000aa;
+    --options-mobile-item: #ffffff08;
 
     --enter-modes: #00000088;
     --enter-modes-box: #ffffff02;

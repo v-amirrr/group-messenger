@@ -22,12 +22,15 @@ const Message = forwardRef(( props, ref ) => {
     const { messageIdOptionsShow } = useSelector(store => store.userStore);
 
     const [messagePosition, setMessagePosition] = useState(null);
+    const [clickEvent, setClickEvent] = useState(null);
 
-    const messageClickHandler = () => {
+    const messageClickHandler = (e) => {
         if (messageIdOptionsShow == id) {
             dispatch(setMessageIdOptionsShow(null));
+            setClickEvent(null);
         } else {
             dispatch(setMessageIdOptionsShow(id));
+            setClickEvent(e);
         }
     };
 
@@ -79,7 +82,7 @@ const Message = forwardRef(( props, ref ) => {
 
             <MessageBox key={id} ref={ref} isMessageFromLocalUser={messageUid == localUid ? 1 : 0} ispersian={isRTL(message) ? 1 : 0} messagePosition={messagePosition} isreply={replyTo != "no_reply" ? 1 : 0}>
 
-                <div className='message-box' onClick={messageClickHandler}>
+                <div className='message-box' onClick={(e) => messageClickHandler(e)}>
                     <MessageReply replyTo={replyTo} />
 
                     <p className='username'>
@@ -105,6 +108,7 @@ const Message = forwardRef(( props, ref ) => {
                         isMessageFromLocalUser={messageUid == localUid ? 1 : 0}
                         messageId={id}
                         messageText={message}
+                        clickEvent={clickEvent}
                     />
                     : ""}
                 </AnimatePresence>

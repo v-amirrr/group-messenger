@@ -76,7 +76,7 @@ const MessengerMenu = () => {
 const MessengerMenuContainer = styled(motion.div)`
     position: absolute;
     top: 1rem;
-    right: 1rem;
+    right: 2.4rem;
     z-index: 3;
     user-select: none;
     backdrop-filter: blur(10px) saturate(100%);

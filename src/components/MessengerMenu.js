@@ -187,6 +187,10 @@ const MessengerMenuContainer = styled(motion.div)`
             }
         }
     }
+
+    @media (max-width: 500px) {
+        right: .3rem;
+    }
 `;
 
 export default memo(MessengerMenu);

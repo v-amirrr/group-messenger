@@ -130,7 +130,7 @@ const MessengerInputContainer = styled(motion.section)`
     flex-direction: column;
     min-width: 60%;
     position: absolute;
-    bottom: ${props => props.isreplyto ? "0" : "1rem"};
+    bottom: ${props => props.isreplyto ? ".001rem" : "1rem"};
     transition: bottom .4s;
     z-index: 5;
 

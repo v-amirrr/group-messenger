@@ -97,10 +97,13 @@ const WarningModalPage = styled(motion.section)`
             max-width: 40%;
             font-size: .6rem;
             font-weight: 200;
+            line-height: 1.4;
             margin-bottom: .8rem;
+            color: #afafaf;
         }
         
         .show-again {
+            color: #afafaf;
             font-size: .6rem;
             font-weight: 400;
             margin-bottom: 1.2rem;
@@ -146,11 +149,11 @@ const WarningModalPage = styled(motion.section)`
 
             .warning {
                 font-size: .8rem;
-                max-width: 70%;
+                max-width: 80%;
             }
 
             .guide {
-                max-width: 50%;
+                max-width: 60%;
             }
 
             .submit {

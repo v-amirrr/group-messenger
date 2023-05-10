@@ -172,7 +172,7 @@ const ReplyConatiner = styled(motion.div)`
     justify-content: center;
     align-items: center;
     position: absolute;
-    right: 0;
+    right: ${props => props.editReplyOpen ? "0" : "1rem"};
     bottom: 0;
     margin: ${props => props.editReplyOpen ? "" : "2rem 1.6rem"};
     width: ${props => props.editReplyOpen ? "100%" : "2.2rem"};
@@ -181,7 +181,7 @@ const ReplyConatiner = styled(motion.div)`
     background-color: var(--edit-reply-background);
     z-index: 10;
     overflow: hidden;
-    transition: margin .5s, width .8s cubic-bezier(.53,0,0,.98), height .8s cubic-bezier(.53,0,0,.98);
+    transition: margin .5s, width .8s cubic-bezier(.53,0,0,.98), height .8s cubic-bezier(.53,0,0,.98), right .5s;
 
     header {
         position: relative;

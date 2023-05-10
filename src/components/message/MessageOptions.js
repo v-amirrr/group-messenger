@@ -8,19 +8,19 @@ import { useSelector } from 'react-redux';
 
 const menuMobileUserVariants = {
     hidden: { width: 0, height: 0 },
-    visible: { width: "6.8rem", height: "9.6rem", transition: { duration: 0.6, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } },
+    visible: { width: "6.8rem", height: "9.4rem", transition: { duration: 0.8, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } },
     exit: { opacity: 0, y: 5, transition: { duration: 0.3 } }
 };
 
 const menuMobileGuestVariants = {
     hidden: { width: 0, height: 0 },
-    visible: { width: "6.8rem", height: "3rem", transition: { duration: 0.6, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } },
-    exit: { opacity: 0, y: 5, width: 0, height: 0, transition: { duration: 0.3 } }
+    visible: { width: "6.8rem", height: "3rem", transition: { duration: 0.8, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } },
+    exit: { opacity: 0, y: 5, transition: { duration: 0.3 } }
 };
 
 const menuMobileVariants = {
-    hidden: { opacity: 0, y: 5 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } },
+    hidden: { width: 0, height: 0 },
+    visible: { width: "6.8rem", height: "5rem", transition: { duration: 0.8, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } },
     exit: { opacity: 0, y: 5, transition: { duration: 0.3 } }
 };
 
@@ -42,7 +42,7 @@ const menuItemDesktopVariants = {
     exit: { opacity: 0, x: -80, transition: { duration: 0.5, type: 'tween' } }
 };
 
-const MessageOptions = ({ messageUsername, localUsername, isMessageFromLocalUser, messageId, messageText, clickEvent }) => {
+const MessageOptions = ({ messageUsername, isMessageFromLocalUser, messageId, messageText, clickEvent }) => {
 
     const messageOptionsRef = useRef();
 
@@ -55,7 +55,7 @@ const MessageOptions = ({ messageUsername, localUsername, isMessageFromLocalUser
     return (
         <>
             <MessageOptionsContainer key={messageId} ref={messageOptionsRef} initial='hidden' animate='visible' exit='exit' variants={onMobile ? enterAsAGuest ? menuMobileGuestVariants : isMessageFromLocalUser ? menuMobileUserVariants : menuMobileVariants : menuDesktopVariants} isMessageFromLocalUser={isMessageFromLocalUser ? 1 : 0} x={clickEvent?.pageX} y={clickEvent?.pageY} guest={enterAsAGuest ? 1 : 0}>
-                {localUsername && !enterAsAGuest ? 
+                {!enterAsAGuest ? 
                 <motion.div className='reply' onClick={() => replyMessage(messageId, messageText, messageUsername)} whileTap={{ scale: 0.8 }} variants={onMobile ? "" : isMessageFromLocalUser ? menuItemUserDesktopVariants : menuItemDesktopVariants}>
                     <i><BsReplyFill /></i>
                     <p>Reply</p>
@@ -171,22 +171,22 @@ const MessageOptionsContainer = styled(motion.div)`
 
     @media (max-width: 768px) {
         width: 6.8rem;
-        height: ${props => props.guest ? "3rem" : props.isMessageFromLocalUser ? "9.6rem" : "5rem"};
+        height: ${props => props.guest ? "3rem" : props.isMessageFromLocalUser ? "9.4rem" : "5rem"};
         flex-direction: column;
         position: absolute;
         top: ${props => `${props.y-90}px`};
-        left: ${props => props.x < 240 ? `${props.x-20}px` : "none"};
-        right: ${props => props.x > 240 ? `${370-(props.x)}px` : "none"};
+        left: ${props => !props.isMessageFromLocalUser ? `${props.x-20}px` : "none"};
+        right: ${props => props.isMessageFromLocalUser ? `${395-(props.x)}px` : "none"};
         z-index: 999;
         background-color: var(--options-mobile-background);
         backdrop-filter: blur(10px) saturate(100%);
         -webkit-backdrop-filter: blur(10px) saturate(100%);
         border-radius: 20px;
-        overflow: ${props => props.isMessageFromLocalUser ? "scroll hidden" : ""};
+        overflow: hidden;
         margin: 0;
 
         .reply, .copy, .edit, .delete {
-            margin: .15rem 0;
+            margin: .1rem 0;
             border-radius: 15px;
             background-color: var(--options-mobile-item);
             display: flex;

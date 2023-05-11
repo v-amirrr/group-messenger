@@ -16,7 +16,7 @@ const SelectBar = () => {
 
     const { clearSelectedMessages, copySelectedMessages, deleteSelectedMessages } = useSelect();
 
-    const { selectedMessages } = useSelector(store => store.userStore);
+    const { selectedMessages, enterAsAGuest, selectOthersMessage } = useSelector(store => store.userStore);
 
     return (
         <>
@@ -29,10 +29,12 @@ const SelectBar = () => {
                         <i><AiFillCopy /></i>
                         <p>Copy</p>
                     </motion.div>
+                    {!enterAsAGuest && !selectOthersMessage ?
                     <motion.div className='delete' whileTap={{ scale: 0.8 }} onClick={deleteSelectedMessages}>
                         <i><AiFillDelete /></i>
                         <p>Delete</p>
                     </motion.div>
+                    : ""}
                 </div>
             </SelectBarContainer>
         </>

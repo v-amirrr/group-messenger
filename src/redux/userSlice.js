@@ -11,6 +11,7 @@ const initialState = {
     messageIdOptionsShow: null,
     theme: 4,
     selectedMessages: [],
+    selectOthersMessage: false,
 };
 
 const userSlice = createSlice({
@@ -45,13 +46,22 @@ const userSlice = createSlice({
             return { ...state, googleLogin: { loading: action.payload.loading, error: action.payload.error } };
         },
         setSelectedMessages: (state, action) => {
-            return { ...state, selectedMessages: [ ...state.selectedMessages, { text: action.payload.text, uid: action.payload.uid } ] };
+            return { 
+                ...state, 
+                selectedMessages: [ 
+                    ...state.selectedMessages, 
+                    { text: action.payload.text, uid: action.payload.uid, isMessageFromLocalUser: action.payload.isMessageFromLocalUser } 
+                ] 
+            };
         },
         setClearSelectedMessages: (state) => {
             return { ...state, selectedMessages: [] };
         },
         setUnselectMessages: (state, action) => {
             return { ...state, selectedMessages: action.payload };
+        },
+        setSelectOthersMessage: (state, action) => {
+            return { ...state, selectOthersMessage: action.payload };
         },
     },
 });
@@ -69,6 +79,7 @@ export const {
     setSelectedMessages,
     setClearSelectedMessages,
     setUnselectMessages,
+    setSelectOthersMessage,
 } = userSlice.actions;
 
 export default userSlice.reducer;

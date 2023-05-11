@@ -34,7 +34,7 @@ const Message = forwardRef(( props, ref ) => {
                 unSelectMessage(id);
                 setSelected(false);
             } else {
-                selectMessage(id, message);
+                selectMessage(id, message, messageUid == localUid ? 1 : 0);
             }
         } else {
             if (messageIdOptionsShow == id) {
@@ -90,7 +90,7 @@ const Message = forwardRef(( props, ref ) => {
     }, [popupShow, popupName]);
 
     useEffect(() => {
-        checkMessage(id, selected, setSelected);
+        checkMessage(id, selected, setSelected, localUid);
     }, [selectedMessages]);
 
     return (

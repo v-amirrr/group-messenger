@@ -40,7 +40,7 @@ const menuItemUserDesktopVariants = {
 
 const menuItemDesktopVariants = {
     hidden: { opacity: 0, x: -20, scale: 0.8 },
-    visible: { opacity: 1, x: [-20, 20, 0], scale: 1, transition: { duration: 0.6, type: 'tween' } },
+    visible: { opacity: 1, x: [-20, 20, 0], scale: 1, transition: { duration: 0.5, type: 'tween' } },
     exit: { opacity: 0, x: -80, transition: { duration: 0.5, type: 'tween' } }
 };
 
@@ -65,12 +65,10 @@ const MessageOptions = ({ messageUsername, isMessageFromLocalUser, messageId, me
                 </motion.div>
                 : ""}
 
-                {isMessageFromLocalUser && !enterAsAGuest ? 
-                    <motion.div className='select' onClick={() => selectMessage(messageId, messageText)} whileTap={{ scale: 0.8 }} variants={onMobile ? "" : isMessageFromLocalUser ? menuItemUserDesktopVariants : menuItemDesktopVariants}>
-                        <i><BiSelectMultiple /></i>
-                        <p>Select</p>
-                    </motion.div>
-                : ""}
+                <motion.div className='select' onClick={() => selectMessage(messageId, messageText, isMessageFromLocalUser)} whileTap={{ scale: 0.8 }} variants={onMobile ? "" : isMessageFromLocalUser ? menuItemUserDesktopVariants : menuItemDesktopVariants}>
+                    <i><BiSelectMultiple /></i>
+                    <p>Select</p>
+                </motion.div>
 
                 <motion.div className='copy' onClick={() => copyMessage(messageText)} whileTap={{ scale: 0.8 }} variants={onMobile ? "" : isMessageFromLocalUser ? menuItemUserDesktopVariants : menuItemDesktopVariants}>
                     <i><AiFillCopy /></i>
@@ -101,7 +99,7 @@ const MessageOptionsContainer = styled(motion.div)`
     justify-content: flex-start;
     align-items: center;
     flex-direction: ${props => props.ismessagefromlocaluser ? "row-reverse" : "row"};
-    width: 10rem;
+    width: ${props => props.ismessagefromlocaluser ? "10rem" : ""};
 
     ::-webkit-scrollbar {
         height: 0;

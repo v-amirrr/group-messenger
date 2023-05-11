@@ -1,8 +1,9 @@
-import React, { forwardRef, useState, useEffect, memo } from 'react';
+import React, { forwardRef, useState, useEffect, memo, useLayoutEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPopup } from '../../redux/popupSlice';
 import { setMessageIdOptionsShow } from '../../redux/userSlice';
+import { useSelect } from '../../hooks/useSelect';
 import Popup from '../popups/Popup';
 import MessageOptions from '../message/MessageOptions';
 import ChatDate from '../ChatDate';
@@ -16,21 +17,33 @@ const Message = forwardRef(( props, ref ) => {
 
     const { messageUid, localUid, localUsername, message, id, replyTo, messageUsername, periorUsername, nextUsername, time, priorDifferentDate, nextDifferentDate } = props.message;
 
-    const dispatch = useDispatch();    
+    const dispatch = useDispatch();
+
+    const { selectMessage, checkMessage, unSelectMessage } = useSelect();
 
     const { popupShow, popupName, popupMessageId } = useSelector(store => store.popupStore);
-    const { messageIdOptionsShow } = useSelector(store => store.userStore);
+    const { messageIdOptionsShow, selectedMessages } = useSelector(store => store.userStore);
 
     const [messagePosition, setMessagePosition] = useState(null);
     const [clickEvent, setClickEvent] = useState(null);
+    const [selected, setSelected] = useState(false);
 
     const messageClickHandler = (e) => {
-        if (messageIdOptionsShow == id) {
-            dispatch(setMessageIdOptionsShow(null));
-            setClickEvent(null);
+        if (selectedMessages.length) {
+            if (selected) {
+                unSelectMessage(id);
+                setSelected(false);
+            } else {
+                selectMessage(id, message);
+            }
         } else {
-            dispatch(setMessageIdOptionsShow(id));
-            setClickEvent(e);
+            if (messageIdOptionsShow == id) {
+                dispatch(setMessageIdOptionsShow(null));
+                setClickEvent(null);
+            } else {
+                dispatch(setMessageIdOptionsShow(id));
+                setClickEvent(e);
+            }
         }
     };
 
@@ -76,11 +89,15 @@ const Message = forwardRef(( props, ref ) => {
         }
     }, [popupShow, popupName]);
 
+    useEffect(() => {
+        checkMessage(id, selected, setSelected);
+    }, [selectedMessages]);
+
     return (
         <>
             <ChatDate dateObj={time} priorDifferentDate={priorDifferentDate} />
 
-            <MessageBox key={id} ref={ref} isMessageFromLocalUser={messageUid == localUid ? 1 : 0} ispersian={isRTL(message) ? 1 : 0} messagePosition={messagePosition} isreply={replyTo != "no_reply" ? 1 : 0}>
+            <MessageBox key={id} ref={ref} isMessageFromLocalUser={messageUid == localUid ? 1 : 0} ispersian={isRTL(message) ? 1 : 0} messagePosition={messagePosition} isreply={replyTo != "no_reply" ? 1 : 0} selected={selected ? 1 : 0}>
 
                 <div className='message-box' onClick={(e) => messageClickHandler(e)}>
                     <MessageReply replyTo={replyTo} />
@@ -144,7 +161,7 @@ const MessageBox = styled.div`
         justify-content: center;
         align-items: center;
         flex-direction: ${ props => props.isMessageFromLocalUser ? "row-reverse" : "row"};
-        background-color: var(--message);
+        background-color: ${props => props.selected ? "#ffffff33" : "var(--message)"};
         margin: ${props => 
             props.messagePosition == 0 ? 
             ".2rem 0 .2rem 0" : 
@@ -183,7 +200,7 @@ const MessageBox = styled.div`
         font-weight: 200;
         word-break: break-all;
         cursor: pointer;
-        transition: backdrop-filter .4s, border-radius .4s, margin .4s;
+        transition: backdrop-filter .4s, border-radius .4s, margin .4s, background .2s;
     }
 
     .username {

@@ -8,6 +8,12 @@ import { FcSettings, FcRightUp2 } from "react-icons/fc";
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 
+const menuVariants = {
+    hidden: { opacity: 0, x: 20 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.4, type: 'tween' } },
+    exit: { opacity: 0, x: 20, transition: { duration: 0.4, type: 'tween' } }
+};
+
 const backIconVariants = {
     hidden: { opacity: 0, scale: 0.5, x: 50 },
     visible: { opacity: 1, scale: 1, x: 0, transition: { duration: 0.4 } },
@@ -41,7 +47,7 @@ const MessengerMenu = () => {
 
     return (
         <>
-            <MessengerMenuContainer openmenu={openMenu ? 1 : 0}>
+            <MessengerMenuContainer openmenu={openMenu ? 1 : 0} initial='hidden' animate='visible' exit='exit' variants={menuVariants}>
                 <AnimatePresence>
                     {openMenu ?
                     <motion.i key="back-icon" className='back-icon' onClick={() => setOpenMenu(!openMenu)} initial='hidden' animate='visible' exit='exit' variants={backIconVariants}>
@@ -80,7 +86,7 @@ const MessengerMenuContainer = styled(motion.div)`
     z-index: 3;
     user-select: none;
     backdrop-filter: blur(10px) saturate(100%);
-    -webkit-backdrop-filter: blur(15px) saturate(100%);
+    -webkit-backdrop-filter: blur(10px) saturate(100%);
     background-color: var(--menu);
     border-radius: 25px;
     display: flex;

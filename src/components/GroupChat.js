@@ -4,9 +4,10 @@ import { useRedirection } from '../hooks/useRedirection';
 import FlipMove from 'react-flip-move';
 import Message from './message/Message';
 import MessengerInput from './MessengerInput';
-import styled from 'styled-components';
-import { motion } from 'framer-motion';
 import MessengerMenu from './MessengerMenu';
+import SelectBar from './SelectBar';
+import styled from 'styled-components';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const groupChatVariants = {
     hidden: { opacity: 0, scaleX: 0.5 },
@@ -21,7 +22,7 @@ const GroupChat = () => {
     const { groupChatRedirection } = useRedirection();
 
     const { messages, loading } = useSelector(store => store.messagesStore);
-    const { enterAsAGuest, user } = useSelector(store => store.userStore);
+    const { enterAsAGuest, user, selectedMessages } = useSelector(store => store.userStore);
 
     useEffect(() => {
         groupChatRedirection();
@@ -39,7 +40,13 @@ const GroupChat = () => {
 
     return (
         <>
-            <MessengerMenu />
+            <AnimatePresence exitBeforeEnter>
+                {!selectedMessages.length ? <MessengerMenu key="messenger-menu" /> : ""}
+            </AnimatePresence>
+
+            <AnimatePresence exitBeforeEnter>
+                {selectedMessages.length ? <SelectBar key="select-bar" /> : ""}
+            </AnimatePresence>
 
             <GroupChatContainer ref={messagesContainerRef} initial='hidden' animate='visible' exit='exit' variants={groupChatVariants}>
                 <FlipMove>
@@ -66,7 +73,9 @@ const GroupChat = () => {
                 <div ref={messagesEndRef} />
             </GroupChatContainer>
 
-            {enterAsAGuest ? "" : <MessengerInput />}
+            <AnimatePresence exitBeforeEnter>
+                {!enterAsAGuest && !selectedMessages.length ? <MessengerInput key="messenger-input" /> : ""}
+            </AnimatePresence>
         </>
     );
 };

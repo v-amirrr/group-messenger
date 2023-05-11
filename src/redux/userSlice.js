@@ -10,6 +10,7 @@ const initialState = {
     warningPageNeverShowCheck: JSON.parse(localStorage.getItem("warning-check")),
     messageIdOptionsShow: null,
     theme: 4,
+    selectedMessages: [],
 };
 
 const userSlice = createSlice({
@@ -43,6 +44,15 @@ const userSlice = createSlice({
         setGoogleLogin: (state, action) => {
             return { ...state, googleLogin: { loading: action.payload.loading, error: action.payload.error } };
         },
+        setSelectedMessages: (state, action) => {
+            return { ...state, selectedMessages: [ ...state.selectedMessages, { text: action.payload.text, uid: action.payload.uid } ] };
+        },
+        setClearSelectedMessages: (state) => {
+            return { ...state, selectedMessages: [] };
+        },
+        setUnselectMessages: (state, action) => {
+            return { ...state, selectedMessages: action.payload };
+        },
     },
 });
 
@@ -56,6 +66,9 @@ export const {
     setSignup,
     setEnterAsAGuest,
     setGoogleLogin,
+    setSelectedMessages,
+    setClearSelectedMessages,
+    setUnselectMessages,
 } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -54,8 +54,8 @@ const PopupPage = styled(motion.section)`
     justify-content: center;
     align-items: center;
     background-color: var(--popup);
-    backdrop-filter: blur(20px) saturate(100%);
-    -webkit-backdrop-filter: blur(20px) saturate(100%);
+    backdrop-filter: var(--popup-blur);
+    -webkit-backdrop-filter: var(--popup-blur);
     z-index: 9;
 `;
 
@@ -67,7 +67,7 @@ const PopupContainer = styled(motion.div)`
     align-items: center;
     flex-direction: column;
     background-color: var(--popup-container);
-    border-radius: 25px;
+    border-radius: var(--popup-border-radius);
     position: relative;
 
     p {
@@ -79,9 +79,8 @@ const PopupContainer = styled(motion.div)`
 
         .edit, .delete, .cancel {
             border: none;
-            border-radius: 10px;
+            border-radius: var(--popup-button-border-radius);
             background-color: var(--popup-buttons);
-            box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 8px 0px;
             margin: 0 .3rem;
             width: 5rem;
             height: 2.3rem;
@@ -90,7 +89,7 @@ const PopupContainer = styled(motion.div)`
             font-family: "Outfit", sans-serif;
             cursor: pointer;
             user-select: none;
-            transition: background-color .2s;
+            transition: background-color .3s;
             color: #fff;
 
             @media (hover: hover) and (pointer: fine) and (min-width: 745px) {

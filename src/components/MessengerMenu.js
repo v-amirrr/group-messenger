@@ -21,9 +21,9 @@ const backIconVariants = {
 };
 
 const menuIconVariants = {
-    hidden: { opacity: 0, x: 50, scale: 0.5 },
+    hidden: { opacity: 0 },
     visible: { opacity: 1, x: 0, scale: 1, transition: { duration: 0.4, delay: 0.5 } },
-    exit: { opacity: 0, x: 50, scale: 0, transition: { duration: 0.4 } }
+    exit: { opacity: 0, x: 60, scale: 0, transition: { duration: 0.4 } }
 };
 
 const menuListVariants = {
@@ -85,10 +85,10 @@ const MessengerMenuContainer = styled(motion.div)`
     right: 2.4rem;
     z-index: 3;
     user-select: none;
-    backdrop-filter: blur(10px) saturate(100%);
-    -webkit-backdrop-filter: blur(10px) saturate(100%);
-    background-color: var(--menu);
-    border-radius: 25px;
+    backdrop-filter: var(--menu-blur);
+    -webkit-backdrop-filter: var(--menu-blur);
+    background-color: ${props => props.openmenu ? "var(--menu-opened)" : "var(--menu-closed)"};
+    border-radius: var(--menu-border-radius);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -96,7 +96,7 @@ const MessengerMenuContainer = styled(motion.div)`
     height: ${props => props.openmenu ? "8rem" : "2.5rem"};
     cursor: ${props => props.openmenu ? "" : "pointer"};
     overflow: hidden;
-    transition: width .8s cubic-bezier(.53,0,0,.98), height .8s cubic-bezier(.53,0,0,.98);
+    transition: width .8s cubic-bezier(.53,0,0,.98), height .8s cubic-bezier(.53,0,0,.98), background 1s;
 
     .back-icon, .menu-icon {
         position: absolute;
@@ -163,7 +163,7 @@ const MessengerMenuContainer = styled(motion.div)`
 
         .list-item {
             width: 90%;
-            border-radius: 15px;
+            border-radius: var(--menu-item-border-radius);
             height: 2rem;
             background-color: var(--menu-item);
             white-space: nowrap;

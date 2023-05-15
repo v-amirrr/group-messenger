@@ -139,7 +139,7 @@ const SignupPage = styled(motion.div)`
                     padding: .4rem;
                     border-radius: 50%;
                     cursor: pointer;
-                    transition: background .2s;
+                    transition: background .3s;
 
                     i {
                         display: flex;

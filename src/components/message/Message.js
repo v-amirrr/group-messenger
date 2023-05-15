@@ -161,7 +161,7 @@ const MessageBox = styled.div`
         justify-content: center;
         align-items: center;
         flex-direction: ${ props => props.isMessageFromLocalUser ? "row-reverse" : "row"};
-        background-color: ${props => props.selected ? "#ffffff33" : "var(--message)"};
+        background-color: ${props => props.selected ? "var(--message-selected)" : "var(--message)"};
         margin: ${props => 
             props.messagePosition == 0 ? 
             ".2rem 0 .2rem 0" : 
@@ -195,8 +195,8 @@ const MessageBox = styled.div`
         min-width: ${props => props.isreply ? "22%" : ""};
         width: fit-content;
         max-width: 65%;
-        backdrop-filter: blur(var(--message-blur)) saturate(100%);
-        -webkit-backdrop-filter: blur(var(--message-blur)) saturate(100%);
+        backdrop-filter: var(--message-blur);
+        -webkit-backdrop-filter: var(--message-blur);
         font-weight: 200;
         word-break: break-all;
         cursor: pointer;
@@ -228,7 +228,6 @@ const MessageBox = styled.div`
             padding: ${props => props.isreply ? "2.4rem 2.5rem .5rem .8rem" : ".5rem 2.5rem .5rem .8rem"};
             max-width: 80%;
             min-width: ${props => props.isreply ? "30%" : ""};
-            background-color: #ffffff10;
             border-radius: ${props => 
                 props.isMessageFromLocalUser ? 
                     props.messagePosition == 0 ? 

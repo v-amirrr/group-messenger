@@ -75,7 +75,6 @@ const SettingsUser = () => {
 const SettingsUserContainer = styled.div`
     width: 65%;
     height: ${props => props.open ? "18rem" : "2.2rem"};
-    border: ${props => props.open ? "solid 1px #ffffff00" : "solid 1px var(--settings-item-border)"};
     padding: ${props => props.open ? "" : "0 .5rem"};
     display: flex;
     justify-content: flex-start;
@@ -154,7 +153,7 @@ const SettingsUserContainer = styled.div`
 
     @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
         &:hover {
-            border: ${props => props.open ? "" : "solid 1px var(--settings-item-border-hover)"};
+            background-color: ${props => props.open ? "" : "var(--settings-item-hover)"};
         }
     }
 `;

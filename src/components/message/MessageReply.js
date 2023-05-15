@@ -19,7 +19,7 @@ const MessageReply = ({ replyTo }) => {
 };
 
 const ReplySection = styled.div`
-    background: linear-gradient(39deg, rgba(0,59,94,1) 0%, rgba(0,26,42,1) 0%, rgba(0,27,43,1) 1%, rgba(0,0,0,1) 50%, rgba(0,22,27,1) 99%, rgba(0,27,33,1) 100%, rgba(0,69,83,1) 100%);
+    background-color: var(--message-reply);
     position: absolute;
     top: .4rem;
     left: 50%;

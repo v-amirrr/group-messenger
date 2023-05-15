@@ -70,7 +70,7 @@ const Container = styled(motion.section)`
     display: flex;
     justify-content: center;
     align-items: center;
-    background: var(--auth-background);
+    background: var(--enter-modes);
     position: absolute;
     z-index: 2;
     user-select: none;
@@ -80,7 +80,7 @@ const Container = styled(motion.section)`
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        background-color: #ffffff02;
+        background-color: var(--enter-modes-box);
         border: solid 1px #ffffff08;
         width: 15rem;
         height: 14rem;

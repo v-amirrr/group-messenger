@@ -10,20 +10,26 @@ import { motion } from 'framer-motion';
 
 const menuMobileUserVariants = {
     hidden: { width: 0, height: 0 },
-    visible: { width: "6.8rem", height: "9.4rem", transition: { duration: 0.8, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } },
+    visible: { width: "6.8rem", height: "11.5rem", transition: { duration: 1, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } },
     exit: { opacity: 0, y: 5, transition: { duration: 0.3 } }
 };
 
 const menuMobileGuestVariants = {
     hidden: { width: 0, height: 0 },
-    visible: { width: "6.8rem", height: "3rem", transition: { duration: 0.8, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } },
+    visible: { width: "6.8rem", height: "3rem", transition: { duration: 1, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } },
     exit: { opacity: 0, y: 5, transition: { duration: 0.3 } }
 };
 
 const menuMobileVariants = {
     hidden: { width: 0, height: 0 },
-    visible: { width: "6.8rem", height: "5rem", transition: { duration: 0.8, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } },
+    visible: { width: "6.8rem", height: "7rem", transition: { duration: 1, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } },
     exit: { opacity: 0, y: 5, transition: { duration: 0.3 } }
+};
+
+const menuMobileItemVariants = {
+    hidden: { scale: 0 },
+    visible: { scale: 1, transition: { duration: 0.6, type: 'tween' } },
+    exit: { opacity: 0, transition: { duration: 0.6, type: 'tween' } }
 };
 
 const menuDesktopVariants = {
@@ -35,13 +41,13 @@ const menuDesktopVariants = {
 const menuItemUserDesktopVariants = {
     hidden: { opacity: 0, x: 20, scale: 0.8 },
     visible: { opacity: 1, x: [20, -20, 0], scale: 1, transition: { duration: 0.5, type: 'tween' } },
-    exit: { opacity: 0, x: 80, transition: { duration: 0.5, type: 'tween' } }
+    exit: { opacity: 0, x: 80, transition: { duration: 0.4, type: 'tween' } }
 };
 
 const menuItemDesktopVariants = {
     hidden: { opacity: 0, x: -20, scale: 0.8 },
     visible: { opacity: 1, x: [-20, 20, 0], scale: 1, transition: { duration: 0.5, type: 'tween' } },
-    exit: { opacity: 0, x: -80, transition: { duration: 0.5, type: 'tween' } }
+    exit: { opacity: 0, x: -80, transition: { duration: 0.4, type: 'tween' } }
 };
 
 const MessageOptions = ({ messageUsername, isMessageFromLocalUser, messageId, messageText, clickEvent }) => {
@@ -59,29 +65,29 @@ const MessageOptions = ({ messageUsername, isMessageFromLocalUser, messageId, me
         <>
             <MessageOptionsContainer key={messageId} ref={messageOptionsRef} initial='hidden' animate='visible' exit='exit' variants={onMobile ? enterAsAGuest ? menuMobileGuestVariants : isMessageFromLocalUser ? menuMobileUserVariants : menuMobileVariants : menuDesktopVariants} ismessagefromlocaluser={isMessageFromLocalUser ? 1 : 0} x={clickEvent?.pageX} y={clickEvent?.pageY} guest={enterAsAGuest ? 1 : 0}>
                 {!enterAsAGuest ? 
-                <motion.div className='reply' onClick={() => replyMessage(messageId, messageText, messageUsername)} whileTap={{ scale: 0.8 }} variants={onMobile ? "" : isMessageFromLocalUser ? menuItemUserDesktopVariants : menuItemDesktopVariants}>
+                <motion.div className='reply' onClick={() => replyMessage(messageId, messageText, messageUsername)} whileTap={{ scale: 0.8 }} variants={onMobile ? menuMobileItemVariants : isMessageFromLocalUser ? menuItemUserDesktopVariants : menuItemDesktopVariants}>
                     <i><BsReplyFill /></i>
                     <p>Reply</p>
                 </motion.div>
                 : ""}
 
-                <motion.div className='select' onClick={() => selectMessage(messageId, messageText, isMessageFromLocalUser)} whileTap={{ scale: 0.8 }} variants={onMobile ? "" : isMessageFromLocalUser ? menuItemUserDesktopVariants : menuItemDesktopVariants}>
+                <motion.div className='select' onClick={() => selectMessage(messageId, messageText, isMessageFromLocalUser)} whileTap={{ scale: 0.8 }} variants={onMobile ? menuMobileItemVariants : isMessageFromLocalUser ? menuItemUserDesktopVariants : menuItemDesktopVariants}>
                     <i><BiSelectMultiple /></i>
                     <p>Select</p>
                 </motion.div>
 
-                <motion.div className='copy' onClick={() => copyMessage(messageText)} whileTap={{ scale: 0.8 }} variants={onMobile ? "" : isMessageFromLocalUser ? menuItemUserDesktopVariants : menuItemDesktopVariants}>
+                <motion.div className='copy' onClick={() => copyMessage(messageText)} whileTap={{ scale: 0.8 }} variants={onMobile ? menuMobileItemVariants : isMessageFromLocalUser ? menuItemUserDesktopVariants : menuItemDesktopVariants}>
                     <i><AiFillCopy /></i>
                     <p>Copy</p>
                 </motion.div>
 
                 {isMessageFromLocalUser && !enterAsAGuest ? 
                 <>
-                    <motion.div className='edit' onClick={() => openPopup("EDIT_POPUP", messageId)} whileTap={{ scale: 0.8 }} variants={onMobile ? "" : isMessageFromLocalUser ? menuItemUserDesktopVariants : menuItemDesktopVariants}>
+                    <motion.div className='edit' onClick={() => openPopup("EDIT_POPUP", messageId)} whileTap={{ scale: 0.8 }} variants={onMobile ? menuMobileItemVariants : isMessageFromLocalUser ? menuItemUserDesktopVariants : menuItemDesktopVariants}>
                         <i><AiFillEdit /></i>
                         <p>Edit</p>
                     </motion.div>
-                    <motion.div className='delete' onClick={() => openPopup("DELETE_POPUP", messageId)} whileTap={{ scale: 0.8 }} variants={onMobile ? "" : isMessageFromLocalUser ? menuItemUserDesktopVariants : menuItemDesktopVariants}>
+                    <motion.div className='delete' onClick={() => openPopup("DELETE_POPUP", messageId)} whileTap={{ scale: 0.8 }} variants={onMobile ? menuMobileItemVariants : isMessageFromLocalUser ? menuItemUserDesktopVariants : menuItemDesktopVariants}>
                         <i><AiFillDelete /></i>
                         <p>Delete</p>
                     </motion.div>
@@ -190,6 +196,7 @@ const MessageOptionsContainer = styled(motion.div)`
         width: 6.8rem;
         height: ${props => props.guest ? "3rem" : props.ismessagefromlocaluser ? "9.4rem" : "5rem"};
         flex-direction: column;
+        justify-content: center;
         position: absolute;
         top: ${props => `${props.y-90}px`}; 
         left: ${props => !props.ismessagefromlocaluser ? `${props.x-20}px` : "none"};

@@ -1,279 +1,331 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 [data-theme="1"] {
-    --menu: #000000aa;
-    --menu-icon: #ffffff08;
-    --menu-icon-hover: #ffffff11;
-    --menu-item: #ffffff08;
-    --menu-item-hover: #ffffff11;
-    --menu-back: #ffffff08;
-    --menu-back-hover: #ffffff11;
-
-    --settings-page: #000000aa;
-    --settings: #ffffff08;
-    --settings-header-border: #ffffff11;
-    --settings-back: #ffffff11;
-    --settings-back-hover: #ffffff22;
-    --settings-item: #ffffff05;
-    --settings-item-border: #ffffff11;
-    --settings-item-border-hover: #ffffff00;
-    --settings-submit: #000000;
-
-    --warning-page: #000000dd;
-    --warning-page-button: #ffffff08;
-
-    --messenger-input: #ffffff08;
-    --messenger-input-submit-disable: #ffffff22;
-    --messenger-input-submit-enable: #ffffff44;
-    --messenger-input-submit-enable-hover: #ffffff88;
-    --messenger-input-emoji: #ffffff08;
-    --messenger-input-emoji-hover: #ffffff11;
-    --messenger-input-placeholder: #ffffff44;
-    --messenger-input-reply: #ffffff08;
-
-    --background-blur: 20px;
-
-    --messenger-loader: #000;
-    --messenger-loader-dots: #fff;
-
-    --date: #ffffff11;
-    --date-color: #fff;
-
-    --popup: #000000dd;
-    --popup-container: #ffffff06;
-    --popup-buttons: #ffffff06;
-    --popup-buttons-hover: #ffffff10;
-    --edit-reply-background: #000000;
-
-    --message: #ffffff11;
-    --message-blur: 5px;
-    --message-username: #ffffff55;
-    --message-time: #ffffff55;
-
-    --message-options: #ffffff11;
-    --message-options-hover: #ffffff25;
-    --options-mobile-background: #000000aa;
-    --options-mobile-item: #ffffff08;
-
-    --auth-background: #000000dd;
+    --enter-modes: #00000088;
     --enter-modes-box: #ffffff02;
-    --enter-modes-box-border: #ffffff11;
-    --enter-modes-box-item: #ffffff04;
-    --enter-modes-box-hover: #ffffff04;
+    --enter-modes-box-item: #ffffff05;
+    --enter-modes-box-hover: #ffffff08;
     --auth-error: #ffffff08;
     --auth-feild: #ffffff08;
-    --auth-feild-placeholder: #ffffff55;
+    --auth-feild-placeholder: #ffffff20;
     --auth-button: #ffffff08;
-    --auth-button-hover: #ffffff08;
-}
-
-[data-theme="2"] {
-    --menu: #000000aa;
-    --menu-icon: #ffffff08;
-    --menu-icon-hover: #ffffff11;
-    --menu-item: #ffffff08;
-    --menu-item-hover: #ffffff11;
-    --menu-back: #ffffff08;
-    --menu-back-hover: #ffffff11;
-
-    --settings-page: #00000088;
-    --settings: #00000088;
-    --settings-header-border: #ffffff08;
-    --settings-back: #ffffff08;
-    --settings-back-hover: #ffffff11;
-    --settings-item: #ffffff08;
-    --settings-item-border: #ffffff11;
-    --settings-item-border-hover: #ffffff00;
-    --settings-submit: #000000;
-    --messenger-input-reply: #00000088;
+    --auth-button-hover: #ffffff10;
 
     --warning-page: #00000088;
-    --warning-page-button: #ffffff08;
-
-    --messenger-input: #ffffff08;
-    --messenger-input-submit-disable: #ffffff22;
-    --messenger-input-submit-enable: #ffffff44;
-    --messenger-input-submit-enable-hover: #ffffff88;
-    --messenger-input-emoji: #ffffff08;
-    --messenger-input-emoji-hover: #ffffff11;
-    --messenger-input-placeholder: #ffffff22;
+    --warning-page-button: #ffffff10;
+    --warning-page-button-hover: #ffffff18;
+    --message-page-button-border-radius: 25px;
 
     --background-blur: 15px;
 
     --messenger-loader: #000;
     --messenger-loader-dots: #fff;
 
-    --date: #ffffff11;
-    --date-color: #fff;
+    --message: #ffffff10;
+    --message-blur: blur(5px) saturate(100%);
+    --message-username: #ffffff40;
+    --message-time: #ffffff20;
+    --message-selected: #ffffff20;
+    --message-reply: #ffffff10;
 
-    --popup: #00000088;
-    --popup-container: #00000088;
-    --popup-buttons: #ffffff08;
-    --popup-buttons-hover: #ffffff15;
-    --edit-reply-background: #ffffff11;
-
-    --message: #ffffff09;
-    --message-blur: 5px;
-    --message-username: #ffffff55;
-    --message-time: #ffffff55;
-
-    --message-options: #ffffff09;
-    --message-options-hover: #ffffff15;
+    --message-options: #ffffff10;
     --options-mobile-background: #000000aa;
     --options-mobile-item: #ffffff08;
 
-    --login: linear-gradient(39deg, rgba(0,26,42,0) 0%, rgba(0,0,0,0.8) 50%, rgba(0,21,26,0) 100%);
-    --login-mode: #ffffff08;
-    --login-mode-features: #ffffff08;
+    --date: #ffffff10;
+    --date-color: #a4a4a4;
+    --date-blur: blur(5px) saturate(100%);
 
-    --enter-modes: #00000088;
-    --enter-modes-box: #ffffff02;
-    --enter-modes-box-border: #ffffff08;
-    --enter-modes-box-item: #ffffff08;
-    --enter-modes-box-hover: #ffffff08;
-    --auth-error: #ffffff08;
-    --auth-feild: #ffffff08;
-    --auth-feild-placeholder: #ffffff55;
-    --auth-button: #ffffff08;
-    --auth-button-hover: #ffffff08;
-}
+    --select-bar: #ffffff08;
+    --select-bar-blur: blur(10px) saturate(100%);
+    --select-bar-border-radius: 50px;
+    --select-bar-button: #ffffff08;
+    --select-bar-button-hover: #ffffff10;
 
-[data-theme="3"] {
-    --menu: #000000aa;
-    --menu-icon: #ffffff15;
-    --menu-icon-hover: #ffffff22;
+    --menu-opened: #ffffff08;
+    --menu-closed: #ffffff08;
+    --menu-blur: blur(20px) saturate(100%);
+    --menu-border-radius: 25px;
+    --menu-icon: #ffffff10;
+    --menu-icon-hover: #ffffff18;
     --menu-item: #ffffff08;
-    --menu-item-hover: #ffffff11;
-    --menu-back: #ffffff15;
-    --menu-back-hover: #ffffff22;
+    --menu-item-border-radius: 15px;
+    --menu-item-hover: #ffffff10;
+    --menu-back: #ffffff08;
+    --menu-back-hover: #ffffff10;
+
+    --messenger-input: #ffffff08;
+    --messenger-input-blur: blur(10px) saturate(100%);
+    --messenger-input-border-radius: 50px;
+    --messenger-input-submit-enable: #ffffff40;
+    --messenger-input-submit-disable: #ffffff20;
+    --messenger-input-placeholder: #ffffff20;
+    --messenger-input-reply: #ffffff10;
+
+    --popup: #000000aa;
+    --popup-blur: blur(10px) saturate(100%);
+    --popup-border-radius: 25px;
+    --popup-button-border-radius: 15px;
+    --popup-container: #ffffff05;
+    --popup-buttons: #ffffff08;
+    --popup-buttons-hover: #ffffff10;
+    --edit-reply-background: #000000;
 
     --settings-page: #00000088;
     --settings: #ffffff08;
-    --settings-header-border: #ffffff08;
+    --settings-border-radius: 25px;
+    --settings-blur: blur(20px) saturate(100%);
     --settings-back: #ffffff08;
-    --settings-back-hover: #ffffff22;
+    --settings-back-hover: #ffffff10;
     --settings-item: #ffffff08;
-    --settings-item-border: #ffffff22;
-    --settings-item-border-hover: #ffffff00;
+    --settings-item-hover: #ffffff10;
     --settings-submit: #000000;
+}
+
+[data-theme="2"] {
+    --enter-modes: #00000088;
+    --enter-modes-box: #ffffff02;
+    --enter-modes-box-item: #ffffff04;
+    --enter-modes-box-hover: #ffffff08;
+    --auth-error: #ffffff08;
+    --auth-feild: #ffffff08;
+    --auth-feild-placeholder: #ffffff20;
+    --auth-button: #ffffff08;
+    --auth-button-hover: #ffffff10;
 
     --warning-page: #00000088;
-    --warning-page-button: #ffffff11;
+    --warning-page-button: #ffffff10;
+    --warning-page-button-hover: #ffffff18;
+    --message-page-button-border-radius: 25px;
 
-    --messenger-input: #ffffff15;
-    --messenger-input-submit-disable: #ffffff22;
-    --messenger-input-submit-enable: #ffffff44;
-    --messenger-input-submit-enable-hover: #ffffff88;
-    --messenger-input-emoji: #ffffff08;
-    --messenger-input-emoji-hover: #ffffff11;
-    --messenger-input-placeholder: #ffffff44;
-    --messenger-input-reply: #ffffff15;
-
-    --background-blur: 20px;
+    --background-blur: 10px;
 
     --messenger-loader: #000;
     --messenger-loader-dots: #fff;
 
-    --date: #ffffff11;
-    --date-color: #fff;
+    --message: #ffffff10;
+    --message-blur: blur(5px) saturate(100%);
+    --message-username: #ffffff40;
+    --message-time: #ffffff20;
+    --message-selected: #ffffff20;
+    --message-reply: #ffffff10;
 
-    --popup: #00000088;
-    --popup-container: #ffffff08;
-    --popup-buttons: #ffffff08;
-    --popup-buttons-hover: #ffffff11;
-    --edit-reply-background: #000000;
-
-    --message: #ffffff15;
-    --message-blur: 5px;
-    --message-username: #ffffff55;
-    --message-time: #ffffff55;
-
-    --message-options: #ffffff15;
-    --message-options-hover: #ffffff33;
+    --message-options: #ffffff10;
     --options-mobile-background: #000000aa;
     --options-mobile-item: #ffffff08;
 
-    --login: linear-gradient(39deg, rgba(0,26,42,0) 0%, rgba(0,0,0,0.6) 50%, rgba(0,21,26,0) 100%);
-    --login-mode: #ffffff08;
-    --login-mode-features: #ffffff08;
+    --date: #ffffff10;
+    --date-color: #fff;
+    --date-blur: blur(5px) saturate(100%);
 
-    --enter-modes: #00000088;
-    --enter-modes-box: #ffffff02;
-    --enter-modes-box-border: #ffffff08;
-    --enter-modes-box-item: #ffffff08;
+    --select-bar: #ffffff08;
+    --select-bar-blur: blur(10px) saturate(100%);
+    --select-bar-border-radius: 50px;
+    --select-bar-button: #ffffff08;
+    --select-bar-button-hover: #ffffff10;
+
+    --menu-opened: #ffffff08;
+    --menu-closed: #ffffff08;
+    --menu-blur: blur(20px) saturate(100%);
+    --menu-border-radius: 25px;
+    --menu-icon: #ffffff10;
+    --menu-icon-hover: #ffffff18;
+    --menu-item: #ffffff08;
+    --menu-item-border-radius: 15px;
+    --menu-item-hover: #ffffff10;
+    --menu-back: #ffffff08;
+    --menu-back-hover: #ffffff10;
+
+    --messenger-input: #ffffff08;
+    --messenger-input-blur: blur(10px) saturate(100%);
+    --messenger-input-border-radius: 50px;
+    --messenger-input-submit-enable: #ffffff40;
+    --messenger-input-submit-disable: #ffffff20;
+    --messenger-input-placeholder: #ffffff20;
+    --messenger-input-reply: #ffffff08;
+
+    --popup: #00000088;
+    --popup-blur: blur(10px) saturate(100%);
+    --popup-border-radius: 25px;
+    --popup-button-border-radius: 15px;
+    --popup-container: #ffffff08;
+    --popup-buttons: #ffffff08;
+    --popup-buttons-hover: #ffffff10;
+    --edit-reply-background: #000000;
+
+    --settings-page: #00000088;
+    --settings: #ffffff08;
+    --settings-border-radius: 25px;
+    --settings-blur: blur(20px) saturate(100%);
+    --settings-back: #ffffff08;
+    --settings-back-hover: #ffffff10;
+    --settings-item: #ffffff08;
+    --settings-item-hover: #ffffff10;
+    --settings-submit: #000000;
+}
+
+[data-theme="3"] {
+    --enter-modes: #000000aa;
+    --enter-modes-box: #ffffff05;
+    --enter-modes-box-item: #ffffff05;
     --enter-modes-box-hover: #ffffff08;
     --auth-error: #ffffff08;
     --auth-feild: #ffffff08;
-    --auth-feild-placeholder: #ffffff55;
+    --auth-feild-placeholder: #ffffff20;
     --auth-button: #ffffff08;
-    --auth-button-hover: #ffffff08;
+    --auth-button-hover: #ffffff10;
+
+    --warning-page: #00000088;
+    --warning-page-button: #ffffff10;
+    --warning-page-button-hover: #ffffff18;
+    --message-page-button-border-radius: 25px;
+
+    --background-blur: 15px;
+
+    --messenger-loader: #000;
+    --messenger-loader-dots: #fff;
+
+    --message: #ffffff10;
+    --message-blur: blur(5px) saturate(100%);
+    --message-username: #ffffff40;
+    --message-time: #ffffff20;
+    --message-selected: #ffffff20;
+    --message-reply: #ffffff10;
+
+    --message-options: #ffffff10;
+    --options-mobile-background: #000000aa;
+    --options-mobile-item: #ffffff08;
+
+    --date: #ffffff10;
+    --date-color: #a4a4a4;
+    --date-blur: blur(5px) saturate(100%);
+
+    --select-bar: #ffffff08;
+    --select-bar-blur: blur(10px) saturate(100%);
+    --select-bar-border-radius: 50px;
+    --select-bar-button: #ffffff08;
+    --select-bar-button-hover: #ffffff10;
+
+    --menu-opened: #ffffff08;
+    --menu-closed: #ffffff08;
+    --menu-blur: blur(20px) saturate(100%);
+    --menu-border-radius: 25px;
+    --menu-icon: #ffffff10;
+    --menu-icon-hover: #ffffff18;
+    --menu-item: #ffffff08;
+    --menu-item-border-radius: 15px;
+    --menu-item-hover: #ffffff10;
+    --menu-back: #ffffff08;
+    --menu-back-hover: #ffffff10;
+
+    --messenger-input: #ffffff10;
+    --messenger-input-blur: blur(10px) saturate(100%);
+    --messenger-input-border-radius: 50px;
+    --messenger-input-submit-enable: #ffffff40;
+    --messenger-input-submit-disable: #ffffff20;
+    --messenger-input-placeholder: #ffffff20;
+    --messenger-input-reply: #ffffff10;
+
+    --popup: #00000088;
+    --popup-blur: blur(20px) saturate(100%);
+    --popup-border-radius: 25px;
+    --popup-button-border-radius: 15px;
+    --popup-container: #ffffff08;
+    --popup-buttons: #ffffff08;
+    --popup-buttons-hover: #ffffff10;
+    --edit-reply-background: #000000;
+
+    --settings-page: #00000088;
+    --settings: #ffffff08;
+    --settings-border-radius: 25px;
+    --settings-blur: blur(20px) saturate(100%);
+    --settings-back: #ffffff08;
+    --settings-back-hover: #ffffff10;
+    --settings-item: #ffffff08;
+    --settings-item-hover: #ffffff10;
+    --settings-submit: #000000;
 }
 
 [data-theme="4"] {
-    --menu: #000000aa;
-    --menu-icon: #ffffff15;
-    --menu-icon-hover: #ffffff22;
-    --menu-item: #ffffff08;
-    --menu-item-hover: #ffffff11;
-    --menu-back: #ffffff15;
-    --menu-back-hover: #ffffff22;
-
-    --settings-page: #000000aa;
-    --settings: #ffffff08;
-    --settings-header-border: #ffffff11;
-    --settings-back: #ffffff11;
-    --settings-back-hover: #ffffff22;
-    --settings-item: #ffffff05;
-    --settings-item-border: #ffffff11;
-    --settings-item-border-hover: #ffffff00;
-    --settings-submit: #000000;
+    --enter-modes: #000000aa;
+    --enter-modes-box: #ffffff05;
+    --enter-modes-box-item: #ffffff05;
+    --enter-modes-box-hover: #ffffff08;
+    --auth-error: #ffffff08;
+    --auth-feild: #ffffff08;
+    --auth-feild-placeholder: #ffffff20;
+    --auth-button: #ffffff08;
+    --auth-button-hover: #ffffff10;
 
     --warning-page: #000000bb;
     --warning-page-button: #ffffff08;
-
-    --messenger-input: #ffffff08;
-    --messenger-input-submit-disable: #ffffff22;
-    --messenger-input-submit-enable: #ffffff44;
-    --messenger-input-submit-enable-hover: #ffffff88;
-    --messenger-input-emoji: #ffffff08;
-    --messenger-input-emoji-hover: #ffffff11;
-    --messenger-input-placeholder: #ffffff44;
-    --messenger-input-reply: #00000044;
+    --warning-page-button-hover: #ffffff10;
+    --message-page-button-border-radius: 25px;
 
     --background-blur: 20px;
 
     --messenger-loader: #000;
     --messenger-loader-dots: #fff;
 
-    --date: #ffffff11;
-    --date-color: #fff;
+    --message: #ffffff10;
+    --message-blur: blur(5px) saturate(100%);
+    --message-username: #ffffff40;
+    --message-time: #ffffff20;
+    --message-selected: #ffffff20;
+    --message-reply: #ffffff08;
 
-    --popup: #000000bb;
-    --popup-container: #ffffff08;
-    --popup-buttons: #ffffff08;
-    --popup-buttons-hover: #ffffff15;
-    --edit-reply-background: #000000;
-
-    --message: #ffffff11;
-    --message-blur: 5px;
-    --message-username: #ffffff55;
-    --message-time: #ffffff55;
-
-    --message-options: #ffffff11;
-    --message-options-hover: #ffffff25;
+    --message-options: #ffffff10;
     --options-mobile-background: #000000aa;
     --options-mobile-item: #ffffff08;
 
-    --enter-modes: #00000088;
-    --enter-modes-box: #ffffff02;
-    --enter-modes-box-border: #ffffff08;
-    --enter-modes-box-item: #ffffff08;
-    --enter-modes-box-hover: #ffffff08;
-    --auth-error: #ffffff08;
-    --auth-feild: #ffffff08;
-    --auth-feild-placeholder: #ffffff55;
-    --auth-button: #ffffff08;
-    --auth-button-hover: #ffffff08;
+    --date: #ffffff10;
+    --date-color: #a4a4a4;
+    --date-blur: blur(5px) saturate(100%);
+
+    --select-bar: #ffffff08;
+    --select-bar-blur: blur(10px) saturate(100%);
+    --select-bar-border-radius: 50px;
+    --select-bar-button: #ffffff08;
+    --select-bar-button-hover: #ffffff10;
+    
+    --menu-opened: #ffffff08;
+    --menu-closed: #ffffff08;
+    --menu-blur: blur(10px) saturate(100%);
+    --menu-border-radius: 25px;
+    --menu-icon: #ffffff08;
+    --menu-icon-hover: #ffffff10;
+    --menu-back: #ffffff08;
+    --menu-back-hover: #ffffff10;
+    --menu-item: #ffffff08;
+    --menu-item-border-radius: 15px;
+    --menu-item-hover: #ffffff10;
+
+    --messenger-input: #ffffff08;
+    --messenger-input-blur: blur(10px) saturate(100%);
+    --messenger-input-border-radius: 50px;
+    --messenger-input-submit-enable: #ffffff40;
+    --messenger-input-submit-disable: #ffffff20;
+    --messenger-input-placeholder: #ffffff20;
+    --messenger-input-reply: #ffffff08;
+
+    --popup: #000000aa;
+    --popup-blur: blur(20px) saturate(100%);
+    --popup-border-radius: 25px;
+    --popup-button-border-radius: 15px;
+    --popup-container: #ffffff08;
+    --popup-buttons: #ffffff08;
+    --popup-buttons-hover: #ffffff10;
+    --edit-reply-background: #000000;
+
+    --settings-page: #000000aa;
+    --settings: #ffffff08;
+    --settings-border-radius: 25px;
+    --settings-blur: blur(20px) saturate(100%);
+    --settings-back: #ffffff08;
+    --settings-back-hover: #ffffff10;
+    --settings-item: #ffffff08;
+    --settings-item-hover: #ffffff10;
+    --settings-submit: #000000;
 }
 
 /* width */
@@ -312,6 +364,10 @@ html {
 body {
     font-family: 'Outfit', sans-serif;
     color: #fff;
+}
+
+button {
+    font-family: 'Outfit', sans-serif;
 }
 
 ::placeholder {

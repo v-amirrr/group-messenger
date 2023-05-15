@@ -7,9 +7,9 @@ import { motion } from 'framer-motion';
 import { useSelector } from 'react-redux';
 
 const selectBarVariants = {
-    hidden: { opacity: 0, y: -20, scaleY: 0.8 },
-    visible: { opacity: 1, y: 0, scaleY: 1, transition: { duration: 0.3 } },
-    exit: { opacity: 0, y: -20, scaleY: 0.8, transition: { duration: 0.2 } }
+    hidden: { opacity: 0, y: -20, scale: 0.8 },
+    visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.4 } },
+    exit: { opacity: 0, y: -40, scale: 0.8, transition: { duration: 0.3 } }
 };
 
 const SelectBar = () => {
@@ -21,19 +21,19 @@ const SelectBar = () => {
     return (
         <>
             <SelectBarContainer initial='hidden' animate='visible' exit='exit' variants={selectBarVariants}>
-                <div className='close' onClick={clearSelectedMessages}><IoClose /></div>
+                <motion.button className='close' onClick={clearSelectedMessages} whileTap={{ scale: 0.8 }}><IoClose /></motion.button>
                 <div className='count'>{selectedMessages.length}</div>
 
                 <div className='options'>
-                    <motion.div className='copy' whileTap={{ scale: 0.8 }} onClick={copySelectedMessages}>
+                    <motion.button className='copy' whileTap={{ scale: 0.8 }} onClick={copySelectedMessages}>
                         <i><AiFillCopy /></i>
                         <p>Copy</p>
-                    </motion.div>
+                    </motion.button>
                     {!enterAsAGuest && !selectOthersMessage ?
-                    <motion.div className='delete' whileTap={{ scale: 0.8 }} onClick={deleteSelectedMessages}>
+                    <motion.button className='delete' whileTap={{ scale: 0.8 }} onClick={deleteSelectedMessages}>
                         <i><AiFillDelete /></i>
                         <p>Delete</p>
-                    </motion.div>
+                    </motion.button>
                     : ""}
                 </div>
             </SelectBarContainer>
@@ -44,22 +44,28 @@ const SelectBar = () => {
 const SelectBarContainer = styled(motion.div)`
     position: absolute;
     top: .8rem;
-    background-color: #ffffff08;
-    backdrop-filter: blur(10px) saturate(100%);
-    -webkit-backdrop-filter: blur(10px) saturate(100%);
+    background-color: var(--select-bar);
+    backdrop-filter: var(--select-bar-blur);
+    -webkit-backdrop-filter: var(--select-bar-blur);
     width: 20rem;
     height: 2.8rem;
-    border-radius: 50px;
+    border-radius: var(--select-bar-border-radius);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 999;
     user-select: none;
+    overflow: hidden;
+
+    button {
+        font-family: 'Outfit', sans-serif;
+        border: none;
+    }
 
     .close {
         position: absolute;
         right: .5rem;
-        background-color: #ffffff08;
+        background-color: var(--select-bar-button);
         border-radius: 50%;
         display: flex;
         justify-content: center;
@@ -73,7 +79,7 @@ const SelectBarContainer = styled(motion.div)`
     .count {
         position: absolute;
         left: .5rem;
-        background-color: #ffffff08;
+        background-color: var(--select-bar-button);
         border-radius: 50%;
         font-size: 1rem;
         width: 2rem;
@@ -92,7 +98,7 @@ const SelectBarContainer = styled(motion.div)`
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #ffffff08;
+            background-color: var(--select-bar-button);
             margin: 0 .2rem;
             width: 5rem;
             height: 2rem;
@@ -104,10 +110,21 @@ const SelectBarContainer = styled(motion.div)`
                 justify-content: center;
                 align-items: center;
                 margin-right: .2rem;
+                font-size: 1rem;
             }
 
             p {
                 font-size: .8rem;
+            }
+        }
+    }
+
+    @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
+        .close, .copy, .delete {
+            transition: background .3s;
+
+            &:hover {
+                background-color: var(--select-bar-button-hover);
             }
         }
     }

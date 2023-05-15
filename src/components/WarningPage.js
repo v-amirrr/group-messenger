@@ -48,7 +48,7 @@ const WarningPage = () => {
                         <p>Don't show this again. </p>
                         <input type="checkbox" autoFocus checked={warningModalCheckbox} onChange={() => setWarningModalCheckbox(!warningModalCheckbox)} />
                     </motion.div>
-                    <motion.button type="submit" className='submit' onClick={() => warningPageSubmit(warningModalCheckbox)} variants={warningModalItemsVariants} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.8 }}>LET'S GO</motion.button>
+                    <motion.button type="submit" className='submit' onClick={() => warningPageSubmit(warningModalCheckbox)} variants={warningModalItemsVariants} whileTap={{ scale: 0.8 }}>LET'S GO</motion.button>
                 </div>
             </WarningModalPage>
         </>
@@ -62,8 +62,6 @@ const WarningModalPage = styled(motion.section)`
     justify-content: center;
     align-items: center;
     background-color: var(--warning-page);
-    backdrop-filter: blur(15px) saturate(100%);
-    -webkit-backdrop-filter: blur(15px) saturate(100%);
     position: absolute;
     z-index: 2;
     user-select: none;
@@ -125,7 +123,7 @@ const WarningModalPage = styled(motion.section)`
     
         .submit {
             all: unset;
-            border-radius: 30px;
+            border-radius: var(--message-page-button-border-radius);
             background-color: var(--warning-page-button);
             display: flex;
             justify-content: center;
@@ -138,6 +136,13 @@ const WarningModalPage = styled(motion.section)`
             padding: .5rem 0;
             width: 20%;
             white-space: nowrap;
+            transition: background .3s;
+
+            @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
+                &:hover {
+                    background-color: var(--warning-page-button-hover);
+                }
+            }
         }
     }
 

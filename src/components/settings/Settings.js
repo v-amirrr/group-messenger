@@ -60,8 +60,8 @@ const SettingsPage = styled(motion.section)`
     position: absolute;
     inset: 0 0 0 0;
     background-color: var(--settings-page);
-    backdrop-filter: blur(20px) saturate(100%);
-    -webkit-backdrop-filter: blur(20px) saturate(100%);
+    backdrop-filter: var(--settings-blur);
+    -webkit-backdrop-filter: var(--settings-blur);
     user-select: none;
 `;
 
@@ -69,7 +69,7 @@ const SettingsContainer = styled(motion.section)`
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 25px;
+    border-radius: var(--settings-border-radius);
     background-color: var(--settings);
     width: 20rem;
     height: 30rem;
@@ -84,7 +84,7 @@ const SettingsContainer = styled(motion.section)`
         position: absolute;
         top: 0;
         padding: 1rem 0;
-        border-bottom: solid 1px var(--settings-header-border);
+        border-bottom: solid 1px #ffffff10;
 
         a {
             position: absolute;

@@ -121,9 +121,9 @@ const MessengerInput = () => {
 
 const MessengerInputContainer = styled(motion.section)`
     background-color: var(--messenger-input);
-    backdrop-filter: blur(8px) saturate(100%);
-    -webkit-backdrop-filter: blur(8px) saturate(120%);
-    border-radius: 50px;
+    backdrop-filter: var(--messenger-input-blur);
+    -webkit-backdrop-filter: var(--messenger-input-blur);
+    border-radius: var(--messenger-input-border-radius);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -192,32 +192,6 @@ const MessengerInputContainer = styled(motion.section)`
             &:disabled {
                 cursor: not-allowed;
                 color: var(--messenger-input-submit-disable);
-            }
-
-            @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
-                &:not(:disabled) {
-                    &:hover {
-                        color: var(--messenger-input-submit-enable-hover);
-                    }
-                }
-            }
-        }
-
-        .messenger-emoji-icon {
-            all: unset;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 50%;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--messenger-input-emoji);
-            transition: color .4s;
-
-            @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
-                &:hover {
-                    color: var(--messenger-input-emoji-hover);
-                }
             }
         }
     }

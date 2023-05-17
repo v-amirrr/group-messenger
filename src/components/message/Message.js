@@ -12,6 +12,7 @@ import MessageReply from './MessageReply';
 import { isRTL } from '../../functions/isRlt';
 import styled from 'styled-components';
 import { AnimatePresence } from 'framer-motion';
+import SelectCheck from './SelectCheck';
 
 const Message = forwardRef(( props, ref ) => {
 
@@ -95,9 +96,11 @@ const Message = forwardRef(( props, ref ) => {
 
     return (
         <>
-            <ChatDate dateObj={time} priorDifferentDate={priorDifferentDate} />
+            <AnimatePresence exitBeforeEnter>
+                <ChatDate key="chat-date" dateObj={time} priorDifferentDate={priorDifferentDate} />
+            </AnimatePresence>
 
-            <MessageBox key={id} ref={ref} isMessageFromLocalUser={messageUid == localUid ? 1 : 0} ispersian={isRTL(message) ? 1 : 0} messagePosition={messagePosition} isreply={replyTo != "no_reply" ? 1 : 0} selected={selected ? 1 : 0}>
+            <MessageBox key={id} ref={ref} isMessageFromLocalUser={messageUid == localUid ? 1 : 0} ispersian={isRTL(message) ? 1 : 0} messagePosition={messagePosition} isreply={replyTo != "no_reply" ? 1 : 0} selected={selected ? 1 : 0} anymessageselected={selectedMessages.length ? 1 : 0}>
 
                 <div className='message-box' onClick={(e) => messageClickHandler(e)}>
                     <MessageReply replyTo={replyTo} />
@@ -116,6 +119,8 @@ const Message = forwardRef(( props, ref ) => {
                         <MessageTime time={time} messagePosition={messagePosition} isMessageFromLocalUser={messageUid == localUid ? 1 : 0} />
                     </AnimatePresence>
                 </div>
+
+                <SelectCheck selected={selected} selectedMessagesLength={selectedMessages.length} />
 
                 <AnimatePresence>
                     {messageIdOptionsShow == id ? 
@@ -142,7 +147,7 @@ const Message = forwardRef(( props, ref ) => {
                     />
                     : ""}
                 </AnimatePresence>,
-                document.body
+                document.getElementById('popup')
             )}
         </>
     );
@@ -191,6 +196,7 @@ const MessageBox = styled.div`
                 props.messagePosition == 3 && 
                 "2px 25px 25px 25px"
         };
+        margin-right: ${props => props.anymessageselected ? "3rem" : ""};
         padding: ${props => props.isreply ? "2.4rem 2.8rem .5rem .8rem" : ".5rem 2.8rem .5rem .8rem"};
         min-width: ${props => props.isreply ? "22%" : ""};
         width: fit-content;
@@ -201,26 +207,26 @@ const MessageBox = styled.div`
         word-break: break-all;
         cursor: pointer;
         transition: backdrop-filter .4s, border-radius .4s, margin .4s, background .2s;
-    }
 
-    .username {
-        display: ${props => props.isMessageFromLocalUser ? "none" : ""};
-        color: var(--message-username);
-        font-size: .7rem;
-        font-weight: 300;
-        margin-right: .5rem;
-        margin-left: -.2rem;
-        white-space: nowrap;
-    }
-
-    .message {
-        text-align: ${props => props.ispersian ? "right" : "left"};
-        word-spacing: 1px;
-        line-break: loose;
-        word-break: keep-all;
-        white-space: pre-wrap;
-        font-family: ${props => props.ispersian ? "Vazirmatn" : "Outfit"}, "Vazirmatn", sans-serif;
-        font-size: 1rem;
+        .username {
+            display: ${props => props.isMessageFromLocalUser ? "none" : ""};
+            color: var(--message-username);
+            font-size: .7rem;
+            font-weight: 300;
+            margin-right: .5rem;
+            margin-left: -.2rem;
+            white-space: nowrap;
+        }
+    
+        .message {
+            text-align: ${props => props.ispersian ? "right" : "left"};
+            word-spacing: 1px;
+            line-break: loose;
+            word-break: keep-all;
+            white-space: pre-wrap;
+            font-family: ${props => props.ispersian ? "Vazirmatn" : "Outfit"}, "Vazirmatn", sans-serif;
+            font-size: 1rem;
+        }
     }
 
     @media (max-width: 768px) {

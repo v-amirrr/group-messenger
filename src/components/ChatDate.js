@@ -11,17 +11,13 @@ const chatDateVariants = {
 const ChatDate = ({ dateObj, priorDifferentDate }) => {
     return (
         <>
-            <AnimatePresence exitBeforeEnter>
-                {priorDifferentDate ? 
-                    dateObj.year != null && dateObj.month != null && dateObj.day != null ?
-                    <ChatDateContainer key="chat-date" initial='hidden' animate='visible' exit='exit' variants={chatDateVariants}>
-                        <p className='year'>{dateObj.year}</p>
-                        <p className='month'>{dateObj.month}</p>
-                        <p className='day'>{dateObj.day}</p>
-                    </ChatDateContainer>
-                    : ""
-                : ""}
-            </AnimatePresence>
+            {priorDifferentDate && dateObj.year && dateObj.month && dateObj.day ?
+                <ChatDateContainer initial='hidden' animate='visible' exit='exit' variants={chatDateVariants}>
+                    <p className='year'>{dateObj.year}</p>
+                    <p className='month'>{dateObj.month}</p>
+                    <p className='day'>{dateObj.day}</p>
+                </ChatDateContainer>
+            : ""}
         </>
     );
 };

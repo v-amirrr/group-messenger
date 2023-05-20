@@ -64,7 +64,6 @@ export const useSelect = () => {
     };
 
     const deleteSelectedMessages = () => {
-        console.log(selectedMessages);
         selectedMessages.forEach(item => {
             deleteMessage(item.id);
         });

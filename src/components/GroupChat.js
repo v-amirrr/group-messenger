@@ -56,7 +56,6 @@ const GroupChat = () => {
                             message={{
                                 messageUid: message.uid,
                                 localUid: user?.uid,
-                                localUsername: user?.displayName,
                                 messageUsername: message.username,
                                 id: message.id,
                                 message: message.message,

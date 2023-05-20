@@ -1,6 +1,5 @@
 import React, { forwardRef, useState, useEffect, memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setPopup } from '../../redux/popupSlice';
 import { setMessageIdOptionsShow } from '../../redux/userSlice';
 import { useSelect } from '../../hooks/useSelect';
 import MessageOptions from '../message/MessageOptions';
@@ -14,13 +13,12 @@ import SelectCheck from './SelectCheck';
 
 const Message = forwardRef(( props, ref ) => {
 
-    const { messageUid, localUid, localUsername, message, id, replyTo, messageUsername, periorUsername, nextUsername, time, priorDifferentDate, nextDifferentDate } = props.message;
+    const { messageUid, localUid, message, id, replyTo, messageUsername, periorUsername, nextUsername, time, priorDifferentDate, nextDifferentDate } = props.message;
 
     const dispatch = useDispatch();
 
     const { selectMessage, checkMessage, unSelectMessage } = useSelect();
 
-    const { popupShow, popupName } = useSelector(store => store.popupStore);
     const { messageIdOptionsShow, selectedMessages } = useSelector(store => store.userStore);
 
     const [messagePosition, setMessagePosition] = useState(null);
@@ -88,14 +86,6 @@ const Message = forwardRef(( props, ref ) => {
             }
         }
     }, [nextUsername, periorUsername, priorDifferentDate, nextDifferentDate]);
-
-    useEffect(() => {
-        if (!popupShow && popupName) {
-            setTimeout(() => {
-                dispatch(setPopup({ show: true, type: popupName }));
-            }, 300);
-        }
-    }, [popupShow, popupName]);
 
     // check the selected messages in order to detect select bar's options
     useEffect(() => {

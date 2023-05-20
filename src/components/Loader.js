@@ -12,9 +12,9 @@ const Loader = () => {
     return (
         <>
             <LoaderContainer initial='hidden' animate='visible' exit='exit' variants={loaderVariants}>
-                <div class="gooey">
-                    <span class="dot"></span>
-                    <div class="dots">
+                <div className="gooey">
+                    <span className="dot"></span>
+                    <div className="dots">
                         <span></span>
                         <span></span>
                         <span></span>

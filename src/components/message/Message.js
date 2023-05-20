@@ -35,13 +35,9 @@ const Message = forwardRef(( props, ref ) => {
             } else {
                 selectMessage({                            
                     isMessageFromLocalUser: messageUid == localUid ? 1 : 0,
-                    localUid: localUid,
-                    localUsername: localUsername,
-                    messageUid: messageUid,
                     messageText: message,
                     id: id,
                     replyTo: replyTo,
-                    messageUsername: messageUsername,
                     time: time,
                     messagePosition: messagePosition,
                     isPersian: isRTL(message) ? 1 : 0,
@@ -140,13 +136,9 @@ const Message = forwardRef(( props, ref ) => {
                         clickEvent={clickEvent}
                         message={{
                             isMessageFromLocalUser: messageUid == localUid ? 1 : 0,
-                            localUid: localUid,
-                            localUsername: localUsername,
-                            messageUid: messageUid,
                             messageText: message,
                             id: id,
                             replyTo: replyTo,
-                            messageUsername: messageUsername,
                             time: time,
                             messagePosition: messagePosition,
                             isPersian: isRTL(message) ? 1 : 0,

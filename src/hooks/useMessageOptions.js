@@ -22,13 +22,12 @@ export const useMessageOptions = () => {
         navigator.clipboard.writeText(text);
     };
 
-    const openPopup = (popupName, popupMessages, popupMessagesSelected) => {
+    const openPopup = (popupName, popupMessages) => {
         dispatch(setMessageIdOptionsShow(null));
         dispatch(setPopup({
             popupShow: true,
             popupName: popupName,
             popupMessages: popupMessages,
-            popupMessagesSelected: popupMessagesSelected,
         }));
     };
 
@@ -47,18 +46,18 @@ export const useMessageOptions = () => {
         closePopup();
     };
 
-    const editMessage = (messageId, newEditedText, prevReply) => {
-        const docRef = doc(db, "messages", messageId);
+    const editMessage = (popupMessages, newEditedText) => {
+        const docRef = doc(db, "messages", popupMessages.id);
         if (newEditedText) {
             updateDoc(docRef, {
                 message: newEditedText,
-                replyTo: popupMessageEditedReply == "deleted" ? null : popupMessageEditedReply ? popupMessageEditedReply : prevReply == "no_reply" ? null : prevReply.id,
+                replyTo: popupMessageEditedReply == "deleted" ? null : popupMessageEditedReply ? popupMessageEditedReply : popupMessages.replyTo == "no_reply" ? null : popupMessages.replyTo.id,
             });
             closePopup();
         } else {
             closePopup();
             setTimeout(() => {
-                openPopup("DELETE_POPUP", messageId);
+                openPopup("DELETE_POPUP", [popupMessages]);
             }, 200);
         }
     };

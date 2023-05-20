@@ -84,11 +84,11 @@ const MessageOptions = ({ clickEvent, message }) => {
 
                 {isMessageFromLocalUser && !enterAsAGuest ? 
                 <>
-                    <motion.div className='edit' onClick={() => openPopup("EDIT_POPUP", message, false)} whileTap={{ scale: 0.8 }} variants={onMobile ? menuMobileItemVariants : isMessageFromLocalUser ? menuItemUserDesktopVariants : menuItemDesktopVariants}>
+                    <motion.div className='edit' onClick={() => openPopup("EDIT_POPUP", [message])} whileTap={{ scale: 0.8 }} variants={onMobile ? menuMobileItemVariants : isMessageFromLocalUser ? menuItemUserDesktopVariants : menuItemDesktopVariants}>
                         <i><AiFillEdit /></i>
                         <p>Edit</p>
                     </motion.div>
-                    <motion.div className='delete' onClick={() => openPopup("DELETE_POPUP", [message], false)} whileTap={{ scale: 0.8 }} variants={onMobile ? menuMobileItemVariants : isMessageFromLocalUser ? menuItemUserDesktopVariants : menuItemDesktopVariants}>
+                    <motion.div className='delete' onClick={() => openPopup("DELETE_POPUP", [message])} whileTap={{ scale: 0.8 }} variants={onMobile ? menuMobileItemVariants : isMessageFromLocalUser ? menuItemUserDesktopVariants : menuItemDesktopVariants}>
                         <i><AiFillDelete /></i>
                         <p>Delete</p>
                     </motion.div>

@@ -8,7 +8,7 @@ import { motion } from 'framer-motion';
 
 const EditPopup = ({ popupMessages }) => {
 
-    const { messageText, id, replyTo } = popupMessages;
+    const { messageText, id, replyTo } = popupMessages[0];
 
     const { editMessage, closePopup } = useMessageOptions();
 
@@ -46,7 +46,7 @@ const EditPopup = ({ popupMessages }) => {
                     <motion.button className='cancel' whileTap={{ scale: 0.9 }} onClick={closePopup}>
                         Cancel
                     </motion.button>
-                    <motion.button className='edit' whileTap={{ scale: 0.9 }} onClick={() => editMessage(id, editInput, replyTo)}>
+                    <motion.button className='edit' whileTap={{ scale: 0.9 }} onClick={() => editMessage(popupMessages[0], editInput)}>
                         Edit
                     </motion.button>
                 </div>

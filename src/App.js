@@ -7,6 +7,7 @@ import Signup from './components/Authentication/Signup';
 import Login from './components/Authentication/Login';
 import Settings from './components/settings/Settings';
 import MessengerBackground from './components/MessengerBackground';
+import Popup from './components/popups/Popup';
 import { useGetMessages } from './hooks/useGetMessages';
 import { useWarningPage } from './hooks/useWarningPage';
 import { AnimatePresence } from 'framer-motion';
@@ -29,6 +30,8 @@ const App = () => {
     return (
         <>
             <MessengerBackground />
+
+            <Popup />
 
             <AnimatePresence exitBeforeEnter>
                 <Routes location={location} key={location.key}>

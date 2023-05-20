@@ -1,10 +1,8 @@
-import React, { forwardRef, useState, useEffect, memo, useLayoutEffect } from 'react';
-import { createPortal } from 'react-dom';
+import React, { forwardRef, useState, useEffect, memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPopup } from '../../redux/popupSlice';
 import { setMessageIdOptionsShow } from '../../redux/userSlice';
 import { useSelect } from '../../hooks/useSelect';
-import Popup from '../popups/Popup';
 import MessageOptions from '../message/MessageOptions';
 import ChatDate from '../ChatDate';
 import MessageTime from './MessageTime';
@@ -22,7 +20,7 @@ const Message = forwardRef(( props, ref ) => {
 
     const { selectMessage, checkMessage, unSelectMessage } = useSelect();
 
-    const { popupShow, popupName, popupMessageId } = useSelector(store => store.popupStore);
+    const { popupShow, popupName } = useSelector(store => store.popupStore);
     const { messageIdOptionsShow, selectedMessages } = useSelector(store => store.userStore);
 
     const [messagePosition, setMessagePosition] = useState(null);
@@ -48,6 +46,7 @@ const Message = forwardRef(( props, ref ) => {
         }
     };
 
+    // detect message's position in order to set its border-radius
     useEffect(() => {
         if (priorDifferentDate && nextDifferentDate) {
             setMessagePosition(0);
@@ -90,6 +89,7 @@ const Message = forwardRef(( props, ref ) => {
         }
     }, [popupShow, popupName]);
 
+    // check the selected messages in order to detect select bar's options
     useEffect(() => {
         checkMessage(id, selected, setSelected, localUid);
     }, [selectedMessages]);
@@ -124,31 +124,25 @@ const Message = forwardRef(( props, ref ) => {
 
                 <AnimatePresence>
                     {messageIdOptionsShow == id ? 
-                    <MessageOptions 
-                        messageUsername={messageUsername}
-                        localUsername={localUsername}
-                        isMessageFromLocalUser={messageUid == localUid ? 1 : 0}
-                        messageId={id}
-                        messageText={message}
+                    <MessageOptions
                         clickEvent={clickEvent}
+                        message={{
+                            isMessageFromLocalUser: messageUid == localUid ? 1 : 0,
+                            localUid: localUid,
+                            localUsername: localUsername,
+                            messageUid: messageUid,
+                            messageText: message,
+                            id: id,
+                            replyTo: replyTo,
+                            messageUsername: messageUsername,
+                            time: time,
+                            messagePosition: messagePosition,
+                            isPersian: isRTL(message) ? 1 : 0,
+                        }}
                     />
                     : ""}
                 </AnimatePresence>
             </MessageBox>
-
-            {createPortal(
-                <AnimatePresence exitBeforeEnter>
-                    {popupShow && popupMessageId == id ?
-                    <Popup
-                        popupMessageId={popupMessageId}
-                        popupMessageText={message}
-                        popupName={popupName}
-                        popupMessageReplyTo={replyTo}
-                    />
-                    : ""}
-                </AnimatePresence>,
-                document.getElementById('popup')
-            )}
         </>
     );
 });

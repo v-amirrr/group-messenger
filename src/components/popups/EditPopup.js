@@ -6,7 +6,9 @@ import { isRTL } from '../../functions/isRlt';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
-const EditPopup = ({ popupMessageId, popupMessageText, popupMessageReplyTo }) => {
+const EditPopup = ({ popupMessages }) => {
+
+    const { messageText, id, replyTo } = popupMessages;
 
     const { editMessage, closePopup } = useMessageOptions();
 
@@ -17,16 +19,16 @@ const EditPopup = ({ popupMessageId, popupMessageText, popupMessageReplyTo }) =>
     const pressEnter = e => {
         if (e.key == "Enter" && !e.shiftKey) {
             e.preventDefault();
-            editMessage(popupMessageId, editInput, popupMessageReplyTo);
+            editMessage(id, editInput, replyTo);
         }
     };
 
     useEffect(() => {
-        let messageText = [];
-        popupMessageText.map(item => {
-            messageText.push(item.word);
+        let text = [];
+        messageText.map(item => {
+            text.push(item.word);
         });
-        setEditInput(messageText.join(" "));
+        setEditInput(text.join(" "));
     }, []);
 
     useEffect(() => {
@@ -44,7 +46,7 @@ const EditPopup = ({ popupMessageId, popupMessageText, popupMessageReplyTo }) =>
                     <motion.button className='cancel' whileTap={{ scale: 0.9 }} onClick={closePopup}>
                         Cancel
                     </motion.button>
-                    <motion.button className='edit' whileTap={{ scale: 0.9 }} onClick={() => editMessage(popupMessageId, editInput, popupMessageReplyTo)}>
+                    <motion.button className='edit' whileTap={{ scale: 0.9 }} onClick={() => editMessage(id, editInput, replyTo)}>
                         Edit
                     </motion.button>
                 </div>
@@ -54,7 +56,7 @@ const EditPopup = ({ popupMessageId, popupMessageText, popupMessageReplyTo }) =>
                 </div>
             </EditPopupContainer>
 
-            <EditReply replyTo={popupMessageReplyTo} popupMessageId={popupMessageId} editReplyOpen={editReplyOpen} setEditReplyOpen={setEditReplyOpen} />
+            <EditReply replyTo={replyTo} id={id} editReplyOpen={editReplyOpen} setEditReplyOpen={setEditReplyOpen} />
         </>
     );
 };

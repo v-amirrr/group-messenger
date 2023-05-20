@@ -14,7 +14,7 @@ const messengerVariants = {
 
 const Messenger = () => {
 
-    const { loading, error } = useSelector(store => store.messagesStore);
+    const { loading, error, messages } = useSelector(store => store.messagesStore);
 
     return (
         <>

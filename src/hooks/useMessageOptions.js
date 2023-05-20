@@ -14,21 +14,31 @@ export const useMessageOptions = () => {
 
     const copyMessage = (message) => {
         dispatch(setMessageIdOptionsShow(null));
-        let messageText = [];
-        message.map(item => {
-            messageText.push(item.word);
+        let text = [];
+        message.messageText.map(item => {
+            text.push(item.word);
         });
-        messageText = messageText.join(" ");
-        navigator.clipboard.writeText(messageText);
+        text = text.join(" ");
+        navigator.clipboard.writeText(text);
     };
 
-    const openPopup = (popupName, id) => {
+    const openPopup = (popupName, popupMessages, popupMessagesSelected) => {
         dispatch(setMessageIdOptionsShow(null));
-        dispatch(setPopup({ popupShow: true, popupName: popupName, popupMessageId: id }));
+        dispatch(setPopup({
+            popupShow: true,
+            popupName: popupName,
+            popupMessages: popupMessages,
+            popupMessagesSelected: popupMessagesSelected,
+        }));
     };
 
     const closePopup = () => {
-        dispatch(setPopup({ popupShow: false, popupName: null, popupMessageId: null }));
+        dispatch(setPopup({
+            popupShow: false,
+            popupName: null,
+            popupMessages: null,
+            popupMessagesSelected: null,
+        }));
     };
 
     const deleteMessage = (id) => {

@@ -50,44 +50,45 @@ const menuItemDesktopVariants = {
     exit: { opacity: 0, x: -80, transition: { duration: 0.4, type: 'tween' } }
 };
 
-const MessageOptions = ({ messageUsername, isMessageFromLocalUser, messageId, messageText, clickEvent }) => {
+const MessageOptions = ({ clickEvent, message }) => {
+
+    const { isMessageFromLocalUser, localUid, localUsername, messageUid, messageText, id, replyTo, messageUsername, time, messagePosition } = message;
 
     const messageOptionsRef = useRef();
+    const { enterAsAGuest } = useSelector(store => store.userStore);
 
     const { openPopup, copyMessage, replyMessage } = useMessageOptions();
     const { selectMessage } = useSelect();
-
-    const { enterAsAGuest } = useSelector(store => store.userStore);
 
     let onMobile = document.documentElement.offsetWidth < 600;
 
     return (
         <>
-            <MessageOptionsContainer key={messageId} ref={messageOptionsRef} initial='hidden' animate='visible' exit='exit' variants={onMobile ? enterAsAGuest ? menuMobileGuestVariants : isMessageFromLocalUser ? menuMobileUserVariants : menuMobileVariants : menuDesktopVariants} ismessagefromlocaluser={isMessageFromLocalUser ? 1 : 0} x={clickEvent?.pageX} y={clickEvent?.pageY} guest={enterAsAGuest ? 1 : 0}>
+            <MessageOptionsContainer key={id} ref={messageOptionsRef} initial='hidden' animate='visible' exit='exit' variants={onMobile ? enterAsAGuest ? menuMobileGuestVariants : isMessageFromLocalUser ? menuMobileUserVariants : menuMobileVariants : menuDesktopVariants} ismessagefromlocaluser={isMessageFromLocalUser ? 1 : 0} x={clickEvent?.pageX} y={clickEvent?.pageY} guest={enterAsAGuest ? 1 : 0}>
                 {!enterAsAGuest ? 
-                <motion.div className='reply' onClick={() => replyMessage(messageId, messageText, messageUsername)} whileTap={{ scale: 0.8 }} variants={onMobile ? menuMobileItemVariants : isMessageFromLocalUser ? menuItemUserDesktopVariants : menuItemDesktopVariants}>
+                <motion.div className='reply' onClick={() => replyMessage(id, messageText, messageUsername)} whileTap={{ scale: 0.8 }} variants={onMobile ? menuMobileItemVariants : isMessageFromLocalUser ? menuItemUserDesktopVariants : menuItemDesktopVariants}>
                     <i><BsReplyFill /></i>
                     <p>Reply</p>
                 </motion.div>
                 : ""}
 
-                <motion.div className='select' onClick={() => selectMessage(messageId, messageText, isMessageFromLocalUser)} whileTap={{ scale: 0.8 }} variants={onMobile ? menuMobileItemVariants : isMessageFromLocalUser ? menuItemUserDesktopVariants : menuItemDesktopVariants}>
+                <motion.div className='select' onClick={() => selectMessage(id, messageText, isMessageFromLocalUser)} whileTap={{ scale: 0.8 }} variants={onMobile ? menuMobileItemVariants : isMessageFromLocalUser ? menuItemUserDesktopVariants : menuItemDesktopVariants}>
                     <i><BiSelectMultiple /></i>
                     <p>Select</p>
                 </motion.div>
 
-                <motion.div className='copy' onClick={() => copyMessage(messageText)} whileTap={{ scale: 0.8 }} variants={onMobile ? menuMobileItemVariants : isMessageFromLocalUser ? menuItemUserDesktopVariants : menuItemDesktopVariants}>
+                <motion.div className='copy' onClick={() => copyMessage(message)} whileTap={{ scale: 0.8 }} variants={onMobile ? menuMobileItemVariants : isMessageFromLocalUser ? menuItemUserDesktopVariants : menuItemDesktopVariants}>
                     <i><AiFillCopy /></i>
                     <p>Copy</p>
                 </motion.div>
 
                 {isMessageFromLocalUser && !enterAsAGuest ? 
                 <>
-                    <motion.div className='edit' onClick={() => openPopup("EDIT_POPUP", messageId)} whileTap={{ scale: 0.8 }} variants={onMobile ? menuMobileItemVariants : isMessageFromLocalUser ? menuItemUserDesktopVariants : menuItemDesktopVariants}>
+                    <motion.div className='edit' onClick={() => openPopup("EDIT_POPUP", message, false)} whileTap={{ scale: 0.8 }} variants={onMobile ? menuMobileItemVariants : isMessageFromLocalUser ? menuItemUserDesktopVariants : menuItemDesktopVariants}>
                         <i><AiFillEdit /></i>
                         <p>Edit</p>
                     </motion.div>
-                    <motion.div className='delete' onClick={() => openPopup("DELETE_POPUP", messageId)} whileTap={{ scale: 0.8 }} variants={onMobile ? menuMobileItemVariants : isMessageFromLocalUser ? menuItemUserDesktopVariants : menuItemDesktopVariants}>
+                    <motion.div className='delete' onClick={() => openPopup("DELETE_POPUP", message, false)} whileTap={{ scale: 0.8 }} variants={onMobile ? menuMobileItemVariants : isMessageFromLocalUser ? menuItemUserDesktopVariants : menuItemDesktopVariants}>
                         <i><AiFillDelete /></i>
                         <p>Delete</p>
                     </motion.div>

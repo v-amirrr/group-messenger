@@ -1,9 +1,11 @@
 import React, { useRef } from 'react';
+import { createPortal } from 'react-dom';
+import { useSelector } from 'react-redux';
 import DeletePopup from './DeletePopup';
 import EditPopup from './EditPopup';
 import { useMessageOptions } from '../../hooks/useMessageOptions';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const popupPageVariants = {
     hidden: { opacity: 0 },
@@ -17,11 +19,13 @@ const popupPageContainer = {
     exit: { opacity: 0, scale: 0.9, transition: { duration: 0.2 } }
 };
 
-const Popup = ({ popupMessageId, popupMessageText, popupName, popupMessageReplyTo }) => {
+const Popup = () => {
 
     const popupPage = useRef();
 
     const { closePopup } = useMessageOptions();
+
+    const { popupShow, popupName, popupMessages, popupMessagesSelected, popupMessageReplyTo } = useSelector(store => store.popupStore);
 
     const closePopupByTap = e => {
         if (!popupPage.current.contains(e.target)) {
@@ -31,15 +35,22 @@ const Popup = ({ popupMessageId, popupMessageText, popupName, popupMessageReplyT
 
     return (
         <>
-            <PopupPage initial='hidden' animate='visible' exit='exit' variants={popupPageVariants} onClick={(e) => closePopupByTap(e)}>
-                <PopupContainer variants={popupPageContainer} ref={popupPage}>
-                    {popupName == "DELETE_POPUP" ?
-                    <DeletePopup popupMessageId={popupMessageId} />
-                    : popupName == "EDIT_POPUP" ? 
-                    <EditPopup popupMessageId={popupMessageId} popupMessageText={popupMessageText} popupMessageReplyTo={popupMessageReplyTo} />
+            {createPortal(
+                <AnimatePresence exitBeforeEnter>
+                    {popupShow ?
+                    <PopupPage initial='hidden' animate='visible' exit='exit' variants={popupPageVariants} onClick={(e) => closePopupByTap(e)}>
+                        <PopupContainer variants={popupPageContainer} ref={popupPage}>
+                            {popupName == "DELETE_POPUP" ?
+                            <DeletePopup popupMessages={popupMessages} />
+                            : popupName == "EDIT_POPUP" ?
+                            <EditPopup popupMessages={popupMessages} popupMessagesSelected={popupMessagesSelected} popupMessageReplyTo={popupMessageReplyTo} />
+                            : ""}
+                        </PopupContainer>
+                    </PopupPage>
                     : ""}
-                </PopupContainer>
-            </PopupPage>
+                </AnimatePresence>,
+                document.getElementById('popup')
+            )}
         </>
     );
 };
@@ -69,10 +80,6 @@ const PopupContainer = styled(motion.div)`
     background-color: var(--popup-container);
     border-radius: var(--popup-border-radius);
     position: relative;
-
-    p {
-        font-weight: 200;
-    }
 
     .buttons {
         margin-top: 2rem;
@@ -109,15 +116,11 @@ const PopupContainer = styled(motion.div)`
     }
 
     @media (max-width: 768px) {
-        padding: 1.5rem 2rem;
+        padding: 1.5rem;
 
         textarea {
             font-size: .8rem;
             width: 15rem;
-        }
-
-        p {
-            font-size: .8rem;
         }
 
         .buttons {

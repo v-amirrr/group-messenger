@@ -3,8 +3,9 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     popupShow: false,
     popupName: null,
-    popupMessageId: null,
+    popupMessages: null,
     popupMessageEditedReply: null,
+    popupMessagesSelected: false,
 };
 
 const popupSlice = createSlice({
@@ -14,9 +15,10 @@ const popupSlice = createSlice({
         setPopup: (state, action) => {
             return {
                 ...state,
-                popupShow: action.payload.popupShow, 
+                popupShow: action.payload.popupShow,
                 popupName: action.payload.popupName,
-                popupMessageId: action.payload.popupMessageId,
+                popupMessages: action.payload.popupMessages,
+                popupMessagesSelected: action.payload.popupMessagesSelected,
             };
         },
         setEditedReply: (state, action) => {

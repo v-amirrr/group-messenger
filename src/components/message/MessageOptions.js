@@ -52,7 +52,7 @@ const menuItemDesktopVariants = {
 
 const MessageOptions = ({ clickEvent, message }) => {
 
-    const { isMessageFromLocalUser, localUid, localUsername, messageUid, messageText, id, replyTo, messageUsername, time, messagePosition } = message;
+    const { isMessageFromLocalUser, messageText, id, messageUsername } = message;
 
     const messageOptionsRef = useRef();
     const { enterAsAGuest } = useSelector(store => store.userStore);
@@ -72,7 +72,7 @@ const MessageOptions = ({ clickEvent, message }) => {
                 </motion.div>
                 : ""}
 
-                <motion.div className='select' onClick={() => selectMessage(id, messageText, isMessageFromLocalUser)} whileTap={{ scale: 0.8 }} variants={onMobile ? menuMobileItemVariants : isMessageFromLocalUser ? menuItemUserDesktopVariants : menuItemDesktopVariants}>
+                <motion.div className='select' onClick={() => selectMessage(message)} whileTap={{ scale: 0.8 }} variants={onMobile ? menuMobileItemVariants : isMessageFromLocalUser ? menuItemUserDesktopVariants : menuItemDesktopVariants}>
                     <i><BiSelectMultiple /></i>
                     <p>Select</p>
                 </motion.div>
@@ -88,7 +88,7 @@ const MessageOptions = ({ clickEvent, message }) => {
                         <i><AiFillEdit /></i>
                         <p>Edit</p>
                     </motion.div>
-                    <motion.div className='delete' onClick={() => openPopup("DELETE_POPUP", message, false)} whileTap={{ scale: 0.8 }} variants={onMobile ? menuMobileItemVariants : isMessageFromLocalUser ? menuItemUserDesktopVariants : menuItemDesktopVariants}>
+                    <motion.div className='delete' onClick={() => openPopup("DELETE_POPUP", [message], false)} whileTap={{ scale: 0.8 }} variants={onMobile ? menuMobileItemVariants : isMessageFromLocalUser ? menuItemUserDesktopVariants : menuItemDesktopVariants}>
                         <i><AiFillDelete /></i>
                         <p>Delete</p>
                     </motion.div>

@@ -1,20 +1,22 @@
 import React from 'react';
 import { useSelect } from '../hooks/useSelect';
+import { useMessageOptions } from '../hooks/useMessageOptions';
+import { useSelector } from 'react-redux';
 import { IoClose } from 'react-icons/io5';
 import { AiFillDelete, AiFillCopy } from 'react-icons/ai';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { useSelector } from 'react-redux';
 
 const selectBarVariants = {
     hidden: { opacity: 0, y: -20, scale: 0.8 },
     visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.4 } },
-    exit: { opacity: 0, y: -40, scale: 0.8, transition: { duration: 0.3 } }
+    exit: { opacity: 0, y: -20, scale: 0.8, transition: { duration: 0.3 } }
 };
 
 const SelectBar = () => {
 
-    const { clearSelectedMessages, copySelectedMessages, deleteSelectedMessages } = useSelect();
+    const { clearSelectedMessages, copySelectedMessages } = useSelect();
+    const { openPopup } = useMessageOptions();
 
     const { selectedMessages, enterAsAGuest, selectOthersMessage } = useSelector(store => store.userStore);
 
@@ -30,7 +32,7 @@ const SelectBar = () => {
                         <p>Copy</p>
                     </motion.button>
                     {!enterAsAGuest && !selectOthersMessage ?
-                    <motion.button className='delete' whileTap={{ scale: 0.8 }} onClick={deleteSelectedMessages}>
+                    <motion.button className='delete' whileTap={{ scale: 0.8 }} onClick={() => openPopup("DELETE_POPUP", selectedMessages, true)}>
                         <i><AiFillDelete /></i>
                         <p>Delete</p>
                     </motion.button>

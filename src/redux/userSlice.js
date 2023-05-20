@@ -50,8 +50,8 @@ const userSlice = createSlice({
                 ...state, 
                 selectedMessages: [ 
                     ...state.selectedMessages, 
-                    { text: action.payload.text, uid: action.payload.uid, isMessageFromLocalUser: action.payload.isMessageFromLocalUser } 
-                ] 
+                    action.payload.message,
+                ]
             };
         },
         setClearSelectedMessages: (state) => {

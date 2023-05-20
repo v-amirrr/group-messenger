@@ -33,7 +33,19 @@ const Message = forwardRef(( props, ref ) => {
                 unSelectMessage(id);
                 setSelected(false);
             } else {
-                selectMessage(id, message, messageUid == localUid ? 1 : 0);
+                selectMessage({                            
+                    isMessageFromLocalUser: messageUid == localUid ? 1 : 0,
+                    localUid: localUid,
+                    localUsername: localUsername,
+                    messageUid: messageUid,
+                    messageText: message,
+                    id: id,
+                    replyTo: replyTo,
+                    messageUsername: messageUsername,
+                    time: time,
+                    messagePosition: messagePosition,
+                    isPersian: isRTL(message) ? 1 : 0,
+                });
             }
         } else {
             if (messageIdOptionsShow == id) {

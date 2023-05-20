@@ -8,15 +8,15 @@ export const useSelect = () => {
     const { deleteMessage } = useMessageOptions();
     const { selectedMessages } = useSelector(store => store.userStore);
 
-    const selectMessage = (uid, text, isMessageFromLocalUser) => {
+    const selectMessage = (message) => {
         dispatch(setMessageIdOptionsShow(null));
         setTimeout(() => {
-            dispatch(setSelectedMessages({uid, text, isMessageFromLocalUser}));
+            dispatch(setSelectedMessages({message}));
         }, 400);
     };
 
     const unSelectMessage = (uid) => {
-        let newSelectedMessages = selectedMessages.filter(item => item.uid != uid ? item : "");
+        let newSelectedMessages = selectedMessages.filter(item => item.id != uid ? item : "");
         dispatch(setUnselectMessages(newSelectedMessages));
         if (newSelectedMessages.every(item => item.isMessageFromLocalUser)) {
             dispatch(setSelectOthersMessage(false));
@@ -34,7 +34,7 @@ export const useSelect = () => {
                 dispatch(setSelectOthersMessage(true));
             }
 
-            if (selectedMessages[i].uid == id) {
+            if (selectedMessages[i].id == id) {
                 setSelected(true);
                 break;
             } else {
@@ -53,7 +53,7 @@ export const useSelect = () => {
     const copySelectedMessages = () => {
         let messagesText = [];
         selectedMessages.forEach(item => {
-            item.text.forEach(word => {
+            item.messageText.forEach(word => {
                 messagesText.push(`${word.word} `);
             });
             messagesText.push("\n");
@@ -64,8 +64,9 @@ export const useSelect = () => {
     };
 
     const deleteSelectedMessages = () => {
+        console.log(selectedMessages);
         selectedMessages.forEach(item => {
-            deleteMessage(item.uid);
+            deleteMessage(item.id);
         });
         clearSelectedMessages();
     };

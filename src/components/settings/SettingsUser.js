@@ -1,4 +1,4 @@
-import React, { memo, useState, useEffect } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { useChangeUsername } from '../../hooks/useChangeUsername';
 import { useSelector } from 'react-redux';
 import { FcBusinessman } from "react-icons/fc";
@@ -30,12 +30,11 @@ const themeVariants = {
     exit: { opacity: 0, y: -50, transition: { duration: 0.6 } }
 };
 
-const SettingsUser = () => {
+const SettingsUser = ({ open, setOpen }) => {
 
     const { changeUsername } = useChangeUsername();
     const { user } = useSelector(store => store.userStore);
 
-    const [open, setOpen] = useState(false);
     const [changeUsernameInput, setChangeUsernameInput] = useState(user.displayName);
 
     const submitHandler = () => {
@@ -49,9 +48,9 @@ const SettingsUser = () => {
 
     return (
         <>
-            <SettingsUserContainer open={open ? 1 : 0}>
+            <SettingsUserContainer open={open == "SETTINGS_USER" ? 1 : 0}>
                 <AnimatePresence exitBeforeEnter>
-                    {open ? 
+                    {open == "SETTINGS_USER" ? 
                     <motion.div key="item-open" className='item-open' initial='hidden' animate='visible' exit='exit' variants={userOpenVariants}>
                         <motion.div className='themes' variants={userVariants}>
                             <div className='change-username'>
@@ -61,7 +60,7 @@ const SettingsUser = () => {
                         </motion.div>
                         <button className='item-open-submit' onClick={submitHandler}>Done</button>
                     </motion.div> :
-                    <motion.div key="item-close" onClick={() => setOpen(true)} className='item-close' initial='hidden' animate='visible' exit='exit' variants={userCloseVariants}>
+                    <motion.div key="item-close" onClick={() => setOpen("SETTINGS_USER")} className='item-close' initial='hidden' animate='visible' exit='exit' variants={userCloseVariants}>
                         <i className='list-item-icon'><FcBusinessman /></i>
                         <p>User</p>
                         <i className='list-item-back'><RiArrowRightSLine /></i>

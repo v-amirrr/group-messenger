@@ -68,6 +68,11 @@ const DeletePopup = ({ popupMessages }) => {
 };
 
 const DeletePopupContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
     .delete-text {
         white-space: nowrap;
     }
@@ -79,6 +84,7 @@ const DeletePopupContainer = styled.div`
         flex-direction: column;
         margin-top: 2rem;
         user-select: none;
+        width: 80%;
     }
 
     @media (max-width: 768px) {
@@ -127,7 +133,7 @@ const Message = styled.div`
     padding: ${props => props.isreply ? "2.4rem 2.8rem .5rem .8rem" : ".5rem 2.8rem .5rem .8rem"};
     min-width: ${props => props.isreply ? "30%" : ""};
     width: fit-content;
-    max-width: 90%;
+    max-width: 100%;
     font-weight: 200;
     word-break: break-all;
 

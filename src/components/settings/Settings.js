@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useRedirection } from '../../hooks/useRedirection';
@@ -25,6 +25,8 @@ const Settings = () => {
     const { groupChatRedirection } = useRedirection();
     const { enterAsAGuest } = useSelector(store => store.userStore);
 
+    const [open, setOpen] = useState(false);
+
     useEffect(() => {
         groupChatRedirection();
     }, []);
@@ -41,8 +43,8 @@ const Settings = () => {
                     </header>
 
                     <ul>
-                        <SettingsBackgrounds />
-                        {enterAsAGuest ? "" : <SettingsUser />}
+                        <SettingsBackgrounds open={open} setOpen={setOpen} />
+                        {enterAsAGuest ? "" : <SettingsUser open={open} setOpen={setOpen} />}
                     </ul>
                 </SettingsContainer>
             </SettingsPage>

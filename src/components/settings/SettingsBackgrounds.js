@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { memo } from 'react';
 import { useSelector } from 'react-redux';
 import { useChangeTheme } from '../../hooks/useChangeTheme';
 import themeOneImageSRC from '../../assets/images/1.webp';
@@ -34,19 +34,17 @@ const themeVariants = {
     exit: { opacity: 0, y: -50, transition: { duration: 0.6 } }
 };
 
-const SettingsBackgrounds = () => {
+const SettingsBackgrounds = ({ open, setOpen }) => {
 
     const { theme } = useSelector(store => store.userStore);
 
     const { changeTheme } = useChangeTheme();
 
-    const [open, setOpen] = useState(false);
-
     return (
         <>
-            <SettingsThemesContainer open={open ? 1 : 0} theme={theme}>
+            <SettingsThemesContainer open={open == "SETINGS_BACKGROUND" ? 1 : 0} theme={theme}>
                 <AnimatePresence exitBeforeEnter>
-                    {open ? 
+                    {open == "SETINGS_BACKGROUND" ? 
                     <motion.div key="theme-open" className='theme-open' initial='hidden' animate='visible' exit='exit' variants={themesOpenVariants}>
                         <motion.div className='themes' variants={themesVariants}>
                             <motion.div className='theme' onClick={() => changeTheme(1)} variants={themeVariants}>
@@ -64,7 +62,7 @@ const SettingsBackgrounds = () => {
                         </motion.div>
                         <button className='theme-open-submit' onClick={() => setOpen(false)}>Done</button>
                     </motion.div> :
-                    <motion.div key="theme-close" onClick={() => setOpen(true)} className='theme-close' initial='hidden' animate='visible' exit='exit' variants={themesCloseVariants}>
+                    <motion.div key="theme-close" onClick={() => setOpen("SETINGS_BACKGROUND")} className='theme-close' initial='hidden' animate='visible' exit='exit' variants={themesCloseVariants}>
                         <i className='list-item-icon'><FcPicture /></i>
                         <p>Backgrounds</p>
                         <i className='list-item-back'><RiArrowRightSLine /></i>

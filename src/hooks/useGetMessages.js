@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { db } from "../config/firebase";
 import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
-import { setMessages, setError, setLoadingOn, setLoadingOff } from "../redux/messagesSlice";
+import { setMessages, setError, setLoadingOn, setLoadingOff, setDeletedMessages } from "../redux/messagesSlice";
 import { isURL } from "../functions/isURL";
 
 export const useGetMessages = () => {
@@ -38,8 +38,13 @@ export const useGetMessages = () => {
                     },
                     id: doc.id,
                     replyTo: doc.data().replyTo ? doc.data().replyTo : null,
+                    deleted: doc.data().deleted,
                 });
             });
+
+            dispatch(setDeletedMessages(messages?.filter(item => item.deleted)));
+
+            messages = messages?.filter(item => !item.deleted);
 
             let modifiedMessages = messages?.map((item, index) => {
                 return {
@@ -48,9 +53,9 @@ export const useGetMessages = () => {
                         let checkLink = isURL(word);
                         return { word: checkLink.newWord, link: checkLink.isLink };
                     }),
-                    periorUsername: index != 0 ? messages[index-1].uid : false, 
+                    periorUsername: index != 0 ? messages[index-1].uid : false,
                     nextUsername: index != messages.length-1 ? messages[index+1].uid : false,
-                    priorDifferentDate: index != 0 ? 
+                    priorDifferentDate: index != 0 ?
                         messages[index-1]?.time?.year != item?.time?.year ||
                         messages[index-1]?.time?.month != item?.time?.month ||
                         messages[index-1]?.time?.day != item?.time?.day ? true : false

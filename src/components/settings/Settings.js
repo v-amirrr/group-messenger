@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useRedirection } from '../../hooks/useRedirection';
 import SettingsBackgrounds from './SettingsBackgrounds';
 import SettingsUser from './SettingsUser';
+import SettingsTrash from './SettingsTrash';
 import { TiArrowLeft } from "react-icons/ti";
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
@@ -44,7 +45,12 @@ const Settings = () => {
 
                     <ul>
                         <SettingsBackgrounds open={open} setOpen={setOpen} />
-                        {enterAsAGuest ? "" : <SettingsUser open={open} setOpen={setOpen} />}
+                        {!enterAsAGuest ?
+                        <>
+                            <SettingsUser open={open} setOpen={setOpen} />
+                            <SettingsTrash open={open} setOpen={setOpen} />
+                        </>
+                        : ""}
                     </ul>
                 </SettingsContainer>
             </SettingsPage>

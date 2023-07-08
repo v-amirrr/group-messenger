@@ -4,6 +4,7 @@ const initialState = {
     messages: null,
     error: null,
     loading: true,
+    deletedMessages: null,
 };
 
 const messagesSlice = createSlice({
@@ -22,14 +23,18 @@ const messagesSlice = createSlice({
         setLoadingOff: state => {
             return { ...state, loading: false };
         },
+        setDeletedMessages: (state, action) => {
+            return { ...state, deletedMessages: action.payload };
+        },
     },
 });
 
-export const { 
-    setMessages, 
-    setError, 
-    setLoadingOn, 
-    setLoadingOff, 
+export const {
+    setMessages,
+    setError,
+    setLoadingOn,
+    setLoadingOff,
+    setDeletedMessages,
 } = messagesSlice.actions;
 
 export default messagesSlice.reducer;

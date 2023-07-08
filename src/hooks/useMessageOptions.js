@@ -24,7 +24,7 @@ export const useMessageOptions = () => {
 
     const openPopup = (popupName, popupMessages) => {
         dispatch(setMessageIdOptionsShow(null));
-        
+
         let sortedPopupMessages = [...popupMessages];
 
         if (popupMessages.length > 1) {
@@ -51,8 +51,18 @@ export const useMessageOptions = () => {
 
     const deleteMessage = (id) => {
         const docRef = doc(db, "messages", id);
-        deleteDoc(docRef);
+        // deleteDoc(docRef);
+        updateDoc(docRef, {
+            deleted: true
+        });
         closePopup();
+    };
+
+    const undeleteMessage = (id) => {
+        const docRef = doc(db, "messages", id);
+        updateDoc(docRef, {
+            deleted: false
+        });
     };
 
     const editMessage = (popupMessages, newEditedText) => {
@@ -77,7 +87,7 @@ export const useMessageOptions = () => {
 
     const replyMessage = (id, message, username) => {
         dispatch(setMessageIdOptionsShow(null));
-    
+
         let messageText = [];
         message.map(item => {
             messageText.push(item.word);
@@ -103,6 +113,7 @@ export const useMessageOptions = () => {
         openPopup,
         closePopup,
         deleteMessage,
+        undeleteMessage,
         editMessage,
         editReply,
         replyMessage,

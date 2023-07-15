@@ -31,7 +31,7 @@ const Message = forwardRef(( props, ref ) => {
                 unSelectMessage(id);
                 setSelected(false);
             } else {
-                selectMessage({                            
+                selectMessage({
                     isMessageFromLocalUser: messageUid == localUid ? 1 : 0,
                     messageText: message,
                     id: id,
@@ -121,7 +121,7 @@ const Message = forwardRef(( props, ref ) => {
                 <SelectCheck selected={selected} selectedMessagesLength={selectedMessages.length} />
 
                 <AnimatePresence>
-                    {messageIdOptionsShow == id ? 
+                    {messageIdOptionsShow == id ?
                     <MessageOptions
                         clickEvent={clickEvent}
                         message={{
@@ -155,33 +155,33 @@ const MessageBox = styled.div`
         align-items: center;
         flex-direction: ${ props => props.isMessageFromLocalUser ? "row-reverse" : "row"};
         background-color: ${props => props.selected ? "var(--message-selected)" : "var(--message)"};
-        margin: ${props => 
-            props.messagePosition == 0 ? 
-            ".2rem 0 .2rem 0" : 
-            props.messagePosition == 1 ? 
-            ".2rem 0 .04rem 0" : 
-            props.messagePosition == 2 ? 
-            ".04rem 0 .04rem 0" : 
-            props.messagePosition == 3 && 
+        margin: ${props =>
+            props.messagePosition == 0 ?
+            ".2rem 0 .2rem 0" :
+            props.messagePosition == 1 ?
+            ".2rem 0 .04rem 0" :
+            props.messagePosition == 2 ?
+            ".04rem 0 .04rem 0" :
+            props.messagePosition == 3 &&
             ".04rem 0 .2rem 0"
         };
-        border-radius: ${props => 
-            props.isMessageFromLocalUser ? 
-                props.messagePosition == 0 ? 
-                "25px" : 
-                props.messagePosition == 1 ? 
-                "25px 25px 2px 25px" : 
-                props.messagePosition == 2 ? 
-                "25px 2px 2px 25px" : 
-                props.messagePosition == 3 && 
+        border-radius: ${props =>
+            props.isMessageFromLocalUser ?
+                props.messagePosition == 0 ?
+                "25px" :
+                props.messagePosition == 1 ?
+                "25px 25px 2px 25px" :
+                props.messagePosition == 2 ?
+                "25px 2px 2px 25px" :
+                props.messagePosition == 3 &&
                 "25px 2px 25px 25px" :
-            props.messagePosition == 0 ? 
-                "25px" : 
-                props.messagePosition == 1 ? 
-                "25px 25px 25px 2px" : 
-                props.messagePosition == 2 ? 
-                "5px 25px 25px 2px" : 
-                props.messagePosition == 3 && 
+            props.messagePosition == 0 ?
+                "25px" :
+                props.messagePosition == 1 ?
+                "25px 25px 25px 2px" :
+                props.messagePosition == 2 ?
+                "5px 25px 25px 2px" :
+                props.messagePosition == 3 &&
                 "2px 25px 25px 25px"
         };
         margin-right: ${props => props.anymessageselected ? "3rem" : ""};
@@ -205,7 +205,7 @@ const MessageBox = styled.div`
             margin-left: -.2rem;
             white-space: nowrap;
         }
-    
+
         .message {
             text-align: ${props => props.ispersian ? "right" : "left"};
             word-spacing: 1px;
@@ -222,23 +222,23 @@ const MessageBox = styled.div`
             padding: ${props => props.isreply ? "2.4rem 2.5rem .5rem .8rem" : ".5rem 2.5rem .5rem .8rem"};
             max-width: 80%;
             min-width: ${props => props.isreply ? "30%" : ""};
-            border-radius: ${props => 
-                props.isMessageFromLocalUser ? 
-                    props.messagePosition == 0 ? 
-                    "20px" : 
-                    props.messagePosition == 1 ? 
-                    "20px 20px 5px 20px" : 
-                    props.messagePosition == 2 ? 
-                    "20px 5px 5px 20px" : 
-                    props.messagePosition == 3 && 
+            border-radius: ${props =>
+                props.isMessageFromLocalUser ?
+                    props.messagePosition == 0 ?
+                    "20px" :
+                    props.messagePosition == 1 ?
+                    "20px 20px 5px 20px" :
+                    props.messagePosition == 2 ?
+                    "20px 5px 5px 20px" :
+                    props.messagePosition == 3 &&
                     "20px 5px 20px 20px" :
-                props.messagePosition == 0 ? 
-                    "20px" : 
-                    props.messagePosition == 1 ? 
-                    "20px 20px 20px 5px" : 
-                    props.messagePosition == 2 ? 
-                    "5px 20px 20px 5px" : 
-                    props.messagePosition == 3 && 
+                props.messagePosition == 0 ?
+                    "20px" :
+                    props.messagePosition == 1 ?
+                    "20px 20px 20px 5px" :
+                    props.messagePosition == 2 ?
+                    "5px 20px 20px 5px" :
+                    props.messagePosition == 3 &&
                     "5px 20px 20px 20px"
             };
         }

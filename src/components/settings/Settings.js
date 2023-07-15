@@ -5,6 +5,7 @@ import { useRedirection } from '../../hooks/useRedirection';
 import SettingsBackgrounds from './SettingsBackgrounds';
 import SettingsUser from './SettingsUser';
 import SettingsTrash from './SettingsTrash';
+import SettingsItem from './SettingsItem';
 import { TiArrowLeft } from "react-icons/ti";
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
@@ -16,9 +17,9 @@ const settingsPageVariants = {
 };
 
 const settingsContainerVariants = {
-    hidden: { opacity: 0, scale: 0 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 1, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } },
-    exit: { opacity: 0, scale: 0.8, transition: { duration: 0.5, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } }
+    hidden: { opacity: 0, y: 50, scaleY: 0.8 },
+    visible: { opacity: 1, y: 0, scaleY: 1, transition: { duration: 0.8, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } },
+    exit: { opacity: 0, y: 30, transition: { duration: 0.3 } }
 };
 
 const Settings = () => {
@@ -44,17 +45,16 @@ const Settings = () => {
                     </header>
 
                     <ul>
-                        <SettingsBackgrounds open={open} setOpen={setOpen} />
+                        <SettingsItem open={open} openValue="SETTINGS_BACKGROUND" component={<SettingsBackgrounds open={open} setOpen={setOpen} />} />
                         {!enterAsAGuest ?
                         <>
-                            <SettingsUser open={open} setOpen={setOpen} />
-                            <SettingsTrash open={open} setOpen={setOpen} />
+                            <SettingsItem openValue="SETTINGS_USER" open={open} component={<SettingsUser open={open} setOpen={setOpen} />} />
+                            <SettingsItem openValue="SETTINGS_TRASH" open={open} component={<SettingsTrash open={open} setOpen={setOpen} />} />
                         </>
                         : ""}
                     </ul>
                 </SettingsContainer>
             </SettingsPage>
-
         </>
     );
 };
@@ -100,7 +100,7 @@ const SettingsContainer = styled(motion.section)`
             background-color: var(--settings-back);
             transition: background .4s;
             border-radius: 50%;
-            
+
             i {
                 display: flex;
                 justify-content: center;
@@ -122,6 +122,7 @@ const SettingsContainer = styled(motion.section)`
         justify-content: center;
         align-items: center;
         flex-direction: column;
+        margin-top: 4rem;
     }
 `;
 

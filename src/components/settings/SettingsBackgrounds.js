@@ -10,28 +10,16 @@ import { RiArrowRightSLine } from "react-icons/ri";
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 
-const themesOpenVariants = {
+const backgroundsVariants = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.4, delay: 0.4 } },
-    exit: { opacity: 0, scale: 0.5, transition: { duration: 0.4 } }
+    visible: { opacity: 1, transition: { duration: 0.4, staggerChildren: 0.5 } },
+    exit: { opacity: 0, scaleY: 0, transition: { duration: 0.6, when: "beforeChildren" } }
 };
 
-const themesCloseVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.4 } },
-    exit: { opacity: 0, scale: 0.5, transition: { duration: 0.4 } }
-};
-
-const themesVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.4, staggerChildren: 0.2 } },
-    exit: { opacity: 0, scale: 0.5, transition: { duration: 0.4 } }
-};
-
-const themeVariants = {
+const backgroundVariants = {
     hidden: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-    exit: { opacity: 0, y: -50, transition: { duration: 0.6 } }
+    visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
+    exit: { opacity: 0, y: -50, transition: { duration: 0.4 } }
 };
 
 const SettingsBackgrounds = ({ open, setOpen }) => {
@@ -40,168 +28,106 @@ const SettingsBackgrounds = ({ open, setOpen }) => {
 
     const { changeTheme } = useChangeTheme();
 
+    const itemSwitch = () => {
+        if (open == "SETTINGS_BACKGROUND") {
+            setOpen(false);
+        } else {
+            setOpen("SETTINGS_BACKGROUND");
+        }
+    };
+
     return (
         <>
-            <SettingsThemesContainer open={open == "SETINGS_BACKGROUND" ? 1 : 0} theme={theme}>
-                <AnimatePresence exitBeforeEnter>
-                    {open == "SETINGS_BACKGROUND" ? 
-                    <motion.div key="theme-open" className='theme-open' initial='hidden' animate='visible' exit='exit' variants={themesOpenVariants}>
-                        <motion.div className='themes' variants={themesVariants}>
-                            <motion.div className='theme' onClick={() => changeTheme(1)} variants={themeVariants}>
+            <div className='item-header' onClick={itemSwitch}>
+                <i className='item-icon'><FcPicture /></i>
+                <h4>Backgrounds</h4>
+                <i className='item-back'><RiArrowRightSLine /></i>
+            </div>
+
+            <AnimatePresence exitBeforeEnter>
+                {
+                    open== "SETTINGS_BACKGROUND" ?
+                    <div key="item-data" className='item-data'>
+                        <BackgroundsContainer theme={theme} initial='hidden' animate='visible' exit='exit' variants={backgroundsVariants}>
+                            <motion.div className='background' onClick={() => changeTheme(1)} variants={backgroundVariants}>
                                 <img src={themeOneImageSRC} />
                             </motion.div>
-                            <motion.div className='theme' onClick={() => changeTheme(2)} variants={themeVariants}>
+                            <motion.div className='background' onClick={() => changeTheme(2)} variants={backgroundVariants}>
                                 <img src={themeTowImageSRC} />
                             </motion.div>
-                            <motion.div className='theme' onClick={() => changeTheme(3)} variants={themeVariants}>
+                            <motion.div className='background' onClick={() => changeTheme(3)} variants={backgroundVariants}>
                                 <img src={themeThreeImageSRC} />
                             </motion.div>
-                            <motion.div className='theme' onClick={() => changeTheme(4)} variants={themeVariants}>
+                            <motion.div className='background' onClick={() => changeTheme(4)} variants={backgroundVariants}>
                                 <img src={themeFourImageSRC} />
                             </motion.div>
-                        </motion.div>
-                        <button className='theme-open-submit' onClick={() => setOpen(false)}>Done</button>
-                    </motion.div> :
-                    <motion.div key="theme-close" onClick={() => setOpen("SETINGS_BACKGROUND")} className='theme-close' initial='hidden' animate='visible' exit='exit' variants={themesCloseVariants}>
-                        <i className='list-item-icon'><FcPicture /></i>
-                        <p>Backgrounds</p>
-                        <i className='list-item-back'><RiArrowRightSLine /></i>
-                    </motion.div>}
-                </AnimatePresence>
-            </SettingsThemesContainer>
+                        </BackgroundsContainer>
+                    </div>
+                    : ""
+                }
+            </AnimatePresence>
         </>
     );
 };
 
-const SettingsThemesContainer = styled.div`
-    width: 65%;
-    height: ${props => props.open ? "18rem" : "2.2rem"};
-    padding: ${props => props.open ? "" : "0 .5rem"};
+const BackgroundsContainer = styled(motion.div)`
+    position: absolute;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    border-radius: 15px;
-    cursor: ${props => props.open ? "" : "pointer"};
-    overflow: hidden;
-    position: relative;
-    margin: .3rem;
-    background-color: var(--settings-item);
-    transition: background .2s, border .2s, height .8s cubic-bezier(.53,0,0,.98), padding .2s;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    margin-top: 5rem;
+    padding-bottom: 3rem;
+    overflow: hidden scroll;
 
-    .theme-close {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        width: 100%;
-        height: 100%;
-
-        .list-item-icon {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.2rem;
-            margin-right: .4rem;
-        }
-    
-        p {
-            font-size: .8rem;
-            font-weight: 600;
-        }
-    
-        .list-item-back {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.5rem;
-            position: absolute;
-            right: 0;
-        }
+    /* width */
+    ::-webkit-scrollbar {
+        width: .3rem;
     }
 
-    .theme-open {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        height: 100%;
+    /* Track */
+    ::-webkit-scrollbar-track {
+        border-radius: 50px;
+        background: #ffffff04;
+    }
 
-        .theme-open-back {
-            position: absolute;
-            top: 0;
-            left: 0;
-            margin: .3rem;
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            font-size: 2rem;
-            z-index: 99;
-            cursor: pointer;
-            background-color: var(--settings-back-hover);
-            border-radius: 50%;
-        }
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #ffffff14;
+        border-radius: 50px;
+    }
 
-        .themes {
-            position: relative;
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            flex-direction: column;
+    .background {
+        border-radius: 20px;
+        width: 80%;
+        height: 8rem;
+        margin: .2rem 0;
+        cursor: pointer;
+        border: solid 5px #ffffff00;
+        transition: border .2s;
+
+        img {
             width: 100%;
             height: 100%;
-            padding: 1rem 0 3rem 0;
-            overflow: hidden scroll;
-
-            .theme {
-                border-radius: 20px;
-                width: 80%;
-                height: 8rem;
-                margin: .4rem 0;
-                cursor: pointer;
-                border: solid 5px #ffffff00;
-                transition: border .2s;
-
-                img {
-                    width: 100%;
-                    height: 100%;
-                    border-radius: 20px;
-                }
-
-                &:nth-child(1) {
-                    border: ${props => props.theme == 1 ? "solid 5px #fff" : ""};
-                }
-    
-                &:nth-child(2) {
-                    border: ${props => props.theme == 2 ? "solid 5px #fff" : ""};
-                }
-    
-                &:nth-child(3) {
-                    border: ${props => props.theme == 3 ? "solid 5px #fff" : ""};
-                }
-    
-                &:nth-child(4) {
-                    border: ${props => props.theme == 4 ? "solid 5px #fff" : ""};
-                }
-            }
+            border-radius: 20px;
         }
 
-        .theme-open-submit {
-            position: absolute;
-            bottom: 0;
-            padding: .5rem;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: var(--settings-submit);
-            border: none;
-            cursor: pointer;
-            font-size: .8rem;
+        &:nth-child(1) {
+            border: ${props => props.theme == 1 ? "solid 3px #fff" : ""};
         }
-    }
 
-    @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
-        &:hover {
-            background-color: ${props => props.open ? "" : "var(--settings-item-hover)"};
+        &:nth-child(2) {
+            border: ${props => props.theme == 2 ? "solid 3px #fff" : ""};
+        }
+
+        &:nth-child(3) {
+            border: ${props => props.theme == 3 ? "solid 3px #fff" : ""};
+        }
+
+        &:nth-child(4) {
+            border: ${props => props.theme == 4 ? "solid 3px #fff" : ""};
         }
     }
 `;

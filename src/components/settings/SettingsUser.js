@@ -1,33 +1,15 @@
 import React, { memo, useEffect, useState } from 'react';
 import { useChangeUsername } from '../../hooks/useChangeUsername';
 import { useSelector } from 'react-redux';
-import { FcBusinessman } from "react-icons/fc";
+import { FcBusinessman, FcCheckmark } from "react-icons/fc";
 import { RiArrowRightSLine } from "react-icons/ri";
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 
-const userOpenVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.4, delay: 0.4 } },
-    exit: { opacity: 0, scale: 0.5, transition: { duration: 0.4 } }
-};
-
-const userCloseVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.4 } },
-    exit: { opacity: 0, scale: 0.5, transition: { duration: 0.4 } }
-};
-
 const userVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.4, staggerChildren: 0.2 } },
-    exit: { opacity: 0, scale: 0.5, transition: { duration: 0.4 } }
-};
-
-const themeVariants = {
     hidden: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-    exit: { opacity: 0, y: -50, transition: { duration: 0.6 } }
+    visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
+    exit: { opacity: 0, scaleY: 0, transition: { duration: 0.6 } }
 };
 
 const SettingsUser = ({ open, setOpen }) => {
@@ -42,118 +24,88 @@ const SettingsUser = ({ open, setOpen }) => {
         changeUsername(changeUsernameInput);
     };
 
+    const itemSwitch = () => {
+        if (open == "SETTINGS_USER") {
+            setOpen(false);
+        } else {
+            setOpen("SETTINGS_USER");
+        }
+    };
+
     useEffect(() => {
         localStorage.setItem("user", JSON.stringify(user));
     }, [user]);
 
     return (
         <>
-            <SettingsUserContainer open={open == "SETTINGS_USER" ? 1 : 0}>
-                <AnimatePresence exitBeforeEnter>
-                    {open == "SETTINGS_USER" ? 
-                    <motion.div key="item-open" className='item-open' initial='hidden' animate='visible' exit='exit' variants={userOpenVariants}>
-                        <motion.div className='themes' variants={userVariants}>
+            <div className='item-header' onClick={itemSwitch}>
+                <i className='item-icon'><FcBusinessman /></i>
+                <h4>User</h4>
+                <i className='item-back'><RiArrowRightSLine /></i>
+            </div>
+
+            <AnimatePresence exitBeforeEnter>
+                {
+                    open == "SETTINGS_USER" ?
+                    <div key="item-data" className='item-data'>
+                        <UserContainer initial='hidden' animate='visible' exit='exit' variants={userVariants}>
                             <div className='change-username'>
                                 <h6>Change your username</h6>
-                                <input type='text' value={changeUsernameInput} onChange={(e) => setChangeUsernameInput(e.target.value)} autoFocus />
+                                <div className='change-username-input'>
+                                    <input type='text' value={changeUsernameInput} onChange={(e) => setChangeUsernameInput(e.target.value)}/>
+                                    <i onClick={submitHandler}><FcCheckmark /></i>
+                                </div>
                             </div>
-                        </motion.div>
-                        <button className='item-open-submit' onClick={submitHandler}>Done</button>
-                    </motion.div> :
-                    <motion.div key="item-close" onClick={() => setOpen("SETTINGS_USER")} className='item-close' initial='hidden' animate='visible' exit='exit' variants={userCloseVariants}>
-                        <i className='list-item-icon'><FcBusinessman /></i>
-                        <p>User</p>
-                        <i className='list-item-back'><RiArrowRightSLine /></i>
-                    </motion.div>}
-                </AnimatePresence>
-            </SettingsUserContainer>
+                        </UserContainer>
+                    </div>
+                    : ""
+                }
+            </AnimatePresence>
         </>
     );
 };
 
-const SettingsUserContainer = styled.div`
-    width: 65%;
-    height: ${props => props.open ? "18rem" : "2.2rem"};
-    padding: ${props => props.open ? "" : "0 .5rem"};
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    border-radius: 15px;
-    cursor: ${props => props.open ? "" : "pointer"};
-    overflow: hidden;
-    position: relative;
-    margin: .3rem;
-    background-color: var(--settings-item);
-    transition: background .2s, border .2s, height .8s cubic-bezier(.53,0,0,.98), padding .2s;
+const UserContainer = styled(motion.div)`
+    .change-username {
+        padding-bottom: .5rem;
 
-    .item-close {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        width: 100%;
-        height: 100%;
+        h6 {
+            margin-bottom: .2rem;
+        }
 
-        .list-item-icon {
+        .change-username-input {
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 1.2rem;
-            margin-right: .4rem;
-        }
-    
-        p {
-            font-size: .8rem;
-            font-weight: 600;
-        }
-    
-        .list-item-back {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.5rem;
-            position: absolute;
-            right: 0;
-        }
-    }
+            position: relative;
 
-    .item-open {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        height: 100%;
-
-        .change-username {
-            h6 {
-                margin-bottom: .5rem;
-            }
             input {
                 padding: .5rem;
                 border: none;
                 border-radius: 10px;
                 background-color: #ffffff08;
             }
+
+            i {
+                position: absolute;
+                right: .2rem;
+                cursor: pointer;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: var(--settings-back);
+                transition: background .3s;
+                border-radius: 50%;
+                padding: .2rem;
+
+                @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
+                    &:hover {
+                        background-color: var(--settings-back-hover);
+                    }
+                }
+            }
         }
 
-        .item-open-submit {
-            position: absolute;
-            bottom: 0;
-            padding: .5rem;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: var(--settings-submit);
-            border: none;
-            cursor: pointer;
-            font-size: .8rem;
-        }
-    }
-
-    @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
-        &:hover {
-            background-color: ${props => props.open ? "" : "var(--settings-item-hover)"};
-        }
     }
 `;
 

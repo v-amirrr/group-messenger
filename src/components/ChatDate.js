@@ -1,12 +1,7 @@
 import React, { memo } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-
-const chatDateVariants = {
-    hidden: { opacity: 0, scaleX: 0.8 },
-    visible: { opacity: 1, scaleX: 1, transition: { duration: 0.4 } },
-    exit: { opacity: 0, scaleX: 0.8, transition: { duration: 0.4 } }
-};
+import { chatDateVariants } from '../config/varitans';
 
 const ChatDate = ({ dateObj, priorDifferentDate }) => {
     return (

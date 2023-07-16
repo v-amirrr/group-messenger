@@ -4,12 +4,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { IoClose } from 'react-icons/io5';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
-
-const errorVariants = {
-    hidden: { opacity: 0, y: 50, scaleY: 0.8 },
-    visible: { opacity: 1, y: 0, scaleY: 1, transition: { duration: 0.8, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } },
-    exit: { opacity: 0, y: 30, transition: { duration: 0.3 } }
-};
+import { errorVariants } from '../../config/varitans';
 
 const AuthError = () => {
 

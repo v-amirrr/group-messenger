@@ -9,12 +9,7 @@ import backgroundSixImageSRC from '../assets/images/6.webp';
 import backgroundSevenImageSRC from '../assets/images/7.webp';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
-
-const backgroundImageVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 0.4, type: 'tween' } },
-    exit: { opacity: 0, transition: { duration: 0.4, type: 'tween' } }
-};
+import { backgroundImageVariants } from '../config/varitans';
 
 const MessengerBackground = () => {
 
@@ -37,7 +32,7 @@ const MessengerBackground = () => {
                     theme == 6 ?
                     <motion.img src={backgroundSixImageSRC} key="image-six" initial='hidden' animate='visible' exit='exit' variants={backgroundImageVariants} /> :
                     theme == 7 ?
-                    <motion.img src={backgroundSevenImageSRC} key="image-seven" initial='hidden' animate='visible' exit='exit' variants={backgroundImageVariants} /> 
+                    <motion.img src={backgroundSevenImageSRC} key="image-seven" initial='hidden' animate='visible' exit='exit' variants={backgroundImageVariants} />
                     : ""}
                 </AnimatePresence>
             </Background>

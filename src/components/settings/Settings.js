@@ -9,18 +9,7 @@ import SettingsItem from './SettingsItem';
 import { TiArrowLeft } from "react-icons/ti";
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-
-const settingsPageVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 0.4 } },
-    exit: { opacity: 0, transition: { duration: 0.4, when: "afterChildren" } }
-};
-
-const settingsContainerVariants = {
-    hidden: { opacity: 0, y: 50, scaleY: 0.8 },
-    visible: { opacity: 1, y: 0, scaleY: 1, transition: { duration: 0.8, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } },
-    exit: { opacity: 0, y: 30, transition: { duration: 0.3 } }
-};
+import { settingsPageVariants, settingsContainerVariants } from '../../config/varitans';
 
 const Settings = () => {
 

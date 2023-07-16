@@ -7,48 +7,7 @@ import { BsReplyFill } from 'react-icons/bs';
 import { BiSelectMultiple } from "react-icons/bi";
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-
-const menuMobileUserVariants = {
-    hidden: { width: 0, height: 0 },
-    visible: { width: "6.8rem", height: "11.5rem", transition: { duration: 1, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } },
-    exit: { opacity: 0, y: 5, transition: { duration: 0.3 } }
-};
-
-const menuMobileGuestVariants = {
-    hidden: { width: 0, height: 0 },
-    visible: { width: "6.8rem", height: "3rem", transition: { duration: 1, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } },
-    exit: { opacity: 0, y: 5, transition: { duration: 0.3 } }
-};
-
-const menuMobileVariants = {
-    hidden: { width: 0, height: 0 },
-    visible: { width: "6.8rem", height: "7rem", transition: { duration: 1, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } },
-    exit: { opacity: 0, y: 5, transition: { duration: 0.3 } }
-};
-
-const menuMobileItemVariants = {
-    hidden: { scale: 0 },
-    visible: { scale: 1, transition: { duration: 0.6, type: 'tween' } },
-    exit: { opacity: 0, transition: { duration: 0.6, type: 'tween' } }
-};
-
-const menuDesktopVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 0.1, staggerChildren: 0.04, when: "beforeChildren" } },
-    exit: { opacity: 0, transition: { duration: 0.1, staggerChildren: 0.02, when: "afterChildren" } }
-};
-
-const menuItemUserDesktopVariants = {
-    hidden: { opacity: 0, x: 20, scale: 0.8 },
-    visible: { opacity: 1, x: [20, -20, 0], scale: 1, transition: { duration: 0.5, type: 'tween' } },
-    exit: { opacity: 0, x: 80, transition: { duration: 0.4, type: 'tween' } }
-};
-
-const menuItemDesktopVariants = {
-    hidden: { opacity: 0, x: -20, scale: 0.8 },
-    visible: { opacity: 1, x: [-20, 20, 0], scale: 1, transition: { duration: 0.5, type: 'tween' } },
-    exit: { opacity: 0, x: -80, transition: { duration: 0.4, type: 'tween' } }
-};
+import { menuMobileUserVariants, menuMobileGuestVariants, menuMobileVariants, menuMobileItemVariants, menuDesktopVariants, menuItemUserDesktopVariants, menuItemDesktopVariants } from '../../config/varitans';
 
 const MessageOptions = ({ clickEvent, message }) => {
 
@@ -65,7 +24,7 @@ const MessageOptions = ({ clickEvent, message }) => {
     return (
         <>
             <MessageOptionsContainer key={id} ref={messageOptionsRef} initial='hidden' animate='visible' exit='exit' variants={onMobile ? enterAsAGuest ? menuMobileGuestVariants : isMessageFromLocalUser ? menuMobileUserVariants : menuMobileVariants : menuDesktopVariants} ismessagefromlocaluser={isMessageFromLocalUser ? 1 : 0} x={clickEvent?.pageX} y={clickEvent?.pageY} guest={enterAsAGuest ? 1 : 0}>
-                {!enterAsAGuest ? 
+                {!enterAsAGuest ?
                 <motion.div className='reply' onClick={() => replyMessage(id, messageText, messageUsername)} whileTap={{ scale: 0.8 }} variants={onMobile ? menuMobileItemVariants : isMessageFromLocalUser ? menuItemUserDesktopVariants : menuItemDesktopVariants}>
                     <i><BsReplyFill /></i>
                     <p>Reply</p>
@@ -82,7 +41,7 @@ const MessageOptions = ({ clickEvent, message }) => {
                     <p>Copy</p>
                 </motion.div>
 
-                {isMessageFromLocalUser && !enterAsAGuest ? 
+                {isMessageFromLocalUser && !enterAsAGuest ?
                 <>
                     <motion.div className='edit' onClick={() => openPopup("EDIT_POPUP", [message])} whileTap={{ scale: 0.8 }} variants={onMobile ? menuMobileItemVariants : isMessageFromLocalUser ? menuItemUserDesktopVariants : menuItemDesktopVariants}>
                         <i><AiFillEdit /></i>
@@ -199,7 +158,7 @@ const MessageOptionsContainer = styled(motion.div)`
         flex-direction: column;
         justify-content: center;
         position: absolute;
-        top: ${props => `${props.y-90}px`}; 
+        top: ${props => `${props.y-90}px`};
         left: ${props => !props.ismessagefromlocaluser ? `${props.x-20}px` : "none"};
         right: ${props => props.ismessagefromlocaluser ? `${395-(props.x)}px` : "none"};
         z-index: 999;

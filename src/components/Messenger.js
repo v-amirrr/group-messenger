@@ -5,16 +5,11 @@ import ErrorBox from './ErrorBox';
 import GroupChat from './GroupChat';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
-
-const messengerVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 0.4 } },
-    exit: { opacity: 0, transition: { duration: 0.4 } }
-};
+import { messengerVariants } from '../config/varitans';
 
 const Messenger = () => {
 
-    const { loading, error, messages } = useSelector(store => store.messagesStore);
+    const { loading, error } = useSelector(store => store.messagesStore);
 
     return (
         <>

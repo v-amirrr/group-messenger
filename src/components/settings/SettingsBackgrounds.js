@@ -9,18 +9,7 @@ import { FcPicture } from "react-icons/fc";
 import { RiArrowRightSLine } from "react-icons/ri";
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
-
-const backgroundsVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 0.4, staggerChildren: 0.5 } },
-    exit: { opacity: 0, scaleY: 0, transition: { duration: 0.6, when: "beforeChildren" } }
-};
-
-const backgroundVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
-    exit: { opacity: 0, y: -50, transition: { duration: 0.4 } }
-};
+import { backgroundsVariants, backgroundVariants } from '../../config/varitans';
 
 const SettingsBackgrounds = ({ open, setOpen }) => {
 

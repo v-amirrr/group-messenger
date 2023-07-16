@@ -5,12 +5,7 @@ import { FcBusinessman, FcCheckmark } from "react-icons/fc";
 import { RiArrowRightSLine } from "react-icons/ri";
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
-
-const userVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
-    exit: { opacity: 0, scaleY: 0, transition: { duration: 0.6 } }
-};
+import { userVariants } from '../../config/varitans';
 
 const SettingsUser = ({ open, setOpen }) => {
 

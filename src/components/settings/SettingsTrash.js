@@ -6,12 +6,7 @@ import { FaTrashRestore } from "react-icons/fa";
 import { RiArrowRightSLine } from "react-icons/ri";
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
-
-const trashVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
-    exit: { opacity: 0, scaleY: 0, transition: { duration: 0.6 } }
-};
+import { trashVariants } from '../../config/varitans';
 
 const SettingsTrash = ({ open, setOpen }) => {
 

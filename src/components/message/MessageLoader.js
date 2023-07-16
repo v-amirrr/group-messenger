@@ -1,12 +1,7 @@
 import React, { memo } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-
-const messageLoaderVariants = {
-    hidden: { opacity: 0, scale: 0.5 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.4, type: 'tween' } },
-    exit: { opacity: 0, scale: 0.5, transition: { duration: 0.4, type: 'tween' } }
-};
+import { messageLoaderVariants } from '../../config/varitans';
 
 const MessageLoader = ({ size }) => {
     return (

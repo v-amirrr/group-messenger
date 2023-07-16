@@ -2,18 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import { TbCheck } from "react-icons/tb";
 import { motion, AnimatePresence } from 'framer-motion';
+import { selectCheckVariants } from '../../config/varitans';
 
-const selectCheckVariants = {
-    hidden: { opacity: 0, y: -20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.4, type: 'tween', delay: 0.4 } },
-    exit: { opacity: 0, x: 20, transition: { duration: 0.2, type: 'tween' } }
-};
 
 const SelectCheck = ({ selected, selectedMessagesLength }) => {
     return (
         <>
             <AnimatePresence exitBeforeEnter>
-                {selectedMessagesLength ? 
+                {selectedMessagesLength ?
                 <SelectCheckContainer className='select-section' key="select-section" initial='hidden' animate='visible' exit='exit' variants={selectCheckVariants} selected={selected ? 1 : 0} selectedmessageslength={selectedMessagesLength ? 1 : 0}>
                     <i><TbCheck /></i>
                 </SelectCheckContainer>

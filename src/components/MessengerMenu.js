@@ -1,36 +1,12 @@
 import React, { memo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import { useAuth } from '../hooks/useAuth';
 import { HiDotsVertical } from "react-icons/hi";
 import { FaArrowRight } from "react-icons/fa";
 import { FcSettings, FcRightUp2 } from "react-icons/fc";
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
-
-const menuVariants = {
-    hidden: { opacity: 0, y: 50, scaleY: 0.8 },
-    visible: { opacity: 1, y: 0, scaleY: 1, transition: { duration: 0.8, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } },
-    exit: { opacity: 0, y: 30, transition: { duration: 0.3 } }
-};
-
-const backIconVariants = {
-    hidden: { opacity: 0, scale: 0.5, x: 50 },
-    visible: { opacity: 1, scale: 1, x: 0, transition: { duration: 0.4 } },
-    exit: { opacity: 0, scale: 0.5, x: 50, transition: { duration: 0.4 } }
-};
-
-const menuIconVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, x: 0, scale: 1, transition: { duration: 0.4, delay: 0.5 } },
-    exit: { opacity: 0, x: 60, scale: 0, transition: { duration: 0.4 } }
-};
-
-const menuListVariants = {
-    hidden: { opacity: 0, scale: 0.5, x: 50 },
-    visible: { opacity: 1, scale: 1, x: 0, transition: { duration: 0.6, type: 'tween' } },
-    exit: { opacity: 0, scale: 0.5, x: 50, transition: { duration: 0.4, type: 'tween' } }
-};
+import { menuVariants, backIconVariants, menuIconVariants, menuListVariants } from '../config/varitans';
 
 const MessengerMenu = () => {
 

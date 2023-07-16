@@ -2,11 +2,7 @@ import React, { memo } from 'react';
 import MessageLoader from './MessageLoader';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
-
-const timeVariants = {
-    hidden: { opacity: 0, x: 20, y: 20, scale: 0 },
-    visible: { opacity: 1, x: 0, y: 0, scale: 1, transition: { duration: 0.4, type: 'tween' } }
-};
+import { timeVariants } from '../../config/varitans';
 
 const MessageTime = ({ time, messagePosition, isUser }) => {
 
@@ -39,15 +35,15 @@ const TimeContainer = styled(motion.div)`
     letter-spacing: .5px;
     color: var(--message-time);
     white-space: nowrap;
-    margin: ${props => 
-        props.isuser ? 
-            props.messageposition == 0 ? 
-            "0 .4rem .5rem 0" : 
-            props.messageposition == 1 ? 
-            "0 .1rem .3rem 0" : 
-            props.messageposition == 2 ? 
-            "0 .1rem .3rem 0" : 
-            props.messageposition == 3 && 
+    margin: ${props =>
+        props.isuser ?
+            props.messageposition == 0 ?
+            "0 .4rem .5rem 0" :
+            props.messageposition == 1 ?
+            "0 .1rem .3rem 0" :
+            props.messageposition == 2 ?
+            "0 .1rem .3rem 0" :
+            props.messageposition == 3 &&
             "0 .1rem .5rem 0" :
         "0 .4rem .3rem 0"
     };

@@ -6,18 +6,7 @@ import { BsReplyFill } from 'react-icons/bs';
 import { IoClose } from 'react-icons/io5';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
-
-const replyAddSectionVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.2 } },
-    exit: { opacity: 0, scale: 0, transition: { duration: 0.2, delay: 0.2 } }
-};
-
-const replyButtonVariants = {
-    hidden: { opacity: 0, scale: 0.5 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.4, delay: 0.5 } },
-    exit: { opacity: 0, scale: 0.5, transition: { duration: 0.01 } }
-};
+import { replyAddSectionVariants, replyButtonVariants } from '../../config/varitans';
 
 const EditReply = ({ replyTo, popupMessageId, editReplyOpen, setEditReplyOpen }) => {
 
@@ -25,7 +14,7 @@ const EditReply = ({ replyTo, popupMessageId, editReplyOpen, setEditReplyOpen })
 
     const { editReply } = useMessageOptions();
 
-    const { messages, localUsername } = useSelector(store => store.messagesStore);    
+    const { messages, localUsername } = useSelector(store => store.messagesStore);
     const { user } = useSelector(store => store.userStore);
 
     const [newReply, setNewReply] = useState(replyTo?.id);
@@ -109,7 +98,7 @@ const EditReply = ({ replyTo, popupMessageId, editReplyOpen, setEditReplyOpen })
         <>
             <ReplyConatiner editReplyOpen={editReplyOpen ? 1 : 0}>
                 <AnimatePresence>
-                    {editReplyOpen ? 
+                    {editReplyOpen ?
                     <motion.div key="open" className='reply-messages' initial='hidden' animate='visible' exit='exit' variants={replyAddSectionVariants}>
                         <header>
                             <h3>Choose the message you want to reply to</h3>
@@ -120,7 +109,7 @@ const EditReply = ({ replyTo, popupMessageId, editReplyOpen, setEditReplyOpen })
                         </header>
                         {messagesBefore?.map(message => (
                             <>
-                                {message.priorDifferentDate ? 
+                                {message.priorDifferentDate ?
                                     message.time.year != null && message.time.month != null && message.time.day != null ?
                                     <div className='date'>
                                         <p className='year'>{message.time.year}</p>
@@ -129,9 +118,9 @@ const EditReply = ({ replyTo, popupMessageId, editReplyOpen, setEditReplyOpen })
                                     </div> : ""
                                 : ""}
                                 <AddMessageContainer key={message.id} onClick={() => newReply == message.id ? setNewReply("deleted") : setNewReply(message.id)} isuser={message.username == localUsername ? 1 : 0} ispersian={isRTL(message.message) ? 1 : 0} isreply={message.replyTo != "no_reply" ? 1 : 0} selected={message.id == newReply ? 1 : 0} messagePosition={message.messagePosition} isMessageFromLocalUser={message.uid == user.uid ? 1 : 0}>
-                                    {message.replyTo != "no_reply" ? 
+                                    {message.replyTo != "no_reply" ?
                                     <div className='reply-section'>
-                                        {message.replyTo ? 
+                                        {message.replyTo ?
                                         <>
                                             <p className='reply-username'>{message.replyTo?.username}</p>
                                             <p className='reply-message'>{message.replyTo?.message}</p>
@@ -156,7 +145,7 @@ const EditReply = ({ replyTo, popupMessageId, editReplyOpen, setEditReplyOpen })
                     : ""}
 
                     <AnimatePresence>
-                        {!editReplyOpen ? 
+                        {!editReplyOpen ?
                         <motion.button className='open-button' onClick={() => setEditReplyOpen(!editReplyOpen)} initial='hidden' animate='visible' exit='exit' variants={replyButtonVariants}>
                             <BsReplyFill />
                         </motion.button> : ""}
@@ -263,7 +252,7 @@ const ReplyConatiner = styled(motion.div)`
             border-radius: 50px;
             background: #ffffff04;
         }
-        
+
         /* Handle */
         ::-webkit-scrollbar-thumb {
             background: #ffffff11;
@@ -282,12 +271,12 @@ const ReplyConatiner = styled(motion.div)`
         display: flex;
         justify-content: center;
         align-items: center;
-        
+
         p {
             font-size: .4rem;
             font-weight: 400;
         }
-    
+
         .month {
             margin: 0 .1rem 0 .15rem;
         }
@@ -312,11 +301,11 @@ const ReplyConatiner = styled(motion.div)`
 
         .date {
             padding: .2rem .3rem;
-            
+
             p {
                 font-size: .4rem;
             }
-    
+
             .month {
                 margin: 0 .2rem 0 .25rem;
             }
@@ -332,33 +321,33 @@ const AddMessageContainer = styled.div`
     flex-direction: ${ props => props.isMessageFromLocalUser ? "row-reverse" : "row"};
     user-select: none;
     z-index: 2;
-    margin: ${props => 
-        props.messagePosition == 0 ? 
-        ".4rem 0" : 
-        props.messagePosition == 1 ? 
-        ".4rem 0 .1rem 0" : 
-        props.messagePosition == 2 ? 
-        ".1rem 0" : 
-        props.messagePosition == 3 && 
+    margin: ${props =>
+        props.messagePosition == 0 ?
+        ".4rem 0" :
+        props.messagePosition == 1 ?
+        ".4rem 0 .1rem 0" :
+        props.messagePosition == 2 ?
+        ".1rem 0" :
+        props.messagePosition == 3 &&
         ".1rem 0 .4rem 0"
     };
-    border-radius: ${props => 
-        props.isMessageFromLocalUser ? 
-            props.messagePosition == 0 ? 
-            "25px" : 
-            props.messagePosition == 1 ? 
-            "25px 25px 2px 25px" : 
-            props.messagePosition == 2 ? 
-            "25px 2px 2px 25px" : 
-            props.messagePosition == 3 && 
+    border-radius: ${props =>
+        props.isMessageFromLocalUser ?
+            props.messagePosition == 0 ?
+            "25px" :
+            props.messagePosition == 1 ?
+            "25px 25px 2px 25px" :
+            props.messagePosition == 2 ?
+            "25px 2px 2px 25px" :
+            props.messagePosition == 3 &&
             "25px 2px 25px 25px" :
-        props.messagePosition == 0 ? 
-            "25px" : 
-            props.messagePosition == 1 ? 
-            "25px 25px 25px 2px" : 
-            props.messagePosition == 2 ? 
-            "5px 25px 25px 2px" : 
-            props.messagePosition == 3 && 
+        props.messagePosition == 0 ?
+            "25px" :
+            props.messagePosition == 1 ?
+            "25px 25px 25px 2px" :
+            props.messagePosition == 2 ?
+            "5px 25px 25px 2px" :
+            props.messagePosition == 3 &&
             "2px 25px 25px 25px"
     };
     margin-left: ${props => props.isMessageFromLocalUser && "auto"};
@@ -421,12 +410,12 @@ const AddMessageContainer = styled.div`
         border-radius: 30px;
         white-space: nowrap;
         overflow: hidden;
-        
+
         .reply-username {
             font-size: .5rem;
             margin: 0 .2rem;
         }
-        
+
         .reply-message {
             text-overflow: ellipsis;
             overflow: hidden;
@@ -452,23 +441,23 @@ const AddMessageContainer = styled.div`
             max-width: 80%;
             min-width: ${props => props.isreply ? "30%" : ""};
             background-color: #ffffff10;
-            border-radius: ${props => 
-                props.isMessageFromLocalUser ? 
-                    props.messagePosition == 0 ? 
-                    "20px" : 
-                    props.messagePosition == 1 ? 
-                    "20px 20px 5px 20px" : 
-                    props.messagePosition == 2 ? 
-                    "20px 5px 5px 20px" : 
-                    props.messagePosition == 3 && 
+            border-radius: ${props =>
+                props.isMessageFromLocalUser ?
+                    props.messagePosition == 0 ?
+                    "20px" :
+                    props.messagePosition == 1 ?
+                    "20px 20px 5px 20px" :
+                    props.messagePosition == 2 ?
+                    "20px 5px 5px 20px" :
+                    props.messagePosition == 3 &&
                     "20px 5px 20px 20px" :
-                props.messagePosition == 0 ? 
-                    "20px" : 
-                    props.messagePosition == 1 ? 
-                    "20px 20px 20px 5px" : 
-                    props.messagePosition == 2 ? 
-                    "5px 20px 20px 5px" : 
-                    props.messagePosition == 3 && 
+                props.messagePosition == 0 ?
+                    "20px" :
+                    props.messagePosition == 1 ?
+                    "20px 20px 20px 5px" :
+                    props.messagePosition == 2 ?
+                    "5px 20px 20px 5px" :
+                    props.messagePosition == 3 &&
                     "5px 20px 20px 20px"
             };
         }

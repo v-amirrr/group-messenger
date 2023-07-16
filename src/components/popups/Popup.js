@@ -6,18 +6,7 @@ import EditPopup from './EditPopup';
 import { useMessageOptions } from '../../hooks/useMessageOptions';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
-
-const popupPageVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 0.2, when: "beforeChildren" } },
-    exit: { opacity: 0, transition: { duration: 0.2, when: "afterChildren" } }
-};
-
-const popupPageContainer = {
-    hidden: { opacity: 0, y: 50, scaleY: 0.8 },
-    visible: { opacity: 1, y: 0, scaleY: 1, transition: { duration: 0.6, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } },
-    exit: { opacity: 0, y: 30, transition: { duration: 0.3 } }
-};
+import { popupPageVariants, popupPageContainer } from '../../config/varitans';
 
 const Popup = () => {
 

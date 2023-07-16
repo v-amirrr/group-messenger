@@ -60,6 +60,18 @@ const SettingsItemContainer = styled.div`
             transform: ${props => props.open ? "rotate(90deg)" : ""};
             transition: transform .4s;
         }
+
+        .deleted-messages-counter {
+            margin: 0 .5rem;
+            font-size: .7rem;
+            width: .9rem;
+            height: .9rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            background-color: #ff0000;
+        }
     }
 
     .item-data {

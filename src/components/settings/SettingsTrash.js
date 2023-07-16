@@ -33,6 +33,11 @@ const SettingsTrash = ({ open, setOpen }) => {
             <div className='item-header' onClick={itemSwitch}>
                 <i className='item-icon'><FcEmptyTrash /></i>
                 <h4>Trash</h4>
+                {
+                    deletedMessages.length ?
+                    <div className='deleted-messages-counter'>{deletedMessages.length}</div>
+                    : ""
+                }
                 <i className='item-back'><RiArrowRightSLine /></i>
             </div>
 

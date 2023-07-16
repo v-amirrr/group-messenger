@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
 const loaderVariants = {
-    hidden: { opacity: 0, scale: 0.5 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.4 } },
-    exit: { opacity: 0, scale: 0.5, transition: { duration: 0.4 } }
+    hidden: { opacity: 0, y: 50, scaleY: 0.8 },
+    visible: { opacity: 1, y: 0, scaleY: 1, transition: { duration: 0.8, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } },
+    exit: { opacity: 0, y: 30, transition: { duration: 0.3 } }
 };
 
 const Loader = () => {

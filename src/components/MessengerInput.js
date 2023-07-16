@@ -10,9 +10,9 @@ import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 
 const messengerInputVariants = {
-    hidden: { opacity: 0, scale: 0.5, y: 50 },
-    visible: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.4, when: "beforeChildren" } },
-    exit: { opacity: 0, scale: 0.8, y: 50, transition: { duration: 0.4, when: "afterChildren" } }
+    hidden: { opacity: 0, y: 50, scaleY: 0.8 },
+    visible: { opacity: 1, y: 0, scaleY: 1, transition: { duration: 0.8, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } },
+    exit: { opacity: 0, y: 30, transition: { duration: 0.3 } }
 };
 
 const sendInputIconVariants = {
@@ -22,18 +22,18 @@ const sendInputIconVariants = {
 };
 
 const replyVariants = {
-    hidden: { opacity: 0, scaleX: 0, y: -10 },
-    visible: { opacity: 1, scaleX: 1, y: 0, transition: { type: "spring", stiffness: 100 } },
-    exit: { opacity: 0, scale: 0.8, y: -10, transition: { duration: 0.2 } }
+    hidden: { opacity: 0, y: 50, scaleY: 0.8 },
+    visible: { opacity: 1, y: 0, scaleY: 1, transition: { duration: 0.8, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } },
+    exit: { opacity: 0, y: 30, transition: { duration: 0.3 } }
 };
 
 const MessengerInput = () => {
 
     const { sendMessage } = useSendMessage();
     const { clearReplyMessage } = useMessageOptions();
-    
+
     const inputRef = useRef();
-    
+
     const [inputText, setInputText] = useState("");
     const [emojiPickerShow, setEmojiPickerShow] = useState(false);
 
@@ -76,7 +76,7 @@ const MessengerInput = () => {
     return (
         <>
             <AnimatePresence exitBeforeEnter>
-                {replyTo.id ? 
+                {replyTo.id ?
                 <ReplyTo className='reply-section' initial='hidden' animate='visible' exit='exit' variants={replyVariants} messageletters={replyTo?.username?.length + replyTo?.message?.length}>
                     <button onClick={clearReplyMessage}><IoClose /></button>
                     <div className='message'>
@@ -107,7 +107,7 @@ const MessengerInput = () => {
                     <motion.button whileTap={inputText && { scale: 0.5 }} type="submit" className='messenger-submit' disabled={!inputText} onClick={inputSubmitHandler}>
                         <AnimatePresence exitBeforeEnter>
                             {sendMessageLoading ?
-                            <div key="pending" className='loader'><MessageLoader size={"1.5rem"} /></div> : 
+                            <div key="pending" className='loader'><MessageLoader size={"1.5rem"} /></div> :
                             sendMessageError ?
                             <motion.div initial='hidden' animate='visible' exit='exit' variants={sendInputIconVariants} key="error"><IoAlert color='red' /></motion.div> :
                             <motion.div initial='hidden' animate='visible' exit='exit' variants={sendInputIconVariants} key="send"><IoSend /></motion.div>}
@@ -164,7 +164,7 @@ const MessengerInputContainer = styled(motion.section)`
             &::placeholder {
                 color: var(--messenger-input-placeholder);
             }
-    
+
             ::-webkit-scrollbar {
                 width: .3rem;
             }
@@ -182,13 +182,13 @@ const MessengerInputContainer = styled(motion.section)`
             color: var(--messenger-input-submit-enable);
             cursor: pointer;
             transition: color .4s;
-    
+
             div {
                 display: flex;
                 justify-content: center;
                 align-items: center;
             }
-    
+
             &:disabled {
                 cursor: not-allowed;
                 color: var(--messenger-input-submit-disable);
@@ -246,7 +246,7 @@ const ReplyTo = styled(motion.div)`
             font-size: .6rem;
             margin-right: .2rem;
         }
-    
+
         .text {
             font-size: .8rem;
             font-weight: 200;

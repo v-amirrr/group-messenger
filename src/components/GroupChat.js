@@ -10,9 +10,9 @@ import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 
 const groupChatVariants = {
-    hidden: { opacity: 0, scaleX: 0.5 },
-    visible: { opacity: 1, scaleX: 1, transition: { duration: 0.4, when: "beforeChildren" } },
-    exit: { opacity: 0, scaleX: 0.5, transition: { duration: 0.4, when: "afterChildren" } }
+    hidden: { opacity: 0, y: 50, scaleY: 0.8 },
+    visible: { opacity: 1, y: 0, scaleY: 1, transition: { duration: 0.8, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } },
+    exit: { opacity: 0, y: 30, transition: { duration: 0.3 } }
 };
 
 const GroupChat = () => {
@@ -51,15 +51,15 @@ const GroupChat = () => {
             <GroupChatContainer ref={messagesContainerRef} initial='hidden' animate='visible' exit='exit' variants={groupChatVariants}>
                 <FlipMove>
                     {messages?.map(message => (
-                        <Message 
-                            key={message.id} 
+                        <Message
+                            key={message.id}
                             message={{
                                 messageUid: message.uid,
                                 localUid: user?.uid,
                                 messageUsername: message.username,
                                 id: message.id,
                                 message: message.message,
-                                periorUsername: message.periorUsername, 
+                                periorUsername: message.periorUsername,
                                 nextUsername: message.nextUsername,
                                 time: message.time,
                                 priorDifferentDate: message.priorDifferentDate,
@@ -106,7 +106,7 @@ const GroupChatContainer = styled(motion.div)`
         border-radius: 50px;
         background: #ffffff04;
     }
-    
+
     /* Handle */
     ::-webkit-scrollbar-thumb {
         background: #ffffff08;

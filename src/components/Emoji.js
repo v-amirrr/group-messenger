@@ -5,9 +5,9 @@ import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 
 const emojiPickerContainerVariatns = {
-    hidden: { height: 0 },
-    visible: { height: "22rem", transition: { duration: 0.8, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } },
-    exit: { height: 0, transition: { duration: 0.8, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } }
+    hidden: { opacity: 0, y: 50, scaleY: 0.8 },
+    visible: { opacity: 1, y: 0, scaleY: 1, transition: { duration: 0.8, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } },
+    exit: { opacity: 0, y: 30, transition: { duration: 0.3 } }
 };
 
 const Emoji = ({ replyToId, inputText, setInputText, show, setShow, place }) => {

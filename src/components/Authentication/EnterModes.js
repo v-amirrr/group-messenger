@@ -11,10 +11,10 @@ const enterPageVariants = {
     exit: { opacity: 0, transition: { duration: 0.4, staggerChildren: 0.05, when: "afterChildren" } }
 };
 
-const boxesVariants = {
-    hidden: { opacity: 0, scale: 0 },
-    visible: { opacity: 1, scale: [0, 1.1, 1], transition: { duration: 1.5, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } },
-    exit: { opacity: 0, scale: 0.5, transition: { duration: 1, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } }
+const boxVariants = {
+    hidden: { opacity: 0, y: 50, scaleY: 0.8 },
+    visible: { opacity: 1, y: 0, scaleY: 1, transition: { duration: 0.8, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } },
+    exit: { opacity: 0, y: 30, transition: { duration: 0.3 } }
 };
 
 const EnterModes = () => {
@@ -30,7 +30,7 @@ const EnterModes = () => {
         <>
             <Container initial='hidden' animate='visible' exit='exit' variants={enterPageVariants}>
                 <Link to="/signup">
-                    <motion.a className='box' initial='hidden' animate='visible' exit='exit' variants={boxesVariants}>
+                    <motion.a className='box' initial='hidden' animate='visible' exit='exit' variants={boxVariants}>
                         <h4>Create an account</h4>
                         <div className='list'>
                             <span>Login, logout in other devices.</span>
@@ -41,7 +41,7 @@ const EnterModes = () => {
                 </Link>
 
                 <Link to="/login">
-                    <motion.a className='box' initial='hidden' animate='visible' exit='exit' variants={boxesVariants}>
+                    <motion.a className='box' initial='hidden' animate='visible' exit='exit' variants={boxVariants}>
                         <h4>Login with account or Google</h4>
                         <div className='list'>
                             <span>Send message.</span>
@@ -51,7 +51,7 @@ const EnterModes = () => {
                     </motion.a>
                 </Link>
 
-                <motion.a className='box' initial='hidden' animate='visible' exit='exit' variants={boxesVariants} onClick={enterAsAGuest}>
+                <motion.a className='box' initial='hidden' animate='visible' exit='exit' variants={boxVariants} onClick={enterAsAGuest}>
                     <h4>Login as a guest</h4>
                     <div className='list'>
                         <span>You can't send any message.</span>

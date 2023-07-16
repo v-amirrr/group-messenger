@@ -16,9 +16,9 @@ const loginVariants = {
 };
 
 const loginItemVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: [50, -20, 0], scaleX: 1, transition: { duration: 0.6 } },
-    exit: { opacity: 0, scaleX: [1, 1.2, 0.8], transition: { duration: 0.6 } }
+    hidden: { opacity: 0, y: 50, scaleY: 0.8 },
+    visible: { opacity: 1, y: 0, scaleY: 1, transition: { duration: 0.8, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } },
+    exit: { opacity: 0, y: 30, transition: { duration: 0.3 } }
 };
 
 const Login = () => {
@@ -183,13 +183,13 @@ const LoginPage = styled(motion.div)`
             display: flex;
             justify-content: center;
             align-items: center;
-            
+
             .login-loader {
                 position: absolute;
                 transform: ${props => props.loginloading ? "scale(1)" : "scale(0)"};
                 transition: transform 1s cubic-bezier(.53,0,0,.98);
             }
-            
+
             .back-button, .submit-button {
                 overflow: hidden;
                 border: none;
@@ -215,7 +215,7 @@ const LoginPage = styled(motion.div)`
                     transition: left .5s, right .5s, transform 1s, opacity .5s;
                 }
 
-                @media (hover: hover) and (pointer: fine) and (min-width: 745px) { 
+                @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
                     &:hover {
                         background-color: ${props => props.loginloading ? "" : "var(--auth-button-hover)"};
                     }
@@ -277,7 +277,7 @@ const LoginPage = styled(motion.div)`
                     }
                 }
 
-                @media (hover: hover) and (pointer: fine) and (min-width: 745px) { 
+                @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
                     &:hover {
                         background-color: ${props => props.googleloading ? "" : "var(--auth-button-hover)"};
                     }

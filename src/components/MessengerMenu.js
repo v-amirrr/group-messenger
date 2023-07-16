@@ -9,9 +9,9 @@ import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 
 const menuVariants = {
-    hidden: { opacity: 0, x: 20 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.4, type: 'tween' } },
-    exit: { opacity: 0, x: 20, transition: { duration: 0.4, type: 'tween' } }
+    hidden: { opacity: 0, y: 50, scaleY: 0.8 },
+    visible: { opacity: 1, y: 0, scaleY: 1, transition: { duration: 0.8, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } },
+    exit: { opacity: 0, y: 30, transition: { duration: 0.3 } }
 };
 
 const backIconVariants = {
@@ -52,7 +52,7 @@ const MessengerMenu = () => {
                     {openMenu ?
                     <motion.i key="back-icon" className='back-icon' onClick={() => setOpenMenu(!openMenu)} initial='hidden' animate='visible' exit='exit' variants={backIconVariants}>
                         <FaArrowRight />
-                    </motion.i> : 
+                    </motion.i> :
                     <motion.i key="menu-icon" className='menu-icon' onClick={() => setOpenMenu(!openMenu)} initial='hidden' animate='visible' exit='exit' variants={menuIconVariants}>
                         <HiDotsVertical />
                     </motion.i>}

@@ -11,9 +11,9 @@ const warningModalVariants = {
 };
 
 const warningModalItemsVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: [50, -20, 0], scaleX: 1, transition: { duration: 0.6 } },
-    exit: { opacity: 0, scaleX: [1, 1.2, 0.8], transition: { duration: 0.6 } }
+    hidden: { opacity: 0, y: 50, scaleY: 0.8 },
+    visible: { opacity: 1, y: 0, scaleY: 1, transition: { duration: 0.8, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } },
+    exit: { opacity: 0, y: 30, transition: { duration: 0.3 } }
 };
 
 const WarningPage = () => {
@@ -83,14 +83,14 @@ const WarningModalPage = styled(motion.section)`
             margin-bottom: 1.2rem;
             white-space: nowrap;
         }
-    
+
         .warning {
             font-size: .8rem;
             font-weight: 500;
             margin-bottom: .8rem;
             color: #ff0000;
         }
-    
+
         .guide {
             max-width: 40%;
             font-size: .6rem;
@@ -99,7 +99,7 @@ const WarningModalPage = styled(motion.section)`
             margin-bottom: .8rem;
             color: #afafaf;
         }
-        
+
         .show-again {
             color: #afafaf;
             font-size: .6rem;
@@ -120,7 +120,7 @@ const WarningModalPage = styled(motion.section)`
                 cursor: pointer;
             }
         }
-    
+
         .submit {
             all: unset;
             border-radius: var(--message-page-button-border-radius);

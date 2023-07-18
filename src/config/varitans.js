@@ -7,7 +7,7 @@ export const backgroundImageVariants = {
 export const warningModalVariants = {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { duration: 0.2, when: "beforeChildren", staggerChildren: 0.05 } },
-    exit: { opacity: 0, transition: { duration: 0.2, when: "afterChildren", staggerChildren: 0.05 } }
+    exit: { opacity: 0, transition: { duration: 0.2, when: "afterChildren" } }
 };
 
 export const warningModalItemsVariants = {
@@ -133,14 +133,14 @@ export const menuDesktopVariants = {
 
 export const menuItemUserDesktopVariants = {
     hidden: { opacity: 0, x: 20, scale: 0.8 },
-    visible: { opacity: 1, x: [20, -20, 0], scale: 1, transition: { duration: 0.5, type: 'tween' } },
-    exit: { opacity: 0, x: 80, transition: { duration: 0.4, type: 'tween' } }
+    visible: { opacity: 1, x: [20, -20, 0], scale: 1, transition: { duration: 0.45, type: 'tween' } },
+    exit: { opacity: 0, x: 80, transition: { duration: 0.35, type: 'tween' } },
 };
 
 export const menuItemDesktopVariants = {
     hidden: { opacity: 0, x: -20, scale: 0.8 },
-    visible: { opacity: 1, x: [-20, 20, 0], scale: 1, transition: { duration: 0.5, type: 'tween' } },
-    exit: { opacity: 0, x: -80, transition: { duration: 0.4, type: 'tween' } }
+    visible: { opacity: 1, x: [-20, 20, 0], scale: 1, transition: { duration: 0.45, type: 'tween' } },
+    exit: { opacity: 0, x: -80, transition: { duration: 0.35, type: 'tween' } }
 };
 
 export const timeVariants = {
@@ -149,9 +149,9 @@ export const timeVariants = {
 };
 
 export const selectCheckVariants = {
-    hidden: { opacity: 0, y: -20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.4, type: 'tween', delay: 0.4 } },
-    exit: { opacity: 0, x: 20, transition: { duration: 0.2, type: 'tween' } }
+    hidden: { opacity: 0, x: 40 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.4, type: 'tween' } },
+    exit: { opacity: 0, x: 40, transition: { duration: 0.2, type: 'tween' } }
 };
 
 
@@ -206,7 +206,7 @@ export const menuIconVariants = {
 
 export const menuListVariants = {
     hidden: { opacity: 0, scale: 0.5, x: 50 },
-    visible: { opacity: 1, scale: 1, x: 0, transition: { duration: 0.6, type: 'tween' } },
+    visible: { opacity: 1, scale: 1, x: 0, transition: { duration: 0.4, type: 'tween' } },
     exit: { opacity: 0, scale: 0.5, x: 50, transition: { duration: 0.4, type: 'tween' } }
 };
 
@@ -243,8 +243,8 @@ export const replyButtonVariants = {
 
 
 export const selectBarVariants = {
-    hidden: { opacity: 0, y: -50, scaleY: 0.8 },
-    visible: { opacity: 1, y: 0, scaleY: 1, transition: { duration: 0.8, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } },
+    hidden: { opacity: 0, y: -30, scaleY: 0.8 },
+    visible: { opacity: 1, y: 0, scaleY: 1, transition: { duration: 0.4 } },
     exit: { opacity: 0, y: -30, transition: { duration: 0.3 } }
 };
 

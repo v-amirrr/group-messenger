@@ -87,7 +87,7 @@ const SettingsContainer = styled(motion.section)`
             position: absolute;
             left: .7rem;
             background-color: var(--settings-back);
-            transition: background .4s;
+            transition: background .2s;
             border-radius: 50%;
 
             i {
@@ -97,10 +97,8 @@ const SettingsContainer = styled(motion.section)`
                 font-size: 2rem;
             }
 
-            @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
-                &:hover {
-                    background-color: var(--settings-back-hover);
-                }
+            &:hover {
+                background-color: var(--settings-back-hover);
             }
         }
     }

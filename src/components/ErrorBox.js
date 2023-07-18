@@ -48,8 +48,7 @@ const ErrorBoxContainer = styled(motion.div)`
         margin: 1rem;
         padding: .5rem 1rem;
         font-size: 1rem;
-        font-weight: 700;
-        font-family: "Outfit", sans-serif;
+        font-weight: 500;
         cursor: pointer;
         user-select: none;
         transition: background-color .2s;

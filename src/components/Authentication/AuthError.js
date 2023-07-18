@@ -16,9 +16,9 @@ const AuthError = () => {
             <AnimatePresence>
                 {login.error || signup.error ?
                 <ErrorContainer initial='hidden' animate='visible' exit='exit' variants={errorVariants}>
+                    <button className='close-button' onClick={clearAuthErrors}><IoClose /></button>
                     <p>{login.error}</p>
                     <p>{signup.error}</p>
-                    <button className='close-button' onClick={clearAuthErrors}><IoClose /></button>
                 </ErrorContainer>
                 : ""}
             </AnimatePresence>
@@ -34,11 +34,14 @@ const ErrorContainer = styled(motion.div)`
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     text-align: center;
     background-color: var(--auth-error);
     border-radius: 15px;
-    padding: .5rem 2rem .5rem .5rem;
+    padding: .6rem 2.5rem .6rem .6rem;
     margin: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    color: #ffffff88;
 
     p {
         font-size: .8rem;
@@ -46,19 +49,28 @@ const ErrorContainer = styled(motion.div)`
         line-height: 1.5;
     }
 
+
     .close-button {
         position: absolute;
         right: .2rem;
-        background-color: var(--auth-error);
+        /* background-color: var(--auth-error); */
+        background-color: transparent;
         display: flex;
         justify-content: center;
         align-items: center;
         border: none;
         border-radius: 50%;
         padding: .2rem;
-        font-size: 1.2rem;
+        font-size: 1.4rem;
+        color: #ffffff88;
         cursor: pointer;
+        transition: color .2s;
+
+        &:hover {
+            color: #fff;
+        }
     }
+
 
     @media (max-width: 768px) {
         max-width: 90%;

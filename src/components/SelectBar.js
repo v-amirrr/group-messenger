@@ -18,16 +18,16 @@ const SelectBar = () => {
     return (
         <>
             <SelectBarContainer initial='hidden' animate='visible' exit='exit' variants={selectBarVariants}>
-                <motion.button className='close' onClick={clearSelectedMessages} whileTap={{ scale: 0.8 }}><IoClose /></motion.button>
+                <motion.button className='close' onClick={clearSelectedMessages}><IoClose /></motion.button>
                 <div className='count'>{selectedMessages.length}</div>
 
                 <div className='options'>
-                    <motion.button className='copy' whileTap={{ scale: 0.8 }} onClick={copySelectedMessages}>
+                    <motion.button className='copy' onClick={copySelectedMessages}>
                         <i><AiFillCopy /></i>
                         <p>Copy</p>
                     </motion.button>
                     {!enterAsAGuest && !selectOthersMessage ?
-                    <motion.button className='delete' whileTap={{ scale: 0.8 }} onClick={() => openPopup("DELETE_POPUP", selectedMessages, true)}>
+                    <motion.button className='delete' onClick={() => openPopup("DELETE_POPUP", selectedMessages, true)}>
                         <i><AiFillDelete /></i>
                         <p>Delete</p>
                     </motion.button>
@@ -53,11 +53,7 @@ const SelectBarContainer = styled(motion.div)`
     z-index: 999;
     user-select: none;
     overflow: hidden;
-
-    button {
-        font-family: 'Outfit', sans-serif;
-        border: none;
-    }
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 
     .close {
         position: absolute;
@@ -71,6 +67,7 @@ const SelectBarContainer = styled(motion.div)`
         height: 2rem;
         font-size: 1.3rem;
         cursor: pointer;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     }
 
     .count {
@@ -79,11 +76,13 @@ const SelectBarContainer = styled(motion.div)`
         background-color: var(--select-bar-button);
         border-radius: 50%;
         font-size: 1rem;
+        font-weight: 200;
         width: 2rem;
         height: 2rem;
         display: flex;
         justify-content: center;
         align-items: center;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     }
 
     .options {
@@ -100,7 +99,10 @@ const SelectBarContainer = styled(motion.div)`
             width: 5rem;
             height: 2rem;
             border-radius: 15px;
+            letter-spacing: -1px;
+            word-spacing: 5px;
             cursor: pointer;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 
             i {
                 display: flex;
@@ -118,7 +120,7 @@ const SelectBarContainer = styled(motion.div)`
 
     @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
         .close, .copy, .delete {
-            transition: background .3s;
+            transition: background .2s;
 
             &:hover {
                 background-color: var(--select-bar-button-hover);

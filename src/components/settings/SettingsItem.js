@@ -22,7 +22,8 @@ const SettingsItemContainer = styled.div`
     position: relative;
     margin: .3rem;
     background-color: var(--settings-item);
-    transition: height .6s cubic-bezier(.53,0,0,.98), background .3s;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    transition: height .6s cubic-bezier(.53,0,0,.98), background .2s;
 
     .item-header {
         padding: 0 .5rem .5rem .5rem;
@@ -63,13 +64,16 @@ const SettingsItemContainer = styled.div`
 
         .deleted-messages-counter {
             margin: 0 .5rem;
-            font-size: .7rem;
-            width: .9rem;
-            height: .9rem;
+            font-size: .6rem;
+            font-weight: 600;
+            font-family: sans-serif;
+            width: 1rem;
+            height: 1rem;
             display: flex;
             justify-content: center;
             align-items: center;
             border-radius: 50%;
+            letter-spacing: -1px;
             background-color: #ff0000;
         }
     }

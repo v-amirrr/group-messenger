@@ -25,29 +25,29 @@ const MessageOptions = ({ clickEvent, message }) => {
         <>
             <MessageOptionsContainer key={id} ref={messageOptionsRef} initial='hidden' animate='visible' exit='exit' variants={onMobile ? enterAsAGuest ? menuMobileGuestVariants : isMessageFromLocalUser ? menuMobileUserVariants : menuMobileVariants : menuDesktopVariants} ismessagefromlocaluser={isMessageFromLocalUser ? 1 : 0} x={clickEvent?.pageX} y={clickEvent?.pageY} guest={enterAsAGuest ? 1 : 0}>
                 {!enterAsAGuest ?
-                <motion.div className='reply' onClick={() => replyMessage(id, messageText, messageUsername)} whileTap={{ scale: 0.8 }} variants={onMobile ? menuMobileItemVariants : isMessageFromLocalUser ? menuItemUserDesktopVariants : menuItemDesktopVariants}>
+                <motion.div className='reply' onClick={() => replyMessage(id, messageText, messageUsername)} variants={onMobile ? menuMobileItemVariants : isMessageFromLocalUser ? menuItemUserDesktopVariants : menuItemDesktopVariants}>
                     <i><BsReplyFill /></i>
                     <p>Reply</p>
                 </motion.div>
                 : ""}
 
-                <motion.div className='select' onClick={() => selectMessage(message)} whileTap={{ scale: 0.8 }} variants={onMobile ? menuMobileItemVariants : isMessageFromLocalUser ? menuItemUserDesktopVariants : menuItemDesktopVariants}>
+                <motion.div className='select' onClick={() => selectMessage(message)} variants={onMobile ? menuMobileItemVariants : isMessageFromLocalUser ? menuItemUserDesktopVariants : menuItemDesktopVariants}>
                     <i><BiSelectMultiple /></i>
                     <p>Select</p>
                 </motion.div>
 
-                <motion.div className='copy' onClick={() => copyMessage(message)} whileTap={{ scale: 0.8 }} variants={onMobile ? menuMobileItemVariants : isMessageFromLocalUser ? menuItemUserDesktopVariants : menuItemDesktopVariants}>
+                <motion.div className='copy' onClick={() => copyMessage(message)} variants={onMobile ? menuMobileItemVariants : isMessageFromLocalUser ? menuItemUserDesktopVariants : menuItemDesktopVariants}>
                     <i><AiFillCopy /></i>
                     <p>Copy</p>
                 </motion.div>
 
                 {isMessageFromLocalUser && !enterAsAGuest ?
                 <>
-                    <motion.div className='edit' onClick={() => openPopup("EDIT_POPUP", [message])} whileTap={{ scale: 0.8 }} variants={onMobile ? menuMobileItemVariants : isMessageFromLocalUser ? menuItemUserDesktopVariants : menuItemDesktopVariants}>
+                    <motion.div className='edit' onClick={() => openPopup("EDIT_POPUP", [message])} variants={onMobile ? menuMobileItemVariants : isMessageFromLocalUser ? menuItemUserDesktopVariants : menuItemDesktopVariants}>
                         <i><AiFillEdit /></i>
                         <p>Edit</p>
                     </motion.div>
-                    <motion.div className='delete' onClick={() => openPopup("DELETE_POPUP", [message])} whileTap={{ scale: 0.8 }} variants={onMobile ? menuMobileItemVariants : isMessageFromLocalUser ? menuItemUserDesktopVariants : menuItemDesktopVariants}>
+                    <motion.div className='delete' onClick={() => openPopup("DELETE_POPUP", [message])} variants={onMobile ? menuMobileItemVariants : isMessageFromLocalUser ? menuItemUserDesktopVariants : menuItemDesktopVariants}>
                         <i><AiFillDelete /></i>
                         <p>Delete</p>
                     </motion.div>
@@ -83,7 +83,8 @@ const MessageOptionsContainer = styled(motion.div)`
         height: 50%;
         cursor: pointer;
         padding: .5rem;
-        transition: padding .4s;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+        transition: padding .2s;
 
         i {
             display: flex;
@@ -94,12 +95,12 @@ const MessageOptionsContainer = styled(motion.div)`
         }
 
         p {
-            font-size: .75rem;
+            font-size: .7rem;
             position: absolute;
             right: .6rem;
             transform: scale(0.5);
             opacity: 0;
-            transition: transform .5s, opacity .3s;
+            transition: transform .3s, opacity .2s;
         }
 
         @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
@@ -116,6 +117,7 @@ const MessageOptionsContainer = styled(motion.div)`
         @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
             &:hover {
                 padding: .5rem 2.7rem .5rem .5rem;
+            transition: padding .4s;
             }
         }
     }
@@ -124,6 +126,7 @@ const MessageOptionsContainer = styled(motion.div)`
         @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
             &:hover {
                 padding: .5rem 2.7rem .5rem .5rem;
+                transition: padding .4s;
             }
         }
     }
@@ -132,6 +135,7 @@ const MessageOptionsContainer = styled(motion.div)`
         @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
             &:hover {
                 padding: .5rem 2.3rem .5rem .5rem;
+                transition: padding .4s;
             }
         }
     }
@@ -140,6 +144,7 @@ const MessageOptionsContainer = styled(motion.div)`
         @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
             &:hover {
                 padding: .5rem 3.2rem .5rem .5rem;
+                transition: padding .4s;
             }
         }
     }
@@ -148,6 +153,7 @@ const MessageOptionsContainer = styled(motion.div)`
         @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
             &:hover {
                 padding: .5rem 3rem .5rem .5rem;
+                transition: padding .4s;
             }
         }
     }

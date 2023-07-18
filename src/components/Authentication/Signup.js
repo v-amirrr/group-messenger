@@ -65,7 +65,7 @@ const Signup = () => {
                         <motion.button className='submit-button' onClick={submitHandler} initial='hidden' animate='visible' exit='exit' variants={signupItemVariants}>
                             <p>OK</p>
                         </motion.button>
-                        <div className='signup-loader'><MessageLoader size={"1.5rem"} /></div>
+                        <div className='signup-loader'><MessageLoader size={"1.5rem"}/></div>
                     </div>
                 </div>
             </SignupPage>
@@ -79,7 +79,7 @@ const SignupPage = styled(motion.div)`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--auth-background);
+    background-color: var(--enter-modes);
     user-select: none;
 
     .signup-container {
@@ -98,10 +98,11 @@ const SignupPage = styled(motion.div)`
             .signup-field {
                 background-color: var(--auth-feild);
                 border-radius: 15px;
-                padding: .5rem .8rem;
+                padding: .6rem .8rem;
                 width: 12rem;
                 margin: .2rem;
-                font-size: 1rem;
+                font-size: .8rem;
+                font-weight: 200;
                 overflow: hidden;
                 position: relative;
                 display: flex;
@@ -128,12 +129,12 @@ const SignupPage = styled(motion.div)`
                     padding: .4rem;
                     border-radius: 50%;
                     cursor: pointer;
-                    transition: background .3s;
 
                     i {
                         display: flex;
                         justify-content: center;
                         align-items: center;
+                        font-size: 1rem;
                     }
 
                     hr {
@@ -145,12 +146,6 @@ const SignupPage = styled(motion.div)`
                         position: absolute;
                         transform: rotate(45deg);
                         transition: width .3s;
-                    }
-
-                    @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
-                        &:hover {
-                            background-color: var(--auth-button-hover);
-                        }
                     }
                 }
             }
@@ -179,7 +174,7 @@ const SignupPage = styled(motion.div)`
                 justify-content: center;
                 align-items: center;
                 font-size: 1rem;
-                font-weight: 700;
+                font-weight: 500;
                 letter-spacing: -1px;
                 word-spacing: 5px;
                 white-space: nowrap;

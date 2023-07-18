@@ -119,13 +119,14 @@ const WarningModalPage = styled(motion.section)`
             align-items: center;
             cursor: pointer;
             font-size: 1rem;
-            font-weight: 700;
+            font-weight: 500;
             letter-spacing: -1px;
             word-spacing: 5px;
             padding: .5rem 0;
+            box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 12px;
             width: 20%;
             white-space: nowrap;
-            transition: background .3s;
+            transition: background .2s;
 
             @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
                 &:hover {

@@ -1,14 +1,16 @@
 import React, { memo } from 'react';
+import { BsReplyFill } from 'react-icons/bs';
 import styled from 'styled-components';
 
 const MessageReply = ({ replyTo }) => {
     return (
         <>
-            {replyTo != "no_reply" ? 
+            {replyTo != "no_reply" ?
             <ReplySection>
-                {replyTo ? 
+                <i><BsReplyFill /></i>
+                {replyTo ?
                 <>
-                    <p className='reply-username'>{replyTo?.username}</p>
+                    <p className='reply-username'>{replyTo?.username}:</p>
                     <p className='reply-message'>{replyTo?.message}</p>
                 </>
                 : <p className='reply-message'>Deleted Message</p>}
@@ -20,25 +22,34 @@ const MessageReply = ({ replyTo }) => {
 
 const ReplySection = styled.div`
     background-color: var(--message-reply);
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 12px;
     position: absolute;
     top: .4rem;
     left: 50%;
     padding: .3rem;
-    width: 90%;
+    width: 92%;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    color: #888;
+    color: #ffffffaa;
     transform: translate(-50%, 0);
     border-radius: 30px;
     white-space: nowrap;
     overflow: hidden;
-    
+
+    i {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: .8rem;
+        margin-left: .2rem;
+    }
+
     .reply-username {
         font-size: .5rem;
         margin: 0 .2rem;
     }
-    
+
     .reply-message {
         text-overflow: ellipsis;
         overflow: hidden;

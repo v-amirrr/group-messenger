@@ -103,9 +103,7 @@ const Message = forwardRef(( props, ref ) => {
                 <div className='message-box' onClick={(e) => messageClickHandler(e)}>
                     <MessageReply replyTo={replyTo} />
 
-                    <p className='username'>
-                        {messageUsername}
-                    </p>
+                    <p className='username'>{messageUsername}:</p>
 
                     <p className='message'>
                         {message?.map((item, index) => (
@@ -194,6 +192,7 @@ const MessageBox = styled.div`
         font-weight: 200;
         word-break: break-all;
         cursor: pointer;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
         transition: backdrop-filter .4s, border-radius .4s, margin .4s, background .2s;
 
         .username {

@@ -6,6 +6,7 @@ import MessageLoader from './message/MessageLoader';
 import Emoji from './Emoji';
 import { isRTL } from '../functions/isRlt';
 import { IoSend, IoAlert, IoClose } from 'react-icons/io5';
+import { BsReplyFill } from 'react-icons/bs';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { messengerInputVariants, sendInputIconVariants, replyVariants } from '../config/varitans';
@@ -61,17 +62,16 @@ const MessengerInput = () => {
             <AnimatePresence exitBeforeEnter>
                 {replyTo.id ?
                 <ReplyTo className='reply-section' initial='hidden' animate='visible' exit='exit' variants={replyVariants} messageletters={replyTo?.username?.length + replyTo?.message?.length}>
-                    <button onClick={clearReplyMessage}><IoClose /></button>
                     <div className='message'>
-                        <p className='username'>{replyTo.username}</p>
+                        <i><BsReplyFill /></i>
                         <p className='text'>{replyTo.message}</p>
                     </div>
+                    <button onClick={clearReplyMessage}><IoClose /></button>
                 </ReplyTo>
                 : ""}
             </AnimatePresence>
 
             <MessengerInputContainer isreplyto={replyTo.id ? 1: 0} isrlt={isRTL(inputText) ? 1 : 0} inputtext={inputText ? 1 : 0} initial='hidden' animate='visible' exit='exit' variants={messengerInputVariants}>
-                <div className='input-section'>
                     <textarea
                         className='messenger-input'
                         placeholder="Send a Message..."
@@ -87,34 +87,37 @@ const MessengerInput = () => {
 
                     <Emoji replyToId={replyTo.id} inputText={inputText} setInputText={setInputText} show={emojiPickerShow} setShow={setEmojiPickerShow} />
 
-                    <motion.button whileTap={inputText && { scale: 0.5 }} type="submit" className='messenger-submit' disabled={!inputText} onClick={inputSubmitHandler}>
+                    <motion.button type="submit" className='messenger-submit' disabled={!inputText} onClick={inputSubmitHandler}>
                         <AnimatePresence exitBeforeEnter>
-                            {sendMessageLoading ?
-                            <div key="pending" className='loader'><MessageLoader size={"1.5rem"} /></div> :
-                            sendMessageError ?
-                            <motion.div initial='hidden' animate='visible' exit='exit' variants={sendInputIconVariants} key="error"><IoAlert color='red' /></motion.div> :
-                            <motion.div initial='hidden' animate='visible' exit='exit' variants={sendInputIconVariants} key="send"><IoSend /></motion.div>}
+                            {
+                                sendMessageLoading ?
+                                <div key="pending" className='loader'><MessageLoader size={"1.5rem"} /></div> :
+                                sendMessageError ?
+                                <motion.div initial='hidden' animate='visible' exit='exit' variants={sendInputIconVariants} key="error"><IoAlert color='red' /></motion.div> :
+                                <motion.div initial='hidden' animate='visible' exit='exit' variants={sendInputIconVariants} key="send"><IoSend /></motion.div>
+                            }
                         </AnimatePresence>
                     </motion.button>
-                </div>
             </MessengerInputContainer>
         </>
     );
 };
 
 const MessengerInputContainer = styled(motion.section)`
-    background-color: var(--messenger-input);
     backdrop-filter: var(--messenger-input-blur);
     -webkit-backdrop-filter: var(--messenger-input-blur);
+    border: solid 1px #ffffff14;
     border-radius: var(--messenger-input-border-radius);
+    width: 20rem;
+    height: 2.8rem;
+    padding: .2rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-    min-width: 60%;
     position: absolute;
-    bottom: ${props => props.isreplyto ? ".001rem" : "1rem"};
+    bottom: ${props => props.isreplyto ? ".2rem" : "1rem"};
     transition: bottom .4s;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 12px;
     z-index: 5;
 
     &:disabled {
@@ -126,56 +129,70 @@ const MessengerInputContainer = styled(motion.section)`
         justify-content: center;
         align-items: center;
         width: 100%;
+        height: 2.5rem;
+        overflow: hidden;
         padding: ${props => props.isrlt ? "0 0 0 1rem" : ""};
         transition: padding .2s;
+    }
 
-        .messenger-input {
-            color: #fff;
-            border: none;
-            padding: .8rem;
-            background-color: transparent;
-            font-family: ${props => props.isrlt ? "Vazirmatn" : "Outfit"}, "Vazirmatn", sans-serif;
-            font-weight: 200;
-            font-size: 1rem;
-            border-radius: 50px;
-            width: 100%;
-            height: 3rem;
-            margin-right: .5rem;
-            resize: none;
-            overflow: ${props => props.inputtext ? "hidden scroll" : ""};
+    .messenger-input {
+        color: #fff;
+        border: none;
+        padding: .8rem;
+        background-color: transparent;
+        font-family: ${props => props.isrlt ? "Vazirmatn" : "Outfit"}, "Vazirmatn", sans-serif;
+        font-weight: 200;
+        font-size: 1rem;
+        border-radius: 50px;
+        width: 100%;
+        max-height: 2.8rem;
+        margin-right: .5rem;
+        resize: none;
+        overflow: ${props => props.inputtext ? "hidden scroll" : ""};
 
-            &::placeholder {
-                color: var(--messenger-input-placeholder);
-            }
-
-            ::-webkit-scrollbar {
-                width: .3rem;
-            }
+        &::placeholder {
+            color: var(--messenger-input-placeholder);
         }
 
-        .messenger-submit {
-            all: unset;
-            font-size: 1.5rem;
-            width: 3.5rem;
-            height: 3rem;
+        ::-webkit-scrollbar {
+            width: .1rem;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            border-radius: 50px;
+            background: #ffffff00;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: #ffffff20;
+            border-radius: 50px;
+        }
+    }
+
+    .messenger-submit {
+        all: unset;
+        font-size: 1.5rem;
+        width: 3.5rem;
+        height: 3rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        color: var(--messenger-input-submit-enable);
+        cursor: pointer;
+        transition: color .4s;
+
+        div {
             display: flex;
             justify-content: center;
             align-items: center;
-            border: none;
-            color: var(--messenger-input-submit-enable);
-            cursor: pointer;
-            transition: color .4s;
+        }
 
-            div {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-
-            &:disabled {
-                cursor: not-allowed;
-                color: var(--messenger-input-submit-disable);
-            }
+        &:disabled {
+            cursor: not-allowed;
+            color: var(--messenger-input-submit-disable);
         }
     }
 `;
@@ -194,6 +211,7 @@ const ReplyTo = styled(motion.div)`
     position: absolute;
     bottom: 3.5rem;
     overflow: hidden;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     user-select: none;
     z-index: 2;
 
@@ -202,10 +220,12 @@ const ReplyTo = styled(motion.div)`
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: 1.2rem;
+        font-size: 1.3rem;
+        color: #ff0000;
         border-radius: 50%;
         cursor: pointer;
         padding: .2rem;
+        margin-left: .2rem;
         transition: background .2s;
 
         @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
@@ -224,9 +244,13 @@ const ReplyTo = styled(motion.div)`
         margin: 0 .2rem;
         font-weight: 100;
         overflow: hidden;
+        color: #ffffffaa;
 
-        .username {
-            font-size: .6rem;
+        i {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1rem;
             margin-right: .2rem;
         }
 

@@ -81,10 +81,8 @@ const PopupContainer = styled(motion.div)`
             width: 5rem;
             height: 2.3rem;
             font-size: 1rem;
-            font-weight: 600;
-            font-family: "Outfit", sans-serif;
+            font-weight: 500;
             cursor: pointer;
-            user-select: none;
             transition: background-color .3s;
             color: #fff;
 

@@ -27,14 +27,14 @@ const DeletePopup = ({ popupMessages }) => {
     return (
         <>
             <DeletePopupContainer onKeyDown={e => pressEnter(e)}>
-                <p className='delete-text'>Are you sure that you want to delete {popupMessages.length > 1 ? "these messages" : "this message"}?</p>
+                <h4 className='delete-text'>Are you sure you want to delete {popupMessages.length > 1 ? "these messages" : "this message"}?</h4>
 
                 <div className='messages'>
-                    {popupMessages.map(item => (                    
+                    {popupMessages.map(item => (
                             <Message className='message' key={item.id} ispersian={item.isPersian} isMessageFromLocalUser={item.isMessageFromLocalUser} messagePosition={item.messagePosition} isreply={item.replyTo != "no_reply" ? 1 : 0}>
-                                {item.replyTo != "no_reply" ? 
+                                {item.replyTo != "no_reply" ?
                                 <div className='reply'>
-                                    {item.replyTo ? 
+                                    {item.replyTo ?
                                     <>
                                         <p className='reply-username'>{item.replyTo?.username}</p>
                                         <p className='reply-message'>{item.replyTo?.message}</p>
@@ -101,33 +101,33 @@ const Message = styled.div`
     justify-content: center;
     align-items: center;
     background-color: var(--message);
-    margin: ${props => 
-        props.messagePosition == 0 ? 
-        ".2rem 0 .2rem 0" : 
-        props.messagePosition == 1 ? 
-        ".2rem 0 .04rem 0" : 
-        props.messagePosition == 2 ? 
-        ".04rem 0 .04rem 0" : 
-        props.messagePosition == 3 && 
+    margin: ${props =>
+        props.messagePosition == 0 ?
+        ".2rem 0 .2rem 0" :
+        props.messagePosition == 1 ?
+        ".2rem 0 .04rem 0" :
+        props.messagePosition == 2 ?
+        ".04rem 0 .04rem 0" :
+        props.messagePosition == 3 &&
         ".04rem 0 .2rem 0"
     };
-    border-radius: ${props => 
-        props.isMessageFromLocalUser ? 
-            props.messagePosition == 0 ? 
-            "25px" : 
-            props.messagePosition == 1 ? 
-            "25px 25px 2px 25px" : 
-            props.messagePosition == 2 ? 
-            "25px 2px 2px 25px" : 
-            props.messagePosition == 3 && 
+    border-radius: ${props =>
+        props.isMessageFromLocalUser ?
+            props.messagePosition == 0 ?
+            "25px" :
+            props.messagePosition == 1 ?
+            "25px 25px 2px 25px" :
+            props.messagePosition == 2 ?
+            "25px 2px 2px 25px" :
+            props.messagePosition == 3 &&
             "25px 2px 25px 25px" :
-        props.messagePosition == 0 ? 
-            "25px" : 
-            props.messagePosition == 1 ? 
-            "25px 25px 25px 2px" : 
-            props.messagePosition == 2 ? 
-            "5px 25px 25px 2px" : 
-            props.messagePosition == 3 && 
+        props.messagePosition == 0 ?
+            "25px" :
+            props.messagePosition == 1 ?
+            "25px 25px 25px 2px" :
+            props.messagePosition == 2 ?
+            "5px 25px 25px 2px" :
+            props.messagePosition == 3 &&
             "2px 25px 25px 25px"
     };
     padding: ${props => props.isreply ? "2.4rem 2.8rem .5rem .8rem" : ".5rem 2.8rem .5rem .8rem"};
@@ -157,14 +157,14 @@ const Message = styled.div`
         letter-spacing: .5px;
         color: var(--message-time);
         white-space: nowrap;
-        margin: ${props => 
-            props.messagePosition == 0 ? 
-            "0 .4rem .5rem 0" : 
-            props.messagePosition == 1 ? 
-            "0 .1rem .3rem 0" : 
-            props.messagePosition == 2 ? 
-            "0 .1rem .3rem 0" : 
-            props.messagePosition == 3 && 
+        margin: ${props =>
+            props.messagePosition == 0 ?
+            "0 .4rem .5rem 0" :
+            props.messagePosition == 1 ?
+            "0 .1rem .3rem 0" :
+            props.messagePosition == 2 ?
+            "0 .1rem .3rem 0" :
+            props.messagePosition == 3 &&
             "0 .1rem .5rem 0"
         };
     }
@@ -184,12 +184,12 @@ const Message = styled.div`
         border-radius: 30px;
         white-space: nowrap;
         overflow: hidden;
-        
+
         .reply-username {
             font-size: .4rem;
             margin: 0 .2rem;
         }
-        
+
         .reply-message {
             text-overflow: ellipsis;
             overflow: hidden;

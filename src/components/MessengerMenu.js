@@ -37,15 +37,15 @@ const MessengerMenu = () => {
                 <AnimatePresence>
                     {openMenu ?
                     <motion.div key="menu" className='list' initial='hidden' animate='visible' exit='exit' variants={menuListVariants}>
-                        <motion.div onClick={logoutClickHandler} className='list-item' whileTap={{ scale: 0.9 }}>
+                        <motion.button className='list-item' onClick={logoutClickHandler}>
                             <i><FcRightUp2 /></i>
                             <p>Logout</p>
-                        </motion.div>
+                        </motion.button>
                         <Link to="/settings">
-                            <motion.div className='list-item' whileTap={{ scale: 0.9 }}>
+                            <motion.button className='list-item'>
                                 <i><FcSettings /></i>
                                 <p>Settings</p>
-                            </motion.div>
+                            </motion.button>
                         </Link>
                     </motion.div>
                     : ""}
@@ -68,11 +68,12 @@ const MessengerMenuContainer = styled(motion.div)`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: ${props => props.openmenu ? "8rem" : "2.5rem"};
-    height: ${props => props.openmenu ? "8rem" : "2.5rem"};
+    width: ${props => props.openmenu ? "7.5rem" : "2.5rem"};
+    height: ${props => props.openmenu ? "7.5rem" : "2.5rem"};
     cursor: ${props => props.openmenu ? "" : "pointer"};
     overflow: hidden;
-    transition: width .8s cubic-bezier(.53,0,0,.98), height .8s cubic-bezier(.53,0,0,.98), background 1s;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 12px;
+    transition: width .6s cubic-bezier(.53,0,0,.98), height .6s cubic-bezier(.53,0,0,.98), background 1s;
 
     .back-icon, .menu-icon {
         position: absolute;
@@ -82,7 +83,8 @@ const MessengerMenuContainer = styled(motion.div)`
         justify-content: center;
         align-items: center;
         border-radius: 50%;
-        transition: background .4s;
+        box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 12px;
+        transition: background .2s;
     }
 
     .back-icon {
@@ -120,7 +122,7 @@ const MessengerMenuContainer = styled(motion.div)`
     }
 
     .list {
-        margin-top: 2.5rem;
+        margin-top: 2.2rem;
         width: 100%;
         display: flex;
         justify-content: center;
@@ -148,17 +150,19 @@ const MessengerMenuContainer = styled(motion.div)`
             display: flex;
             justify-content: center;
             align-items: center;
-            transition: background .4s;
+            transition: background .2s;
+            box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 12px;
 
             p {
                 font-size: .8rem;
+                font-weight: 500;
             }
 
             i {
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                font-size: 1.2rem;
+                font-size: 1.4rem;
                 margin-right: .2rem;
             }
 

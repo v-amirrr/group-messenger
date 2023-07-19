@@ -4,16 +4,16 @@ import { useSelector } from 'react-redux';
 import { useAuth } from '../../hooks/useAuth';
 import { useRedirection } from '../../hooks/useRedirection';
 import MessageLoader from '../message/MessageLoader';
-import AuthError from './AuthError';
+import Notification from '../Notification';
 import { FaRegEye } from 'react-icons/fa';
-import { motion } from 'framer-motion';
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 import { signupVariants, signupItemVariants } from '../../config/varitans';
 
 const Signup = () => {
 
     const navigate = useNavigate();
-    const { signup, clearAuthErrors } = useAuth();
+    const { signup } = useAuth();
     const { authRedirection } = useRedirection();
     const { signup: signupDataFromUserStore } = useSelector(store => store.userStore);
 
@@ -23,7 +23,6 @@ const Signup = () => {
     const [showPassword, setShowPassword] = useState(false);
 
     const backHandler = () => {
-        clearAuthErrors();
         navigate("/enter");
     };
 
@@ -32,15 +31,13 @@ const Signup = () => {
     };
 
     useEffect(() => {
-        clearAuthErrors();
         authRedirection();
     }, []);
 
     return (
         <>
             <SignupPage initial='hidden' animate='visible' exit='exit' variants={signupVariants} signuploading={signupDataFromUserStore.loading ? 1 : 0} showpassword={showPassword ? 1 : 0}>
-                <AuthError />
-
+                <Notification />
                 <div className='signup-container'>
                     <motion.h2 initial='hidden' animate='visible' exit='exit' variants={signupItemVariants}>Create an account</motion.h2>
                     <ul className='signup-fields'>

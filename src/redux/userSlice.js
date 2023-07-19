@@ -12,6 +12,7 @@ const initialState = {
     theme: 4,
     selectedMessages: [],
     selectOthersMessage: false,
+    notification: { open: false, message: null, error: false, },
 };
 
 const userSlice = createSlice({
@@ -46,10 +47,10 @@ const userSlice = createSlice({
             return { ...state, googleLogin: { loading: action.payload.loading, error: action.payload.error } };
         },
         setSelectedMessages: (state, action) => {
-            return { 
-                ...state, 
-                selectedMessages: [ 
-                    ...state.selectedMessages, 
+            return {
+                ...state,
+                selectedMessages: [
+                    ...state.selectedMessages,
                     action.payload.message,
                 ]
             };
@@ -63,10 +64,13 @@ const userSlice = createSlice({
         setSelectOthersMessage: (state, action) => {
             return { ...state, selectOthersMessage: action.payload };
         },
+        setNotification: (state, action) => {
+            return { ...state, notification: { open: action.payload.open, message: action.payload.message, error: action.payload.error } };
+        },
     },
 });
 
-export const { 
+export const {
     setWarningShowed,
     setWarningPageNeverShowCheck,
     setMessageIdOptionsShow,
@@ -80,6 +84,7 @@ export const {
     setClearSelectedMessages,
     setUnselectMessages,
     setSelectOthersMessage,
+    setNotification,
 } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import { useSelector } from 'react-redux';
 import DeletePopup from './DeletePopup';
 import EditPopup from './EditPopup';
+import Notification from '../Notification';
 import { useMessageOptions } from '../../hooks/useMessageOptions';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -28,6 +29,7 @@ const Popup = () => {
                 <AnimatePresence exitBeforeEnter>
                     {popupShow ?
                     <PopupPage initial='hidden' animate='visible' exit='exit' variants={popupPageVariants} onClick={(e) => closePopupByTap(e)}>
+                        <Notification />
                         <PopupContainer variants={popupPageContainer} ref={popupPage}>
                             {popupName == "DELETE_POPUP" ?
                             <DeletePopup popupMessages={popupMessages} />

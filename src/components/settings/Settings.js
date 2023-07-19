@@ -6,6 +6,7 @@ import SettingsBackgrounds from './SettingsBackgrounds';
 import SettingsUser from './SettingsUser';
 import SettingsTrash from './SettingsTrash';
 import SettingsItem from './SettingsItem';
+import Notification from '../Notification';
 import { TiArrowLeft } from "react-icons/ti";
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
@@ -25,6 +26,7 @@ const Settings = () => {
     return (
         <>
             <SettingsPage initial='hidden' animate='visible' exit='exit' variants={settingsPageVariants}>
+                <Notification />
                 <SettingsContainer variants={settingsContainerVariants}>
                     <header>
                         <h1>Settings</h1>
@@ -68,6 +70,7 @@ const SettingsContainer = styled(motion.section)`
     align-items: center;
     border-radius: var(--settings-border-radius);
     background-color: var(--settings);
+    border: solid 1px #ffffff08;
     width: 20rem;
     height: 30rem;
     position: relative;

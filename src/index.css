@@ -5,11 +5,13 @@
     --enter-modes-box: #ffffff05;
     --enter-modes-box-item: #ffffff05;
     --enter-modes-box-hover: #ffffff08;
-    --auth-error: #ffffff08;
     --auth-feild: #ffffff08;
     --auth-feild-placeholder: #ffffff20;
     --auth-button: #ffffff08;
     --auth-button-hover: #ffffff10;
+
+    --notification: #ffffff08;
+    --error: #ffffff08;
 
     --warning-page: #000000bb;
     --warning-page-button: #ffffff08;
@@ -85,11 +87,13 @@
     --enter-modes-box: #ffffff05;
     --enter-modes-box-item: #ffffff05;
     --enter-modes-box-hover: #ffffff08;
-    --auth-error: #ffffff08;
     --auth-feild: #ffffff08;
     --auth-feild-placeholder: #ffffff20;
     --auth-button: #ffffff08;
     --auth-button-hover: #ffffff10;
+
+    --notification: #ffffff08;
+    --error: #ffffff08;
 
     --warning-page: #000000bb;
     --warning-page-button: #ffffff08;
@@ -165,11 +169,13 @@
     --enter-modes-box: #ffffff05;
     --enter-modes-box-item: #ffffff05;
     --enter-modes-box-hover: #ffffff08;
-    --auth-error: #ffffff08;
     --auth-feild: #ffffff08;
     --auth-feild-placeholder: #ffffff20;
     --auth-button: #ffffff08;
     --auth-button-hover: #ffffff10;
+
+    --notification: #ffffff08;
+    --error: #ffffff08;
 
     --warning-page: #000000bb;
     --warning-page-button: #ffffff08;
@@ -245,11 +251,13 @@
     --enter-modes-box: #ffffff05;
     --enter-modes-box-item: #ffffff05;
     --enter-modes-box-hover: #ffffff08;
-    --auth-error: #ffffff08;
     --auth-feild: #ffffff08;
     --auth-feild-placeholder: #ffffff20;
     --auth-button: #ffffff08;
     --auth-button-hover: #ffffff10;
+
+    --notification: #ffffff08;
+    --error: #ffffff08;
 
     --warning-page: #000000bb;
     --warning-page-button: #ffffff08;

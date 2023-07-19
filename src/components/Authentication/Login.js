@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useAuth } from '../../hooks/useAuth';
 import { useRedirection } from '../../hooks/useRedirection';
-import AuthError from './AuthError';
 import MessageLoader from '../message/MessageLoader';
+import Notification from '../Notification';
 import { FaRegEye } from 'react-icons/fa';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
@@ -13,7 +13,7 @@ import { loginVariants, loginItemVariants } from '../../config/varitans';
 const Login = () => {
 
     const navigate = useNavigate();
-    const { login, clearAuthErrors, googleLogin } = useAuth();
+    const { login, googleLogin } = useAuth();
     const { authRedirection } = useRedirection();
     const { login: loginDataFromUserStore, googleLogin: googleLoginDataFromUserStore } = useSelector(store => store.userStore);
 
@@ -22,7 +22,6 @@ const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
 
     const backHandler = () => {
-        clearAuthErrors();
         navigate("/enter");
     };
 
@@ -39,15 +38,13 @@ const Login = () => {
     };
 
     useEffect(() => {
-        clearAuthErrors();
         authRedirection();
     }, []);
 
     return (
         <>
             <LoginPage initial='hidden' animate='visible' exit='exit' variants={loginVariants} loginloading={loginDataFromUserStore.loading ? 1 : 0} googleloading={googleLoginDataFromUserStore.loading ? 1 : 0} showpassword={showPassword ? 1 : 0}>
-                <AuthError />
-
+                <Notification />
                 <div className='login-container' initial='hidden' animate='visible' exit='exit' variants={loginVariants}>
                     <motion.h2 initial='hidden' animate='visible' exit='exit' variants={loginItemVariants}>Login with your account</motion.h2>
                     <ul className='login-fields'>

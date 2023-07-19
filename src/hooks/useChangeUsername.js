@@ -3,12 +3,16 @@ import { auth, db } from "../config/firebase";
 import { doc, updateDoc } from "firebase/firestore";
 import { updateProfile } from "firebase/auth";
 import { setUser } from '../redux/userSlice';
+import { useNotification } from "./useNotification";
 
 export const useChangeUsername = () => {
 
     const dispatch = useDispatch();
+
     const { user } = useSelector(store => store.userStore);
     const { messages } = useSelector(store => store.messagesStore);
+
+    const { openNotification } = useNotification();
 
     const changeUsername = async (newUsername) => {
         if (newUsername && newUsername != user.displayName) {
@@ -26,8 +30,9 @@ export const useChangeUsername = () => {
                         });
                     }
                 });
+                openNotification("Username changed.", false);
             }).catch((err) => {
-                console.log(err);
+                openNotification(err.message, true);
             });
         }
     };

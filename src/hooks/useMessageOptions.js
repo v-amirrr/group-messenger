@@ -1,16 +1,18 @@
 import { db } from '../config/firebase';
 import { doc, deleteDoc, updateDoc } from "firebase/firestore";
 import { useDispatch, useSelector } from 'react-redux';
+import { useNotification } from './useNotification';
 import { setPopup, setEditedReply } from '../redux/popupSlice';
 import { setSendMessageReplyTo, setClearReplyTo } from '../redux/sendMessageSlice';
 import { setMessageIdOptionsShow } from '../redux/userSlice';
-
 export const useMessageOptions = () => {
 
     const dispatch = useDispatch();
 
     const { popupMessageEditedReply } = useSelector(store => store.popupStore);
     const { replyTo } = useSelector(store => store.sendMessageStore);
+
+    const { openNotification } = useNotification();
 
     const copyMessage = (message) => {
         dispatch(setMessageIdOptionsShow(null));
@@ -20,6 +22,8 @@ export const useMessageOptions = () => {
         });
         text = text.join(" ");
         navigator.clipboard.writeText(text);
+        openNotification("Message copied.", false);
+
     };
 
     const openPopup = (popupName, popupMessages) => {
@@ -56,6 +60,7 @@ export const useMessageOptions = () => {
             deleted: true
         });
         closePopup();
+        openNotification("Message was moved to trash.", false);
     };
 
     const undeleteMessage = (id) => {
@@ -63,6 +68,7 @@ export const useMessageOptions = () => {
         updateDoc(docRef, {
             deleted: false
         });
+        openNotification("Message restored.", false);
     };
 
     const editMessage = (popupMessages, newEditedText) => {
@@ -73,6 +79,7 @@ export const useMessageOptions = () => {
                 replyTo: popupMessageEditedReply == "deleted" ? null : popupMessageEditedReply ? popupMessageEditedReply : popupMessages.replyTo == "no_reply" ? null : popupMessages.replyTo.id,
             });
             closePopup();
+            openNotification("Message was edited.", false);
         } else {
             closePopup();
             setTimeout(() => {

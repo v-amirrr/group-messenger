@@ -37,7 +37,7 @@ const WarningPage = () => {
                         <p>Don't show this again. </p>
                         <input type="checkbox" autoFocus checked={warningModalCheckbox} onChange={() => setWarningModalCheckbox(!warningModalCheckbox)} />
                     </motion.div>
-                    <motion.button type="submit" className='submit' onClick={() => warningPageSubmit(warningModalCheckbox)} variants={warningModalItemsVariants} whileTap={{ scale: 0.8 }}>LET'S GO</motion.button>
+                    <motion.button type="submit" className='submit' onClick={() => warningPageSubmit(warningModalCheckbox)} variants={warningModalItemsVariants}>LET'S GO</motion.button>
                 </div>
             </WarningModalPage>
         </>

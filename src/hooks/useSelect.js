@@ -5,7 +5,7 @@ import { useMessageOptions } from "./useMessageOptions";
 export const useSelect = () => {
 
     const dispatch = useDispatch();
-    const { deleteMessage } = useMessageOptions();
+    const { trashMessage } = useMessageOptions();
     const { selectedMessages } = useSelector(store => store.userStore);
 
     const selectMessage = (message) => {
@@ -65,12 +65,12 @@ export const useSelect = () => {
 
     const deleteSelectedMessages = () => {
         selectedMessages.forEach(item => {
-            deleteMessage(item.id);
+            trashMessage(item.id);
         });
         clearSelectedMessages();
     };
 
-    return { 
+    return {
         selectMessage,
         clearSelectedMessages,
         checkMessage,

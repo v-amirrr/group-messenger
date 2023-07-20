@@ -16,7 +16,7 @@ const MessageOptions = ({ clickEvent, message }) => {
     const messageOptionsRef = useRef();
     const { enterAsAGuest } = useSelector(store => store.userStore);
 
-    const { openPopup, copyMessage, replyMessage } = useMessageOptions();
+    const { openPopup, copyMessage, replyMessage, trashMessage } = useMessageOptions();
     const { selectMessage } = useSelect();
 
     let onMobile = document.documentElement.offsetWidth < 600;
@@ -47,7 +47,7 @@ const MessageOptions = ({ clickEvent, message }) => {
                         <i><AiFillEdit /></i>
                         <p>Edit</p>
                     </motion.div>
-                    <motion.div className='delete' onClick={() => openPopup("DELETE_POPUP", [message])} variants={onMobile ? menuMobileItemVariants : isMessageFromLocalUser ? menuItemUserDesktopVariants : menuItemDesktopVariants}>
+                    <motion.div className='delete' onClick={() => trashMessage(id)} variants={onMobile ? menuMobileItemVariants : isMessageFromLocalUser ? menuItemUserDesktopVariants : menuItemDesktopVariants}>
                         <i><AiFillDelete /></i>
                         <p>Delete</p>
                     </motion.div>

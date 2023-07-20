@@ -1,6 +1,5 @@
 import React from 'react';
 import { useSelect } from '../hooks/useSelect';
-import { useMessageOptions } from '../hooks/useMessageOptions';
 import { useSelector } from 'react-redux';
 import { IoClose } from 'react-icons/io5';
 import { AiFillDelete, AiFillCopy } from 'react-icons/ai';
@@ -10,8 +9,7 @@ import { selectBarVariants } from '../config/varitans';
 
 const SelectBar = () => {
 
-    const { clearSelectedMessages, copySelectedMessages } = useSelect();
-    const { openPopup } = useMessageOptions();
+    const { clearSelectedMessages, copySelectedMessages, deleteSelectedMessages } = useSelect();
 
     const { selectedMessages, enterAsAGuest, selectOthersMessage } = useSelector(store => store.userStore);
 
@@ -27,7 +25,7 @@ const SelectBar = () => {
                         <p>Copy</p>
                     </motion.button>
                     {!enterAsAGuest && !selectOthersMessage ?
-                    <motion.button className='delete' onClick={() => openPopup("DELETE_POPUP", selectedMessages, true)}>
+                    <motion.button className='delete' onClick={deleteSelectedMessages}>
                         <i><AiFillDelete /></i>
                         <p>Delete</p>
                     </motion.button>

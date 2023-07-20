@@ -53,14 +53,19 @@ export const useMessageOptions = () => {
         }));
     };
 
-    const deleteMessage = (id) => {
+    const trashMessage = (id) => {
         const docRef = doc(db, "messages", id);
-        // deleteDoc(docRef);
         updateDoc(docRef, {
             deleted: true
         });
-        closePopup();
         openNotification("Message was moved to trash.", false);
+    };
+
+    const deleteMessage = (id) => {
+        const docRef = doc(db, "messages", id);
+        deleteDoc(docRef);
+        closePopup();
+        openNotification("Message was deleted.", false);
     };
 
     const undeleteMessage = (id) => {
@@ -119,6 +124,7 @@ export const useMessageOptions = () => {
         copyMessage,
         openPopup,
         closePopup,
+        trashMessage,
         deleteMessage,
         undeleteMessage,
         editMessage,

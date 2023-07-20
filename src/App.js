@@ -17,12 +17,13 @@ const App = () => {
 
     const location = useLocation();
 
-    const { getMessages } = useGetMessages();
+    const { getMessages, loadingOn } = useGetMessages();
     const { showWelcomePages } = useWarningPage();
     const { setDefaultTheme } = useChangeTheme();
 
     useEffect(() => {
         setDefaultTheme();
+        loadingOn();
         getMessages();
         showWelcomePages();
     }, []);

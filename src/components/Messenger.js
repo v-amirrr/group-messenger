@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Loader from './Loader';
 import ErrorBox from './ErrorBox';
@@ -7,10 +7,18 @@ import Notification from './Notification';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 import { messengerVariants } from '../config/varitans';
+import { useGetMessages } from '../hooks/useGetMessages';
 
 const Messenger = () => {
 
-    const { loading, error } = useSelector(store => store.messagesStore);
+    const { loadingOff } = useGetMessages();
+    const { loading, error, messages } = useSelector(store => store.messagesStore);
+
+    useEffect(() => {
+        if (messages?.length) {
+            loadingOff();
+        }
+    }, [messages]);
 
     return (
         <>

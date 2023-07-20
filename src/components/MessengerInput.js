@@ -19,6 +19,7 @@ const MessengerInput = () => {
     const inputRef = useRef();
 
     const [inputText, setInputText] = useState("");
+    const [multiline, setMultiline] = useState(false);
     const [emojiPickerShow, setEmojiPickerShow] = useState(false);
 
     const { error, localUsername } = useSelector(store => store.messagesStore);
@@ -57,6 +58,17 @@ const MessengerInput = () => {
         }
     }, [sendMessageError]);
 
+    useEffect(() => {
+        if (multiline) {
+            setMultiline(false);
+        }
+        inputText.split('').map(item => {
+            if (item == '\n') {
+                setMultiline(true);
+            }
+        });
+    }, [inputText]);
+
     return (
         <>
             <AnimatePresence exitBeforeEnter>
@@ -71,7 +83,7 @@ const MessengerInput = () => {
                 : ""}
             </AnimatePresence>
 
-            <MessengerInputContainer isreplyto={replyTo.id ? 1: 0} isrlt={isRTL(inputText) ? 1 : 0} inputtext={inputText ? 1 : 0} initial='hidden' animate='visible' exit='exit' variants={messengerInputVariants}>
+            <MessengerInputContainer multiline={multiline ? 1 : 0} isreplyto={replyTo.id ? 1: 0} isrlt={isRTL(inputText) ? 1 : 0} inputtext={inputText ? 1 : 0} initial='hidden' animate='visible' exit='exit' variants={messengerInputVariants}>
                     <textarea
                         className='messenger-input'
                         placeholder="Send a Message..."
@@ -115,7 +127,7 @@ const MessengerInputContainer = styled(motion.section)`
     justify-content: center;
     align-items: center;
     position: absolute;
-    bottom: ${props => props.isreplyto ? ".2rem" : "1rem"};
+    bottom: ${props => props.isreplyto ? ".4rem" : "1rem"};
     transition: bottom .4s;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 12px;
     z-index: 5;
@@ -166,7 +178,7 @@ const MessengerInputContainer = styled(motion.section)`
 
         /* Handle */
         ::-webkit-scrollbar-thumb {
-            background: #ffffff20;
+            background: ${props => props.multiline ? "#ffffff40" : "#ffffff00"};
             border-radius: 50px;
         }
     }
@@ -204,9 +216,10 @@ const ReplyTo = styled(motion.div)`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--messenger-input-reply);
-    backdrop-filter: blur(20px) saturate(100%);
-    -webkit-backdrop-filter: blur(20px) saturate(100%);
+    backdrop-filter: var(--messenger-input-blur);
+    -webkit-backdrop-filter: var(--messenger-input-blur);
+    border: solid 1px #ffffff14;
+    border-radius: var(--messenger-input-border-radius);
     border-radius: 50px;
     position: absolute;
     bottom: 3.5rem;
@@ -255,7 +268,7 @@ const ReplyTo = styled(motion.div)`
         }
 
         .text {
-            font-size: .8rem;
+            font-size: .7rem;
             font-weight: 200;
             overflow: hidden;
             text-overflow: ellipsis;

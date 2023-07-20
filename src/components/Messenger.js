@@ -45,7 +45,7 @@ const MessengerContainer = styled.div`
     flex-direction: column;
     text-align: center;
     width: 55%;
-    height: 98vh;
+    height: 100vh;
     font-family: 'Outfit', sans-serif;
     position: relative;
 

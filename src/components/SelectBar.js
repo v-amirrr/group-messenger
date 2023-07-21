@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelect } from '../hooks/useSelect';
 import { useSelector } from 'react-redux';
 import { IoClose } from 'react-icons/io5';
@@ -13,23 +13,42 @@ const SelectBar = () => {
 
     const { selectedMessages, enterAsAGuest, selectOthersMessage } = useSelector(store => store.userStore);
 
+    const [counterOne, setCounterOne] = useState(selectedMessages.length);
+    const [counterTwo, setCounterTwo] = useState(selectedMessages.length);
+    const [changeCounter, setChangeCounter] = useState(false);
+
+    useEffect(() => {
+        if (selectedMessages.length != 0) {
+            setCounterTwo(selectedMessages.length);
+        }
+    }, [selectedMessages.length]);
+
+    useEffect(() => {
+        setChangeCounter(true);
+        setTimeout(() => {
+            setCounterOne(selectedMessages.length);
+            setChangeCounter(false);
+        }, 800);
+    }, [counterTwo]);
+
     return (
         <>
-            <SelectBarContainer initial='hidden' animate='visible' exit='exit' variants={selectBarVariants}>
+            <SelectBarContainer initial='hidden' animate='visible' exit='exit' variants={selectBarVariants} userbutton={!enterAsAGuest && !selectOthersMessage ? 1 : 0} changecounter={changeCounter ? 1 : 0}>
                 <motion.button className='close' onClick={clearSelectedMessages}><IoClose /></motion.button>
-                <div className='count'>{selectedMessages.length}</div>
+                <div className='count'>
+                    <p className='counter-one'>{counterOne}</p>
+                    <p className='counter-two'>{counterTwo}</p>
+                </div>
 
                 <div className='options'>
                     <motion.button className='copy' onClick={copySelectedMessages}>
                         <i><AiFillCopy /></i>
                         <p>Copy</p>
                     </motion.button>
-                    {!enterAsAGuest && !selectOthersMessage ?
                     <motion.button className='delete' onClick={deleteSelectedMessages}>
                         <i><AiFillDelete /></i>
                         <p>Delete</p>
                     </motion.button>
-                    : ""}
                 </div>
             </SelectBarContainer>
         </>
@@ -38,8 +57,9 @@ const SelectBar = () => {
 
 const SelectBarContainer = styled(motion.div)`
     position: absolute;
-    top: .8rem;
-    background-color: var(--select-bar);
+    bottom: .8rem;
+    /* background-color: var(--select-bar); */
+    border: solid 1px #ffffff14;
     backdrop-filter: var(--select-bar-blur);
     -webkit-backdrop-filter: var(--select-bar-blur);
     width: 20rem;
@@ -51,6 +71,7 @@ const SelectBarContainer = styled(motion.div)`
     z-index: 999;
     user-select: none;
     overflow: hidden;
+    transition: bottom .4s;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 
     .close {
@@ -66,12 +87,14 @@ const SelectBarContainer = styled(motion.div)`
         font-size: 1.3rem;
         cursor: pointer;
         box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+        transition: background .2s;
+        z-index: 3;
     }
 
     .count {
         position: absolute;
         left: .5rem;
-        background-color: var(--select-bar-button);
+        /* background-color: var(--select-bar-button); */
         border-radius: 50%;
         font-size: 1rem;
         font-weight: 200;
@@ -81,6 +104,22 @@ const SelectBarContainer = styled(motion.div)`
         justify-content: center;
         align-items: center;
         box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+
+        .counter-one {
+            position: absolute;
+            opacity: ${props => props.changecounter ? "0" : "1"};
+            top: ${props => props.changecounter ? "2rem" : "50%"};
+            transform: translate(0, -50%);
+            transition: ${props => props.changecounter ? "top .4s, opacity .4s" : ""};
+        }
+
+        .counter-two {
+            position: absolute;
+            opacity: ${props => props.changecounter ? "1" : "0"};
+            top: ${props => props.changecounter ? "50%" : "-.5rem"};
+            transform: translate(0, -50%);
+            transition: ${props => props.changecounter ? "top .4s, opacity .4s" : ""};
+        }
     }
 
     .options {
@@ -100,7 +139,9 @@ const SelectBarContainer = styled(motion.div)`
             letter-spacing: -1px;
             word-spacing: 5px;
             cursor: pointer;
+            opacity: 1;
             box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+            transition: margin .4s, opacity .4s, background .2s;
 
             i {
                 display: flex;
@@ -114,12 +155,19 @@ const SelectBarContainer = styled(motion.div)`
                 font-size: .8rem;
             }
         }
+
+        .delete {
+            margin-left: ${props => props.userbutton ? "" : "2rem"};
+            opacity: ${props => props.userbutton ? "1" : "0"};
+        }
+
+        .copy {
+            margin-left: ${props => props.userbutton ? "" : "7rem"};
+        }
     }
 
     @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
         .close, .copy, .delete {
-            transition: background .2s;
-
             &:hover {
                 background-color: var(--select-bar-button-hover);
             }

@@ -102,27 +102,27 @@ export const messageLoaderVariants = {
 };
 
 export const menuMobileUserVariants = {
-    hidden: { width: 0, height: 0 },
-    visible: { width: "6.8rem", height: "11.5rem", transition: { duration: 1, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } },
-    exit: { opacity: 0, y: 5, transition: { duration: 0.3 } }
+    hidden: { opacity: 0, y: 30, scaleY: 0.9 },
+    visible: { opacity: 1, y: 0, scaleY: 1, transition: { duration: 0.8, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } },
+    exit: { opacity: 0, y: 10, transition: { duration: 0.3 } }
 };
 
 export const menuMobileGuestVariants = {
-    hidden: { width: 0, height: 0 },
-    visible: { width: "6.8rem", height: "3rem", transition: { duration: 1, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } },
-    exit: { opacity: 0, y: 5, transition: { duration: 0.3 } }
+    hidden: { opacity: 0, y: 30, scaleY: 0.9 },
+    visible: { opacity: 1, y: 0, scaleY: 1, transition: { duration: 0.8, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } },
+    exit: { opacity: 0, y: 10, transition: { duration: 0.3 } }
 };
 
 export const menuMobileVariants = {
-    hidden: { width: 0, height: 0 },
-    visible: { width: "6.8rem", height: "7rem", transition: { duration: 1, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } },
-    exit: { opacity: 0, y: 5, transition: { duration: 0.3 } }
+    hidden: { opacity: 0, y: 30, scaleY: 0.9 },
+    visible: { opacity: 1, y: 0, scaleY: 1, transition: { duration: 0.8, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } },
+    exit: { opacity: 0, y: 10, transition: { duration: 0.3 } }
 };
 
 export const menuMobileItemVariants = {
-    hidden: { scale: 0 },
-    visible: { scale: 1, transition: { duration: 0.6, type: 'tween' } },
-    exit: { opacity: 0, transition: { duration: 0.6, type: 'tween' } }
+    // hidden: { scale: 0 },
+    // visible: { scale: 1, transition: { duration: 0.6, type: 'tween' } },
+    // exit: { opacity: 0, transition: { duration: 0.6, type: 'tween' } }
 };
 
 export const menuDesktopVariants = {
@@ -244,7 +244,7 @@ export const replyButtonVariants = {
 
 export const selectBarVariants = {
     hidden: { opacity: 0, y: -30, scaleY: 0.8 },
-    visible: { opacity: 1, y: 0, scaleY: 1, transition: { duration: 0.4 } },
+    visible: { opacity: 1, y: 0, scaleY: 1, transition: { duration: 0.8, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } },
     exit: { opacity: 0, y: -30, transition: { duration: 0.3 } }
 };
 

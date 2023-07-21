@@ -20,7 +20,7 @@ const MessageOptions = ({ clickEvent, message }) => {
     const { selectMessage } = useSelect();
 
     let onMobile = document.documentElement.offsetWidth < 600;
-
+console.log(clickEvent?.pageX, clickEvent?.pageY);
     return (
         <>
             <MessageOptionsContainer key={id} ref={messageOptionsRef} initial='hidden' animate='visible' exit='exit' variants={onMobile ? enterAsAGuest ? menuMobileGuestVariants : isMessageFromLocalUser ? menuMobileUserVariants : menuMobileVariants : menuDesktopVariants} ismessagefromlocaluser={isMessageFromLocalUser ? 1 : 0} x={clickEvent?.pageX} y={clickEvent?.pageY} guest={enterAsAGuest ? 1 : 0}>
@@ -160,20 +160,20 @@ const MessageOptionsContainer = styled(motion.div)`
 
     @media (max-width: 768px) {
         width: 6.8rem;
-        height: ${props => props.guest ? "3rem" : props.ismessagefromlocaluser ? "9.4rem" : "5rem"};
+        /* height: ${props => props.guest ? "3rem" : props.ismessagefromlocaluser ? "10rem" : "6rem"}; */
         flex-direction: column;
         justify-content: center;
         position: absolute;
-        top: ${props => `${props.y-90}px`};
-        left: ${props => !props.ismessagefromlocaluser ? `${props.x-20}px` : "none"};
-        right: ${props => props.ismessagefromlocaluser ? `${395-(props.x)}px` : "none"};
-        z-index: 999;
+        /* right: ${props => props.ismessagefromlocaluser ? `${props.x}px` : "none"}; */
+        /* right: ${props => props.ismessagefromlocaluser ? "none" : `${props.y}px`}; */
+        z-index: 99;
+        padding: .3rem;
         background-color: var(--options-mobile-background);
-        backdrop-filter: blur(10px) saturate(100%);
+        backdrop-filter: blur(5px) saturate(100%);
         -webkit-backdrop-filter: blur(10px) saturate(100%);
         border-radius: 20px;
         overflow: hidden;
-        margin: 0;
+        margin: ${props => props.ismessagefromlocaluser ? "13rem 0 0 0" : "8rem 0 0 0"};
 
         .reply, .copy, .edit, .delete, .select {
             margin: .1rem 0;

@@ -13,7 +13,7 @@ import SelectCheck from './SelectCheck';
 
 const Message = forwardRef(( props, ref ) => {
 
-    const { messageUid, localUid, message, id, replyTo, messageUsername, periorUsername, nextUsername, time, priorDifferentDate, nextDifferentDate } = props.message;
+    const { messageUid, localUid, message, id, replyTo, messageUsername, periorUsername, nextUsername, time, priorDifferentDate, nextDifferentDate, messagesContainerRef } = props.message;
 
     const dispatch = useDispatch();
 
@@ -131,6 +131,7 @@ const Message = forwardRef(( props, ref ) => {
                             messagePosition: messagePosition,
                             isPersian: isRTL(message) ? 1 : 0,
                         }}
+                        messagesContainerRef={messagesContainerRef}
                     />
                     : ""}
                 </AnimatePresence>

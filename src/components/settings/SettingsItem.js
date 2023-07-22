@@ -64,16 +64,14 @@ const SettingsItemContainer = styled.div`
 
         .deleted-messages-counter {
             margin: 0 .5rem;
-            font-size: .6rem;
+            font-size: .7rem;
             font-weight: 600;
-            font-family: sans-serif;
             width: 1rem;
             height: 1rem;
             display: flex;
             justify-content: center;
             align-items: center;
             border-radius: 50%;
-            letter-spacing: -1px;
             background-color: #ff0000;
         }
     }

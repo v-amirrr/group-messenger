@@ -1,4 +1,4 @@
-import React, { memo, useState, useEffect } from 'react';
+import React, { memo, useState } from 'react';
 import { useMessageOptions } from '../../hooks/useMessageOptions';
 import { useSelector } from 'react-redux';
 import { FcEmptyTrash } from "react-icons/fc";
@@ -15,6 +15,8 @@ const SettingsTrash = ({ open, setOpen }) => {
 
     const { undeleteMessage } = useMessageOptions();
 
+    const [messages, setMessages] = useState(deletedMessages.filter(item => item.uid == user.uid));
+
     const itemSwitch = () => {
         if (open == "SETTINGS_TRASH") {
             setOpen(false);
@@ -30,7 +32,7 @@ const SettingsTrash = ({ open, setOpen }) => {
                 <h4>Trash</h4>
                 {
                     deletedMessages.length ?
-                    <div className='deleted-messages-counter'>{deletedMessages.length}</div>
+                    <div className='deleted-messages-counter'>{messages.length}</div>
                     : ""
                 }
                 <i className='item-back'><RiArrowRightSLine /></i>
@@ -43,8 +45,7 @@ const SettingsTrash = ({ open, setOpen }) => {
                         <MessagesContainer initial='hidden' animate='visible' exit='exit' variants={trashVariants}>
                             {deletedMessages.length ?
                             <div className='deleted-messages'>
-                                {deletedMessages.map(message => (
-                                    message.uid == user.uid ?
+                                {messages.map(message => (
                                         <div className='deleted-message' key={message.id}>
                                             <div className='deleted-message-box'>
                                                 <div className='deleted-message-text'>{message.message}</div>
@@ -53,7 +54,6 @@ const SettingsTrash = ({ open, setOpen }) => {
                                                 <FaTrashRestore />
                                             </div>
                                         </div>
-                                    : ""
                                 ))}
                             </div>
                             : <div className='trash-empty'>Empty...</div>}

@@ -257,6 +257,7 @@ const ReplyTo = styled(motion.div)`
         margin: 0 .2rem;
         font-weight: 100;
         overflow: hidden;
+        font-family: ${props => props.isrlt ? "Vazirmatn" : "Outfit"}, "Vazirmatn", sans-serif;
         color: #ffffffaa;
 
         i {

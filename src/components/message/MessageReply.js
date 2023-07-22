@@ -36,6 +36,7 @@ const ReplySection = styled.div`
     border-radius: 30px;
     white-space: nowrap;
     overflow: hidden;
+    font-family: ${props => props.isrlt ? "Vazirmatn" : "Outfit"}, "Vazirmatn", sans-serif;
 
     i {
         display: flex;

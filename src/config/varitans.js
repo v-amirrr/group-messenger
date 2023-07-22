@@ -144,8 +144,8 @@ export const menuItemDesktopVariants = {
 };
 
 export const timeVariants = {
-    hidden: { opacity: 0, x: 20, y: 20, scale: 0 },
-    visible: { opacity: 1, x: 0, y: 0, scale: 1, transition: { duration: 0.4, type: 'tween' } }
+    hidden: { opacity: 0, y: -50, scaleY: 0.8 },
+    visible: { opacity: 1, y: 0, scaleY: 1, transition: { duration: 0.8, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } },
 };
 
 export const selectCheckVariants = {

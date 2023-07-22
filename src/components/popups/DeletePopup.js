@@ -27,7 +27,7 @@ const DeletePopup = ({ popupMessages }) => {
     return (
         <>
             <DeletePopupContainer onKeyDown={e => pressEnter(e)}>
-                <h4 className='delete-text'>Are you sure you want to delete {popupMessages.length > 1 ? "these messages" : "this message"}?</h4>
+                <h4 className='delete-text'>Are you sure you want to delete {popupMessages.length > 1 ? "these messages" : "this message"} permanently?</h4>
 
                 <div className='messages'>
                     {popupMessages.map(item => (

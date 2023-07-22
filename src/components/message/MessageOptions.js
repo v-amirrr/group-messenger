@@ -20,7 +20,7 @@ const MessageOptions = ({ clickEvent, message }) => {
     const { selectMessage } = useSelect();
 
     let onMobile = document.documentElement.offsetWidth < 600;
-console.log(clickEvent?.pageX, clickEvent?.pageY);
+
     return (
         <>
             <MessageOptionsContainer key={id} ref={messageOptionsRef} initial='hidden' animate='visible' exit='exit' variants={onMobile ? enterAsAGuest ? menuMobileGuestVariants : isMessageFromLocalUser ? menuMobileUserVariants : menuMobileVariants : menuDesktopVariants} ismessagefromlocaluser={isMessageFromLocalUser ? 1 : 0} x={clickEvent?.pageX} y={clickEvent?.pageY} guest={enterAsAGuest ? 1 : 0}>

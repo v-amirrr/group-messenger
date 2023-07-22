@@ -1,9 +1,11 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { useMessageOptions } from '../../hooks/useMessageOptions';
 import { useSelector } from 'react-redux';
 import { FcEmptyTrash } from "react-icons/fc";
 import { FaTrashRestore } from "react-icons/fa";
 import { RiArrowRightSLine } from "react-icons/ri";
+import { AiFillDelete } from 'react-icons/ai';
+import { GiEmptyWoodBucket } from 'react-icons/gi';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { trashVariants } from '../../config/varitans';
@@ -13,7 +15,7 @@ const SettingsTrash = ({ open, setOpen }) => {
     const { deletedMessages } = useSelector(store => store.messagesStore);
     const { user } = useSelector(store => store.userStore);
 
-    const { undeleteMessage } = useMessageOptions();
+    const { undeleteMessage, openPopup } = useMessageOptions();
 
     const [messages, setMessages] = useState(deletedMessages.filter(item => item.uid == user.uid));
 
@@ -25,13 +27,17 @@ const SettingsTrash = ({ open, setOpen }) => {
         }
     };
 
+    useEffect(() => {
+        setMessages(deletedMessages.filter(item => item.uid == user.uid));
+    }, [deletedMessages]);
+
     return (
         <>
             <div className='item-header' onClick={itemSwitch}>
                 <i className='item-icon'><FcEmptyTrash /></i>
                 <h4>Trash</h4>
                 {
-                    deletedMessages.length ?
+                    messages.length ?
                     <div className='deleted-messages-counter'>{messages.length}</div>
                     : ""
                 }
@@ -43,20 +49,24 @@ const SettingsTrash = ({ open, setOpen }) => {
                     open == "SETTINGS_TRASH" ?
                     <div key="item-data" className='item-data'>
                         <MessagesContainer initial='hidden' animate='visible' exit='exit' variants={trashVariants}>
-                            {deletedMessages.length ?
+                            {messages.length ?
                             <div className='deleted-messages'>
                                 {messages.map(message => (
-                                        <div className='deleted-message' key={message.id}>
-                                            <div className='deleted-message-box'>
-                                                <div className='deleted-message-text'>{message.message}</div>
-                                            </div>
-                                            <div className='deleted-message-return' onClick={() => undeleteMessage(message.id)}>
-                                                <FaTrashRestore />
-                                            </div>
+                                    <div className='deleted-message' key={message.id}>
+                                        <div className='deleted-message-box'>
+                                            <div className='deleted-message-text'>{message.message}</div>
                                         </div>
+                                        <div className='deleted-message-return' onClick={() => undeleteMessage(message.id)}>
+                                            <FaTrashRestore />
+                                        </div>
+
+                                        <div className='deleted-message-delete' onClick={() => openPopup("DELETE_POPUP", [message])}>
+                                            <AiFillDelete />
+                                        </div>
+                                    </div>
                                 ))}
                             </div>
-                            : <div className='trash-empty'>Empty...</div>}
+                            : <div className='trash-empty'><GiEmptyWoodBucket /></div>}
                         </MessagesContainer>
                     </div>
                     : ""
@@ -130,7 +140,7 @@ const MessagesContainer = styled(motion.div)`
             }
         }
 
-        .deleted-message-return {
+        .deleted-message-return, .deleted-message-delete {
             font-size: .8rem;
             background-color: #ffffff08;
             width: 1.8rem;
@@ -140,7 +150,21 @@ const MessagesContainer = styled(motion.div)`
             display: flex;
             justify-content: center;
             align-items: center;
+            color: #00ff00;
         }
+
+        .deleted-message-delete {
+            font-size: 1rem;
+            color: #ff0000;
+        }
+    }
+
+    .trash-empty {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 3rem;
     }
 
     @media (max-width: 768px) {

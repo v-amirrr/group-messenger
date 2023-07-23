@@ -28,7 +28,7 @@ const SelectBar = () => {
         setTimeout(() => {
             setCounterOne(selectedMessages.length);
             setChangeCounter(false);
-        }, 800);
+        }, 400);
     }, [counterTwo]);
 
     return (
@@ -110,7 +110,7 @@ const SelectBarContainer = styled(motion.div)`
             opacity: ${props => props.changecounter ? "0" : "1"};
             top: ${props => props.changecounter ? "2rem" : "50%"};
             transform: translate(0, -50%);
-            transition: ${props => props.changecounter ? "top .4s, opacity .4s" : ""};
+            transition: ${props => props.changecounter ? "top .2s, opacity .2s" : ""};
         }
 
         .counter-two {
@@ -118,7 +118,7 @@ const SelectBarContainer = styled(motion.div)`
             opacity: ${props => props.changecounter ? "1" : "0"};
             top: ${props => props.changecounter ? "50%" : "-.5rem"};
             transform: translate(0, -50%);
-            transition: ${props => props.changecounter ? "top .4s, opacity .4s" : ""};
+            transition: ${props => props.changecounter ? "top .2s, opacity .2s" : ""};
         }
     }
 

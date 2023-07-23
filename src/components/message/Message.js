@@ -10,6 +10,7 @@ import { isRTL } from '../../functions/isRlt';
 import styled from 'styled-components';
 import { AnimatePresence } from 'framer-motion';
 import SelectCheck from './SelectCheck';
+import { useMessageOptions } from '../../hooks/useMessageOptions';
 
 const Message = forwardRef(( props, ref ) => {
 
@@ -18,6 +19,7 @@ const Message = forwardRef(( props, ref ) => {
     const dispatch = useDispatch();
 
     const { selectMessage, checkMessage, unSelectMessage } = useSelect();
+    const { replyMessage } = useMessageOptions();
 
     const { messageIdOptionsShow, selectedMessages } = useSelector(store => store.userStore);
 
@@ -100,7 +102,7 @@ const Message = forwardRef(( props, ref ) => {
 
             <MessageBox key={id} ref={ref} isMessageFromLocalUser={messageUid == localUid ? 1 : 0} ispersian={isRTL(message) ? 1 : 0} messagePosition={messagePosition} isreply={replyTo != "no_reply" ? 1 : 0} selected={selected ? 1 : 0} anymessageselected={selectedMessages.length ? 1 : 0}>
 
-                <div className='message-box' onClick={(e) => messageClickHandler(e)}>
+                <div className='message-box' onClick={(e) => messageClickHandler(e)} onDoubleClick={() => replyMessage(id, message, messageUsername)}>
                     <MessageReply replyTo={replyTo} />
 
                     <p className='username'>{messageUsername}:</p>
@@ -130,8 +132,8 @@ const Message = forwardRef(( props, ref ) => {
                             time: time,
                             messagePosition: messagePosition,
                             isPersian: isRTL(message) ? 1 : 0,
+                            messageUsername: messageUsername,
                         }}
-                        messagesContainerRef={messagesContainerRef}
                     />
                     : ""}
                 </AnimatePresence>

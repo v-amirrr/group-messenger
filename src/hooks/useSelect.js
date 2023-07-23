@@ -10,9 +10,7 @@ export const useSelect = () => {
 
     const selectMessage = (message) => {
         dispatch(setMessageIdOptionsShow(null));
-        setTimeout(() => {
-            dispatch(setSelectedMessages({message}));
-        }, 400);
+        dispatch(setSelectedMessages({message}));
     };
 
     const unSelectMessage = (uid) => {

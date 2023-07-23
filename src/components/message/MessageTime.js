@@ -29,6 +29,7 @@ const TimeContainer = styled(motion.div)`
     position: absolute;
     right: 0;
     bottom: 0;
+    top: ${props => props.isuser && props.messageposition == 3 ? 0 : ""};
     width: 2rem;
     font-size: .45rem;
     font-weight: 400;
@@ -44,7 +45,7 @@ const TimeContainer = styled(motion.div)`
             props.messageposition == 2 ?
             "0 0 .4rem 0" :
             props.messageposition == 3 &&
-            "0 .2rem .5rem 0" :
+            ".4rem 0 0 0" :
         "0 .4rem .3rem 0"
     };
     transform: margin .4s;

@@ -38,7 +38,7 @@ const Messenger = () => {
 
 const MessengerPage = styled(motion.main)`
     width: 100vw;
-    height: 100%;
+    height: 100dvh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -53,7 +53,7 @@ const MessengerContainer = styled.div`
     flex-direction: column;
     text-align: center;
     width: 55%;
-    height: 100vh;
+    height: 100%;
     font-family: 'Outfit', sans-serif;
     position: relative;
 

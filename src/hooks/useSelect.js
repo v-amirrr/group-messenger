@@ -1,12 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
 import { setMessageIdOptionsShow, setSelectedMessages, setClearSelectedMessages, setUnselectMessages, setSelectOthersMessage } from '../redux/userSlice';
 import { useMessageOptions } from "./useMessageOptions";
+import { useNotification } from "./useNotification";
 
 export const useSelect = () => {
 
     const dispatch = useDispatch();
-    const { trashMessage } = useMessageOptions();
     const { selectedMessages } = useSelector(store => store.userStore);
+
+    const { trashMessage } = useMessageOptions();
+    const { openNotification } = useNotification();
 
     const selectMessage = (message) => {
         dispatch(setMessageIdOptionsShow(null));
@@ -49,6 +52,7 @@ export const useSelect = () => {
     };
 
     const copySelectedMessages = () => {
+        clearSelectedMessages();
         let messagesText = [];
         selectedMessages.forEach(item => {
             item.messageText.forEach(word => {
@@ -58,7 +62,7 @@ export const useSelect = () => {
         });
         messagesText = messagesText.join("");
         navigator.clipboard.writeText(messagesText);
-        clearSelectedMessages();
+        openNotification("Messages copied.", false, "COPY");
     };
 
     const deleteSelectedMessages = () => {
@@ -66,6 +70,7 @@ export const useSelect = () => {
             trashMessage(item.id);
         });
         clearSelectedMessages();
+        openNotification("Messages were moved to trash.", false, "TRASH");
     };
 
     return {

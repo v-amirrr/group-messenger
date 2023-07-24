@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { HiDotsVertical } from "react-icons/hi";
 import { FaArrowRight } from "react-icons/fa";
-import { FcSettings, FcRightUp2 } from "react-icons/fc";
+import { FcSettings, FcRightUp2, FcRedo } from "react-icons/fc";
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { menuVariants, backIconVariants, menuIconVariants, menuListVariants } from '../config/varitans';
@@ -38,7 +38,7 @@ const MessengerMenu = () => {
                     {openMenu ?
                     <motion.div key="menu" className='list' initial='hidden' animate='visible' exit='exit' variants={menuListVariants}>
                         <motion.button className='list-item' onClick={logoutClickHandler}>
-                            <i><FcRightUp2 /></i>
+                            <i className='logout-icon'><FcRedo /></i>
                             <p>Logout</p>
                         </motion.button>
                         <Link to="/settings">
@@ -164,6 +164,10 @@ const MessengerMenuContainer = styled(motion.div)`
                 align-items: center;
                 font-size: 1.4rem;
                 margin-right: .2rem;
+            }
+
+            .logout-icon {
+                transform: rotate(180deg);
             }
 
             @media (hover: hover) and (pointer: fine) and (min-width: 745px) {

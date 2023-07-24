@@ -248,6 +248,12 @@ export const selectBarVariants = {
     exit: { opacity: 0, y: -30, transition: { duration: 0.3 } }
 };
 
+export const checkButtonVariants = {
+    hidden: { opacity: 0, y: 20, scale: 0 },
+    visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.2 } },
+    exit: { opacity: 0, y: 20, scale: 0, transition: { duration: 0.2 } }
+};
+
 
 
 
@@ -286,4 +292,10 @@ export const userVariants = {
     hidden: { opacity: 0, y: 50 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
     exit: { opacity: 0, scaleY: 0, transition: { duration: 0.6 } }
+};
+
+export const notificationSettingsVariants = {
+    hidden: { opacity: 0, y: 50, scaleY: 0.8 },
+    visible: { opacity: 1, y: 0, scaleY: 1, transition: { duration: 0.8, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } },
+    exit: { opacity: 0, y: 100, scaleY: 0.8, transition: { duration: 0.4 } }
 };

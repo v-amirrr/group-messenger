@@ -2,6 +2,7 @@ import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from '../config/firebase';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSendMessageError, setSendMessageLoading, setClearReplyTo, setRestoredText } from '../redux/sendMessageSlice';
+import { useNotification } from "./useNotification";
 
 export const useSendMessage = () => {
 
@@ -9,6 +10,8 @@ export const useSendMessage = () => {
 
     const { replyTo } = useSelector(store => store.sendMessageStore);
     const { user } = useSelector(store => store.userStore);
+
+    const { openNotification } = useNotification();
 
     const firebaseRef = collection(db, 'messages');
 
@@ -29,6 +32,7 @@ export const useSendMessage = () => {
             .then(() => {
                 setTimeout(() => {
                     dispatch(setSendMessageLoading(false));
+                    openNotification("Message was sent.", false, "SEND");
                 }, 1000);
             })
             .catch(() => {

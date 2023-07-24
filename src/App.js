@@ -10,8 +10,9 @@ import MessengerBackground from './components/MessengerBackground';
 import Popup from './components/popups/Popup';
 import { useGetMessages } from './hooks/useGetMessages';
 import { useWarningPage } from './hooks/useWarningPage';
-import { AnimatePresence } from 'framer-motion';
 import { useChangeTheme } from './hooks/useChangeTheme';
+import { useNotification } from './hooks/useNotification';
+import { AnimatePresence } from 'framer-motion';
 
 const App = () => {
 
@@ -20,9 +21,11 @@ const App = () => {
     const { getMessages, loadingOn } = useGetMessages();
     const { showWelcomePages } = useWarningPage();
     const { setDefaultTheme } = useChangeTheme();
+    const { setDefaultNotification } = useNotification();
 
     useEffect(() => {
         setDefaultTheme();
+        setDefaultNotification();
         loadingOn();
         getMessages();
         showWelcomePages();

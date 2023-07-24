@@ -5,7 +5,7 @@ import themeOneImageSRC from '../../assets/images/1.webp';
 import themeTowImageSRC from '../../assets/images/2.webp';
 import themeThreeImageSRC from '../../assets/images/3.webp';
 import themeFourImageSRC from '../../assets/images/4.webp';
-import { FcPicture } from "react-icons/fc";
+import { FcGallery } from "react-icons/fc";
 import { RiArrowRightSLine } from "react-icons/ri";
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -28,7 +28,7 @@ const SettingsBackgrounds = ({ open, setOpen }) => {
     return (
         <>
             <div className='item-header' onClick={itemSwitch}>
-                <i className='item-icon'><FcPicture /></i>
+                <i className='item-icon'><FcGallery /></i>
                 <h4>Backgrounds</h4>
                 <i className='item-back'><RiArrowRightSLine /></i>
             </div>

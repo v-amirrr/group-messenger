@@ -6,6 +6,7 @@ import SettingsBackgrounds from './SettingsBackgrounds';
 import SettingsUser from './SettingsUser';
 import SettingsTrash from './SettingsTrash';
 import SettingsItem from './SettingsItem';
+import SettingsNotification from './SettingsNotification';
 import Notification from '../Notification';
 import { TiArrowLeft } from "react-icons/ti";
 import styled from 'styled-components';
@@ -28,7 +29,7 @@ const Settings = () => {
             <SettingsPage initial='hidden' animate='visible' exit='exit' variants={settingsPageVariants}>
                 <Notification />
                 <SettingsContainer variants={settingsContainerVariants}>
-                    <header>
+                    <header className='settings-header'>
                         <h1>Settings</h1>
                         <Link to={-1}>
                             <i><TiArrowLeft /></i>
@@ -39,6 +40,7 @@ const Settings = () => {
                         <SettingsItem open={open} openValue="SETTINGS_BACKGROUND" component={<SettingsBackgrounds open={open} setOpen={setOpen} />} />
                         {!enterAsAGuest ?
                         <>
+                            <SettingsItem openValue="SETTINGS_NOTIFICATION" open={open} component={<SettingsNotification open={open} setOpen={setOpen} />} />
                             <SettingsItem openValue="SETTINGS_USER" open={open} component={<SettingsUser open={open} setOpen={setOpen} />} />
                             <SettingsItem openValue="SETTINGS_TRASH" open={open} component={<SettingsTrash open={open} setOpen={setOpen} />} />
                         </>
@@ -72,11 +74,11 @@ const SettingsContainer = styled(motion.section)`
     background-color: var(--settings);
     border: solid 1px #ffffff08;
     width: 20rem;
-    height: 30rem;
+    height: 32rem;
     position: relative;
     overflow: hidden;
 
-    header {
+    .settings-header {
         display: flex;
         justify-content: center;
         align-items: center;

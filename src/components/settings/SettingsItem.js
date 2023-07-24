@@ -20,10 +20,10 @@ const SettingsItemContainer = styled.div`
     border-radius: 15px;
     overflow: hidden;
     position: relative;
-    margin: .3rem;
+    margin: .2rem;
     background-color: var(--settings-item);
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-    transition: height .6s cubic-bezier(.53,0,0,.98), background .2s;
+    transition: ${props => props.open ? "height .6s cubic-bezier(.53,0,0,.98)" : "height .6s cubic-bezier(.53,0,0,.98)"}, background .2s;
 
     .item-header {
         padding: 0 .5rem .5rem .5rem;

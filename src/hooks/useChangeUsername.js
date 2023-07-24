@@ -37,7 +37,7 @@ export const useChangeUsername = () => {
                         });
                     }
                 });
-                openNotification("Username changed.", false);
+                openNotification("Username changed.", false, "USERNAME");
             }).catch((err) => {
                 openNotification(err.message, true);
             });

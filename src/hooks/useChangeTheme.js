@@ -13,7 +13,7 @@ export const useChangeTheme = () => {
         dispatch(setTheme(themeNumber));
         localStorage.setItem("theme", themeNumber);
         document.documentElement.setAttribute('data-theme', themeNumber);
-        openNotification("Background changed.", false);
+        openNotification("Background changed.", false, "BACKGROUND");
     };
 
     const setDefaultTheme = () => {

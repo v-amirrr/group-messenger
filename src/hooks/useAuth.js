@@ -69,6 +69,7 @@ export const useAuth = () => {
     const logout = () => {
         navigate("/enter");
         localStorage.removeItem("user");
+        localStorage.removeItem("notification");
         localStorage.setItem("guest-login", "false");
         dispatch(setUser(null));
         dispatch(setEnterAsAGuest(false));

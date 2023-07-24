@@ -1,7 +1,7 @@
 import React, { memo, useEffect, useState } from 'react';
 import { useChangeUsername } from '../../hooks/useChangeUsername';
 import { useSelector } from 'react-redux';
-import { FcBusinessman, FcCheckmark } from "react-icons/fc";
+import { FcBusinessman, FcCheckmark, FcAddressBook } from "react-icons/fc";
 import { RiArrowRightSLine } from "react-icons/ri";
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -45,7 +45,10 @@ const SettingsUser = ({ open, setOpen }) => {
                     <div key="item-data" className='item-data'>
                         <UserContainer initial='hidden' animate='visible' exit='exit' variants={userVariants}>
                             <div className='change-username'>
-                                <h6>Change your username</h6>
+                                <header className='user-item-header'>
+                                    <i><FcAddressBook /></i>
+                                    <h6>Username</h6>
+                                </header>
                                 <div className='change-username-input'>
                                     <input type='text' value={changeUsernameInput} onChange={(e) => setChangeUsernameInput(e.target.value)}/>
                                     <i onClick={submitHandler}><FcCheckmark /></i>
@@ -64,8 +67,20 @@ const UserContainer = styled(motion.div)`
     .change-username {
         padding-bottom: .5rem;
 
-        h6 {
-            margin-bottom: .2rem;
+        .user-item-header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            h6 {
+                margin-bottom: .2rem;
+            }
+
+            i {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 1.5rem;
+            }
         }
 
         .change-username-input {
@@ -73,6 +88,7 @@ const UserContainer = styled(motion.div)`
             justify-content: center;
             align-items: center;
             position: relative;
+            width: 100%;
 
             input {
                 padding: .5rem;

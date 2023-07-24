@@ -23,7 +23,7 @@ export const useMessageOptions = () => {
         });
         text = text.join(" ");
         navigator.clipboard.writeText(text);
-        openNotification("Message copied.", false);
+        openNotification("Message copied.", false, "COPY");
 
     };
 
@@ -59,14 +59,14 @@ export const useMessageOptions = () => {
         updateDoc(docRef, {
             deleted: true
         });
-        openNotification("Message was moved to trash.", false);
+        openNotification("Message was moved to trash.", false, "TRASH");
     };
 
     const deleteMessage = (id) => {
         const docRef = doc(db, "messages", id);
         deleteDoc(docRef);
         closePopup();
-        openNotification("Message was deleted.", false);
+        openNotification("Message was deleted.", false, "DELETE");
     };
 
     const undeleteMessage = (id) => {
@@ -74,7 +74,7 @@ export const useMessageOptions = () => {
         updateDoc(docRef, {
             deleted: false
         });
-        openNotification("Message restored.", false);
+        openNotification("Message restored.", false, "RESTORE");
     };
 
     const editMessage = (popupMessages, newEditedText) => {
@@ -85,7 +85,7 @@ export const useMessageOptions = () => {
                 replyTo: popupMessageEditedReply == "deleted" ? null : popupMessageEditedReply ? popupMessageEditedReply : popupMessages.replyTo == "no_reply" ? null : popupMessages.replyTo.id,
             });
             closePopup();
-            openNotification("Message was edited.", false);
+            openNotification("Message was edited.", false, "EDIT");
         } else {
             closePopup();
             setTimeout(() => {

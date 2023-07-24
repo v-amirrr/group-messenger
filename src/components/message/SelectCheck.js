@@ -1,17 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
-import { TbCheck } from "react-icons/tb";
+import { FcCheckmark } from "react-icons/fc";
 import { motion, AnimatePresence } from 'framer-motion';
-import { selectCheckVariants } from '../../config/varitans';
+import { selectCheckVariants, checkButtonVariants } from '../../config/varitans';
 
 
-const SelectCheck = ({ selected, selectedMessagesLength }) => {
+const SelectCheck = ({ selected, selectedMessagesLength, messageClickHandler }) => {
     return (
         <>
             <AnimatePresence exitBeforeEnter>
                 {selectedMessagesLength ?
-                <SelectCheckContainer className='select-section' key="select-section" initial='hidden' animate='visible' exit='exit' variants={selectCheckVariants} selected={selected ? 1 : 0} selectedmessageslength={selectedMessagesLength ? 1 : 0}>
-                    <i><TbCheck /></i>
+                <SelectCheckContainer className='select-section' key="select-section" initial='hidden' animate='visible' exit='exit' variants={selectCheckVariants} selected={selected ? 1 : 0} onClick={messageClickHandler}>
+                    <AnimatePresence exitBeforeEnter>
+                    {
+                        selected ?
+                        <motion.i key="selected" initial='hidden' animate='visible' exit='exit' variants={checkButtonVariants}><FcCheckmark /></motion.i>
+                        : ""
+                    }
+                    </AnimatePresence>
                 </SelectCheckContainer>
                 : ""}
             </AnimatePresence>
@@ -29,14 +35,16 @@ const SelectCheckContainer = styled(motion.div)`
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
+    z-index: 999;
+    cursor: pointer;
+    transition: background .2s;
 
     i {
         display: flex;
         justify-content: center;
         align-items: center;
         font-size: 1.2rem;
-        margin-top: .1rem;
-        transform: ${props => props.selected ? "scale(1)" : "scale(0)"};
         transition: transform .2s;
     }
 `;

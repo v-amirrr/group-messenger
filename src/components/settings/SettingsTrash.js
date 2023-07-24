@@ -1,10 +1,10 @@
 import React, { memo, useEffect, useState } from 'react';
 import { useMessageOptions } from '../../hooks/useMessageOptions';
 import { useSelector } from 'react-redux';
-import { FcEmptyTrash } from "react-icons/fc";
+import { FcEmptyTrash, FcFullTrash } from "react-icons/fc";
+import { TbTrashX } from 'react-icons/tb';
 import { FaTrashRestore } from "react-icons/fa";
 import { RiArrowRightSLine } from "react-icons/ri";
-import { AiFillDelete } from 'react-icons/ai';
 import { GiEmptyWoodBucket } from 'react-icons/gi';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -17,7 +17,7 @@ const SettingsTrash = ({ open, setOpen }) => {
 
     const { undeleteMessage, openPopup } = useMessageOptions();
 
-    const [messages, setMessages] = useState(deletedMessages.filter(item => item.uid == user.uid));
+    const [messages, setMessages] = useState(deletedMessages?.filter(item => item.uid == user.uid));
 
     const itemSwitch = () => {
         if (open == "SETTINGS_TRASH") {
@@ -28,17 +28,21 @@ const SettingsTrash = ({ open, setOpen }) => {
     };
 
     useEffect(() => {
-        setMessages(deletedMessages.filter(item => item.uid == user.uid));
+        setMessages(deletedMessages?.filter(item => item.uid == user.uid));
     }, [deletedMessages]);
 
     return (
         <>
             <div className='item-header' onClick={itemSwitch}>
-                <i className='item-icon'><FcEmptyTrash /></i>
+                {
+                    messages?.length ?
+                    <i className='item-icon'><FcFullTrash /></i> :
+                    <i className='item-icon'><FcEmptyTrash /></i>
+                }
                 <h4>Trash</h4>
                 {
-                    messages.length ?
-                    <div className='deleted-messages-counter'>{messages.length}</div>
+                    messages?.length ?
+                    <div className='deleted-messages-counter'>{messages?.length}</div>
                     : ""
                 }
                 <i className='item-back'><RiArrowRightSLine /></i>
@@ -49,9 +53,9 @@ const SettingsTrash = ({ open, setOpen }) => {
                     open == "SETTINGS_TRASH" ?
                     <div key="item-data" className='item-data'>
                         <MessagesContainer initial='hidden' animate='visible' exit='exit' variants={trashVariants}>
-                            {messages.length ?
+                            {messages?.length ?
                             <div className='deleted-messages'>
-                                {messages.map(message => (
+                                {messages?.map(message => (
                                     <div className='deleted-message' key={message.id}>
                                         <div className='deleted-message-box'>
                                             <div className='deleted-message-text'>{message.message}</div>
@@ -61,7 +65,7 @@ const SettingsTrash = ({ open, setOpen }) => {
                                         </div>
 
                                         <div className='deleted-message-delete' onClick={() => openPopup("DELETE_POPUP", [message])}>
-                                            <AiFillDelete />
+                                            <TbTrashX />
                                         </div>
                                     </div>
                                 ))}

@@ -118,7 +118,7 @@ const Message = forwardRef(( props, ref ) => {
                     </AnimatePresence>
                 </div>
 
-                <SelectCheck selected={selected} selectedMessagesLength={selectedMessages.length} />
+                <SelectCheck selected={selected} selectedMessagesLength={selectedMessages.length} messageClickHandler={messageClickHandler}/>
 
                 <AnimatePresence>
                     {messageIdOptionsShow == id ?

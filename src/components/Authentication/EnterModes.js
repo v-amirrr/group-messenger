@@ -59,7 +59,7 @@ const Container = styled(motion.section)`
     display: flex;
     justify-content: center;
     align-items: center;
-    background: var(--enter-modes);
+    background: var(--page-second);
     position: absolute;
     z-index: 2;
     user-select: none;
@@ -69,14 +69,15 @@ const Container = styled(motion.section)`
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        background-color: var(--enter-modes-box);
-        border: solid 1px #ffffff08;
+        background-color: var(--enter-box);
+        border: var(--border-first);
+        box-shadow: var(--shadow-first);
         width: 15rem;
         height: 14rem;
         border-radius: 25px;
         cursor: pointer;
         margin: 1rem;
-        transition: background .3s, border .3s;
+        transition: background .2s;
 
         h4 {
             margin-bottom: 1rem;
@@ -95,7 +96,7 @@ const Container = styled(motion.section)`
                 text-align: center;
                 font-size: .5rem;
                 margin: .2rem;
-                background-color: var(--enter-modes-box-item);
+                background-color: var(--enter-box-item);
                 padding: .4rem .3rem;
                 border-radius: 10px;
             }
@@ -103,8 +104,7 @@ const Container = styled(motion.section)`
 
         @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
             &:hover {
-                background-color: var(--enter-modes-box-hover);
-                border: solid 1px #ffffff00;
+                background-color: var(--enter-box-hover);
             }
         }
     }

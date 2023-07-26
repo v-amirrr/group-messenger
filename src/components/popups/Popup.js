@@ -55,9 +55,9 @@ const PopupPage = styled(motion.section)`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--popup);
-    backdrop-filter: var(--popup-blur);
-    -webkit-backdrop-filter: var(--popup-blur);
+    background-color: var(--page-first);
+    backdrop-filter: var(--glass-second);
+    -webkit-backdrop-filter: var(--glass-second);
     z-index: 9;
 `;
 
@@ -68,8 +68,10 @@ const PopupContainer = styled(motion.div)`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: var(--popup-container);
-    border-radius: var(--popup-border-radius);
+    background-color: var(--popup);
+    border: var(--border-first);
+    border-radius: var(--radius-third);
+    box-shadow: var(--shadow-first);
     position: relative;
 
     .buttons {
@@ -77,30 +79,45 @@ const PopupContainer = styled(motion.div)`
 
         .edit, .delete, .cancel {
             border: none;
-            border-radius: var(--popup-button-border-radius);
-            background-color: var(--popup-buttons);
+            border-radius: var(--radius-second);
+            background-color: var(--button);
+            box-shadow: var(--shadow-first);
             margin: 0 .3rem;
             width: 5rem;
             height: 2.3rem;
             font-size: 1rem;
-            font-weight: 500;
+            font-weight: var(--text-boldness-second);
             cursor: pointer;
-            transition: background-color .3s;
+            transition: background-color .2s;
             color: #fff;
 
             @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
                 &:hover {
-                    background-color: var(--popup-buttons-hover);
+                    background-color: var(--button-hover);
                 }
             }
         }
 
         .delete {
             color: #ff0000;
+            background-color: #ff000010;
+
+            @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
+                &:hover {
+                    background-color: #ff000020;
+                }
+            }
         }
 
         .edit {
             color: #00ff00;
+            background-color: #00ff0010;
+
+            @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
+                &:hover {
+                    background-color: #00ff0020;
+                }
+            }
         }
     }
 

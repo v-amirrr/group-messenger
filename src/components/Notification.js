@@ -39,27 +39,27 @@ const AuthError = () => {
 
 const NotificationContainer = styled(motion.div)`
     position: absolute;
-    top: 1.5rem;
+    top: 1rem;
     min-width: 10rem;
-    max-width: 20rem;
+    max-width: 30rem;
     height: 2.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
-    background-color: ${props => props.error ? "var(--error)" : "var(--notification)"};
-    border-radius: 20px;
-    backdrop-filter: var(--message-blur);
-    -webkit-backdrop-filter: var(--message-blur);
-    padding: 0 2.5rem 0 .5rem;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-    box-shadow: ${props => props.error ? "rgba(0, 0, 0, 0.1) 0px 4px 12px" : "rgba(0, 0, 0) 0 10px 50px"};
-    color: #ffffffaa;
-    z-index: 9;
+    border: var(--border-first);
+    border-radius: var(--radius-second);
+    backdrop-filter: var(--glass-first);
+    -webkit-backdrop-filter: var(--glass-first);
+    padding: 0 3rem 0 .5rem;
+    box-shadow: var(--shadow-second);
+    user-select: none;
+    z-index: 999;
 
     p {
+        color: var(--text-color-third);
         font-size: .8rem;
-        font-weight: 200;
+        font-weight: var(--text-boldness-second);
         line-height: 1.5;
     }
 
@@ -67,30 +67,32 @@ const NotificationContainer = styled(motion.div)`
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: 1rem;
+        font-size: 1.4rem;
         margin-right: .2rem;
     }
 
     .close-button {
+        all: unset;
         position: absolute;
         right: .2rem;
-        background-color: transparent;
         display: flex;
         justify-content: center;
         align-items: center;
-        border: none;
         border-radius: 50%;
-        padding: .2rem;
+        width: 2rem;
+        height: 2rem;
         font-size: 1.4rem;
-        color: #ffffff88;
         cursor: pointer;
-        transition: color .2s;
+        color: var(--text-color-third);
+        transition: background .2s, box-shadow .2s;
 
-        &:hover {
-            color: #fff;
+        @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
+            &:hover {
+                background-color: var(--button-hover);
+                box-shadow: var(--shadow-first);
+            }
         }
     }
-
 
     @media (max-width: 768px) {
         max-width: 90%;

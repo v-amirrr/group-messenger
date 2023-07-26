@@ -19,18 +19,18 @@ const ChatDate = ({ dateObj, priorDifferentDate }) => {
 
 const ChatDateContainer = styled(motion.div)`
     padding: .3rem .5rem;
-    background-color: var(--date);
-    color: var(--date-color);
+    background-color: var(--message);
+    color: var(--text-color-third);
     border-radius: 50px;
     font-size: .45rem;
-    font-weight: 400;
+    font-weight: var(--text-boldness-second);
     width: fit-content;
     margin: .3rem auto;
     user-select: none;
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    box-shadow: var(--shadow-first);
 
     .month {
         margin: 0 .18rem 0 .18rem;

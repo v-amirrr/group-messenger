@@ -60,38 +60,37 @@ const SettingsPage = styled(motion.section)`
     align-items: center;
     position: absolute;
     inset: 0 0 0 0;
-    background-color: var(--settings-page);
-    backdrop-filter: var(--settings-blur);
-    -webkit-backdrop-filter: var(--settings-blur);
+    background-color: var(--page-second);
+    backdrop-filter: var(--glass-first);
+    -webkit-backdrop-filter: var(--glass-first);
     user-select: none;
 `;
 
 const SettingsContainer = styled(motion.section)`
+    position: relative;
+    width: 20rem;
+    height: 32rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: var(--settings-border-radius);
+    border: var(--border-first);
+    border-radius: var(--radius-third);
     background-color: var(--settings);
-    border: solid 1px #ffffff08;
-    width: 20rem;
-    height: 32rem;
-    position: relative;
     overflow: hidden;
 
     .settings-header {
+        position: absolute;
+        top: 0;
+        width: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 100%;
-        position: absolute;
-        top: 0;
         padding: 1rem 0;
-        border-bottom: solid 1px #ffffff10;
+        border-bottom: var(--border-first);
 
         a {
             position: absolute;
             left: .7rem;
-            background-color: var(--settings-back);
             transition: background .2s;
             border-radius: 50%;
 
@@ -103,7 +102,7 @@ const SettingsContainer = styled(motion.section)`
             }
 
             &:hover {
-                background-color: var(--settings-back-hover);
+                background-color: var(--button-hover);
             }
         }
     }

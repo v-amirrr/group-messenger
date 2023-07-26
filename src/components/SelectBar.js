@@ -41,14 +41,15 @@ const SelectBar = () => {
                 </div>
 
                 <div className='options'>
-                    <motion.button className='copy' onClick={copySelectedMessages}>
+                    <button className='copy' onClick={copySelectedMessages}>
                         <i><AiFillCopy /></i>
                         <p>Copy</p>
-                    </motion.button>
-                    <motion.button className='delete' onClick={deleteSelectedMessages}>
+                    </button>
+                    <hr />
+                    <button className='delete' onClick={deleteSelectedMessages}>
                         <i><AiFillDelete /></i>
                         <p>Delete</p>
-                    </motion.button>
+                    </button>
                 </div>
             </SelectBarContainer>
         </>
@@ -58,44 +59,40 @@ const SelectBar = () => {
 const SelectBarContainer = styled(motion.div)`
     position: absolute;
     bottom: .8rem;
-    /* background-color: var(--select-bar); */
-    border: solid 1px #ffffff14;
-    backdrop-filter: var(--select-bar-blur);
-    -webkit-backdrop-filter: var(--select-bar-blur);
+    border: var(--border-first);
+    border-radius: var(--radius-fifth);
+    backdrop-filter: var(--glass-first);
+    -webkit-backdrop-filter: var(--glass-first);
     width: 20rem;
     height: 2.8rem;
-    border-radius: var(--select-bar-border-radius);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 999;
     user-select: none;
     overflow: hidden;
+    box-shadow: var(--shadow-first);
     transition: bottom .4s;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    z-index: 999;
 
     .close {
         position: absolute;
-        right: .5rem;
-        background-color: var(--select-bar-button);
+        right: .3rem;
         border-radius: 50%;
         display: flex;
         justify-content: center;
         align-items: center;
         width: 2rem;
         height: 2rem;
-        font-size: 1.3rem;
+        font-size: 1.4rem;
         cursor: pointer;
-        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-        transition: background .2s;
+        transition: background .2s, box-shadow .2s;
         z-index: 3;
+        color: var(--text-color-third);
     }
 
     .count {
         position: absolute;
-        left: .5rem;
-        /* background-color: var(--select-bar-button); */
-        border-radius: 50%;
+        left: .3rem;
         font-size: 1rem;
         font-weight: 200;
         width: 2rem;
@@ -103,7 +100,8 @@ const SelectBarContainer = styled(motion.div)`
         display: flex;
         justify-content: center;
         align-items: center;
-        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+        color: var(--text-color-third);
+        font-weight: var(--text-boldness-second);
 
         .counter-one {
             position: absolute;
@@ -131,17 +129,16 @@ const SelectBarContainer = styled(motion.div)`
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: var(--select-bar-button);
+            border-radius: var(--radius-second);
             margin: 0 .2rem;
             width: 5rem;
             height: 2rem;
-            border-radius: 15px;
             letter-spacing: -1px;
             word-spacing: 5px;
-            cursor: pointer;
             opacity: 1;
-            box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-            transition: margin .4s, opacity .4s, background .2s;
+            color: var(--text-color-third);
+            cursor: pointer;
+            transition: margin .4s, opacity .4s, background .2s, box-shadow .2s;
 
             i {
                 display: flex;
@@ -152,8 +149,18 @@ const SelectBarContainer = styled(motion.div)`
             }
 
             p {
-                font-size: .8rem;
+                font-size: .9rem;
+                font-weight: var(--text-boldness-second);
             }
+        }
+
+        hr {
+            border: none;
+            border-radius: var(--radius-fifth);
+            width: .01rem;
+            height: 1.2rem;
+            background-color: var(--hr-second);
+            opacity: ${props => props.userbutton ? "1" : "0"};
         }
 
         .delete {
@@ -169,7 +176,8 @@ const SelectBarContainer = styled(motion.div)`
     @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
         .close, .copy, .delete {
             &:hover {
-                background-color: var(--select-bar-button-hover);
+                background-color: var(--button-hover);
+                box-shadow: var(--shadow-first);
             }
         }
     }

@@ -20,16 +20,16 @@ const ErrorBox = ({ errorMessage }) => {
 };
 
 const ErrorBoxContainer = styled(motion.div)`
-    backdrop-filter: blur(20px) saturate(100%);
-    -webkit-backdrop-filter: blur(20px) saturate(100%);
+    backdrop-filter: var(--glass-first);
+    -webkit-backdrop-filter: var(--glass-first);
     padding: 2rem;
     text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: #ffffff0a;
-    border-radius: 25px;
+    background-color: var(--popup);
+    border-radius: var(--radius-third);
 
     h1 {
         margin: 1rem;
@@ -43,20 +43,20 @@ const ErrorBoxContainer = styled(motion.div)`
 
     button {
         border: none;
-        border-radius: 10px;
-        background-color: #ffffff11;
+        border-radius: var(--radius-second);
+        background-color: var(--button);
         margin: 1rem;
         padding: .5rem 1rem;
         font-size: 1rem;
-        font-weight: 500;
+        font-weight: var(--text-boldness-second);
         cursor: pointer;
         user-select: none;
         transition: background-color .2s;
-        color: #fff;
+        color: var(--text-color-third);
 
         @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
             &:hover {
-                background-color: #ffffff33;
+                background-color: var(--button-hover);
             }
         }
     }

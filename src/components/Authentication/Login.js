@@ -88,7 +88,7 @@ const LoginPage = styled(motion.div)`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--enter-modes);
+    background-color: var(--page-first);
     user-select: none;
 
     .login-container {
@@ -105,7 +105,7 @@ const LoginPage = styled(motion.div)`
             margin: 1rem;
 
             .login-field {
-                background-color: var(--auth-feild);
+                background-color: var(--button);
                 border-radius: 15px;
                 padding: .6rem .8rem;
                 width: 12rem;
@@ -124,7 +124,8 @@ const LoginPage = styled(motion.div)`
                     height: 100%;
 
                     ::placeholder {
-                        color: var(--auth-feild-placeholder);
+                        font-weight: var(--text-boldness-second);
+                        color: var(--text-color-first);
                     }
                 }
 
@@ -173,17 +174,17 @@ const LoginPage = styled(motion.div)`
 
             .back-button, .submit-button {
                 overflow: hidden;
-                border: none;
                 margin: ${props => props.loginloading ? "0 0" : "0 .5rem"};
                 width: ${props => props.loginloading ? "5rem" : "4.5rem"};
                 height: 2.2rem;
                 cursor: ${props => props.loginloading ? "" : "pointer"};
-                background-color: var(--auth-button);
+                background-color: var(--button);
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 font-size: 1rem;
-                font-weight: 500;
+                font-weight: var(--text-boldness-second);
+                color: var(--text-color-third);
                 letter-spacing: -1px;
                 word-spacing: 5px;
                 white-space: nowrap;
@@ -198,7 +199,7 @@ const LoginPage = styled(motion.div)`
 
                 @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
                     &:hover {
-                        background-color: ${props => props.loginloading ? "" : "var(--auth-button-hover)"};
+                        background-color: ${props => props.loginloading ? "" : "var(--button-hover)"};
                     }
                 }
             }
@@ -230,7 +231,7 @@ const LoginPage = styled(motion.div)`
             .google-submit {
                 border-radius: 15px;
                 border: none;
-                background-color: var(--auth-button);
+                background-color: var(--button);
                 width: 10rem;
                 height: 2.2rem;
                 cursor: ${props => props.googleloading ? "" : "pointer"};
@@ -260,7 +261,7 @@ const LoginPage = styled(motion.div)`
 
                 @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
                     &:hover {
-                        background-color: ${props => props.googleloading ? "" : "var(--auth-button-hover)"};
+                        background-color: ${props => props.googleloading ? "" : "var(--button-hover)"};
                     }
                 }
             }

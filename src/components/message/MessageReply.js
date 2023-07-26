@@ -21,8 +21,8 @@ const MessageReply = ({ replyTo }) => {
 };
 
 const ReplySection = styled.div`
-    background-color: var(--message-reply);
-    box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 12px;
+    background-color: var(--message);
+    box-shadow: var(--shadow-second);
     position: absolute;
     top: .4rem;
     left: 50%;
@@ -31,9 +31,10 @@ const ReplySection = styled.div`
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    color: #ffffffaa;
+    color: var(--text-color-second);
+    font-weight: var(--text-boldness-first);
     transform: translate(-50%, 0);
-    border-radius: 30px;
+    border-radius: var(--radius-fifth);
     white-space: nowrap;
     overflow: hidden;
     font-family: ${props => props.isrlt ? "Vazirmatn" : "Outfit"}, "Vazirmatn", sans-serif;

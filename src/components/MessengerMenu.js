@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { HiDotsVertical } from "react-icons/hi";
 import { FaArrowRight } from "react-icons/fa";
-import { FcSettings, FcRightUp2, FcRedo } from "react-icons/fc";
+import { FcSettings, FcRedo } from "react-icons/fc";
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { menuVariants, backIconVariants, menuIconVariants, menuListVariants } from '../config/varitans';
@@ -59,21 +59,21 @@ const MessengerMenuContainer = styled(motion.div)`
     position: absolute;
     top: 1rem;
     right: 2.4rem;
-    z-index: 3;
-    user-select: none;
-    backdrop-filter: var(--menu-blur);
-    -webkit-backdrop-filter: var(--menu-blur);
-    background-color: ${props => props.openmenu ? "var(--menu-opened)" : "var(--menu-closed)"};
-    border-radius: var(--menu-border-radius);
+    width: ${props => props.openmenu ? "7.5rem" : "2.5rem"};
+    height: ${props => props.openmenu ? "7.5rem" : "2.5rem"};
     display: flex;
     justify-content: center;
     align-items: center;
-    width: ${props => props.openmenu ? "7.5rem" : "2.5rem"};
-    height: ${props => props.openmenu ? "7.5rem" : "2.5rem"};
+    background-color: var(--button);
+    border-radius: ${props => props.openmenu ? "var(--radius-third)" : "var(--radius-fourth)"};
+    box-shadow: var(--shadow-second);
+    backdrop-filter: var(--glass-first);
+    -webkit-backdrop-filter: var(--glass-first);
     cursor: ${props => props.openmenu ? "" : "pointer"};
+    user-select: none;
     overflow: hidden;
-    box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 12px;
-    transition: width .6s cubic-bezier(.53,0,0,.98), height .6s cubic-bezier(.53,0,0,.98), background 1s;
+    z-index: 3;
+    transition: width .6s cubic-bezier(.53,0,0,.98), height .6s cubic-bezier(.53,0,0,.98), border-radius 1s;
 
     .back-icon, .menu-icon {
         position: absolute;
@@ -83,8 +83,16 @@ const MessengerMenuContainer = styled(motion.div)`
         justify-content: center;
         align-items: center;
         border-radius: 50%;
-        box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 12px;
+        background-color: var(--button);
+        box-shadow: var(--shadow-second);
+        color: var(--text-color-third);
         transition: background .2s;
+
+        @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
+            &:hover {
+                background-color: var(--button-hover);
+            }
+        }
     }
 
     .back-icon {
@@ -95,15 +103,8 @@ const MessengerMenuContainer = styled(motion.div)`
         justify-content: center;
         align-items: center;
         margin: .45rem;
-        background-color: var(--menu-back);
         padding: .4rem;
         font-size: 1.2rem;
-
-        @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
-            &:hover {
-                background-color: var(--menu-back-hover);
-            }
-        }
     }
 
     .menu-icon {
@@ -112,50 +113,44 @@ const MessengerMenuContainer = styled(motion.div)`
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: var(--menu-icon);
-
-        @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
-            &:hover {
-                background-color: var(--menu-icon-hover);
-            }
-        }
     }
 
     .list {
-        margin-top: 2.2rem;
         width: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
+        margin-top: 2.2rem;
         font-size: .8rem;
 
         a {
             width: 100%;
+            height: 2rem;
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: row;
-            height: 2rem;
         }
 
         .list-item {
             width: 90%;
-            border-radius: var(--menu-item-border-radius);
             height: 2rem;
-            background-color: var(--menu-item);
-            white-space: nowrap;
-            cursor: pointer;
-            margin: .3rem 0;
             display: flex;
             justify-content: center;
             align-items: center;
+            margin: .3rem 0;
+            background-color: var(--button);
+            border-radius: var(--radius-second);
+            box-shadow: var(--shadow-second);
+            color: var(--text-color-third);
+            font-weight: var(--text-boldness-second);
+            white-space: nowrap;
+            cursor: pointer;
             transition: background .2s;
-            box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 12px;
 
             p {
                 font-size: .8rem;
-                font-weight: 500;
             }
 
             i {
@@ -172,7 +167,7 @@ const MessengerMenuContainer = styled(motion.div)`
 
             @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
                 &:hover {
-                    background-color: var(--menu-item-hover);
+                    background-color: var(--button-hover);
                 }
             }
         }

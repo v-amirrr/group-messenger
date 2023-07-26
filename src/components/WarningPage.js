@@ -26,7 +26,7 @@ const WarningPage = () => {
         <>
             <WarningModalPage initial='hidden' animate='visible' exit='exit' variants={warningModalVariants} onKeyDown={(e) => pressEnter(e)}>
                 <div className='container'>
-                    <motion.h1 className='title' variants={warningModalItemsVariants}>things you need to know</motion.h1>
+                    <motion.h1 className='title' variants={warningModalItemsVariants}>THINGS YOU NEED TO KNOW</motion.h1>
                     <motion.p className='warning' variants={warningModalItemsVariants}>
                         If you're in sanctioned countries like <b>Iran</b>, you have to turn on your <b>VPN</b> in order to use this app.
                     </motion.p>
@@ -34,8 +34,8 @@ const WarningPage = () => {
                         In this app you can send message, reply to a message, delete your messege, edit your message also edit your message's replies. For doing those things you just need to hit on one of your message to see the options. You also can change background of the app.
                     </motion.p>
                     <motion.div className='show-again' onClick={() => setWarningModalCheckbox(!warningModalCheckbox)} variants={warningModalItemsVariants}>
-                        <p>Don't show this again. </p>
                         <input type="checkbox" autoFocus checked={warningModalCheckbox} onChange={() => setWarningModalCheckbox(!warningModalCheckbox)} />
+                        <p>Don't show this again.</p>
                     </motion.div>
                     <motion.button type="submit" className='submit' onClick={() => warningPageSubmit(warningModalCheckbox)} variants={warningModalItemsVariants}>LET'S GO</motion.button>
                 </div>
@@ -45,13 +45,13 @@ const WarningPage = () => {
 };
 
 const WarningModalPage = styled(motion.section)`
+    position: absolute;
     width: 100vw;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--warning-page);
-    position: absolute;
+    background-color: var(--page-second);
     z-index: 2;
     user-select: none;
 
@@ -65,8 +65,7 @@ const WarningModalPage = styled(motion.section)`
 
         .title {
             font-size: 2rem;
-            font-weight: 900;
-            text-transform: uppercase;
+            font-weight: var(--text-boldness-fourth);
             letter-spacing: -2px;
             word-spacing: 5px;
             margin-bottom: 1.2rem;
@@ -75,7 +74,7 @@ const WarningModalPage = styled(motion.section)`
 
         .warning {
             font-size: .8rem;
-            font-weight: 500;
+            font-weight: var(--text-boldness-second);
             margin-bottom: .8rem;
             color: #ff0000;
         }
@@ -83,20 +82,20 @@ const WarningModalPage = styled(motion.section)`
         .guide {
             max-width: 40%;
             font-size: .6rem;
-            font-weight: 200;
+            font-weight: var(--text-boldness-second);
             line-height: 1.4;
             margin-bottom: .8rem;
-            color: #afafaf;
+            color: var(--text-color-second);
         }
 
         .show-again {
-            color: #afafaf;
-            font-size: .6rem;
-            font-weight: 400;
-            margin-bottom: 1.2rem;
             display: flex;
             justify-content: center;
             align-items: center;
+            color: var(--text-color-first);
+            font-size: .6rem;
+            font-weight: var(--text-boldness-second);
+            margin-bottom: 1.2rem;
             cursor: pointer;
 
             input {
@@ -112,25 +111,24 @@ const WarningModalPage = styled(motion.section)`
 
         .submit {
             all: unset;
-            border-radius: var(--message-page-button-border-radius);
-            background-color: var(--warning-page-button);
+            border-radius: var(--radius-fourth);
+            background-color: var(--button);
             display: flex;
             justify-content: center;
             align-items: center;
-            cursor: pointer;
             font-size: 1rem;
-            font-weight: 500;
+            font-weight: var(--text-boldness-third);
             letter-spacing: -1px;
             word-spacing: 5px;
             padding: .5rem 0;
-            box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 12px;
+            box-shadow: var(--shadow-second);
             width: 20%;
-            white-space: nowrap;
+            cursor: pointer;
             transition: background .2s;
 
             @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
                 &:hover {
-                    background-color: var(--warning-page-button-hover);
+                    background-color: var(--button-hover);
                 }
             }
         }

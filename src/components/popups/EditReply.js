@@ -157,17 +157,17 @@ const EditReply = ({ replyTo, popupMessageId, editReplyOpen, setEditReplyOpen })
 };
 
 const ReplyConatiner = styled(motion.div)`
-    display: flex;
-    justify-content: center;
-    align-items: center;
     position: absolute;
     right: ${props => props.editReplyOpen ? "0" : "1rem"};
     bottom: 0;
-    margin: ${props => props.editReplyOpen ? "" : "2rem 1.6rem"};
     width: ${props => props.editReplyOpen ? "100%" : "2.2rem"};
     height: ${props => props.editReplyOpen ? "100%" : "2.2rem"};
-    border-radius: 25px;
-    background-color: var(--edit-reply-background);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: ${props => props.editReplyOpen ? "" : "2rem 1.6rem"};
+    border-radius: ${props => props.editReplyOpen ? "var(--radius-third)" : "var(--radius-fifth)"};
+    background-color: var(--edit-reply);
     z-index: 10;
     overflow: hidden;
     transition: margin .5s, width .8s cubic-bezier(.53,0,0,.98), height .8s cubic-bezier(.53,0,0,.98), right .5s;
@@ -197,24 +197,21 @@ const ReplyConatiner = styled(motion.div)`
         }
 
         .close-button {
-            all: unset;
-            font-size: 1.5rem;
+            position: absolute;
+            left: 0;
             display: flex;
             justify-content: center;
             align-items: center;
+            font-size: 1.5rem;
             cursor: pointer;
-            position: absolute;
-            left: 0;
-            background-color: #ffffff11;
-            backdrop-filter: blur(20px) saturate(100%);
-            -webkit-backdrop-filter: blur(20px) saturate(100%);
+            background-color: var(--button);
             border-radius: 50%;
             padding: .3rem;
             z-index: 999;
-            transition: background .3s;
+            transition: background .2s;
 
             &:hover {
-                background-color: #ffffff22;
+                background-color: var(--button-hover);
             }
         }
     }
@@ -227,8 +224,6 @@ const ReplyConatiner = styled(motion.div)`
         align-items: center;
         cursor: pointer;
         position: absolute;
-        backdrop-filter: blur(20px) saturate(100%);
-        -webkit-backdrop-filter: blur(20px) saturate(100%);
         border-radius: 50%;
         padding: .3rem;
         z-index: 999;

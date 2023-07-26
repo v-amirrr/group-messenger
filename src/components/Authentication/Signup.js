@@ -76,7 +76,7 @@ const SignupPage = styled(motion.div)`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--enter-modes);
+    background-color: var(--page-first);
     user-select: none;
 
     .signup-container {
@@ -93,7 +93,7 @@ const SignupPage = styled(motion.div)`
             margin: 1rem;
 
             .signup-field {
-                background-color: var(--auth-feild);
+                background-color: var(--button);
                 border-radius: 15px;
                 padding: .6rem .8rem;
                 width: 12rem;
@@ -112,7 +112,8 @@ const SignupPage = styled(motion.div)`
                     height: 100%;
 
                     ::placeholder {
-                        color: var(--auth-feild-placeholder);
+                        font-weight: var(--text-boldness-second);
+                        color: var(--text-color-first);
                     }
                 }
 
@@ -166,7 +167,7 @@ const SignupPage = styled(motion.div)`
                 width: ${props => props.loginloading ? "5.8rem" : "4.5rem"};
                 height: 2.2rem;
                 cursor: ${props => props.loginloading ? "" : "pointer"};
-                background-color: var(--auth-button);
+                background-color: var(--button);
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -186,7 +187,7 @@ const SignupPage = styled(motion.div)`
 
                 @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
                     &:hover {
-                        background-color: ${props => props.loginloading ? "#ffffff00" : "var(--auth-button-hover)"};
+                        background-color: ${props => props.loginloading ? "#ffffff00" : "var(--button-hover)"};
                     }
                 }
             }

@@ -73,7 +73,7 @@ const MessageOptionsContainer = styled(motion.div)`
 
     .reply, .copy, .edit, .delete, .select {
         position: relative;
-        background-color: var(--message-options);
+        background-color: var(--message);
         margin: 0 .15rem;
         display: flex;
         justify-content: center;

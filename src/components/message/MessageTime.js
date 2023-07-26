@@ -32,9 +32,9 @@ const TimeContainer = styled(motion.div)`
     top: ${props => props.isuser && props.messageposition == 3 ? 0 : ""};
     width: 2rem;
     font-size: .45rem;
-    font-weight: 400;
+    font-weight: var(--text-boldness-third);
     letter-spacing: .5px;
-    color: var(--message-time);
+    color: var(--text-color-second);
     white-space: nowrap;
     margin: ${props =>
         props.isuser ?

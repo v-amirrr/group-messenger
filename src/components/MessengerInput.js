@@ -116,55 +116,51 @@ const MessengerInput = () => {
 };
 
 const MessengerInputContainer = styled(motion.section)`
-    backdrop-filter: var(--messenger-input-blur);
-    -webkit-backdrop-filter: var(--messenger-input-blur);
-    border: solid 1px #ffffff14;
-    border-radius: var(--messenger-input-border-radius);
+    position: absolute;
+    bottom: ${props => props.isreplyto ? ".4rem" : "1rem"};
     width: 20rem;
     height: 2.8rem;
-    padding: .2rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    position: absolute;
-    bottom: ${props => props.isreplyto ? ".4rem" : "1rem"};
-    transition: bottom .4s;
-    box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 12px;
+    padding: .2rem;
+    border: var(--border-first);
+    border-radius: var(--radius-fifth);
+    backdrop-filter: var(--glass-first);
+    -webkit-backdrop-filter: var(--glass-first);
+    box-shadow: var(--shadow-second);
     z-index: 5;
+    transition: bottom .4s;
 
     &:disabled {
         cursor: not-allowed;
     }
 
     .input-section {
+        width: 100%;
+        height: 2.5rem;
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 100%;
-        height: 2.5rem;
-        overflow: hidden;
         padding: ${props => props.isrlt ? "0 0 0 1rem" : ""};
+        overflow: hidden;
         transition: padding .2s;
     }
 
     .messenger-input {
-        color: #fff;
+        width: 100%;
+        max-height: 2.8rem;
+        color: var(--text-color-third);
         border: none;
+        border-radius: var(--radius-fifth);
         padding: .8rem;
         background-color: transparent;
         font-family: ${props => props.isrlt ? "Vazirmatn" : "Outfit"}, "Vazirmatn", sans-serif;
-        font-weight: 200;
+        font-weight: var(--text-boldness-first);
         font-size: 1rem;
-        border-radius: 50px;
-        width: 100%;
-        max-height: 2.8rem;
         margin-right: .5rem;
         resize: none;
         overflow: ${props => props.inputtext ? "hidden scroll" : ""};
-
-        &::placeholder {
-            color: var(--messenger-input-placeholder);
-        }
 
         ::-webkit-scrollbar {
             width: .1rem;
@@ -178,7 +174,7 @@ const MessengerInputContainer = styled(motion.section)`
 
         /* Handle */
         ::-webkit-scrollbar-thumb {
-            background: ${props => props.multiline ? "#ffffff40" : "#ffffff00"};
+            background: ${props => props.multiline ? "var(--hr-first)" : "#ffffff00"};
             border-radius: 50px;
         }
     }
@@ -192,9 +188,8 @@ const MessengerInputContainer = styled(motion.section)`
         justify-content: center;
         align-items: center;
         border: none;
-        color: var(--messenger-input-submit-enable);
+        color: var(--text-color-first);
         cursor: pointer;
-        transition: color .4s;
 
         div {
             display: flex;
@@ -204,27 +199,25 @@ const MessengerInputContainer = styled(motion.section)`
 
         &:disabled {
             cursor: not-allowed;
-            color: var(--messenger-input-submit-disable);
         }
     }
 `;
 
 const ReplyTo = styled(motion.div)`
+    position: absolute;
+    bottom: 3.5rem;
     max-width: 25%;
     height: 2rem;
-    padding: 0 .2rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    backdrop-filter: var(--messenger-input-blur);
-    -webkit-backdrop-filter: var(--messenger-input-blur);
-    border: solid 1px #ffffff14;
-    border-radius: var(--messenger-input-border-radius);
-    border-radius: 50px;
-    position: absolute;
-    bottom: 3.5rem;
+    padding: 0 .2rem;
+    backdrop-filter: var(--glass-first);
+    -webkit-backdrop-filter: var(--glass-first);
+    border: var(--border-first);
+    border-radius: var(--radius-fifth);
     overflow: hidden;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    box-shadow: var(--shadow-second);
     user-select: none;
     z-index: 2;
 
@@ -243,7 +236,7 @@ const ReplyTo = styled(motion.div)`
 
         @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
             &:hover {
-                background-color: #f5f0f011;
+                background-color: var(--button-hover);
             }
         }
     }
@@ -258,7 +251,8 @@ const ReplyTo = styled(motion.div)`
         font-weight: 100;
         overflow: hidden;
         font-family: ${props => props.isrlt ? "Vazirmatn" : "Outfit"}, "Vazirmatn", sans-serif;
-        color: #ffffffaa;
+        color: var(--hr-second);
+        font-weight: var(--text-boldness-first);
 
         i {
             display: flex;
@@ -270,7 +264,6 @@ const ReplyTo = styled(motion.div)`
 
         .text {
             font-size: .7rem;
-            font-weight: 200;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;

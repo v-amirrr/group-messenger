@@ -54,6 +54,10 @@ const Message = forwardRef(( props, ref ) => {
         }
     };
 
+    const messageDoubleClickHandler = () => {
+        replyMessage(id, message, messageUsername);
+    };
+
     // detect message's position in order to set its border-radius
     useEffect(() => {
         if (priorDifferentDate && nextDifferentDate) {
@@ -102,7 +106,7 @@ const Message = forwardRef(( props, ref ) => {
 
             <MessageBox key={id} ref={ref} isMessageFromLocalUser={messageUid == localUid ? 1 : 0} ispersian={isRTL(message) ? 1 : 0} messagePosition={messagePosition} isreply={replyTo != "no_reply" ? 1 : 0} selected={selected ? 1 : 0} anymessageselected={selectedMessages.length ? 1 : 0}>
 
-                <div className='message-box' onClick={(e) => messageClickHandler(e)} onDoubleClick={() => replyMessage(id, message, messageUsername)}>
+                <div className='message-box' onClick={(e) => messageClickHandler(e)} onDoubleClick={messageDoubleClickHandler}>
                     <MessageReply replyTo={replyTo} />
 
                     <p className='username'>{messageUsername}:</p>
@@ -190,22 +194,23 @@ const MessageBox = styled.div`
         min-width: ${props => props.isreply ? "22%" : ""};
         width: fit-content;
         max-width: 65%;
-        backdrop-filter: var(--message-blur);
-        -webkit-backdrop-filter: var(--message-blur);
-        font-weight: 200;
+        backdrop-filter: var(--glass-first);
+        -webkit-backdrop-filter: var(--glass-first);
+        font-weight: var(----text-boldness-first);
         word-break: break-all;
         cursor: pointer;
-        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+        box-shadow: var(--shadow-first);
         transition: backdrop-filter .4s, border-radius .4s, margin .4s, background .2s;
 
         .username {
             display: ${props => props.isMessageFromLocalUser ? "none" : ""};
-            color: var(--message-username);
             font-size: .7rem;
             font-weight: 300;
             margin-right: .5rem;
             margin-left: -.2rem;
             white-space: nowrap;
+            font-weight: var(--text-boldness-first);
+            color: var(--text-color-first);
         }
 
         .message {
@@ -216,6 +221,8 @@ const MessageBox = styled.div`
             white-space: pre-wrap;
             font-family: ${props => props.ispersian ? "Vazirmatn" : "Outfit"}, "Vazirmatn", sans-serif;
             font-size: 1rem;
+            font-weight: var(--text-boldness-first);
+            color: var(--text-color-third);
         }
     }
 

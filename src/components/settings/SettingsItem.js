@@ -17,7 +17,8 @@ const SettingsItemContainer = styled.div`
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    border-radius: 15px;
+    border: var(--border-first);
+    border-radius: var(--radius-second);
     overflow: hidden;
     position: relative;
     margin: .2rem;
@@ -26,14 +27,14 @@ const SettingsItemContainer = styled.div`
     transition: ${props => props.open ? "height .6s cubic-bezier(.53,0,0,.98)" : "height .6s cubic-bezier(.53,0,0,.98)"}, background .2s;
 
     .item-header {
-        padding: 0 .5rem .5rem .5rem;
+        position: absolute;
+        top: ${props => props.open ? "3%" : "23%"};
+        width: 100%;
         display: flex;
         justify-content: flex-start;
         align-items: center;
-        width: 100%;
-        position: absolute;
-        top: ${props => props.open ? "3%" : "23%"};
-        border-bottom: ${props => props.open ? "solid .1px #ffffff22" : "solid .1px #ffffff00"};
+        border-bottom: ${props => props.open ? "var(--border-first)" : "solid .1px #ffffff00"};
+        padding: 0 .5rem .4rem .5rem;
         z-index: 2;
         cursor: pointer;
         transition: ${props => props.open ? "top .4s" : "top .4s .2s"}, border-bottom .4s;

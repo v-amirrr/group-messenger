@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { setWarningShowed, setWarningPageNeverShowCheck } from "../redux/userSlice";
+import { setWarningShowed, setWarningPageNeverShow } from "../redux/appSlice";
 
 export const useWarningPage = () => {
 
@@ -16,7 +16,7 @@ export const useWarningPage = () => {
         if (warningPupupNeverShowLocalStorage) {
             sessionStorage.setItem("warning", "true");
             dispatch(setWarningShowed(true));
-            dispatch(setWarningPageNeverShowCheck(true));
+            dispatch(setWarningPageNeverShow(true));
         }
 
         if (!warningPupupSessionStorage && !warningPupupNeverShowLocalStorage) {

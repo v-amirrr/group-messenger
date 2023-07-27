@@ -13,7 +13,7 @@ import { backgroundImageVariants } from '../config/varitans';
 
 const MessengerBackground = () => {
 
-    const { theme } = useSelector(store => store.userStore);
+    const { theme } = useSelector(store => store.appStore);
 
     return (
         <>

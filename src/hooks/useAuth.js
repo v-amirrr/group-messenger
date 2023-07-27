@@ -2,7 +2,8 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { auth, googleProvider } from "../config/firebase";
 import { createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import { setUser, setLogin, setSignup, setEnterAsAGuest, setGoogleLogin, setNotification } from '../redux/userSlice';
+import { setUser, setLogin, setSignup, setEnterAsAGuest, setGoogleLogin } from '../redux/userSlice';
+import { setNotification } from '../redux/appSlice';
 
 export const useAuth = () => {
 
@@ -11,7 +12,7 @@ export const useAuth = () => {
 
     const login = (email, password) => {
         dispatch(setLogin({ loading: true }));
-        dispatch(setNotification({ open: false, message: null, error: false }));
+        dispatch(setNotification({ show: false, message: null, isError: false }));
 
         if (email && password) {
             signInWithEmailAndPassword(auth, email, password)
@@ -23,17 +24,17 @@ export const useAuth = () => {
                 })
                 .catch(err => {
                     dispatch(setLogin({ loading: false }));
-                    dispatch(setNotification({ open: true, message: err.message, error: true }));
+                    dispatch(setNotification({ show: true, message: err.message, isError: true }));
                 });
         } else {
             dispatch(setLogin({ loading: false }));
-            dispatch(setNotification({ open: true, message: "Please fill all the inputs.", error: true }));
+            dispatch(setNotification({ show: true, message: "Please fill all the inputs.", isError: true }));
         }
     };
 
     const signup = (username, email, password) => {
         dispatch(setSignup({ loading: true }));
-        dispatch(setNotification({ open: false, message: null, error: false }));
+        dispatch(setNotification({ show: false, message: null, isError: false }));
 
         if (username && email && password) {
             createUserWithEmailAndPassword(auth, email, password)
@@ -47,16 +48,16 @@ export const useAuth = () => {
                         navigate("/");
                     }).catch((err) => {
                         dispatch(setSignup({ loading: false }));
-                        dispatch(setNotification({ open: true, message: err.message, error: true }));
+                        dispatch(setNotification({ show: true, message: err.message, isError: true }));
                     });
                 })
                 .catch((err) => {
                     dispatch(setSignup({ loading: false }));
-                    dispatch(setNotification({ open: true, message: err.message, error: true }));
+                    dispatch(setNotification({ show: true, message: err.message, isError: true }));
                 });
         } else {
             dispatch(setSignup({ loading: false }));
-            dispatch(setNotification({ open: true, message: "Please fill all the inputs.", error: true }));
+            dispatch(setNotification({ show: true, message: "Please fill all the inputs.", isError: true }));
         }
     };
 
@@ -77,7 +78,7 @@ export const useAuth = () => {
 
     const googleLogin = () => {
         dispatch(setGoogleLogin({ loading: true }));
-        dispatch(setNotification({ open: false, message: null, error: false }));
+        dispatch(setNotification({ show: false, message: null, isError: false }));
 
         signInWithPopup(auth, googleProvider)
             .then(res => {
@@ -88,7 +89,7 @@ export const useAuth = () => {
             })
             .catch(err => {
                 dispatch(setSignup({ loading: false }));
-                dispatch(setNotification({ open: true, message: err.message, error: true }));
+                dispatch(setNotification({ show: true, message: err.message, isError: true }));
             });
     };
 

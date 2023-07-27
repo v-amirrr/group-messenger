@@ -9,9 +9,10 @@ import { selectBarVariants } from '../config/varitans';
 
 const SelectBar = () => {
 
-    const { clearSelectedMessages, copySelectedMessages, deleteSelectedMessages } = useSelect();
+    const { enterAsAGuest } = useSelector(store => store.userStore);
+    const { selectedMessages, selectOthersMessage } = useSelector(store => store.appStore);
 
-    const { selectedMessages, enterAsAGuest, selectOthersMessage } = useSelector(store => store.userStore);
+    const { clearSelectedMessages, copySelectedMessages, deleteSelectedMessages } = useSelect();
 
     const [counterOne, setCounterOne] = useState(selectedMessages.length);
     const [counterTwo, setCounterTwo] = useState(selectedMessages.length);

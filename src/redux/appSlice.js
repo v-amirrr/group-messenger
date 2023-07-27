@@ -1,6 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
+    warningPageShowed: false,
+    warningPageNeverShow: JSON.parse(localStorage.getItem('warning-check')),
+    messageOptionsId: null,
+    theme: 2,
+    selectedMessages: [],
+    selectOthersMessage: false,
+    notificationStatus: {
+        show: false,
+        message: null,
+        isError: false,
+    },
     notificationSettings: {
         send: false,
         trash: true,
@@ -17,6 +28,46 @@ const appSlice = createSlice({
     name: 'app',
     initialState,
     reducers: {
+        setWarningShowed: (state, action) => {
+            return { ...state, warningPageShowed: action.payload };
+        },
+        setWarningPageNeverShow: (state, action) => {
+            return { ...state, warningPageNeverShow: action.payload };
+        },
+        setMessageOptionsId: (state, action) => {
+            return { ...state, messageOptionsId: action.payload };
+        },
+        setTheme: (state, action) => {
+            return { ...state, theme: action.payload };
+        },
+        setSelectedMessages: (state, action) => {
+            return {
+                ...state,
+                selectedMessages: [
+                    ...state.selectedMessages,
+                    action.payload.message,
+                ],
+            };
+        },
+        setClearSelectedMessages: (state) => {
+            return { ...state, selectedMessages: [] };
+        },
+        setUnselectMessages: (state, action) => {
+            return { ...state, selectedMessages: action.payload };
+        },
+        setSelectOthersMessage: (state, action) => {
+            return { ...state, selectOthersMessage: action.payload };
+        },
+        setNotification: (state, action) => {
+            return {
+                ...state,
+                notification: {
+                    show: action.payload.show,
+                    message: action.payload.message,
+                    isError: action.payload.isError,
+                },
+            };
+        },
         setNotificationSettings: (state, action) => {
             return {
                 ...state,
@@ -59,6 +110,17 @@ const appSlice = createSlice({
     },
 });
 
-export const { setNotificationSettings } = appSlice.actions;
+export const {
+    setWarningShowed,
+    setWarningPageNeverShow,
+    setMessageOptionsId,
+    setTheme,
+    setSelectedMessages,
+    setClearSelectedMessages,
+    setUnselectMessages,
+    setSelectOthersMessage,
+    setNotification,
+    setNotificationSettings,
+} = appSlice.actions;
 
 export default appSlice.reducer;

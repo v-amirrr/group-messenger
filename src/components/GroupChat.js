@@ -17,7 +17,8 @@ const GroupChat = () => {
     const { groupChatRedirection } = useRedirection();
 
     const { messages, loading } = useSelector(store => store.messagesStore);
-    const { enterAsAGuest, user, selectedMessages } = useSelector(store => store.userStore);
+    const { enterAsAGuest, user } = useSelector(store => store.userStore);
+    const { selectedMessages } = useSelector(store => store.appStore);
 
     useEffect(() => {
         groupChatRedirection();

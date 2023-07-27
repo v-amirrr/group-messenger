@@ -1,6 +1,6 @@
 import React, { forwardRef, useState, useEffect, memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setMessageIdOptionsShow } from '../../redux/userSlice';
+import { setMessageOptionsId } from '../../redux/appSlice';
 import { useSelect } from '../../hooks/useSelect';
 import MessageOptions from '../message/MessageOptions';
 import ChatDate from '../ChatDate';
@@ -17,11 +17,10 @@ const Message = forwardRef(( props, ref ) => {
     const { messageUid, localUid, message, id, replyTo, messageUsername, periorUsername, nextUsername, time, priorDifferentDate, nextDifferentDate, messagesContainerRef } = props.message;
 
     const dispatch = useDispatch();
+    const { messageOptionsId, selectedMessages } = useSelector(store => store.appStore);
 
     const { selectMessage, checkMessage, unSelectMessage } = useSelect();
     const { replyMessage } = useMessageOptions();
-
-    const { messageIdOptionsShow, selectedMessages } = useSelector(store => store.userStore);
 
     const [messagePosition, setMessagePosition] = useState(null);
     const [clickEvent, setClickEvent] = useState(null);
@@ -44,11 +43,11 @@ const Message = forwardRef(( props, ref ) => {
                 });
             }
         } else {
-            if (messageIdOptionsShow == id) {
-                dispatch(setMessageIdOptionsShow(null));
+            if (messageOptionsId == id) {
+                dispatch(setMessageOptionsId(null));
                 setClickEvent(null);
             } else {
-                dispatch(setMessageIdOptionsShow(id));
+                dispatch(setMessageOptionsId(id));
                 setClickEvent(e);
             }
         }
@@ -125,7 +124,7 @@ const Message = forwardRef(( props, ref ) => {
                 <SelectCheck selected={selected} selectedMessagesLength={selectedMessages.length} messageClickHandler={messageClickHandler}/>
 
                 <AnimatePresence>
-                    {messageIdOptionsShow == id ?
+                    {messageOptionsId == id ?
                     <MessageOptions
                         clickEvent={clickEvent}
                         message={{

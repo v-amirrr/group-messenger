@@ -10,9 +10,10 @@ import { notificationVariants } from '../config/varitans';
 
 const AuthError = () => {
 
-    const { notification } = useSelector(store => store.userStore);
-    const { closeNotification } = useNotification();
     let location = useLocation();
+    const { notification } = useSelector(store => store.appStore);
+
+    const { closeNotification } = useNotification();
 
     useEffect(() => {
         closeNotification();
@@ -21,15 +22,15 @@ const AuthError = () => {
     return (
         <>
             <AnimatePresence>
-                {notification.open ?
+                {notification?.show ?
                 <NotificationContainer initial='hidden' animate='visible' exit='exit' variants={notificationVariants} error={notification.error ? 1 : 0}>
                     <button className='close-button' onClick={closeNotification}><IoClose /></button>
                     {
-                        notification.error ?
+                        notification?.isError ?
                         <i className='error-icon'><FcHighPriority /></i> :
                         <i className='notification-icon'><FcAdvertising /></i>
                     }
-                    <p>{notification.message}</p>
+                    <p>{notification?.message}</p>
                 </NotificationContainer>
                 : ""}
             </AnimatePresence>

@@ -13,7 +13,7 @@ import { backgroundsVariants, backgroundVariants } from '../../config/varitans';
 
 const SettingsBackgrounds = ({ open, setOpen }) => {
 
-    const { theme } = useSelector(store => store.userStore);
+    const { theme } = useSelector(store => store.appStore);
 
     const { changeTheme } = useChangeTheme();
 

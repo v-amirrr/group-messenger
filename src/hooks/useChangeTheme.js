@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { setTheme } from "../redux/userSlice";
+import { setTheme } from "../redux/appSlice";
 import { useNotification } from "./useNotification";
 
 export const useChangeTheme = () => {

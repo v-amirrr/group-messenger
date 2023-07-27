@@ -11,11 +11,10 @@ import { popupPageVariants, popupPageContainer } from '../../config/varitans';
 
 const Popup = () => {
 
-    const popupPage = useRef();
-
+    const { popupShow, popupName, popupMessages, popupMessagesSelected, popupMessageReplyTo } = useSelector(store => store.popupStore);
     const { closePopup } = useMessageOptions();
 
-    const { popupShow, popupName, popupMessages, popupMessagesSelected, popupMessageReplyTo } = useSelector(store => store.popupStore);
+    const popupPage = useRef();
 
     const closePopupByTap = e => {
         if (!popupPage.current.contains(e.target)) {

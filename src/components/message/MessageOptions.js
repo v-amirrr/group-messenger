@@ -13,11 +13,12 @@ const MessageOptions = ({ clickEvent, message }) => {
 
     const { isMessageFromLocalUser, messageText, id, messageUsername } = message;
 
-    const messageOptionsRef = useRef();
     const { enterAsAGuest } = useSelector(store => store.userStore);
 
     const { openPopup, copyMessage, replyMessage, trashMessage } = useMessageOptions();
     const { selectMessage } = useSelect();
+
+    const messageOptionsRef = useRef();
 
     let onMobile = document.documentElement.offsetWidth < 600;
 

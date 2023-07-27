@@ -13,9 +13,10 @@ import { signupVariants, signupItemVariants } from '../../config/varitans';
 const Signup = () => {
 
     const navigate = useNavigate();
+    const { signup: signupDataFromUserStore } = useSelector(store => store.userStore);
+
     const { signup } = useAuth();
     const { authRedirection } = useRedirection();
-    const { signup: signupDataFromUserStore } = useSelector(store => store.userStore);
 
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");

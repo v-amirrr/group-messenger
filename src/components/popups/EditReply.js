@@ -10,12 +10,12 @@ import { replyAddSectionVariants, replyButtonVariants } from '../../config/varit
 
 const EditReply = ({ replyTo, popupMessageId, editReplyOpen, setEditReplyOpen }) => {
 
-    const messagesEndRef = useRef();
+    const { messages, localUsername } = useSelector(store => store.messagesStore);
+    const { user } = useSelector(store => store.userStore);
 
     const { editReply } = useMessageOptions();
 
-    const { messages, localUsername } = useSelector(store => store.messagesStore);
-    const { user } = useSelector(store => store.userStore);
+    const messagesEndRef = useRef();
 
     const [newReply, setNewReply] = useState(replyTo?.id);
     const [messagesBefore, setMessagesBefore] = useState([]);

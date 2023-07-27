@@ -13,6 +13,10 @@ import { messengerInputVariants, sendInputIconVariants, replyVariants } from '..
 
 const MessengerInput = () => {
 
+    const { error, localUsername } = useSelector(store => store.messagesStore);
+    const { error: sendMessageError, loading: sendMessageLoading, replyTo, restoredText } = useSelector(store => store.sendMessageStore);
+    const { popupShow, popupName } = useSelector(store => store.popupStore);
+
     const { sendMessage } = useSendMessage();
     const { clearReplyMessage } = useMessageOptions();
 
@@ -21,10 +25,6 @@ const MessengerInput = () => {
     const [inputText, setInputText] = useState("");
     const [multiline, setMultiline] = useState(false);
     const [emojiPickerShow, setEmojiPickerShow] = useState(false);
-
-    const { error, localUsername } = useSelector(store => store.messagesStore);
-    const { error: sendMessageError, loading: sendMessageLoading, replyTo, restoredText } = useSelector(store => store.sendMessageStore);
-    const { popupShow, popupName } = useSelector(store => store.popupStore);
 
     const inputSubmitHandler = () => {
         setEmojiPickerShow(false);

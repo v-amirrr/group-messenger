@@ -9,8 +9,8 @@ import { userVariants } from '../../config/varitans';
 
 const SettingsUser = ({ open, setOpen }) => {
 
-    const { changeUsername } = useChangeUsername();
     const { user } = useSelector(store => store.userStore);
+    const { changeUsername } = useChangeUsername();
 
     const [changeUsernameInput, setChangeUsernameInput] = useState(user.displayName);
 

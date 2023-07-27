@@ -1,13 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
-import { setNotification } from "../redux/userSlice";
-import { setNotificationSettings } from "../redux/appSlice";
+import { setNotification, setNotificationSettings } from "../redux/appSlice";
 
 export const useNotification = () => {
 
     const dispatch = useDispatch();
     const { notificationSettings } = useSelector(store => store.appStore);
 
-    const openNotification = (message, error, type) => {
+    const openNotification = (message, isError, type) => {
         if (type == "SEND" && notificationSettings.send
             || type == "TRASH" && notificationSettings.trash
             || type == "EDIT" && notificationSettings.edit
@@ -16,7 +15,7 @@ export const useNotification = () => {
             || type == "DELETE" && notificationSettings.delete
             || type == "BACKGROUND" && notificationSettings.background
             || type == "USERNAME" && notificationSettings.username) {
-                dispatch(setNotification({ open: true, message: message, error: error }));
+                dispatch(setNotification({ show: true, message: message, isError: isError }));
                 setTimeout(() => {
                     closeNotification();
                 }, 5000);

@@ -1,18 +1,18 @@
 import { useDispatch, useSelector } from "react-redux";
-import { setMessageIdOptionsShow, setSelectedMessages, setClearSelectedMessages, setUnselectMessages, setSelectOthersMessage } from '../redux/userSlice';
+import { setMessageOptionsId, setSelectedMessages, setClearSelectedMessages, setUnselectMessages, setSelectOthersMessage } from '../redux/appSlice';
 import { useMessageOptions } from "./useMessageOptions";
 import { useNotification } from "./useNotification";
 
 export const useSelect = () => {
 
     const dispatch = useDispatch();
-    const { selectedMessages } = useSelector(store => store.userStore);
+    const { selectedMessages } = useSelector(store => store.appStore);
 
     const { trashMessage } = useMessageOptions();
     const { openNotification } = useNotification();
 
     const selectMessage = (message) => {
-        dispatch(setMessageIdOptionsShow(null));
+        dispatch(setMessageOptionsId(null));
         dispatch(setSelectedMessages({message}));
     };
 

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNotification } from './useNotification';
 import { setPopup, setEditedReply } from '../redux/popupSlice';
 import { setSendMessageReplyTo, setClearReplyTo } from '../redux/sendMessageSlice';
-import { setMessageIdOptionsShow } from '../redux/userSlice';
+import { setMessageOptionsId } from '../redux/appSlice';
 
 export const useMessageOptions = () => {
 
@@ -16,7 +16,7 @@ export const useMessageOptions = () => {
     const { openNotification } = useNotification();
 
     const copyMessage = (message) => {
-        dispatch(setMessageIdOptionsShow(null));
+        dispatch(setMessageOptionsId(null));
         let text = [];
         message.messageText.map(item => {
             text.push(item.word);
@@ -28,7 +28,7 @@ export const useMessageOptions = () => {
     };
 
     const openPopup = (popupName, popupMessages) => {
-        dispatch(setMessageIdOptionsShow(null));
+        dispatch(setMessageOptionsId(null));
 
         let sortedPopupMessages = [...popupMessages];
 
@@ -99,7 +99,7 @@ export const useMessageOptions = () => {
     };
 
     const replyMessage = (id, message, username) => {
-        dispatch(setMessageIdOptionsShow(null));
+        dispatch(setMessageOptionsId(null));
 
         let messageText = [];
         message.map(item => {

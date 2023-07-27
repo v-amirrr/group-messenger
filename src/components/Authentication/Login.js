@@ -13,9 +13,10 @@ import { loginVariants, loginItemVariants } from '../../config/varitans';
 const Login = () => {
 
     const navigate = useNavigate();
+    const { login: loginDataFromUserStore, googleLogin: googleLoginDataFromUserStore } = useSelector(store => store.userStore);
+
     const { login, googleLogin } = useAuth();
     const { authRedirection } = useRedirection();
-    const { login: loginDataFromUserStore, googleLogin: googleLoginDataFromUserStore } = useSelector(store => store.userStore);
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");

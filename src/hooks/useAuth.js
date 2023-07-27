@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { auth, googleProvider } from "../config/firebase";
 import { createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { setUser, setLogin, setSignup, setEnterAsAGuest, setGoogleLogin } from '../redux/userSlice';
-import { setNotification } from '../redux/appSlice';
+import { setNotificationStatus } from '../redux/appSlice';
 
 export const useAuth = () => {
 
@@ -12,7 +12,7 @@ export const useAuth = () => {
 
     const login = (email, password) => {
         dispatch(setLogin({ loading: true }));
-        dispatch(setNotification({ show: false, message: null, isError: false }));
+        dispatch(setNotificationStatus({ show: false, message: null, isError: false }));
 
         if (email && password) {
             signInWithEmailAndPassword(auth, email, password)
@@ -24,17 +24,17 @@ export const useAuth = () => {
                 })
                 .catch(err => {
                     dispatch(setLogin({ loading: false }));
-                    dispatch(setNotification({ show: true, message: err.message, isError: true }));
+                    dispatch(setNotificationStatus({ show: true, message: err.message, isError: true }));
                 });
         } else {
             dispatch(setLogin({ loading: false }));
-            dispatch(setNotification({ show: true, message: "Please fill all the inputs.", isError: true }));
+            dispatch(setNotificationStatus({ show: true, message: "Please fill all the inputs.", isError: true }));
         }
     };
 
     const signup = (username, email, password) => {
         dispatch(setSignup({ loading: true }));
-        dispatch(setNotification({ show: false, message: null, isError: false }));
+        dispatch(setNotificationStatus({ show: false, message: null, isError: false }));
 
         if (username && email && password) {
             createUserWithEmailAndPassword(auth, email, password)
@@ -48,16 +48,16 @@ export const useAuth = () => {
                         navigate("/");
                     }).catch((err) => {
                         dispatch(setSignup({ loading: false }));
-                        dispatch(setNotification({ show: true, message: err.message, isError: true }));
+                        dispatch(setNotificationStatus({ show: true, message: err.message, isError: true }));
                     });
                 })
                 .catch((err) => {
                     dispatch(setSignup({ loading: false }));
-                    dispatch(setNotification({ show: true, message: err.message, isError: true }));
+                    dispatch(setNotificationStatus({ show: true, message: err.message, isError: true }));
                 });
         } else {
             dispatch(setSignup({ loading: false }));
-            dispatch(setNotification({ show: true, message: "Please fill all the inputs.", isError: true }));
+            dispatch(setNotificationStatus({ show: true, message: "Please fill all the inputs.", isError: true }));
         }
     };
 
@@ -78,7 +78,7 @@ export const useAuth = () => {
 
     const googleLogin = () => {
         dispatch(setGoogleLogin({ loading: true }));
-        dispatch(setNotification({ show: false, message: null, isError: false }));
+        dispatch(setNotificationStatus({ show: false, message: null, isError: false }));
 
         signInWithPopup(auth, googleProvider)
             .then(res => {
@@ -89,7 +89,7 @@ export const useAuth = () => {
             })
             .catch(err => {
                 dispatch(setSignup({ loading: false }));
-                dispatch(setNotification({ show: true, message: err.message, isError: true }));
+                dispatch(setNotificationStatus({ show: true, message: err.message, isError: true }));
             });
     };
 

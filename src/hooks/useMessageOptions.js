@@ -11,6 +11,7 @@ export const useMessageOptions = () => {
     const dispatch = useDispatch();
 
     const { popupMessageEditedReply } = useSelector(store => store.popupStore);
+    const { enterAsAGuest } = useSelector(store => store.userStore);
     const { replyTo } = useSelector(store => store.sendMessageStore);
 
     const { openNotification } = useNotification();
@@ -100,20 +101,23 @@ export const useMessageOptions = () => {
 
     const replyMessage = (id, message, username) => {
         dispatch(setMessageOptionsId(null));
-
-        let messageText = [];
-        message.map(item => {
-            messageText.push(item.word);
-        });
-        messageText = messageText.join(" ");
-
-        if (replyTo.id) {
-            dispatch(setClearReplyTo());
-            setTimeout(() => {
-                dispatch(setSendMessageReplyTo({ id, messageText, username }));
-            }, 500);
+        if (enterAsAGuest) {
+            openNotification("In order to use this feature you need to login.", false, "GUEST");
         } else {
-            dispatch(setSendMessageReplyTo({ id, messageText, username }));
+            let messageText = [];
+            message.map(item => {
+                messageText.push(item.word);
+            });
+            messageText = messageText.join(" ");
+
+            if (replyTo.id && replyTo.id != id) {
+                dispatch(setClearReplyTo());
+                setTimeout(() => {
+                    dispatch(setSendMessageReplyTo({ id, messageText, username }));
+                }, 500);
+            } else {
+                dispatch(setSendMessageReplyTo({ id, messageText, username }));
+            }
         }
     };
 

@@ -1,33 +1,46 @@
 import { useDispatch, useSelector } from "react-redux";
-import { setNotification, setNotificationSettings } from "../redux/appSlice";
+import { setNotificationStatus, setNotificationSettings } from "../redux/appSlice";
 
 export const useNotification = () => {
 
     const dispatch = useDispatch();
-    const { notificationSettings } = useSelector(store => store.appStore);
+    const { notificationStatus, notificationSettings } = useSelector(store => store.appStore);
+    const { enterAsAGuest } = useSelector(store => store.userStore);
 
     const openNotification = (message, isError, type) => {
         if (type == "SEND" && notificationSettings.send
-            || type == "TRASH" && notificationSettings.trash
-            || type == "EDIT" && notificationSettings.edit
-            || type == "COPY" && notificationSettings.copy
-            || type == "RESTORE" && notificationSettings.restore
-            || type == "DELETE" && notificationSettings.delete
-            || type == "BACKGROUND" && notificationSettings.background
-            || type == "USERNAME" && notificationSettings.username) {
-                dispatch(setNotification({ show: true, message: message, isError: isError }));
+        || type == "TRASH" && notificationSettings.trash
+        || type == "EDIT" && notificationSettings.edit
+        || type == "COPY" && notificationSettings.copy
+        || type == "RESTORE" && notificationSettings.restore
+        || type == "DELETE" && notificationSettings.delete
+        || type == "BACKGROUND" && notificationSettings.background
+        || type == "USERNAME" && notificationSettings.username
+        || type == "GUEST" && enterAsAGuest) {
+            if (notificationStatus.show) {
+                closeNotification();
+                setTimeout(() => {
+                    dispatch(setNotificationStatus({ show: true, message: message, isError: isError, isGuest: type == "GUEST" }));
+                }, 400);
+            } else {
+                dispatch(setNotificationStatus({ show: true, message: message, isError: isError, isGuest: type == "GUEST" }));
                 setTimeout(() => {
                     closeNotification();
                 }, 5000);
+            }
         }
     };
 
     const closeNotification = () => {
-        dispatch(setNotification({ open: false, message: null, error: false }));
+        dispatch(setNotificationStatus({ show: false, message: null, isError: false }));
     };
 
     const changeNotificationSettings = (notificationName, notificationValue) => {
-        dispatch(setNotificationSettings({ [notificationName]: notificationValue }));
+        if (enterAsAGuest) {
+            openNotification("In order to use this feature you need to login.", false, "GUEST");
+        } else {
+            dispatch(setNotificationSettings({ [notificationName]: notificationValue }));
+        }
     };
 
     const setDefaultNotification = () => {

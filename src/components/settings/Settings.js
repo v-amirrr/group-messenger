@@ -37,14 +37,10 @@ const Settings = () => {
                     </header>
 
                     <ul>
-                        <SettingsItem open={open} openValue="SETTINGS_BACKGROUND" component={<SettingsBackgrounds open={open} setOpen={setOpen} />} />
-                        {!enterAsAGuest ?
-                        <>
-                            <SettingsItem openValue="SETTINGS_NOTIFICATION" open={open} component={<SettingsNotification open={open} setOpen={setOpen} />} />
-                            <SettingsItem openValue="SETTINGS_USER" open={open} component={<SettingsUser open={open} setOpen={setOpen} />} />
-                            <SettingsItem openValue="SETTINGS_TRASH" open={open} component={<SettingsTrash open={open} setOpen={setOpen} />} />
-                        </>
-                        : ""}
+                        <SettingsItem openValue="SETTINGS_BACKGROUND" open={open} component={<SettingsBackgrounds open={open} setOpen={setOpen} />} />
+                        <SettingsItem openValue="SETTINGS_NOTIFICATION" open={open} component={<SettingsNotification open={open} setOpen={setOpen} />} />
+                        <SettingsItem openValue="SETTINGS_USER" open={open} component={<SettingsUser open={open} setOpen={setOpen} />} />
+                        <SettingsItem openValue="SETTINGS_TRASH" open={open} component={<SettingsTrash open={open} setOpen={setOpen} />} />
                     </ul>
                 </SettingsContainer>
             </SettingsPage>

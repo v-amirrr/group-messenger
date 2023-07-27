@@ -52,6 +52,16 @@
     --enter-box-item: #ffffff06;
 }
 
+@media (max-width: 768px) {
+    :root {
+        --radius-first: 5px;
+        --radius-second: 10px;
+        --radius-third: 15px;
+        --radius-fourth: 20px;
+        --radius-fifth: 50px;
+    }
+}
+
 /* width */
 ::-webkit-scrollbar {
     width: .5rem;

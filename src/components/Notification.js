@@ -2,8 +2,9 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { useNotification } from '../hooks/useNotification';
+import { useAuth } from '../hooks/useAuth';
 import { IoClose } from 'react-icons/io5';
-import { FcAdvertising, FcHighPriority } from 'react-icons/fc';
+import { FcAdvertising, FcHighPriority, FcKey } from 'react-icons/fc';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { notificationVariants } from '../config/varitans';
@@ -11,9 +12,11 @@ import { notificationVariants } from '../config/varitans';
 const AuthError = () => {
 
     let location = useLocation();
-    const { notification } = useSelector(store => store.appStore);
+
+    const { notificationStatus } = useSelector(store => store.appStore);
 
     const { closeNotification } = useNotification();
+    const { logout } = useAuth();
 
     useEffect(() => {
         closeNotification();
@@ -22,15 +25,21 @@ const AuthError = () => {
     return (
         <>
             <AnimatePresence>
-                {notification?.show ?
-                <NotificationContainer initial='hidden' animate='visible' exit='exit' variants={notificationVariants} error={notification.error ? 1 : 0}>
+                {notificationStatus?.show ?
+                <NotificationContainer initial='hidden' animate='visible' exit='exit' variants={notificationVariants} error={notificationStatus.isError ? 1 : 0}>
                     <button className='close-button' onClick={closeNotification}><IoClose /></button>
                     {
-                        notification?.isError ?
+                        notificationStatus?.isError ?
                         <i className='error-icon'><FcHighPriority /></i> :
+                        notificationStatus.isGuest ?
+                        <i className='guest-icon'><FcKey /></i> :
                         <i className='notification-icon'><FcAdvertising /></i>
                     }
-                    <p>{notification?.message}</p>
+                    {
+                        notificationStatus.isGuest ?
+                        <p>In order to use this feature you need to <button className='link' onClick={logout}>Login</button>.</p> :
+                        <p>{notificationStatus?.message}</p>
+                    }
                 </NotificationContainer>
                 : ""}
             </AnimatePresence>
@@ -48,6 +57,7 @@ const NotificationContainer = styled(motion.div)`
     justify-content: center;
     align-items: center;
     text-align: center;
+    background-color: transparent;
     border: var(--border-first);
     border-radius: var(--radius-second);
     backdrop-filter: var(--glass-first);
@@ -62,14 +72,25 @@ const NotificationContainer = styled(motion.div)`
         font-size: .8rem;
         font-weight: var(--text-boldness-second);
         line-height: 1.5;
+
+        .link {
+            display: inline;
+            cursor: pointer;
+            font-size: .8rem;
+            font-weight: var(--text-boldness-second);
+        }
     }
 
-    .error-icon, .notification-icon {
+    .error-icon, .notification-icon, .guest-icon {
         display: flex;
         justify-content: center;
         align-items: center;
         font-size: 1.4rem;
         margin-right: .2rem;
+    }
+
+    .guest-icon {
+        font-size: 1.2rem;
     }
 
     .close-button {

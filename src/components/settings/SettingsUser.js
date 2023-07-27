@@ -1,6 +1,7 @@
 import React, { memo, useEffect, useState } from 'react';
-import { useChangeUsername } from '../../hooks/useChangeUsername';
 import { useSelector } from 'react-redux';
+import { useChangeUsername } from '../../hooks/useChangeUsername';
+import { useNotification } from '../../hooks/useNotification';
 import { FcBusinessman, FcCheckmark, FcAddressBook } from "react-icons/fc";
 import { RiArrowRightSLine } from "react-icons/ri";
 import styled from 'styled-components';
@@ -9,10 +10,12 @@ import { userVariants } from '../../config/varitans';
 
 const SettingsUser = ({ open, setOpen }) => {
 
-    const { user } = useSelector(store => store.userStore);
-    const { changeUsername } = useChangeUsername();
+    const { user, enterAsAGuest } = useSelector(store => store.userStore);
 
-    const [changeUsernameInput, setChangeUsernameInput] = useState(user.displayName);
+    const { changeUsername } = useChangeUsername();
+    const { openNotification } = useNotification();
+
+    const [changeUsernameInput, setChangeUsernameInput] = useState(user?.displayName);
 
     const submitHandler = () => {
         setOpen(false);
@@ -20,10 +23,14 @@ const SettingsUser = ({ open, setOpen }) => {
     };
 
     const itemSwitch = () => {
-        if (open == "SETTINGS_USER") {
-            setOpen(false);
+        if (enterAsAGuest) {
+            openNotification("In order to use this feature you need to login.", false, "GUEST");
         } else {
-            setOpen("SETTINGS_USER");
+            if (open == "SETTINGS_USER") {
+                setOpen(false);
+            } else {
+                setOpen("SETTINGS_USER");
+            }
         }
     };
 

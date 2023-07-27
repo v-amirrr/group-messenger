@@ -17,7 +17,7 @@ const GroupChat = () => {
     const { groupChatRedirection } = useRedirection();
 
     const { messages, loading } = useSelector(store => store.messagesStore);
-    const { enterAsAGuest, user } = useSelector(store => store.userStore);
+    const { user } = useSelector(store => store.userStore);
     const { selectedMessages } = useSelector(store => store.appStore);
 
     useEffect(() => {
@@ -69,7 +69,7 @@ const GroupChat = () => {
             </GroupChatContainer>
 
             <AnimatePresence exitBeforeEnter>
-                {!enterAsAGuest && !selectedMessages.length ? <MessengerInput key="messenger-input" /> : ""}
+                {!selectedMessages.length ? <MessengerInput key="messenger-input" /> : ""}
             </AnimatePresence>
         </>
     );

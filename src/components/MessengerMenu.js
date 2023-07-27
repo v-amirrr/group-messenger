@@ -1,6 +1,8 @@
-import React, { memo, useState } from 'react';
+import React, { memo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
+import { setMenuShow } from '../redux/appSlice';
 import { HiDotsVertical } from "react-icons/hi";
 import { FaArrowRight } from "react-icons/fa";
 import { FcSettings, FcRedo } from "react-icons/fc";
@@ -10,34 +12,28 @@ import { menuVariants, backIconVariants, menuIconVariants, menuListVariants } fr
 
 const MessengerMenu = () => {
 
+    const dispatch = useDispatch();
+    const { menuShow } = useSelector(store => store.appStore);
+
     const { logout } = useAuth();
-
-    const [openMenu, setOpenMenu] = useState(false);
-
-    const logoutClickHandler = () => {
-        setOpenMenu(false);
-        setTimeout(() => {
-            logout();
-        }, 200);
-    };
 
     return (
         <>
-            <MessengerMenuContainer openmenu={openMenu ? 1 : 0} initial='hidden' animate='visible' exit='exit' variants={menuVariants}>
+            <MessengerMenuContainer openmenu={menuShow ? 1 : 0} initial='hidden' animate='visible' exit='exit' variants={menuVariants}>
                 <AnimatePresence>
-                    {openMenu ?
-                    <motion.i key="back-icon" className='back-icon' onClick={() => setOpenMenu(!openMenu)} initial='hidden' animate='visible' exit='exit' variants={backIconVariants}>
+                    {menuShow ?
+                    <motion.i key="back-icon" className='back-icon' onClick={() => dispatch(setMenuShow(false))} initial='hidden' animate='visible' exit='exit' variants={backIconVariants}>
                         <FaArrowRight />
                     </motion.i> :
-                    <motion.i key="menu-icon" className='menu-icon' onClick={() => setOpenMenu(!openMenu)} initial='hidden' animate='visible' exit='exit' variants={menuIconVariants}>
+                    <motion.i key="menu-icon" className='menu-icon' onClick={() => dispatch(setMenuShow(true))} initial='hidden' animate='visible' exit='exit' variants={menuIconVariants}>
                         <HiDotsVertical />
                     </motion.i>}
                 </AnimatePresence>
 
                 <AnimatePresence>
-                    {openMenu ?
+                    {menuShow ?
                     <motion.div key="menu" className='list' initial='hidden' animate='visible' exit='exit' variants={menuListVariants}>
-                        <motion.button className='list-item' onClick={logoutClickHandler}>
+                        <motion.button className='list-item' onClick={logout}>
                             <i className='logout-icon'><FcRedo /></i>
                             <p>Logout</p>
                         </motion.button>

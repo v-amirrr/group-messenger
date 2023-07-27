@@ -1,6 +1,7 @@
 import React, { memo, useEffect, useState } from 'react';
-import { useMessageOptions } from '../../hooks/useMessageOptions';
 import { useSelector } from 'react-redux';
+import { useMessageOptions } from '../../hooks/useMessageOptions';
+import { useNotification } from '../../hooks/useNotification';
 import { FcEmptyTrash, FcFullTrash } from "react-icons/fc";
 import { TbTrashX } from 'react-icons/tb';
 import { FaTrashRestore } from "react-icons/fa";
@@ -13,22 +14,27 @@ import { trashVariants } from '../../config/varitans';
 const SettingsTrash = ({ open, setOpen }) => {
 
     const { deletedMessages } = useSelector(store => store.messagesStore);
-    const { user } = useSelector(store => store.userStore);
+    const { user, enterAsAGuest } = useSelector(store => store.userStore);
 
     const { undeleteMessage, openPopup } = useMessageOptions();
+    const { openNotification } = useNotification();
 
-    const [messages, setMessages] = useState(deletedMessages?.filter(item => item.uid == user.uid));
+    const [messages, setMessages] = useState(deletedMessages?.filter(item => item?.uid == user?.uid));
 
     const itemSwitch = () => {
-        if (open == "SETTINGS_TRASH") {
-            setOpen(false);
+        if (enterAsAGuest) {
+            openNotification("In order to use this feature you need to login.", false, "GUEST");
         } else {
-            setOpen("SETTINGS_TRASH");
+            if (open == "SETTINGS_TRASH") {
+                setOpen(false);
+            } else {
+                setOpen("SETTINGS_TRASH");
+            }
         }
     };
 
     useEffect(() => {
-        setMessages(deletedMessages?.filter(item => item.uid == user.uid));
+        setMessages(deletedMessages?.filter(item => item?.uid == user?.uid));
     }, [deletedMessages]);
 
     return (

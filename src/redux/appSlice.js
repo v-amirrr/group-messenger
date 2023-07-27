@@ -11,6 +11,7 @@ const initialState = {
         show: false,
         message: null,
         isError: false,
+        isGuest: false,
     },
     notificationSettings: {
         send: false,
@@ -22,6 +23,7 @@ const initialState = {
         background: false,
         username: true,
     },
+    menuShow: false,
 };
 
 const appSlice = createSlice({
@@ -58,13 +60,14 @@ const appSlice = createSlice({
         setSelectOthersMessage: (state, action) => {
             return { ...state, selectOthersMessage: action.payload };
         },
-        setNotification: (state, action) => {
+        setNotificationStatus: (state, action) => {
             return {
                 ...state,
-                notification: {
+                notificationStatus: {
                     show: action.payload.show,
                     message: action.payload.message,
                     isError: action.payload.isError,
+                    isGuest: action.payload.isGuest,
                 },
             };
         },
@@ -107,6 +110,12 @@ const appSlice = createSlice({
                 },
             };
         },
+        setMenuShow: (state, action) => {
+            return {
+                ...state,
+                menuShow: action.payload,
+            };
+        },
     },
 });
 
@@ -119,8 +128,9 @@ export const {
     setClearSelectedMessages,
     setUnselectMessages,
     setSelectOthersMessage,
-    setNotification,
+    setNotificationStatus,
     setNotificationSettings,
+    setMenuShow,
 } = appSlice.actions;
 
 export default appSlice.reducer;

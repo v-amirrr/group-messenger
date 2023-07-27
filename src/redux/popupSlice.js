@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     popupShow: false,
@@ -9,7 +9,7 @@ const initialState = {
 };
 
 const popupSlice = createSlice({
-    name: "popup",
+    name: 'popup',
     initialState,
     reducers: {
         setPopup: (state, action) => {

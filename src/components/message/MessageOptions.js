@@ -25,12 +25,10 @@ const MessageOptions = ({ clickEvent, message }) => {
     return (
         <>
             <MessageOptionsContainer key={id} ref={messageOptionsRef} initial='hidden' animate='visible' exit='exit' variants={onMobile ? enterAsAGuest ? menuMobileGuestVariants : isMessageFromLocalUser ? menuMobileUserVariants : menuMobileVariants : menuDesktopVariants} ismessagefromlocaluser={isMessageFromLocalUser ? 1 : 0} x={clickEvent?.pageX} y={clickEvent?.pageY} guest={enterAsAGuest ? 1 : 0}>
-                {!enterAsAGuest ?
                 <motion.div className='reply' onClick={() => replyMessage(id, messageText, messageUsername)} variants={onMobile ? menuMobileItemVariants : isMessageFromLocalUser ? menuItemUserDesktopVariants : menuItemDesktopVariants}>
                     <i><BsReplyFill /></i>
                     <p>Reply</p>
                 </motion.div>
-                : ""}
 
                 <motion.div className='select' onClick={() => selectMessage(message)} variants={onMobile ? menuMobileItemVariants : isMessageFromLocalUser ? menuItemUserDesktopVariants : menuItemDesktopVariants}>
                     <i><BiSelectMultiple /></i>
@@ -42,7 +40,7 @@ const MessageOptions = ({ clickEvent, message }) => {
                     <p>Copy</p>
                 </motion.div>
 
-                {isMessageFromLocalUser && !enterAsAGuest ?
+                {isMessageFromLocalUser ?
                 <>
                     <motion.div className='edit' onClick={() => openPopup("EDIT_POPUP", [message])} variants={onMobile ? menuMobileItemVariants : isMessageFromLocalUser ? menuItemUserDesktopVariants : menuItemDesktopVariants}>
                         <i><AiFillEdit /></i>
@@ -169,7 +167,7 @@ const MessageOptionsContainer = styled(motion.div)`
         /* right: ${props => props.ismessagefromlocaluser ? "none" : `${props.y}px`}; */
         z-index: 99;
         padding: .3rem;
-        background-color: var(--options-mobile-background);
+        background-color: var(--message);
         backdrop-filter: blur(5px) saturate(100%);
         -webkit-backdrop-filter: blur(10px) saturate(100%);
         border-radius: 20px;
@@ -179,7 +177,7 @@ const MessageOptionsContainer = styled(motion.div)`
         .reply, .copy, .edit, .delete, .select {
             margin: .1rem 0;
             border-radius: 15px;
-            background-color: var(--options-mobile-item);
+            background-color: var(--message);
             display: flex;
             justify-content: center;
             align-items: center;

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useRedirection } from '../../hooks/useRedirection';
 import SettingsBackgrounds from './SettingsBackgrounds';
@@ -16,9 +15,9 @@ import { settingsPageVariants, settingsContainerVariants } from '../../config/va
 const Settings = () => {
 
     const { groupChatRedirection } = useRedirection();
-    const { enterAsAGuest } = useSelector(store => store.userStore);
 
     const [open, setOpen] = useState(false);
+    const [height, setHeight] = useState(false);
 
     useEffect(() => {
         groupChatRedirection();
@@ -37,10 +36,10 @@ const Settings = () => {
                     </header>
 
                     <ul>
-                        <SettingsItem openValue="SETTINGS_BACKGROUND" open={open} component={<SettingsBackgrounds open={open} setOpen={setOpen} />} />
-                        <SettingsItem openValue="SETTINGS_NOTIFICATION" open={open} component={<SettingsNotification open={open} setOpen={setOpen} />} />
-                        <SettingsItem openValue="SETTINGS_USER" open={open} component={<SettingsUser open={open} setOpen={setOpen} />} />
-                        <SettingsItem openValue="SETTINGS_TRASH" open={open} component={<SettingsTrash open={open} setOpen={setOpen} />} />
+                        <SettingsItem openValue="SETTINGS_BACKGROUND" open={open} component={<SettingsBackgrounds open={open} setOpen={setOpen} setHeight={setHeight}/>} height={height}/>
+                        <SettingsItem openValue="SETTINGS_NOTIFICATION" open={open} component={<SettingsNotification open={open} setOpen={setOpen} setHeight={setHeight}/>} height={height}/>
+                        <SettingsItem openValue="SETTINGS_USER" open={open} component={<SettingsUser open={open} setOpen={setOpen} setHeight={setHeight}/>} height={height}/>
+                        <SettingsItem openValue="SETTINGS_TRASH" open={open} component={<SettingsTrash open={open} setOpen={setOpen} setHeight={setHeight}/>} height={height}/>
                     </ul>
                 </SettingsContainer>
             </SettingsPage>
@@ -70,7 +69,7 @@ const SettingsContainer = styled(motion.section)`
     justify-content: center;
     align-items: center;
     border: var(--border-first);
-    border-radius: var(--radius-third);
+    border-radius: var(--radius-fourth);
     background-color: var(--settings);
     overflow: hidden;
 

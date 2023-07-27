@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
 
 const Toggle = ({ toggleHandler, toggleValue }) => {
     return (
@@ -10,13 +9,13 @@ const Toggle = ({ toggleHandler, toggleValue }) => {
                 toggle={toggleValue ? 1 : 0}
                 className='toggle'
             >
-                <motion.span></motion.span>
+                <span></span>
             </ToggleContainer>
         </>
     );
 };
 
-const ToggleContainer = styled(motion.div)`
+const ToggleContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -39,7 +38,7 @@ const ToggleContainer = styled(motion.div)`
         display: flex;
         justify-content: center;
         align-items: center;
-        transition: left 0.2s, background 0.2s;
+        transition: left 0.1s, background 0.2s;
     }
 `;
 

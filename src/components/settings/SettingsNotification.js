@@ -12,7 +12,7 @@ import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { notificationSettingsVariants } from '../../config/varitans';
 
-const SettingsNotification = ({ open, setOpen }) => {
+const SettingsNotification = ({ open, setOpen, setHeight }) => {
 
     const { changeNotificationSettings, notificationSettings } = useNotification();
 
@@ -21,6 +21,7 @@ const SettingsNotification = ({ open, setOpen }) => {
             setOpen(false);
         } else {
             setOpen("SETTINGS_NOTIFICATION");
+            setHeight(18);
         }
     };
 

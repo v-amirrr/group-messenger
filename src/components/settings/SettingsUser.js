@@ -8,7 +8,7 @@ import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { userVariants } from '../../config/varitans';
 
-const SettingsUser = ({ open, setOpen }) => {
+const SettingsUser = ({ open, setOpen, setHeight }) => {
 
     const { user, enterAsAGuest } = useSelector(store => store.userStore);
 
@@ -30,6 +30,7 @@ const SettingsUser = ({ open, setOpen }) => {
                 setOpen(false);
             } else {
                 setOpen("SETTINGS_USER");
+                setHeight(10);
             }
         }
     };

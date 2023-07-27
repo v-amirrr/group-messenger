@@ -200,14 +200,14 @@ export const backIconVariants = {
 
 export const menuIconVariants = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, x: 0, scale: 1, transition: { duration: 0.4, delay: 0.5 } },
-    exit: { opacity: 0, x: 60, scale: 0, transition: { duration: 0.4 } }
+    visible: { opacity: 1, transition: { duration: 0.4, delay: 0.2 } },
+    exit: { opacity: 0, transition: { duration: 0.2 } }
 };
 
 export const menuListVariants = {
-    hidden: { opacity: 0, scale: 0.5, x: 50 },
-    visible: { opacity: 1, scale: 1, x: 0, transition: { duration: 0.4, type: 'tween' } },
-    exit: { opacity: 0, scale: 0.5, x: 50, transition: { duration: 0.4, type: 'tween' } }
+    hidden: { opacity: 0, x: 50, scale: 0.8 },
+    visible: { opacity: 1, x: 0, scale: 1, transition: { duration: 0.8, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } },
+    exit: { opacity: 0, x: 50, scale: 0, transition: { duration: 0.4 } }
 };
 
 
@@ -260,8 +260,8 @@ export const checkButtonVariants = {
 
 export const settingsPageVariants = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 0.4 } },
-    exit: { opacity: 0, transition: { duration: 0.4, when: "afterChildren" } }
+    visible: { opacity: 1, transition: { duration: 0.2 } },
+    exit: { opacity: 0, transition: { duration: 0.2, when: "afterChildren" } }
 };
 
 export const settingsContainerVariants = {
@@ -271,31 +271,25 @@ export const settingsContainerVariants = {
 };
 
 export const backgroundsVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 0.4, staggerChildren: 0.5 } },
-    exit: { opacity: 0, scaleY: 0, transition: { duration: 0.6, when: "beforeChildren" } }
+    hidden: { opacity: 0, y: 50, scaleY: 0.8 },
+    visible: { opacity: 1, y: 0, scaleY: 1, transition: { duration: 0.8, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } },
+    exit: { opacity: 0, y: 100, transition: { duration: 0.4 } }
 };
 
-export const backgroundVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
-    exit: { opacity: 0, y: -50, transition: { duration: 0.4 } }
+export const notificationSettingsVariants = {
+    hidden: { opacity: 0, y: 50, scaleY: 0.8 },
+    visible: { opacity: 1, y: 0, scaleY: 1, transition: { duration: 0.8, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } },
+    exit: { opacity: 0, y: 200, transition: { duration: 0.4 } }
+};
+
+export const userVariants = {
+    hidden: { opacity: 0, y: 50, scaleY: 0.8 },
+    visible: { opacity: 1, y: 0, scaleY: 1, transition: { duration: 0.8, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } },
+    exit: { opacity: 0, y: 200, transition: { duration: 0.4 } }
 };
 
 export const trashVariants = {
     hidden: { opacity: 0, y: 50 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
     exit: { opacity: 0, scaleY: 0, transition: { duration: 0.6 } }
-};
-
-export const userVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
-    exit: { opacity: 0, scaleY: 0, transition: { duration: 0.6 } }
-};
-
-export const notificationSettingsVariants = {
-    hidden: { opacity: 0, y: 50, scaleY: 0.8 },
-    visible: { opacity: 1, y: 0, scaleY: 1, transition: { duration: 0.8, ease: [0.53,0,0,0.98], time: [0.53,0,0,0.98] } },
-    exit: { opacity: 0, y: 100, scaleY: 0.8, transition: { duration: 0.4 } }
 };

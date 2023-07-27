@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const SettingsItem = ({ open, openValue, component }) => {
+const SettingsItem = ({ open, openValue, component, height }) => {
     return (
         <>
-            <SettingsItemContainer open={open == openValue ? 1 : 0}>
+            <SettingsItemContainer open={open == openValue ? 1 : 0} height={height}>
                 {component}
             </SettingsItemContainer>
         </>
@@ -13,7 +13,7 @@ const SettingsItem = ({ open, openValue, component }) => {
 
 const SettingsItemContainer = styled.div`
     width: 65%;
-    height: ${props => props.open ? "18rem" : "2.2rem"};
+    height: ${props => props.open ? `${props.height}rem` : "2.2rem"};
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -23,12 +23,12 @@ const SettingsItemContainer = styled.div`
     position: relative;
     margin: .2rem;
     background-color: var(--settings-item);
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-    transition: ${props => props.open ? "height .6s cubic-bezier(.53,0,0,.98)" : "height .6s cubic-bezier(.53,0,0,.98)"}, background .2s;
+    box-shadow: var(--shadow-first);
+    transition: ${props => props.open ? "height .6s" : "height .4s"}, background .2s;
 
     .item-header {
         position: absolute;
-        top: ${props => props.open ? "3%" : "23%"};
+        top: ${props => props.open ? ".5rem" : "23%"};
         width: 100%;
         display: flex;
         justify-content: flex-start;
@@ -37,7 +37,7 @@ const SettingsItemContainer = styled.div`
         padding: 0 .5rem .4rem .5rem;
         z-index: 2;
         cursor: pointer;
-        transition: ${props => props.open ? "top .4s" : "top .4s .2s"}, border-bottom .4s;
+        transition: ${props => props.open ? "top .1s" : "top .4s .6s"}, border-bottom .4s;
 
         .item-icon {
             display: flex;

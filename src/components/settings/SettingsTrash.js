@@ -11,7 +11,7 @@ import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { trashVariants } from '../../config/varitans';
 
-const SettingsTrash = ({ open, setOpen }) => {
+const SettingsTrash = ({ open, setOpen, setHeight }) => {
 
     const { deletedMessages } = useSelector(store => store.messagesStore);
     const { user, enterAsAGuest } = useSelector(store => store.userStore);
@@ -29,6 +29,7 @@ const SettingsTrash = ({ open, setOpen }) => {
                 setOpen(false);
             } else {
                 setOpen("SETTINGS_TRASH");
+                setHeight(15);
             }
         }
     };

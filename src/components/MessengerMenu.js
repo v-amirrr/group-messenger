@@ -69,7 +69,7 @@ const MessengerMenuContainer = styled(motion.div)`
     user-select: none;
     overflow: hidden;
     z-index: 3;
-    transition: width .6s cubic-bezier(.53,0,0,.98), height .6s cubic-bezier(.53,0,0,.98), border-radius 1s;
+    transition: width .5s cubic-bezier(.53,0,0,.98), height .5s cubic-bezier(.53,0,0,.98), border-radius 1s;
 
     .back-icon, .menu-icon {
         position: absolute;

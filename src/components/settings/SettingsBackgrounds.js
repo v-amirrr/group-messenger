@@ -9,9 +9,9 @@ import { FcGallery } from "react-icons/fc";
 import { RiArrowRightSLine } from "react-icons/ri";
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
-import { backgroundsVariants, backgroundVariants } from '../../config/varitans';
+import { backgroundsVariants } from '../../config/varitans';
 
-const SettingsBackgrounds = ({ open, setOpen }) => {
+const SettingsBackgrounds = ({ open, setOpen, setHeight }) => {
 
     const { theme } = useSelector(store => store.appStore);
 
@@ -22,6 +22,7 @@ const SettingsBackgrounds = ({ open, setOpen }) => {
             setOpen(false);
         } else {
             setOpen("SETTINGS_BACKGROUND");
+            setHeight(18);
         }
     };
 
@@ -35,21 +36,21 @@ const SettingsBackgrounds = ({ open, setOpen }) => {
 
             <AnimatePresence exitBeforeEnter>
                 {
-                    open== "SETTINGS_BACKGROUND" ?
+                    open == "SETTINGS_BACKGROUND" ?
                     <div key="item-data" className='item-data'>
                         <BackgroundsContainer theme={theme} initial='hidden' animate='visible' exit='exit' variants={backgroundsVariants}>
-                            <motion.div className='background' onClick={() => changeTheme(1)} variants={backgroundVariants}>
+                            <div className='background' onClick={() => changeTheme(1)}>
                                 <img src={themeOneImageSRC} />
-                            </motion.div>
-                            <motion.div className='background' onClick={() => changeTheme(2)} variants={backgroundVariants}>
+                            </div>
+                            <div className='background' onClick={() => changeTheme(2)}>
                                 <img src={themeTowImageSRC} />
-                            </motion.div>
-                            <motion.div className='background' onClick={() => changeTheme(3)} variants={backgroundVariants}>
+                            </div>
+                            <div className='background' onClick={() => changeTheme(3)}>
                                 <img src={themeThreeImageSRC} />
-                            </motion.div>
-                            <motion.div className='background' onClick={() => changeTheme(4)} variants={backgroundVariants}>
+                            </div>
+                            <div className='background' onClick={() => changeTheme(4)}>
                                 <img src={themeFourImageSRC} />
-                            </motion.div>
+                            </div>
                         </BackgroundsContainer>
                     </div>
                     : ""

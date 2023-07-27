@@ -1,7 +1,6 @@
 import React from 'react';
 import guestIcon from '../assets/images/guest-mode2.png';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
 
 const GeustSign = () => {
     return (
@@ -14,7 +13,7 @@ const GeustSign = () => {
     );
 };
 
-const GuestSignContainer = styled(motion.div)`
+const GuestSignContainer = styled.div`
     position: absolute;
     top: 1.1rem;
     left: 2rem;

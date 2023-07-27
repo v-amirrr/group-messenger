@@ -59,7 +59,7 @@ const NotificationContainer = styled(motion.div)`
     text-align: center;
     background-color: transparent;
     border: var(--border-first);
-    border-radius: var(--radius-second);
+    border-radius: var(--radius-third);
     backdrop-filter: var(--glass-first);
     -webkit-backdrop-filter: var(--glass-first);
     padding: 0 3rem 0 .5rem;

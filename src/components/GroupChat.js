@@ -6,6 +6,7 @@ import Message from './message/Message';
 import MessengerInput from './MessengerInput';
 import MessengerMenu from './MessengerMenu';
 import SelectBar from './SelectBar';
+import GeustSign from './GeustSign';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { groupChatVariants } from '../config/varitans';
@@ -17,7 +18,7 @@ const GroupChat = () => {
     const { groupChatRedirection } = useRedirection();
 
     const { messages, loading } = useSelector(store => store.messagesStore);
-    const { user } = useSelector(store => store.userStore);
+    const { user, enterAsAGuest } = useSelector(store => store.userStore);
     const { selectedMessages } = useSelector(store => store.appStore);
 
     useEffect(() => {
@@ -42,6 +43,10 @@ const GroupChat = () => {
 
             <AnimatePresence exitBeforeEnter>
                 {selectedMessages.length ? <SelectBar key="select-bar" /> : ""}
+            </AnimatePresence>
+
+            <AnimatePresence exitBeforeEnter>
+                {enterAsAGuest ? <GeustSign /> : ""}
             </AnimatePresence>
 
             <GroupChatContainer ref={messagesContainerRef} initial='hidden' animate='visible' exit='exit' variants={groupChatVariants}>

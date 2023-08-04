@@ -90,7 +90,7 @@ const BackgroundsContainer = styled(motion.div)`
     }
 
     .background {
-        border-radius: 20px;
+        border-radius: 25px;
         width: 80%;
         height: 8rem;
         margin: .2rem 0;
@@ -101,7 +101,7 @@ const BackgroundsContainer = styled(motion.div)`
         img {
             width: 100%;
             height: 100%;
-            border-radius: 20px;
+            border-radius: 25px;
         }
 
         &:nth-child(1) {

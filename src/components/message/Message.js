@@ -228,7 +228,7 @@ const MessageBox = styled.div`
     @media (max-width: 768px) {
         .message-box {
             padding: ${props => props.isreply ? "2.4rem 2.5rem .5rem .8rem" : ".5rem 2.5rem .5rem .8rem"};
-            max-width: 80%;
+            max-width: 95%;
             min-width: ${props => props.isreply ? "30%" : ""};
             border-radius: ${props =>
                 props.isMessageFromLocalUser ?

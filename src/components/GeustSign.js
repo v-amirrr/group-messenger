@@ -18,7 +18,7 @@ const GuestSignContainer = styled.div`
     top: 1.1rem;
     left: 2rem;
     border: var(--border-first);
-    border-radius: var(--radius-third);
+    border-radius: 50px;
     backdrop-filter: var(--glass-first);
     -webkit-backdrop-filter: var(--glass-first);
     width: 7.5rem;
@@ -43,6 +43,22 @@ const GuestSignContainer = styled.div`
         height: 1.5rem;
         position: absolute;
         left: 0.5rem;
+    }
+
+    @media (max-width: 500px) {
+        left: 0;
+        width: 8rem;
+        height: 3rem;
+
+        p {
+            font-size: .9rem;
+            left: 2.5rem;
+        }
+
+        img {
+            width: 1.8rem;
+            height: 1.8rem;
+        }
     }
 `;
 

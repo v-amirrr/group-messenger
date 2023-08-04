@@ -51,7 +51,7 @@ const TimeContainer = styled(motion.div)`
     transform: margin .4s;
 
     @media (max-width: 768px) {
-        font-size: .45rem;
+        font-size: .4rem;
     }
 `;
 

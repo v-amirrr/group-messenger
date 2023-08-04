@@ -8,7 +8,7 @@ import { FaArrowRight } from "react-icons/fa";
 import { FcSettings, FcRedo } from "react-icons/fc";
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
-import { menuVariants, backIconVariants, menuIconVariants, menuListVariants } from '../config/varitans';
+import { menuVariants, menuItemVariants, menuIconVariants } from '../config/varitans';
 
 const MessengerMenu = () => {
 
@@ -22,7 +22,7 @@ const MessengerMenu = () => {
             <MessengerMenuContainer openmenu={menuShow ? 1 : 0} initial='hidden' animate='visible' exit='exit' variants={menuVariants}>
                 <AnimatePresence>
                     {menuShow ?
-                    <motion.i key="back-icon" className='back-icon' onClick={() => dispatch(setMenuShow(false))} initial='hidden' animate='visible' exit='exit' variants={backIconVariants}>
+                    <motion.i key="back-icon" className='back-icon' onClick={() => dispatch(setMenuShow(false))} initial='hidden' animate='visible' exit='exit' variants={menuItemVariants}>
                         <FaArrowRight />
                     </motion.i> :
                     <motion.i key="menu-icon" className='menu-icon' onClick={() => dispatch(setMenuShow(true))} initial='hidden' animate='visible' exit='exit' variants={menuIconVariants}>
@@ -32,7 +32,7 @@ const MessengerMenu = () => {
 
                 <AnimatePresence>
                     {menuShow ?
-                    <motion.div key="menu" className='list' initial='hidden' animate='visible' exit='exit' variants={menuListVariants}>
+                    <motion.div key="menu" className='list' initial='hidden' animate='visible' exit='exit' variants={menuItemVariants}>
                         <motion.button className='list-item' onClick={logout}>
                             <i className='logout-icon'><FcRedo /></i>
                             <p>Logout</p>
@@ -60,8 +60,8 @@ const MessengerMenuContainer = styled(motion.div)`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--button);
-    border-radius: ${props => props.openmenu ? "var(--radius-third)" : "var(--radius-fourth)"};
+    border: var(--border-first);
+    border-radius: ${props => props.openmenu ? "25px" : "50px"};
     box-shadow: var(--shadow-second);
     backdrop-filter: var(--glass-first);
     -webkit-backdrop-filter: var(--glass-first);
@@ -69,18 +69,15 @@ const MessengerMenuContainer = styled(motion.div)`
     user-select: none;
     overflow: hidden;
     z-index: 3;
-    transition: width .5s cubic-bezier(.53,0,0,.98), height .5s cubic-bezier(.53,0,0,.98), border-radius 1s;
+    transition: width .5s cubic-bezier(.53,0,0,.98), height .5s cubic-bezier(.53,0,0,.98), ${props => props.openmenu ? "border-radius .2s" : "border-radius .2s .6s"};
 
     .back-icon, .menu-icon {
         position: absolute;
         cursor: pointer;
-        font-size: 1.5rem;
         display: flex;
         justify-content: center;
         align-items: center;
         border-radius: 50%;
-        background-color: var(--button);
-        box-shadow: var(--shadow-second);
         color: var(--text-color-third);
         transition: background .2s;
 
@@ -109,6 +106,8 @@ const MessengerMenuContainer = styled(motion.div)`
         display: flex;
         justify-content: center;
         align-items: center;
+        font-size: 1.5rem;
+        background-color: var(--button);
     }
 
     .list {
@@ -117,8 +116,7 @@ const MessengerMenuContainer = styled(motion.div)`
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        margin-top: 2.2rem;
-        font-size: .8rem;
+        margin-top: 2rem;
 
         a {
             width: 100%;
@@ -137,12 +135,22 @@ const MessengerMenuContainer = styled(motion.div)`
             align-items: center;
             margin: .3rem 0;
             background-color: var(--button);
-            border-radius: var(--radius-second);
+            border-radius: 50px;
             box-shadow: var(--shadow-second);
             color: var(--text-color-third);
             font-weight: var(--text-boldness-second);
             white-space: nowrap;
             cursor: pointer;
+            border-radius: ${props =>
+                props.position == 0 ?
+                    "20px" :
+                    props.position == 1 ?
+                    "20px 20px 20px 5px" :
+                    props.position == 2 ?
+                    "5px 20px 20px 5px" :
+                    props.position == 3 &&
+                    "5px 20px 20px 20px"
+            };
             transition: background .2s;
 
             p {
@@ -171,6 +179,36 @@ const MessengerMenuContainer = styled(motion.div)`
 
     @media (max-width: 500px) {
         right: .3rem;
+        width: ${props => props.openmenu ? "9rem" : "3rem"};
+        height: ${props => props.openmenu ? "8.8rem" : "3rem"};
+
+        .back-icon {
+            font-size: 1.5rem;
+        }
+
+        .menu-icon {
+            font-size: 1.8rem;
+        }
+
+        .list {
+            margin-top: 2.2rem;
+
+            a {
+                height: 2.5rem;
+            }
+
+            .list-item {
+                height: 2.5rem;
+
+                p {
+                    font-size: 1rem;
+                }
+
+                i {
+                    font-size: 1.8rem;
+                }
+            }
+        }
     }
 `;
 

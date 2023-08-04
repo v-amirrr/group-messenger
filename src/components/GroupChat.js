@@ -96,23 +96,6 @@ const GroupChatContainer = styled(motion.div)`
         width: 100vw;
         padding: 5rem 1rem 10rem 1rem;
     }
-
-    /* width */
-    ::-webkit-scrollbar {
-        width: .5rem;
-    }
-
-    /* Track */
-    ::-webkit-scrollbar-track {
-        border-radius: 50px;
-        background: #ffffff04;
-    }
-
-    /* Handle */
-    ::-webkit-scrollbar-thumb {
-        background: #ffffff08;
-        border-radius: 50px;
-    }
 `;
 
 export default GroupChat;

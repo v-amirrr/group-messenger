@@ -37,14 +37,7 @@ const ChatDateContainer = styled(motion.div)`
     }
 
     @media (max-width: 500px) {
-        font-weight: 700;
-        font-size: .4rem;
-        padding: .2rem .3rem;
-
-        .month {
-            letter-spacing: 0;
-            margin: 0 .15rem 0 .2rem;
-        }
+        margin: .5rem auto;
     }
 `;
 

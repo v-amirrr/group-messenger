@@ -20,7 +20,7 @@ const EnterModes = () => {
             <Container initial='hidden' animate='visible' exit='exit' variants={enterPageVariants}>
                 <Link to="/signup">
                     <motion.a className='box' initial='hidden' animate='visible' exit='exit' variants={boxVariants}>
-                        <h4>Create an account</h4>
+                        <h2>Sign Up</h2>
                         <div className='list'>
                             <span>Login, logout in other devices.</span>
                             <span>Send, delete, edit, reply.</span>
@@ -31,7 +31,7 @@ const EnterModes = () => {
 
                 <Link to="/login">
                     <motion.a className='box' initial='hidden' animate='visible' exit='exit' variants={boxVariants}>
-                        <h4>Login with account or Google</h4>
+                        <h2>Login</h2>
                         <div className='list'>
                             <span>Send message.</span>
                             <span>Delete your messages.</span>
@@ -41,7 +41,7 @@ const EnterModes = () => {
                 </Link>
 
                 <motion.a className='box' initial='hidden' animate='visible' exit='exit' variants={boxVariants} onClick={enterAsAGuest}>
-                    <h4>Login as a guest</h4>
+                    <h2>Guest Mode</h2>
                     <div className='list'>
                         <span>You can't send any message.</span>
                         <span>You can't reply to any message.</span>
@@ -55,7 +55,7 @@ const EnterModes = () => {
 
 const Container = styled(motion.section)`
     width: 100vw;
-    height: 100vh;
+    height: 100dvh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -71,7 +71,7 @@ const Container = styled(motion.section)`
         flex-direction: column;
         background-color: var(--enter-box);
         border: var(--border-first);
-        box-shadow: var(--shadow-first);
+        box-shadow: 25px;
         width: 15rem;
         height: 14rem;
         border-radius: 25px;
@@ -79,7 +79,7 @@ const Container = styled(motion.section)`
         margin: 1rem;
         transition: background .2s;
 
-        h4 {
+        h2 {
             margin-bottom: 1rem;
             white-space: nowrap;
         }
@@ -109,32 +109,29 @@ const Container = styled(motion.section)`
         }
     }
 
-    @media (max-width: 1100px) {
+    @media (max-width: 500px) {
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
 
         .box {
-            width: 14rem;
-            height: 12rem;
-            margin: .2rem;
+            width: 16rem;
+            height: 13rem;
+            margin: .5rem;
 
-        h3 {
-            font-size: 1rem;
-        }
+            h3 {
+                font-size: 1rem;
+            }
 
-        .list {
-            span {
-                font-size: .5rem;
-                margin: .2rem;
-                padding: .4rem .3rem;
+            .list {
+                span {
+                    font-size: .5rem;
+                    margin: .2rem;
+                    padding: .4rem .3rem;
+                }
             }
         }
-
-        &:hover {
-        }
-    }
     }
 `;
 

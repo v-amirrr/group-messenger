@@ -8,7 +8,7 @@ import Notification from '../Notification';
 import { FaRegEye } from 'react-icons/fa';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { signupVariants, signupItemVariants } from '../../config/varitans';
+import { authVariants, authItemVariants } from '../../config/varitans';
 
 const Signup = () => {
 
@@ -37,18 +37,18 @@ const Signup = () => {
 
     return (
         <>
-            <SignupPage initial='hidden' animate='visible' exit='exit' variants={signupVariants} signuploading={signupDataFromUserStore.loading ? 1 : 0} showpassword={showPassword ? 1 : 0}>
+            <SignupPage initial='hidden' animate='visible' exit='exit' variants={authVariants} signuploading={signupDataFromUserStore.loading ? 1 : 0} showpassword={showPassword ? 1 : 0}>
                 <Notification />
                 <div className='signup-container'>
-                    <motion.h2 initial='hidden' animate='visible' exit='exit' variants={signupItemVariants}>Create an account</motion.h2>
+                    <motion.h2 variants={authItemVariants}>Create an account</motion.h2>
                     <ul className='signup-fields'>
-                        <motion.div className='signup-field' initial='hidden' animate='visible' exit='exit' variants={signupItemVariants}>
+                        <motion.div className='signup-field' variants={authItemVariants}>
                             <input type='text' placeholder='Username' value={username} onChange={(e) => setUsername(e.target.value)} autoFocus />
                         </motion.div>
-                        <motion.div className='signup-field' initial='hidden' animate='visible' exit='exit' variants={signupItemVariants}>
+                        <motion.div className='signup-field' variants={authItemVariants}>
                             <input type='email' placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} />
                         </motion.div>
-                        <motion.div className='signup-field' initial='hidden' animate='visible' exit='exit' variants={signupItemVariants}>
+                        <motion.div className='signup-field' variants={authItemVariants}>
                             <input type={showPassword ? 'text' : 'password'} placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} onPaste={(e) => e.preventDefault()} />
                             <button className='signup-password-button' onClick={() => setShowPassword(!showPassword)}>
                                 <i><FaRegEye /></i>
@@ -57,10 +57,10 @@ const Signup = () => {
                         </motion.div>
                     </ul>
                     <div className='signup-buttons'>
-                        <motion.button className='back-button' onClick={backHandler} initial='hidden' animate='visible' exit='exit' variants={signupItemVariants}>
+                        <motion.button className='back-button' onClick={backHandler} variants={authItemVariants}>
                             <p>Back</p>
                         </motion.button>
-                        <motion.button className='submit-button' onClick={submitHandler} initial='hidden' animate='visible' exit='exit' variants={signupItemVariants}>
+                        <motion.button className='submit-button' onClick={submitHandler} variants={authItemVariants}>
                             <p>OK</p>
                         </motion.button>
                         <div className='signup-loader'><MessageLoader size={"1.5rem"}/></div>
@@ -95,7 +95,7 @@ const SignupPage = styled(motion.div)`
 
             .signup-field {
                 background-color: var(--button);
-                border-radius: 15px;
+                border-radius: 50px;
                 padding: .6rem .8rem;
                 width: 12rem;
                 margin: .2rem;
@@ -194,7 +194,7 @@ const SignupPage = styled(motion.div)`
             }
 
             .back-button {
-                border-radius: ${props => props.loginloading ? "15px 0 0 15px" : "15px"};
+                border-radius: ${props => props.loginloading ? "50px 0 0 50px" : "50px"};
 
                 p {
                     right: ${props => props.loginloading ? "3rem" : "0"};
@@ -202,7 +202,7 @@ const SignupPage = styled(motion.div)`
             }
 
             .submit-button {
-                border-radius: ${props => props.loginloading ? "0 15px 15px 0" : "15px"};
+                border-radius: ${props => props.loginloading ? "0 50px 50px 0" : "50px"};
 
                 p {
                     left: ${props => props.loginloading ? "3rem" : "0"};

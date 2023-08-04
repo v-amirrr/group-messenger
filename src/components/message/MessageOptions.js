@@ -66,10 +66,6 @@ const MessageOptionsContainer = styled(motion.div)`
     flex-direction: ${props => props.ismessagefromlocaluser ? "row-reverse" : "row"};
     width: ${props => props.ismessagefromlocaluser ? "10rem" : ""};
 
-    ::-webkit-scrollbar {
-        height: 0;
-    }
-
     .reply, .copy, .edit, .delete, .select {
         position: relative;
         background-color: var(--message);
@@ -77,12 +73,12 @@ const MessageOptionsContainer = styled(motion.div)`
         display: flex;
         justify-content: center;
         align-items: center;
-        border-radius: 25px;
+        border-radius: 50px;
         width: 100%;
         height: 50%;
         cursor: pointer;
         padding: .5rem;
-        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+        box-shadow: var(--shadow-first);
         transition: padding .2s;
 
         i {
@@ -115,8 +111,8 @@ const MessageOptionsContainer = styled(motion.div)`
     .reply {
         @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
             &:hover {
-                padding: .5rem 2.7rem .5rem .5rem;
-                transition: padding .4s;
+                padding: .5rem 2.6rem .5rem .5rem;
+                transition: padding .3s;
             }
         }
     }
@@ -124,8 +120,8 @@ const MessageOptionsContainer = styled(motion.div)`
     .copy {
         @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
             &:hover {
-                padding: .5rem 2.7rem .5rem .5rem;
-                transition: padding .4s;
+                padding: .5rem 2.4rem .5rem .5rem;
+                transition: padding .3s;
             }
         }
     }
@@ -133,8 +129,8 @@ const MessageOptionsContainer = styled(motion.div)`
     .edit {
         @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
             &:hover {
-                padding: .5rem 2.3rem .5rem .5rem;
-                transition: padding .4s;
+                padding: .5rem 2.1rem .5rem .5rem;
+                transition: padding .3s;
             }
         }
     }
@@ -142,8 +138,8 @@ const MessageOptionsContainer = styled(motion.div)`
     .delete {
         @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
             &:hover {
-                padding: .5rem 3.2rem .5rem .5rem;
-                transition: padding .4s;
+                padding: .5rem 2.9rem .5rem .5rem;
+                transition: padding .3s;
             }
         }
     }
@@ -151,8 +147,8 @@ const MessageOptionsContainer = styled(motion.div)`
     .select {
         @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
             &:hover {
-                padding: .5rem 3rem .5rem .5rem;
-                transition: padding .4s;
+                padding: .5rem 2.8rem .5rem .5rem;
+                transition: padding .3s;
             }
         }
     }

@@ -59,7 +59,7 @@ const NotificationContainer = styled(motion.div)`
     text-align: center;
     background-color: transparent;
     border: var(--border-first);
-    border-radius: var(--radius-third);
+    border-radius: 50px;
     backdrop-filter: var(--glass-first);
     -webkit-backdrop-filter: var(--glass-first);
     padding: 0 3rem 0 .5rem;
@@ -117,7 +117,7 @@ const NotificationContainer = styled(motion.div)`
     }
 
     @media (max-width: 768px) {
-        max-width: 90%;
+        max-width: 100%;
     }
 `;
 

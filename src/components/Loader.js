@@ -78,6 +78,7 @@ const LoaderContainer = styled(motion.div)`
             transform: translateX(96px);
         }
     }
+
     @-o-keyframes dot {
         50% {
             transform: translateX(96px);

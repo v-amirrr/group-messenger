@@ -101,7 +101,7 @@ const UserContainer = styled(motion.div)`
             input {
                 padding: .5rem;
                 border: none;
-                border-radius: 10px;
+                border-radius: 50px;
                 background-color: #ffffff08;
             }
 

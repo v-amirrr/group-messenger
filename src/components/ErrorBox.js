@@ -29,7 +29,7 @@ const ErrorBoxContainer = styled(motion.div)`
     align-items: center;
     flex-direction: column;
     background-color: var(--popup);
-    border-radius: var(--radius-third);
+    border-radius: 25px;
 
     h1 {
         margin: 1rem;
@@ -43,7 +43,7 @@ const ErrorBoxContainer = styled(motion.div)`
 
     button {
         border: none;
-        border-radius: var(--radius-second);
+        border-radius: 50px;
         background-color: var(--button);
         margin: 1rem;
         padding: .5rem 1rem;

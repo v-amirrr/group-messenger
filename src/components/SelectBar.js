@@ -61,7 +61,7 @@ const SelectBarContainer = styled(motion.div)`
     position: absolute;
     bottom: .8rem;
     border: var(--border-first);
-    border-radius: var(--radius-fifth);
+    border-radius: 50px;
     backdrop-filter: var(--glass-first);
     -webkit-backdrop-filter: var(--glass-first);
     width: 20rem;
@@ -130,7 +130,7 @@ const SelectBarContainer = styled(motion.div)`
             display: flex;
             justify-content: center;
             align-items: center;
-            border-radius: var(--radius-second);
+            border-radius: 50px;
             margin: 0 .2rem;
             width: 5rem;
             height: 2rem;
@@ -181,6 +181,11 @@ const SelectBarContainer = styled(motion.div)`
                 box-shadow: var(--shadow-first);
             }
         }
+    }
+
+    @media (max-width: 500px) {
+        width: 18rem;
+        height: 3rem;
     }
 `;
 

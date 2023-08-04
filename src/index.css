@@ -52,30 +52,20 @@
     --enter-box-item: #ffffff06;
 }
 
-@media (max-width: 768px) {
-    :root {
-        --radius-first: 5px;
-        --radius-second: 10px;
-        --radius-third: 15px;
-        --radius-fourth: 20px;
-        --radius-fifth: 50px;
-    }
-}
-
 /* width */
 ::-webkit-scrollbar {
-    width: .5rem;
+    width: .4rem;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-    border-radius: 50px;
-    background: #ffffff11;
+    background: #ffffff00;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #ffffff22;
+    background: #ffffff08;
+    box-shadow: var(--shadow-first);
     border-radius: 50px;
 }
 
@@ -93,11 +83,12 @@ html {
     font-size: calc(90% + .8vmin);
     scroll-behavior: smooth;
     overflow: hidden;
+    background-color: #ffffff00;
 }
 
 body {
     font-family: 'Outfit', sans-serif;
-    color: #fff;
+    background-color: #ffffff00;
 }
 
 button {

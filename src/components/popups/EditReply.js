@@ -103,9 +103,9 @@ const EditReply = ({ replyTo, popupMessageId, editReplyOpen, setEditReplyOpen })
                         <header>
                             <h3>Choose the message you want to reply to</h3>
                             <hr />
-                            <motion.button key="close-icon" className='close-button' onClick={() => setEditReplyOpen(!editReplyOpen)} whileTap={{ scale: 0.8 }}>
+                            <button key="close-icon" className='close-button' onClick={() => setEditReplyOpen(!editReplyOpen)}>
                                 <IoClose />
-                            </motion.button>
+                            </button>
                         </header>
                         {messagesBefore?.map(message => (
                             <>
@@ -166,11 +166,11 @@ const ReplyConatiner = styled(motion.div)`
     justify-content: center;
     align-items: center;
     margin: ${props => props.editReplyOpen ? "" : "2rem 1.6rem"};
-    border-radius: ${props => props.editReplyOpen ? "var(--radius-third)" : "var(--radius-fifth)"};
+    border-radius: ${props => props.editReplyOpen ? "25px" : "50%"};
     background-color: var(--edit-reply);
     z-index: 10;
     overflow: hidden;
-    transition: margin .5s, width .8s cubic-bezier(.53,0,0,.98), height .8s cubic-bezier(.53,0,0,.98), right .5s;
+    transition: margin .5s, width .6s cubic-bezier(.53,0,0,.98), height .6s cubic-bezier(.53,0,0,.98), right .5s, border-radius .5s;
 
     header {
         position: relative;
@@ -236,23 +236,6 @@ const ReplyConatiner = styled(motion.div)`
         padding: 1rem;
         overflow: hidden scroll;
         scroll-behavior: smooth;
-
-        /* width */
-        ::-webkit-scrollbar {
-            width: .5rem;
-        }
-
-        /* Track */
-        ::-webkit-scrollbar-track {
-            border-radius: 50px;
-            background: #ffffff04;
-        }
-
-        /* Handle */
-        ::-webkit-scrollbar-thumb {
-            background: #ffffff11;
-            border-radius: 50px;
-        }
     }
 
     .date {
@@ -279,6 +262,7 @@ const ReplyConatiner = styled(motion.div)`
 
     @media (max-width: 768px) {
         margin: ${props => props.editReplyOpen ? "" : "1.5rem .5rem"};
+        bottom: -.4rem;
 
         header {
             h3 {

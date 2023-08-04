@@ -69,7 +69,7 @@ const SettingsContainer = styled(motion.section)`
     justify-content: center;
     align-items: center;
     border: var(--border-first);
-    border-radius: var(--radius-fourth);
+    border-radius: 25px;
     background-color: var(--settings);
     overflow: hidden;
 

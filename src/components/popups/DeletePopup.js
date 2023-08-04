@@ -59,8 +59,8 @@ const DeletePopup = ({ popupMessages }) => {
                 </div>
 
                 <div className='buttons'>
-                    <motion.button className='cancel' whileTap={{ scale: 0.9 }} onClick={closePopup}>Cancel</motion.button>
-                    <motion.button className='delete' whileTap={{ scale: 0.9 }} onClick={deleteHandler} autoFocus>Delete</motion.button>
+                    <button className='cancel' onClick={closePopup}>Cancel</button>
+                    <button className='delete' onClick={deleteHandler} autoFocus>Delete</button>
                 </div>
             </DeletePopupContainer>
         </>

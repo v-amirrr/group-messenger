@@ -43,12 +43,8 @@ const EditPopup = ({ popupMessages }) => {
                 <textarea value={editInput} onChange={e => setEditInput(e.target.value)} autoFocus={document.documentElement.offsetWidth > 500} dir={isRTL(editInput) ? "rtl" : "ltr"} />
 
                 <div className='buttons'>
-                    <motion.button className='cancel' whileTap={{ scale: 0.9 }} onClick={closePopup}>
-                        Cancel
-                    </motion.button>
-                    <motion.button className='edit' whileTap={{ scale: 0.9 }} onClick={() => editMessage(popupMessages[0], editInput)}>
-                        Edit
-                    </motion.button>
+                    <button className='cancel' onClick={closePopup}>Cancel</button>
+                    <button className='edit' onClick={() => editMessage(popupMessages[0], editInput)}>Edit</button>
                 </div>
 
                 <div className='emoji-picker'>

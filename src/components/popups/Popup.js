@@ -7,7 +7,7 @@ import Notification from '../Notification';
 import { useMessageOptions } from '../../hooks/useMessageOptions';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
-import { popupPageVariants, popupPageContainer } from '../../config/varitans';
+import { popupPageVariants, popupContainerVariants } from '../../config/varitans';
 
 const Popup = () => {
 
@@ -29,7 +29,7 @@ const Popup = () => {
                     {popupShow ?
                     <PopupPage initial='hidden' animate='visible' exit='exit' variants={popupPageVariants} onClick={(e) => closePopupByTap(e)}>
                         <Notification />
-                        <PopupContainer variants={popupPageContainer} ref={popupPage}>
+                        <PopupContainer variants={popupContainerVariants} ref={popupPage}>
                             {popupName == "DELETE_POPUP" ?
                             <DeletePopup popupMessages={popupMessages} />
                             : popupName == "EDIT_POPUP" ?
@@ -50,7 +50,7 @@ const PopupPage = styled(motion.section)`
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100vh;
+    height: 100dvh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -69,7 +69,7 @@ const PopupContainer = styled(motion.div)`
     flex-direction: column;
     background-color: var(--popup);
     border: var(--border-first);
-    border-radius: var(--radius-third);
+    border-radius: 25px;
     box-shadow: var(--shadow-first);
     position: relative;
 
@@ -78,7 +78,7 @@ const PopupContainer = styled(motion.div)`
 
         .edit, .delete, .cancel {
             border: none;
-            border-radius: var(--radius-second);
+            border-radius: 50px;
             background-color: var(--button);
             box-shadow: var(--shadow-first);
             margin: 0 .3rem;
@@ -121,11 +121,11 @@ const PopupContainer = styled(motion.div)`
     }
 
     @media (max-width: 768px) {
-        padding: 1.5rem;
+        padding: 1rem;
 
         textarea {
-            font-size: .8rem;
-            width: 15rem;
+            font-size: 1rem;
+            width: 16rem;
         }
 
         .buttons {

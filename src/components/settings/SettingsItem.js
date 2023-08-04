@@ -18,13 +18,13 @@ const SettingsItemContainer = styled.div`
     justify-content: flex-start;
     align-items: center;
     border: var(--border-first);
-    border-radius: var(--radius-second);
+    border-radius: ${props => props.open ? "15px" : "50px"};
     overflow: hidden;
     position: relative;
     margin: .2rem;
     background-color: var(--settings-item);
     box-shadow: var(--shadow-first);
-    transition: ${props => props.open ? "height .6s" : "height .4s"}, background .2s;
+    transition: ${props => props.open ? "height .6s, border-radius .2s" : "height .4s, border-radius 2s"}, background .2s;
 
     .item-header {
         position: absolute;
@@ -34,7 +34,7 @@ const SettingsItemContainer = styled.div`
         justify-content: flex-start;
         align-items: center;
         border-bottom: ${props => props.open ? "var(--border-first)" : "solid .1px #ffffff00"};
-        padding: 0 .5rem .4rem .5rem;
+        padding: 0 .5rem .4rem .8rem;
         z-index: 2;
         cursor: pointer;
         transition: ${props => props.open ? "top .1s" : "top .4s .6s"}, border-bottom .4s;
@@ -44,7 +44,7 @@ const SettingsItemContainer = styled.div`
             justify-content: center;
             align-items: center;
             font-size: 1.2rem;
-            margin-right: .4rem;
+            margin-right: .5rem;
         }
 
         h4 {

@@ -125,7 +125,7 @@ const MessengerInputContainer = styled(motion.section)`
     align-items: center;
     padding: .2rem;
     border: var(--border-first);
-    border-radius: var(--radius-fifth);
+    border-radius: 50px;
     backdrop-filter: var(--glass-first);
     -webkit-backdrop-filter: var(--glass-first);
     box-shadow: var(--shadow-second);
@@ -201,6 +201,11 @@ const MessengerInputContainer = styled(motion.section)`
             cursor: not-allowed;
         }
     }
+
+    @media (max-width: 500px) {
+        width: 18rem;
+        height: 3rem;
+    }
 `;
 
 const ReplyTo = styled(motion.div)`
@@ -215,7 +220,7 @@ const ReplyTo = styled(motion.div)`
     backdrop-filter: var(--glass-first);
     -webkit-backdrop-filter: var(--glass-first);
     border: var(--border-first);
-    border-radius: var(--radius-fifth);
+    border-radius: 50px;
     overflow: hidden;
     box-shadow: var(--shadow-second);
     user-select: none;

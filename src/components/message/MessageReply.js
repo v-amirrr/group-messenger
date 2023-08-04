@@ -34,7 +34,7 @@ const ReplySection = styled.div`
     color: var(--text-color-second);
     font-weight: var(--text-boldness-first);
     transform: translate(-50%, 0);
-    border-radius: var(--radius-fifth);
+    border-radius: 50px;
     white-space: nowrap;
     overflow: hidden;
     font-family: ${props => props.isrlt ? "Vazirmatn" : "Outfit"}, "Vazirmatn", sans-serif;

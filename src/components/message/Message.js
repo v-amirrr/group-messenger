@@ -14,10 +14,11 @@ import { useMessageOptions } from '../../hooks/useMessageOptions';
 
 const Message = forwardRef(( props, ref ) => {
 
-    const { messageUid, localUid, message, id, replyTo, messageUsername, periorUsername, nextUsername, time, priorDifferentDate, nextDifferentDate, messagesContainerRef } = props.message;
+    const { messageUid, localUid, message, id, replyTo, messageUsername, periorUsername, nextUsername, time, priorDifferentDate, nextDifferentDate } = props.message;
 
     const dispatch = useDispatch();
-    const { messageOptionsId, selectedMessages } = useSelector(store => store.appStore);
+    const { messageOptionsId, selectedMessages, menuShow } = useSelector(store => store.appStore);
+    const { replyTo: replyToApp } = useSelector(store => store.sendMessageStore);
 
     const { selectMessage, checkMessage, unSelectMessage } = useSelect();
     const { replyMessage } = useMessageOptions();
@@ -27,29 +28,33 @@ const Message = forwardRef(( props, ref ) => {
     const [selected, setSelected] = useState(false);
 
     const messageClickHandler = (e) => {
-        if (selectedMessages.length) {
-            if (selected) {
-                unSelectMessage(id);
-                setSelected(false);
+        if (props.type == "CHAT") {
+            if (selectedMessages.length) {
+                if (selected) {
+                    unSelectMessage(id);
+                    setSelected(false);
+                } else {
+                    selectMessage({
+                        isMessageFromLocalUser: messageUid == localUid ? 1 : 0,
+                        messageText: message,
+                        id: id,
+                        replyTo: replyTo,
+                        time: time,
+                        messagePosition: messagePosition,
+                        isPersian: isRTL(message) ? 1 : 0,
+                    });
+                }
             } else {
-                selectMessage({
-                    isMessageFromLocalUser: messageUid == localUid ? 1 : 0,
-                    messageText: message,
-                    id: id,
-                    replyTo: replyTo,
-                    time: time,
-                    messagePosition: messagePosition,
-                    isPersian: isRTL(message) ? 1 : 0,
-                });
+                if (messageOptionsId == id) {
+                    dispatch(setMessageOptionsId(null));
+                    setClickEvent(null);
+                } else {
+                    dispatch(setMessageOptionsId(id));
+                    setClickEvent(e);
+                }
             }
         } else {
-            if (messageOptionsId == id) {
-                dispatch(setMessageOptionsId(null));
-                setClickEvent(null);
-            } else {
-                dispatch(setMessageOptionsId(id));
-                setClickEvent(e);
-            }
+            props.onClick();
         }
     };
 
@@ -103,39 +108,33 @@ const Message = forwardRef(( props, ref ) => {
                 <ChatDate key="chat-date" dateObj={time} priorDifferentDate={priorDifferentDate} />
             </AnimatePresence>
 
-            <MessageBox key={id} ref={ref} isMessageFromLocalUser={messageUid == localUid ? 1 : 0} ispersian={isRTL(message) ? 1 : 0} messagePosition={messagePosition} isreply={replyTo != "no_reply" ? 1 : 0} selected={selected ? 1 : 0} anymessageselected={selectedMessages.length ? 1 : 0}>
+            <MessageBox key={id} ref={ref} isMessageFromLocalUser={messageUid == localUid ? 1 : 0} ispersian={isRTL(message) ? 1 : 0} messagePosition={messagePosition} isreply={replyTo != "no_reply" ? 1 : 0} selected={selected ? 1 : 0} anymessageselected={selectedMessages.length ? 1 : 0} type={props.type} replyto={replyToApp.id == id ? 1 : 0} newreply={props.newreply ? 1 : 0}>
 
                 <div className='message-box' onClick={(e) => messageClickHandler(e)} onDoubleClick={messageDoubleClickHandler}>
                     <MessageReply replyTo={replyTo} />
 
-                    <p className='username'>{messageUsername}:</p>
-
                     <p className='message'>
+                        {messageUid != localUid ?
+                        <div className='username'>{messageUsername}</div>
+                        : ""}
                         {message?.map((item, index) => (
                             item.link ? <a key={index} className='link' href={item.word} target="_blank" rel='noopener nereferrer'>{item.word}</a> : `${item.word} `
                         ))}
                     </p>
 
-                    <AnimatePresence>
-                        <MessageTime time={time} messagePosition={messagePosition} isMessageFromLocalUser={messageUid == localUid ? 1 : 0} />
-                    </AnimatePresence>
+                    <MessageTime time={time} messagePosition={messagePosition} isMessageFromLocalUser={messageUid == localUid ? 1 : 0} />
                 </div>
 
                 <SelectCheck selected={selected} selectedMessagesLength={selectedMessages.length} messageClickHandler={messageClickHandler}/>
 
                 <AnimatePresence>
-                    {messageOptionsId == id ?
+                    {messageOptionsId == id && props.type == "CHAT" && !menuShow ?
                     <MessageOptions
                         clickEvent={clickEvent}
                         message={{
+                            ...props.message,
                             isMessageFromLocalUser: messageUid == localUid ? 1 : 0,
-                            messageText: message,
-                            id: id,
-                            replyTo: replyTo,
-                            time: time,
-                            messagePosition: messagePosition,
                             isPersian: isRTL(message) ? 1 : 0,
-                            messageUsername: messageUsername,
                         }}
                     />
                     : ""}
@@ -155,10 +154,10 @@ const MessageBox = styled.div`
     .message-box {
         z-index: 2;
         display: flex;
-        justify-content: center;
+        justify-content: flex-end;
         align-items: center;
         flex-direction: ${ props => props.isMessageFromLocalUser ? "row-reverse" : "row"};
-        background-color: ${props => props.selected ? "var(--message-selected)" : "var(--message)"};
+        background-color: ${props => props.selected || props.replyto || props.newreply ? "var(--message-selected)" : "var(--message)"};
         margin: ${props =>
             props.messagePosition == 0 ?
             ".2rem 0 .2rem 0" :
@@ -188,29 +187,19 @@ const MessageBox = styled.div`
                 props.messagePosition == 3 &&
                 "2px 25px 25px 25px"
         };
+        border: ${props => props.replyto || props.newreply ? "solid 2px #ffffff40" : "solid 0 #ffffff00"};
         margin-right: ${props => props.anymessageselected ? "3rem" : ""};
         padding: ${props => props.isreply ? "2.4rem 2.8rem .5rem .8rem" : ".5rem 2.8rem .5rem .8rem"};
         min-width: ${props => props.isreply ? "22%" : ""};
         width: fit-content;
-        max-width: 65%;
-        backdrop-filter: var(--glass-first);
-        -webkit-backdrop-filter: var(--glass-first);
-        font-weight: var(----text-boldness-first);
+        max-width: ${props => props.type == "EDIT_REPLY" ? "80%" : props.isMessageFromLocalUser && props.type == "CHAT" ? "65%" : "70%"};
+        backdrop-filter: ${props => props.type == "CHAT" ? "var(--glass-first)" : "blur(0)"};
+        -webkit-backdrop-filter: ${props => props.type == "CHAT" ? "var(--glass-first)" : ""};
+        font-weight: var(--text-boldness-first);
         word-break: break-all;
         cursor: pointer;
         box-shadow: var(--shadow-first);
-        transition: backdrop-filter .4s, border-radius .4s, margin .4s, background .2s;
-
-        .username {
-            display: ${props => props.isMessageFromLocalUser ? "none" : ""};
-            font-size: .7rem;
-            font-weight: 300;
-            margin-right: .5rem;
-            margin-left: -.2rem;
-            white-space: nowrap;
-            font-weight: var(--text-boldness-first);
-            color: var(--text-color-first);
-        }
+        transition: backdrop-filter .4s, border-radius .4s, margin .4s, background .2s, border .2s, padding .2s;
 
         .message {
             text-align: ${props => props.ispersian ? "right" : "left"};
@@ -222,6 +211,22 @@ const MessageBox = styled.div`
             font-size: 1rem;
             font-weight: var(--text-boldness-first);
             color: var(--text-color-third);
+
+            .username {
+                display: ${props => props.isMessageFromLocalUser ? "none" : "inline-block"};
+                font-size: .6rem;
+                font-weight: 300;
+                margin-right: .2rem;
+                white-space: nowrap;
+                position: relative;
+                bottom: .1rem;
+                right: .2rem;
+                font-weight: var(--text-boldness-second);
+                color: var(--text-color-second);
+                background-color: var(--button-hover);
+                border-radius: 50px;
+                padding: .2rem .5rem;
+            }
         }
     }
 

@@ -1,6 +1,6 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { setMenuShow } from '../redux/appSlice';
 import { HiDotsVertical } from "react-icons/hi";
@@ -13,9 +13,23 @@ import { menuVariants, menuItemVariants, menuIconVariants } from '../config/vari
 const MessengerMenu = () => {
 
     const dispatch = useDispatch();
-    const { menuShow } = useSelector(store => store.appStore);
+    const navigate = useNavigate();
+    const { menuShow, messageOptionsId } = useSelector(store => store.appStore);
 
     const { logout } = useAuth();
+
+    const clickHandler = (type) => {
+        dispatch(setMenuShow(false));
+        if (type == "LOGOUT") {
+            logout();
+        } else if (type == "SETTINGS") {
+            navigate("/settings");
+        }
+    };
+
+    useEffect(() => {
+        dispatch(setMenuShow(false));
+    }, [messageOptionsId]);
 
     return (
         <>
@@ -33,16 +47,14 @@ const MessengerMenu = () => {
                 <AnimatePresence>
                     {menuShow ?
                     <motion.div key="menu" className='list' initial='hidden' animate='visible' exit='exit' variants={menuItemVariants}>
-                        <motion.button className='list-item' onClick={logout}>
+                        <motion.button className='list-item' onClick={() => clickHandler("LOGOUT")}>
                             <i className='logout-icon'><FcRedo /></i>
                             <p>Logout</p>
                         </motion.button>
-                        <Link to="/settings">
-                            <motion.button className='list-item'>
-                                <i><FcSettings /></i>
-                                <p>Settings</p>
-                            </motion.button>
-                        </Link>
+                        <motion.button className='list-item' onClick={() => clickHandler("SETTINGS")}>
+                            <i><FcSettings /></i>
+                            <p>Settings</p>
+                        </motion.button>
                     </motion.div>
                     : ""}
                 </AnimatePresence>
@@ -55,8 +67,8 @@ const MessengerMenuContainer = styled(motion.div)`
     position: absolute;
     top: 1rem;
     right: 2.4rem;
-    width: ${props => props.openmenu ? "7.5rem" : "2.5rem"};
-    height: ${props => props.openmenu ? "7.5rem" : "2.5rem"};
+    width: ${props => props.openmenu ? "7.2rem" : "2.5rem"};
+    height: ${props => props.openmenu ? "7.2rem" : "2.5rem"};
     display: flex;
     justify-content: center;
     align-items: center;
@@ -69,7 +81,7 @@ const MessengerMenuContainer = styled(motion.div)`
     user-select: none;
     overflow: hidden;
     z-index: 3;
-    transition: width .5s cubic-bezier(.53,0,0,.98), height .5s cubic-bezier(.53,0,0,.98), ${props => props.openmenu ? "border-radius .2s" : "border-radius .2s .6s"};
+    transition: width .4s cubic-bezier(.53,0,0,.98), height .4s cubic-bezier(.53,0,0,.98), ${props => props.openmenu ? "border-radius .2s" : "border-radius .2s .6s"};
 
     .back-icon, .menu-icon {
         position: absolute;
@@ -90,12 +102,11 @@ const MessengerMenuContainer = styled(motion.div)`
 
     .back-icon {
         position: absolute;
-        top: 0;
-        right: 0;
+        top: .3rem;
+        right: .3rem;
         display: flex;
         justify-content: center;
         align-items: center;
-        margin: .45rem;
         padding: .4rem;
         font-size: 1.2rem;
     }
@@ -116,16 +127,7 @@ const MessengerMenuContainer = styled(motion.div)`
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        margin-top: 2rem;
-
-        a {
-            width: 100%;
-            height: 2rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: row;
-        }
+        margin-top: 2.3rem;
 
         .list-item {
             width: 90%;
@@ -133,7 +135,7 @@ const MessengerMenuContainer = styled(motion.div)`
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: .3rem 0;
+            margin: .15rem 0;
             background-color: var(--button);
             border-radius: 50px;
             box-shadow: var(--shadow-second);
@@ -141,16 +143,6 @@ const MessengerMenuContainer = styled(motion.div)`
             font-weight: var(--text-boldness-second);
             white-space: nowrap;
             cursor: pointer;
-            border-radius: ${props =>
-                props.position == 0 ?
-                    "20px" :
-                    props.position == 1 ?
-                    "20px 20px 20px 5px" :
-                    props.position == 2 ?
-                    "5px 20px 20px 5px" :
-                    props.position == 3 &&
-                    "5px 20px 20px 20px"
-            };
             transition: background .2s;
 
             p {

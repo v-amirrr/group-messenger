@@ -61,7 +61,7 @@ const PopupPage = styled(motion.section)`
 `;
 
 const PopupContainer = styled(motion.div)`
-    padding: 2rem;
+    padding: 1.2rem 1.5rem;
     text-align: center;
     display: flex;
     justify-content: center;

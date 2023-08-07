@@ -74,6 +74,7 @@ export const useGetMessages = () => {
             dispatch(setMessages(modifiedMessages));
 
             if (!messages?.length) {
+                loadingOff();
                 dispatch(setError("There's a problem with your connection. If you're in sanctioned countries like Iran, you have to turn on your VPN for using this app and if you're already using a VPN you need to change it. (You can use checan.ir)"));
             }
 

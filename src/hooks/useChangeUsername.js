@@ -15,7 +15,7 @@ export const useChangeUsername = () => {
     const { openNotification } = useNotification();
 
     const changeUsername = async (newUsername) => {
-        if (newUsername && newUsername != user.displayName) {
+        if (newUsername) {
             await updateProfile(auth.currentUser, {
                 displayName: newUsername,
             }).then(() => {

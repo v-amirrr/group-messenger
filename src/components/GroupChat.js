@@ -54,6 +54,7 @@ const GroupChat = () => {
                     {messages?.map(message => (
                         <Message
                             key={message.id}
+                            type="CHAT"
                             message={{
                                 messageUid: message.uid,
                                 localUid: user?.uid,

@@ -10,10 +10,10 @@ const MessageReply = ({ replyTo }) => {
                 <i><BsReplyFill /></i>
                 {replyTo ?
                 <>
-                    <p className='reply-username'>{replyTo?.username}:</p>
+                    <p className='reply-username'>{replyTo?.username}</p>
                     <p className='reply-message'>{replyTo?.message}</p>
                 </>
-                : <p className='reply-message'>Deleted Message</p>}
+                : <p className='reply-username'>Deleted Message</p>}
             </ReplySection>
             : ""}
         </>
@@ -43,31 +43,29 @@ const ReplySection = styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: .8rem;
-        margin-left: .2rem;
+        font-size: 1rem;
+        margin-right: .2rem;
+        color: var(--text-color-first);
     }
 
     .reply-username {
-        font-size: .5rem;
-        margin: 0 .2rem;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        max-width: 50%;
+        display: ${props => props.isMessageFromLocalUser ? "none" : "inline-block"};
+        font-size: .6rem;
+        font-weight: 300;
+        margin-right: .2rem;
+        white-space: nowrap;
+        font-weight: var(--text-boldness-second);
+        color: var(--text-color-second);
     }
 
     .reply-message {
         text-overflow: ellipsis;
         overflow: hidden;
-        font-size: .8rem;
-
-        :after {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 30%;
-            height: 100%;
-            pointer-events: none;
-            background-image: linear-gradient(to right, transparent, #000000);
-            display: none;
-        }
+        font-size: .6rem;
+        max-width: 50%;
     }
 `;
 

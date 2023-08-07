@@ -210,7 +210,7 @@ const MessengerInputContainer = styled(motion.section)`
 
 const ReplyTo = styled(motion.div)`
     position: absolute;
-    bottom: 3.5rem;
+    bottom: 3.6rem;
     max-width: 25%;
     height: 2rem;
     display: flex;
@@ -236,7 +236,7 @@ const ReplyTo = styled(motion.div)`
         border-radius: 50%;
         cursor: pointer;
         padding: .2rem;
-        margin-left: .2rem;
+        margin-left: .5rem;
         transition: background .2s;
 
         @media (hover: hover) and (pointer: fine) and (min-width: 745px) {

@@ -98,7 +98,7 @@ const Container = styled(motion.section)`
                 margin: .2rem;
                 background-color: var(--enter-box-item);
                 padding: .4rem .3rem;
-                border-radius: 10px;
+                border-radius: 50px;
             }
         }
 

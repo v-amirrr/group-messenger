@@ -19,13 +19,12 @@ export const useMessageOptions = () => {
     const copyMessage = (message) => {
         dispatch(setMessageOptionsId(null));
         let text = [];
-        message.messageText.map(item => {
+        message.map(item => {
             text.push(item.word);
         });
         text = text.join(" ");
         navigator.clipboard.writeText(text);
         openNotification("Message copied.", false, "COPY");
-
     };
 
     const openPopup = (popupName, popupMessages) => {

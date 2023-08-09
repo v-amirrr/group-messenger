@@ -72,7 +72,6 @@ const EditReply = ({ replyTo, id, editReplyOpen, setEditReplyOpen }) => {
                     </motion.div>
                     : ""}
 
-
                     <AnimatePresence>
                         {!editReplyOpen ?
                         <motion.button className='open-button' onClick={() => setEditReplyOpen(!editReplyOpen)} initial='hidden' animate='visible' exit='exit' variants={replyButtonVariants}>
@@ -142,6 +141,8 @@ const ReplyConatiner = styled(motion.div)`
     .open-items {
         padding: 1rem;
         overflow: hidden scroll;
+        width: 100%;
+        height: 100%;
 
         header {
             display: flex;

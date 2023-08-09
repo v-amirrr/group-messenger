@@ -9,10 +9,11 @@ export const useSelect = () => {
     const { selectedMessages } = useSelector(store => store.appStore);
     const { enterAsAGuest } = useSelector(store => store.userStore);
 
-    const { trashMessage } = useMessageOptions();
+    const { trashMessage, clearReplyMessage } = useMessageOptions();
     const { openNotification } = useNotification();
 
     const selectMessage = (message) => {
+        clearReplyMessage();
         dispatch(setMessageOptionsId(null));
         if (enterAsAGuest) {
             openNotification("In order to use this feature you need to login.", false, "GUEST");
@@ -72,7 +73,9 @@ export const useSelect = () => {
 
     const deleteSelectedMessages = () => {
         selectedMessages.forEach(item => {
-            trashMessage(item.id);
+            setTimeout(() => {
+                trashMessage(item.id);
+            }, 500);
         });
         clearSelectedMessages();
         openNotification("Messages were moved to trash.", false, "TRASH");

@@ -18,13 +18,13 @@ const SettingsItemContainer = styled.div`
     justify-content: flex-start;
     align-items: center;
     border: var(--border-first);
-    border-radius: ${props => props.open ? "20px" : "50px"};
+    border-radius: ${props => props.open ? "15px" : "50px"};
     overflow: hidden;
     position: relative;
     margin: .2rem;
     background-color: var(--settings-item);
     box-shadow: var(--shadow-first);
-    transition: ${props => props.open ? "height .6s, border-radius .2s" : "height .4s, border-radius 2s"}, background .2s;
+    transition: ${props => props.open ? "height .6s, border-radius .1s" : "height .4s, border-radius 2s"}, background .2s;
 
     .item-header {
         position: absolute;
@@ -86,9 +86,9 @@ const SettingsItemContainer = styled.div`
     }
 
     @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
-        &:hover {
+        /* &:hover {
             background-color: ${props => props.open ? "" : "var(--settings-item-hover)"};
-        }
+        } */
     }
 `;
 

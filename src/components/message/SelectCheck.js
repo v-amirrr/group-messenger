@@ -31,7 +31,7 @@ const SelectCheckContainer = styled(motion.div)`
     height: 1.8rem;
     border-radius: 50%;
     position: absolute;
-    right: 0;
+    right: 2rem;
     display: flex;
     justify-content: center;
     align-items: center;

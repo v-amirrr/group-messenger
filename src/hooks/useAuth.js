@@ -72,8 +72,10 @@ export const useAuth = () => {
         localStorage.removeItem("user");
         localStorage.removeItem("notification");
         localStorage.setItem("guest-login", "false");
-        dispatch(setUser(null));
-        dispatch(setEnterAsAGuest(false));
+        setTimeout(() => {
+            dispatch(setUser(null));
+            dispatch(setEnterAsAGuest(false));
+        }, 300);
     };
 
     const googleLogin = () => {
@@ -88,7 +90,7 @@ export const useAuth = () => {
                 navigate("/");
             })
             .catch(err => {
-                dispatch(setSignup({ loading: false }));
+                dispatch(setGoogleLogin({ loading: false }));
                 dispatch(setNotificationStatus({ show: true, message: err.message, isError: true }));
             });
     };

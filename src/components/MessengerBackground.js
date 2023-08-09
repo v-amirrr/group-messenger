@@ -12,28 +12,78 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { backgroundImageVariants } from '../config/varitans';
 
 const MessengerBackground = () => {
-
-    const { theme } = useSelector(store => store.appStore);
+    const { theme } = useSelector((store) => store.appStore);
 
     return (
         <>
             <Background>
                 <AnimatePresence exitBeforeEnter>
-                    {theme == 1 ?
-                    <motion.img src={backgroundOneImageSRC} key="image-one" initial='hidden' animate='visible' exit='exit' variants={backgroundImageVariants} /> :
-                    theme == 2 ?
-                    <motion.img src={backgroundTowImageSRC} key="image-two" initial='hidden' animate='visible' exit='exit' variants={backgroundImageVariants} /> :
-                    theme == 3 ?
-                    <motion.img src={backgroundThreeImageSRC} key="image-three" initial='hidden' animate='visible' exit='exit' variants={backgroundImageVariants} /> :
-                    theme == 4 ?
-                    <motion.img src={backgroundFourImageSRC} key="image-four" initial='hidden' animate='visible' exit='exit' variants={backgroundImageVariants} /> :
-                    theme == 5 ?
-                    <motion.img src={backgroundFiveImageSRC} key="image-five" initial='hidden' animate='visible' exit='exit' variants={backgroundImageVariants} /> :
-                    theme == 6 ?
-                    <motion.img src={backgroundSixImageSRC} key="image-six" initial='hidden' animate='visible' exit='exit' variants={backgroundImageVariants} /> :
-                    theme == 7 ?
-                    <motion.img src={backgroundSevenImageSRC} key="image-seven" initial='hidden' animate='visible' exit='exit' variants={backgroundImageVariants} />
-                    : ""}
+                    {theme == 1 ? (
+                        <motion.img
+                            src={backgroundOneImageSRC}
+                            key='image-one'
+                            initial='hidden'
+                            animate='visible'
+                            exit='exit'
+                            variants={backgroundImageVariants}
+                        />
+                    ) : theme == 2 ? (
+                        <motion.img
+                            src={backgroundTowImageSRC}
+                            key='image-two'
+                            initial='hidden'
+                            animate='visible'
+                            exit='exit'
+                            variants={backgroundImageVariants}
+                        />
+                    ) : theme == 3 ? (
+                        <motion.img
+                            src={backgroundThreeImageSRC}
+                            key='image-three'
+                            initial='hidden'
+                            animate='visible'
+                            exit='exit'
+                            variants={backgroundImageVariants}
+                        />
+                    ) : theme == 4 ? (
+                        <motion.img
+                            src={backgroundFourImageSRC}
+                            key='image-four'
+                            initial='hidden'
+                            animate='visible'
+                            exit='exit'
+                            variants={backgroundImageVariants}
+                        />
+                    ) : theme == 5 ? (
+                        <motion.img
+                            src={backgroundFiveImageSRC}
+                            key='image-five'
+                            initial='hidden'
+                            animate='visible'
+                            exit='exit'
+                            variants={backgroundImageVariants}
+                        />
+                    ) : theme == 6 ? (
+                        <motion.img
+                            src={backgroundSixImageSRC}
+                            key='image-six'
+                            initial='hidden'
+                            animate='visible'
+                            exit='exit'
+                            variants={backgroundImageVariants}
+                        />
+                    ) : theme == 7 ? (
+                        <motion.img
+                            src={backgroundSevenImageSRC}
+                            key='image-seven'
+                            initial='hidden'
+                            animate='visible'
+                            exit='exit'
+                            variants={backgroundImageVariants}
+                        />
+                    ) : (
+                        ''
+                    )}
                 </AnimatePresence>
             </Background>
         </>

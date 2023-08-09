@@ -13,7 +13,6 @@ import { groupChatVariants } from '../config/varitans';
 
 const GroupChat = () => {
 
-    const messagesContainerRef = useRef();
     const messagesEndRef = useRef();
     const { groupChatRedirection } = useRedirection();
 
@@ -49,8 +48,8 @@ const GroupChat = () => {
                 {enterAsAGuest ? <GeustSign /> : ""}
             </AnimatePresence>
 
-            <GroupChatContainer ref={messagesContainerRef} initial='hidden' animate='visible' exit='exit' variants={groupChatVariants}>
-                <FlipMove>
+            <GroupChatContainer layout initial='hidden' animate='visible' exit='exit' variants={groupChatVariants}>
+                <AnimatePresence>
                     {messages?.map(message => (
                         <Message
                             key={message.id}
@@ -70,7 +69,7 @@ const GroupChat = () => {
                             }}
                         />
                     ))}
-                </FlipMove>
+                </AnimatePresence>
                 <div ref={messagesEndRef} />
             </GroupChatContainer>
 

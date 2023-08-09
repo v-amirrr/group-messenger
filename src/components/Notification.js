@@ -11,8 +11,7 @@ import { notificationVariants } from '../config/varitans';
 
 const AuthError = () => {
 
-    let location = useLocation();
-
+    const location = useLocation();
     const { notificationStatus } = useSelector(store => store.appStore);
 
     const { closeNotification } = useNotification();

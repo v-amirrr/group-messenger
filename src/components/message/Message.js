@@ -1,18 +1,21 @@
-import React, { forwardRef, useState, useEffect, memo } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setMessageOptionsId } from '../../redux/appSlice';
 import { useSelect } from '../../hooks/useSelect';
+import { useMessageOptions } from '../../hooks/useMessageOptions';
+import { isRTL } from '../../functions/isRlt';
 import MessageOptions from '../message/MessageOptions';
 import ChatDate from '../ChatDate';
 import MessageTime from './MessageTime';
 import MessageReply from './MessageReply';
-import { isRTL } from '../../functions/isRlt';
-import styled from 'styled-components';
-import { AnimatePresence } from 'framer-motion';
 import SelectCheck from './SelectCheck';
-import { useMessageOptions } from '../../hooks/useMessageOptions';
+import { BsReplyFill } from 'react-icons/bs';
+import styled from 'styled-components';
+import { motion, AnimatePresence } from 'framer-motion';
+import { messageLocalVariants, messageNonLocalVariants, replyIconLocalVariants, replyIconNonLocalVariants } from '../../config/varitans';
+import MessageUsername from './MessageUsername';
 
-const Message = forwardRef(( props, ref ) => {
+const Message = props => {
 
     const { messageUid, localUid, message, id, replyTo, messageUsername, periorUsername, nextUsername, time, priorDifferentDate, nextDifferentDate } = props.message;
 
@@ -104,47 +107,43 @@ const Message = forwardRef(( props, ref ) => {
 
     return (
         <>
-            <AnimatePresence exitBeforeEnter>
-                <ChatDate key="chat-date" dateObj={time} priorDifferentDate={priorDifferentDate} />
-            </AnimatePresence>
+            <ChatDate layout={props.type == "EDIT_REPLY" ? 0 : 1} layoutId={props.type == "EDIT_REPLY" ? id : null} key="chat-date" dateObj={time} priorDifferentDate={priorDifferentDate} />
 
-            <MessageBox key={id} ref={ref} isMessageFromLocalUser={messageUid == localUid ? 1 : 0} ispersian={isRTL(message) ? 1 : 0} messagePosition={messagePosition} isreply={replyTo != "no_reply" ? 1 : 0} selected={selected ? 1 : 0} anymessageselected={selectedMessages.length ? 1 : 0} type={props.type} replyto={replyToApp.id == id ? 1 : 0} newreply={props.newreply ? 1 : 0}>
-
+            <MessageBox layout={props.type == "EDIT_REPLY" ? 0 : 1} initial='hidden' animate='visible' exit='exit' variants={messageUid == localUid ? messageLocalVariants : messageNonLocalVariants} layoutId={props.type == "EDIT_REPLY" ? id : null} isMessageFromLocalUser={messageUid == localUid ? 1 : 0} ispersian={isRTL(message) ? 1 : 0} messagePosition={messagePosition} isreply={replyTo != "no_reply" ? 1 : 0} selected={selected ? 1 : 0} anymessageselected={selectedMessages.length ? 1 : 0} type={props.type} replyto={replyToApp.id == id ? 1 : 0} newreply={props.newreply ? 1 : 0} date={priorDifferentDate ? 1 : 0}>
                 <div className='message-box' onClick={(e) => messageClickHandler(e)} onDoubleClick={messageDoubleClickHandler}>
-                    <MessageReply replyTo={replyTo} />
-
                     <p className='message'>
-                        {messageUid != localUid ?
-                        <div className='username'>{messageUsername}</div>
-                        : ""}
+                        <MessageReply replyTo={replyTo} />
+                        <MessageUsername username={messageUsername} show={messageUid != localUid} />
                         {message?.map((item, index) => (
                             item.link ? <a key={index} className='link' href={item.word} target="_blank" rel='noopener nereferrer'>{item.word}</a> : `${item.word} `
                         ))}
                     </p>
-
                     <MessageTime time={time} messagePosition={messagePosition} isMessageFromLocalUser={messageUid == localUid ? 1 : 0} />
                 </div>
 
                 <SelectCheck selected={selected} selectedMessagesLength={selectedMessages.length} messageClickHandler={messageClickHandler}/>
 
                 <AnimatePresence>
-                    {messageOptionsId == id && props.type == "CHAT" && !menuShow ?
-                    <MessageOptions
-                        clickEvent={clickEvent}
-                        message={{
-                            ...props.message,
-                            isMessageFromLocalUser: messageUid == localUid ? 1 : 0,
-                            isPersian: isRTL(message) ? 1 : 0,
-                        }}
-                    />
+                    {replyToApp.id == id || props.newreply ?
+                    <motion.i key="reply-icon" className='reply-icon' initial='hidden' animate='visible' exit='exit' variants={messageUid == localUid ? replyIconLocalVariants : replyIconNonLocalVariants}><BsReplyFill /></motion.i>
                     : ""}
                 </AnimatePresence>
+
+                <MessageOptions
+                    clickEvent={clickEvent}
+                    show={messageOptionsId == id && props.type == "CHAT" && !menuShow}
+                    message={{
+                        ...props.message,
+                        isMessageFromLocalUser: messageUid == localUid ? 1 : 0,
+                        isPersian: isRTL(message) ? 1 : 0,
+                    }}
+                />
             </MessageBox>
         </>
     );
-});
+};
 
-const MessageBox = styled.div`
+const MessageBox = styled(motion.div)`
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -154,52 +153,53 @@ const MessageBox = styled.div`
     .message-box {
         z-index: 2;
         display: flex;
-        justify-content: flex-end;
+        justify-content: ${props => props.isMessageFromLocalUser ? "flex-start" : "flex-end"};
         align-items: center;
-        flex-direction: ${ props => props.isMessageFromLocalUser ? "row-reverse" : "row"};
-        background-color: ${props => props.selected || props.replyto || props.newreply ? "var(--message-selected)" : "var(--message)"};
+        flex-direction: ${props => props.isMessageFromLocalUser ? "row-reverse" : "row"};
+        background-color: ${props => props.selected || props.newreply ? "var(--message-selected)" : "var(--message)"};
         margin: ${props =>
             props.messagePosition == 0 ?
-            ".2rem 0 .2rem 0" :
+            ".3rem 0 .3rem 0" :
             props.messagePosition == 1 ?
-            ".2rem 0 .04rem 0" :
+            ".3rem 0 .04rem 0" :
             props.messagePosition == 2 ?
             ".04rem 0 .04rem 0" :
             props.messagePosition == 3 &&
-            ".04rem 0 .2rem 0"
+            ".04rem 0 .3rem 0"
         };
+        border-radius: 25px;
         border-radius: ${props =>
             props.isMessageFromLocalUser ?
                 props.messagePosition == 0 ?
                 "25px" :
                 props.messagePosition == 1 ?
-                "25px 25px 2px 25px" :
+                "25px 25px 5px 25px" :
                 props.messagePosition == 2 ?
-                "25px 2px 2px 25px" :
+                "25px 5px 5px 25px" :
                 props.messagePosition == 3 &&
-                "25px 2px 25px 25px" :
+                "25px 5px 25px 25px" :
             props.messagePosition == 0 ?
                 "25px" :
                 props.messagePosition == 1 ?
-                "25px 25px 25px 2px" :
+                "25px 25px 25px 5px" :
                 props.messagePosition == 2 ?
-                "5px 25px 25px 2px" :
+                "5px 25px 25px 5px" :
                 props.messagePosition == 3 &&
-                "2px 25px 25px 25px"
+                "5px 25px 25px 25px"
         };
-        border: ${props => props.replyto || props.newreply ? "solid 2px #ffffff40" : "solid 0 #ffffff00"};
-        margin-right: ${props => props.anymessageselected ? "3rem" : ""};
-        padding: ${props => props.isreply ? "2.4rem 2.8rem .5rem .8rem" : ".5rem 2.8rem .5rem .8rem"};
+        margin-right: ${props => props.anymessageselected || props.replyto || props.newreply ? "3rem" : ""};
+        margin-left: ${props => !props.isMessageFromLocalUser && props.replyto || props.newreply ? "3rem" : ""};
+        padding: .5rem 2.8rem .5rem .8rem;
         min-width: ${props => props.isreply ? "22%" : ""};
         width: fit-content;
-        max-width: ${props => props.type == "EDIT_REPLY" ? "80%" : props.isMessageFromLocalUser && props.type == "CHAT" ? "65%" : "70%"};
+        max-width: ${props => props.type == "EDIT_REPLY" ? "80%" : props.isMessageFromLocalUser && props.type == "CHAT" ? "60%" : "70%"};
         backdrop-filter: ${props => props.type == "CHAT" ? "var(--glass-first)" : "blur(0)"};
         -webkit-backdrop-filter: ${props => props.type == "CHAT" ? "var(--glass-first)" : ""};
         font-weight: var(--text-boldness-first);
         word-break: break-all;
         cursor: pointer;
         box-shadow: var(--shadow-first);
-        transition: backdrop-filter .4s, border-radius .4s, margin .4s, background .2s, border .2s, padding .2s;
+        transition: backdrop-filter .4s, border-radius .4s, margin .4s, background .2s, padding .2s;
 
         .message {
             text-align: ${props => props.ispersian ? "right" : "left"};
@@ -211,23 +211,18 @@ const MessageBox = styled.div`
             font-size: 1rem;
             font-weight: var(--text-boldness-first);
             color: var(--text-color-third);
-
-            .username {
-                display: ${props => props.isMessageFromLocalUser ? "none" : "inline-block"};
-                font-size: .6rem;
-                font-weight: 300;
-                margin-right: .2rem;
-                white-space: nowrap;
-                position: relative;
-                bottom: .1rem;
-                right: .2rem;
-                font-weight: var(--text-boldness-second);
-                color: var(--text-color-second);
-                background-color: var(--button-hover);
-                border-radius: 50px;
-                padding: .2rem .5rem;
-            }
         }
+    }
+
+    .reply-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.2rem;
+        background-color: var(--message);
+        padding: .3rem;
+        border-radius: 50%;
+        position: absolute;
     }
 
     @media (max-width: 768px) {

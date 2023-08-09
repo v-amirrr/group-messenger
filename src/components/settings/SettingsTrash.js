@@ -9,7 +9,7 @@ import { RiArrowRightSLine } from "react-icons/ri";
 import { GiEmptyWoodBucket } from 'react-icons/gi';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
-import { trashVariants } from '../../config/varitans';
+import { trashVariants, trashMessagesVariants } from '../../config/varitans';
 
 const SettingsTrash = ({ open, setOpen, setHeight }) => {
 
@@ -61,22 +61,23 @@ const SettingsTrash = ({ open, setOpen, setHeight }) => {
                     <div key="item-data" className='item-data'>
                         <MessagesContainer initial='hidden' animate='visible' exit='exit' variants={trashVariants}>
                             {messages?.length ?
-                            <div className='deleted-messages'>
-                                {messages?.map(message => (
-                                    <div className='deleted-message' key={message.id}>
-                                        <div className='deleted-message-box'>
-                                            <div className='deleted-message-text'>{message.message}</div>
-                                        </div>
-                                        <div className='deleted-message-return' onClick={() => undeleteMessage(message.id)}>
-                                            <FaTrashRestore />
-                                        </div>
-
-                                        <div className='deleted-message-delete' onClick={() => openPopup("DELETE_POPUP", [message])}>
-                                            <TbTrashX />
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
+                            <motion.div layout className='deleted-messages'>
+                                <AnimatePresence>
+                                    {messages?.map(message => (
+                                        <motion.div layout className='deleted-message' key={message.id} layoutId={message.id} initial='hidden' animate='visible' exit='exit' variants={trashMessagesVariants}>
+                                            <div className='deleted-message-box'>
+                                                <div className='deleted-message-text'>{message.message}</div>
+                                            </div>
+                                            <div className='deleted-message-return' onClick={() => undeleteMessage(message.id)}>
+                                                <FaTrashRestore />
+                                            </div>
+                                            <div className='deleted-message-delete' onClick={() => openPopup("DELETE_POPUP", [message])}>
+                                                <TbTrashX />
+                                            </div>
+                                        </motion.div>
+                                    ))}
+                                </AnimatePresence>
+                            </motion.div>
                             : <div className='trash-empty'><GiEmptyWoodBucket /></div>}
                         </MessagesContainer>
                     </div>

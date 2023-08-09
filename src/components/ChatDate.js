@@ -18,6 +18,7 @@ const ChatDate = ({ dateObj, priorDifferentDate }) => {
 };
 
 const ChatDateContainer = styled(motion.div)`
+    margin-bottom: 1rem;
     padding: .3rem .5rem;
     background-color: var(--message);
     color: var(--text-color-third);

@@ -17,17 +17,10 @@ export const useNotification = () => {
         || type == "BACKGROUND" && notificationSettings.background
         || type == "USERNAME" && notificationSettings.username
         || type == "GUEST" && enterAsAGuest) {
-            if (notificationStatus.show) {
+            dispatch(setNotificationStatus({ show: true, message: message, isError: isError, isGuest: type == "GUEST" }));
+            setTimeout(() => {
                 closeNotification();
-                setTimeout(() => {
-                    dispatch(setNotificationStatus({ show: true, message: message, isError: isError, isGuest: type == "GUEST" }));
-                }, 400);
-            } else {
-                dispatch(setNotificationStatus({ show: true, message: message, isError: isError, isGuest: type == "GUEST" }));
-                setTimeout(() => {
-                    closeNotification();
-                }, 5000);
-            }
+            }, 5000);
         }
     };
 

@@ -6,10 +6,10 @@ import { AiFillDelete, AiFillCopy, AiFillEdit } from 'react-icons/ai';
 import { BsReplyFill } from 'react-icons/bs';
 import { BiSelectMultiple } from "react-icons/bi";
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { optionsVariants, optionLocalVariants, optionNonLocalVariants } from '../../config/varitans';
 
-const MessageOptions = ({ clickEvent, message }) => {
+const MessageOptions = ({ clickEvent, show, message }) => {
 
     const { isMessageFromLocalUser, message: messageText, id, messageUsername } = message;
 
@@ -21,35 +21,39 @@ const MessageOptions = ({ clickEvent, message }) => {
     const messageOptionsRef = useRef();
     return (
         <>
-            <MessageOptionsContainer key={id} ref={messageOptionsRef} initial='hidden' animate='visible' exit='exit' variants={optionsVariants} ismessagefromlocaluser={isMessageFromLocalUser ? 1 : 0} x={clickEvent?.pageX} y={clickEvent?.pageY} guest={enterAsAGuest ? 1 : 0}>
-                <motion.div className='reply' onClick={() => replyMessage(id, messageText, messageUsername)} variants={isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants}>
-                    <i><BsReplyFill /></i>
-                    <p>Reply</p>
-                </motion.div>
+            <AnimatePresence>
+                {show ?
+                    <MessageOptionsContainer key={id} ref={messageOptionsRef} initial='hidden' animate='visible' exit='exit' variants={optionsVariants} ismessagefromlocaluser={isMessageFromLocalUser ? 1 : 0} x={clickEvent?.pageX} y={clickEvent?.pageY} guest={enterAsAGuest ? 1 : 0}>
+                        <motion.div className='reply' onClick={() => replyMessage(id, messageText, messageUsername)} variants={isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants}>
+                            <i><BsReplyFill /></i>
+                            <p>Reply</p>
+                        </motion.div>
 
-                <motion.div className='select' onClick={() => selectMessage(message)} variants={isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants}>
-                    <i><BiSelectMultiple /></i>
-                    <p>Select</p>
-                </motion.div>
+                        <motion.div className='select' onClick={() => selectMessage(message)} variants={isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants}>
+                            <i><BiSelectMultiple /></i>
+                            <p>Select</p>
+                        </motion.div>
 
-                <motion.div className='copy' onClick={() => copyMessage(messageText)} variants={isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants}>
-                    <i><AiFillCopy /></i>
-                    <p>Copy</p>
-                </motion.div>
+                        <motion.div className='copy' onClick={() => copyMessage(messageText)} variants={isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants}>
+                            <i><AiFillCopy /></i>
+                            <p>Copy</p>
+                        </motion.div>
 
-                {isMessageFromLocalUser ?
-                <>
-                    <motion.div className='edit' onClick={() => openPopup("EDIT_POPUP", [message])} variants={isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants}>
-                        <i><AiFillEdit /></i>
-                        <p>Edit</p>
-                    </motion.div>
-                    <motion.div className='delete' onClick={() => trashMessage(id)} variants={isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants}>
-                        <i><AiFillDelete /></i>
-                        <p>Delete</p>
-                    </motion.div>
-                </>
+                        {isMessageFromLocalUser ?
+                        <>
+                            <motion.div className='edit' onClick={() => openPopup("EDIT_POPUP", [message])} variants={isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants}>
+                                <i><AiFillEdit /></i>
+                                <p>Edit</p>
+                            </motion.div>
+                            <motion.div className='delete' onClick={() => trashMessage(id)} variants={isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants}>
+                                <i><AiFillDelete /></i>
+                                <p>Delete</p>
+                            </motion.div>
+                        </>
+                        : ""}
+                    </MessageOptionsContainer>
                 : ""}
-            </MessageOptionsContainer>
+            </AnimatePresence>
         </>
     );
 };

@@ -55,7 +55,7 @@ const EditPopup = ({ popupMessages }) => {
 };
 
 const EditPopupContainer = styled.div`
-    padding: ${props => props.editreplyopen ? "7rem 1rem" : "1rem 1rem 0 1rem"};
+    padding: ${props => props.editreplyopen ? "9rem 3rem" : "1rem 1rem 0 1rem"};
     transform: ${props => props.editreplyopen ? "scale(0.5)" : "scale(1)"};
     opacity: ${props => props.editreplyopen ? "0" : "1"};
     transition: ${props =>

@@ -135,7 +135,7 @@ const MessengerMenuContainer = styled(motion.div)`
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: .15rem 0;
+            margin: .1rem 0;
             background-color: var(--button);
             border-radius: 50px;
             box-shadow: var(--shadow-second);

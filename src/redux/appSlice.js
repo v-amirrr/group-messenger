@@ -7,12 +7,7 @@ const initialState = {
     theme: 2,
     selectedMessages: [],
     selectOthersMessage: false,
-    notificationStatus: {
-        show: false,
-        message: null,
-        isError: false,
-        isGuest: false,
-    },
+    notifications: [],
     notificationSettings: {
         send: false,
         trash: true,
@@ -60,16 +55,31 @@ const appSlice = createSlice({
         setSelectOthersMessage: (state, action) => {
             return { ...state, selectOthersMessage: action.payload };
         },
-        setNotificationStatus: (state, action) => {
+        setNotifications: (state, action) => {
             return {
                 ...state,
-                notificationStatus: {
-                    show: action.payload.show,
-                    message: action.payload.message,
-                    isError: action.payload.isError,
-                    isGuest: action.payload.isGuest,
-                },
+                notifications: [
+                    ...state.notifications,
+                    {
+                        show: action.payload.show,
+                        message: action.payload.message,
+                        isError: action.payload.isError,
+                        isGuest: action.payload.isGuest,
+                        time: action.payload.time,
+                    },
+                ],
             };
+        },
+        setCloseNotification: (state, action) => {
+            return {
+                ...state,
+                notifications: [
+                    ...state.notifications.filter(notification => notification.time != action.payload),
+                ],
+            };
+        },
+        setClearNotifications: (state) => {
+            return { ...state, notification: [] };
         },
         setNotificationSettings: (state, action) => {
             return {
@@ -128,7 +138,9 @@ export const {
     setClearSelectedMessages,
     setUnselectMessages,
     setSelectOthersMessage,
-    setNotificationStatus,
+    setNotifications,
+    setCloseNotification,
+    setClearNotifications,
     setNotificationSettings,
     setMenuShow,
 } = appSlice.actions;

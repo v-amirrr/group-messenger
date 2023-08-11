@@ -9,7 +9,7 @@ export const useSelect = () => {
     const { selectedMessages } = useSelector(store => store.appStore);
     const { enterAsAGuest } = useSelector(store => store.userStore);
 
-    const { trashMessage, clearReplyMessage } = useMessageOptions();
+    const { trashMessage, clearReplyMessage, copyMessage } = useMessageOptions();
     const { openNotification } = useNotification();
 
     const selectMessage = (message) => {
@@ -50,7 +50,6 @@ export const useSelect = () => {
                 }
             }
         }
-
         if (!selectedMessages.length) {
             setSelected(false);
             dispatch(setSelectOthersMessage(false));
@@ -58,27 +57,21 @@ export const useSelect = () => {
     };
 
     const copySelectedMessages = () => {
-        clearSelectedMessages();
-        let messagesText = [];
-        selectedMessages.forEach(item => {
-            item.messageText.forEach(word => {
-                messagesText.push(`${word.word} `);
-            });
-            messagesText.push("\n");
+        selectedMessages.map((message, index) => {
+            setTimeout(() => {
+                copyMessage(message.message);
+            }, index * 600);
         });
-        messagesText = messagesText.join("");
-        navigator.clipboard.writeText(messagesText);
-        openNotification("Messages copied.", false, "COPY");
+        clearSelectedMessages();
     };
 
     const deleteSelectedMessages = () => {
-        selectedMessages.forEach(item => {
+        selectedMessages.map((message, index) => {
             setTimeout(() => {
-                trashMessage(item.id);
-            }, 500);
+                trashMessage(message.id);
+            }, index * 600);
         });
         clearSelectedMessages();
-        openNotification("Messages were moved to trash.", false, "TRASH");
     };
 
     return {

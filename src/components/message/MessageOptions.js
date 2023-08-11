@@ -11,41 +11,40 @@ import { optionsVariants, optionLocalVariants, optionNonLocalVariants } from '..
 
 const MessageOptions = ({ clickEvent, show, message }) => {
 
-    const { isMessageFromLocalUser, message: messageText, id, messageUsername } = message;
-
     const { enterAsAGuest } = useSelector(store => store.userStore);
 
     const { openPopup, copyMessage, replyMessage, trashMessage } = useMessageOptions();
     const { selectMessage } = useSelect();
 
     const messageOptionsRef = useRef();
+
     return (
         <>
             <AnimatePresence>
                 {show ?
-                    <MessageOptionsContainer key={id} ref={messageOptionsRef} initial='hidden' animate='visible' exit='exit' variants={optionsVariants} ismessagefromlocaluser={isMessageFromLocalUser ? 1 : 0} x={clickEvent?.pageX} y={clickEvent?.pageY} guest={enterAsAGuest ? 1 : 0}>
-                        <motion.div className='reply' onClick={() => replyMessage(id, messageText, messageUsername)} variants={isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants}>
+                    <MessageOptionsContainer key={message.id} ref={messageOptionsRef} initial='hidden' animate='visible' exit='exit' variants={optionsVariants} ismessagefromlocaluser={message.isMessageFromLocalUser ? 1 : 0} x={clickEvent?.pageX} y={clickEvent?.pageY} guest={enterAsAGuest ? 1 : 0}>
+                        <motion.div className='reply' onClick={() => replyMessage(message.id, message.message, message.messageUsername)} variants={message.isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants}>
                             <i><BsReplyFill /></i>
                             <p>Reply</p>
                         </motion.div>
 
-                        <motion.div className='select' onClick={() => selectMessage(message)} variants={isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants}>
+                        <motion.div className='select' onClick={() => selectMessage(message)} variants={message.isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants}>
                             <i><BiSelectMultiple /></i>
                             <p>Select</p>
                         </motion.div>
 
-                        <motion.div className='copy' onClick={() => copyMessage(messageText)} variants={isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants}>
+                        <motion.div className='copy' onClick={() => copyMessage(message.message)} variants={message.isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants}>
                             <i><AiFillCopy /></i>
                             <p>Copy</p>
                         </motion.div>
 
-                        {isMessageFromLocalUser ?
+                        {message.isMessageFromLocalUser ?
                         <>
-                            <motion.div className='edit' onClick={() => openPopup("EDIT_POPUP", [message])} variants={isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants}>
+                            <motion.div className='edit' onClick={() => openPopup("EDIT_POPUP", [message])} variants={message.isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants}>
                                 <i><AiFillEdit /></i>
                                 <p>Edit</p>
                             </motion.div>
-                            <motion.div className='delete' onClick={() => trashMessage(id)} variants={isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants}>
+                            <motion.div className='delete' onClick={() => trashMessage(message.id)} variants={message.isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants}>
                                 <i><AiFillDelete /></i>
                                 <p>Delete</p>
                             </motion.div>
@@ -94,7 +93,7 @@ const MessageOptionsContainer = styled(motion.div)`
             font-size: .7rem;
             position: absolute;
             right: .6rem;
-            transform: scale(0.5);
+            transform: scale(0);
             opacity: 0;
             transition: transform .3s, opacity .2s;
         }

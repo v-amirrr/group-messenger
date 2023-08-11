@@ -1,13 +1,13 @@
 import { useDispatch, useSelector } from "react-redux";
-import { setNotificationStatus, setNotificationSettings } from "../redux/appSlice";
+import { setNotifications, setCloseNotification, setClearNotifications, setNotificationSettings } from "../redux/appSlice";
 
 export const useNotification = () => {
-
     const dispatch = useDispatch();
-    const { notificationStatus, notificationSettings } = useSelector(store => store.appStore);
+    const { notifications, notificationSettings } = useSelector(store => store.appStore);
     const { enterAsAGuest } = useSelector(store => store.userStore);
 
     const openNotification = (message, isError, type) => {
+        let time = new Date().getTime();
         if (type == "SEND" && notificationSettings.send
         || type == "TRASH" && notificationSettings.trash
         || type == "EDIT" && notificationSettings.edit
@@ -17,15 +17,19 @@ export const useNotification = () => {
         || type == "BACKGROUND" && notificationSettings.background
         || type == "USERNAME" && notificationSettings.username
         || type == "GUEST" && enterAsAGuest) {
-            dispatch(setNotificationStatus({ show: true, message: message, isError: isError, isGuest: type == "GUEST" }));
+            dispatch(setNotifications({ show: true, message: message, isError: isError, isGuest: type == "GUEST", time: time }));
             setTimeout(() => {
-                closeNotification();
+                closeNotification(time);
             }, 5000);
         }
     };
 
-    const closeNotification = () => {
-        dispatch(setNotificationStatus({ show: false, message: null, isError: false }));
+    const closeNotification = (time) => {
+        dispatch(setCloseNotification(time));
+    };
+
+    const clearNotifications = () => {
+        dispatch(setClearNotifications());
     };
 
     const changeNotificationSettings = (notificationName, notificationValue) => {
@@ -57,6 +61,7 @@ export const useNotification = () => {
     return {
         openNotification,
         closeNotification,
+        clearNotifications,
         changeNotificationSettings,
         notificationSettings,
         setDefaultNotification,

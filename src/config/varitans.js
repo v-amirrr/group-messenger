@@ -52,24 +52,16 @@ export const errorBoxVariants = {
 };
 
 export const notificationVariants = {
-    hidden: { opacity: 0, y: -50, rotateX: 90, scale: 1.08 },
+    hidden: { opacity: 0, y: -20, scale: 0.9 },
     visible: {
         opacity: 1,
         y: 0,
-        rotateX: 0,
         scale: 1,
         transition: {
             duration: 0.6,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
         },
     },
-    exit: {
-        opacity: 0,
-        y: -50,
-        scale: 1.08,
-        transition: { duration: 0.25 },
-    },
+    exit: { opacity: 0, y: 20, transition: { duration: 0.2 } },
 };
 
 export const enterPageVariants = {

@@ -21,7 +21,7 @@ const SettingsItemContainer = styled.div`
     border-radius: ${props => props.open ? "15px" : "50px"};
     overflow: hidden;
     position: relative;
-    margin: .2rem;
+    margin: .15rem;
     background-color: var(--settings-item);
     box-shadow: var(--shadow-first);
     transition: ${props => props.open ? "height .6s, border-radius .1s" : "height .4s, border-radius 2s"}, background .2s;

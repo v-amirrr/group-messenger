@@ -38,12 +38,8 @@ const Message = props => {
                     setSelected(false);
                 } else {
                     selectMessage({
+                        ...props.message,
                         isMessageFromLocalUser: messageUid == localUid ? 1 : 0,
-                        messageText: message,
-                        id: id,
-                        replyTo: replyTo,
-                        time: time,
-                        messagePosition: messagePosition,
                         isPersian: isRTL(message) ? 1 : 0,
                     });
                 }
@@ -112,8 +108,8 @@ const Message = props => {
             <MessageBox layout={props.type == "EDIT_REPLY" ? 0 : 1} initial='hidden' animate='visible' exit='exit' variants={messageUid == localUid ? messageLocalVariants : messageNonLocalVariants} layoutId={props.type == "EDIT_REPLY" ? id : null} isMessageFromLocalUser={messageUid == localUid ? 1 : 0} ispersian={isRTL(message) ? 1 : 0} messagePosition={messagePosition} isreply={replyTo != "no_reply" ? 1 : 0} selected={selected ? 1 : 0} anymessageselected={selectedMessages.length ? 1 : 0} type={props.type} replyto={replyToApp.id == id ? 1 : 0} newreply={props.newreply ? 1 : 0} date={priorDifferentDate ? 1 : 0}>
                 <div className='message-box' onClick={(e) => messageClickHandler(e)} onDoubleClick={messageDoubleClickHandler}>
                     <p className='message'>
-                        <MessageReply replyTo={replyTo} />
                         <MessageUsername username={messageUsername} show={messageUid != localUid} />
+                        <MessageReply replyTo={replyTo} />
                         {message?.map((item, index) => (
                             item.link ? <a key={index} className='link' href={item.word} target="_blank" rel='noopener nereferrer'>{item.word}</a> : `${item.word} `
                         ))}
@@ -227,7 +223,7 @@ const MessageBox = styled(motion.div)`
 
     @media (max-width: 768px) {
         .message-box {
-            padding: ${props => props.isreply ? "2.4rem 2.5rem .5rem .8rem" : ".5rem 2.5rem .5rem .8rem"};
+            padding: .5rem 2.5rem .5rem .8rem;
             max-width: 95%;
             min-width: ${props => props.isreply ? "30%" : ""};
             border-radius: ${props =>
@@ -249,11 +245,6 @@ const MessageBox = styled(motion.div)`
                     props.messagePosition == 3 &&
                     "5px 20px 20px 20px"
             };
-        }
-
-        .username {
-            font-size: .5rem;
-            margin-right: .4rem;
         }
 
         .message {

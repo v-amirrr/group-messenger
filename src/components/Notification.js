@@ -12,7 +12,7 @@ import { notificationVariants } from '../config/varitans';
 const AuthError = () => {
 
     const location = useLocation();
-    const { notificationStatus } = useSelector(store => store.appStore);
+    const { notifications } = useSelector(store => store.appStore);
 
     const { closeNotification } = useNotification();
     const { logout } = useAuth();
@@ -23,35 +23,45 @@ const AuthError = () => {
 
     return (
         <>
-            <AnimatePresence>
-                {notificationStatus?.show ?
-                <NotificationContainer initial='hidden' animate='visible' exit='exit' variants={notificationVariants} error={notificationStatus.isError ? 1 : 0}>
-                    <button className='close-button' onClick={closeNotification}><IoClose /></button>
-                    {
-                        notificationStatus?.isError ?
-                        <i className='error-icon'><FcHighPriority /></i> :
-                        notificationStatus.isGuest ?
-                        <i className='guest-icon'><FcKey /></i> :
-                        <i className='notification-icon'><FcAdvertising /></i>
-                    }
-                    {
-                        notificationStatus.isGuest ?
-                        <p>In order to use this feature you need to <button className='link' onClick={logout}>Login</button>.</p> :
-                        <p>{notificationStatus?.message}</p>
-                    }
-                </NotificationContainer>
-                : ""}
-            </AnimatePresence>
+            <NotificationsContainer layout>
+                <AnimatePresence>
+                    {notifications?.map(notification => (
+                    <NotificationContainer layout key={notification.time} initial='hidden' animate='visible' exit='exit' variants={notificationVariants} error={notification.isError ? 1 : 0}>
+                        <button className='close-button' onClick={() => closeNotification(notification.time)}><IoClose /></button>
+                        {
+                            notification?.isError ?
+                            <i className='error-icon'><FcHighPriority /></i> :
+                            notification.isGuest ?
+                            <i className='guest-icon'><FcKey /></i> :
+                            <i className='notification-icon'><FcAdvertising /></i>
+                        }
+                        {
+                            notification.isGuest ?
+                            <p>In order to use this feature you need to <button className='link' onClick={logout}>Login</button>.</p> :
+                            <p>{notification?.message}</p>
+                        }
+                    </NotificationContainer>
+                    ))}
+                </AnimatePresence>
+            </NotificationsContainer>
         </>
     );
 };
 
-const NotificationContainer = styled(motion.div)`
+const NotificationsContainer = styled(motion.div)`
     position: absolute;
     top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column-reverse;
+`;
+
+const NotificationContainer = styled(motion.div)`
     min-width: 10rem;
     max-width: 30rem;
     height: 2.5rem;
+    margin: .15rem;
     display: flex;
     justify-content: center;
     align-items: center;

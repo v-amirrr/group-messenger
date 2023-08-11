@@ -3,16 +3,17 @@ import { useNavigate } from "react-router-dom";
 import { auth, googleProvider } from "../config/firebase";
 import { createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { setUser, setLogin, setSignup, setEnterAsAGuest, setGoogleLogin } from '../redux/userSlice';
-import { setNotificationStatus } from '../redux/appSlice';
+import { useNotification } from "./useNotification";
 
 export const useAuth = () => {
-
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    const { openNotification, clearNotifications } = useNotification();
+
     const login = (email, password) => {
         dispatch(setLogin({ loading: true }));
-        dispatch(setNotificationStatus({ show: false, message: null, isError: false }));
+        clearNotifications();
 
         if (email && password) {
             signInWithEmailAndPassword(auth, email, password)
@@ -21,20 +22,21 @@ export const useAuth = () => {
                     localStorage.setItem("user", JSON.stringify(res.user));
                     dispatch(setUser(res.user));
                     navigate("/");
+                    openNotification(`Welcome ${res.user.displayName}`, true, "ENTER");
                 })
                 .catch(err => {
                     dispatch(setLogin({ loading: false }));
-                    dispatch(setNotificationStatus({ show: true, message: err.message, isError: true }));
+                    openNotification(err.message, true, "ERROR");
                 });
         } else {
             dispatch(setLogin({ loading: false }));
-            dispatch(setNotificationStatus({ show: true, message: "Please fill all the inputs.", isError: true }));
+            openNotification("Please fill all the inputs.", true, "ERROR");
         }
     };
 
     const signup = (username, email, password) => {
         dispatch(setSignup({ loading: true }));
-        dispatch(setNotificationStatus({ show: false, message: null, isError: false }));
+        clearNotifications();
 
         if (username && email && password) {
             createUserWithEmailAndPassword(auth, email, password)
@@ -46,18 +48,19 @@ export const useAuth = () => {
                         localStorage.setItem("user", JSON.stringify(res.user));
                         dispatch(setUser(res.user));
                         navigate("/");
+                        openNotification(`Welcome ${username}`, true, "ENTER");
                     }).catch((err) => {
                         dispatch(setSignup({ loading: false }));
-                        dispatch(setNotificationStatus({ show: true, message: err.message, isError: true }));
+                        openNotification(err.message, true, "ERROR");
                     });
                 })
                 .catch((err) => {
                     dispatch(setSignup({ loading: false }));
-                    dispatch(setNotificationStatus({ show: true, message: err.message, isError: true }));
+                    openNotification(err.message, true, "ERROR");
                 });
         } else {
             dispatch(setSignup({ loading: false }));
-            dispatch(setNotificationStatus({ show: true, message: "Please fill all the inputs.", isError: true }));
+            openNotification("Please fill all the inputs.", true, "ERROR");
         }
     };
 
@@ -80,7 +83,7 @@ export const useAuth = () => {
 
     const googleLogin = () => {
         dispatch(setGoogleLogin({ loading: true }));
-        dispatch(setNotificationStatus({ show: false, message: null, isError: false }));
+        clearNotifications();
 
         signInWithPopup(auth, googleProvider)
             .then(res => {
@@ -88,10 +91,11 @@ export const useAuth = () => {
                 localStorage.setItem("user", JSON.stringify(res.user));
                 dispatch(setUser(res.user));
                 navigate("/");
+                openNotification(`Welcome ${res.user.displayName}`, true, "ENTER");
             })
             .catch(err => {
                 dispatch(setGoogleLogin({ loading: false }));
-                dispatch(setNotificationStatus({ show: true, message: err.message, isError: true }));
+                openNotification(err.message, true, "ERROR");
             });
     };
 

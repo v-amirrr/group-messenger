@@ -55,8 +55,6 @@ const SettingsPage = styled(motion.section)`
     align-items: center;
     position: absolute;
     inset: 0 0 0 0;
-    backdrop-filter: var(--glass-first);
-    -webkit-backdrop-filter: var(--glass-first);
     user-select: none;
 `;
 

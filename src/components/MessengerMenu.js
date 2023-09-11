@@ -104,19 +104,14 @@ const MessengerMenuContainer = styled(motion.div)`
         position: absolute;
         top: .3rem;
         right: .3rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
         padding: .4rem;
         font-size: 1.2rem;
     }
 
     .menu-icon {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        width: 2.5rem;
+        height: 2.5rem;
+        top: 0;
         font-size: 1.5rem;
         background-color: var(--button);
     }
@@ -171,36 +166,6 @@ const MessengerMenuContainer = styled(motion.div)`
 
     @media (max-width: 500px) {
         right: .3rem;
-        width: ${props => props.openmenu ? "9rem" : "3rem"};
-        height: ${props => props.openmenu ? "8.8rem" : "3rem"};
-
-        .back-icon {
-            font-size: 1.5rem;
-        }
-
-        .menu-icon {
-            font-size: 1.8rem;
-        }
-
-        .list {
-            margin-top: 2.2rem;
-
-            a {
-                height: 2.5rem;
-            }
-
-            .list-item {
-                height: 2.5rem;
-
-                p {
-                    font-size: 1rem;
-                }
-
-                i {
-                    font-size: 1.8rem;
-                }
-            }
-        }
     }
 `;
 

@@ -22,7 +22,7 @@ export const useAuth = () => {
                     localStorage.setItem("user", JSON.stringify(res.user));
                     dispatch(setUser(res.user));
                     navigate("/");
-                    openNotification(`Welcome ${res.user.displayName}`, true, "ENTER");
+                    openNotification(`Welcome ${res.user.displayName}`, false, "ENTER");
                 })
                 .catch(err => {
                     dispatch(setLogin({ loading: false }));

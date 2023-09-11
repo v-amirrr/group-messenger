@@ -54,8 +54,7 @@ const SettingsUser = ({ open, setOpen, setHeight }) => {
                         <UserContainer initial='hidden' animate='visible' exit='exit' variants={userVariants}>
                             <div className='change-username'>
                                 <header className='user-item-header'>
-                                    <i><FcAddressBook /></i>
-                                    <h6>Username</h6>
+                                    <h5>Username</h5>
                                 </header>
                                 <div className='change-username-input'>
                                     <input type='text' value={changeUsernameInput} onChange={(e) => setChangeUsernameInput(e.target.value)}/>
@@ -73,21 +72,19 @@ const SettingsUser = ({ open, setOpen, setHeight }) => {
 
 const UserContainer = styled(motion.div)`
     .change-username {
-        padding-bottom: .5rem;
+        padding: .5rem;
+        border: var(--border-first);
+        border-radius: 15px;
 
         .user-item-header {
             display: flex;
             justify-content: center;
             align-items: center;
-            h6 {
-                margin-bottom: .2rem;
-            }
 
-            i {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                font-size: 1.5rem;
+            h5 {
+                margin: 0 .5rem .5rem .5rem;
+                text-align: left;
+                width: 100%;
             }
         }
 

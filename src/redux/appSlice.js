@@ -79,7 +79,7 @@ const appSlice = createSlice({
             };
         },
         setClearNotifications: (state) => {
-            return { ...state, notification: [] };
+            return { ...state, notifications: [] };
         },
         setNotificationSettings: (state, action) => {
             return {

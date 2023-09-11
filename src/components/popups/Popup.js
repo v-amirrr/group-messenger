@@ -57,7 +57,7 @@ const PopupPage = styled(motion.section)`
     background-color: var(--page-first);
     backdrop-filter: var(--glass-second);
     -webkit-backdrop-filter: var(--glass-second);
-    z-index: 9;
+    z-index: 99;
 `;
 
 const PopupContainer = styled(motion.div)`
@@ -99,11 +99,11 @@ const PopupContainer = styled(motion.div)`
 
         .delete {
             color: #ff0000;
-            background-color: #ff000010;
+            background-color: #ff000040;
 
             @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
                 &:hover {
-                    background-color: #ff000020;
+                    background-color: #ff000050;
                 }
             }
         }

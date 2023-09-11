@@ -5,12 +5,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { selectCheckVariants, checkButtonVariants } from '../../config/varitans';
 
 
-const SelectCheck = ({ selected, selectedMessagesLength, messageClickHandler }) => {
+const SelectCheck = ({ selected, selectedMessagesLength, messageClickHandler, type }) => {
     return (
         <>
             <AnimatePresence exitBeforeEnter>
-                {selectedMessagesLength ?
-                <SelectCheckContainer className='select-section' key="select-section" initial='hidden' animate='visible' exit='exit' variants={selectCheckVariants} selected={selected ? 1 : 0} onClick={messageClickHandler}>
+                {selectedMessagesLength || type == "TRASH" ?
+                <SelectCheckContainer className='select-section' key="select-section" initial='hidden' animate='visible' exit='exit' variants={selectCheckVariants} trash={type == "TRASH" ? 1 : 0} selected={selected ? 1 : 0} onClick={messageClickHandler}>
                     <AnimatePresence exitBeforeEnter>
                     {
                         selected ?
@@ -31,12 +31,12 @@ const SelectCheckContainer = styled(motion.div)`
     height: 1.8rem;
     border-radius: 50%;
     position: absolute;
-    right: 2rem;
+    right: ${props => props.trash ? "80%" : "0"};
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    z-index: 999;
+    z-index: 99;
     cursor: pointer;
     transition: background .2s;
 

@@ -32,6 +32,9 @@ const ChatDateContainer = styled(motion.div)`
     justify-content: center;
     align-items: center;
     box-shadow: var(--shadow-first);
+    position: absolute;
+    top: 0;
+    left: 45%;
 
     .month {
         margin: 0 .18rem 0 .18rem;
@@ -39,6 +42,7 @@ const ChatDateContainer = styled(motion.div)`
 
     @media (max-width: 500px) {
         margin: .5rem auto;
+        left: 40%;
     }
 `;
 

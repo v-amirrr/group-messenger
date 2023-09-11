@@ -9,7 +9,7 @@ export const useSelect = () => {
     const { selectedMessages } = useSelector(store => store.appStore);
     const { enterAsAGuest } = useSelector(store => store.userStore);
 
-    const { trashMessage, clearReplyMessage, copyMessage } = useMessageOptions();
+    const { trashMessage, clearReplyMessage, copyMessage, undeleteMessage, deleteMessage } = useMessageOptions();
     const { openNotification } = useNotification();
 
     const selectMessage = (message) => {
@@ -65,10 +65,37 @@ export const useSelect = () => {
         clearSelectedMessages();
     };
 
-    const deleteSelectedMessages = () => {
+    const trashSelectedMessages = () => {
         selectedMessages.map((message, index) => {
             setTimeout(() => {
                 trashMessage(message.id);
+            }, index * 600);
+        });
+        clearSelectedMessages();
+    };
+
+    const switchSelectAllTrash = (messages) => {
+        if (messages.length == selectedMessages.length) {
+            clearSelectedMessages();
+        } else {
+            clearSelectedMessages();
+            messages.map(message => {
+                dispatch(setSelectedMessages({message}));
+            });
+        }
+    };
+
+    const restoreSelectedMessages = () => {
+        selectedMessages.map(message => {
+            undeleteMessage(message.id);
+        });
+        clearSelectedMessages();
+    };
+
+    const deleteSelectedMessages = () => {
+        selectedMessages.map((message, index) => {
+            setTimeout(() => {
+                deleteMessage(message.id);
             }, index * 600);
         });
         clearSelectedMessages();
@@ -79,6 +106,9 @@ export const useSelect = () => {
         clearSelectedMessages,
         checkMessage,
         unSelectMessage,
+        trashSelectedMessages,
+        switchSelectAllTrash,
+        restoreSelectedMessages,
         deleteSelectedMessages,
         copySelectedMessages
     };

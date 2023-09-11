@@ -1,23 +1,27 @@
 import React, { memo, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import Message from '../message/Message';
 import { useMessageOptions } from '../../hooks/useMessageOptions';
 import { useNotification } from '../../hooks/useNotification';
+import { useSelect } from '../../hooks/useSelect';
 import { FcEmptyTrash, FcFullTrash } from "react-icons/fc";
 import { TbTrashX } from 'react-icons/tb';
 import { FaTrashRestore } from "react-icons/fa";
 import { RiArrowRightSLine } from "react-icons/ri";
-import { GiEmptyWoodBucket } from 'react-icons/gi';
+import { BsCheckAll } from 'react-icons/bs';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
-import { trashVariants, trashMessagesVariants } from '../../config/varitans';
+import { trashVariants, trashSelectbarVariants } from '../../config/varitans';
 
 const SettingsTrash = ({ open, setOpen, setHeight }) => {
 
     const { deletedMessages } = useSelector(store => store.messagesStore);
+    const { selectedMessages } = useSelector(store => store.appStore);
     const { user, enterAsAGuest } = useSelector(store => store.userStore);
 
-    const { undeleteMessage, openPopup } = useMessageOptions();
+    const { openPopup } = useMessageOptions();
     const { openNotification } = useNotification();
+    const { switchSelectAllTrash, restoreSelectedMessages } = useSelect();
 
     const [messages, setMessages] = useState(deletedMessages?.filter(item => item?.uid == user?.uid));
 
@@ -59,26 +63,45 @@ const SettingsTrash = ({ open, setOpen, setHeight }) => {
                 {
                     open == "SETTINGS_TRASH" ?
                     <div key="item-data" className='item-data'>
-                        <MessagesContainer initial='hidden' animate='visible' exit='exit' variants={trashVariants}>
+                        <MessagesContainer initial='hidden' animate='visible' exit='exit' variants={trashVariants} selectbarshow={selectedMessages.length}>
                             {messages?.length ?
-                            <motion.div layout className='deleted-messages'>
-                                <AnimatePresence>
-                                    {messages?.map(message => (
-                                        <motion.div layout className='deleted-message' key={message.id} layoutId={message.id} initial='hidden' animate='visible' exit='exit' variants={trashMessagesVariants}>
-                                            <div className='deleted-message-box'>
-                                                <div className='deleted-message-text'>{message.message}</div>
-                                            </div>
-                                            <div className='deleted-message-return' onClick={() => undeleteMessage(message.id)}>
-                                                <FaTrashRestore />
-                                            </div>
-                                            <div className='deleted-message-delete' onClick={() => openPopup("DELETE_POPUP", [message])}>
-                                                <TbTrashX />
-                                            </div>
-                                        </motion.div>
-                                    ))}
-                                </AnimatePresence>
-                            </motion.div>
-                            : <div className='trash-empty'><GiEmptyWoodBucket /></div>}
+                            <>
+                            <AnimatePresence>
+                                {selectedMessages.length ?
+                                <motion.div key="trashselectbar" className='select-bar' initial='hidden' animate='visible' exit='exit' variants={trashSelectbarVariants}>
+                                    <div className='counter'>{selectedMessages.length}</div>
+                                    <div className='delete-button' onClick={() => openPopup("DELETE_POPUP", [selectedMessages])}>
+                                        <i><TbTrashX /></i>
+                                        <p>Delete</p>
+                                    </div>
+                                    <div className='restore-button' onClick={restoreSelectedMessages}>
+                                        <i><FaTrashRestore /></i>
+                                        <p>Restore</p>
+                                    </div>
+                                    <div className='all' onClick={() => switchSelectAllTrash(messages)}><BsCheckAll /></div>
+                                </motion.div>
+                                : ""}
+                            </AnimatePresence>
+                                <motion.div layout className='deleted-messages'>
+                                    <AnimatePresence>
+                                        {messages?.map(message => (
+                                            <Message
+                                                key={message.id}
+                                                type="TRASH"
+                                                message={{
+                                                    id: message.id,
+                                                    message: message.message,
+                                                    time: message.time,
+                                                    replyTo: message.replyTo,
+                                                }}
+                                            />
+                                        ))}
+                                    </AnimatePresence>
+                                </motion.div>
+                            </>
+                            : <div className='trash-empty'>
+                                <p>No deleted messages!</p>
+                            </div>}
                         </MessagesContainer>
                     </div>
                     : ""
@@ -97,86 +120,113 @@ const MessagesContainer = styled(motion.div)`
     width: 100%;
     height: 100%;
     margin-top: 5rem;
-    padding: 0 .5rem 3rem .5rem;
-    overflow: hidden scroll;
 
-    /* width */
     ::-webkit-scrollbar {
         width: .3rem;
     }
 
-    /* Track */
     ::-webkit-scrollbar-track {
-        border-radius: 50px;
-        background: #ffffff04;
+        background: #ffffff00;
     }
 
-    /* Handle */
     ::-webkit-scrollbar-thumb {
-        background: #ffffff14;
+        background: #ffffff10;
         border-radius: 50px;
     }
 
-    .deleted-message {
+    .select-bar {
+        width: 100%;
+        padding: .4rem 0;
+        border-radius: 50px;
         display: flex;
         justify-content: center;
         align-items: center;
-        flex-direction: row-reverse;
-        user-select: none;
+        position: fixed;
 
-        .deleted-message-box {
-            z-index: 2;
+        .delete-button, .restore-button {
             display: flex;
             justify-content: center;
             align-items: center;
-            flex-direction: row-reverse;
-            background-color: ${props => props.selected ? "var(--message-selected)" : "var(--message)"};
-            margin: .2rem 0 .2rem auto;
             border-radius: 25px;
-            padding: ${props => props.isreply ? "2.4rem .8rem .5rem .8rem" : ".5rem .8rem .5rem .8rem"};
-            min-width: ${props => props.isreply ? "22%" : ""};
-            width: fit-content;
-            max-width: 65%;
-            font-weight: 200;
-            word-break: break-all;
-            transition: backdrop-filter .4s, border-radius .4s, margin .4s, background .2s;
+            height: 1.8rem;
+            width: 4rem;
+            margin: 0 .1rem;
+            cursor: pointer;
 
-            .deleted-message-text {
-                text-align: ${props => props.ispersian ? "right" : "left"};
-                word-spacing: 1px;
-                line-break: loose;
-                word-break: keep-all;
-                white-space: pre-wrap;
-                font-family: ${props => props.ispersian ? "Vazirmatn" : "Outfit"}, "Vazirmatn", sans-serif;
-                font-size: .8rem;
+            i {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            p {
+                font-size: .65rem;
             }
         }
 
-        .deleted-message-return, .deleted-message-delete {
-            font-size: .8rem;
-            background-color: #ffffff08;
-            width: 1.8rem;
-            height: 1.8rem;
-            cursor: pointer;
+        .delete-button {
+            background-color: #ff000030;
+            color: #ff0000;
+
+            i {
+                font-size: 1rem;
+                margin-right: .05rem;
+            }
+        }
+
+        .restore-button {
+            background-color: #00ff0030;
+            color: #00ff00;
+
+            i {
+                font-size: .75rem;
+                margin-right: .1rem;
+            }
+        }
+
+        .all {
+            background-color: #ffffff10;
             border-radius: 50%;
+            width: 1.4rem;
+            height: 1.4rem;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #00ff00;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-left: .2rem;
         }
 
-        .deleted-message-delete {
-            font-size: 1rem;
-            color: #ff0000;
+        .counter {
+            background-color: #ffffff10;
+            border-radius: 50%;
+            width: 1.4rem;
+            height: 1.4rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: .8rem;
+            margin-right: .2rem;
         }
     }
 
+    .deleted-messages {
+        position: relative;
+        margin-top: ${props => props.selectbarshow ? "2.5rem" : "0"};
+        overflow: hidden scroll;
+        width: 100%;
+        padding: .5rem .5rem 5rem .5rem;
+        transition: margin .3s;
+    }
+
     .trash-empty {
+        margin-bottom: 2.5rem;
         height: 100%;
+        width: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: 3rem;
+        flex-direction: column;
     }
 
     @media (max-width: 768px) {

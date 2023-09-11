@@ -55,11 +55,14 @@ export const useMessageOptions = () => {
     };
 
     const trashMessage = (id) => {
+        dispatch(setMessageOptionsId(null));
         const docRef = doc(db, "messages", id);
-        updateDoc(docRef, {
-            deleted: true
-        });
-        openNotification("Message was moved to trash.", false, "TRASH");
+        setTimeout(() => {
+            updateDoc(docRef, {
+                deleted: true,
+            });
+            openNotification("Message was moved to trash.", false, "TRASH");
+        }, 500);
     };
 
     const deleteMessage = (id) => {
@@ -109,14 +112,16 @@ export const useMessageOptions = () => {
             });
             messageText = messageText.join(" ");
 
-            if (replyTo.id && replyTo.id != id) {
-                dispatch(setClearReplyTo());
-                setTimeout(() => {
+            setTimeout(() => {
+                if (replyTo.id && replyTo.id != id) {
+                    dispatch(setClearReplyTo());
+                    setTimeout(() => {
+                        dispatch(setSendMessageReplyTo({ id, messageText, username }));
+                    }, 500);
+                } else {
                     dispatch(setSendMessageReplyTo({ id, messageText, username }));
-                }, 500);
-            } else {
-                dispatch(setSendMessageReplyTo({ id, messageText, username }));
-            }
+                }
+            }, 400);
         }
     };
 

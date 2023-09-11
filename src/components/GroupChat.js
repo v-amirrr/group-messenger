@@ -26,10 +26,10 @@ const GroupChat = () => {
         const goBottom = setTimeout(() => {
             if (!loading) {
                 messagesEndRef?.current?.scrollIntoView({
-                    behavior: "smooth", block: "center", inline: "end"
+                    block: "center", inline: "end"
                 });
             }
-        }, 1200);
+        }, 600);
 
         return () => clearTimeout(goBottom);
     }, [messages]);
@@ -45,7 +45,7 @@ const GroupChat = () => {
             </AnimatePresence>
 
             <AnimatePresence exitBeforeEnter>
-                {enterAsAGuest ? <GeustSign /> : ""}
+                {enterAsAGuest ? <GeustSign key="guest-sign" /> : ""}
             </AnimatePresence>
 
             <GroupChatContainer layout initial='hidden' animate='visible' exit='exit' variants={groupChatVariants}>

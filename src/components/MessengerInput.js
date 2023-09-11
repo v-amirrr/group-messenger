@@ -117,7 +117,7 @@ const MessengerInput = () => {
 
 const MessengerInputContainer = styled(motion.section)`
     position: absolute;
-    bottom: ${props => props.isreplyto ? ".4rem" : "1rem"};
+    bottom: 1rem;
     width: 20rem;
     height: 2.8rem;
     display: flex;
@@ -210,7 +210,7 @@ const MessengerInputContainer = styled(motion.section)`
 
 const ReplyTo = styled(motion.div)`
     position: absolute;
-    bottom: 3.6rem;
+    bottom: 4.2rem;
     max-width: 25%;
     height: 2rem;
     display: flex;

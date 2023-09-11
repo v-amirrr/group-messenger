@@ -64,8 +64,8 @@ const SettingsItemContainer = styled.div`
         }
 
         .deleted-messages-counter {
-            margin: 0 .5rem;
-            font-size: .7rem;
+            margin: 0 .3rem;
+            font-size: .6rem;
             font-weight: 600;
             width: 1rem;
             height: 1rem;

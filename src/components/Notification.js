@@ -55,26 +55,26 @@ const NotificationsContainer = styled(motion.div)`
     justify-content: center;
     align-items: center;
     flex-direction: column-reverse;
+    z-index: 999;
 `;
 
 const NotificationContainer = styled(motion.div)`
     min-width: 10rem;
     max-width: 30rem;
-    height: 2.5rem;
+    height: 2.2rem;
     margin: .15rem;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
     background-color: transparent;
-    border: var(--border-first);
+    background-color: #ffffff10;
     border-radius: 50px;
     backdrop-filter: var(--glass-first);
     -webkit-backdrop-filter: var(--glass-first);
     padding: 0 3rem 0 .5rem;
     box-shadow: var(--shadow-second);
     user-select: none;
-    z-index: 999;
 
     p {
         color: var(--text-color-third);

@@ -12,6 +12,7 @@ import { useGetMessages } from './hooks/useGetMessages';
 import { useWarningPage } from './hooks/useWarningPage';
 import { useChangeTheme } from './hooks/useChangeTheme';
 import { useNotification } from './hooks/useNotification';
+import { useSelect } from './hooks/useSelect';
 import { AnimatePresence } from 'framer-motion';
 
 const App = () => {
@@ -21,7 +22,8 @@ const App = () => {
     const { getMessages, loadingOn } = useGetMessages();
     const { showWelcomePages } = useWarningPage();
     const { setDefaultTheme } = useChangeTheme();
-    const { setDefaultNotification } = useNotification();
+    const { setDefaultNotification, clearNotifications } = useNotification();
+    const { clearSelectedMessages } = useSelect();
 
     useEffect(() => {
         setDefaultTheme();
@@ -30,6 +32,11 @@ const App = () => {
         getMessages();
         showWelcomePages();
     }, []);
+
+    useEffect(() => {
+        clearSelectedMessages();
+        clearNotifications();
+    }, [location.pathname])
 
     return (
         <>

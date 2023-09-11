@@ -2,11 +2,11 @@ import React, { memo } from 'react';
 import { BsReplyFill } from 'react-icons/bs';
 import styled from 'styled-components';
 
-const MessageReply = ({ replyTo }) => {
+const MessageReply = ({ replyTo, type }) => {
     return (
         <>
-            {replyTo != "no_reply" ?
-            <ReplySection usernamelen={replyTo?.username.length} messagelen={replyTo?.message.length}>
+            {replyTo != "no_reply" && type != "TRASH" ?
+            <ReplySection usernamelen={replyTo?.username?.length} messagelen={replyTo?.message?.length}>
                 <i><BsReplyFill /></i>
                 {replyTo ?
                     <p className='reply-message'>{replyTo?.message}</p>

@@ -16,7 +16,7 @@ export const useNotification = () => {
         || type == "DELETE" && notificationSettings.delete
         || type == "BACKGROUND" && notificationSettings.background
         || type == "USERNAME" && notificationSettings.username
-        || type == "GUEST" && enterAsAGuest) {
+        || type == "GUEST" && enterAsAGuest || type == "ERROR" || type == "ENTER") {
             dispatch(setNotifications({ show: true, message: message, isError: isError, isGuest: type == "GUEST", time: time }));
             setTimeout(() => {
                 closeNotification(time);

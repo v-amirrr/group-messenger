@@ -1,7 +1,6 @@
 import React, { memo } from 'react';
 import { useSelector } from 'react-redux';
 import { useChangeTheme } from '../../hooks/useChangeTheme';
-import themeOneImageSRC from '../../assets/images/1.webp';
 import themeTowImageSRC from '../../assets/images/2.webp';
 import themeThreeImageSRC from '../../assets/images/3.webp';
 import themeFourImageSRC from '../../assets/images/4.webp';
@@ -40,15 +39,12 @@ const SettingsBackgrounds = ({ open, setOpen, setHeight }) => {
                     <div key="item-data" className='item-data'>
                         <BackgroundsContainer theme={theme} initial='hidden' animate='visible' exit='exit' variants={backgroundsVariants}>
                             <div className='background' onClick={() => changeTheme(1)}>
-                                <img src={themeOneImageSRC} />
-                            </div>
-                            <div className='background' onClick={() => changeTheme(2)}>
                                 <img src={themeTowImageSRC} />
                             </div>
-                            <div className='background' onClick={() => changeTheme(3)}>
+                            <div className='background' onClick={() => changeTheme(2)}>
                                 <img src={themeThreeImageSRC} />
                             </div>
-                            <div className='background' onClick={() => changeTheme(4)}>
+                            <div className='background' onClick={() => changeTheme(3)}>
                                 <img src={themeFourImageSRC} />
                             </div>
                         </BackgroundsContainer>
@@ -95,7 +91,7 @@ const BackgroundsContainer = styled(motion.div)`
         height: 8rem;
         margin: .2rem 0;
         cursor: pointer;
-        border: solid 5px #ffffff00;
+        border: solid 3px #ffffff00;
         transition: border .2s;
 
         img {
@@ -114,10 +110,6 @@ const BackgroundsContainer = styled(motion.div)`
 
         &:nth-child(3) {
             border: ${props => props.theme == 3 ? "solid 3px #fff" : ""};
-        }
-
-        &:nth-child(4) {
-            border: ${props => props.theme == 4 ? "solid 3px #fff" : ""};
         }
     }
 `;

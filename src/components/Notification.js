@@ -7,23 +7,30 @@ import { IoClose } from 'react-icons/io5';
 import { FcAdvertising, FcHighPriority, FcKey } from 'react-icons/fc';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
-import { notificationVariants } from '../config/varitans';
+import { notificationContainerVariants, notificationVariants } from '../config/varitans';
 
 const AuthError = () => {
 
     const location = useLocation();
     const { notifications } = useSelector(store => store.appStore);
+    const { popupShow } = useSelector(store => store.popupStore);
 
-    const { closeNotification } = useNotification();
+    const { closeNotification, clearNotifications } = useNotification();
     const { logout } = useAuth();
 
     useEffect(() => {
-        closeNotification();
-    }, [location.pathname]);
+        clearNotifications();
+    }, [location.pathname, popupShow]);
+
+    useEffect(() => {
+        if (notifications.length > 3) {
+            closeNotification(notifications[0].time);
+        }
+    }, [notifications]);
 
     return (
         <>
-            <NotificationsContainer layout>
+            <NotificationsContainer layout initial='hidden' animate='visible' exit='exit' variants={notificationContainerVariants}>
                 <AnimatePresence>
                     {notifications?.map(notification => (
                     <NotificationContainer layout key={notification.time} initial='hidden' animate='visible' exit='exit' variants={notificationVariants} error={notification.isError ? 1 : 0}>
@@ -61,7 +68,7 @@ const NotificationsContainer = styled(motion.div)`
 const NotificationContainer = styled(motion.div)`
     min-width: 10rem;
     max-width: 30rem;
-    height: 2.2rem;
+    min-height: 2.2rem;
     margin: .15rem;
     display: flex;
     justify-content: center;

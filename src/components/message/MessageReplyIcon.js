@@ -6,9 +6,17 @@ import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { replyIconLocalVariants, replyIconNonLocalVariants } from '../../config/varitans';
 
-const MessageReplyIcon = ({ show, messageLocal }) => {
+const MessageReplyIcon = ({ editReply, editReplyClick, show, messageLocal }) => {
 
     const { clearReplyMessage } = useMessageOptions();
+
+    const closeHandler = () => {
+        if (editReply) {
+            editReplyClick();
+        } else {
+            clearReplyMessage();
+        }
+    };
 
     return (
         <>
@@ -18,7 +26,7 @@ const MessageReplyIcon = ({ show, messageLocal }) => {
                     <i className='reply'>
                         <BsReplyFill />
                     </i>
-                    <i className='close' onClick={clearReplyMessage}>
+                    <i className='close' onClick={closeHandler}>
                         <IoClose  />
                     </i>
                 </MessageReplyIconContainer>

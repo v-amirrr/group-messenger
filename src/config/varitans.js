@@ -51,6 +51,17 @@ export const errorBoxVariants = {
     exit: { opacity: 0, y: 30, transition: { duration: 0.3 } },
 };
 
+export const notificationContainerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            duration: 0.4,
+        },
+    },
+    exit: { opacity: 0, transition: { duration: 0.2 } },
+};
+
 export const notificationVariants = {
     hidden: { opacity: 0, y: -20, scale: 0.9 },
     visible: {
@@ -510,32 +521,31 @@ export const popupPageVariants = {
 };
 
 export const popupContainerVariants = {
-    hidden: { opacity: 0, scale: 1.1 },
+    hidden: { opacity: 0, scaleX: 0.8 },
     visible: {
         opacity: 1,
         y: 0,
-        scale: 1,
+        scaleX: 1,
         transition: {
             duration: 0.8,
             ease: [0.53, 0, 0, 0.98],
             time: [0.53, 0, 0, 0.98],
         },
     },
-    exit: { opacity: 0, scale: 1.1, transition: { duration: 0.3 } },
+    exit: { opacity: 0, scaleX: 0.9, transition: { duration: 0.3 } },
 };
 
 export const replyAddSectionVariants = {
-    hidden: { opacity: 0, scale: 0.9 },
+    hidden: { opacity: 0, y: 20 },
     visible: {
         opacity: 1,
         y: 0,
-        scale: 1,
         transition: {
             delay: 0.4,
             duration: 0.4,
         },
     },
-    exit: { opacity: 0, scale: 0.8, transition: { duration: 0.2 } },
+    exit: { opacity: 0, y: 20, transition: { duration: 0.3 } },
 };
 
 export const replyButtonVariants = {
@@ -572,18 +582,17 @@ export const settingsPageVariants = {
 };
 
 export const settingsContainerVariants = {
-    hidden: { opacity: 0, y: 50, scaleY: 0.8 },
+    hidden: { opacity: 0, scaleX: 0.8 },
     visible: {
         opacity: 1,
-        y: 0,
-        scaleY: 1,
+        scaleX: 1,
         transition: {
             duration: 0.8,
             ease: [0.53, 0, 0, 0.98],
             time: [0.53, 0, 0, 0.98],
         },
     },
-    exit: { opacity: 0, y: 30, transition: { duration: 0.3 } },
+    exit: { opacity: 0, scaleX: 0.9, transition: { duration: 0.3 } },
 };
 
 export const backgroundsVariants = {

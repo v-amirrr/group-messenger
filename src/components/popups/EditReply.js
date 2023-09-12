@@ -2,7 +2,7 @@ import React, { useState, useEffect, memo } from 'react';
 import Message from '../message/Message';
 import { useSelector } from 'react-redux';
 import { useMessageOptions } from "../../hooks/useMessageOptions";
-import { AiFillEdit } from 'react-icons/ai';
+import { BsReplyFill } from 'react-icons/bs';
 import { IoClose } from 'react-icons/io5';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -10,7 +10,7 @@ import { replyAddSectionVariants, replyButtonVariants } from '../../config/varit
 
 const EditReply = ({ replyTo, id, editReplyOpen, setEditReplyOpen }) => {
 
-    const { messages, localUsername } = useSelector(store => store.messagesStore);
+    const { messages } = useSelector(store => store.messagesStore);
     const { user } = useSelector(store => store.userStore);
 
     const { editReply } = useMessageOptions();
@@ -50,6 +50,7 @@ const EditReply = ({ replyTo, id, editReplyOpen, setEditReplyOpen }) => {
                             {messagesBefore?.map(message => (
                                 <Message
                                     onClick={() => newReply == message.id ? setNewReply("deleted") : setNewReply(message.id)}
+                                    replyIconClick={() => setNewReply("deleted")}
                                     key={message.id}
                                     type="EDIT_REPLY"
                                     newreply={newReply == message.id}
@@ -75,8 +76,7 @@ const EditReply = ({ replyTo, id, editReplyOpen, setEditReplyOpen }) => {
                     <AnimatePresence>
                         {!editReplyOpen ?
                         <motion.button className='open-button' onClick={() => setEditReplyOpen(!editReplyOpen)} initial='hidden' animate='visible' exit='exit' variants={replyButtonVariants}>
-                            <i><AiFillEdit /></i>
-                            <p>Edit Reply</p>
+                            <i><BsReplyFill /></i>
                         </motion.button>
                         : ""}
                     </AnimatePresence>
@@ -90,7 +90,7 @@ const ReplyConatiner = styled(motion.div)`
     position: absolute;
     bottom: ${props => props.editReplyOpen ? "0" : "1.2rem"};
     right: ${props => props.editReplyOpen ? "0" : "1rem"};
-    width: ${props => props.editReplyOpen ? "100%" : "6.6rem"};
+    width: ${props => props.editReplyOpen ? "100%" : "2.3rem"};
     height: ${props => props.editReplyOpen ? "100%" : "2.3rem"};
     display: flex;
     justify-content: center;
@@ -103,7 +103,7 @@ const ReplyConatiner = styled(motion.div)`
     overflow: hidden;
     transition: ${props =>
         props.editReplyOpen ?
-        "width .8s cubic-bezier(.53,0,0,.98), height .8s cubic-bezier(.53,0,0,.98), bottom .6s, right .6s" :
+        "width .6s cubic-bezier(.53,0,0,.98), height .6s cubic-bezier(.53,0,0,.98), bottom .6s, right .6s" :
         "width .4s .1s cubic-bezier(.53,0,0,.98), height .4s .1s cubic-bezier(.53,0,0,.98), bottom .4s .1s, right .4s .1s"
     };
 
@@ -129,12 +129,7 @@ const ReplyConatiner = styled(motion.div)`
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 1.2rem;
-            margin-right: .2rem;
-        }
-
-        p {
-            font-size: .8rem;
+            font-size: 1.4rem;
         }
     }
 

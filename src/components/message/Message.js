@@ -125,7 +125,7 @@ const Message = props => {
 
                 <SelectCheck type={props.type} selected={selected} selectedMessagesLength={selectedMessages.length} messageClickHandler={messageClickHandler}/>
 
-                <MessageReplyIcon show={replyToApp.id == id || props.newreply} messageLocal={messageUid == localUid} />
+                <MessageReplyIcon editReply={props.newreply} editReplyClick={props.replyIconClick} show={replyToApp.id == id || props.newreply} messageLocal={messageUid == localUid} />
 
                 <MessageOptions
                     clickEvent={clickEvent}

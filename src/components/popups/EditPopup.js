@@ -60,8 +60,8 @@ const EditPopupContainer = styled.div`
     opacity: ${props => props.editreplyopen ? "0" : "1"};
     transition: ${props =>
         props.editreplyopen ?
-        "transform .5s .2s, padding 1s .1s cubic-bezier(.53,0,0,.98), opacity .3s .2s" :
-        "transform .5s .2s, padding .6s, opacity .5s .3s"
+        "transform .4s .2s, padding .6s .1s cubic-bezier(.53,0,0,.98), opacity .3s .2s" :
+        "transform .4s .2s, padding .6s, opacity .5s .3s"
     };
     position: relative;
 

@@ -3,7 +3,7 @@ import { setNotifications, setCloseNotification, setClearNotifications, setNotif
 
 export const useNotification = () => {
     const dispatch = useDispatch();
-    const { notifications, notificationSettings } = useSelector(store => store.appStore);
+    const { notificationSettings } = useSelector(store => store.appStore);
     const { enterAsAGuest } = useSelector(store => store.userStore);
 
     const openNotification = (message, isError, type) => {

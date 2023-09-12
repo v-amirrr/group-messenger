@@ -476,13 +476,13 @@ export const menuVariants = {
 };
 
 export const menuIconVariants = {
-    hidden: { opacity: 0 },
+    hidden: { opacity: 0, scale: 0.9 },
     visible: {
         opacity: 1,
         scale: 1,
-        transition: { duration: 0.2, delay: 0.2 },
+        transition: { duration: 0.4, delay: 0.2 },
     },
-    exit: { opacity: 0, transition: { duration: 0.2 } },
+    exit: { opacity: 0, scale: 0.5, transition: { duration: 0.3 } },
 };
 
 export const menuItemVariants = {

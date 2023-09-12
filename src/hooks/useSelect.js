@@ -86,8 +86,10 @@ export const useSelect = () => {
     };
 
     const restoreSelectedMessages = () => {
-        selectedMessages.map(message => {
-            undeleteMessage(message.id);
+        selectedMessages.map((message, index) => {
+            setTimeout(() => {
+                undeleteMessage(message.id);
+            }, index * 600);
         });
         clearSelectedMessages();
     };

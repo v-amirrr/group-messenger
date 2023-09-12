@@ -38,7 +38,7 @@ const MessengerMenu = () => {
                     {menuShow ?
                     <motion.i key="back-icon" className='back-icon' onClick={() => dispatch(setMenuShow(false))} initial='hidden' animate='visible' exit='exit' variants={menuItemVariants}>
                         <FaArrowRight />
-                    </motion.i> :
+                    </motion.i>:
                     <motion.i key="menu-icon" className='menu-icon' onClick={() => dispatch(setMenuShow(true))} initial='hidden' animate='visible' exit='exit' variants={menuIconVariants}>
                         <HiDotsVertical />
                     </motion.i>}
@@ -72,7 +72,7 @@ const MessengerMenuContainer = styled(motion.div)`
     display: flex;
     justify-content: center;
     align-items: center;
-    border: var(--border-first);
+    border: solid 1px #ffffff18;
     border-radius: ${props => props.openmenu ? "25px" : "50px"};
     box-shadow: var(--shadow-second);
     backdrop-filter: var(--glass-first);
@@ -91,13 +91,6 @@ const MessengerMenuContainer = styled(motion.div)`
         align-items: center;
         border-radius: 50%;
         color: var(--text-color-third);
-        transition: background .2s;
-
-        @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
-            &:hover {
-                background-color: var(--button-hover);
-            }
-        }
     }
 
     .back-icon {
@@ -109,11 +102,11 @@ const MessengerMenuContainer = styled(motion.div)`
     }
 
     .menu-icon {
-        width: 2.5rem;
-        height: 2.5rem;
+        width: 2.4rem;
+        height: 2.4rem;
         top: 0;
+        right: 0;
         font-size: 1.5rem;
-        background-color: var(--button);
     }
 
     .list {

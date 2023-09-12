@@ -51,11 +51,15 @@ const SettingsTrash = ({ open, setOpen, setHeight }) => {
                     <i className='item-icon'><FcEmptyTrash /></i>
                 }
                 <h4>Trash</h4>
-                {
-                    messages?.length ?
-                    <div className='deleted-messages-counter'>{messages?.length}</div>
-                    : ""
-                }
+                <AnimatePresence exitBeforeEnter>
+                    {
+                        messages?.length ?
+                        <motion.div key="trash-counter" className='deleted-messages-counter' initial='hidden' animate='visible' exit='exit' variants={trashVariants}>
+                            {messages?.length}
+                        </motion.div>
+                        : ""
+                    }
+                </AnimatePresence>
                 <i className='item-back'><RiArrowRightSLine /></i>
             </div>
 
@@ -64,44 +68,42 @@ const SettingsTrash = ({ open, setOpen, setHeight }) => {
                     open == "SETTINGS_TRASH" ?
                     <div key="item-data" className='item-data'>
                         <MessagesContainer initial='hidden' animate='visible' exit='exit' variants={trashVariants} selectbarshow={selectedMessages.length}>
-                            {messages?.length ?
-                            <>
-                            <AnimatePresence>
-                                {selectedMessages.length ?
-                                <motion.div key="trashselectbar" className='select-bar' initial='hidden' animate='visible' exit='exit' variants={trashSelectbarVariants}>
-                                    <div className='counter'>{selectedMessages.length}</div>
-                                    <div className='delete-button' onClick={() => openPopup("DELETE_POPUP", [selectedMessages])}>
-                                        <i><TbTrashX /></i>
-                                        <p>Delete</p>
-                                    </div>
-                                    <div className='restore-button' onClick={restoreSelectedMessages}>
-                                        <i><FaTrashRestore /></i>
-                                        <p>Restore</p>
-                                    </div>
-                                    <div className='all' onClick={() => switchSelectAllTrash(messages)}><BsCheckAll /></div>
-                                </motion.div>
-                                : ""}
+                            <AnimatePresence exitBeforeEnter>
+                                {messages?.length ?
+                                <>
+                                    <motion.div key="trash-selectbar" className='select-bar' initial='hidden' animate='visible' exit='exit' variants={trashVariants}>
+                                        <div className='counter'>{selectedMessages.length}</div>
+                                        <button className='delete-button' disabled={!selectedMessages.length} onClick={() => openPopup("DELETE_POPUP", [selectedMessages])}>
+                                            <i><TbTrashX /></i>
+                                            <p>Delete</p>
+                                        </button>
+                                        <button className='restore-button' disabled={!selectedMessages.length} onClick={restoreSelectedMessages}>
+                                            <i><FaTrashRestore /></i>
+                                            <p>Restore</p>
+                                        </button>
+                                        <div className='all' onClick={() => switchSelectAllTrash(messages)}><BsCheckAll /></div>
+                                    </motion.div>
+                                    <motion.div layout key="trash-messages" className='deleted-messages' initial='hidden' animate='visible' exit='exit' variants={trashVariants}>
+                                        <AnimatePresence>
+                                            {messages?.map(message => (
+                                                <Message
+                                                    key={message.id}
+                                                    type="TRASH"
+                                                    message={{
+                                                        id: message.id,
+                                                        message: message.message,
+                                                        time: message.time,
+                                                        replyTo: message.replyTo,
+                                                    }}
+                                                />
+                                            ))}
+                                        </AnimatePresence>
+                                    </motion.div>
+                                </>
+                                : <motion.div key="trash-empty" className='trash-empty' initial='hidden' animate='visible' exit='exit' variants={trashVariants}>
+                                    <p>Trash is empty!</p>
+                                </motion.div>}
                             </AnimatePresence>
-                                <motion.div layout className='deleted-messages'>
-                                    <AnimatePresence>
-                                        {messages?.map(message => (
-                                            <Message
-                                                key={message.id}
-                                                type="TRASH"
-                                                message={{
-                                                    id: message.id,
-                                                    message: message.message,
-                                                    time: message.time,
-                                                    replyTo: message.replyTo,
-                                                }}
-                                            />
-                                        ))}
-                                    </AnimatePresence>
-                                </motion.div>
-                            </>
-                            : <div className='trash-empty'>
-                                <p>No deleted messages!</p>
-                            </div>}
                         </MessagesContainer>
                     </div>
                     : ""
@@ -212,7 +214,7 @@ const MessagesContainer = styled(motion.div)`
 
     .deleted-messages {
         position: relative;
-        margin-top: ${props => props.selectbarshow ? "2.5rem" : "0"};
+        margin-top: 2.5rem;
         overflow: hidden scroll;
         width: 100%;
         padding: .5rem .5rem 5rem .5rem;

@@ -91,9 +91,7 @@ export const useMessageOptions = () => {
             openNotification("Message was edited.", false, "EDIT");
         } else {
             closePopup();
-            setTimeout(() => {
-                openPopup("DELETE_POPUP", [popupMessages]);
-            }, 200);
+            trashMessage(popupMessages.id);
         }
     };
 

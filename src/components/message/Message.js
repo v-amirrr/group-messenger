@@ -9,11 +9,11 @@ import ChatDate from '../ChatDate';
 import MessageTime from './MessageTime';
 import MessageReply from './MessageReply';
 import SelectCheck from './SelectCheck';
-import { BsReplyFill } from 'react-icons/bs';
+import MessageUsername from './MessageUsername';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 import { messageLocalVariants, messageNonLocalVariants, replyIconLocalVariants, replyIconNonLocalVariants } from '../../config/varitans';
-import MessageUsername from './MessageUsername';
+import MessageReplyIcon from './MessageReplyIcon';
 
 const Message = props => {
 
@@ -125,11 +125,10 @@ const Message = props => {
 
                 <SelectCheck type={props.type} selected={selected} selectedMessagesLength={selectedMessages.length} messageClickHandler={messageClickHandler}/>
 
-                <AnimatePresence>
-                    {replyToApp.id == id || props.newreply ?
+                    {/* {replyToApp.id == id || props.newreply ?
                     <motion.i key="reply-icon" className='reply-icon' initial='hidden' animate='visible' exit='exit' variants={messageUid == localUid ? replyIconLocalVariants : replyIconNonLocalVariants}><BsReplyFill /></motion.i>
-                    : ""}
-                </AnimatePresence>
+                    : ""} */}
+                    <MessageReplyIcon show={replyToApp.id == id || props.newreply} messageLocal={messageUid == localUid} />
 
                 <MessageOptions
                     clickEvent={clickEvent}
@@ -217,17 +216,6 @@ const MessageBox = styled(motion.div)`
             font-weight: var(--text-boldness-first);
             color: var(--text-color-third);
         }
-    }
-
-    .reply-icon {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 1.2rem;
-        background-color: var(--message);
-        padding: .3rem;
-        border-radius: 50%;
-        position: absolute;
     }
 
     @media (max-width: 768px) {

@@ -11,8 +11,8 @@ import MessageReply from './MessageReply';
 import SelectCheck from './SelectCheck';
 import MessageUsername from './MessageUsername';
 import styled from 'styled-components';
-import { motion, AnimatePresence } from 'framer-motion';
-import { messageLocalVariants, messageNonLocalVariants, replyIconLocalVariants, replyIconNonLocalVariants } from '../../config/varitans';
+import { motion } from 'framer-motion';
+import { messageLocalVariants, messageNonLocalVariants } from '../../config/varitans';
 import MessageReplyIcon from './MessageReplyIcon';
 
 const Message = props => {
@@ -125,10 +125,7 @@ const Message = props => {
 
                 <SelectCheck type={props.type} selected={selected} selectedMessagesLength={selectedMessages.length} messageClickHandler={messageClickHandler}/>
 
-                    {/* {replyToApp.id == id || props.newreply ?
-                    <motion.i key="reply-icon" className='reply-icon' initial='hidden' animate='visible' exit='exit' variants={messageUid == localUid ? replyIconLocalVariants : replyIconNonLocalVariants}><BsReplyFill /></motion.i>
-                    : ""} */}
-                    <MessageReplyIcon show={replyToApp.id == id || props.newreply} messageLocal={messageUid == localUid} />
+                <MessageReplyIcon show={replyToApp.id == id || props.newreply} messageLocal={messageUid == localUid} />
 
                 <MessageOptions
                     clickEvent={clickEvent}

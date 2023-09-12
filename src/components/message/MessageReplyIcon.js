@@ -71,6 +71,20 @@ const MessageReplyIconContainer = styled(motion.div)`
             transform: scale(1);
         }
     }
+
+    @media (max-width: 500px) {
+        &:active {
+        background-color: #ff0000;
+
+        .reply {
+            transform: scale(0);
+        }
+
+        .close {
+            transform: scale(1);
+        }
+    }
+    }
 `;
 
 export default MessageReplyIcon;

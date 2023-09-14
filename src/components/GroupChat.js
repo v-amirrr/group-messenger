@@ -20,14 +20,11 @@ const GroupChat = () => {
     const { messages } = useSelector(store => store.messagesStore);
     const { user, enterAsAGuest } = useSelector(store => store.userStore);
     const { selectedMessages } = useSelector(store => store.appStore);
+    const { loading: sendMessageLoading } = useSelector(store => store.sendMessageStore);
 
     const [scroll, setScroll] = useState(true);
 
     let scrollPosition = messagesRef?.current?.scrollTop;
-
-    useEffect(() => {
-        groupChatRedirection();
-    }, [messages]);
 
     const scrollButtonClickHandler = () => {
         if (scroll) {
@@ -51,7 +48,26 @@ const GroupChat = () => {
             setScroll(false);
         }
         scrollPosition = messagesRef?.current?.scrollTop;
+        localStorage.setItem("scroll", scrollPosition);
     };
+
+    useEffect(() => {
+        groupChatRedirection();
+    }, [messages]);
+
+    useEffect(() => {
+        if (!sendMessageLoading) {
+            messagesEndRef?.current?.scrollIntoView({
+                behavior: "smooth", block: "center", inline: "end"
+            });
+        }
+    }, [sendMessageLoading]);
+
+    useEffect(() => {
+        setTimeout(() => {
+            messagesRef?.current?.scrollTo(0, localStorage.getItem("scroll"));
+        }, 700);
+    }, []);
 
     return (
         <>
@@ -59,9 +75,7 @@ const GroupChat = () => {
                 {!selectedMessages.length ? <MessengerMenu key="messenger-menu" /> : ""}
             </AnimatePresence>
 
-            <AnimatePresence exitBeforeEnter>
-                {!selectedMessages.length ? <ScrollButton key="scroll-button" click={scrollButtonClickHandler} scroll={scroll} /> : ""}
-            </AnimatePresence>
+            <ScrollButton key="scroll-button" click={scrollButtonClickHandler} scroll={scroll} />
 
             <AnimatePresence exitBeforeEnter>
                 {selectedMessages.length ? <SelectBar key="select-bar" /> : ""}

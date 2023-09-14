@@ -1,12 +1,12 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useRedirection } from '../hooks/useRedirection';
-import FlipMove from 'react-flip-move';
 import Message from './message/Message';
 import MessengerInput from './MessengerInput';
 import MessengerMenu from './MessengerMenu';
 import SelectBar from './SelectBar';
 import GeustSign from './GeustSign';
+import ScrollButton from './ScrollButton';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { groupChatVariants } from '../config/varitans';
@@ -14,30 +14,53 @@ import { groupChatVariants } from '../config/varitans';
 const GroupChat = () => {
 
     const messagesEndRef = useRef();
+    const messagesRef = useRef();
     const { groupChatRedirection } = useRedirection();
 
-    const { messages, loading } = useSelector(store => store.messagesStore);
+    const { messages } = useSelector(store => store.messagesStore);
     const { user, enterAsAGuest } = useSelector(store => store.userStore);
     const { selectedMessages } = useSelector(store => store.appStore);
 
+    const [scroll, setScroll] = useState(true);
+
+    let scrollPosition = messagesRef?.current?.scrollTop;
+
     useEffect(() => {
         groupChatRedirection();
-
-        const goBottom = setTimeout(() => {
-            if (!loading) {
-                messagesEndRef?.current?.scrollIntoView({
-                    block: "center", inline: "end"
-                });
-            }
-        }, 600);
-
-        return () => clearTimeout(goBottom);
     }, [messages]);
+
+    const scrollButtonClickHandler = () => {
+        if (scroll) {
+            messagesEndRef?.current?.scrollIntoView({
+                behavior: "smooth", block: "center", inline: "end"
+            });
+        } else {
+            messagesRef?.current?.scrollTo(0,0);
+        }
+    };
+
+    const onScrollHandler = () => {
+        if (messagesRef?.current?.scrollTop > scrollPosition) {
+            setScroll(true);
+        } else if (messagesRef?.current?.scrollTop < scrollPosition) {
+            setScroll(false);
+        }
+        if (messagesRef?.current?.scrollTop <= 100) {
+            setScroll(true);
+        } else if (messagesRef?.current?.scrollTop >= messagesRef?.current?.scrollHeight - messagesRef?.current?.clientHeight) {
+            setScroll(false);
+        }
+        scrollPosition = messagesRef?.current?.scrollTop;
+    };
 
     return (
         <>
             <AnimatePresence exitBeforeEnter>
                 {!selectedMessages.length ? <MessengerMenu key="messenger-menu" /> : ""}
+            </AnimatePresence>
+
+            <AnimatePresence exitBeforeEnter>
+                {!selectedMessages.length ? <ScrollButton key="scroll-button" click={scrollButtonClickHandler} scroll={scroll} /> : ""}
             </AnimatePresence>
 
             <AnimatePresence exitBeforeEnter>
@@ -48,7 +71,7 @@ const GroupChat = () => {
                 {enterAsAGuest ? <GeustSign key="guest-sign" /> : ""}
             </AnimatePresence>
 
-            <GroupChatContainer layout initial='hidden' animate='visible' exit='exit' variants={groupChatVariants}>
+            <GroupChatContainer onScroll={onScrollHandler} ref={messagesRef} layout initial='hidden' animate='visible' exit='exit' variants={groupChatVariants}>
                 <AnimatePresence>
                     {messages?.map(message => (
                         <Message

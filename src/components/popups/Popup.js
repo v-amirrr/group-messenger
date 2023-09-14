@@ -1,5 +1,4 @@
 import React, { useRef } from 'react';
-import { createPortal } from 'react-dom';
 import { useSelector } from 'react-redux';
 import DeletePopup from './DeletePopup';
 import EditPopup from './EditPopup';
@@ -24,23 +23,20 @@ const Popup = () => {
 
     return (
         <>
-            {createPortal(
-                <AnimatePresence exitBeforeEnter>
-                    {popupShow ?
-                    <PopupPage initial='hidden' animate='visible' exit='exit' variants={popupPageVariants} onClick={(e) => closePopupByTap(e)}>
-                        <Notification />
-                        <PopupContainer variants={popupContainerVariants} ref={popupPage}>
-                            {popupName == "DELETE_POPUP" ?
-                            <DeletePopup popupMessages={popupMessages} />
-                            : popupName == "EDIT_POPUP" ?
-                            <EditPopup popupMessages={popupMessages} popupMessagesSelected={popupMessagesSelected} popupMessageReplyTo={popupMessageReplyTo} />
-                            : ""}
-                        </PopupContainer>
-                    </PopupPage>
-                    : ""}
-                </AnimatePresence>,
-                document.getElementById('popup')
-            )}
+            <AnimatePresence exitBeforeEnter>
+                {popupShow ?
+                <PopupPage initial='hidden' animate='visible' exit='exit' variants={popupPageVariants} onClick={(e) => closePopupByTap(e)}>
+                    <Notification />
+                    <PopupContainer variants={popupContainerVariants} ref={popupPage}>
+                        {popupName == "DELETE_POPUP" ?
+                        <DeletePopup popupMessages={popupMessages} />
+                        : popupName == "EDIT_POPUP" ?
+                        <EditPopup popupMessages={popupMessages} popupMessagesSelected={popupMessagesSelected} popupMessageReplyTo={popupMessageReplyTo} />
+                        : ""}
+                    </PopupContainer>
+                </PopupPage>
+                : ""}
+            </AnimatePresence>
         </>
     );
 };
@@ -74,7 +70,7 @@ const PopupContainer = styled(motion.div)`
     position: relative;
 
     .buttons {
-        margin-top: 2rem;
+        margin-top: 1.5rem;
 
         .edit, .delete, .cancel {
             border: none;

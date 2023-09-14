@@ -184,7 +184,7 @@ const LoginPage = styled(motion.div)`
                 justify-content: center;
                 align-items: center;
                 font-size: 1rem;
-                font-weight: var(--text-boldness-second);
+                font-weight: var(--text-boldness-third);
                 color: var(--text-color-third);
                 letter-spacing: -1px;
                 word-spacing: 5px;

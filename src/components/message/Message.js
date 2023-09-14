@@ -106,8 +106,7 @@ const Message = props => {
 
     return (
         <>
-
-            <MessageBox layout={props.type == "EDIT_REPLY" ? 0 : 1} initial='hidden' animate='visible' exit='exit' variants={messageUid == localUid ? messageLocalVariants : messageNonLocalVariants} layoutId={props.type == "EDIT_REPLY" ? id : null} chatdate={priorDifferentDate && time.year && time.month && time.day} isMessageFromLocalUser={messageUid == localUid ? 1 : 0} ispersian={isRTL(message) ? 1 : 0} messagePosition={messagePosition} isreply={replyTo != "no_reply" ? 1 : 0} selected={selected ? 1 : 0} anymessageselected={selectedMessages.length ? 1 : 0} type={props.type} replyto={replyToApp.id == id ? 1 : 0} newreply={props.newreply ? 1 : 0} date={priorDifferentDate ? 1 : 0}>
+            <MessageBox layout={props.type == "EDIT_REPLY" ? 0 : 1} initial='hidden' animate='visible' exit='exit' variants={messageUid == localUid ? messageLocalVariants : messageNonLocalVariants} layoutId={props.type == "EDIT_REPLY" ? id : null} chatdate={priorDifferentDate && time.year && time.month && time.day} localuser={messageUid == localUid ? 1 : 0} ispersian={isRTL(message) ? 1 : 0} messageposition={messagePosition} isreply={replyTo != "no_reply" ? 1 : 0} selected={selected ? 1 : 0} anymessageselected={selectedMessages.length ? 1 : 0} type={props.type} replyto={replyToApp.id == id ? 1 : 0} newreply={props.newreply ? 1 : 0} date={priorDifferentDate ? 1 : 0}>
                 <ChatDate layout={props.type == "EDIT_REPLY" ? 0 : 1} layoutId={props.type == "EDIT_REPLY" ? id : null} key="chat-date" dateObj={time} priorDifferentDate={priorDifferentDate} />
 
                 <div className='message-box' onClick={(e) => messageClickHandler(e)} onDoubleClick={messageDoubleClickHandler}>
@@ -145,7 +144,7 @@ const MessageBox = styled(motion.div)`
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    flex-direction: ${ props => props.isMessageFromLocalUser ? "row-reverse" : "row"};
+    flex-direction: ${ props => props.localuser ? "row-reverse" : "row"};
     user-select: none;
     padding-top: ${props => props.chatdate ? "2rem" : ""};
     position: relative;
@@ -154,46 +153,46 @@ const MessageBox = styled(motion.div)`
     .message-box {
         z-index: 2;
         display: flex;
-        justify-content: ${props => props.isMessageFromLocalUser ? "flex-start" : "flex-end"};
+        justify-content: ${props => props.localuser ? "flex-start" : "flex-end"};
         align-items: center;
-        flex-direction: ${props => props.isMessageFromLocalUser ? "row-reverse" : "row"};
+        flex-direction: ${props => props.localuser ? "row-reverse" : "row"};
         background-color: ${props => props.selected || props.newreply ? "var(--message-selected)" : "var(--message)"};
         margin: ${props =>
-            props.messagePosition == 0 ?
+            props.messageposition == 0 ?
             ".3rem 0 .3rem 0" :
-            props.messagePosition == 1 ?
+            props.messageposition == 1 ?
             ".3rem 0 .04rem 0" :
-            props.messagePosition == 2 ?
+            props.messageposition == 2 ?
             ".04rem 0 .04rem 0" :
-            props.messagePosition == 3 &&
+            props.messageposition == 3 &&
             ".04rem 0 .3rem 0"
         };
         border-radius: 25px;
         border-radius: ${props =>
-            props.isMessageFromLocalUser ?
-                props.messagePosition == 0 ?
+            props.localuser ?
+                props.messageposition == 0 ?
                 "25px" :
-                props.messagePosition == 1 ?
+                props.messageposition == 1 ?
                 "25px 25px 5px 25px" :
-                props.messagePosition == 2 ?
+                props.messageposition == 2 ?
                 "25px 5px 5px 25px" :
-                props.messagePosition == 3 &&
+                props.messageposition == 3 &&
                 "25px 5px 25px 25px" :
-            props.messagePosition == 0 ?
+            props.messageposition == 0 ?
                 "25px" :
-                props.messagePosition == 1 ?
+                props.messageposition == 1 ?
                 "25px 25px 25px 5px" :
-                props.messagePosition == 2 ?
+                props.messageposition == 2 ?
                 "5px 25px 25px 5px" :
-                props.messagePosition == 3 &&
+                props.messageposition == 3 &&
                 "5px 25px 25px 25px"
         };
         margin-right: ${props => props.type != "TRASH" && props.anymessageselected || props.replyto || props.newreply ? "3rem" : ""};
-        margin-left: ${props => !props.isMessageFromLocalUser && props.replyto || props.newreply ? "3rem" : ""};
+        margin-left: ${props => !props.localuser && props.replyto || props.newreply ? "3rem" : ""};
         padding: .5rem 2.8rem .5rem .8rem;
         min-width: ${props => props.isreply ? "22%" : ""};
         width: fit-content;
-        max-width: ${props => props.type == "EDIT_REPLY" ? "80%" : props.isMessageFromLocalUser && props.type == "CHAT" ? "60%" : "80%"};
+        max-width: ${props => props.type == "EDIT_REPLY" ? "80%" : props.localuser && props.type == "CHAT" ? "60%" : "80%"};
         backdrop-filter: ${props => props.type == "CHAT" ? "var(--glass-first)" : "blur(0)"};
         -webkit-backdrop-filter: ${props => props.type == "CHAT" ? "var(--glass-first)" : ""};
         font-weight: var(--text-boldness-first);
@@ -221,22 +220,22 @@ const MessageBox = styled(motion.div)`
             max-width: 95%;
             min-width: ${props => props.isreply ? "30%" : ""};
             border-radius: ${props =>
-                props.isMessageFromLocalUser ?
-                    props.messagePosition == 0 ?
+                props.localuser ?
+                    props.messageposition == 0 ?
                     "20px" :
-                    props.messagePosition == 1 ?
+                    props.messageposition == 1 ?
                     "20px 20px 5px 20px" :
-                    props.messagePosition == 2 ?
+                    props.messageposition == 2 ?
                     "20px 5px 5px 20px" :
-                    props.messagePosition == 3 &&
+                    props.messageposition == 3 &&
                     "20px 5px 20px 20px" :
-                props.messagePosition == 0 ?
+                props.messageposition == 0 ?
                     "20px" :
-                    props.messagePosition == 1 ?
+                    props.messageposition == 1 ?
                     "20px 20px 20px 5px" :
-                    props.messagePosition == 2 ?
+                    props.messageposition == 2 ?
                     "5px 20px 20px 5px" :
-                    props.messagePosition == 3 &&
+                    props.messageposition == 3 &&
                     "5px 20px 20px 20px"
             };
         }

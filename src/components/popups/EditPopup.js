@@ -44,9 +44,9 @@ const EditPopup = ({ popupMessages }) => {
                     <button className='cancel' onClick={closePopup}>Cancel</button>
                     <button className='edit' onClick={() => editMessage(popupMessages[0], editInput)}>Edit</button>
                 </div>
-                <div className='emoji-picker'>
+                {/* <div className='emoji-picker'>
                     <Emoji replyToId={0} inputText={editInput} setInputText={setEditInput} show={emojiPickerShow} setShow={setEmojiPickerShow} place={"EDIT_POPUP"} />
-                </div>
+                </div> */}
             </EditPopupContainer>
 
             <EditReply replyTo={replyTo} id={id} editReplyOpen={editReplyOpen} setEditReplyOpen={setEditReplyOpen} />
@@ -55,13 +55,13 @@ const EditPopup = ({ popupMessages }) => {
 };
 
 const EditPopupContainer = styled.div`
-    padding: ${props => props.editreplyopen ? "9rem 3rem" : "1rem 1rem 0 1rem"};
-    transform: ${props => props.editreplyopen ? "scale(0.5)" : "scale(1)"};
+    padding: ${props => props.editreplyopen ? "7rem 2rem" : "1rem 1rem 0 1rem"};
+    transform: ${props => props.editreplyopen ? "scale(0.8)" : "scale(1)"};
     opacity: ${props => props.editreplyopen ? "0" : "1"};
     transition: ${props =>
         props.editreplyopen ?
-        "transform .4s .2s, padding .6s .1s cubic-bezier(.53,0,0,.98), opacity .3s .2s" :
-        "transform .4s .2s, padding .6s, opacity .5s .3s"
+        "transform .8s, padding 1s cubic-bezier(.53,0,0,.98), opacity .6s" :
+        "transform .6s .2s, padding .6s, opacity .6s .2s"
     };
     position: relative;
 

@@ -133,18 +133,18 @@ export const authItemVariants = {
 
 export const loaderVariants = onMobile
     ? {
-        hidden: { opacity: 0, y: 50, scaleY: 0.8 },
-        visible: {
-            opacity: 1,
-            y: 0,
-            scaleY: 1,
-            transition: {
-                duration: 0.8,
-                ease: [0.53, 0, 0, 0.98],
-                time: [0.53, 0, 0, 0.98],
-            },
-        },
-        exit: { opacity: 0, y: 30, transition: { duration: 0.3 } },
+          hidden: { opacity: 0, y: 50, scaleY: 0.8 },
+          visible: {
+              opacity: 1,
+              y: 0,
+              scaleY: 1,
+              transition: {
+                  duration: 0.8,
+                  ease: [0.53, 0, 0, 0.98],
+                  time: [0.53, 0, 0, 0.98],
+              },
+          },
+          exit: { opacity: 0, y: 30, transition: { duration: 0.3 } },
       }
     : {
           hidden: { opacity: 0, y: 50, scaleY: 0.8 },
@@ -163,14 +163,14 @@ export const loaderVariants = onMobile
 
 export const messengerVariants = onMobile
     ? {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                duration: 0.4,
-            },
-        },
-        exit: { opacity: 0, y: 30, transition: { duration: 0.3 } },
+          hidden: { opacity: 0 },
+          visible: {
+              opacity: 1,
+              transition: {
+                  duration: 0.4,
+              },
+          },
+          exit: { opacity: 0, y: 30, transition: { duration: 0.3 } },
       }
     : {
           hidden: { opacity: 0 },
@@ -185,20 +185,31 @@ export const messengerVariants = onMobile
 
 export const groupChatVariants = onMobile
     ? {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: { duration: 0.4 },
-        },
-        exit: { opacity: 0, transition: { duration: 0.4 } },
-      }
-    : {
           hidden: { opacity: 0 },
           visible: {
               opacity: 1,
               transition: { duration: 0.4 },
           },
           exit: { opacity: 0, transition: { duration: 0.4 } },
+      }
+    : {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                duration: 0.4,
+                staggerChildren: 1,
+                when: 'beforeChildren',
+            },
+        },
+        exit: {
+            opacity: 0,
+            transition: {
+                duration: 0.1,
+                staggerChildren: 0.02,
+                when: 'afterChildren',
+            },
+        },
       };
 
 export const chatDateVariants = {
@@ -216,7 +227,6 @@ export const messageLocalVariants = {
     visible: {
         opacity: 1,
         y: 0,
-        scale: 1,
         transition: {
             duration: 0.4,
         },
@@ -229,7 +239,6 @@ export const messageNonLocalVariants = {
     visible: {
         opacity: 1,
         y: 0,
-        scale: 1,
         transition: {
             duration: 0.4,
         },
@@ -515,24 +524,27 @@ export const popupPageVariants = {
     hidden: { opacity: 0 },
     visible: {
         opacity: 1,
-        transition: { duration: 0.2, when: 'beforeChildren' },
+        transition: {
+            duration: 0.2,
+            when: 'beforeChildren',
+        },
     },
     exit: { opacity: 0, transition: { duration: 0.2, when: 'afterChildren' } },
 };
 
 export const popupContainerVariants = {
-    hidden: { opacity: 0, scaleX: 0.8 },
+    hidden: { opacity: 0, y: 50, scaleY: 0.8 },
     visible: {
         opacity: 1,
         y: 0,
-        scaleX: 1,
+        scaleY: 1,
         transition: {
             duration: 0.8,
             ease: [0.53, 0, 0, 0.98],
             time: [0.53, 0, 0, 0.98],
         },
     },
-    exit: { opacity: 0, scaleX: 0.9, transition: { duration: 0.3 } },
+    exit: { opacity: 0, y: 20, transition: { duration: 0.4 } },
 };
 
 export const replyAddSectionVariants = {
@@ -582,17 +594,18 @@ export const settingsPageVariants = {
 };
 
 export const settingsContainerVariants = {
-    hidden: { opacity: 0, scaleX: 0.8 },
+    hidden: { opacity: 0, y: 50, scaleY: 0.9 },
     visible: {
         opacity: 1,
-        scaleX: 1,
+        y: 0,
+        scaleY: 1,
         transition: {
             duration: 0.8,
             ease: [0.53, 0, 0, 0.98],
             time: [0.53, 0, 0, 0.98],
         },
     },
-    exit: { opacity: 0, scaleX: 0.9, transition: { duration: 0.3 } },
+    exit: { opacity: 0, y: 30, transition: { duration: 0.3 } },
 };
 
 export const backgroundsVariants = {
@@ -659,4 +672,20 @@ export const trashSelectbarVariants = {
         },
     },
     exit: { opacity: 0, y: -20, transition: { duration: 0.2 } },
+};
+
+export const scrollButtonVariants = {
+    hidden: { opacity: 0, y: 50, scaleY: 0.8 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        scaleY: 1,
+        transition: {
+            delay: 0.4,
+            duration: 0.8,
+            ease: [0.53, 0, 0, 0.98],
+            time: [0.53, 0, 0, 0.98],
+        },
+    },
+    exit: { opacity: 0, y: 30, transition: { duration: 0.3 } },
 };

@@ -4,7 +4,6 @@ const initialState = {
     popupShow: false,
     popupName: null,
     popupMessages: null,
-    popupMessageEditedReply: null,
     popupMessagesSelected: false,
 };
 
@@ -21,15 +20,20 @@ const popupSlice = createSlice({
                 popupMessagesSelected: action.payload.popupMessagesSelected,
             };
         },
-        setEditedReply: (state, action) => {
+        setNewReply: (state, action) => {
             return {
                 ...state,
-                popupMessageEditedReply: action.payload,
+                popupMessages: [
+                    {
+                        ...state.popupMessages[0],
+                        replyTo: action.payload
+                    }
+                ]
             };
         },
     },
 });
 
-export const { setPopup, setEditedReply } = popupSlice.actions;
+export const { setPopup, setNewReply } = popupSlice.actions;
 
 export default popupSlice.reducer;

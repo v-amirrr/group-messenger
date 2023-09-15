@@ -33,7 +33,7 @@ export const warningContainerVariants = {
             time: [0.53, 0, 0, 0.98],
         },
     },
-    exit: { opacity: 0, y: 30, transition: { duration: 0.3 } },
+    exit: { opacity: 0, y: 30, scaleY: 0.9, transition: { duration: 0.3 } },
 };
 
 export const errorBoxVariants = {
@@ -48,7 +48,7 @@ export const errorBoxVariants = {
             time: [0.53, 0, 0, 0.98],
         },
     },
-    exit: { opacity: 0, y: 30, transition: { duration: 0.3 } },
+    exit: { opacity: 0, y: 30, scaleY: 0.9, transition: { duration: 0.3 } },
 };
 
 export const notificationContainerVariants = {
@@ -107,7 +107,7 @@ export const boxVariants = {
             time: [0.53, 0, 0, 0.98],
         },
     },
-    exit: { opacity: 0, y: 30, transition: { duration: 0.3 } },
+    exit: { opacity: 0, y: 30, scaleY: 0.9, transition: { duration: 0.3 } },
 };
 
 export const authVariants = {
@@ -123,12 +123,12 @@ export const authItemVariants = {
         y: 0,
         scaleY: 1,
         transition: {
-            duration: 0.6,
+            duration: 0.8,
             ease: [0.53, 0, 0, 0.98],
             time: [0.53, 0, 0, 0.98],
         },
     },
-    exit: { opacity: 0, y: 20, transition: { duration: 0.3 } },
+    exit: { opacity: 0, y: 30, scaleY: 0.9, transition: { duration: 0.3 } },
 };
 
 export const loaderVariants = onMobile
@@ -595,7 +595,7 @@ export const settingsPageVariants = {
 };
 
 export const settingsContainerVariants = {
-    hidden: { opacity: 0, y: 50, scaleY: 0.9 },
+    hidden: { opacity: 0, y: 50, scaleY: 0.8 },
     visible: {
         opacity: 1,
         y: 0,
@@ -606,7 +606,7 @@ export const settingsContainerVariants = {
             time: [0.53, 0, 0, 0.98],
         },
     },
-    exit: { opacity: 0, y: 30, transition: { duration: 0.3 } },
+    exit: { opacity: 0, y: 30, scaleY: 0.9, transition: { duration: 0.3 } },
 };
 
 export const backgroundsVariants = {

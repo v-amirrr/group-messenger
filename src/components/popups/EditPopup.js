@@ -18,7 +18,7 @@ const EditPopup = ({ popupMessages }) => {
     const pressEnter = e => {
         if (e.key == "Enter" && !e.shiftKey) {
             e.preventDefault();
-            editMessage(id, editInput, replyTo);
+            editMessage(id, editInput);
         }
     };
 
@@ -42,7 +42,7 @@ const EditPopup = ({ popupMessages }) => {
                 <textarea value={editInput} onChange={e => setEditInput(e.target.value)} autoFocus={document.documentElement.offsetWidth > 500} dir={isRTL(editInput) ? "rtl" : "ltr"} />
                 <div className='buttons'>
                     <button className='cancel' onClick={closePopup}>Cancel</button>
-                    <button className='edit' onClick={() => editMessage(popupMessages[0], editInput)}>Edit</button>
+                    <button className='edit' onClick={() => editMessage(id, editInput)}>Edit</button>
                 </div>
                 {/* <div className='emoji-picker'>
                     <Emoji replyToId={0} inputText={editInput} setInputText={setEditInput} show={emojiPickerShow} setShow={setEmojiPickerShow} place={"EDIT_POPUP"} />
@@ -91,10 +91,18 @@ const EditPopupContainer = styled.div`
 
     @media (max-width: 768px) {
         padding: ${props => props.editreplyopen ? "6rem 2rem" : ""};
+        transition: ${props =>
+            props.editreplyopen ?
+            "transform .8s, padding 1s, opacity .6s" :
+            "transform .6s .2s, padding .6s, opacity .6s .2s"
+        };
 
         textarea {
             font-size: .8rem;
             width: 15rem;
+            min-height: 4rem;
+            max-height: 5rem;
+            margin-top: 1rem;
         }
     }
 `;

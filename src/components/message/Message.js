@@ -128,7 +128,7 @@ const Message = props => {
 
                 <MessageOptions
                     clickEvent={clickEvent}
-                    show={messageOptionsId == id && props.type == "CHAT" && !menuShow}
+                    show={messageOptionsId == id && props.type == "CHAT" && !menuShow && !selectedMessages.length}
                     message={{
                         ...props.message,
                         isMessageFromLocalUser: messageUid == localUid ? 1 : 0,

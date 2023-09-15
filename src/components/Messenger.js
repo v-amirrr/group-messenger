@@ -25,9 +25,9 @@ const Messenger = () => {
             <MessengerPage initial='hidden' animate='visible' exit='exit' variants={messengerVariants}>
                 <Notification />
                 <MessengerContainer>
-                    <AnimatePresence>
+                    <AnimatePresence exitBeforeEnter>
                         {loading ? <Loader key="loader" usage={1} /> :
-                        error ? <ErrorBox errorMessage={error} /> :
+                        error ? <ErrorBox key="error-box" errorMessage={error} /> :
                         !loading && !error ? <GroupChat /> : ""}
                     </AnimatePresence>
                 </MessengerContainer>

@@ -5,7 +5,7 @@ import { useMessageOptions } from "../../hooks/useMessageOptions";
 import { BsReplyFill } from 'react-icons/bs';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
-import { replyAddSectionVariants, replyButtonVariants, replyMessagesButtonsVariants } from '../../config/varitans';
+import { replyAddSectionVariants, replyButtonVariants } from '../../config/varitans';
 
 const EditReply = ({ replyTo, id, editReplyOpen, setEditReplyOpen }) => {
 
@@ -17,7 +17,7 @@ const EditReply = ({ replyTo, id, editReplyOpen, setEditReplyOpen }) => {
     const [newReply, setNewReply] = useState(replyTo);
     const [messagesBefore, setMessagesBefore] = useState([]);
 
-    const messagesEndRef = useRef();
+    const messagesRef = useRef();
 
     const editHandler = () => {
         editMessageReply(id, newReply);
@@ -26,13 +26,9 @@ const EditReply = ({ replyTo, id, editReplyOpen, setEditReplyOpen }) => {
 
     const openHandler = () => {
         setEditReplyOpen(!editReplyOpen);
-        if (editReplyOpen) {
-            setTimeout(() => {
-                messagesEndRef?.current?.scrollIntoView({
-                    behavior: "smooth", block: "center", inline: "end"
-                });
-            }, 800);
-        };
+        setTimeout(() => {
+            messagesRef?.current?.scrollTo(0, messagesRef?.current?.scrollHeight - messagesRef?.current?.clientHeight);
+        }, 400);
     };
 
     useEffect(() => {
@@ -58,22 +54,12 @@ const EditReply = ({ replyTo, id, editReplyOpen, setEditReplyOpen }) => {
         }
     }, [newReply]);
 
-    useEffect(() => {
-        const goBottom = setTimeout(() => {
-            messagesEndRef?.current?.scrollIntoView({
-                behavior: "smooth", block: "center", inline: "end"
-            });
-        }, 1000);
-
-        return () => clearTimeout(goBottom);
-    }, [editReplyOpen]);
-
     return (
         <>
             <ReplyConatiner editReplyOpen={editReplyOpen ? 1 : 0}>
                 <AnimatePresence exitBeforeEnter>
                     {editReplyOpen ?
-                    <motion.div key="reply-messages-open" className='open-items' initial='hidden' animate='visible' exit='exit' variants={replyAddSectionVariants}>
+                    <motion.div ref={messagesRef} key="reply-messages-open" className='open-items' initial='hidden' animate='visible' exit='exit' variants={replyAddSectionVariants}>
                         <div className='messages'>
                             {messagesBefore?.map(message => (
                                 <Message
@@ -97,7 +83,6 @@ const EditReply = ({ replyTo, id, editReplyOpen, setEditReplyOpen }) => {
                                     }}
                                 />
                             ))}
-                            <div ref={messagesEndRef} />
                         </div>
                         <div className='buttons'>
                             <button className='cancel' onClick={() => setEditReplyOpen(!editReplyOpen)}>Cancel</button>
@@ -216,13 +201,12 @@ const ReplyConatiner = styled(motion.div)`
 
     @media (max-width: 768px) {
         bottom: auto;
-        left: auto;
-        top: ${props => props.editReplyOpen ? "0" : ".5rem"};
-        right: ${props => props.editReplyOpen ? "0" : ".5rem"};
+        top: ${props => props.editReplyOpen ? "0" : ".8rem"};
+        left: ${props => props.editReplyOpen ? "0" : "2rem"};
         transition: ${props =>
             props.editReplyOpen ?
-            "background .4s, width .6s cubic-bezier(.53,0,0,.98), height .6s cubic-bezier(.53,0,0,.98), top .6s, right .6s" :
-            "background .4s .4s, width .4s .1s cubic-bezier(.53,0,0,.98), height .4s .1s cubic-bezier(.53,0,0,.98), top .4s .1s, right .4s .1s"
+            "background .4s, width .6s, height .6s, top .6s, left .6s" :
+            "background .4s .4s, width .4s .1s, height .4s .1s, top .4s .1s, left .4s .1s"
         };
 
         .reply-messages {

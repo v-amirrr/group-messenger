@@ -53,7 +53,7 @@ const PopupPage = styled(motion.section)`
     background-color: var(--page-first);
     backdrop-filter: var(--glass-second);
     -webkit-backdrop-filter: var(--glass-second);
-    z-index: 99;
+    z-index: 999;
 `;
 
 const PopupContainer = styled(motion.div)`

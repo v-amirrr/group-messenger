@@ -11,7 +11,7 @@ import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { messengerInputVariants, sendInputIconVariants, replyVariants } from '../config/varitans';
 
-const MessengerInput = () => {
+const MessengerInput = ({ scrollDown}) => {
 
     const { error, localUsername } = useSelector(store => store.messagesStore);
     const { error: sendMessageError, loading: sendMessageLoading, replyTo, restoredText } = useSelector(store => store.sendMessageStore);
@@ -27,6 +27,7 @@ const MessengerInput = () => {
     const [emojiPickerShow, setEmojiPickerShow] = useState(false);
 
     const inputSubmitHandler = () => {
+        scrollDown();
         setEmojiPickerShow(false);
         sendMessage(inputText, localUsername);
         setInputText("");
@@ -205,6 +206,7 @@ const MessengerInputContainer = styled(motion.section)`
     @media (max-width: 500px) {
         width: 18rem;
         height: 3rem;
+        margin-right: 4rem;
     }
 `;
 
@@ -225,6 +227,7 @@ const ReplyTo = styled(motion.div)`
     box-shadow: var(--shadow-second);
     user-select: none;
     z-index: 2;
+
 
     button {
         all: unset;
@@ -285,6 +288,8 @@ const ReplyTo = styled(motion.div)`
 
     @media (max-width: 500px) {
         max-width: 50%;
+        margin-right: 4rem;
+        bottom: 4.5rem;
     }
 `;
 

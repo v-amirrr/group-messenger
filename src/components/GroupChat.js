@@ -32,7 +32,7 @@ const GroupChat = () => {
                 behavior: "smooth", block: "center", inline: "end"
             });
         } else {
-            messagesRef?.current?.scrollTo(0,0);
+            messagesRef?.current?.scrollTo(0, 0);
         }
     };
 
@@ -44,11 +44,17 @@ const GroupChat = () => {
         }
         if (messagesRef?.current?.scrollTop <= 100) {
             setScroll(true);
-        } else if (messagesRef?.current?.scrollTop >= messagesRef?.current?.scrollHeight - messagesRef?.current?.clientHeight) {
+        } else if (~~messagesRef?.current?.scrollTop + 100 >= messagesRef?.current?.scrollHeight - messagesRef?.current?.clientHeight) {
             setScroll(false);
         }
         scrollPosition = messagesRef?.current?.scrollTop;
         localStorage.setItem("scroll", scrollPosition);
+    };
+
+    const scrollDown = () => {
+        messagesEndRef?.current?.scrollIntoView({
+            behavior: "smooth", block: "center", inline: "end"
+        });
     };
 
     useEffect(() => {
@@ -56,16 +62,9 @@ const GroupChat = () => {
     }, [messages]);
 
     useEffect(() => {
-        if (!sendMessageLoading) {
-            messagesEndRef?.current?.scrollIntoView({
-                behavior: "smooth", block: "center", inline: "end"
-            });
-        }
-    }, [sendMessageLoading]);
-
-    useEffect(() => {
+        const localstorageScroll = localStorage.getItem("scroll");
         setTimeout(() => {
-            messagesRef?.current?.scrollTo(0, localStorage.getItem("scroll"));
+            messagesRef?.current?.scrollTo(0, localstorageScroll);
         }, 700);
     }, []);
 
@@ -111,7 +110,7 @@ const GroupChat = () => {
             </GroupChatContainer>
 
             <AnimatePresence exitBeforeEnter>
-                {!selectedMessages.length ? <MessengerInput key="messenger-input" /> : ""}
+                {!selectedMessages.length ? <MessengerInput key="messenger-input" scrollDown={scrollDown} /> : ""}
             </AnimatePresence>
         </>
     );
@@ -122,7 +121,7 @@ const GroupChatContainer = styled(motion.div)`
     height: 100%;
     overflow: hidden scroll;
     position: relative;
-    padding: 5rem 2rem 8rem 2rem;
+    padding: 5rem 2rem 9rem 2rem;
     scroll-behavior: smooth;
 
     @media (max-width: 800px) {

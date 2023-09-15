@@ -93,11 +93,12 @@ export const useMessageOptions = () => {
         openNotification('Message restored.', false, 'RESTORE');
     };
 
-    const editMessage = (newEditedText) => {
-        const docRef = doc(db, 'messages', popupMessages.id);
-        if (newEditedText) {
+    const editMessage = (id, editInput) => {
+        const docRef = doc(db, 'messages', id);
+        console.log(editInput);
+        if (editInput) {
             updateDoc(docRef, {
-                message: newEditedText,
+                message: editInput,
             });
             closePopup();
             openNotification('Message was edited.', false, 'EDIT');

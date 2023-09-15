@@ -31,6 +31,7 @@ const ReplySection = styled.div`
     font-weight: var(--text-boldness-second);
     color: var(--text-color-second);
     background-color: var(--message);
+    box-shadow: var(--shadow-second);
     padding: .2rem .5rem .2rem 1.2rem;
     position: relative;
     bottom: .15rem;

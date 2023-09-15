@@ -95,11 +95,13 @@ export const useSelect = () => {
     };
 
     const deleteSelectedMessages = () => {
-        selectedMessages.map((message, index) => {
-            setTimeout(() => {
-                deleteMessage(message.id);
-            }, index * 600);
-        });
+        setTimeout(() => {
+            selectedMessages.map((message, index) => {
+                setTimeout(() => {
+                    deleteMessage(message.id);
+                }, index * 600);
+            });
+        }, 400);
         clearSelectedMessages();
     };
 

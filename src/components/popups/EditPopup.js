@@ -55,15 +55,15 @@ const EditPopup = ({ popupMessages }) => {
 };
 
 const EditPopupContainer = styled.div`
+    position: relative;
     padding: ${props => props.editreplyopen ? "7rem 2rem" : "1rem 1rem 0 1rem"};
     transform: ${props => props.editreplyopen ? "scale(0.8)" : "scale(1)"};
     opacity: ${props => props.editreplyopen ? "0" : "1"};
     transition: ${props =>
         props.editreplyopen ?
-        "transform .8s, padding 1s cubic-bezier(.53,0,0,.98), opacity .6s" :
+        "transform .4s, padding .6s .2s, opacity .4s" :
         "transform .6s .2s, padding .6s, opacity .6s .2s"
     };
-    position: relative;
 
     textarea {
         border: none;
@@ -91,11 +91,11 @@ const EditPopupContainer = styled.div`
 
     @media (max-width: 768px) {
         padding: ${props => props.editreplyopen ? "6rem 2rem" : ""};
-        transition: ${props =>
+        /* transition: ${props =>
             props.editreplyopen ?
             "transform .8s, padding 1s, opacity .6s" :
             "transform .6s .2s, padding .6s, opacity .6s .2s"
-        };
+        }; */
 
         textarea {
             font-size: .8rem;

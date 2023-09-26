@@ -9,7 +9,7 @@ export const useSelect = () => {
     const { selectedMessages } = useSelector(store => store.appStore);
     const { enterAsAGuest } = useSelector(store => store.userStore);
 
-    const { trashMessage, clearReplyMessage, copyMessage, undeleteMessage, deleteMessage } = useMessageOptions();
+    const { trashMessage, clearReplyMessage, copyMessage, undeleteMessage, deleteMessage, closePopup } = useMessageOptions();
     const { openNotification } = useNotification();
 
     const selectMessage = (message) => {
@@ -18,7 +18,13 @@ export const useSelect = () => {
         if (enterAsAGuest) {
             openNotification("In order to use this feature you need to login.", false, "GUEST");
         } else {
-            dispatch(setSelectedMessages({message}));
+            if (!selectedMessages.length) {
+                setTimeout(() => {
+                    dispatch(setSelectedMessages({ message }));
+                }, 500);
+            } else {
+                dispatch(setSelectedMessages({ message }));
+            }
         }
     };
 
@@ -57,12 +63,20 @@ export const useSelect = () => {
     };
 
     const copySelectedMessages = () => {
-        selectedMessages.map((message, index) => {
-            setTimeout(() => {
-                copyMessage(message.message);
-            }, index * 600);
+        let text = [];
+        selectedMessages.map((message) => {
+            message.message.map((item, index) => {
+                if (index+1 == message.message.length) {
+                    text.push(`${item.word}\n`);
+                } else {
+                    text.push(`${item.word} `);
+                }
+            });
         });
+        text = text.join('');
+        navigator.clipboard.writeText(text);
         clearSelectedMessages();
+        openNotification('Messages copied.', false, 'COPY');
     };
 
     const trashSelectedMessages = () => {
@@ -95,6 +109,7 @@ export const useSelect = () => {
     };
 
     const deleteSelectedMessages = () => {
+        closePopup();
         setTimeout(() => {
             selectedMessages.map((message, index) => {
                 setTimeout(() => {

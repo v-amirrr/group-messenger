@@ -5,7 +5,7 @@ import { useAuth } from '../hooks/useAuth';
 import { setMenuShow } from '../redux/appSlice';
 import { HiDotsVertical } from "react-icons/hi";
 import { FaArrowRight } from "react-icons/fa";
-import { FcSettings, FcRedo } from "react-icons/fc";
+import { FcSettings, FcRedo, FcInfo } from "react-icons/fc";
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { menuVariants, menuItemVariants, menuIconVariants } from '../config/varitans';
@@ -24,6 +24,8 @@ const MessengerMenu = () => {
             logout();
         } else if (type == "SETTINGS") {
             navigate("/settings");
+        } else if (type == "GUIDANCE") {
+            navigate("/guidance");
         }
     };
 
@@ -33,7 +35,7 @@ const MessengerMenu = () => {
 
     return (
         <>
-            <MessengerMenuContainer openmenu={menuShow ? 1 : 0} initial='hidden' animate='visible' exit='exit' variants={menuVariants}>
+            <MessengerMenuContainer onHoverStart={() => dispatch(setMenuShow(true))} onHoverEnd={() => dispatch(setMenuShow(false))} openmenu={menuShow ? 1 : 0} initial='hidden' animate='visible' exit='exit' variants={menuVariants}>
                 <AnimatePresence>
                     {menuShow ?
                     <motion.i key="back-icon" className='back-icon' onClick={() => dispatch(setMenuShow(false))} initial='hidden' animate='visible' exit='exit' variants={menuItemVariants}>
@@ -47,6 +49,10 @@ const MessengerMenu = () => {
                 <AnimatePresence>
                     {menuShow ?
                     <motion.div key="menu" className='list' initial='hidden' animate='visible' exit='exit' variants={menuItemVariants}>
+                        <motion.button className='list-item' onClick={() => clickHandler("GUIDANCE")}>
+                            <i className='features-icon'><FcInfo /></i>
+                            <p>Guidance</p>
+                        </motion.button>
                         <motion.button className='list-item' onClick={() => clickHandler("LOGOUT")}>
                             <i className='logout-icon'><FcRedo /></i>
                             <p>Logout</p>
@@ -68,7 +74,7 @@ const MessengerMenuContainer = styled(motion.div)`
     top: 1rem;
     right: 2.4rem;
     width: ${props => props.openmenu ? "7.2rem" : "2.5rem"};
-    height: ${props => props.openmenu ? "7.2rem" : "2.5rem"};
+    height: ${props => props.openmenu ? "9.4rem" : "2.5rem"};
     display: flex;
     justify-content: center;
     align-items: center;
@@ -99,6 +105,12 @@ const MessengerMenuContainer = styled(motion.div)`
         right: .3rem;
         padding: .4rem;
         font-size: 1.2rem;
+        color: var(--text-color-second);
+        transition: color .2s;
+
+        &:hover {
+            color: var(--text-color-third);
+        }
     }
 
     .menu-icon {
@@ -135,18 +147,26 @@ const MessengerMenuContainer = styled(motion.div)`
 
             p {
                 font-size: .8rem;
+                margin-left: 2.35rem;
+                text-align: left;
+                width: 100%;
             }
 
             i {
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                font-size: 1.4rem;
-                margin-right: .2rem;
+                font-size: 1.3rem;
+                position: absolute;
+                left: 1.2rem;
             }
 
             .logout-icon {
                 transform: rotate(180deg);
+            }
+
+            .features-icon {
+                font-size: 1.2rem;
             }
 
             @media (hover: hover) and (pointer: fine) and (min-width: 745px) {

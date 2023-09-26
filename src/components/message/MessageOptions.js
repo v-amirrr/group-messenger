@@ -80,6 +80,8 @@ const MessageOptionsContainer = styled(motion.div)`
         padding: .5rem;
         box-shadow: var(--shadow-first);
         transition: padding .2s;
+        backdrop-filter: var(--glass-first);
+        -webkit-backdrop-filter: var(--glass-first);
 
         i {
             display: flex;

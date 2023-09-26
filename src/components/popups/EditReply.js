@@ -28,7 +28,7 @@ const EditReply = ({ replyTo, id, editReplyOpen, setEditReplyOpen }) => {
         setEditReplyOpen(!editReplyOpen);
         setTimeout(() => {
             messagesRef?.current?.scrollTo(0, messagesRef?.current?.scrollHeight - messagesRef?.current?.clientHeight);
-        }, 400);
+        }, 1000);
     };
 
     useEffect(() => {
@@ -59,8 +59,8 @@ const EditReply = ({ replyTo, id, editReplyOpen, setEditReplyOpen }) => {
             <ReplyConatiner editReplyOpen={editReplyOpen ? 1 : 0}>
                 <AnimatePresence exitBeforeEnter>
                     {editReplyOpen ?
-                    <motion.div ref={messagesRef} key="reply-messages-open" className='open-items' initial='hidden' animate='visible' exit='exit' variants={replyAddSectionVariants}>
-                        <div className='messages'>
+                    <motion.div key="reply-messages-open" className='open-items' initial='hidden' animate='visible' exit='exit' variants={replyAddSectionVariants}>
+                        <div className='messages' ref={messagesRef}>
                             {messagesBefore?.map(message => (
                                 <Message
                                     onClick={() => newReply .id == message.id ? setNewReply("deleted") : setNewReply(message)}
@@ -109,7 +109,7 @@ const ReplyConatiner = styled(motion.div)`
     position: absolute;
     bottom: ${props => props.editReplyOpen ? "0" : "1.7rem"};
     left: ${props => props.editReplyOpen ? "0" : "3rem"};
-    width: ${props => props.editReplyOpen ? "100%" : "4rem"};
+    width: ${props => props.editReplyOpen ? "100%" : "4.2rem"};
     height: ${props => props.editReplyOpen ? "100%" : "1.4rem"};
     display: flex;
     justify-content: center;
@@ -142,7 +142,7 @@ const ReplyConatiner = styled(motion.div)`
         white-space: nowrap;
 
         p {
-            font-size: .5rem;
+            font-size: .6rem;
             white-space: nowrap;
             display: inline;
             text-overflow: ellipsis;
@@ -160,12 +160,13 @@ const ReplyConatiner = styled(motion.div)`
     }
 
     .open-items {
-        padding: 1rem;
-        overflow: hidden scroll;
         width: 100%;
         height: 100%;
 
         .messages {
+            padding: 1rem;
+            width: 100%;
+            height: 100%;
             padding-bottom: 3rem;
             position: relative;
             overflow: hidden scroll;
@@ -180,20 +181,20 @@ const ReplyConatiner = styled(motion.div)`
             z-index: 999;
 
             .cancel {
-                background-color: #ff0000aa;
+                background-color: #990000;
 
                 &:hover {
-                    background-color: #ff0000;
+                    background-color: #cc0000;
                 }
             }
 
             .edit {
-                background-color: #00ff00aa;
+                background-color: #009900;
                 color: #fff;
                 width: 6rem;
 
                 &:hover {
-                    background-color: #00ff00;
+                    background-color: #00cc00;
                 }
             }
         }

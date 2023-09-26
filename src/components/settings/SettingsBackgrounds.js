@@ -68,23 +68,6 @@ const BackgroundsContainer = styled(motion.div)`
     padding-bottom: 3rem;
     overflow: hidden scroll;
 
-    /* width */
-    ::-webkit-scrollbar {
-        width: .3rem;
-    }
-
-    /* Track */
-    ::-webkit-scrollbar-track {
-        border-radius: 50px;
-        background: #ffffff04;
-    }
-
-    /* Handle */
-    ::-webkit-scrollbar-thumb {
-        background: #ffffff14;
-        border-radius: 50px;
-    }
-
     .background {
         border-radius: 25px;
         width: 80%;

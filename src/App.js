@@ -6,6 +6,7 @@ import EnterModes from './components/Authentication/EnterModes';
 import Signup from './components/Authentication/Signup';
 import Login from './components/Authentication/Login';
 import Settings from './components/settings/Settings';
+import Guidance from './components/Guidance';
 import MessengerBackground from './components/MessengerBackground';
 import Popup from './components/popups/Popup';
 import { useGetMessages } from './hooks/useGetMessages';
@@ -52,6 +53,7 @@ const App = () => {
                     <Route path="/signup" element={<Signup />} />
                     <Route path="/login" element={<Login />} />
                     <Route path='/settings' element={<Settings />} />
+                    <Route path='/guidance' element={<Guidance />} />
                 </Routes>
             </AnimatePresence>
         </>

@@ -54,7 +54,7 @@
 
 /* width */
 ::-webkit-scrollbar {
-    width: .4rem;
+    width: .2rem;
 }
 
 /* Track */
@@ -64,9 +64,13 @@
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #ffffff08;
+    background: #ffffff10;
     box-shadow: var(--shadow-first);
     border-radius: 50px;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    -ms-border-radius: 50px;
+    -o-border-radius: 50px;
 }
 
 * {
@@ -138,11 +142,11 @@ button {
     -ms-transition: inset .2s;
     -o-transition: inset .2s;
     border: none;
-    border-radius: 4px;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    -ms-border-radius: 4px;
-    -o-border-radius: 4px;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
 }
 
 .link:hover {

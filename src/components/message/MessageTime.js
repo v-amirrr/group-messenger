@@ -39,7 +39,7 @@ const TimeContainer = styled(motion.div)`
     margin: ${props =>
         props.isuser ?
             props.messageposition == 0 ?
-            "0 .2rem .4rem 0" :
+            "0 .3rem .3rem 0" :
             props.messageposition == 1 ?
             "0 0 .4rem 0" :
             props.messageposition == 2 ?

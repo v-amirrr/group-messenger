@@ -9,7 +9,6 @@ import { selectBarVariants } from '../config/varitans';
 
 const SelectBar = () => {
 
-    const { enterAsAGuest } = useSelector(store => store.userStore);
     const { selectedMessages, selectOthersMessage } = useSelector(store => store.appStore);
 
     const { clearSelectedMessages, copySelectedMessages, trashSelectedMessages } = useSelect();
@@ -34,7 +33,7 @@ const SelectBar = () => {
 
     return (
         <>
-            <SelectBarContainer initial='hidden' animate='visible' exit='exit' variants={selectBarVariants} userbutton={!enterAsAGuest && !selectOthersMessage ? 1 : 0} changecounter={changeCounter ? 1 : 0}>
+            <SelectBarContainer initial='hidden' animate='visible' exit='exit' variants={selectBarVariants} changecounter={changeCounter ? 1 : 0}>
                 <motion.button className='close' onClick={clearSelectedMessages}><IoClose /></motion.button>
                 <div className='count'>
                     <p className='counter-one'>{counterOne}</p>
@@ -47,7 +46,7 @@ const SelectBar = () => {
                         <p>Copy</p>
                     </button>
                     <hr />
-                    <button className='delete' onClick={trashSelectedMessages}>
+                    <button className='delete' disabled={selectOthersMessage} onClick={trashSelectedMessages}>
                         <i><AiFillDelete /></i>
                         <p>Delete</p>
                     </button>
@@ -139,7 +138,12 @@ const SelectBarContainer = styled(motion.div)`
             opacity: 1;
             color: var(--text-color-third);
             cursor: pointer;
-            transition: margin .4s, opacity .4s, background .2s, box-shadow .2s;
+            transition: background .2s, color .2s;
+
+            &:disabled {
+                color: var(--text-color-second);
+                cursor: not-allowed;
+            }
 
             i {
                 display: flex;
@@ -161,16 +165,6 @@ const SelectBarContainer = styled(motion.div)`
             width: .01rem;
             height: 1.2rem;
             background-color: var(--hr-second);
-            opacity: ${props => props.userbutton ? "1" : "0"};
-        }
-
-        .delete {
-            margin-left: ${props => props.userbutton ? "" : "2rem"};
-            opacity: ${props => props.userbutton ? "1" : "0"};
-        }
-
-        .copy {
-            margin-left: ${props => props.userbutton ? "" : "7rem"};
         }
     }
 
@@ -186,6 +180,7 @@ const SelectBarContainer = styled(motion.div)`
     @media (max-width: 500px) {
         width: 18rem;
         height: 3rem;
+        margin-right: 4rem;
     }
 `;
 

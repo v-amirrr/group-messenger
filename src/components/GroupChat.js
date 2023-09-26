@@ -20,7 +20,6 @@ const GroupChat = () => {
     const { messages } = useSelector(store => store.messagesStore);
     const { user, enterAsAGuest } = useSelector(store => store.userStore);
     const { selectedMessages } = useSelector(store => store.appStore);
-    const { loading: sendMessageLoading } = useSelector(store => store.sendMessageStore);
 
     const [scroll, setScroll] = useState(true);
 

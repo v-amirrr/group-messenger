@@ -131,7 +131,6 @@ const MessengerInputContainer = styled(motion.section)`
     -webkit-backdrop-filter: var(--glass-first);
     box-shadow: var(--shadow-second);
     z-index: 5;
-    transition: bottom .4s;
 
     &:disabled {
         cursor: not-allowed;

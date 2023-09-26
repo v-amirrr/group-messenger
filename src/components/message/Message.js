@@ -12,7 +12,7 @@ import SelectCheck from './SelectCheck';
 import MessageUsername from './MessageUsername';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { messageLocalVariants, messageNonLocalVariants } from '../../config/varitans';
+import { messageVariants } from '../../config/varitans';
 import MessageReplyIcon from './MessageReplyIcon';
 
 const Message = props => {
@@ -106,7 +106,7 @@ const Message = props => {
 
     return (
         <>
-            <MessageBox layout={props.type == "EDIT_REPLY" ? 0 : 1} initial='hidden' animate='visible' exit='exit' variants={messageUid == localUid ? messageLocalVariants : messageNonLocalVariants} layoutId={props.type == "EDIT_REPLY" ? id : null} chatdate={priorDifferentDate && time.year && time.month && time.day} localuser={messageUid == localUid ? 1 : 0} ispersian={isRTL(message) ? 1 : 0} messageposition={messagePosition} isreply={replyTo != "no_reply" ? 1 : 0} selected={selected ? 1 : 0} anymessageselected={selectedMessages.length ? 1 : 0} type={props.type} replyto={replyToApp.id == id ? 1 : 0} newreply={props.newreply ? 1 : 0} date={priorDifferentDate ? 1 : 0}>
+            <MessageBox layout={props.type == "EDIT_REPLY" ? 0 : 1} layoutId={props.type == "EDIT_REPLY" ? id : null} initial='hidden' animate='visible' exit='exit' variants={messageVariants} chatdate={priorDifferentDate && time.year && time.month && time.day} localuser={messageUid == localUid ? 1 : 0} ispersian={isRTL(message) ? 1 : 0} messageposition={messagePosition} isreply={replyTo != "no_reply" ? 1 : 0} selected={selected ? 1 : 0} anymessageselected={selectedMessages.length ? 1 : 0} type={props.type} replyto={replyToApp.id == id ? 1 : 0} newreply={props.newreply ? 1 : 0} date={priorDifferentDate ? 1 : 0}>
                 <ChatDate layout={props.type == "EDIT_REPLY" ? 0 : 1} layoutId={props.type == "EDIT_REPLY" ? id : null} key="chat-date" dateObj={time} priorDifferentDate={priorDifferentDate} />
 
                 <div className='message-box' onClick={(e) => messageClickHandler(e)} onDoubleClick={messageDoubleClickHandler}>
@@ -189,7 +189,7 @@ const MessageBox = styled(motion.div)`
         };
         margin-right: ${props => props.type != "TRASH" && props.anymessageselected || props.replyto || props.newreply ? "3rem" : ""};
         margin-left: ${props => !props.localuser && props.replyto || props.newreply ? "3rem" : ""};
-        padding: .5rem 2.8rem .5rem .8rem;
+        padding: .5rem 2.5rem .5rem .8rem;
         min-width: ${props => props.isreply ? "22%" : ""};
         width: fit-content;
         max-width: ${props => props.type == "EDIT_REPLY" ? "80%" : props.localuser && props.type == "CHAT" ? "60%" : "80%"};
@@ -199,7 +199,7 @@ const MessageBox = styled(motion.div)`
         word-break: break-all;
         cursor: pointer;
         box-shadow: var(--shadow-first);
-        transition: backdrop-filter .4s, border-radius .4s .4s, margin .4s, background .2s, padding .2s;
+        transition: backdrop-filter .4s, border-radius .4s, margin .4s, background .2s, padding .2s;
 
         .message {
             text-align: ${props => props.ispersian ? "right" : "left"};

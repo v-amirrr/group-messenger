@@ -22,18 +22,17 @@ export const warningPageVariants = {
 };
 
 export const warningContainerVariants = {
-    hidden: { opacity: 0, y: 50, scaleY: 0.8 },
+    hidden: { opacity: 0, scale: 0.9 },
     visible: {
         opacity: 1,
-        y: 0,
-        scaleY: 1,
+        scale: 1,
         transition: {
-            duration: 0.8,
+            duration: 0.6,
             ease: [0.53, 0, 0, 0.98],
             time: [0.53, 0, 0, 0.98],
         },
     },
-    exit: { opacity: 0, y: 30, scaleY: 0.9, transition: { duration: 0.3 } },
+    exit: { opacity: 0, scale: 0.9, transition: { duration: 0.2 } },
 };
 
 export const errorBoxVariants = {
@@ -96,18 +95,17 @@ export const enterPageVariants = {
 };
 
 export const boxVariants = {
-    hidden: { opacity: 0, y: 50, scaleY: 0.8 },
+    hidden: { opacity: 0, scale: 0.9 },
     visible: {
         opacity: 1,
-        y: 0,
-        scaleY: 1,
+        scale: 1,
         transition: {
-            duration: 0.8,
+            duration: 0.6,
             ease: [0.53, 0, 0, 0.98],
             time: [0.53, 0, 0, 0.98],
         },
     },
-    exit: { opacity: 0, y: 30, scaleY: 0.9, transition: { duration: 0.3 } },
+    exit: { opacity: 0, scale: 0.9, transition: { duration: 0.2 } },
 };
 
 export const authVariants = {
@@ -132,7 +130,7 @@ export const authItemVariants = {
 };
 
 export const loaderVariants = {
-    hidden: { opacity: 0, scale: 0.9 },
+    hidden: { opacity: 0, scale: 0.8 },
     visible: {
         opacity: 1,
         scale: 1,
@@ -142,7 +140,7 @@ export const loaderVariants = {
             time: [0.53, 0, 0, 0.98],
         },
     },
-    exit: { opacity: 0, scale: 0.9, transition: { duration: 0.2 } },
+    exit: { opacity: 0, scale: 0.8, transition: { duration: 0.2 } },
 };
 
 export const messengerVariants = onMobile
@@ -190,17 +188,18 @@ export const chatDateVariants = {
 };
 
 export const messageVariants = {
-    hidden: { opacity: 0, scale: 0.9 },
+    hidden: { opacity: 0, y: 50, scaleY: 0.8 },
     visible: {
         opacity: 1,
-        scale: 1,
+        y: 0,
+        scaleY: 1,
         transition: {
             duration: 0.6,
             ease: [0.53, 0, 0, 0.98],
             time: [0.53, 0, 0, 0.98],
         },
     },
-    exit: { opacity: 0, scale: 0.9, transition: { duration: 0.4 } },
+    exit: { opacity: 0, y: 30, scaleY: 0.9, transition: { duration: 0.3 } },
 };
 
 export const messageLoaderVariants = {

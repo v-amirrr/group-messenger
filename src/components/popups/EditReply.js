@@ -109,7 +109,7 @@ const ReplyConatiner = styled(motion.div)`
     position: absolute;
     bottom: ${props => props.editReplyOpen ? "0" : "1.7rem"};
     left: ${props => props.editReplyOpen ? "0" : "3rem"};
-    width: ${props => props.editReplyOpen ? "100%" : "4.2rem"};
+    width: ${props => props.editReplyOpen ? "100%" : "4.8rem"};
     height: ${props => props.editReplyOpen ? "100%" : "1.4rem"};
     display: flex;
     justify-content: center;

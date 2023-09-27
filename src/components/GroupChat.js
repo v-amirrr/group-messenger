@@ -5,7 +5,7 @@ import Message from './message/Message';
 import MessengerInput from './MessengerInput';
 import MessengerMenu from './MessengerMenu';
 import SelectBar from './SelectBar';
-import GeustSign from './GeustSign';
+import Profile from './Profile';
 import ScrollButton from './ScrollButton';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -73,14 +73,12 @@ const GroupChat = () => {
                 {!selectedMessages.length ? <MessengerMenu key="messenger-menu" /> : ""}
             </AnimatePresence>
 
+            <Profile key="profile" />
+
             <ScrollButton key="scroll-button" click={scrollButtonClickHandler} scroll={scroll} />
 
             <AnimatePresence exitBeforeEnter>
                 {selectedMessages.length ? <SelectBar key="select-bar" /> : ""}
-            </AnimatePresence>
-
-            <AnimatePresence exitBeforeEnter>
-                {enterAsAGuest ? <GeustSign key="guest-sign" /> : ""}
             </AnimatePresence>
 
             <GroupChatContainer onScroll={onScrollHandler} ref={messagesRef} layout initial='hidden' animate='visible' exit='exit' variants={groupChatVariants}>

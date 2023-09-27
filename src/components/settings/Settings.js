@@ -35,12 +35,10 @@ const Settings = () => {
                         </Link>
                     </header>
 
-                    <ul>
                         <SettingsItem openValue="SETTINGS_BACKGROUND" open={open} component={<SettingsBackgrounds open={open} setOpen={setOpen} setHeight={setHeight}/>} height={height}/>
                         <SettingsItem openValue="SETTINGS_NOTIFICATION" open={open} component={<SettingsNotification open={open} setOpen={setOpen} setHeight={setHeight}/>} height={height}/>
                         <SettingsItem openValue="SETTINGS_USER" open={open} component={<SettingsUser open={open} setOpen={setOpen} setHeight={setHeight}/>} height={height}/>
                         <SettingsItem openValue="SETTINGS_TRASH" open={open} component={<SettingsTrash open={open} setOpen={setOpen} setHeight={setHeight}/>} height={height}/>
-                    </ul>
                 </SettingsContainer>
             </SettingsPage>
         </>
@@ -65,9 +63,11 @@ const SettingsContainer = styled(motion.section)`
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     border: var(--border-first);
     border-radius: 25px;
     background-color: var(--settings);
+    padding-top: 4rem;
     overflow: hidden;
 
     .settings-header {
@@ -97,15 +97,6 @@ const SettingsContainer = styled(motion.section)`
                 background-color: var(--button-hover);
             }
         }
-    }
-
-    ul {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        margin-top: 4rem;
     }
 `;
 

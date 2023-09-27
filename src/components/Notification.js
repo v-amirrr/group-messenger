@@ -68,7 +68,7 @@ const NotificationsContainer = styled(motion.div)`
 const NotificationContainer = styled(motion.div)`
     min-width: 10rem;
     max-width: 30rem;
-    min-height: 2.2rem;
+    min-height: 2.5rem;
     margin: .15rem;
     display: flex;
     justify-content: center;

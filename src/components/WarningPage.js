@@ -6,14 +6,13 @@ import { motion } from 'framer-motion';
 import { warningPageVariants, warningContainerVariants } from '../config/varitans';
 
 const WarningPage = () => {
-
     const { warningPageSubmit } = useWarningPage();
     const { warningRedirection } = useRedirection();
 
     const [warningModalCheckbox, setWarningModalCheckbox] = useState(false);
 
     const pressEnter = (e) => {
-        if (e.key == "Enter") {
+        if (e.key == 'Enter') {
             warningPageSubmit(warningModalCheckbox);
         }
     };
@@ -24,20 +23,53 @@ const WarningPage = () => {
 
     return (
         <>
-            <WarningModalPage initial='hidden' animate='visible' exit='exit' variants={warningPageVariants} onKeyDown={(e) => pressEnter(e)}>
-                <motion.div className='container' variants={warningContainerVariants}>
+            <WarningModalPage
+                initial='hidden'
+                animate='visible'
+                exit='exit'
+                variants={warningPageVariants}
+                onKeyDown={(e) => pressEnter(e)}
+            >
+                <motion.div
+                    className='container'
+                    variants={warningContainerVariants}
+                >
                     <h1 className='title'>THINGS YOU NEED TO KNOW</h1>
                     <p className='warning'>
-                        If you're in sanctioned countries like <b>Iran</b>, you have to turn on your <b>VPN</b> in order to use this app.
+                        If you're in sanctioned countries like <b>Iran</b>, you
+                        have to turn on your <b>VPN</b> in order to use this
+                        app.
                     </p>
                     <p className='guide'>
-                        In this app you can send message, reply to a message, delete your messege, edit your message also edit your message's replies. For doing those things you just need to hit on one of your message to see the options. You also can change background of the app.
+                        In this app you can send message, reply to a message,
+                        delete your messege, edit your message also edit your
+                        message's replies. For doing those things you just need
+                        to hit on one of your message to see the options. You
+                        also can change background of the app.
                     </p>
-                    <div className='show-again' onClick={() => setWarningModalCheckbox(!warningModalCheckbox)}>
-                        <input type="checkbox" autoFocus checked={warningModalCheckbox} onChange={() => setWarningModalCheckbox(!warningModalCheckbox)} />
+                    <div
+                        className='show-again'
+                        onClick={() =>
+                            setWarningModalCheckbox(!warningModalCheckbox)
+                        }
+                    >
+                        <input
+                            type='checkbox'
+                            autoFocus
+                            checked={warningModalCheckbox}
+                            onChange={() =>
+                                setWarningModalCheckbox(!warningModalCheckbox)
+                            }
+                        />
                         <p>Don't show this again.</p>
                     </div>
-                    <button type="submit" className='submit' onClick={() => warningPageSubmit(warningModalCheckbox)}>LET'S GO</button>
+                    <button
+                        type='submit'
+                        className='submit'
+                        onClick={() => warningPageSubmit(warningModalCheckbox)}
+                    >
+                        LET'S GO
+                    </button>
                 </motion.div>
             </WarningModalPage>
         </>
@@ -51,9 +83,6 @@ const WarningModalPage = styled(motion.section)`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--page-second);
-    z-index: 2;
-    user-select: none;
 
     .container {
         max-width: 100%;
@@ -65,36 +94,37 @@ const WarningModalPage = styled(motion.section)`
 
         .title {
             font-size: 2rem;
-            font-weight: var(--text-boldness-fourth);
+            font-weight: 900;
+            margin-bottom: 1.2rem;
             letter-spacing: -2px;
             word-spacing: 5px;
-            margin-bottom: 1.2rem;
             white-space: nowrap;
+            color: var(--normal-color);
         }
 
         .warning {
-            font-size: .8rem;
-            font-weight: var(--text-boldness-second);
-            margin-bottom: .8rem;
-            color: #ff0000;
+            font-size: 0.8rem;
+            font-weight: 400;
+            margin-bottom: 0.8rem;
+            color: var(--red-color);
         }
 
         .guide {
+            font-size: 0.6rem;
             max-width: 40%;
-            font-size: .6rem;
-            font-weight: var(--text-boldness-second);
+            font-weight: 400;
             line-height: 1.4;
-            margin-bottom: .8rem;
-            color: var(--text-color-second);
+            margin-bottom: 0.8rem;
+            color: var(--pale-color);
         }
 
         .show-again {
+            font-size: 0.6rem;
+            font-weight: 400;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: var(--text-color-first);
-            font-size: .6rem;
-            font-weight: var(--text-boldness-second);
+            color: var(--pale-color);
             margin-bottom: 1.2rem;
             cursor: pointer;
 
@@ -102,33 +132,33 @@ const WarningModalPage = styled(motion.section)`
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                width: .6rem;
-                height: .6rem;
-                margin: 0 .2rem;
+                width: 0.5rem;
+                height: 0.5rem;
+                margin: 0 0.2rem 0 0;
                 cursor: pointer;
             }
         }
 
         .submit {
-            all: unset;
-            border-radius: 50px;
-            background-color: var(--button);
             display: flex;
             justify-content: center;
             align-items: center;
+            width: 25%;
+            height: 2.3rem;
+            background-color: var(--normal-bg);
+            box-shadow: var(--normal-shadow);
+            color: var(--normal-color);
+            border-radius: 50px;
             font-size: 1rem;
-            font-weight: var(--text-boldness-third);
+            font-weight: 600;
+            word-spacing: 3px;
             letter-spacing: -1px;
-            word-spacing: 5px;
-            padding: .5rem 0;
-            box-shadow: var(--shadow-second);
-            width: 20%;
             cursor: pointer;
-            transition: background .2s;
+            transition: background 0.2s;
 
             @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
                 &:hover {
-                    background-color: var(--button-hover);
+                    background-color: var(--normal-bg-hover);
                 }
             }
         }
@@ -141,7 +171,7 @@ const WarningModalPage = styled(motion.section)`
             }
 
             .warning {
-                font-size: .8rem;
+                font-size: 0.8rem;
                 max-width: 80%;
             }
 

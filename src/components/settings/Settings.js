@@ -7,13 +7,15 @@ import SettingsTrash from './SettingsTrash';
 import SettingsItem from './SettingsItem';
 import SettingsNotification from './SettingsNotification';
 import Notification from '../Notification';
-import { TiArrowLeft } from "react-icons/ti";
+import { TiArrowLeft } from 'react-icons/ti';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { settingsPageVariants, settingsContainerVariants } from '../../config/varitans';
+import {
+    settingsPageVariants,
+    settingsContainerVariants,
+} from '../../config/varitans';
 
 const Settings = () => {
-
     const { groupChatRedirection } = useRedirection();
 
     const [open, setOpen] = useState(false);
@@ -25,20 +27,71 @@ const Settings = () => {
 
     return (
         <>
-            <SettingsPage initial='hidden' animate='visible' exit='exit' variants={settingsPageVariants}>
+            <SettingsPage
+                initial='hidden'
+                animate='visible'
+                exit='exit'
+                variants={settingsPageVariants}
+            >
                 <Notification />
                 <SettingsContainer variants={settingsContainerVariants}>
                     <header className='settings-header'>
                         <h1>Settings</h1>
                         <Link to={-1}>
-                            <i><TiArrowLeft /></i>
+                            <i>
+                                <TiArrowLeft />
+                            </i>
                         </Link>
                     </header>
 
-                        <SettingsItem openValue="SETTINGS_BACKGROUND" open={open} component={<SettingsBackgrounds open={open} setOpen={setOpen} setHeight={setHeight}/>} height={height}/>
-                        <SettingsItem openValue="SETTINGS_NOTIFICATION" open={open} component={<SettingsNotification open={open} setOpen={setOpen} setHeight={setHeight}/>} height={height}/>
-                        <SettingsItem openValue="SETTINGS_USER" open={open} component={<SettingsUser open={open} setOpen={setOpen} setHeight={setHeight}/>} height={height}/>
-                        <SettingsItem openValue="SETTINGS_TRASH" open={open} component={<SettingsTrash open={open} setOpen={setOpen} setHeight={setHeight}/>} height={height}/>
+                    <SettingsItem
+                        openValue='SETTINGS_BACKGROUND'
+                        open={open}
+                        component={
+                            <SettingsBackgrounds
+                                open={open}
+                                setOpen={setOpen}
+                                setHeight={setHeight}
+                            />
+                        }
+                        height={height}
+                    />
+                    <SettingsItem
+                        openValue='SETTINGS_NOTIFICATION'
+                        open={open}
+                        component={
+                            <SettingsNotification
+                                open={open}
+                                setOpen={setOpen}
+                                setHeight={setHeight}
+                            />
+                        }
+                        height={height}
+                    />
+                    <SettingsItem
+                        openValue='SETTINGS_USER'
+                        open={open}
+                        component={
+                            <SettingsUser
+                                open={open}
+                                setOpen={setOpen}
+                                setHeight={setHeight}
+                            />
+                        }
+                        height={height}
+                    />
+                    <SettingsItem
+                        openValue='SETTINGS_TRASH'
+                        open={open}
+                        component={
+                            <SettingsTrash
+                                open={open}
+                                setOpen={setOpen}
+                                setHeight={setHeight}
+                            />
+                        }
+                        height={height}
+                    />
                 </SettingsContainer>
             </SettingsPage>
         </>
@@ -64,9 +117,9 @@ const SettingsContainer = styled(motion.section)`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    border: var(--border-first);
+    border: solid 1.5px #ffffff14;
     border-radius: 25px;
-    background-color: var(--settings);
+    background-color: #00000088;
     padding-top: 4rem;
     overflow: hidden;
 
@@ -78,12 +131,12 @@ const SettingsContainer = styled(motion.section)`
         justify-content: center;
         align-items: center;
         padding: 1rem 0;
-        border-bottom: var(--border-first);
+        border-bottom: solid 1.5px #ffffff14;
 
         a {
             position: absolute;
-            left: .7rem;
-            transition: background .2s;
+            left: 0.7rem;
+            transition: background 0.2s;
             border-radius: 50%;
 
             i {
@@ -91,10 +144,6 @@ const SettingsContainer = styled(motion.section)`
                 justify-content: center;
                 align-items: center;
                 font-size: 2rem;
-            }
-
-            &:hover {
-                background-color: var(--button-hover);
             }
         }
     }

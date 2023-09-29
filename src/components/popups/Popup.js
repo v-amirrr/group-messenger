@@ -6,16 +6,24 @@ import Notification from '../Notification';
 import { useMessageOptions } from '../../hooks/useMessageOptions';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
-import { popupPageVariants, popupContainerVariants } from '../../config/varitans';
+import {
+    popupPageVariants,
+    popupContainerVariants,
+} from '../../config/varitans';
 
 const Popup = () => {
-
-    const { popupShow, popupName, popupMessages, popupMessagesSelected, popupMessageReplyTo } = useSelector(store => store.popupStore);
+    const {
+        popupShow,
+        popupName,
+        popupMessages,
+        popupMessagesSelected,
+        popupMessageReplyTo,
+    } = useSelector((store) => store.popupStore);
     const { closePopup } = useMessageOptions();
 
     const popupPage = useRef();
 
-    const closePopupByTap = e => {
+    const closePopupByTap = (e) => {
         if (!popupPage.current.contains(e.target)) {
             closePopup();
         }
@@ -24,18 +32,37 @@ const Popup = () => {
     return (
         <>
             <AnimatePresence exitBeforeEnter>
-                {popupShow ?
-                <PopupPage initial='hidden' animate='visible' exit='exit' variants={popupPageVariants} onClick={(e) => closePopupByTap(e)}>
-                    <Notification />
-                    <PopupContainer variants={popupContainerVariants} ref={popupPage}>
-                        {popupName == "DELETE_POPUP" ?
-                        <DeletePopup popupMessages={popupMessages} />
-                        : popupName == "EDIT_POPUP" ?
-                        <EditPopup popupMessages={popupMessages} popupMessagesSelected={popupMessagesSelected} popupMessageReplyTo={popupMessageReplyTo} />
-                        : ""}
-                    </PopupContainer>
-                </PopupPage>
-                : ""}
+                {popupShow ? (
+                    <PopupPage
+                        initial='hidden'
+                        animate='visible'
+                        exit='exit'
+                        variants={popupPageVariants}
+                        onClick={(e) => closePopupByTap(e)}
+                    >
+                        <Notification />
+                        <PopupContainer
+                            variants={popupContainerVariants}
+                            ref={popupPage}
+                        >
+                            {popupName == 'DELETE_POPUP' ? (
+                                <DeletePopup popupMessages={popupMessages} />
+                            ) : popupName == 'EDIT_POPUP' ? (
+                                <EditPopup
+                                    popupMessages={popupMessages}
+                                    popupMessagesSelected={
+                                        popupMessagesSelected
+                                    }
+                                    popupMessageReplyTo={popupMessageReplyTo}
+                                />
+                            ) : (
+                                ''
+                            )}
+                        </PopupContainer>
+                    </PopupPage>
+                ) : (
+                    ''
+                )}
             </AnimatePresence>
         </>
     );
@@ -50,10 +77,11 @@ const PopupPage = styled(motion.section)`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--page-first);
-    backdrop-filter: var(--glass-second);
-    -webkit-backdrop-filter: var(--glass-second);
-    z-index: 999;
+    background-color: #00000088;
+    backdrop-filter: var(--bold-glass);
+    -webkit-backdrop-filter: var(--bold-glass);
+    z-index: 3;
+    color: var(--normal-color);
 `;
 
 const PopupContainer = styled(motion.div)`
@@ -63,32 +91,33 @@ const PopupContainer = styled(motion.div)`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: var(--popup);
-    border: var(--border-first);
+    background-color: #ffffff04;
+    border: solid 1.5px #ffffff14;
     border-radius: 25px;
-    box-shadow: var(--shadow-first);
+    box-shadow: var(--normal-shadow);
     position: relative;
 
     .buttons {
         margin-top: 1.5rem;
 
-        .edit, .delete, .cancel {
+        .edit,
+        .delete,
+        .cancel {
             border: none;
             border-radius: 50px;
-            background-color: var(--button);
-            box-shadow: var(--shadow-first);
-            margin: 0 .3rem;
+            background-color: #ffffff08;
+            box-shadow: var(--normal-shadow);
+            margin: 0 0.3rem;
             width: 5rem;
             height: 2.3rem;
             font-size: 1rem;
-            font-weight: var(--text-boldness-second);
+            font-weight: 400;
             cursor: pointer;
-            transition: background-color .2s;
-            color: #fff;
+            transition: background-color 0.2s;
 
             @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
                 &:hover {
-                    background-color: var(--button-hover);
+                    background-color: #ffffff14;
                 }
             }
         }
@@ -128,7 +157,7 @@ const PopupContainer = styled(motion.div)`
             margin-top: 1.5rem;
 
             button {
-                font-size: .8rem;
+                font-size: 0.8rem;
             }
         }
     }

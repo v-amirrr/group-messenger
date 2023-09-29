@@ -18,7 +18,7 @@ const GroupChat = () => {
     const { groupChatRedirection } = useRedirection();
 
     const { messages } = useSelector(store => store.messagesStore);
-    const { user, enterAsAGuest } = useSelector(store => store.userStore);
+    const { user } = useSelector(store => store.userStore);
     const { selectedMessages } = useSelector(store => store.appStore);
 
     const [scroll, setScroll] = useState(true);
@@ -73,7 +73,9 @@ const GroupChat = () => {
                 {!selectedMessages.length ? <MessengerMenu key="messenger-menu" /> : ""}
             </AnimatePresence>
 
-            <Profile key="profile" />
+            <AnimatePresence exitBeforeEnter>
+                {!selectedMessages.length ? <Profile key="profile" /> : ""}
+            </AnimatePresence>
 
             <ScrollButton key="scroll-button" click={scrollButtonClickHandler} scroll={scroll} />
 

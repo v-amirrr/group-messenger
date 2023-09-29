@@ -4,23 +4,22 @@ import { useChangeTheme } from '../../hooks/useChangeTheme';
 import themeTowImageSRC from '../../assets/images/2.webp';
 import themeThreeImageSRC from '../../assets/images/3.webp';
 import themeFourImageSRC from '../../assets/images/4.webp';
-import { FcGallery } from "react-icons/fc";
-import { RiArrowRightSLine } from "react-icons/ri";
+import { FcGallery } from 'react-icons/fc';
+import { RiArrowRightSLine } from 'react-icons/ri';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { backgroundsVariants } from '../../config/varitans';
 
 const SettingsBackgrounds = ({ open, setOpen, setHeight }) => {
-
-    const { theme } = useSelector(store => store.appStore);
+    const { theme } = useSelector((store) => store.appStore);
 
     const { changeTheme } = useChangeTheme();
 
     const itemSwitch = () => {
-        if (open == "SETTINGS_BACKGROUND") {
+        if (open == 'SETTINGS_BACKGROUND') {
             setOpen(false);
         } else {
-            setOpen("SETTINGS_BACKGROUND");
+            setOpen('SETTINGS_BACKGROUND');
             setHeight(18);
         }
     };
@@ -28,29 +27,48 @@ const SettingsBackgrounds = ({ open, setOpen, setHeight }) => {
     return (
         <>
             <div className='item-header' onClick={itemSwitch}>
-                <i className='item-icon'><FcGallery /></i>
+                <i className='item-icon'>
+                    <FcGallery />
+                </i>
                 <h4>Backgrounds</h4>
-                <i className='item-back'><RiArrowRightSLine /></i>
+                <i className='item-back'>
+                    <RiArrowRightSLine />
+                </i>
             </div>
 
             <AnimatePresence exitBeforeEnter>
-                {
-                    open == "SETTINGS_BACKGROUND" ?
-                    <div key="item-data" className='item-data'>
-                        <BackgroundsContainer theme={theme} initial='hidden' animate='visible' exit='exit' variants={backgroundsVariants}>
-                            <div className='background' onClick={() => changeTheme(1)}>
+                {open == 'SETTINGS_BACKGROUND' ? (
+                    <div key='item-data' className='item-data'>
+                        <BackgroundsContainer
+                            theme={theme}
+                            initial='hidden'
+                            animate='visible'
+                            exit='exit'
+                            variants={backgroundsVariants}
+                        >
+                            <div
+                                className='background'
+                                onClick={() => changeTheme(1)}
+                            >
                                 <img src={themeTowImageSRC} />
                             </div>
-                            <div className='background' onClick={() => changeTheme(2)}>
+                            <div
+                                className='background'
+                                onClick={() => changeTheme(2)}
+                            >
                                 <img src={themeThreeImageSRC} />
                             </div>
-                            <div className='background' onClick={() => changeTheme(3)}>
+                            <div
+                                className='background'
+                                onClick={() => changeTheme(3)}
+                            >
                                 <img src={themeFourImageSRC} />
                             </div>
                         </BackgroundsContainer>
                     </div>
-                    : ""
-                }
+                ) : (
+                    ''
+                )}
             </AnimatePresence>
         </>
     );
@@ -72,10 +90,10 @@ const BackgroundsContainer = styled(motion.div)`
         border-radius: 25px;
         width: 80%;
         height: 8rem;
-        margin: .2rem 0;
+        margin: 0.2rem 0;
         cursor: pointer;
         border: solid 3px #ffffff00;
-        transition: border .2s;
+        transition: border 0.2s;
 
         img {
             width: 100%;
@@ -84,15 +102,15 @@ const BackgroundsContainer = styled(motion.div)`
         }
 
         &:nth-child(1) {
-            border: ${props => props.theme == 1 ? "solid 3px #fff" : ""};
+            border: ${(props) => (props.theme == 1 ? 'solid 3px #fff' : '')};
         }
 
         &:nth-child(2) {
-            border: ${props => props.theme == 2 ? "solid 3px #fff" : ""};
+            border: ${(props) => (props.theme == 2 ? 'solid 3px #fff' : '')};
         }
 
         &:nth-child(3) {
-            border: ${props => props.theme == 3 ? "solid 3px #fff" : ""};
+            border: ${(props) => (props.theme == 3 ? 'solid 3px #fff' : '')};
         }
     }
 `;

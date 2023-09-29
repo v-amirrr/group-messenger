@@ -23,22 +23,23 @@ const ToggleContainer = styled.div`
     border-radius: 50px;
     width: 2rem;
     height: 1.2rem;
-    background-color: ${(props) => (props.toggle ? '#00ff00' : '#ffffff20')};
+    background-color: ${(props) => (props.toggle ? 'var(--green-color)' : '#ffffff20')};
     cursor: pointer;
     transition: background 0.2s;
 
     span {
         position: absolute;
-        left: ${(props) => (props.toggle ? '43%' : '8%')};
+        left: ${(props) => (!props.toggle ? '0' : '35%')};
+        margin: .2rem;
         border-radius: 50%;
-        width: 1rem;
-        height: 1rem;
-        background-color: ${(props) => (props.toggle ? '#fff' : '#ffffff20')};
-        box-shadow: rgba(0, 0, 0, 0.5) 0px 4px 12px;
+        width: .9rem;
+        height: .9rem;
+        background-color: ${(props) => (props.toggle ? 'var(--normal-color)' : '#ffffff20')};
+        box-shadow: var(--bold-shadow);
         display: flex;
         justify-content: center;
         align-items: center;
-        transition: left 0.1s, background 0.2s;
+        transition: left 0.2s, background 0.2s;
     }
 `;
 

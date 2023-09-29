@@ -3,29 +3,34 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { setMenuShow } from '../redux/appSlice';
-import { HiDotsVertical } from "react-icons/hi";
-import { FaArrowRight } from "react-icons/fa";
-import { FcSettings, FcRedo, FcInfo } from "react-icons/fc";
+import { HiDotsVertical } from 'react-icons/hi';
+import { FaArrowRight } from 'react-icons/fa';
+import { FcSettings, FcRedo, FcInfo } from 'react-icons/fc';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
-import { menuVariants, menuItemVariants, menuIconVariants } from '../config/varitans';
+import {
+    menuVariants,
+    menuItemVariants,
+    menuIconVariants,
+} from '../config/varitans';
 
 const MessengerMenu = () => {
-
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { menuShow, messageOptionsId } = useSelector(store => store.appStore);
+    const { menuShow, messageOptionsId } = useSelector(
+        (store) => store.appStore,
+    );
 
     const { logout } = useAuth();
 
     const clickHandler = (type) => {
         dispatch(setMenuShow(false));
-        if (type == "LOGOUT") {
+        if (type == 'LOGOUT') {
             logout();
-        } else if (type == "SETTINGS") {
-            navigate("/settings");
-        } else if (type == "GUIDANCE") {
-            navigate("/guidance");
+        } else if (type == 'SETTINGS') {
+            navigate('/settings');
+        } else if (type == 'GUIDANCE') {
+            navigate('/guidance');
         }
     };
 
@@ -35,34 +40,84 @@ const MessengerMenu = () => {
 
     return (
         <>
-            <MessengerMenuContainer onHoverStart={() => dispatch(setMenuShow(true))} onHoverEnd={() => dispatch(setMenuShow(false))} openmenu={menuShow ? 1 : 0} initial='hidden' animate='visible' exit='exit' variants={menuVariants}>
+            <MessengerMenuContainer
+                openmenu={menuShow ? 1 : 0}
+                onHoverStart={() => dispatch(setMenuShow(true))}
+                onHoverEnd={() => dispatch(setMenuShow(false))}
+                initial='hidden'
+                animate='visible'
+                exit='exit'
+                variants={menuVariants}
+            >
                 <AnimatePresence>
-                    {menuShow ?
-                    <motion.i key="back-icon" className='back-icon' onClick={() => dispatch(setMenuShow(false))} initial='hidden' animate='visible' exit='exit' variants={menuItemVariants}>
-                        <FaArrowRight />
-                    </motion.i>:
-                    <motion.i key="menu-icon" className='menu-icon' onClick={() => dispatch(setMenuShow(true))} initial='hidden' animate='visible' exit='exit' variants={menuIconVariants}>
-                        <HiDotsVertical />
-                    </motion.i>}
+                    {
+                        menuShow ?
+                        <motion.i
+                            key='back-icon'
+                            className='back-icon'
+                            onClick={() => dispatch(setMenuShow(false))}
+                            initial='hidden'
+                            animate='visible'
+                            exit='exit'
+                            variants={menuItemVariants}
+                        >
+                            <FaArrowRight />
+                        </motion.i> :
+                        <motion.i
+                            key='menu-icon'
+                            className='menu-icon'
+                            onClick={() => dispatch(setMenuShow(true))}
+                            initial='hidden'
+                            animate='visible'
+                            exit='exit'
+                            variants={menuIconVariants}
+                        >
+                            <HiDotsVertical />
+                        </motion.i>
+                    }
                 </AnimatePresence>
 
                 <AnimatePresence>
-                    {menuShow ?
-                    <motion.div key="menu" className='list' initial='hidden' animate='visible' exit='exit' variants={menuItemVariants}>
-                        <motion.button className='list-item' onClick={() => clickHandler("GUIDANCE")}>
-                            <i className='features-icon'><FcInfo /></i>
-                            <p>Guidance</p>
-                        </motion.button>
-                        <motion.button className='list-item' onClick={() => clickHandler("LOGOUT")}>
-                            <i className='logout-icon'><FcRedo /></i>
-                            <p>Logout</p>
-                        </motion.button>
-                        <motion.button className='list-item' onClick={() => clickHandler("SETTINGS")}>
-                            <i><FcSettings /></i>
-                            <p>Settings</p>
-                        </motion.button>
-                    </motion.div>
-                    : ""}
+                    {
+                        menuShow ?
+                        <motion.div
+                            key='menu'
+                            className='list'
+                            initial='hidden'
+                            animate='visible'
+                            exit='exit'
+                            variants={menuItemVariants}
+                        >
+                            <motion.button
+                                className='list-item'
+                                onClick={() => clickHandler('GUIDANCE')}
+                            >
+                                <i className='features-icon'>
+                                    <FcInfo />
+                                </i>
+                                <p>Guidance</p>
+                            </motion.button>
+                            <motion.button
+                                className='list-item'
+                                onClick={() => clickHandler('LOGOUT')}
+                            >
+                                <i className='logout-icon'>
+                                    <FcRedo />
+                                </i>
+                                <p>Logout</p>
+                            </motion.button>
+                            <motion.button
+                                className='list-item'
+                                onClick={() => clickHandler('SETTINGS')}
+                            >
+                                <i>
+                                    <FcSettings />
+                                </i>
+                                <p>Settings</p>
+                            </motion.button>
+                        </motion.div>
+                     : ''
+                    }
                 </AnimatePresence>
             </MessengerMenuContainer>
         </>
@@ -73,44 +128,38 @@ const MessengerMenuContainer = styled(motion.div)`
     position: absolute;
     top: 1rem;
     right: 2.4rem;
-    width: ${props => props.openmenu ? "7.2rem" : "2.5rem"};
-    height: ${props => props.openmenu ? "9.4rem" : "2.5rem"};
+    width: ${(props) => (props.openmenu ? '7.2rem' : '2.5rem')};
+    height: ${(props) => (props.openmenu ? '9.4rem' : '2.5rem')};
     display: flex;
     justify-content: center;
     align-items: center;
-    border: solid 1px #ffffff18;
-    border-radius: ${props => props.openmenu ? "25px" : "50px"};
-    box-shadow: var(--shadow-second);
-    backdrop-filter: var(--glass-first);
-    -webkit-backdrop-filter: var(--glass-first);
-    cursor: ${props => props.openmenu ? "" : "pointer"};
-    user-select: none;
+    color: var(--normal-color);
+    border: solid 1.5px #ffffff14;
+    border-radius: ${(props) => (props.openmenu ? '25px' : '50px')};
+    box-shadow: var(--normal-shadow);
+    backdrop-filter: var(--bold-glass);
+    -webkit-backdrop-filter: var(--bold-glass);
     overflow: hidden;
-    z-index: 3;
-    transition: width .4s cubic-bezier(.53,0,0,.98), height .4s cubic-bezier(.53,0,0,.98), ${props => props.openmenu ? "border-radius .2s" : "border-radius .2s .6s"};
+    z-index: 2;
+    transition: width 0.4s cubic-bezier(0.53, 0, 0, 0.98),
+        height 0.4s cubic-bezier(0.53, 0, 0, 0.98),
+        ${(props) => props.openmenu ? 'border-radius 0s' : 'border-radius .2s .6s'};
 
     .back-icon, .menu-icon {
         position: absolute;
-        cursor: pointer;
         display: flex;
         justify-content: center;
         align-items: center;
         border-radius: 50%;
-        color: var(--text-color-third);
+        cursor: pointer;
     }
 
     .back-icon {
         position: absolute;
-        top: .3rem;
-        right: .3rem;
-        padding: .4rem;
+        top: 0.3rem;
+        right: 0.3rem;
+        padding: 0.4rem;
         font-size: 1.2rem;
-        color: var(--text-color-second);
-        transition: color .2s;
-
-        &:hover {
-            color: var(--text-color-third);
-        }
     }
 
     .menu-icon {
@@ -127,7 +176,7 @@ const MessengerMenuContainer = styled(motion.div)`
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        margin-top: 2.3rem;
+        margin-top: 2.1rem;
 
         .list-item {
             width: 90%;
@@ -135,18 +184,17 @@ const MessengerMenuContainer = styled(motion.div)`
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: .1rem 0;
-            background-color: var(--button);
+            margin: 0.1rem 0;
+            background-color: var(--normal-bg);
+            box-shadow: var(--normal-shadow);
             border-radius: 50px;
-            box-shadow: var(--shadow-second);
-            color: var(--text-color-third);
-            font-weight: var(--text-boldness-second);
+            font-weight: 400;
             white-space: nowrap;
             cursor: pointer;
-            transition: background .2s;
+            transition: background 0.2s;
 
             p {
-                font-size: .8rem;
+                font-size: 0.8rem;
                 margin-left: 2.35rem;
                 text-align: left;
                 width: 100%;
@@ -171,14 +219,14 @@ const MessengerMenuContainer = styled(motion.div)`
 
             @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
                 &:hover {
-                    background-color: var(--button-hover);
+                    background-color: var(--normal-bg-hover);
                 }
             }
         }
     }
 
     @media (max-width: 500px) {
-        right: .3rem;
+        right: 0.3rem;
     }
 `;
 

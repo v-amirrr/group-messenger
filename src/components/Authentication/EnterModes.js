@@ -59,9 +59,7 @@ const Container = styled(motion.section)`
     display: flex;
     justify-content: center;
     align-items: center;
-    background: var(--page-second);
     position: absolute;
-    z-index: 2;
     user-select: none;
 
     .box {
@@ -69,8 +67,8 @@ const Container = styled(motion.section)`
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        background-color: var(--enter-box);
-        border: var(--border-first);
+        background-color: var(--normal-bg);
+        border: solid 1.5px #ffffff14;
         box-shadow: 25px;
         width: 15rem;
         height: 14rem;
@@ -96,7 +94,7 @@ const Container = styled(motion.section)`
                 text-align: center;
                 font-size: .5rem;
                 margin: .2rem;
-                background-color: var(--enter-box-item);
+                background-color: var(--normal-bg);
                 padding: .4rem .3rem;
                 border-radius: 50px;
             }
@@ -104,7 +102,7 @@ const Container = styled(motion.section)`
 
         @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
             &:hover {
-                background-color: var(--enter-box-hover);
+                background-color: var(--normal-bg-hover);
             }
         }
     }

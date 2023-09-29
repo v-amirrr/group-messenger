@@ -26,14 +26,15 @@ const ErrorBoxContainer = styled(motion.div)`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: var(--popup);
-    border: var(--border-first);
-    box-shadow: var(--shadow-first);
+    border: solid 1.5px #ffffff14;
+    background-color: #000000aa;
+    box-shadow: var(--normal-shadow);
     border-radius: 25px;
+    color: var(--normal-colot);
 
     h2 {
         margin: 1rem;
-        color: #ff0000;
+        color: var(--red-color);
         letter-spacing: -1px;
         white-space: nowrap;
     }
@@ -41,27 +42,32 @@ const ErrorBoxContainer = styled(motion.div)`
     p {
         max-width: 30rem;
         font-size: .8rem;
-        color: var(--text-color-third);
-        font-weight: var(--text-boldness-first);
+        font-weight: 400;
     }
 
     button {
-        border: none;
+        all: unset;
+        display: flex;
+        justify-content: center;
+        width: 50%;
+        height: 2.3rem;
+        align-items: center;
+        background-color: #ffffff08;
+        box-shadow: var(--normal-shadow);
+        color: var(--normal-color);
+        border: solid 1px #ffffff14;
         border-radius: 50px;
-        background-color: var(--button);
-        margin: 1rem;
-        padding: .5rem 1rem;
         font-size: 1rem;
-        font-weight: var(--text-boldness-second);
-        box-shadow: var(--shadow-first);
+        font-weight: 600;
+        word-spacing: 3px;
+        letter-spacing: -1px;
+        margin: 1rem;
         cursor: pointer;
-        user-select: none;
-        transition: background-color .2s;
-        color: var(--text-color-third);
+        transition: background 0.2s;
 
         @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
             &:hover {
-                background-color: var(--button-hover);
+                background-color: #ffffff10;
             }
         }
     }

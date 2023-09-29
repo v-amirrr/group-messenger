@@ -7,10 +7,8 @@ import { scrollButtonVariants } from '../config/varitans';
 const ScrollButton = ({ click, scroll }) => {
     return (
         <>
-            <ScrollButtonContainer onClick={click} scroll={scroll ? 1 : 0} initial='hidden' animate='visible' exit='exit' variants={scrollButtonVariants}>
-                <i>
-                    <FaArrowDown />
-                </i>
+            <ScrollButtonContainer onClick={click} scrollup={scroll ? 1 : 0} initial='hidden' animate='visible' exit='exit' variants={scrollButtonVariants}>
+                <i><FaArrowDown /></i>
             </ScrollButtonContainer>
         </>
     );
@@ -25,22 +23,22 @@ const ScrollButtonContainer = styled(motion.button)`
     display: flex;
     justify-content: center;
     align-items: center;
-    border: solid 1px #ffffff18;
+    border: solid 1.5px #ffffff14;
     border-radius: 50%;
-    box-shadow: var(--shadow-second);
-    backdrop-filter: var(--glass-first);
-    -webkit-backdrop-filter: var(--glass-first);
+    box-shadow: var(--normal-shadow);
+    backdrop-filter: var(--bold-glass);
+    -webkit-backdrop-filter: var(--bold-glass);
+    color: var(--normal-color);
     cursor: pointer;
-    user-select: none;
     overflow: hidden;
-    z-index: 3;
+    z-index: 2;
 
     i {
         display: flex;
         justify-content: center;
         align-items: center;
         font-size: 1rem;
-        transform: ${props => !props.scroll ? "rotateX(180deg)" : "rotateX(0deg)"};
+        transform: ${props => !props.scrollup ? "rotateX(180deg)" : "rotateX(0deg)"};
         transition: transform .5s;
     }
 

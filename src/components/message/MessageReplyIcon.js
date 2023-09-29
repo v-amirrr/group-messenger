@@ -4,10 +4,17 @@ import { BsReplyFill } from 'react-icons/bs';
 import { IoClose } from 'react-icons/io5';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
-import { replyIconLocalVariants, replyIconNonLocalVariants } from '../../config/varitans';
+import {
+    replyIconLocalVariants,
+    replyIconNonLocalVariants,
+} from '../../config/varitans';
 
-const MessageReplyIcon = ({ editReply, editReplyClick, show, messageLocal }) => {
-
+const MessageReplyIcon = ({
+    editReply,
+    editReplyClick,
+    show,
+    messageLocal,
+}) => {
     const { clearReplyMessage } = useMessageOptions();
 
     const closeHandler = () => {
@@ -21,16 +28,28 @@ const MessageReplyIcon = ({ editReply, editReplyClick, show, messageLocal }) => 
     return (
         <>
             <AnimatePresence exitBeforeEnter>
-                {show ?
-                <MessageReplyIconContainer key="reply-icon" initial='hidden' animate='visible' exit='exit' variants={messageLocal ? replyIconLocalVariants : replyIconNonLocalVariants}>
-                    <i className='reply'>
-                        <BsReplyFill />
-                    </i>
-                    <i className='close' onClick={closeHandler}>
-                        <IoClose  />
-                    </i>
-                </MessageReplyIconContainer>
-                : ""}
+                {show ? (
+                    <MessageReplyIconContainer
+                        key='reply-icon'
+                        initial='hidden'
+                        animate='visible'
+                        exit='exit'
+                        variants={
+                            messageLocal
+                                ? replyIconLocalVariants
+                                : replyIconNonLocalVariants
+                        }
+                    >
+                        <i className='reply'>
+                            <BsReplyFill />
+                        </i>
+                        <i className='close' onClick={closeHandler}>
+                            <IoClose />
+                        </i>
+                    </MessageReplyIconContainer>
+                ) : (
+                    ''
+                )}
             </AnimatePresence>
         </>
     );
@@ -41,13 +60,13 @@ const MessageReplyIconContainer = styled(motion.div)`
     justify-content: center;
     align-items: center;
     font-size: 1.2rem;
-    background-color: var(--message);
-    box-shadow: var(--shadow-first);
+    background-color: #ffffff08;
+    box-shadow: var(--normal-shadow);
     padding: 1rem;
     border-radius: 50%;
     position: absolute;
     cursor: pointer;
-    transition: background .5s;
+    transition: background 0.5s;
 
     .reply {
         position: absolute;
@@ -55,7 +74,7 @@ const MessageReplyIconContainer = styled(motion.div)`
         justify-content: center;
         align-items: center;
         transform: scale(1);
-        transition: transform .3s;
+        transition: transform 0.3s;
     }
 
     .close {
@@ -64,7 +83,7 @@ const MessageReplyIconContainer = styled(motion.div)`
         justify-content: center;
         align-items: center;
         transform: scale(0);
-        transition: transform .3s;
+        transition: transform 0.3s;
         font-size: 1.6rem;
     }
 
@@ -82,16 +101,16 @@ const MessageReplyIconContainer = styled(motion.div)`
 
     @media (max-width: 500px) {
         &:active {
-        background-color: #ff0000;
+            background-color: #ff0000;
 
-        .reply {
-            transform: scale(0);
-        }
+            .reply {
+                transform: scale(0);
+            }
 
-        .close {
-            transform: scale(1);
+            .close {
+                transform: scale(1);
+            }
         }
-    }
     }
 `;
 

@@ -1,6 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 :root {
+    --normal-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    --bold-shadow: rgba(0, 0, 0, 0.2) 0px 4px 12px;
+
+    --normal-color: #eee;
+    --pale-color: #666;
+    --red-color: #cc0000;
+    --green-color: #00cc00;
+
+    --normal-glass: blur(5px) saturate(100%);
+    --bold-glass: blur(10px) saturate(100%);
+
+    --normal-bg: #ffffff08;
+    --normal-bg-hover: #ffffff14;
+}
+
+/* :root {
     --radius-first: 10px;
     --radius-second: 15px;
     --radius-third: 20px;
@@ -50,7 +66,7 @@
     --enter-box: #ffffff02;
     --enter-box-hover: #ffffff06;
     --enter-box-item: #ffffff06;
-}
+} */
 
 /* width */
 ::-webkit-scrollbar {
@@ -88,6 +104,7 @@ html {
     scroll-behavior: smooth;
     overflow: hidden;
     background-color: #ffffff00;
+    user-select: none;
 }
 
 body {
@@ -105,8 +122,8 @@ button {
 
 ::placeholder {
     user-select: none;
-    color: var(--text-color-first);
-    font-weight: var(--text-boldness-first);
+    color: var(--pale-color);
+    font-weight: 200;
 }
 
 :any-link {
@@ -142,11 +159,11 @@ button {
     -ms-transition: inset .2s;
     -o-transition: inset .2s;
     border: none;
-    border-radius: 8px;
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    -ms-border-radius: 8px;
-    -o-border-radius: 8px;
+    border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    -ms-border-radius: 6px;
+    -o-border-radius: 6px;
 }
 
 .link:hover {

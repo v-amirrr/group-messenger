@@ -75,7 +75,6 @@ const Guidance = () => {
                                     <motion.li variants={featuresItemVariants} onClick={() => changeSection(14)}>User Settings</motion.li>
                                     <motion.li variants={featuresItemVariants} onClick={() => changeSection(15)}>Trash Settings</motion.li>
                                     <motion.li variants={featuresItemVariants} onClick={() => changeSection(16)}>Scroll Button</motion.li>
-                                    <div className='fade'></div>
                                 </motion.ul>
                             </motion.div>
                             : ""
@@ -385,11 +384,12 @@ const GuidancePage = styled(motion.div)`
         display: flex;
         justify-content: center;
         align-items: center;
-        border: var(--border-first);
+        border: solid 1.5px #ffffff14;
         border-radius: 25px;
-        background-color: var(--settings);
+        background-color: #000000aa;
         overflow: hidden;
         position: relative;
+        color: var(--normal-color);
 
         .menu-icon {
             cursor: pointer;
@@ -397,9 +397,8 @@ const GuidancePage = styled(motion.div)`
             top: 1rem;
             left: 1rem;
             display: none;
-            color: var(--text-color-fourth);
-            backdrop-filter: var(--glass-first);
-            -webkit-backdrop-filter: var(--glass-first);
+            backdrop-filter: var(--normal-glass);
+            -webkit-backdrop-filter: var(--normal-glass);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -409,7 +408,7 @@ const GuidancePage = styled(motion.div)`
             height: 2.5rem;
             border-radius: 50%;
             z-index: 99;
-            box-shadow: var(--shadow-first);
+            box-shadow: var(--normal-shadow);
 
             i {
                 display: flex;
@@ -430,14 +429,8 @@ const GuidancePage = styled(motion.div)`
             justify-content: center;
             align-items: center;
             cursor: pointer;
-            color: var(--text-color-second);
-            transition: color .2s;
             font-size: 1.2rem;
             z-index: 10;
-
-            &:hover {
-                color: var(--text-color-third);
-            }
         }
 
         .home {
@@ -445,14 +438,13 @@ const GuidancePage = styled(motion.div)`
             top: 1rem;
             left: 1rem;
             padding: 0 .5rem 0 .2rem;
-            backdrop-filter: var(--glass-first);
-            -webkit-backdrop-filter: var(--glass-first);
-            box-shadow: var(--shadow-first);
+            backdrop-filter: var(--normal-glass);
+            -webkit-backdrop-filter: var(--normal-glass);
+            box-shadow: var(--normal-shadow);
             display: flex;
             justify-content: center;
             align-items: center;
             cursor: pointer;
-            color: var(--text-color-fourth);
             background-color: #ffffff10;
             border-radius: 25px;
             font-size: 1.2rem;
@@ -479,7 +471,7 @@ const GuidancePage = styled(motion.div)`
             width: 25%;
             height: 100%;
             position: relative;
-            border-right: var(--border-first);
+            border-right: solid 1.5px #ffffff14;
 
             ul {
                 padding: 3.2rem 0 2rem 0;
@@ -495,18 +487,8 @@ const GuidancePage = styled(motion.div)`
                     width: 0;
                 }
 
-                .fade {
-                    position: absolute;
-                    bottom: 0;
-                    width: 100%;
-                    height: 1rem;
-                    background: rgb(0,0,0);
-                    background: linear-gradient(0deg, rgba(0,0,0,1) 22%, rgba(255,255,255,0) 100%);
-                }
-
                 li {
-                    background-color: #ffffff05;
-                    color: var(--text-color-second);
+                    background-color: #ffffff08;
                     font-weight: 400;
                     border-radius: 50px;
                     width: 90%;
@@ -521,75 +503,72 @@ const GuidancePage = styled(motion.div)`
                     overflow: hidden;
                     text-overflow: ellipsis;
                     white-space: nowrap;
-                    box-shadow: var(--shadow-first);
-                    transition: background .2s, color .5s;
-
-                    &:hover {
-                        background-color: #ffffff15;
-                    }
+                    letter-spacing: 0;
+                    box-shadow: var(--normal-shadow);
+                    transition: color .2s;
 
                     &:nth-child(1) {
-                        color: ${props => props.content == 1 ? "var(--text-color-third)" : "var(--text-color-second)"};
+                        color: ${props => props.content == 1 ? "var(--normal-color)" : "var(--pale-color)"};
                     }
 
                     &:nth-child(2) {
-                        color: ${props => props.content == 2 ? "var(--text-color-third)" : "var(--text-color-second)"};
+                        color: ${props => props.content == 2 ? "var(--normal-color)" : "var(--pale-color)"};
                     }
 
                     &:nth-child(3) {
-                        color: ${props => props.content == 3 ? "var(--text-color-third)" : "var(--text-color-second)"};
+                        color: ${props => props.content == 3 ? "var(--normal-color)" : "var(--pale-color)"};
                     }
 
                     &:nth-child(4) {
-                        color: ${props => props.content == 4 ? "var(--text-color-third)" : "var(--text-color-second)"};
+                        color: ${props => props.content == 4 ? "var(--normal-color)" : "var(--pale-color)"};
                     }
 
                     &:nth-child(5) {
-                        color: ${props => props.content == 5 ? "var(--text-color-third)" : "var(--text-color-second)"};
+                        color: ${props => props.content == 5 ? "var(--normal-color)" : "var(--pale-color)"};
                     }
 
                     &:nth-child(6) {
-                        color: ${props => props.content == 6 ? "var(--text-color-third)" : "var(--text-color-second)"};
+                        color: ${props => props.content == 6 ? "var(--normal-color)" : "var(--pale-color)"};
                     }
 
                     &:nth-child(7) {
-                        color: ${props => props.content == 7 ? "var(--text-color-third)" : "var(--text-color-second)"};
+                        color: ${props => props.content == 7 ? "var(--normal-color)" : "var(--pale-color)"};
                     }
 
                     &:nth-child(8) {
-                        color: ${props => props.content == 8 ? "var(--text-color-third)" : "var(--text-color-second)"};
+                        color: ${props => props.content == 8 ? "var(--normal-color)" : "var(--pale-color)"};
                     }
 
                     &:nth-child(9) {
-                        color: ${props => props.content == 9 ? "var(--text-color-third)" : "var(--text-color-second)"};
+                        color: ${props => props.content == 9 ? "var(--normal-color)" : "var(--pale-color)"};
                     }
 
                     &:nth-child(10) {
-                        color: ${props => props.content == 10 ? "var(--text-color-third)" : "var(--text-color-second)"};
+                        color: ${props => props.content == 10 ? "var(--normal-color)" : "var(--pale-color)"};
                     }
 
                     &:nth-child(11) {
-                        color: ${props => props.content == 11 ? "var(--text-color-third)" : "var(--text-color-second)"};
+                        color: ${props => props.content == 11 ? "var(--normal-color)" : "var(--pale-color)"};
                     }
 
                     &:nth-child(12) {
-                        color: ${props => props.content == 12 ? "var(--text-color-third)" : "var(--text-color-second)"};
+                        color: ${props => props.content == 12 ? "var(--normal-color)" : "var(--pale-color)"};
                     }
 
                     &:nth-child(13) {
-                        color: ${props => props.content == 13 ? "var(--text-color-third)" : "var(--text-color-second)"};
+                        color: ${props => props.content == 13 ? "var(--normal-color)" : "var(--pale-color)"};
                     }
 
                     &:nth-child(14) {
-                        color: ${props => props.content == 14 ? "var(--text-color-third)" : "var(--text-color-second)"};
+                        color: ${props => props.content == 14 ? "var(--normal-color)" : "var(--pale-color)"};
                     }
 
                     &:nth-child(15) {
-                        color: ${props => props.content == 15 ? "var(--text-color-third)" : "var(--text-color-second)"};
+                        color: ${props => props.content == 15 ? "var(--normal-color)" : "var(--pale-color)"};
                     }
 
                     &:nth-child(16) {
-                        color: ${props => props.content == 16 ? "var(--text-color-third)" : "var(--text-color-second)"};
+                        color: ${props => props.content == 16 ? "var(--normal-color)" : "var(--pale-color)"};
                     }
                 }
 
@@ -601,33 +580,15 @@ const GuidancePage = styled(motion.div)`
             height: 100%;
             position: relative;
 
-            .fade-top, .fade-bottom {
-                position: absolute;
-                width: 100%;
-                height: 2rem;
-                background: rgb(0,0,0);
-                z-index: 9;
-            }
-
-            .fade-top {
-                top: 0;
-                background: linear-gradient(0deg, rgba(255,255,255,0) 22%, rgba(0,0,0,1) 100%);
-            }
-
-            .fade-bottom {
-                bottom: 0;
-                background: linear-gradient(0deg, rgba(0,0,0,1) 22%, rgba(255,255,255,0) 100%);
-            }
-
             .section {
                 width: 100%;
                 height: 100%;
                 padding: 3rem 3rem 3rem 3rem;
                 overflow: hidden scroll;
-                font-weight: 200;
+                font-weight: 400;
                 font-size: .8rem;
                 line-height: 1.5;
-                color: #aaa;
+                color: var(--pale-color);
                 word-spacing: 1px;
 
                 ::-webkit-scrollbar {
@@ -642,17 +603,15 @@ const GuidancePage = styled(motion.div)`
 
                     button {
                         border-radius: 50px;
-                        margin: 0 .4rem;
+                        margin: 0 .2rem;
                         cursor: pointer;
-                        font-size: 1rem;
+                        font-size: .9rem;
                         background-color: #ffffff08;
-                        box-shadow: var(--shadow-second);
-                        border: var(--border-first);
                         display: flex;
                         justify-content: center;
                         align-items: center;
-                        width: 7rem;
-                        height: 2.4rem;
+                        width: 5.5rem;
+                        height: 2.2rem;
                         transition: background .2s;
 
                         &:not(:disabled):hover {
@@ -665,30 +624,23 @@ const GuidancePage = styled(motion.div)`
                     white-space: nowrap;
                     width: 100%;
                     margin: 2rem 0;
-                    color: #fff;
+                    color: var(--normal-color);
                     font-size: 2rem;
                 }
 
                 strong {
-                    color: #fff;
+                    color: var(--normal-color);
                     font-weight: 300;
                 }
 
-                img {
-                    width: 70%;
-                    border-radius: 20px;
-                    margin: 1rem 0;
-                    box-shadow: var(--shadow-second);
-                }
-
                 .important {
-                    border: var(--border-first);
+                    border: solid 1.5px #ffffff14;
                     border-radius: 20px;
-                    background-color: #ffffff08;
+                    background-color: #ffffff04;
                     box-shadow: var(--shadow-second);
                     width: 100%;
                     display: block;
-                    padding: 1rem;
+                    padding: 1.5rem;
                 }
             }
         }

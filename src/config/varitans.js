@@ -4,7 +4,6 @@ export const backgroundImageVariants = {
     hidden: { opacity: 0, scale: 1.08 },
     visible: {
         opacity: 1,
-        y: 0,
         scale: 1,
         transition: {
             duration: 0.8,
@@ -360,33 +359,29 @@ export const timeVariants = onMobile
       };
 
 export const replyIconLocalVariants = {
-    hidden: { opacity: 0, x: 50, scale: 0.5 },
+    hidden: { opacity: 0, x: 50, scale: 0 },
     visible: {
         opacity: 1,
         x: 0,
         scale: 1,
         transition: {
-            duration: 0.8,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
+            duration: 0.4,
         },
     },
-    exit: { opacity: 0, x: 50, scale: 0.5, transition: { duration: 0.3 } },
+    exit: { opacity: 0, x: 50, scale: 0, transition: { duration: 0.3 } },
 };
 
 export const replyIconNonLocalVariants = {
-    hidden: { opacity: 0, x: -50, scale: 0.5 },
+    hidden: { opacity: 0, x: -50, scale: 0 },
     visible: {
         opacity: 1,
         x: 0,
         scale: 1,
         transition: {
-            duration: 0.8,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
+            duration: 0.4,
         },
     },
-    exit: { opacity: 0, x: -50, scale: 0.5, transition: { duration: 0.3 } },
+    exit: { opacity: 0, x: -50, scale: 0, transition: { duration: 0.3 } },
 };
 
 export const selectCheckVariants = {
@@ -553,9 +548,9 @@ export const selectBarVariants = {
 };
 
 export const checkButtonVariants = {
-    hidden: { opacity: 0, y: 20, scale: 0 },
-    visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.2 } },
-    exit: { opacity: 0, y: 20, scale: 0, transition: { duration: 0.2 } },
+    hidden: { opacity: 0, scale: 0 },
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.2 } },
+    exit: { opacity: 0, scale: 0, transition: { duration: 0.2 } },
 };
 
 export const settingsPageVariants = {
@@ -712,7 +707,7 @@ export const featuresListVariants = {
         opacity: 1,
         transition: {
             duration: 0.1,
-            staggerChildren: 0.04,
+            staggerChildren: 0.03,
             when: 'beforeChildren',
         },
     },
@@ -720,7 +715,6 @@ export const featuresListVariants = {
         opacity: 0,
         transition: {
             duration: 0.1,
-            staggerChildren: 0.02,
             when: 'afterChildren',
         },
     },

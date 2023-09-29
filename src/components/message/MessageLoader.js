@@ -6,9 +6,29 @@ import { messageLoaderVariants } from '../../config/varitans';
 const MessageLoader = ({ size }) => {
     return (
         <>
-            <MessageLoaderContainer initial='hidden' animate='visible' exit='exit' variants={messageLoaderVariants} size={size}>
-                <svg className="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-                    <circle className="path" fill="none" strokeWidth="6" strokeLinecap="round" cx="33" cy="33" r="30"></circle>
+            <MessageLoaderContainer
+                initial='hidden'
+                animate='visible'
+                exit='exit'
+                variants={messageLoaderVariants}
+                size={size}
+            >
+                <svg
+                    className='spinner'
+                    width='65px'
+                    height='65px'
+                    viewBox='0 0 66 66'
+                    xmlns='http://www.w3.org/2000/svg'
+                >
+                    <circle
+                        className='path'
+                        fill='none'
+                        strokeWidth='6'
+                        strokeLinecap='round'
+                        cx='33'
+                        cy='33'
+                        r='30'
+                    ></circle>
                 </svg>
             </MessageLoaderContainer>
         </>
@@ -23,8 +43,8 @@ const MessageLoaderContainer = styled(motion.div)`
     height: 100%;
 
     .spinner {
-        width: ${props => props.size};
-        height: ${props => props.size};
+        width: ${(props) => props.size};
+        height: ${(props) => props.size};
         -webkit-animation: rotator 1.4s linear infinite;
         animation: rotator 1.4s linear infinite;
     }
@@ -51,43 +71,45 @@ const MessageLoaderContainer = styled(motion.div)`
         stroke-dasharray: 187;
         stroke-dashoffset: 0;
         transform-origin: center;
-        -webkit-animation: dash 1.4s ease-in-out infinite, colors 5.6s ease-in-out infinite;
-        animation: dash 1.4s ease-in-out infinite, colors 5.6s ease-in-out infinite;
+        -webkit-animation: dash 1.4s ease-in-out infinite,
+            colors 5.6s ease-in-out infinite;
+        animation: dash 1.4s ease-in-out infinite,
+            colors 5.6s ease-in-out infinite;
     }
 
     @-webkit-keyframes colors {
         0% {
-            stroke: #4285F4;
+            stroke: #4285f4;
         }
         25% {
-            stroke: #DE3E35;
+            stroke: #de3e35;
         }
         50% {
-            stroke: #F7C223;
+            stroke: #f7c223;
         }
         75% {
-            stroke: #1B9A59;
+            stroke: #1b9a59;
         }
         100% {
-            stroke: #4285F4;
+            stroke: #4285f4;
         }
     }
 
     @keyframes colors {
         0% {
-            stroke: #4285F4;
+            stroke: #4285f4;
         }
         25% {
-            stroke: #DE3E35;
+            stroke: #de3e35;
         }
         50% {
-            stroke: #F7C223;
+            stroke: #f7c223;
         }
         75% {
-            stroke: #1B9A59;
+            stroke: #1b9a59;
         }
         100% {
-            stroke: #4285F4;
+            stroke: #4285f4;
         }
     }
 

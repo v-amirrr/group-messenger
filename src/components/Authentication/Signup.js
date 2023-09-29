@@ -77,8 +77,7 @@ const SignupPage = styled(motion.div)`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--page-first);
-    user-select: none;
+    color: var(--normal-color);
 
     .signup-container {
         display: flex;
@@ -94,7 +93,7 @@ const SignupPage = styled(motion.div)`
             margin: 1rem;
 
             .signup-field {
-                background-color: var(--button);
+                background-color: var(--normal-bg);
                 border-radius: 50px;
                 padding: .6rem .8rem;
                 width: 12rem;
@@ -112,9 +111,13 @@ const SignupPage = styled(motion.div)`
                     width: 100%;
                     height: 100%;
 
-                    ::placeholder {
-                        font-weight: var(--text-boldness-second);
-                        color: var(--text-color-first);
+                    &::placeholder {
+                        font-weight: 200;
+                    }
+
+                    &:-webkit-autofill{
+                        background-color: var(--normal-bg);
+                        transition: background-color 1s ease-in 2000s;
                     }
                 }
 
@@ -168,7 +171,7 @@ const SignupPage = styled(motion.div)`
                 width: ${props => props.loginloading ? "5.8rem" : "4.5rem"};
                 height: 2.2rem;
                 cursor: ${props => props.loginloading ? "" : "pointer"};
-                background-color: var(--button);
+                background-color: var(--normal-bg);
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -188,7 +191,7 @@ const SignupPage = styled(motion.div)`
 
                 @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
                     &:hover {
-                        background-color: ${props => props.loginloading ? "#ffffff00" : "var(--button-hover)"};
+                        background-color: ${props => props.loginloading ? "#ffffff00" : "var(--normal-bg-hover)"};
                     }
                 }
             }

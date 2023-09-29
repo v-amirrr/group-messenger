@@ -10,9 +10,10 @@ import { messengerVariants } from '../config/varitans';
 import { useGetMessages } from '../hooks/useGetMessages';
 
 const Messenger = () => {
-
     const { loadingOff } = useGetMessages();
-    const { loading, error, messages } = useSelector(store => store.messagesStore);
+    const { loading, error, messages } = useSelector(
+        (store) => store.messagesStore,
+    );
 
     useEffect(() => {
         if (messages?.length) {
@@ -22,13 +23,24 @@ const Messenger = () => {
 
     return (
         <>
-            <MessengerPage initial='hidden' animate='visible' exit='exit' variants={messengerVariants}>
+            <MessengerPage
+                initial='hidden'
+                animate='visible'
+                exit='exit'
+                variants={messengerVariants}
+            >
                 <Notification />
                 <MessengerContainer>
                     <AnimatePresence exitBeforeEnter>
-                        {loading ? <Loader key="loader" usage={1} /> :
-                        error ? <ErrorBox key="error-box" errorMessage={error} /> :
-                        !loading && !error ? <GroupChat /> : ""}
+                        {loading ? (
+                            <Loader key='loader' usage={1} />
+                        ) : error ? (
+                            <ErrorBox key='error-box' errorMessage={error} />
+                        ) : !loading && !error ? (
+                            <GroupChat />
+                        ) : (
+                            ''
+                        )}
                     </AnimatePresence>
                 </MessengerContainer>
             </MessengerPage>

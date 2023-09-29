@@ -1,16 +1,18 @@
 import React, { useState, useEffect, useRef, memo } from 'react';
 import Message from '../message/Message';
 import { useSelector } from 'react-redux';
-import { useMessageOptions } from "../../hooks/useMessageOptions";
+import { useMessageOptions } from '../../hooks/useMessageOptions';
 import { BsReplyFill } from 'react-icons/bs';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
-import { replyAddSectionVariants, replyButtonVariants } from '../../config/varitans';
+import {
+    replyAddSectionVariants,
+    replyButtonVariants,
+} from '../../config/varitans';
 
 const EditReply = ({ replyTo, id, editReplyOpen, setEditReplyOpen }) => {
-
-    const { messages } = useSelector(store => store.messagesStore);
-    const { user } = useSelector(store => store.userStore);
+    const { messages } = useSelector((store) => store.messagesStore);
+    const { user } = useSelector((store) => store.userStore);
 
     const { editMessageReply } = useMessageOptions();
 
@@ -27,7 +29,11 @@ const EditReply = ({ replyTo, id, editReplyOpen, setEditReplyOpen }) => {
     const openHandler = () => {
         setEditReplyOpen(!editReplyOpen);
         setTimeout(() => {
-            messagesRef?.current?.scrollTo(0, messagesRef?.current?.scrollHeight - messagesRef?.current?.clientHeight);
+            messagesRef?.current?.scrollTo(
+                0,
+                messagesRef?.current?.scrollHeight -
+                    messagesRef?.current?.clientHeight,
+            );
         }, 1000);
     };
 
@@ -39,17 +45,17 @@ const EditReply = ({ replyTo, id, editReplyOpen, setEditReplyOpen }) => {
             } else {
                 newMessages.push(messages[i]);
             }
-        };
+        }
         setMessagesBefore(newMessages);
     }, []);
 
     useEffect(() => {
         let text = [];
         if (typeof newReply.message === 'object') {
-            newReply?.message?.map(item => {
+            newReply?.message?.map((item) => {
                 text.push(item.word);
             });
-            text = text.join(" ");
+            text = text.join(' ');
             setNewReply({ ...newReply, message: text });
         }
     }, [newReply]);
@@ -58,46 +64,89 @@ const EditReply = ({ replyTo, id, editReplyOpen, setEditReplyOpen }) => {
         <>
             <ReplyConatiner editReplyOpen={editReplyOpen ? 1 : 0}>
                 <AnimatePresence exitBeforeEnter>
-                    {editReplyOpen ?
-                    <motion.div key="reply-messages-open" className='open-items' initial='hidden' animate='visible' exit='exit' variants={replyAddSectionVariants}>
-                        <div className='messages' ref={messagesRef}>
-                            {messagesBefore?.map(message => (
-                                <Message
-                                    onClick={() => newReply .id == message.id ? setNewReply("deleted") : setNewReply(message)}
-                                    replyIconClick={() => setNewReply("deleted")}
-                                    key={message.id}
-                                    type="EDIT_REPLY"
-                                    newreply={newReply.id == message.id}
-                                    message={{
-                                        messageUid: message.uid,
-                                        localUid: user?.uid,
-                                        messageUsername: message.username,
-                                        id: message.id,
-                                        message: message.message,
-                                        periorUsername: message.periorUsername,
-                                        nextUsername: message.nextUsername,
-                                        time: message.time,
-                                        priorDifferentDate: message.priorDifferentDate,
-                                        nextDifferentDate: message.nextDifferentDate,
-                                        replyTo: message.replyTo,
-                                    }}
-                                />
-                            ))}
-                        </div>
-                        <div className='buttons'>
-                            <button className='cancel' onClick={() => setEditReplyOpen(!editReplyOpen)}>Cancel</button>
-                            <button className='edit' onClick={editHandler}>Edit Reply</button>
-                        </div>
-                    </motion.div>
-                    : ""}
+                    {editReplyOpen ? (
+                        <motion.div
+                            key='reply-messages-open'
+                            className='open-items'
+                            initial='hidden'
+                            animate='visible'
+                            exit='exit'
+                            variants={replyAddSectionVariants}
+                        >
+                            <div className='messages' ref={messagesRef}>
+                                {messagesBefore?.map((message) => (
+                                    <Message
+                                        onClick={() =>
+                                            newReply.id == message.id
+                                                ? setNewReply('deleted')
+                                                : setNewReply(message)
+                                        }
+                                        replyIconClick={() =>
+                                            setNewReply('deleted')
+                                        }
+                                        key={message.id}
+                                        type='EDIT_REPLY'
+                                        newreply={newReply.id == message.id}
+                                        message={{
+                                            messageUid: message.uid,
+                                            localUid: user?.uid,
+                                            messageUsername: message.username,
+                                            id: message.id,
+                                            message: message.message,
+                                            periorUsername:
+                                                message.periorUsername,
+                                            nextUsername: message.nextUsername,
+                                            time: message.time,
+                                            priorDifferentDate:
+                                                message.priorDifferentDate,
+                                            nextDifferentDate:
+                                                message.nextDifferentDate,
+                                            replyTo: message.replyTo,
+                                        }}
+                                    />
+                                ))}
+                            </div>
+                            <div className='buttons'>
+                                <button
+                                    className='cancel'
+                                    onClick={() =>
+                                        setEditReplyOpen(!editReplyOpen)
+                                    }
+                                >
+                                    Cancel
+                                </button>
+                                <button className='edit' onClick={editHandler}>
+                                    Edit Reply
+                                </button>
+                            </div>
+                        </motion.div>
+                    ) : (
+                        ''
+                    )}
 
                     <AnimatePresence>
-                        {!editReplyOpen ?
-                        <motion.button className='open-button' onClick={openHandler} initial='hidden' animate='visible' exit='exit' variants={replyButtonVariants}>
-                            <i><BsReplyFill /></i>
-                            <p>{replyTo != "no_reply" && replyTo != "deleted" ? replyTo?.message : "Add Reply"}</p>
-                        </motion.button>
-                        : ""}
+                        {!editReplyOpen ? (
+                            <motion.button
+                                className='open-button'
+                                onClick={openHandler}
+                                initial='hidden'
+                                animate='visible'
+                                exit='exit'
+                                variants={replyButtonVariants}
+                            >
+                                <i>
+                                    <BsReplyFill />
+                                </i>
+                                <p>
+                                    {replyTo != 'no_reply' &&
+                                    replyTo != 'deleted'
+                                        ? replyTo?.message
+                                        : 'Add Reply'}
+                                </p>
+                            </motion.button>
+                        ) : (
+                            ''
+                        )}
                     </AnimatePresence>
                 </AnimatePresence>
             </ReplyConatiner>
@@ -107,55 +156,53 @@ const EditReply = ({ replyTo, id, editReplyOpen, setEditReplyOpen }) => {
 
 const ReplyConatiner = styled(motion.div)`
     position: absolute;
-    bottom: ${props => props.editReplyOpen ? "0" : "1.7rem"};
-    left: ${props => props.editReplyOpen ? "0" : "3rem"};
-    width: ${props => props.editReplyOpen ? "100%" : "4.8rem"};
-    height: ${props => props.editReplyOpen ? "100%" : "1.4rem"};
+    bottom: ${(props) => (props.editReplyOpen ? '0' : '1.7rem')};
+    left: ${(props) => (props.editReplyOpen ? '0' : '3rem')};
+    width: ${(props) => (props.editReplyOpen ? '100%' : '4.8rem')};
+    height: ${(props) => (props.editReplyOpen ? '100%' : '1.4rem')};
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     border-radius: 25px;
-    background-color: ${props => props.editReplyOpen ? "#000000aa" : "#00000000"};
-    border: var(--border-first);
-    z-index: 10;
+    background-color: ${(props) =>
+        props.editReplyOpen ? '#000000aa' : '#00000000'};
+    border: solid 1.5px #ffffff14;
     box-shadow: var(--shadow-second);
     overflow: hidden;
-    transition: ${props =>
-        props.editReplyOpen ?
-        "background .4s, width .6s cubic-bezier(.53,0,0,.98), height .6s cubic-bezier(.53,0,0,.98), bottom .6s, left .6s" :
-        "background .4s .4s, width .4s .1s cubic-bezier(.53,0,0,.98), height .4s .1s cubic-bezier(.53,0,0,.98), bottom .4s .1s, left .4s .1s"
-    };
+    transition: ${(props) =>
+        props.editReplyOpen
+            ? 'background .4s, width .6s cubic-bezier(.53,0,0,.98), height .6s cubic-bezier(.53,0,0,.98), bottom .6s, left .6s'
+            : 'background .4s .4s, width .4s .1s cubic-bezier(.53,0,0,.98), height .4s .1s cubic-bezier(.53,0,0,.98), bottom .4s .1s, left .4s .1s'};
 
     .open-button {
         all: unset;
         cursor: pointer;
         position: absolute;
-        z-index: 999;
         display: flex;
         justify-content: flex-start;
         align-items: center;
         width: 100%;
         height: 100%;
-        color: var(--text-color-second);
-        font-weight: var(--text-boldness-second);
+        color: var(--pale-color);
+        font-weight: 400;
         white-space: nowrap;
 
         p {
-            font-size: .6rem;
+            font-size: 0.6rem;
             white-space: nowrap;
             display: inline;
             text-overflow: ellipsis;
             overflow: hidden;
-            margin: 0 .2rem 0 0;
+            margin: 0 0.2rem 0 0;
         }
 
         i {
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: .8rem;
-            margin: 0 .1rem 0 .4rem;
+            font-size: 0.8rem;
+            margin: 0 0.1rem 0 0.4rem;
         }
     }
 
@@ -167,7 +214,7 @@ const ReplyConatiner = styled(motion.div)`
             padding: 1rem;
             width: 100%;
             height: 100%;
-            padding-bottom: 3rem;
+            padding-bottom: 6rem;
             position: relative;
             overflow: hidden scroll;
             scroll-behavior: smooth;
@@ -178,7 +225,6 @@ const ReplyConatiner = styled(motion.div)`
             bottom: 1rem;
             left: 0;
             width: 100%;
-            z-index: 999;
 
             .cancel {
                 background-color: #990000;
@@ -202,16 +248,15 @@ const ReplyConatiner = styled(motion.div)`
 
     @media (max-width: 768px) {
         bottom: auto;
-        top: ${props => props.editReplyOpen ? "0" : ".8rem"};
-        left: ${props => props.editReplyOpen ? "0" : "2rem"};
-        transition: ${props =>
-            props.editReplyOpen ?
-            "background .4s, width .6s, height .6s, top .6s, left .6s" :
-            "background .4s .4s, width .4s .1s, height .4s .1s, top .4s .1s, left .4s .1s"
-        };
+        top: ${(props) => (props.editReplyOpen ? '0' : '.8rem')};
+        left: ${(props) => (props.editReplyOpen ? '0' : '2rem')};
+        transition: ${(props) =>
+            props.editReplyOpen
+                ? 'background .4s, width .6s, height .6s, top .6s, left .6s'
+                : 'background .4s .4s, width .4s .1s, height .4s .1s, top .4s .1s, left .4s .1s'};
 
         .reply-messages {
-            padding: 1rem .5rem;
+            padding: 1rem 0.5rem;
         }
     }
 `;

@@ -38,18 +38,20 @@ const MessageOptions = ({ clickEvent, show, message }) => {
                             <p>Copy</p>
                         </motion.div>
 
-                        {message.isMessageFromLocalUser ?
-                        <>
-                            <motion.div className='edit' onClick={() => openPopup("EDIT_POPUP", [message])} variants={message.isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants}>
-                                <i><AiFillEdit /></i>
-                                <p>Edit</p>
-                            </motion.div>
-                            <motion.div className='delete' onClick={() => trashMessage(message.id)} variants={message.isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants}>
-                                <i><AiFillDelete /></i>
-                                <p>Delete</p>
-                            </motion.div>
-                        </>
-                        : ""}
+                        {
+                            message.isMessageFromLocalUser ?
+                            <>
+                                <motion.div className='edit' onClick={() => openPopup("EDIT_POPUP", [message])} variants={message.isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants}>
+                                    <i><AiFillEdit /></i>
+                                    <p>Edit</p>
+                                </motion.div>
+                                <motion.div className='delete' onClick={() => trashMessage(message.id)} variants={message.isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants}>
+                                    <i><AiFillDelete /></i>
+                                    <p>Delete</p>
+                                </motion.div>
+                            </>
+                            : ""
+                        }
                     </MessageOptionsContainer>
                 : ""}
             </AnimatePresence>
@@ -68,7 +70,7 @@ const MessageOptionsContainer = styled(motion.div)`
 
     .reply, .copy, .edit, .delete, .select {
         position: relative;
-        background-color: var(--message);
+        background-color: #ffffff08;
         margin: 0 .15rem;
         display: flex;
         justify-content: center;
@@ -78,10 +80,10 @@ const MessageOptionsContainer = styled(motion.div)`
         height: 50%;
         cursor: pointer;
         padding: .5rem;
-        box-shadow: var(--shadow-first);
+        box-shadow: var(--normal-shadow);
         transition: padding .2s;
-        backdrop-filter: var(--glass-first);
-        -webkit-backdrop-filter: var(--glass-first);
+        backdrop-filter: var(--normal-glass);
+        -webkit-backdrop-filter: var(--normal-glass);
 
         i {
             display: flex;

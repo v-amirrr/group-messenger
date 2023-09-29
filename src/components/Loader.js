@@ -43,7 +43,7 @@ const LoaderContainer = styled(motion.div)`
         top: 12px;
         left: 15px;
         filter: blur(4px);
-        background: var(--text-color-third);
+        background: var(--normal-color);
         border-radius: 50%;
         transform: translateX(0);
         animation: dot 3s infinite;
@@ -63,7 +63,7 @@ const LoaderContainer = styled(motion.div)`
         height: 16px;
         margin-left: 16px;
         filter: blur(4px);
-        background: var(--text-color-third);
+        background: var(--normal-color);
         border-radius: 50%;
     }
 

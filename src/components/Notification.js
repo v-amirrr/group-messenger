@@ -7,13 +7,15 @@ import { IoClose } from 'react-icons/io5';
 import { FcAdvertising, FcHighPriority, FcKey } from 'react-icons/fc';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
-import { notificationContainerVariants, notificationVariants } from '../config/varitans';
+import {
+    notificationContainerVariants,
+    notificationVariants,
+} from '../config/varitans';
 
 const AuthError = () => {
-
     const location = useLocation();
-    const { notifications } = useSelector(store => store.appStore);
-    const { popupShow } = useSelector(store => store.popupStore);
+    const { notifications } = useSelector((store) => store.appStore);
+    const { popupShow } = useSelector((store) => store.popupStore);
 
     const { closeNotification, clearNotifications } = useNotification();
     const { logout } = useAuth();
@@ -30,24 +32,57 @@ const AuthError = () => {
 
     return (
         <>
-            <NotificationsContainer layout initial='hidden' animate='visible' exit='exit' variants={notificationContainerVariants}>
+            <NotificationsContainer
+                layout
+                initial='hidden'
+                animate='visible'
+                exit='exit'
+                variants={notificationContainerVariants}
+            >
                 <AnimatePresence>
-                    {notifications?.map(notification => (
-                    <NotificationContainer layout key={notification.time} initial='hidden' animate='visible' exit='exit' variants={notificationVariants} error={notification.isError ? 1 : 0}>
-                        <button className='close-button' onClick={() => closeNotification(notification.time)}><IoClose /></button>
-                        {
-                            notification?.isError ?
-                            <i className='error-icon'><FcHighPriority /></i> :
-                            notification.isGuest ?
-                            <i className='guest-icon'><FcKey /></i> :
-                            <i className='notification-icon'><FcAdvertising /></i>
-                        }
-                        {
-                            notification.isGuest ?
-                            <p>In order to use this feature you need to <button className='link' onClick={logout}>Login</button>.</p> :
-                            <p>{notification?.message}</p>
-                        }
-                    </NotificationContainer>
+                    {notifications?.map((notification) => (
+                        <NotificationContainer
+                            layout
+                            key={notification.time}
+                            initial='hidden'
+                            animate='visible'
+                            exit='exit'
+                            variants={notificationVariants}
+                            error={notification.isError ? 1 : 0}
+                        >
+                            <button
+                                className='close-button'
+                                onClick={() =>
+                                    closeNotification(notification.time)
+                                }
+                            >
+                                <IoClose />
+                            </button>
+                            {notification?.isError ? (
+                                <i className='error-icon'>
+                                    <FcHighPriority />
+                                </i>
+                            ) : notification.isGuest ? (
+                                <i className='guest-icon'>
+                                    <FcKey />
+                                </i>
+                            ) : (
+                                <i className='notification-icon'>
+                                    <FcAdvertising />
+                                </i>
+                            )}
+                            {notification.isGuest ? (
+                                <p>
+                                    In order to use this feature you need to{' '}
+                                    <button className='link' onClick={logout}>
+                                        Login
+                                    </button>
+                                    .
+                                </p>
+                            ) : (
+                                <p>{notification?.message}</p>
+                            )}
+                        </NotificationContainer>
                     ))}
                 </AnimatePresence>
             </NotificationsContainer>
@@ -62,47 +97,51 @@ const NotificationsContainer = styled(motion.div)`
     justify-content: center;
     align-items: center;
     flex-direction: column-reverse;
-    z-index: 999;
+    z-index: 3;
+
+    @media (max-width: 768px) {
+        top: 4rem;
+    }
 `;
 
 const NotificationContainer = styled(motion.div)`
     min-width: 10rem;
     max-width: 30rem;
-    min-height: 2.5rem;
-    margin: .15rem;
+    min-height: 2.2rem;
+    margin: 0.15rem;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
-    background-color: transparent;
-    background-color: #ffffff10;
+    background-color: #ffffff14;
     border-radius: 50px;
-    backdrop-filter: var(--glass-first);
-    -webkit-backdrop-filter: var(--glass-first);
-    padding: 0 3rem 0 .5rem;
-    box-shadow: var(--shadow-second);
-    user-select: none;
+    box-shadow: var(--normal-shadow);
+    backdrop-filter: var(--bold-glass);
+    -webkit-backdrop-filter: var(--bold-glass);
+    color: var(--normal-color);
+    padding: 0 3rem 0 0.5rem;
 
     p {
-        color: var(--text-color-third);
-        font-size: .8rem;
-        font-weight: var(--text-boldness-second);
+        font-size: 0.8rem;
+        font-weight: 400;
         line-height: 1.5;
 
         .link {
             display: inline;
             cursor: pointer;
-            font-size: .8rem;
-            font-weight: var(--text-boldness-second);
+            font-size: 0.8rem;
+            font-weight: 400;
         }
     }
 
-    .error-icon, .notification-icon, .guest-icon {
+    .error-icon,
+    .notification-icon,
+    .guest-icon {
         display: flex;
         justify-content: center;
         align-items: center;
         font-size: 1.4rem;
-        margin-right: .2rem;
+        margin-right: 0.2rem;
     }
 
     .guest-icon {
@@ -112,22 +151,20 @@ const NotificationContainer = styled(motion.div)`
     .close-button {
         all: unset;
         position: absolute;
-        right: .2rem;
+        right: 0.25rem;
         display: flex;
         justify-content: center;
         align-items: center;
         border-radius: 50%;
-        width: 2rem;
-        height: 2rem;
+        width: 1.8rem;
+        height: 1.8rem;
         font-size: 1.4rem;
         cursor: pointer;
-        color: var(--text-color-third);
-        transition: background .2s, box-shadow .2s;
+        transition: background 0.2s;
 
         @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
             &:hover {
-                background-color: var(--button-hover);
-                box-shadow: var(--shadow-first);
+                background-color: #ffffff10;
             }
         }
     }

@@ -73,7 +73,7 @@ const SettingsUser = ({ open, setOpen, setHeight }) => {
 const UserContainer = styled(motion.div)`
     .change-username {
         padding: .5rem;
-        border: var(--border-first);
+        border: solid 1.5px #ffffff14;
         border-radius: 15px;
 
         .user-item-header {
@@ -109,16 +109,8 @@ const UserContainer = styled(motion.div)`
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                background-color: var(--settings-back);
-                transition: background .3s;
                 border-radius: 50%;
                 padding: .2rem;
-
-                @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
-                    &:hover {
-                        background-color: var(--settings-back-hover);
-                    }
-                }
             }
         }
 

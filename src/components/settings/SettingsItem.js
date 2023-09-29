@@ -17,13 +17,13 @@ const SettingsItemContainer = styled.div`
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    border: var(--border-first);
+    border: solid 1.5px #ffffff14;
     border-radius: ${props => props.open ? "15px" : "50px"};
     overflow: hidden;
     position: relative;
     margin: .15rem;
-    background-color: var(--settings-item);
-    box-shadow: var(--shadow-first);
+    background-color: #00000066;
+    box-shadow: var(--normal-shadow);
     transition: ${props => props.open ? "height .6s, border-radius .1s" : "height .4s, border-radius 2s"}, background .2s;
 
     .item-header {
@@ -33,9 +33,8 @@ const SettingsItemContainer = styled.div`
         display: flex;
         justify-content: flex-start;
         align-items: center;
-        border-bottom: ${props => props.open ? "var(--border-first)" : "solid .1px #ffffff00"};
+        border-bottom: ${props => props.open ? "solid 1.5px #ffffff14" : "solid .1px #ffffff00"};
         padding: 0 .5rem .4rem .8rem;
-        z-index: 2;
         cursor: pointer;
         transition: ${props => props.open ? "top .1s" : "top .4s .6s"}, border-bottom .4s;
 
@@ -65,7 +64,7 @@ const SettingsItemContainer = styled.div`
 
         .deleted-messages-counter {
             margin: 0 .3rem;
-            font-size: .7rem;
+            font-size: .6rem;
             font-weight: 600;
             width: 1rem;
             height: 1rem;
@@ -73,7 +72,7 @@ const SettingsItemContainer = styled.div`
             justify-content: center;
             align-items: center;
             border-radius: 50%;
-            background-color: #ff0000;
+            background-color: var(--red-color);
         }
     }
 
@@ -83,12 +82,6 @@ const SettingsItemContainer = styled.div`
         align-items: center;
         width: 100%;
         height: 100%;
-    }
-
-    @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
-        /* &:hover {
-            background-color: ${props => props.open ? "" : "var(--settings-item-hover)"};
-        } */
     }
 `;
 

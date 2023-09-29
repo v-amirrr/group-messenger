@@ -1,23 +1,51 @@
 import React, { memo } from 'react';
 import EmojiPicker from 'emoji-picker-react';
-import { GrEmoji } from "react-icons/gr";
+import { GrEmoji } from 'react-icons/gr';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { emojiPickerContainerVariatns } from '../config/varitans';
 
-const Emoji = ({ replyToId, inputText, setInputText, show, setShow, place }) => {
+const Emoji = ({
+    replyToId,
+    inputText,
+    setInputText,
+    show,
+    setShow,
+    place,
+}) => {
     return (
         <>
-            <EmojiPickerIcon onClick={() => setShow(!show)} whileTap={{ scale: 0.8 }} editpopup={place == "EDIT_POPUP" ? 1 : 0}>
+            <EmojiPickerIcon
+                onClick={() => setShow(!show)}
+                whileTap={{ scale: 0.8 }}
+                editpopup={place == 'EDIT_POPUP' ? 1 : 0}
+            >
                 <GrEmoji />
             </EmojiPickerIcon>
 
             <AnimatePresence>
-                {show ?
-                <EmojiPickerContainer initial='hidden' animate='visible' exit='exit' variants={emojiPickerContainerVariatns} isreplyto={replyToId ? 1: 0} editpopup={place == "EDIT_POPUP" ? 1 : 0}>
-                    <EmojiPicker theme="dark" autoFocusSearch={false} width="18rem" height="22rem" onEmojiClick={(e) => setInputText(`${inputText}${e.emoji}`)} />
-                </EmojiPickerContainer>
-                : ""}
+                {show ? (
+                    <EmojiPickerContainer
+                        initial='hidden'
+                        animate='visible'
+                        exit='exit'
+                        variants={emojiPickerContainerVariatns}
+                        isreplyto={replyToId ? 1 : 0}
+                        editpopup={place == 'EDIT_POPUP' ? 1 : 0}
+                    >
+                        <EmojiPicker
+                            theme='dark'
+                            autoFocusSearch={false}
+                            width='18rem'
+                            height='22rem'
+                            onEmojiClick={(e) =>
+                                setInputText(`${inputText}${e.emoji}`)
+                            }
+                        />
+                    </EmojiPickerContainer>
+                ) : (
+                    ''
+                )}
             </AnimatePresence>
         </>
     );
@@ -29,16 +57,18 @@ const EmojiPickerIcon = styled(motion.div)`
     align-items: center;
     font-size: 1.5rem;
     cursor: pointer;
-    width: ${props => props.editpopup ? "2.2rem" : ""};
-    height: ${props => props.editpopup ? "2.2rem" : ""};
-    background-color: ${props => props.editpopup ? "#000" : ""};
+    width: ${(props) => (props.editpopup ? '2.2rem' : '')};
+    height: ${(props) => (props.editpopup ? '2.2rem' : '')};
+    background-color: ${(props) => (props.editpopup ? '#000' : '')};
     border-radius: 50%;
     color: #ffffff40;
+    z-index: 2;
 `;
 
 const EmojiPickerContainer = styled(motion.div)`
     position: absolute;
-    bottom: ${props => props.isreplyto ? props.editpopup ? "6rem" : "6rem" : "3.5rem"};
+    bottom: ${(props) =>
+        props.isreplyto ? (props.editpopup ? '6rem' : '6rem') : '3.5rem'};
     width: 18rem;
     height: 22rem;
     overflow: hidden;
@@ -46,7 +76,7 @@ const EmojiPickerContainer = styled(motion.div)`
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: bottom .6s;
+    transition: bottom 0.6s;
 `;
 
 export default memo(Emoji);

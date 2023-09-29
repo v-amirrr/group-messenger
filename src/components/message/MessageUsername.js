@@ -1,35 +1,37 @@
 import React from 'react';
-import { TiUser } from "react-icons/ti";
+import { TiUser } from 'react-icons/ti';
 import styled from 'styled-components';
 
 const MessageUsername = ({ username, show }) => {
     return (
         <>
-            {show ?
-            <MessageUsernameContainer>
-            <i><TiUser /></i>
-                {username}
-            </MessageUsernameContainer>
-            : ""}
+            {show ? (
+                <MessageUsernameContainer>
+                    <i>
+                        <TiUser />
+                    </i>
+                    {username}
+                </MessageUsernameContainer>
+            ) : (
+                ''
+            )}
         </>
     );
 };
 
 const MessageUsernameContainer = styled.div`
     display: inline-block;
-    font-size: .6rem;
+    font-size: 0.6rem;
     font-weight: 300;
-    margin-right: .2rem;
+    margin-right: 0.2rem;
     white-space: nowrap;
     position: relative;
-    bottom: -.15rem;
-    right: .2rem;
-    font-weight: var(--text-boldness-second);
-    color: var(--text-color-second);
-    background-color: var(--message);
-    box-shadow: var(--shadow-second);
+    font-weight: 400;
+    color: var(--pale-color);
+    background-color: var(--normal-bg);
+    box-shadow: var(--bold-shadow);
     border-radius: 50px;
-    padding: .2rem .5rem .2rem 1.2rem;
+    padding: 0.2rem 0.5rem 0.2rem 1.2rem;
     max-width: 6.5rem;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -38,11 +40,11 @@ const MessageUsernameContainer = styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: .8rem;
-        margin-right: .2rem;
+        font-size: 0.8rem;
+        margin-right: 0.2rem;
         position: absolute;
-        left: .3rem;
-        color: var(--text-color-first);
+        left: 0.3rem;
+        color: #ffffff22;
     }
 `;
 

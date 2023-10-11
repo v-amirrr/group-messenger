@@ -35,18 +35,17 @@ export const warningContainerVariants = {
 };
 
 export const errorBoxVariants = {
-    hidden: { opacity: 0, y: 50, scaleY: 0.8 },
+    hidden: { opacity: 0, scale: 0.9 },
     visible: {
         opacity: 1,
-        y: 0,
-        scaleY: 1,
+        scale: 1,
         transition: {
-            duration: 0.8,
+            duration: 0.6,
             ease: [0.53, 0, 0, 0.98],
             time: [0.53, 0, 0, 0.98],
         },
     },
-    exit: { opacity: 0, y: 30, scaleY: 0.9, transition: { duration: 0.3 } },
+    exit: { opacity: 0, scale: 0.9, transition: { duration: 0.2 } },
 };
 
 export const notificationContainerVariants = {
@@ -148,10 +147,14 @@ export const messengerVariants = onMobile
           visible: {
               opacity: 1,
               transition: {
-                  duration: 0.4,
+                  duration: 0.2,
+                  when: 'beforeChildren',
               },
           },
-          exit: { opacity: 0, scale: 0.9, transition: { duration: 0.2 } },
+          exit: {
+              opacity: 0,
+              transition: { duration: 0.2, when: 'afterChildren' },
+          },
       }
     : {
           hidden: { opacity: 0 },
@@ -166,31 +169,27 @@ export const messengerVariants = onMobile
 
 export const groupChatVariants = onMobile
     ? {
+          hidden: { opacity: 0 },
+          visible: {
+              opacity: 1,
+              transition: {
+                  delay: 1,
+                  duration: 0.2,
+              },
+          },
+          exit: { opacity: 0, transition: { duration: 0.2 } },
+      }
+    : {
           hidden: { opacity: 0, scale: 0.9 },
           visible: {
               opacity: 1,
               scale: 1,
               transition: {
                   duration: 0.4,
-                  when: "beforeChildren"
+                  when: 'beforeChildren',
               },
           },
           exit: { opacity: 0, scale: 0.9, transition: { duration: 0.2 } },
-      }
-    : {
-          hidden: { opacity: 0 },
-          visible: {
-              opacity: 1,
-              transition: {
-                  duration: 0.1,
-              },
-          },
-          exit: {
-              opacity: 0,
-              transition: {
-                  duration: 0.1,
-              },
-          },
       };
 
 export const chatDateVariants = {
@@ -199,7 +198,32 @@ export const chatDateVariants = {
     exit: { opacity: 0, scale: 0.8, transition: { duration: 0.4 } },
 };
 
-export const messageVariants = {
+export const messageVariants = onMobile
+    ? {
+          hidden: { opacity: 0 },
+          visible: {
+              opacity: 1,
+              transition: {
+                  duration: 0.4,
+              },
+          },
+          exit: { opacity: 0, scale: 0.9, transition: { duration: 0.4 } },
+      }
+    : {
+          hidden: { opacity: 0, scale: 0.9 },
+          visible: {
+              opacity: 1,
+              scale: 1,
+              transition: {
+                  duration: 0.6,
+                  ease: [0.53, 0, 0, 0.98],
+                  time: [0.53, 0, 0, 0.98],
+              },
+          },
+          exit: { opacity: 0, scale: 0.9, transition: { duration: 0.3 } },
+      };
+
+export const messageLoaderVariants = {
     hidden: { opacity: 0, scale: 0.9 },
     visible: {
         opacity: 1,
@@ -213,20 +237,6 @@ export const messageVariants = {
     exit: { opacity: 0, scale: 0.9, transition: { duration: 0.4 } },
 };
 
-export const messageLoaderVariants = {
-    hidden: { opacity: 0, scale: 0.5 },
-    visible: {
-        opacity: 1,
-        scale: 1,
-        transition: { duration: 0.4, type: 'tween' },
-    },
-    exit: {
-        opacity: 0,
-        scale: 0.5,
-        transition: { duration: 0.4, type: 'tween' },
-    },
-};
-
 export const optionsVariants = onMobile
     ? {
           hidden: { opacity: 0 },
@@ -234,25 +244,7 @@ export const optionsVariants = onMobile
               opacity: 1,
               transition: {
                   duration: 0.1,
-                  staggerChildren: 0.05,
-                  when: 'beforeChildren',
-              },
-          },
-          exit: {
-              opacity: 0,
-              transition: {
-                  duration: 0.1,
-                  when: 'afterChildren',
-              },
-          },
-      }
-    : {
-          hidden: { opacity: 0 },
-          visible: {
-              opacity: 1,
-              transition: {
-                  duration: 0.1,
-                  staggerChildren: 0.04,
+                  staggerChildren: 0.03,
                   when: 'beforeChildren',
               },
           },
@@ -264,11 +256,30 @@ export const optionsVariants = onMobile
                   when: 'afterChildren',
               },
           },
+      }
+    : {
+          hidden: { opacity: 0 },
+          visible: {
+              opacity: 1,
+              transition: {
+                  duration: 0.1,
+                  staggerChildren: 0.02,
+                  when: 'beforeChildren',
+              },
+          },
+          exit: {
+              opacity: 0,
+              transition: {
+                  duration: 0.1,
+                  staggerChildren: 0.01,
+                  when: 'afterChildren',
+              },
+          },
       };
 
 export const optionLocalVariants = onMobile
     ? {
-          hidden: { opacity: 0, x: 80, y: 80, scale: 1.08 },
+          hidden: { opacity: 0, x: 80, y: 80, scale: 0.9 },
           visible: {
               opacity: 1,
               x: 0,
@@ -283,12 +294,13 @@ export const optionLocalVariants = onMobile
           },
           exit: {
               opacity: 0,
-              scale: 0.9,
+              x: 10,
+              y: 10,
               transition: { duration: 0.2, type: 'tween' },
           },
       }
     : {
-          hidden: { opacity: 0, x: 20, scale: 0.8 },
+          hidden: { opacity: 0, x: 20, scale: 0.9 },
           visible: {
               opacity: 1,
               x: [20, -20, 0],
@@ -297,14 +309,14 @@ export const optionLocalVariants = onMobile
           },
           exit: {
               opacity: 0,
-              x: 150,
-              transition: { duration: 0.4, type: 'tween' },
+              x: 50,
+              transition: { duration: 0.3, type: 'tween' },
           },
       };
 
 export const optionNonLocalVariants = onMobile
     ? {
-          hidden: { opacity: 0, x: -80, y: 80, scale: 1.08 },
+          hidden: { opacity: 0, x: -80, y: 80, scale: 0.9 },
           visible: {
               opacity: 1,
               x: 0,
@@ -319,12 +331,13 @@ export const optionNonLocalVariants = onMobile
           },
           exit: {
               opacity: 0,
-              scale: 0.9,
+              x: -10,
+              y: 10,
               transition: { duration: 0.2, type: 'tween' },
           },
       }
     : {
-          hidden: { opacity: 0, x: -20, scale: 0.8 },
+          hidden: { opacity: 0, x: -20, scale: 0.9 },
           visible: {
               opacity: 1,
               x: [-20, 20, 0],
@@ -333,30 +346,24 @@ export const optionNonLocalVariants = onMobile
           },
           exit: {
               opacity: 0,
-              x: -150,
-              transition: { duration: 0.4, type: 'tween' },
+              x: -50,
+              transition: { duration: 0.3, type: 'tween' },
           },
       };
 
-export const timeVariants = onMobile
-    ? {
-          hidden: { opacity: 0 },
-          visible: { opacity: 1, transition: { duration: 0.4 } },
-          exit: { opacity: 0, transition: { duration: 0.2 } },
-      }
-    : {
-          hidden: { opacity: 0, y: 20, scaleY: 0.8 },
-          visible: {
-              opacity: 1,
-              y: 0,
-              scaleY: 1,
-              transition: {
-                  duration: 0.8,
-                  ease: [0.53, 0, 0, 0.98],
-                  time: [0.53, 0, 0, 0.98],
-              },
-          },
-      };
+export const timeVariants = {
+    hidden: { opacity: 0, scale: 0.9 },
+    visible: {
+        opacity: 1,
+        scale: 1,
+        transition: {
+            duration: 0.6,
+            ease: [0.53, 0, 0, 0.98],
+            time: [0.53, 0, 0, 0.98],
+        },
+    },
+    exit: { opacity: 0, scale: 0.9, transition: { duration: 0.4 } },
+};
 
 export const replyIconLocalVariants = {
     hidden: { opacity: 0, x: 50, scale: 0 },
@@ -477,20 +484,45 @@ export const menuIconVariants = {
     exit: { opacity: 0, scale: 0.5, transition: { duration: 0.3 } },
 };
 
-export const menuItemVariants = {
-    hidden: { opacity: 0, x: 50, scale: 0.8 },
-    visible: {
-        opacity: 1,
-        x: 0,
-        scale: 1,
-        transition: {
-            duration: 0.8,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
-        },
-    },
-    exit: { opacity: 0, x: 50, scale: 0.8, transition: { duration: 0.2 } },
-};
+export const menuItemVariants = onMobile
+    ? {
+          hidden: { opacity: 0, x: 50, scale: 0.8 },
+          visible: {
+              opacity: 1,
+              x: 0,
+              scale: 1,
+              transition: {
+                  duration: 0.8,
+                  ease: [0.53, 0, 0, 0.98],
+                  time: [0.53, 0, 0, 0.98],
+              },
+          },
+          exit: {
+              opacity: 0,
+              x: 50,
+              scale: 0.2,
+              transition: { duration: 0.2 },
+          },
+      }
+    : {
+          hidden: { opacity: 0, x: 50, scale: 0.8 },
+          visible: {
+              opacity: 1,
+              x: 0,
+              scale: 1,
+              transition: {
+                  duration: 0.8,
+                  ease: [0.53, 0, 0, 0.98],
+                  time: [0.53, 0, 0, 0.98],
+              },
+          },
+          exit: {
+              opacity: 0,
+              x: 50,
+              scale: 0.8,
+              transition: { duration: 0.2 },
+          },
+      };
 
 export const popupPageVariants = {
     hidden: { opacity: 0 },

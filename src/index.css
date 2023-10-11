@@ -16,58 +16,6 @@
     --normal-bg-hover: #ffffff14;
 }
 
-/* :root {
-    --radius-first: 10px;
-    --radius-second: 15px;
-    --radius-third: 20px;
-    --radius-fourth: 25px;
-    --radius-fifth: 50px;
-
-    --border-first: solid 1px #ffffff14;
-    --border-second: solid 1px #ffffff40;
-
-    --glass-first: blur(5px) saturate(100%);
-    --glass-second: blur(10px) saturate(100%);
-
-    --shadow-first: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-    --shadow-second: rgba(0, 0, 0, 0.2) 0px 4px 12px;
-
-    --text-color-first: #ffffff22;
-    --text-color-second: #888;
-    --text-color-third: #eee;
-
-    --text-boldness-first: 200;
-    --text-boldness-second: 400;
-    --text-boldness-third: 600;
-    --text-boldness-fourth: 900;
-
-    --page-first: #00000088;
-    --page-second: #000000aa;
-
-    --hr-first: #ffffff14;
-    --hr-second: #ffffff40;
-    --hr-third: #ffffffaa;
-
-    --button: #ffffff08;
-    --button-hover: #ffffff10;
-
-    --background-blur: 20px;
-
-    --settings: #00000040;
-    --settings-item: #00000040;
-    --settings-item-hover: #ffffff08;
-
-    --popup: #ffffff06;
-    --edit-reply: #000000aa;
-
-    --message: #ffffff0a;
-    --message-selected: #ffffff18;
-
-    --enter-box: #ffffff02;
-    --enter-box-hover: #ffffff06;
-    --enter-box-item: #ffffff06;
-} */
-
 /* width */
 ::-webkit-scrollbar {
     width: .2rem;
@@ -110,13 +58,13 @@ html {
 body {
     font-family: 'Outfit', sans-serif;
     background-color: #ffffff00;
+    overflow: hidden;
 }
 
 button {
     font-family: 'Outfit', sans-serif;
     background-color: transparent;
     border: none;
-    user-select: none;
     white-space: nowrap;
 }
 
@@ -134,17 +82,19 @@ button {
 
 .link {
     position: relative;
-    padding: .05rem;
+    padding: .04rem .1rem;
+    margin: .1rem;
     color: #00b7ff;
     z-index: 1;
-    transition: color .2s;
-    -webkit-transition: color .2s;
-    -moz-transition: color .2s;
-    -ms-transition: color .2s;
-    -o-transition: color .2s;
+    transition: color .2s, padding .2s;
+    -webkit-transition: color .2s, padding .2s;
+    -moz-transition: color .2s, padding .2s;
+    -ms-transition: color .2s, padding .2s;
+    -o-transition: color .2s, padding .2s;
     width: fit-content;
     display: block;
     font-weight: 400;
+    word-break: break-all;
 }
 
 .link::after {
@@ -159,11 +109,11 @@ button {
     -ms-transition: inset .2s;
     -o-transition: inset .2s;
     border: none;
-    border-radius: 6px;
-    -webkit-border-radius: 6px;
-    -moz-border-radius: 6px;
-    -ms-border-radius: 6px;
-    -o-border-radius: 6px;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
 }
 
 .link:hover {

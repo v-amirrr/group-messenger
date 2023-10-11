@@ -30,7 +30,7 @@ const ChatDateContainer = styled(motion.div)`
     width: 100%;
 
     .date {
-        padding: .3rem .5rem;
+        padding: .3rem .4rem;
         margin-bottom: 1rem;
         background-color: #ffffff10;
         color: var(--normal-color);
@@ -46,12 +46,6 @@ const ChatDateContainer = styled(motion.div)`
         .month {
             margin: 0 .18rem 0 .18rem;
         }
-    }
-
-
-    @media (max-width: 500px) {
-        margin: .5rem auto;
-        left: 40%;
     }
 `;
 

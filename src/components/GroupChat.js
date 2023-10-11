@@ -48,6 +48,9 @@ const GroupChat = () => {
         }
         scrollPosition = messagesRef?.current?.scrollTop;
         localStorage.setItem("scroll", scrollPosition);
+        if (~~messagesRef?.current?.scrollTop >= messagesRef?.current?.scrollHeight - messagesRef?.current?.clientHeight) {
+            localStorage.setItem("scroll", "end");
+        }
     };
 
     const scrollDown = () => {
@@ -63,8 +66,12 @@ const GroupChat = () => {
     useEffect(() => {
         const localstorageScroll = localStorage.getItem("scroll");
         setTimeout(() => {
-            messagesRef?.current?.scrollTo(0, localstorageScroll);
-        }, 700);
+            if (localstorageScroll == 'end') {
+                scrollDown();
+            } else {
+                messagesRef?.current?.scrollTo(0, localstorageScroll);
+            }
+        }, 1000);
     }, []);
 
     return (
@@ -123,11 +130,7 @@ const GroupChatContainer = styled(motion.div)`
     padding: 5rem 2rem 9rem 2rem;
     scroll-behavior: smooth;
 
-    @media (max-width: 800px) {
-        padding: 5rem 1.5rem 5rem 1.5rem;
-    }
-
-    @media (max-width: 500px) {
+    @media (max-width: 768px) {
         width: 100vw;
         padding: 5rem 1rem 10rem 1rem;
     }

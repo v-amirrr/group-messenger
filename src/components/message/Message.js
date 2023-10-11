@@ -6,7 +6,6 @@ import { useMessageOptions } from '../../hooks/useMessageOptions';
 import { isRTL } from '../../functions/isRlt';
 import MessageOptions from '../message/MessageOptions';
 import ChatDate from '../ChatDate';
-import MessageTime from './MessageTime';
 import MessageReply from './MessageReply';
 import MessageSelectCheck from './MessageSelectCheck';
 import MessageUsername from './MessageUsername';
@@ -167,35 +166,32 @@ const Message = (props) => {
                     onClick={(e) => messageClickHandler(e)}
                     onDoubleClick={messageDoubleClickHandler}
                 >
-                    <MessageUsername
-                        username={messageUsername}
-                        show={messageUid != localUid}
-                    />
-                    <MessageReply replyTo={replyTo} type={props.type} />
                     <p className='message'>
-                        {props.type != 'TRASH'
-                            ? message?.map((item, index) =>
-                                  item.link ? (
-                                      <a
-                                          key={index}
-                                          className='link'
-                                          href={item.word}
-                                          target='_blank'
-                                          rel='noopener nereferrer'
-                                      >
-                                          {item.word}
-                                      </a>
-                                  ) : (
-                                      `${item.word} `
-                                  ),
-                              )
-                            : message}
+                        <div className='username-reply'>
+                            <MessageUsername
+                                username={messageUsername}
+                                show={messageUid != localUid}
+                            />
+                            <MessageReply replyTo={replyTo} type={props.type} />
+                        </div>
+                        {
+                            props.type != 'TRASH' ?
+                            message?.map((item, index) =>
+                                item.link ?
+                                <a
+                                    key={index}
+                                    className='link'
+                                    href={item.word}
+                                    target='_blank'
+                                    rel='noopener nereferrer'
+                                >
+                                    {item.word}
+                                </a>
+                                : `${item.word} `
+                            )
+                            : message
+                        }
                     </p>
-                    <MessageTime
-                        time={time}
-                        messagePosition={messagePosition}
-                        isMessageFromLocalUser={messageUid == localUid ? 1 : 0}
-                    />
                 </div>
 
                 <MessageSelectCheck
@@ -236,7 +232,7 @@ const MessageBox = styled(motion.div)`
     justify-content: flex-start;
     align-items: center;
     flex-direction: ${(props) => (props.localuser ? 'row-reverse' : 'row')};
-    padding-top: ${(props) => (props.chatdate ? '2rem' : '')};
+    padding-top: ${(props) => (props.chatdate ? '1.8rem' : '')};
     position: relative;
     transition: padding 0.4s;
 
@@ -251,12 +247,12 @@ const MessageBox = styled(motion.div)`
             props.selected ? 'var(--normal-bg-hover)' : 'var(--normal-bg)'};
         margin: ${(props) =>
             props.messageposition == 0
-                ? '.3rem 0 .3rem 0'
+                ? '.2rem 0 .2rem 0'
                 : props.messageposition == 1
-                ? '.3rem 0 .04rem 0'
+                ? '.2rem 0 .06rem 0'
                 : props.messageposition == 2
-                ? '.04rem 0 .04rem 0'
-                : props.messageposition == 3 && '.04rem 0 .3rem 0'};
+                ? '.06rem 0 .06rem 0'
+                : props.messageposition == 3 && '.06rem 0 .2rem 0'};
         border-radius: 25px;
         border-radius: ${(props) =>
             props.localuser
@@ -284,15 +280,9 @@ const MessageBox = styled(motion.div)`
             (!props.localuser && props.replyto) || props.newreply
                 ? '3rem'
                 : ''};
-        padding: 0.5rem 2.5rem 0.5rem 0.6rem;
-        min-width: ${(props) => (props.isreply ? '22%' : '')};
+        padding: .45rem .5rem;
         width: fit-content;
-        max-width: ${(props) =>
-            props.type == 'EDIT_REPLY'
-                ? '80%'
-                : props.localuser && props.type == 'CHAT'
-                ? '60%'
-                : '80%'};
+        max-width: ${(props) => props.type == 'EDIT_REPLY' ? '80%' : props.localuser && props.type == 'CHAT' ? '60%' : '64%'};
         backdrop-filter: ${(props) =>
             props.type == 'CHAT' ? 'var(--normal-glass)' : 'blur(0)'};
         -webkit-backdrop-filter: ${(props) =>
@@ -308,22 +298,29 @@ const MessageBox = styled(motion.div)`
         .message {
             text-align: ${(props) => (props.ispersian ? 'right' : 'left')};
             word-spacing: 1px;
-            line-break: loose;
-            word-break: keep-all;
             white-space: pre-wrap;
+            word-break: ${(props) => (props.type == 'TRASH' ? '' : 'keep-all')};
             font-family: ${(props) =>
                     props.ispersian ? 'Vazirmatn' : 'Outfit'},
                 'Vazirmatn', sans-serif;
-            font-size: ${(props) => (props.type == 'TRASH' ? '.8rem' : '1rem')};
-            margin-left: 0.4rem;
+            font-size: ${(props) => (props.type == 'TRASH' ? '.6rem' : '1rem')};
+
+            .username-reply {
+                display: inline-flex;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+                bottom: .075rem;
+                margin-right: .2rem;
+                word-spacing: 0;
+                white-space: nowrap;
+            }
         }
     }
 
     @media (max-width: 768px) {
         .message-box {
-            padding: 0.5rem 2.5rem 0.5rem 0.8rem;
-            max-width: 95%;
-            min-width: ${(props) => (props.isreply ? '30%' : '')};
+            max-width: 90%;
             border-radius: ${(props) =>
                 props.localuser
                     ? props.messageposition == 0
@@ -340,10 +337,6 @@ const MessageBox = styled(motion.div)`
                     : props.messageposition == 2
                     ? '5px 20px 20px 5px'
                     : props.messageposition == 3 && '5px 20px 20px 20px'};
-        }
-
-        .message {
-            font-size: 0.8rem;
         }
     }
 `;

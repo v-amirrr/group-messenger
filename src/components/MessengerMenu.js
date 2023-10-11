@@ -225,8 +225,43 @@ const MessengerMenuContainer = styled(motion.div)`
         }
     }
 
-    @media (max-width: 500px) {
-        right: 0.3rem;
+    @media (max-width: 768px) {
+        right: 0;
+        width: ${(props) => (props.openmenu ? '8.3rem' : '3rem')};
+        height: ${(props) => (props.openmenu ? '10.8rem' : '3rem')};
+
+        .menu-icon {
+            width: 2.8rem;
+            height: 2.8rem;
+            font-size: 1.8rem;
+        }
+
+        .back-icon {
+            font-size: 1.4rem;
+        }
+
+        .list {
+            margin-top: 2.2rem;
+
+            .list-item {
+                height: 2.4rem;
+                margin: 0.1rem 0;
+
+                p {
+                    font-size: 1rem;
+                    margin-left: 2.35rem;
+                }
+
+                i {
+                    font-size: 1.4rem;
+                    left: 1.2rem;
+                }
+
+                .features-icon {
+                    font-size: 1.2rem;
+                }
+            }
+        }
     }
 `;
 

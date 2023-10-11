@@ -37,11 +37,13 @@ const MessengerInput = ({ scrollDown }) => {
     const [emojiPickerShow, setEmojiPickerShow] = useState(false);
 
     const inputSubmitHandler = () => {
-        scrollDown();
-        setEmojiPickerShow(false);
-        sendMessage(inputText, localUsername);
-        setInputText('');
-        inputRef.current.focus();
+        if (inputText != '' && !sendMessageLoading) {
+            scrollDown();
+            setEmojiPickerShow(false);
+            sendMessage(inputText, localUsername);
+            setInputText('');
+            inputRef.current.focus();
+        }
     };
 
     const inputKeyHandler = (e) => {
@@ -125,7 +127,6 @@ const MessengerInput = ({ scrollDown }) => {
             >
                 <textarea
                     className='messenger-input'
-                    placeholder='Send a Message...'
                     value={inputText}
                     onChange={(e) => setInputText(e.target.value)}
                     onKeyDown={(e) => inputKeyHandler(e)}
@@ -148,42 +149,59 @@ const MessengerInput = ({ scrollDown }) => {
                     setShow={setEmojiPickerShow}
                 /> */}
 
+                <p className='placeholder'>Send a message...</p>
+
                 <AnimatePresence exitBeforeEnter>
-                    <button
-                        type='submit'
-                        className='messenger-submit'
-                        disabled={!inputText}
-                        onClick={inputSubmitHandler}
-                    >
-                        <AnimatePresence exitBeforeEnter>
-                            {sendMessageLoading ? (
-                                <div key='pending' className='loader'>
-                                    <MessageLoader size={'1.5rem'} />
-                                </div>
-                            ) : sendMessageError ? (
-                                <motion.div
-                                    initial='hidden'
-                                    animate='visible'
-                                    exit='exit'
-                                    variants={sendInputIconVariants}
-                                    key='error'
-                                >
-                                    <IoAlert color='red' />
-                                </motion.div>
-                            ) : (
-                                <motion.div
-                                    initial='hidden'
-                                    animate='visible'
-                                    exit='exit'
-                                    variants={sendInputIconVariants}
-                                    key='send'
-                                >
-                                    <IoSend />
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
-                    </button>
+                    {inputText ? (
+                        <motion.button
+                            className='clear'
+                            onClick={() => setInputText('')}
+                            initial='hidden'
+                            animate='visible'
+                            exit='exit'
+                            variants={sendInputIconVariants}
+                        >
+                            <IoClose />
+                        </motion.button>
+                    ) : (
+                        ''
+                    )}
                 </AnimatePresence>
+
+                <button
+                    type='submit'
+                    className='messenger-submit'
+                    disabled={!inputText}
+                    onClick={inputSubmitHandler}
+                >
+                    <AnimatePresence exitBeforeEnter>
+                        {sendMessageLoading ? (
+                            <div key='pending' className='loader'>
+                                <MessageLoader size={'1.5rem'} />
+                            </div>
+                        ) : sendMessageError ? (
+                            <motion.div
+                                initial='hidden'
+                                animate='visible'
+                                exit='exit'
+                                variants={sendInputIconVariants}
+                                key='error'
+                            >
+                                <IoAlert color='red' />
+                            </motion.div>
+                        ) : (
+                            <motion.div
+                                initial='hidden'
+                                animate='visible'
+                                exit='exit'
+                                variants={sendInputIconVariants}
+                                key='send'
+                            >
+                                <IoSend />
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </button>
             </MessengerInputContainer>
         </>
     );
@@ -205,6 +223,7 @@ const MessengerInputContainer = styled(motion.section)`
     backdrop-filter: var(--bold-glass);
     -webkit-backdrop-filter: var(--bold-glass);
     z-index: 2;
+    overflow: hidden;
 
     .input-section {
         width: 100%;
@@ -249,10 +268,31 @@ const MessengerInputContainer = styled(motion.section)`
         }
     }
 
+    .placeholder {
+        color: #ffffff24;
+        font-weight: 200;
+        white-space: nowrap;
+        font-size: 1rem;
+        position: absolute;
+        opacity: ${props => props.inputtext ? "0" : "1"};
+        left: ${props => props.inputtext ? "-4rem" : "1rem"};
+        letter-spacing: ${props => props.inputtext ? "5px" : "0"};
+        transition: left .6s, opacity 0.4s, letter-spacing .6s;
+    }
+
+    .clear {
+        font-size: 1.8rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #ffffff14;
+        cursor: pointer;
+    }
+
     .messenger-submit {
         all: unset;
         font-size: 1.5rem;
-        width: 3.5rem;
+        min-width: 2.5rem;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -271,7 +311,7 @@ const MessengerInputContainer = styled(motion.section)`
         }
     }
 
-    @media (max-width: 500px) {
+    @media (max-width: 768px) {
         width: 18rem;
         height: 3rem;
         margin-right: 4rem;
@@ -344,15 +384,7 @@ const ReplyTo = styled(motion.div)`
         }
     }
 
-    @media (max-width: 1000px) {
-        max-width: 30%;
-    }
-
-    @media (max-width: 600px) {
-        max-width: 40%;
-    }
-
-    @media (max-width: 500px) {
+    @media (max-width: 768px) {
         max-width: 50%;
         margin-right: 4rem;
         bottom: 4.5rem;

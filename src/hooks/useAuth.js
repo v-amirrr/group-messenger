@@ -78,7 +78,7 @@ export const useAuth = () => {
         setTimeout(() => {
             dispatch(setUser(null));
             dispatch(setEnterAsAGuest(false));
-        }, 200);
+        }, 150);
     };
 
     const googleLogin = () => {

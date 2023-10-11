@@ -100,8 +100,37 @@ const ProfileContainer = styled(motion.div)`
         }
     }
 
-    @media (max-width: 500px) {
+    @media (max-width: 768px) {
+        width: 3rem;
+        height: 3rem;
         left: 0;
+
+        .guest,
+        .user {
+            width: 2.8rem;
+            height: 2.8rem;
+
+            .text {
+                font-size: 1rem;
+                margin-left: 18rem;
+                letter-spacing: 10px;
+            }
+
+            .icon {
+                font-size: 1.2rem;
+            }
+        }
+
+        &:hover {
+            width: 10rem;
+
+            .guest,
+            .user {
+                .text {
+                    margin-left: 9rem;
+                }
+            }
+        }
     }
 `;
 

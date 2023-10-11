@@ -2,7 +2,7 @@ import React, { memo, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { useMessageOptions } from '../../hooks/useMessageOptions';
 import { useSelect } from '../../hooks/useSelect';
-import { AiFillDelete, AiFillCopy, AiFillEdit } from 'react-icons/ai';
+import { AiFillDelete, AiFillCopy, AiFillEdit, AiFillClockCircle } from 'react-icons/ai';
 import { BsReplyFill } from 'react-icons/bs';
 import { BiSelectMultiple } from "react-icons/bi";
 import styled from 'styled-components';
@@ -52,6 +52,17 @@ const MessageOptions = ({ clickEvent, show, message }) => {
                             </>
                             : ""
                         }
+
+                        <motion.div className='time' variants={message.isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants}>
+                            <i><AiFillClockCircle /></i>
+                            {
+                                message.time.hour != null && message.time.minute != null ?
+                                <p>
+                                    <span>{message.time.hour < 10 ? `0${message.time.hour}` : message.time.hour}</span>:
+                                    <span>{message.time.minute < 10 ? `0${message.time.minute}` : message.time.minute}</span>
+                                </p> : ""
+                            }
+                        </motion.div>
                     </MessageOptionsContainer>
                 : ""}
             </AnimatePresence>
@@ -68,7 +79,7 @@ const MessageOptionsContainer = styled(motion.div)`
     flex-direction: ${props => props.ismessagefromlocaluser ? "row-reverse" : "row"};
     width: ${props => props.ismessagefromlocaluser ? "10rem" : ""};
 
-    .reply, .copy, .edit, .delete, .select {
+    .reply, .copy, .edit, .delete, .select, .time {
         position: relative;
         background-color: #ffffff08;
         margin: 0 .15rem;
@@ -80,7 +91,6 @@ const MessageOptionsContainer = styled(motion.div)`
         height: 50%;
         cursor: pointer;
         padding: .5rem;
-        box-shadow: var(--normal-shadow);
         transition: padding .2s;
         backdrop-filter: var(--normal-glass);
         -webkit-backdrop-filter: var(--normal-glass);
@@ -99,7 +109,7 @@ const MessageOptionsContainer = styled(motion.div)`
             right: .6rem;
             transform: scale(0);
             opacity: 0;
-            transition: transform .3s, opacity .2s;
+            transition: transform .2s, opacity .2s;
         }
 
         @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
@@ -109,6 +119,17 @@ const MessageOptionsContainer = styled(motion.div)`
                     opacity: 1;
                 }
             }
+        }
+    }
+
+    .time {
+        cursor: auto;
+        padding: .5rem 2.5rem .5rem .5rem;
+
+        p {
+            transform: scale(1);
+            opacity: 1;
+            letter-spacing: 0px;
         }
     }
 
@@ -163,16 +184,16 @@ const MessageOptionsContainer = styled(motion.div)`
         flex-direction: column;
         justify-content: center;
         position: absolute;
-        /* right: ${props => props.ismessagefromlocaluser ? `${props.x}px` : "none"}; */
-        /* right: ${props => props.ismessagefromlocaluser ? "none" : `${props.y}px`}; */
-        z-index: 99;
+        /* left: ${props => props.ismessagefromlocaluser ? `${props.y}px` : "none"}; */
+        /* left: ${props => props.ismessagefromlocaluser ? "none" : `${props.y}px`}; */
         background-color: transparent;
         margin: ${props => props.ismessagefromlocaluser ? "13rem 0 0 0" : "8rem 0 0 0"};
+        z-index: 3;
 
-        .reply, .copy, .edit, .delete, .select {
+        .reply, .copy, .edit, .delete, .select, .time {
             margin: .1rem 0;
             border-radius: 50px;
-            background-color: var(--message);
+            background-color: var(--normal-bg);
             display: flex;
             justify-content: center;
             align-items: center;

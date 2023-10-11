@@ -42,8 +42,15 @@ const ScrollButtonContainer = styled(motion.button)`
         transition: transform .5s;
     }
 
-    @media (max-width: 700px) {
-        right: .3rem;
+    @media (max-width: 768px) {
+        width: 3rem;
+        height: 3rem;
+        right: 0;
+        bottom: 1rem;
+
+        i {
+            font-size: 1.2rem;
+        }
     }
 `;
 

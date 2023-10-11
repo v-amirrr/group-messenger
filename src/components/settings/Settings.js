@@ -37,7 +37,7 @@ const Settings = () => {
                 <SettingsContainer variants={settingsContainerVariants}>
                     <header className='settings-header'>
                         <h1>Settings</h1>
-                        <Link to={-1}>
+                        <Link to="/">
                             <i>
                                 <TiArrowLeft />
                             </i>

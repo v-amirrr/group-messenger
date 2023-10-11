@@ -98,10 +98,6 @@ const NotificationsContainer = styled(motion.div)`
     align-items: center;
     flex-direction: column-reverse;
     z-index: 3;
-
-    @media (max-width: 768px) {
-        top: 4rem;
-    }
 `;
 
 const NotificationContainer = styled(motion.div)`
@@ -167,10 +163,6 @@ const NotificationContainer = styled(motion.div)`
                 background-color: #ffffff10;
             }
         }
-    }
-
-    @media (max-width: 768px) {
-        max-width: 100%;
     }
 `;
 

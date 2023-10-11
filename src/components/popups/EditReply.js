@@ -225,6 +225,7 @@ const ReplyConatiner = styled(motion.div)`
             bottom: 1rem;
             left: 0;
             width: 100%;
+            z-index: 3;
 
             .cancel {
                 background-color: #990000;

@@ -11,13 +11,15 @@ import { backgroundImageVariants } from '../config/varitans';
 const MessengerBackground = () => {
     const location = useLocation();
     const { theme } = useSelector((store) => store.appStore);
+    const { popupShow } = useSelector((store) => store.popupStore);
 
     return (
         <>
-            <BackgroundContainer cover={location.pathname == '/warning' || location.pathname == '/enter' || location.pathname == '/login' || location.pathname == '/signup'}>
-                <motion.div className='cover'></motion.div>
+            <CoverContainer cover={location.pathname == '/warning' || location.pathname == '/enter' || location.pathname == '/login' || location.pathname == '/signup'}></CoverContainer>
+            <BackgroundContainer scale={popupShow || location.pathname == '/warning' || location.pathname == '/settings' || location.pathname == '/guidance' || location.pathname == '/enter' || location.pathname == '/login' || location.pathname == '/signup'}>
                 <AnimatePresence exitBeforeEnter>
-                    {theme == 1 ? (
+                    {
+                        theme == 1 ?
                         <motion.img
                             src={backgroundTowImageSRC}
                             key='first-image'
@@ -25,8 +27,7 @@ const MessengerBackground = () => {
                             animate='visible'
                             exit='exit'
                             variants={backgroundImageVariants}
-                        />
-                    ) : theme == 2 ? (
+                        /> : theme == 2 ?
                         <motion.img
                             src={backgroundThreeImageSRC}
                             key='second-image'
@@ -34,8 +35,7 @@ const MessengerBackground = () => {
                             animate='visible'
                             exit='exit'
                             variants={backgroundImageVariants}
-                        />
-                    ) : theme == 3 ? (
+                        /> : theme == 3 ?
                         <motion.img
                             src={backgroundFourImageSRC}
                             key='third-image'
@@ -43,10 +43,8 @@ const MessengerBackground = () => {
                             animate='visible'
                             exit='exit'
                             variants={backgroundImageVariants}
-                        />
-                    ) : (
-                        ''
-                    )}
+                        /> : ''
+                    }
                 </AnimatePresence>
             </BackgroundContainer>
         </>
@@ -59,24 +57,42 @@ const BackgroundContainer = styled.div`
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: -1;
+    z-index: -2;
     filter: blur(20px);
-
-    .cover {
-        width: 100vw;
-        height: 100vh;
-        background-color: ${props => props.cover ? "#000000aa" : "#ffffff00"};
-        position: absolute;
-        top: 0;
-        left: 0;
-        transition: background 1s .2s cubic-bezier(.53,0,0,.98);
-    }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: ${props => props.scale ? "scale(1.1)" : "scale(1)"};
+    transition: transform 1s cubic-bezier(.53,0,0,.98);
 
     img {
         object-fit: cover;
         width: 100vw;
         height: 100vh;
+        z-index: -3;
     }
+
+    @media (max-width: 768px) {
+        transform: scale(1);
+
+        img {
+            position: absolute;
+            width: 100vh !important;
+            height: 100vw !important;
+            transform: rotate(90deg) !important;
+        }
+    }
+`;
+
+const CoverContainer = styled.div`
+    width: 100vw;
+    height: 100vh;
+    background-color: ${props => props.cover ? "#000000aa" : "#ffffff00"};
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: background 1s .2s cubic-bezier(.53,0,0,.98);
 `;
 
 export default MessengerBackground;

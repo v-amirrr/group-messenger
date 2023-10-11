@@ -107,7 +107,7 @@ const Container = styled(motion.section)`
         }
     }
 
-    @media (max-width: 500px) {
+    @media (max-width: 768px) {
         display: flex;
         justify-content: center;
         align-items: center;

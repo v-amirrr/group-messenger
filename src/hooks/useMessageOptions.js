@@ -95,7 +95,6 @@ export const useMessageOptions = () => {
 
     const editMessage = (id, editInput) => {
         const docRef = doc(db, 'messages', id);
-        console.log(editInput);
         if (editInput) {
             updateDoc(docRef, {
                 message: editInput,
@@ -104,7 +103,7 @@ export const useMessageOptions = () => {
             openNotification('Message was edited.', false, 'EDIT');
         } else {
             closePopup();
-            trashMessage(popupMessages.id);
+            trashMessage(id);
         }
     };
 
@@ -128,7 +127,6 @@ export const useMessageOptions = () => {
     };
 
     const replyMessage = (id, message, username) => {
-        dispatch(setMessageOptionsId(null));
         if (enterAsAGuest) {
             openNotification(
                 'In order to use this feature you need to login.',
@@ -155,8 +153,11 @@ export const useMessageOptions = () => {
                         setSendMessageReplyTo({ id, messageText, username })
                     );
                 }
-            }, 400);
+            }, 600);
         }
+        setTimeout(() => {
+            dispatch(setMessageOptionsId(null));
+        }, 200);
     };
 
     const clearReplyMessage = () => {

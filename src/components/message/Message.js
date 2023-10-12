@@ -30,12 +30,8 @@ const Message = (props) => {
     } = props.message;
 
     const dispatch = useDispatch();
-    const { messageOptionsId, selectedMessages, menuShow } = useSelector(
-        (store) => store.appStore,
-    );
-    const { replyTo: replyToApp } = useSelector(
-        (store) => store.sendMessageStore,
-    );
+    const { messageOptionsId, selectedMessages, menuShow } = useSelector((store) => store.appStore);
+    const { replyTo: replyToApp } = useSelector((store) => store.sendMessageStore);
 
     const { selectMessage, checkMessage, unSelectMessage } = useSelect();
     const { replyMessage } = useMessageOptions();
@@ -139,9 +135,7 @@ const Message = (props) => {
                 animate='visible'
                 exit='exit'
                 variants={messageVariants}
-                chatdate={
-                    priorDifferentDate && time.year && time.month && time.day
-                }
+                chatdate={priorDifferentDate && time.year && time.month && time.day}
                 localuser={messageUid == localUid ? 1 : 0}
                 ispersian={isRTL(message) ? 1 : 0}
                 messageposition={messagePosition}
@@ -216,6 +210,7 @@ const Message = (props) => {
                         !menuShow &&
                         !selectedMessages.length
                     }
+                    hideHandler={() => dispatch(setMessageOptionsId(null))}
                     message={{
                         ...props.message,
                         isMessageFromLocalUser: messageUid == localUid ? 1 : 0,

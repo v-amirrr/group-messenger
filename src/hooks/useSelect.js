@@ -14,17 +14,10 @@ export const useSelect = () => {
 
     const selectMessage = (message) => {
         clearReplyMessage();
-        dispatch(setMessageOptionsId(null));
         if (enterAsAGuest) {
             openNotification("In order to use this feature you need to login.", false, "GUEST");
         } else {
-            if (!selectedMessages.length) {
-                setTimeout(() => {
-                    dispatch(setSelectedMessages({ message }));
-                }, 500);
-            } else {
-                dispatch(setSelectedMessages({ message }));
-            }
+            dispatch(setSelectedMessages({ message }));
         }
     };
 

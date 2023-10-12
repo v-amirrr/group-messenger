@@ -9,7 +9,7 @@ import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { optionsVariants, optionLocalVariants, optionNonLocalVariants } from '../../config/varitans';
 
-const MessageOptions = ({ clickEvent, show, message }) => {
+const MessageOptions = ({ clickEvent, show, message, hideHandler }) => {
 
     const { enterAsAGuest } = useSelector(store => store.userStore);
 
@@ -17,6 +17,13 @@ const MessageOptions = ({ clickEvent, show, message }) => {
     const { selectMessage } = useSelect();
 
     const messageOptionsRef = useRef();
+
+    const selectClick = () => {
+        hideHandler();
+        setTimeout(() => {
+            selectMessage(message);
+        }, 500);
+    };
 
     return (
         <>
@@ -28,7 +35,7 @@ const MessageOptions = ({ clickEvent, show, message }) => {
                             <p>Reply</p>
                         </motion.div>
 
-                        <motion.div className='select' onClick={() => selectMessage(message)} variants={message.isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants}>
+                        <motion.div className='select' onClick={selectClick} variants={message.isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants}>
                             <i><BiSelectMultiple /></i>
                             <p>Select</p>
                         </motion.div>

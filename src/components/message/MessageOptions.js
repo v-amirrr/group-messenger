@@ -18,11 +18,15 @@ const MessageOptions = ({ clickEvent, show, message, hideHandler }) => {
 
     const messageOptionsRef = useRef();
 
-    const selectClick = () => {
+    const optionClick = (option) => {
         hideHandler();
         setTimeout(() => {
-            selectMessage(message);
-        }, 500);
+            if (option == 'REPLY') {
+                replyMessage(message.id, message.message, message.messageUsername);
+            } else if (option == 'SELECT') {
+                selectMessage(message);
+            }
+        }, 300);
     };
 
     return (
@@ -30,12 +34,12 @@ const MessageOptions = ({ clickEvent, show, message, hideHandler }) => {
             <AnimatePresence>
                 {show ?
                     <MessageOptionsContainer key={message.id} ref={messageOptionsRef} initial='hidden' animate='visible' exit='exit' variants={optionsVariants} ismessagefromlocaluser={message.isMessageFromLocalUser ? 1 : 0} x={clickEvent?.pageX} y={clickEvent?.pageY} guest={enterAsAGuest ? 1 : 0}>
-                        <motion.div className='reply' onClick={() => replyMessage(message.id, message.message, message.messageUsername)} variants={message.isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants}>
+                        <motion.div className='reply' onClick={() => optionClick("REPLY")} variants={message.isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants}>
                             <i><BsReplyFill /></i>
                             <p>Reply</p>
                         </motion.div>
 
-                        <motion.div className='select' onClick={selectClick} variants={message.isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants}>
+                        <motion.div className='select' onClick={() => optionClick("SELECT")} variants={message.isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants}>
                             <i><BiSelectMultiple /></i>
                             <p>Select</p>
                         </motion.div>

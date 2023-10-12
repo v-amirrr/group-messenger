@@ -128,36 +128,26 @@ export const useMessageOptions = () => {
 
     const replyMessage = (id, message, username) => {
         if (enterAsAGuest) {
-            openNotification(
-                'In order to use this feature you need to login.',
-                false,
-                'GUEST'
-            );
+            openNotification('In order to use this feature you need to login.', false, 'GUEST');
         } else {
             let messageText = [];
             message.map((item) => {
                 messageText.push(item.word);
             });
             messageText = messageText.join(' ');
-
-            setTimeout(() => {
-                if (replyTo.id && replyTo.id != id) {
-                    dispatch(setClearReplyTo());
-                    setTimeout(() => {
-                        dispatch(
-                            setSendMessageReplyTo({ id, messageText, username })
-                        );
-                    }, 500);
-                } else {
+            if (replyTo.id && replyTo.id != id) {
+                dispatch(setClearReplyTo());
+                setTimeout(() => {
                     dispatch(
                         setSendMessageReplyTo({ id, messageText, username })
                     );
-                }
-            }, 600);
+                }, 500);
+            } else {
+                dispatch(
+                    setSendMessageReplyTo({ id, messageText, username })
+                );
+            }
         }
-        setTimeout(() => {
-            dispatch(setMessageOptionsId(null));
-        }, 200);
     };
 
     const clearReplyMessage = () => {

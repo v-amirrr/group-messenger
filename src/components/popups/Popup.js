@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import DeletePopup from './DeletePopup';
 import EditPopup from './EditPopup';
@@ -6,26 +6,28 @@ import Notification from '../Notification';
 import { useMessageOptions } from '../../hooks/useMessageOptions';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
-import {
-    popupPageVariants,
-    popupContainerVariants,
-} from '../../config/varitans';
+import { popupPageVariants, popupContainerVariants } from '../../config/varitans';
 
 const Popup = () => {
-    const {
-        popupShow,
-        popupName,
-        popupMessages,
-        popupMessagesSelected,
-        popupMessageReplyTo,
-    } = useSelector((store) => store.popupStore);
+    const { popupShow, popupName, popupMessages, popupMessagesSelected, popupMessageReplyTo } = useSelector((store) => store.popupStore);
     const { closePopup } = useMessageOptions();
 
     const popupPage = useRef();
 
+    const [editReplyOpen, setEditReplyOpen] = useState(false);
+
     const closePopupByTap = (e) => {
-        if (!popupPage.current.contains(e.target)) {
-            closePopup();
+        if (editReplyOpen) {
+            setEditReplyOpen(false);
+            setTimeout(() => {
+                if (!popupPage.current.contains(e.target)) {
+                    closePopup();
+                }
+            }, 500);
+        } else {
+            if (!popupPage.current.contains(e.target)) {
+                closePopup();
+            }
         }
     };
 
@@ -45,19 +47,21 @@ const Popup = () => {
                             variants={popupContainerVariants}
                             ref={popupPage}
                         >
-                            {popupName == 'DELETE_POPUP' ? (
+                            {
+                                popupName == 'DELETE_POPUP' ?
                                 <DeletePopup popupMessages={popupMessages} />
-                            ) : popupName == 'EDIT_POPUP' ? (
+                                : popupName == 'EDIT_POPUP' ?
                                 <EditPopup
                                     popupMessages={popupMessages}
                                     popupMessagesSelected={
                                         popupMessagesSelected
                                     }
                                     popupMessageReplyTo={popupMessageReplyTo}
+                                    editReplyOpen={editReplyOpen}
+                                    setEditReplyOpen={setEditReplyOpen}
                                 />
-                            ) : (
-                                ''
-                            )}
+                                : ''
+                            }
                         </PopupContainer>
                     </PopupPage>
                 ) : (

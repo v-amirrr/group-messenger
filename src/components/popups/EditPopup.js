@@ -5,13 +5,12 @@ import Emoji from '../Emoji';
 import { isRTL } from '../../functions/isRlt';
 import styled from 'styled-components';
 
-const EditPopup = ({ popupMessages }) => {
+const EditPopup = ({ popupMessages, editReplyOpen, setEditReplyOpen }) => {
     const { message: messageText, id, replyTo } = popupMessages[0];
 
     const { editMessage, closePopup } = useMessageOptions();
 
     const [editInput, setEditInput] = useState('');
-    const [editReplyOpen, setEditReplyOpen] = useState(false);
     const [emojiPickerShow, setEmojiPickerShow] = useState(false);
 
     const pressEnter = (e) => {

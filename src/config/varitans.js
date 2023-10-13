@@ -366,29 +366,37 @@ export const timeVariants = {
 };
 
 export const replyIconLocalVariants = {
-    hidden: { opacity: 0, x: 50, scale: 0 },
+    hidden: { opacity: 0, x: 50, scale: 0.5 },
     visible: {
         opacity: 1,
         x: 0,
         scale: 1,
         transition: {
-            duration: 0.4,
+            type: 'spring',
+            stiffness: 100,
+            duration: 0.8,
+            ease: [0.53, 0, 0, 0.98],
+            time: [0.53, 0, 0, 0.98],
         },
     },
-    exit: { opacity: 0, x: 50, scale: 0, transition: { duration: 0.3 } },
+    exit: { opacity: 0, x: 50, scale: 0.5, transition: { duration: 0.3 } },
 };
 
 export const replyIconNonLocalVariants = {
-    hidden: { opacity: 0, x: -50, scale: 0 },
+    hidden: { opacity: 0, x: -50, scale: 0.5 },
     visible: {
         opacity: 1,
         x: 0,
         scale: 1,
         transition: {
-            duration: 0.4,
+            type: 'spring',
+            stiffness: 100,
+            duration: 0.8,
+            ease: [0.53, 0, 0, 0.98],
+            time: [0.53, 0, 0, 0.98],
         },
     },
-    exit: { opacity: 0, x: -50, scale: 0, transition: { duration: 0.3 } },
+    exit: { opacity: 0, x: -50, scale: 0.5, transition: { duration: 0.3 } },
 };
 
 export const selectCheckLocalVariants = {

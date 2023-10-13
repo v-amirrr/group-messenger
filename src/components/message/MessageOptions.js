@@ -28,12 +28,12 @@ const MessageOptions = ({ clickEvent, show, message }) => {
                 case 'SELECT':
                     selectMessage(message);
                 break;
-                case 'COPY':
-                    copyMessage(message.message);
-                break;
             }
-        }, 300);
+        }, 350);
         switch (option) {
+            case 'COPY':
+                copyMessage(message.message);
+            break;
             case 'EDIT':
                 openPopup("EDIT_POPUP", [message]);
             break;
@@ -210,7 +210,6 @@ const MessageOptionsContainer = styled(motion.div)`
         position: absolute;
         /* left: ${props => props.ismessagefromlocaluser ? `${props.y}px` : "none"}; */
         /* left: ${props => props.ismessagefromlocaluser ? "none" : `${props.y}px`}; */
-        background-color: transparent;
         margin: ${props => props.ismessagefromlocaluser ? "13rem 0 0 0" : "8rem 0 0 0"};
         z-index: 3;
 
@@ -223,8 +222,8 @@ const MessageOptionsContainer = styled(motion.div)`
             align-items: center;
             width: 6rem;
             height: 2rem;
-            backdrop-filter: blur(5px) saturate(100%);
-            -webkit-backdrop-filter: blur(10px) saturate(100%);
+            backdrop-filter: blur(20px) saturate(100%);
+            -webkit-backdrop-filter: blur(20px) saturate(100%);
 
             i {
                 position: absolute;

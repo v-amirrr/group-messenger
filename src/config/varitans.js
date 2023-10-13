@@ -244,7 +244,7 @@ export const optionsVariants = onMobile
               opacity: 1,
               transition: {
                   duration: 0.1,
-                  staggerChildren: 0.03,
+                  staggerChildren: 0.02,
                   when: 'beforeChildren',
               },
           },
@@ -252,7 +252,7 @@ export const optionsVariants = onMobile
               opacity: 0,
               transition: {
                   duration: 0.1,
-                  staggerChildren: 0.02,
+                  staggerChildren: 0.01,
                   when: 'afterChildren',
               },
           },
@@ -286,10 +286,7 @@ export const optionLocalVariants = onMobile
               y: 0,
               scale: 1,
               transition: {
-                  duration: 0.8,
-                  ease: [0.53, 0, 0, 0.98],
-                  time: [0.53, 0, 0, 0.98],
-                  type: 'tween',
+                  duration: 0.4,
               },
           },
           exit: {
@@ -323,10 +320,7 @@ export const optionNonLocalVariants = onMobile
               y: 0,
               scale: 1,
               transition: {
-                  duration: 0.8,
-                  ease: [0.53, 0, 0, 0.98],
-                  time: [0.53, 0, 0, 0.98],
-                  type: 'tween',
+                  duration: 0.4,
               },
           },
           exit: {

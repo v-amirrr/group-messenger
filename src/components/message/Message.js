@@ -39,11 +39,15 @@ const Message = (props) => {
     const [messagePosition, setMessagePosition] = useState(null);
     const [clickEvent, setClickEvent] = useState(null);
     const [selected, setSelected] = useState(false);
+    const [hold, setHold] = useState(false);
+    let timer;
 
     const messageClickHandler = (e) => {
         if (props.type == 'CHAT' || props.type == 'TRASH') {
             if (selectedMessages.length || props.type == 'TRASH') {
-                if (selected) {
+                if (hold) {
+                    setHold(false);
+                } else if (selected && !hold) {
                     unSelectMessage(id);
                     setSelected(false);
                 } else {
@@ -68,7 +72,7 @@ const Message = (props) => {
     };
 
     const messageDoubleClickHandler = () => {
-        if (!selectedMessages.length) {
+        if (!selectedMessages.length && props.type == 'CHAT') {
             replyMessage(id, message, messageUsername);
         }
     };
@@ -124,7 +128,30 @@ const Message = (props) => {
     // check the selected messages in order to detect select bar's options
     useEffect(() => {
         checkMessage(id, selected, setSelected, localUid);
+        if (!selectedMessages.length) {
+            setHold(false);
+        }
     }, [selectedMessages]);
+
+    const onHoldStarts = () => {
+        if (!selectedMessages.length && props.type == 'CHAT' || props.type == 'TRASH') {
+            timer = setTimeout(() => {
+                selectMessage({
+                    ...props.message,
+                    isMessageFromLocalUser: messageUid == localUid ? 1 : 0,
+                    isPersian: isRTL(message) ? 1 : 0,
+                });
+                setHold(true);
+            }, 300);
+        }
+    };
+
+    const onHoldEnds = () => {
+        if (!selectedMessages.length) {
+            clearTimeout(timer);
+            setHold(false);
+        }
+    };
 
     return (
         <>
@@ -155,10 +182,15 @@ const Message = (props) => {
                     priorDifferentDate={priorDifferentDate}
                 />
 
-                <div
+                <motion.div
+                    whileTap={{ scale: 0.8 }}
                     className='message-box'
                     onClick={(e) => messageClickHandler(e)}
                     onDoubleClick={messageDoubleClickHandler}
+                    onMouseDown={onHoldStarts}
+                    onMouseUp={onHoldEnds}
+                    onTouchStart={onHoldStarts}
+                    onTouchEnd={onHoldEnds}
                 >
                     <p className='message'>
                         <div className='username-reply'>
@@ -186,7 +218,7 @@ const Message = (props) => {
                             : message
                         }
                     </p>
-                </div>
+                </motion.div>
 
                 <MessageSelectCheck
                     type={props.type}
@@ -307,7 +339,7 @@ const MessageBox = styled(motion.div)`
 
     @media (max-width: 768px) {
         .message-box {
-            max-width: 90%;
+            max-width: 80%;
             border-radius: ${(props) =>
                 props.localuser
                     ? props.messageposition == 0

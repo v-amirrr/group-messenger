@@ -3,10 +3,7 @@ import { doc, deleteDoc, updateDoc } from 'firebase/firestore';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNotification } from './useNotification';
 import { setPopup, setNewReply } from '../redux/popupSlice';
-import {
-    setSendMessageReplyTo,
-    setClearReplyTo,
-} from '../redux/sendMessageSlice';
+import { setSendMessageReplyTo, setClearReplyTo } from '../redux/sendMessageSlice';
 import { setMessageOptionsId } from '../redux/appSlice';
 
 export const useMessageOptions = () => {
@@ -19,7 +16,6 @@ export const useMessageOptions = () => {
     const { openNotification } = useNotification();
 
     const copyMessage = (message) => {
-        dispatch(setMessageOptionsId(null));
         let text = [];
         message.map((item) => {
             text.push(item.word);
@@ -30,8 +26,6 @@ export const useMessageOptions = () => {
     };
 
     const openPopup = (popupName, popupMessages) => {
-        dispatch(setMessageOptionsId(null));
-
         let sortedPopupMessages = [...popupMessages];
 
         if (popupMessages.length > 1) {
@@ -68,7 +62,6 @@ export const useMessageOptions = () => {
     };
 
     const trashMessage = (id) => {
-        dispatch(setMessageOptionsId(null));
         const docRef = doc(db, 'messages', id);
         setTimeout(() => {
             updateDoc(docRef, {
@@ -154,6 +147,10 @@ export const useMessageOptions = () => {
         dispatch(setClearReplyTo());
     };
 
+    const closeOptions = () => {
+        dispatch(setMessageOptionsId(null));
+    };
+
     return {
         copyMessage,
         openPopup,
@@ -165,5 +162,6 @@ export const useMessageOptions = () => {
         editMessageReply,
         replyMessage,
         clearReplyMessage,
+        closeOptions,
     };
 };

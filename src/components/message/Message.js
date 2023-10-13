@@ -210,7 +210,6 @@ const Message = (props) => {
                         !menuShow &&
                         !selectedMessages.length
                     }
-                    hideHandler={() => dispatch(setMessageOptionsId(null))}
                     message={{
                         ...props.message,
                         isMessageFromLocalUser: messageUid == localUid ? 1 : 0,

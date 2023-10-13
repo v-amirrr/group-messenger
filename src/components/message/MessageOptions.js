@@ -9,24 +9,38 @@ import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { optionsVariants, optionLocalVariants, optionNonLocalVariants } from '../../config/varitans';
 
-const MessageOptions = ({ clickEvent, show, message, hideHandler }) => {
+const MessageOptions = ({ clickEvent, show, message }) => {
 
     const { enterAsAGuest } = useSelector(store => store.userStore);
 
-    const { openPopup, copyMessage, replyMessage, trashMessage } = useMessageOptions();
+    const { openPopup, copyMessage, replyMessage, trashMessage, closeOptions } = useMessageOptions();
     const { selectMessage } = useSelect();
 
     const messageOptionsRef = useRef();
 
     const optionClick = (option) => {
-        hideHandler();
+        closeOptions();
         setTimeout(() => {
-            if (option == 'REPLY') {
-                replyMessage(message.id, message.message, message.messageUsername);
-            } else if (option == 'SELECT') {
-                selectMessage(message);
+            switch (option) {
+                case 'REPLY':
+                    replyMessage(message.id, message.message, message.messageUsername);
+                break;
+                case 'SELECT':
+                    selectMessage(message);
+                break;
+                case 'COPY':
+                    copyMessage(message.message);
+                break;
             }
         }, 300);
+        switch (option) {
+            case 'EDIT':
+                openPopup("EDIT_POPUP", [message]);
+            break;
+            case 'DELETE':
+                trashMessage(message.id);
+            break;
+        }
     };
 
     return (
@@ -44,7 +58,7 @@ const MessageOptions = ({ clickEvent, show, message, hideHandler }) => {
                             <p>Select</p>
                         </motion.div>
 
-                        <motion.div className='copy' onClick={() => copyMessage(message.message)} variants={message.isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants}>
+                        <motion.div className='copy' onClick={() => optionClick("COPY")} variants={message.isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants}>
                             <i><AiFillCopy /></i>
                             <p>Copy</p>
                         </motion.div>
@@ -52,11 +66,11 @@ const MessageOptions = ({ clickEvent, show, message, hideHandler }) => {
                         {
                             message.isMessageFromLocalUser ?
                             <>
-                                <motion.div className='edit' onClick={() => openPopup("EDIT_POPUP", [message])} variants={message.isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants}>
+                                <motion.div className='edit' onClick={() => optionClick("EDIT")} variants={message.isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants}>
                                     <i><AiFillEdit /></i>
                                     <p>Edit</p>
                                 </motion.div>
-                                <motion.div className='delete' onClick={() => trashMessage(message.id)} variants={message.isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants}>
+                                <motion.div className='delete' onClick={() => optionClick("DELETE")} variants={message.isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants}>
                                     <i><AiFillDelete /></i>
                                     <p>Delete</p>
                                 </motion.div>

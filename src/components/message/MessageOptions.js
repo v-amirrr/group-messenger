@@ -97,7 +97,6 @@ const MessageOptions = ({ clickEvent, show, message }) => {
 
 const MessageOptionsContainer = styled(motion.div)`
     margin: ${props => props.ismessagefromlocaluser ? "0 .4rem 0 0" : "0 0 0 .4rem"};
-    user-select: none;
     display: flex;
     justify-content: flex-start;
     align-items: center;

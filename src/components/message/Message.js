@@ -193,13 +193,14 @@ const Message = (props) => {
                     selected={selected}
                     selectedMessagesLength={selectedMessages.length}
                     messageClickHandler={messageClickHandler}
+                    isMessageFromLocalUser={messageUid == localUid ? 1 : 0}
                 />
 
                 <MessageReplyIcon
                     editReply={props.newreply}
                     editReplyClick={props.replyIconClick}
                     show={replyToApp.id == id || props.newreply}
-                    messageLocal={messageUid == localUid}
+                    isMessageFromLocalUser={messageUid == localUid ? 1 : 0}
                 />
 
                 <MessageOptions
@@ -264,16 +265,8 @@ const MessageBox = styled(motion.div)`
                 : props.messageposition == 2
                 ? '5px 25px 25px 5px'
                 : props.messageposition == 3 && '5px 25px 25px 25px'};
-        margin-right: ${(props) =>
-            (props.type != 'TRASH' && props.anymessageselected) ||
-            props.replyto ||
-            props.newreply
-                ? '3rem'
-                : ''};
-        margin-left: ${(props) =>
-            (!props.localuser && props.replyto) || props.newreply
-                ? '3rem'
-                : ''};
+        margin-right: ${(props) => props.type != 'TRASH' && props.anymessageselected ? '3rem' : ''};
+        margin-left: ${(props) => props.type != 'TRASH' && props.anymessageselected ? '3rem' : ''};
         padding: .45rem .5rem;
         width: fit-content;
         max-width: ${(props) => props.type == 'EDIT_REPLY' ? '80%' : props.localuser && props.type == 'CHAT' ? '60%' : '64%'};

@@ -2,17 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { FcCheckmark } from 'react-icons/fc';
 import { motion, AnimatePresence } from 'framer-motion';
-import {
-    selectCheckVariants,
-    checkButtonVariants,
-} from '../../config/varitans';
+import { selectCheckLocalVariants, selectCheckNonLocalVariants, checkButtonVariants } from '../../config/varitans';
 
-const MessageSelectCheck = ({
-    selected,
-    selectedMessagesLength,
-    messageClickHandler,
-    type,
-}) => {
+const MessageSelectCheck = ({ selected, selectedMessagesLength, messageClickHandler, type, isMessageFromLocalUser }) => {
     return (
         <>
             <AnimatePresence exitBeforeEnter>
@@ -24,10 +16,11 @@ const MessageSelectCheck = ({
                         initial='hidden'
                         animate='visible'
                         exit='exit'
-                        variants={selectCheckVariants}
+                        variants={isMessageFromLocalUser ? selectCheckLocalVariants : selectCheckNonLocalVariants}
+                        onClick={messageClickHandler}
                         trash={type == 'TRASH' ? 1 : 0}
                         selected={selected ? 1 : 0}
-                        onClick={messageClickHandler}
+                        localuser={isMessageFromLocalUser ? 1 : 0}
                     >
                         <AnimatePresence exitBeforeEnter>
                             {
@@ -45,7 +38,7 @@ const MessageSelectCheck = ({
                             }
                         </AnimatePresence>
                     </MessageSelectCheckContainer>
-                : ''
+                    : ''
                 }
             </AnimatePresence>
         </>
@@ -58,7 +51,8 @@ const MessageSelectCheckContainer = styled(motion.div)`
     height: 1.8rem;
     border-radius: 50%;
     position: absolute;
-    right: ${(props) => (props.trash ? '80%' : '0')};
+    left: ${props => props.trash ? '0' : ''};
+    right: ${props => props.localuser ? '0' : ''};
     display: flex;
     justify-content: center;
     align-items: center;
@@ -71,7 +65,6 @@ const MessageSelectCheckContainer = styled(motion.div)`
         justify-content: center;
         align-items: center;
         font-size: 1.2rem;
-        transition: transform 0.2s;
     }
 `;
 

@@ -9,12 +9,7 @@ import {
     replyIconNonLocalVariants,
 } from '../../config/varitans';
 
-const MessageReplyIcon = ({
-    editReply,
-    editReplyClick,
-    show,
-    messageLocal,
-}) => {
+const MessageReplyIcon = ({ editReply, editReplyClick, show, isMessageFromLocalUser }) => {
     const { clearReplyMessage } = useMessageOptions();
 
     const closeHandler = () => {
@@ -28,17 +23,14 @@ const MessageReplyIcon = ({
     return (
         <>
             <AnimatePresence exitBeforeEnter>
-                {show ? (
+                {
+                    show ?
                     <MessageReplyIconContainer
                         key='reply-icon'
                         initial='hidden'
                         animate='visible'
                         exit='exit'
-                        variants={
-                            messageLocal
-                                ? replyIconLocalVariants
-                                : replyIconNonLocalVariants
-                        }
+                        variants={isMessageFromLocalUser ? replyIconLocalVariants : replyIconNonLocalVariants}
                     >
                         <i className='reply'>
                             <BsReplyFill />
@@ -47,9 +39,8 @@ const MessageReplyIcon = ({
                             <IoClose />
                         </i>
                     </MessageReplyIconContainer>
-                ) : (
-                    ''
-                )}
+                    : ''
+                }
             </AnimatePresence>
         </>
     );
@@ -64,8 +55,8 @@ const MessageReplyIconContainer = styled(motion.div)`
     box-shadow: var(--normal-shadow);
     padding: 1rem;
     border-radius: 50%;
-    position: absolute;
     cursor: pointer;
+    margin: 0 .5rem;
     transition: background 0.5s;
 
     .reply {

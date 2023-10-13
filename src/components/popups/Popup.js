@@ -17,15 +17,13 @@ const Popup = () => {
     const [editReplyOpen, setEditReplyOpen] = useState(false);
 
     const closePopupByTap = (e) => {
-        if (editReplyOpen) {
-            setEditReplyOpen(false);
-            setTimeout(() => {
-                if (!popupPage.current.contains(e.target)) {
+        if (!popupPage.current.contains(e.target)) {
+            if (editReplyOpen) {
+                setEditReplyOpen(false);
+                setTimeout(() => {
                     closePopup();
-                }
-            }, 500);
-        } else {
-            if (!popupPage.current.contains(e.target)) {
+                }, 500);
+            } else {
                 closePopup();
             }
         }

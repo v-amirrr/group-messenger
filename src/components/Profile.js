@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { FaUserLock, FaUser } from 'react-icons/fa';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { guestSignVariants } from '../config/varitans';
+import { profileVariants } from '../config/varitans';
 
 const Profile = () => {
     const { user, enterAsAGuest } = useSelector((store) => store.userStore);
@@ -14,7 +14,7 @@ const Profile = () => {
                 initial='hidden'
                 animate='visible'
                 exit='exit'
-                variants={guestSignVariants}
+                variants={profileVariants}
             >
                 {
                     enterAsAGuest ?

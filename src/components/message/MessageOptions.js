@@ -9,7 +9,7 @@ import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { optionsVariants, optionLocalVariants, optionNonLocalVariants } from '../../config/varitans';
 
-const MessageOptions = ({ clickEvent, show, message }) => {
+const MessageOptions = ({ clickEvent, show, message, replyTo }) => {
 
     const { enterAsAGuest } = useSelector(store => store.userStore);
 
@@ -46,12 +46,17 @@ const MessageOptions = ({ clickEvent, show, message }) => {
     return (
         <>
             <AnimatePresence>
-                {show ?
+                {
+                    show ?
                     <MessageOptionsContainer key={message.id} ref={messageOptionsRef} initial='hidden' animate='visible' exit='exit' variants={optionsVariants} ismessagefromlocaluser={message.isMessageFromLocalUser ? 1 : 0} x={clickEvent?.pageX} y={clickEvent?.pageY} guest={enterAsAGuest ? 1 : 0}>
-                        <motion.div className='reply' onClick={() => optionClick("REPLY")} variants={message.isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants}>
-                            <i><BsReplyFill /></i>
-                            <p>Reply</p>
-                        </motion.div>
+                        {
+                            !replyTo ?
+                            <motion.div className='reply' onClick={() => optionClick("REPLY")} variants={message.isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants}>
+                                <i><BsReplyFill /></i>
+                                <p>Reply</p>
+                            </motion.div>
+                            : ""
+                        }
 
                         <motion.div className='select' onClick={() => optionClick("SELECT")} variants={message.isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants}>
                             <i><BiSelectMultiple /></i>
@@ -89,7 +94,8 @@ const MessageOptions = ({ clickEvent, show, message }) => {
                             }
                         </motion.div>
                     </MessageOptionsContainer>
-                : ""}
+                    : ""
+                }
             </AnimatePresence>
         </>
     );

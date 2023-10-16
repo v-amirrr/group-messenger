@@ -182,8 +182,7 @@ const Message = (props) => {
                     priorDifferentDate={priorDifferentDate}
                 />
 
-                <motion.div
-                    whileTap={{ scale: 0.8 }}
+                <div
                     className='message-box'
                     onClick={(e) => messageClickHandler(e)}
                     onDoubleClick={messageDoubleClickHandler}
@@ -218,7 +217,7 @@ const Message = (props) => {
                             : message
                         }
                     </p>
-                </motion.div>
+                </div>
 
                 <MessageSelectCheck
                     type={props.type}
@@ -248,6 +247,7 @@ const Message = (props) => {
                         isMessageFromLocalUser: messageUid == localUid ? 1 : 0,
                         isPersian: isRTL(message) ? 1 : 0,
                     }}
+                    replyTo={replyToApp.id == id ? 1 : 0}
                 />
             </MessageBox>
         </>

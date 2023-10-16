@@ -89,30 +89,24 @@ const MessengerInput = ({ scrollDown }) => {
     return (
         <>
             <AnimatePresence exitBeforeEnter>
-                {replyTo.id ? (
+                {
+                    replyTo.id ?
                     <ReplyTo
                         className='reply-section'
                         initial='hidden'
                         animate='visible'
                         exit='exit'
                         variants={replyVariants}
-                        messageletters={
-                            replyTo?.username?.length + replyTo?.message?.length
-                        }
+                        messageletters={replyTo?.username?.length + replyTo?.message?.length}
                     >
                         <div className='message'>
-                            <i>
-                                <BsReplyFill />
-                            </i>
+                            <i><BsReplyFill /></i>
                             <p className='text'>{replyTo.message}</p>
                         </div>
-                        <button onClick={clearReplyMessage}>
-                            <IoClose />
-                        </button>
+                        <button onClick={clearReplyMessage}><IoClose /></button>
                     </ReplyTo>
-                ) : (
-                    ''
-                )}
+                    : ''
+                }
             </AnimatePresence>
 
             <MessengerInputContainer
@@ -128,17 +122,13 @@ const MessengerInput = ({ scrollDown }) => {
                 <textarea
                     className='messenger-input'
                     value={inputText}
+                    dir='auto'
+                    disabled={!!error ? true : false}
+                    ref={inputRef}
                     onChange={(e) => setInputText(e.target.value)}
                     onKeyDown={(e) => inputKeyHandler(e)}
                     onBlur={focusHandler}
-                    disabled={!!error ? true : false}
-                    ref={inputRef}
-                    dir='auto'
-                    autoFocus={
-                        document.documentElement.offsetWidth > 500 && !popupShow
-                            ? true
-                            : false
-                    }
+                    autoFocus={document.documentElement.offsetWidth > 500 && !popupShow ? true : false}
                 />
 
                 {/* <Emoji
@@ -152,20 +142,20 @@ const MessengerInput = ({ scrollDown }) => {
                 <p className='placeholder'>Send a message...</p>
 
                 <AnimatePresence exitBeforeEnter>
-                    {inputText ? (
+                    {
+                        inputText ?
                         <motion.button
                             className='clear'
-                            onClick={() => setInputText('')}
                             initial='hidden'
                             animate='visible'
                             exit='exit'
                             variants={sendInputIconVariants}
+                            onClick={() => setInputText('')}
                         >
                             <IoClose />
                         </motion.button>
-                    ) : (
-                        ''
-                    )}
+                        : ''
+                    }
                 </AnimatePresence>
 
                 <button
@@ -175,11 +165,12 @@ const MessengerInput = ({ scrollDown }) => {
                     onClick={inputSubmitHandler}
                 >
                     <AnimatePresence exitBeforeEnter>
-                        {sendMessageLoading ? (
+                        {
+                            sendMessageLoading ?
                             <div key='pending' className='loader'>
                                 <MessageLoader size={'1.5rem'} />
-                            </div>
-                        ) : sendMessageError ? (
+                            </div> :
+                            sendMessageError ?
                             <motion.div
                                 initial='hidden'
                                 animate='visible'
@@ -188,8 +179,7 @@ const MessengerInput = ({ scrollDown }) => {
                                 key='error'
                             >
                                 <IoAlert color='red' />
-                            </motion.div>
-                        ) : (
+                            </motion.div> :
                             <motion.div
                                 initial='hidden'
                                 animate='visible'
@@ -199,7 +189,7 @@ const MessengerInput = ({ scrollDown }) => {
                             >
                                 <IoSend />
                             </motion.div>
-                        )}
+                        }
                     </AnimatePresence>
                 </button>
             </MessengerInputContainer>
@@ -211,11 +201,10 @@ const MessengerInputContainer = styled(motion.section)`
     position: absolute;
     bottom: 1rem;
     width: 20rem;
-    height: 2.8rem;
+    height: 2.6rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0.2rem;
     color: var(--normal-color);
     border: solid 1.5px #ffffff14;
     border-radius: 50px;
@@ -225,28 +214,22 @@ const MessengerInputContainer = styled(motion.section)`
     z-index: 2;
     overflow: hidden;
 
-    .input-section {
-        width: 100%;
-        height: 2.5rem;
+    .messenger-input {
+        width: 15.5rem;
+        height: 100%;
+        border: none;
+        padding: .6rem 1rem;
+        background-color: #ffffff00;
+        font-family: ${(props) => (props.isrlt ? 'Vazirmatn' : 'Outfit')}, 'Vazirmatn', sans-serif;
+        font-weight: 200;
+        font-size: 1rem;
+        resize: none;
         display: flex;
         justify-content: center;
         align-items: center;
-        padding: ${(props) => (props.isrlt ? '0 0 0 1rem' : '')};
-        transition: padding 0.2s;
-    }
-
-    .messenger-input {
-        width: 100%;
-        max-height: 2.8rem;
-        border: none;
-        padding: 0.8rem;
-        background-color: #ffffff00;
-        font-family: ${(props) => (props.isrlt ? 'Vazirmatn' : 'Outfit')},
-            'Vazirmatn', sans-serif;
-        font-weight: 200;
-        font-size: 1rem;
-        margin-right: 0.5rem;
-        resize: none;
+        position: absolute;
+        left: 0;
+        vertical-align: middle;
         overflow: ${(props) => (props.inputtext ? 'hidden scroll' : '')};
         transition: height 0.5s cubic-bezier(0.53, 0, 0, 0.98);
 
@@ -262,8 +245,7 @@ const MessengerInputContainer = styled(motion.section)`
 
         /* Handle */
         ::-webkit-scrollbar-thumb {
-            background: ${(props) =>
-                props.multiline ? '#ffffff14' : '#ffffff00'};
+            background: ${(props) => props.multiline ? '#ffffff14' : '#ffffff00'};
             border-radius: 50px;
         }
     }
@@ -277,7 +259,7 @@ const MessengerInputContainer = styled(motion.section)`
         opacity: ${props => props.inputtext ? "0" : "1"};
         left: ${props => props.inputtext ? "-4rem" : "1rem"};
         letter-spacing: ${props => props.inputtext ? "5px" : "0"};
-        transition: left .6s, opacity 0.4s, letter-spacing .6s;
+        transition: left .6s, opacity .4s, letter-spacing .6s;
     }
 
     .clear {
@@ -287,18 +269,24 @@ const MessengerInputContainer = styled(motion.section)`
         align-items: center;
         color: #ffffff14;
         cursor: pointer;
+        position: absolute;
+        right: 2.5rem;
+        height: 2.6rem;
     }
 
     .messenger-submit {
         all: unset;
         font-size: 1.5rem;
-        min-width: 2.5rem;
+        width: 2.5rem;
         display: flex;
         justify-content: center;
         align-items: center;
         border: none;
         color: #ffffff14;
         cursor: pointer;
+        position: absolute;
+        right: .2rem;
+        height: 2.6rem;
 
         div {
             display: flex;

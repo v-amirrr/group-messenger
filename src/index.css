@@ -10,7 +10,7 @@
     --green-color: #00cc00;
 
     --normal-glass: blur(5px) saturate(100%);
-    --bold-glass: blur(10px) saturate(100%);
+    --bold-glass: blur(20px) saturate(100%);
 
     --normal-bg: #ffffff08;
     --normal-bg-hover: #ffffff14;

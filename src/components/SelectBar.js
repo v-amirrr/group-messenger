@@ -87,8 +87,8 @@ const SelectBarContainer = styled(motion.div)`
     backdrop-filter: var(--bold-glass);
     -webkit-backdrop-filter: var(--bold-glass);
     color: var(--normal-color);
-    width: 22rem;
-    height: 2.8rem;
+    width: 20rem;
+    height: 2.6rem;
     display: flex;
     justify-content: center;
     align-items: center;

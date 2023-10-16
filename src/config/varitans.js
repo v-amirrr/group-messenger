@@ -66,7 +66,7 @@ export const notificationVariants = {
         y: 0,
         scale: 1,
         transition: {
-            duration: 0.6,
+            duration: 0.4
         },
     },
     exit: { opacity: 0, scale: 0.8, transition: { duration: 0.2 } },
@@ -215,9 +215,7 @@ export const messageVariants = onMobile
               opacity: 1,
               scale: 1,
               transition: {
-                  duration: 0.6,
-                  ease: [0.53, 0, 0, 0.98],
-                  time: [0.53, 0, 0, 0.98],
+                  duration: 0.4,
               },
           },
           exit: { opacity: 0, scale: 0.9, transition: { duration: 0.3 } },
@@ -285,9 +283,8 @@ export const optionLocalVariants = onMobile
               x: 0,
               y: 0,
               scale: 1,
-              transition: {
-                  duration: 0.4,
-              },
+              transition: { duration: 0.2, type: 'spring', stiffness: 80 },
+
           },
           exit: {
               opacity: 0,
@@ -297,17 +294,16 @@ export const optionLocalVariants = onMobile
           },
       }
     : {
-          hidden: { opacity: 0, x: 20, scale: 0.9 },
+          hidden: { opacity: 0, x: 20 },
           visible: {
               opacity: 1,
-              x: [20, -20, 0],
-              scale: 1,
-              transition: { duration: 0.4, type: 'tween' },
+              x: 0,
+              transition: { duration: 0.2, type: 'spring', stiffness: 100 },
           },
           exit: {
               opacity: 0,
-              x: 50,
-              transition: { duration: 0.3, type: 'tween' },
+              x: 30,
+              transition: { duration: 0.3 },
           },
       };
 
@@ -319,9 +315,8 @@ export const optionNonLocalVariants = onMobile
               x: 0,
               y: 0,
               scale: 1,
-              transition: {
-                  duration: 0.4,
-              },
+              transition: { duration: 0.2, type: 'spring', stiffness: 80 },
+
           },
           exit: {
               opacity: 0,
@@ -331,17 +326,16 @@ export const optionNonLocalVariants = onMobile
           },
       }
     : {
-          hidden: { opacity: 0, x: -20, scale: 0.9 },
+          hidden: { opacity: 0, x: -20 },
           visible: {
               opacity: 1,
-              x: [-20, 20, 0],
-              scale: 1,
-              transition: { duration: 0.4, type: 'tween' },
+              x: 0,
+              transition: { duration: 0.2, type: 'spring', stiffness: 100 },
           },
           exit: {
               opacity: 0,
-              x: -50,
-              transition: { duration: 0.3, type: 'tween' },
+              x: -30,
+              transition: { duration: 0.3 },
           },
       };
 
@@ -360,11 +354,10 @@ export const timeVariants = {
 };
 
 export const replyIconLocalVariants = {
-    hidden: { opacity: 0, x: 50, scale: 0.5 },
+    hidden: { opacity: 0, x: 50 },
     visible: {
         opacity: 1,
         x: 0,
-        scale: 1,
         transition: {
             type: 'spring',
             stiffness: 100,
@@ -373,15 +366,14 @@ export const replyIconLocalVariants = {
             time: [0.53, 0, 0, 0.98],
         },
     },
-    exit: { opacity: 0, x: 50, scale: 0.5, transition: { duration: 0.3 } },
+    exit: { opacity: 0, x: 50, transition: { duration: 0.3 } },
 };
 
 export const replyIconNonLocalVariants = {
-    hidden: { opacity: 0, x: -50, scale: 0.5 },
+    hidden: { opacity: 0, x: -50 },
     visible: {
         opacity: 1,
         x: 0,
-        scale: 1,
         transition: {
             type: 'spring',
             stiffness: 100,
@@ -390,7 +382,7 @@ export const replyIconNonLocalVariants = {
             time: [0.53, 0, 0, 0.98],
         },
     },
-    exit: { opacity: 0, x: -50, scale: 0.5, transition: { duration: 0.3 } },
+    exit: { opacity: 0, x: -50, transition: { duration: 0.3 } },
 };
 
 export const selectCheckLocalVariants = {
@@ -424,13 +416,14 @@ export const selectCheckNonLocalVariants = {
 };
 
 export const messengerInputVariants = {
-    hidden: { opacity: 0, y: 50, scaleY: 0.8 },
+    hidden: { opacity: 0, y: 50 },
     visible: {
         opacity: 1,
         y: 0,
-        scaleY: 1,
         transition: {
-            delay: 0.4,
+            type: 'spring',
+            stiffness: 100,
+            delay: 0.2,
             duration: 0.8,
             ease: [0.53, 0, 0, 0.98],
             time: [0.53, 0, 0, 0.98],
@@ -476,13 +469,14 @@ export const emojiPickerContainerVariatns = {
 };
 
 export const menuVariants = {
-    hidden: { opacity: 0, y: 50, scaleY: 0.8 },
+    hidden: { opacity: 0, y: 50 },
     visible: {
         opacity: 1,
         y: 0,
-        scaleY: 1,
         transition: {
-            delay: 0.4,
+            type: 'spring',
+            stiffness: 100,
+            delay: 0.2,
             duration: 0.8,
             ease: [0.53, 0, 0, 0.98],
             time: [0.53, 0, 0, 0.98],
@@ -581,12 +575,13 @@ export const replyButtonVariants = {
 };
 
 export const selectBarVariants = {
-    hidden: { opacity: 0, y: 50, scaleY: 0.8 },
+    hidden: { opacity: 0, y: 50 },
     visible: {
         opacity: 1,
         y: 0,
-        scaleY: 1,
         transition: {
+            type: 'spring',
+            stiffness: 100,
             delay: 0.2,
             duration: 0.8,
             ease: [0.53, 0, 0, 0.98],
@@ -689,13 +684,14 @@ export const trashSelectbarVariants = {
 };
 
 export const scrollButtonVariants = {
-    hidden: { opacity: 0, y: 50, scaleY: 0.8 },
+    hidden: { opacity: 0, y: 50 },
     visible: {
         opacity: 1,
         y: 0,
-        scaleY: 1,
         transition: {
-            delay: 0.4,
+            type: 'spring',
+            stiffness: 100,
+            delay: 0.2,
             duration: 0.8,
             ease: [0.53, 0, 0, 0.98],
             time: [0.53, 0, 0, 0.98],
@@ -704,14 +700,15 @@ export const scrollButtonVariants = {
     exit: { opacity: 0, y: 30, transition: { duration: 0.3 } },
 };
 
-export const guestSignVariants = {
-    hidden: { opacity: 0, y: 50, scaleY: 0.8 },
+export const profileVariants = {
+    hidden: { opacity: 0, y: 50 },
     visible: {
         opacity: 1,
         y: 0,
-        scaleY: 1,
         transition: {
-            delay: 0.4,
+            type: 'spring',
+            stiffness: 100,
+            delay: 0.2,
             duration: 0.8,
             ease: [0.53, 0, 0, 0.98],
             time: [0.53, 0, 0, 0.98],

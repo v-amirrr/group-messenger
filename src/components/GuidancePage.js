@@ -8,7 +8,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import styled from 'styled-components';
 import { featuresPageVariants, featuresContainerVariants, featuresIconVariants, featuresListVariants, featuresItemVariants, featuresSectionUpVariatns, featuresSectionDownVariatns } from '../config/varitans';
 
-const Guidance = () => {
+const GuidancePage = () => {
 
     const featuresRef = useRef();
 
@@ -32,7 +32,7 @@ const Guidance = () => {
 
     return (
         <>
-            <GuidancePage initial='hidden' animate='visible' exit='exit' variants={featuresPageVariants} content={content}>
+            <Guidance initial='hidden' animate='visible' exit='exit' variants={featuresPageVariants} content={content}>
                 <motion.div className='container' variants={featuresContainerVariants}>
                     {
                         onPhone ?
@@ -366,12 +366,12 @@ const Guidance = () => {
                         }
                     </AnimatePresence>
                 </motion.div>
-            </GuidancePage>
+            </Guidance>
         </>
     );
 };
 
-const GuidancePage = styled(motion.div)`
+const Guidance = styled(motion.div)`
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -729,4 +729,4 @@ const GuidancePage = styled(motion.div)`
     }
 `;
 
-export default Guidance;
+export default GuidancePage;

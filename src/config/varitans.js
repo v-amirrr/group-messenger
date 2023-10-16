@@ -106,25 +106,31 @@ export const boxVariants = {
     exit: { opacity: 0, scale: 0.9, transition: { duration: 0.2 } },
 };
 
-export const authVariants = {
+export const loginVariants = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 0.4 } },
-    exit: { opacity: 0, transition: { duration: 0.4 } },
+    visible: {
+        opacity: 1,
+        transition: {
+            duration: 0.1,
+            staggerChildren: 0.1,
+            when: 'beforeChildren',
+        },
+    },
+    exit: { opacity: 0, scale: 0.9, transition: { duration: 0.2, when: "beforeChildren" } },
 };
 
-export const authItemVariants = {
-    hidden: { opacity: 0, y: 50, scaleY: 0.8 },
+export const loginItemVariants = {
+    hidden: { opacity: 0, y: 20 },
     visible: {
         opacity: 1,
         y: 0,
-        scaleY: 1,
-        transition: {
-            duration: 0.8,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
-        },
+        transition: { duration: 0.2, type: 'spring', stiffness: 100 },
     },
-    exit: { opacity: 0, y: 30, scaleY: 0.9, transition: { duration: 0.3 } },
+    exit: {
+        opacity: 0,
+        y: 30,
+        transition: { duration: 0.3 },
+    },
 };
 
 export const loaderVariants = {

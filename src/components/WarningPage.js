@@ -23,7 +23,7 @@ const WarningPage = () => {
 
     return (
         <>
-            <WarningModalPage
+            <Warning
                 initial='hidden'
                 animate='visible'
                 exit='exit'
@@ -71,12 +71,12 @@ const WarningPage = () => {
                         LET'S GO
                     </button>
                 </motion.div>
-            </WarningModalPage>
+            </Warning>
         </>
     );
 };
 
-const WarningModalPage = styled(motion.section)`
+const Warning = styled(motion.section)`
     position: absolute;
     width: 100vw;
     height: 100vh;

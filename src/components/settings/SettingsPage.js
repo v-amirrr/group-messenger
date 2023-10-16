@@ -15,7 +15,7 @@ import {
     settingsContainerVariants,
 } from '../../config/varitans';
 
-const Settings = () => {
+const SettingsPage = () => {
     const { groupChatRedirection } = useRedirection();
 
     const [open, setOpen] = useState(false);
@@ -27,7 +27,7 @@ const Settings = () => {
 
     return (
         <>
-            <SettingsPage
+            <Settings
                 initial='hidden'
                 animate='visible'
                 exit='exit'
@@ -93,12 +93,12 @@ const Settings = () => {
                         height={height}
                     />
                 </SettingsContainer>
-            </SettingsPage>
+            </Settings>
         </>
     );
 };
 
-const SettingsPage = styled(motion.section)`
+const Settings = styled(motion.section)`
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -106,7 +106,6 @@ const SettingsPage = styled(motion.section)`
     align-items: center;
     position: absolute;
     inset: 0 0 0 0;
-    user-select: none;
 `;
 
 const SettingsContainer = styled(motion.section)`
@@ -149,4 +148,4 @@ const SettingsContainer = styled(motion.section)`
     }
 `;
 
-export default Settings;
+export default SettingsPage;

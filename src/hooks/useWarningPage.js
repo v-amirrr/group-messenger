@@ -22,7 +22,7 @@ export const useWarningPage = () => {
         if (!warningPupupSessionStorage && !warningPupupNeverShowLocalStorage) {
             navigate("/warning", { replace: true });
         } else if (!userLocalStorage && !guestNameLocalStorage) {
-            navigate("/enter", { replace: true });
+            navigate("/login", { replace: true });
         }
     };
 
@@ -35,7 +35,7 @@ export const useWarningPage = () => {
         if (!!localStorage.getItem("user")) {
             navigate("/", { replace: true });
         } else {
-            navigate("/enter", { replace: true });
+            navigate("/login", { replace: true });
         }
     };
 

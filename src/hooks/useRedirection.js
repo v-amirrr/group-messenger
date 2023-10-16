@@ -15,7 +15,7 @@ export const useRedirection = () => {
 
     const groupChatRedirection = () => {
         if (!user && !enterAsAGuest) {
-            navigate("/enter", { replace: true });
+            navigate("/login", { replace: true });
         }
     };
 

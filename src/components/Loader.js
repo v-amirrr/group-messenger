@@ -7,13 +7,21 @@ const Loader = () => {
     return (
         <>
             <LoaderContainer initial='hidden' animate='visible' exit='exit' variants={loaderVariants}>
-                <div className="gooey">
-                    <span className="dot"></span>
-                    <div className="dots">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
+                <div className='profile'></div>
+                <div className='menu'></div>
+                <div className='scroll'></div>
+                <div className='input'></div>
+                <div className='messages'>
+                    <div className='one'><span></span></div>
+                    <div className='two'><span></span></div>
+                    <div className='three'><span></span></div>
+                    <div className='four'><span></span></div>
+                    <div className='five'><span></span></div>
+                    <div className='six'><span></span></div>
+                    <div className='seven'><span></span></div>
+                    <div className='eight'><span></span></div>
+                    <div className='six'><span></span></div>
+                    <div className='seven'><span></span></div>
                 </div>
             </LoaderContainer>
         </>
@@ -26,92 +34,277 @@ const LoaderContainer = styled(motion.div)`
     align-items: center;
     width: 100%;
     height: 100vh;
-    position: absolute;
+    padding: 5rem 2rem 9rem 2rem;
 
-    .gooey {
-        background-color: #000;
-        border-radius: 50px;
-        filter: contrast(20);
-        width: 142px;
-        height: 40px;
-    }
-
-    .gooey .dot {
+    .profile, .menu, .scroll {
         position: absolute;
-        width: 16px;
-        height: 16px;
-        top: 12px;
-        left: 15px;
-        filter: blur(4px);
-        background: var(--normal-color);
-        border-radius: 50%;
-        transform: translateX(0);
-        animation: dot 3s infinite;
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 50px;
+        background-color: #ffffff14;
+        background-image: linear-gradient(90deg, #ffffff00 0%, #ffffff14 50%, #ffffff00 100%);
+        background-position: left -2.5rem top 0;
+        background-repeat: no-repeat;
+        animation: skeleton-loading-button ease-out 1.5s infinite;
     }
 
-    .gooey .dots {
-        transform: translateX(0);
-        margin-top: 12px;
-        margin-left: 31px;
-        animation: dots 3s infinite;
+    .profile {
+        top: 1rem;
+        left: 2rem;
     }
 
-    .gooey .dots span {
-        display: block;
-        float: left;
-        width: 16px;
-        height: 16px;
-        margin-left: 16px;
-        filter: blur(4px);
-        background: var(--normal-color);
-        border-radius: 50%;
+    .menu {
+        top: 1rem;
+        right: 2rem;
     }
 
-    @-moz-keyframes dot {
-        50% {
-            transform: translateX(96px);
+    .scroll {
+        bottom: 1.2rem;
+        right: 2.4rem;
+    }
+
+    @keyframes skeleton-loading-button {
+        to {
+            background-position: left 2.5rem top 0;
         }
     }
 
-    @-webkit-keyframes dot {
-        50% {
-            transform: translateX(96px);
+    .input {
+        position: absolute;
+        bottom: 1rem;
+        width: 20rem;
+        height: 2.6rem;
+        border-radius: 50px;
+        background-color: #ffffff14;
+        background-image: linear-gradient(90deg, #ffffff00 0%, #ffffff14 50%, #ffffff00 100%);
+        background-position: left -20rem top 0;
+        background-repeat: no-repeat;
+        animation: skeleton-loading-input ease-out 1.5s infinite;
+    }
+
+    @keyframes skeleton-loading-input {
+        to {
+            background-position: left 20rem top 0;
         }
     }
 
-    @-o-keyframes dot {
-        50% {
-            transform: translateX(96px);
+    .messages {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+
+        .one {
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin: .1rem 0 0 0;
+
+            span {
+                position: relative;
+                right: 8rem;
+                width: 10rem;
+                height: 2rem;
+                border-radius: 25px 25px 25px 5px;
+                background-color: #ffffff14;
+                background-image: linear-gradient(90deg, #ffffff00 0%, #ffffff14 50%, #ffffff00 100%);
+                background-position: left -20rem top 0;
+                background-repeat: no-repeat;
+                animation: skeleton-loading-input ease-out 1.5s infinite;
+            }
+        }
+
+        .two {
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin: .1rem 0 0 0;
+
+            span {
+                position: relative;
+                right: 8rem;
+                width: 12rem;
+                height: 2rem;
+                border-radius: 5px 25px 25px 5px;
+                background-color: #ffffff14;
+                background-image: linear-gradient(90deg, #ffffff00 0%, #ffffff14 50%, #ffffff00 100%);
+                background-position: left -20rem top 0;
+                background-repeat: no-repeat;
+                animation: skeleton-loading-input ease-out 1.5s infinite;
+            }
+        }
+
+        .three {
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin: .1rem 0 0 0;
+
+
+            span {
+                position: relative;
+                right: 8rem;
+                width: 11rem;
+                height: 2rem;
+                border-radius: 5px 25px 25px 25px;
+                background-color: #ffffff14;
+                background-image: linear-gradient(90deg, #ffffff00 0%, #ffffff14 50%, #ffffff00 100%);
+                background-position: left -20rem top 0;
+                background-repeat: no-repeat;
+                animation: skeleton-loading-input ease-out 1.5s infinite;
+            }
+        }
+
+        .four {
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin: .5rem 0 0 0;
+
+            span {
+                position: relative;
+                right: 8rem;
+                width: 7rem;
+                height: 2rem;
+                border-radius: 25px 25px 25px 5px;
+                background-color: #ffffff14;
+                background-image: linear-gradient(90deg, #ffffff00 0%, #ffffff14 50%, #ffffff00 100%);
+                background-position: left -20rem top 0;
+                background-repeat: no-repeat;
+                animation: skeleton-loading-input ease-out 1.5s infinite;
+            }
+        }
+
+        .five {
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin: .1rem 0 0 0;
+
+            span {
+                position: relative;
+                right: 8rem;
+                width: 6rem;
+                height: 2rem;
+                border-radius: 5px 25px 25px 25px;
+                background-color: #ffffff14;
+                background-image: linear-gradient(90deg, #ffffff00 0%, #ffffff14 50%, #ffffff00 100%);
+                background-position: left -20rem top 0;
+                background-repeat: no-repeat;
+                animation: skeleton-loading-input ease-out 1.5s infinite;
+            }
+        }
+
+        .six {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin: .5rem 0 0 0;
+
+            span {
+                position: relative;
+                left: 8rem;
+                width: 13rem;
+                height: 2rem;
+                border-radius: 25px 25px 5px 25px;
+                background-color: #ffffff14;
+                background-image: linear-gradient(90deg, #ffffff00 0%, #ffffff14 50%, #ffffff00 100%);
+                background-position: left -20rem top 0;
+                background-repeat: no-repeat;
+                animation: skeleton-loading-input ease-out 1.5s infinite;
+            }
+        }
+
+        .seven {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin: .1rem 0 0 0;
+
+            span {
+                position: relative;
+                left: 8rem;
+                width: 10rem;
+                height: 2rem;
+                border-radius: 25px 5px 25px 25px;
+                background-color: #ffffff14;
+                background-image: linear-gradient(90deg, #ffffff00 0%, #ffffff14 50%, #ffffff00 100%);
+                background-position: left -20rem top 0;
+                background-repeat: no-repeat;
+                animation: skeleton-loading-input ease-out 1.5s infinite;
+            }
+        }
+
+        .eight {
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin: .5rem 0 0 0;
+
+            span {
+                position: relative;
+                right: 8rem;
+                width: 13rem;
+                height: 2rem;
+                border-radius: 25px;
+                background-color: #ffffff14;
+                background-image: linear-gradient(90deg, #ffffff00 0%, #ffffff14 50%, #ffffff00 100%);
+                background-position: left -20rem top 0;
+                background-repeat: no-repeat;
+                animation: skeleton-loading-input ease-out 1.5s infinite;
+            }
         }
     }
 
-    @keyframes dot {
-        50% {
-            transform: translateX(96px);
-        }
-    }
+    @media (max-width: 768px) {
+        width: 100vw;
+        padding: 5rem 1rem 10rem 1rem;
 
-    @-moz-keyframes dots {
-        50% {
-            transform: translateX(-31px);
+        .profile {
+            width: 3rem;
+            height: 3rem;
+            left: 0;
         }
-    }
 
-    @-webkit-keyframes dots {
-        50% {
-            transform: translateX(-31px);
+        .menu {
+            width: 3rem;
+            height: 3rem;
+            right: 0;
         }
-    }
 
-    @-o-keyframes dots {
-        50% {
-            transform: translateX(-31px);
+        .scroll {
+            width: 3rem;
+            height: 3rem;
+            right: 0;
+            bottom: 1rem;
         }
-    }
 
-    @keyframes dots {
-        50% {
-            transform: translateX(-31px);
+        .input {
+            width: 18rem;
+            height: 3rem;
+            margin-right: 4rem;
+        }
+
+        .messages {
+            .one, .two, .three, .four, .five, .eight {
+                span {
+                    right: 4rem;
+                }
+            }
+
+            .six, .seven {
+                span {
+                    left: 4rem;
+                }
+            }
         }
     }
 `;

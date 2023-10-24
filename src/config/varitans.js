@@ -134,17 +134,14 @@ export const loginItemVariants = {
 };
 
 export const loaderVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
+    hidden: { opacity: 0 },
     visible: {
         opacity: 1,
-        scale: 1,
         transition: {
-            duration: 0.6,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
+            duration: 0.4,
         },
     },
-    exit: { opacity: 0, scale: 0.8, transition: { duration: 0.2 } },
+    exit: { opacity: 0, transition: { duration: 0.4, delay: 0.4 } },
 };
 
 export const messengerVariants = onMobile
@@ -168,6 +165,7 @@ export const messengerVariants = onMobile
               opacity: 1,
               transition: {
                   duration: 0.4,
+                  when: 'beforeChildren',
               },
           },
           exit: { opacity: 0, scale: 0.9, transition: { duration: 0.2 } },
@@ -186,10 +184,9 @@ export const groupChatVariants = onMobile
           exit: { opacity: 0, transition: { duration: 0.2 } },
       }
     : {
-          hidden: { opacity: 0, scale: 0.9 },
+          hidden: { opacity: 0 },
           visible: {
               opacity: 1,
-              scale: 1,
               transition: {
                   duration: 0.4,
                   when: 'beforeChildren',

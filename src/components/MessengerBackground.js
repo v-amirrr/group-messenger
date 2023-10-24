@@ -87,7 +87,7 @@ const BackgroundContainer = styled.div`
 const CoverContainer = styled.div`
     width: 100vw;
     height: 100vh;
-    background-color: ${props => props.cover ? "#000000aa" : "#ffffff00"};
+    background-color: ${props => props.cover ? "#000000aa" : "#00000066"};
     position: absolute;
     top: 0;
     left: 0;

@@ -240,22 +240,17 @@ export const messageLoaderVariants = {
 
 export const optionsVariants = onMobile
     ? {
-          hidden: { opacity: 0 },
+          hidden: { opacity: 0, y: 80 },
           visible: {
               opacity: 1,
-              transition: {
-                  duration: 0.1,
-                  staggerChildren: 0.02,
-                  when: 'beforeChildren',
-              },
+              y: 0,
+              transition: { duration: 0.4, staggerChildren: 0.03, type: 'spring', stiffness: 70 },
+
           },
           exit: {
               opacity: 0,
-              transition: {
-                  duration: 0.1,
-                  staggerChildren: 0.01,
-                  when: 'afterChildren',
-              },
+              scale: 0.95,
+              transition: { duration: 0.2, when: "beforeChildren" },
           },
       }
     : {
@@ -280,18 +275,16 @@ export const optionsVariants = onMobile
 
 export const optionLocalVariants = onMobile
     ? {
-          hidden: { opacity: 0, x: 80, y: 80, scale: 0.9 },
+          hidden: { opacity: 0, y: 30 },
           visible: {
               opacity: 1,
-              x: 0,
               y: 0,
               scale: 1,
-              transition: { duration: 0.2, type: 'spring', stiffness: 80 },
+              transition: { duration: 0.4 },
 
           },
           exit: {
               opacity: 0,
-              x: 10,
               y: 10,
               transition: { duration: 0.2, type: 'tween' },
           },
@@ -312,22 +305,20 @@ export const optionLocalVariants = onMobile
 
 export const optionNonLocalVariants = onMobile
     ? {
-          hidden: { opacity: 0, x: -80, y: 80, scale: 0.9 },
-          visible: {
-              opacity: 1,
-              x: 0,
-              y: 0,
-              scale: 1,
-              transition: { duration: 0.2, type: 'spring', stiffness: 80 },
+        hidden: { opacity: 0, y: 30 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            transition: { duration: 0.4 },
 
-          },
-          exit: {
-              opacity: 0,
-              x: -10,
-              y: 10,
-              transition: { duration: 0.2, type: 'tween' },
-          },
-      }
+        },
+        exit: {
+            opacity: 0,
+            y: 10,
+            transition: { duration: 0.2, type: 'tween' },
+        },
+    }
     : {
           hidden: { opacity: 0, x: -20 },
           visible: {
@@ -564,7 +555,7 @@ export const replyAddSectionVariants = {
         opacity: 1,
         scale: 1,
         transition: {
-            delay: 0.3,
+            delay: 0.4,
             duration: 0.4,
         },
     },

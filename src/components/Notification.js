@@ -104,12 +104,12 @@ const NotificationContainer = styled(motion.div)`
     min-width: 10rem;
     max-width: 30rem;
     min-height: 2.2rem;
-    margin: 0.15rem;
+    margin: 0.1rem;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
-    background-color: #ffffff14;
+    background-color: var(--normal-bg-hover);
     border-radius: 50px;
     box-shadow: var(--normal-shadow);
     backdrop-filter: var(--bold-glass);
@@ -160,7 +160,7 @@ const NotificationContainer = styled(motion.div)`
 
         @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
             &:hover {
-                background-color: #ffffff10;
+                background-color: var(--normal-bg-hover);
             }
         }
     }

@@ -51,7 +51,7 @@ const MessageReplyIconContainer = styled(motion.div)`
     justify-content: center;
     align-items: center;
     font-size: 1.2rem;
-    background-color: #ffffff08;
+    background-color: var(--normal-bg);
     box-shadow: var(--normal-shadow);
     padding: 1rem;
     border-radius: 50%;
@@ -90,7 +90,7 @@ const MessageReplyIconContainer = styled(motion.div)`
         }
     }
 
-    @media (max-width: 500px) {
+    @media (max-width: 768px) {
         &:active {
             background-color: #ff0000;
 

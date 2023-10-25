@@ -42,6 +42,9 @@ const Message = (props) => {
     const [hold, setHold] = useState(false);
     let timer;
 
+    let letters;
+    props.type != 'TRASH' && message?.map(item => letters =+ item.word.length);
+
     const messageClickHandler = (e) => {
         if (props.type == 'CHAT' || props.type == 'TRASH') {
             if (selectedMessages.length || props.type == 'TRASH') {
@@ -173,6 +176,7 @@ const Message = (props) => {
                 replyto={replyToApp.id == id ? 1 : 0}
                 newreply={props.newreply ? 1 : 0}
                 date={priorDifferentDate ? 1 : 0}
+                letters={letters}
             >
                 <ChatDate
                     layout={props.type == 'EDIT_REPLY' ? 0 : 1}
@@ -195,7 +199,7 @@ const Message = (props) => {
                         <div className='username-reply'>
                             <MessageUsername
                                 username={messageUsername}
-                                show={messageUid != localUid}
+                                show={messageUid != localUid && messagePosition != 2 && messagePosition != 3}
                             />
                             <MessageReply replyTo={replyTo} type={props.type} />
                         </div>
@@ -234,21 +238,23 @@ const Message = (props) => {
                     isMessageFromLocalUser={messageUid == localUid ? 1 : 0}
                 />
 
-                <MessageOptions
-                    clickEvent={clickEvent}
-                    show={
-                        messageOptionsId == id &&
-                        props.type == 'CHAT' &&
-                        !menuShow &&
-                        !selectedMessages.length
-                    }
-                    message={{
-                        ...props.message,
-                        isMessageFromLocalUser: messageUid == localUid ? 1 : 0,
-                        isPersian: isRTL(message) ? 1 : 0,
-                    }}
-                    replyTo={replyToApp.id == id ? 1 : 0}
-                />
+                <div className='options'>
+                    <MessageOptions
+                        clickEvent={clickEvent}
+                        show={
+                            messageOptionsId == id &&
+                            props.type == 'CHAT' &&
+                            !menuShow &&
+                            !selectedMessages.length
+                        }
+                        message={{
+                            ...props.message,
+                            isMessageFromLocalUser: messageUid == localUid ? 1 : 0,
+                            isPersian: isRTL(message) ? 1 : 0,
+                        }}
+                        replyTo={replyToApp.id == id ? 1 : 0}
+                    />
+                </div>
             </MessageBox>
         </>
     );
@@ -263,15 +269,19 @@ const MessageBox = styled(motion.div)`
     position: relative;
     transition: padding 0.4s;
 
+    .options {
+        display: flex;
+        justify-content: ${(props) => props.localuser ? 'flex-end' : 'flex-start'};
+        align-items: center;
+    }
+
     .message-box {
         z-index: 1;
         display: flex;
-        justify-content: ${(props) =>
-            props.localuser ? 'flex-start' : 'flex-end'};
+        justify-content: ${(props) => props.localuser ? 'flex-start' : 'flex-end'};
         align-items: center;
         flex-direction: ${(props) => (props.localuser ? 'row' : 'row')};
-        background-color: ${(props) =>
-            props.selected ? 'var(--normal-bg-hover)' : 'var(--normal-bg)'};
+        background-color: ${(props) => props.selected ? 'var(--normal-bg-hover)' : 'var(--normal-bg)'};
         margin: ${(props) =>
             props.messageposition == 0
                 ? '.2rem 0 .2rem 0'
@@ -297,11 +307,11 @@ const MessageBox = styled(motion.div)`
                 : props.messageposition == 2
                 ? '5px 25px 25px 5px'
                 : props.messageposition == 3 && '5px 25px 25px 25px'};
-        margin-right: ${(props) => props.type != 'TRASH' && props.anymessageselected ? '3rem' : ''};
-        margin-left: ${(props) => props.type != 'TRASH' && props.anymessageselected ? '3rem' : ''};
-        padding: .45rem .5rem;
+        margin-right: ${(props) => props.type != 'TRASH' && props.anymessageselected && props.localuser ? '3rem' : ''};
+        margin-left: ${(props) => props.type != 'TRASH' && props.anymessageselected && !props.localuser ? '3rem' : ''};
+        padding: ${props => props.letters < 3 || (props.letters < 3 && props.messageposition == 2 && props.messageposition == 3 && !props.localuser) ? ".45rem .8rem" : ".45rem .5rem"};
         width: fit-content;
-        max-width: ${(props) => props.type == 'EDIT_REPLY' ? '80%' : props.localuser && props.type == 'CHAT' ? '60%' : '64%'};
+        max-width: ${(props) => props.type == 'EDIT_REPLY' ? '80%' : '65%'};
         backdrop-filter: ${(props) =>
             props.type == 'CHAT' ? 'var(--normal-glass)' : 'blur(0)'};
         -webkit-backdrop-filter: ${(props) =>
@@ -339,7 +349,7 @@ const MessageBox = styled(motion.div)`
 
     @media (max-width: 768px) {
         .message-box {
-            max-width: 80%;
+            max-width: 85%;
             border-radius: ${(props) =>
                 props.localuser
                     ? props.messageposition == 0
@@ -356,6 +366,10 @@ const MessageBox = styled(motion.div)`
                     : props.messageposition == 2
                     ? '5px 20px 20px 5px'
                     : props.messageposition == 3 && '5px 20px 20px 20px'};
+        }
+
+        .options {
+            position: absolute;
         }
     }
 `;

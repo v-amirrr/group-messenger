@@ -40,11 +40,11 @@ const Profile = () => {
 const ProfileContainer = styled(motion.div)`
     position: absolute;
     top: 1rem;
-    left: 2rem;
+    left: 8.2rem;
     width: 2.5rem;
     height: 2.5rem;
     color: var(--normal-color);
-    border: solid 1.5px #ffffff14;
+    border: solid 2.5px #ffffff14;
     border-radius: 50px;
     box-shadow: var(--normal-shadow);
     backdrop-filter: var(--bold-glass);

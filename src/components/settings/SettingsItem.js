@@ -17,7 +17,7 @@ const SettingsItemContainer = styled.div`
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    border: solid 1.5px #ffffff14;
+    border: solid 2.5px #ffffff14;
     border-radius: ${props => props.open ? "15px" : "50px"};
     overflow: hidden;
     position: relative;

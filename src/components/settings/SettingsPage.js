@@ -116,7 +116,7 @@ const SettingsContainer = styled(motion.section)`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    border: solid 1.5px #ffffff14;
+    border: solid 2.5px #ffffff14;
     border-radius: 25px;
     background-color: #00000088;
     padding-top: 4rem;
@@ -130,7 +130,7 @@ const SettingsContainer = styled(motion.section)`
         justify-content: center;
         align-items: center;
         padding: 1rem 0;
-        border-bottom: solid 1.5px #ffffff14;
+        border-bottom: solid 2.5px #ffffff14;
 
         a {
             position: absolute;

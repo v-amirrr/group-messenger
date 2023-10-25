@@ -12,8 +12,8 @@
     --normal-glass: blur(5px) saturate(100%);
     --bold-glass: blur(20px) saturate(100%);
 
-    --normal-bg: #ffffff08;
-    --normal-bg-hover: #ffffff14;
+    --normal-bg: #ffffff10;
+    --normal-bg-hover: #ffffff20;
 }
 
 /* width */

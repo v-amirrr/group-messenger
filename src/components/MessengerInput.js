@@ -206,7 +206,7 @@ const MessengerInputContainer = styled(motion.section)`
     justify-content: center;
     align-items: center;
     color: var(--normal-color);
-    border: solid 1.5px #ffffff14;
+    border: solid 2.5px #ffffff14;
     border-radius: 50px;
     box-shadow: var(--normal-shadow);
     backdrop-filter: var(--bold-glass);
@@ -308,7 +308,7 @@ const MessengerInputContainer = styled(motion.section)`
 
 const ReplyTo = styled(motion.div)`
     position: absolute;
-    bottom: 4.2rem;
+    bottom: 4rem;
     max-width: 25%;
     height: 2rem;
     display: flex;
@@ -316,7 +316,7 @@ const ReplyTo = styled(motion.div)`
     align-items: center;
     padding: 0 0.2rem;
     color: var(--normal-color);
-    border: solid 1.5px #ffffff14;
+    border: solid 2.5px #ffffff14;
     border-radius: 50px;
     box-shadow: var(--normal-shadow);
     backdrop-filter: var(--bold-glass);
@@ -338,7 +338,7 @@ const ReplyTo = styled(motion.div)`
 
         @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
             &:hover {
-                background-color: #ffffff10;
+                background-color: var(--normal-bg-hover);
             }
         }
     }
@@ -375,7 +375,7 @@ const ReplyTo = styled(motion.div)`
     @media (max-width: 768px) {
         max-width: 50%;
         margin-right: 4rem;
-        bottom: 4.5rem;
+        bottom: 4.3rem;
     }
 `;
 

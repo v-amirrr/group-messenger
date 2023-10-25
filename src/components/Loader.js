@@ -40,8 +40,9 @@ const LoaderContainer = styled(motion.div)`
         position: absolute;
         width: 2.5rem;
         height: 2.5rem;
+        border: solid 2.5px #ffffff14;
         border-radius: 50px;
-        background-color: #ffffff14;
+        background-color: #ffffff00;
         background-image: linear-gradient(90deg, #ffffff00 0%, #ffffff14 50%, #ffffff00 100%);
         background-position: left -2.5rem top 0;
         background-repeat: no-repeat;
@@ -50,17 +51,17 @@ const LoaderContainer = styled(motion.div)`
 
     .profile {
         top: 1rem;
-        left: 2rem;
+        left: 8.2rem;
     }
 
     .menu {
         top: 1rem;
-        right: 2rem;
+        right: 8.2rem;
     }
 
     .scroll {
         bottom: 1.2rem;
-        right: 2.4rem;
+        right: 8.2rem;
     }
 
     @keyframes skeleton-loading-button {
@@ -74,8 +75,9 @@ const LoaderContainer = styled(motion.div)`
         bottom: 1rem;
         width: 20rem;
         height: 2.6rem;
+        border: solid 2.5px #ffffff14;
         border-radius: 50px;
-        background-color: #ffffff14;
+        background-color: #ffffff00;
         background-image: linear-gradient(90deg, #ffffff00 0%, #ffffff14 50%, #ffffff00 100%);
         background-position: left -20rem top 0;
         background-repeat: no-repeat;
@@ -103,7 +105,7 @@ const LoaderContainer = styled(motion.div)`
 
             span {
                 position: relative;
-                right: 8rem;
+                right: 9rem;
                 width: 10rem;
                 height: 2rem;
                 border-radius: 25px 25px 25px 5px;
@@ -124,7 +126,7 @@ const LoaderContainer = styled(motion.div)`
 
             span {
                 position: relative;
-                right: 8rem;
+                right: 9rem;
                 width: 12rem;
                 height: 2rem;
                 border-radius: 5px 25px 25px 5px;
@@ -146,7 +148,7 @@ const LoaderContainer = styled(motion.div)`
 
             span {
                 position: relative;
-                right: 8rem;
+                right: 9rem;
                 width: 11rem;
                 height: 2rem;
                 border-radius: 5px 25px 25px 25px;
@@ -167,7 +169,7 @@ const LoaderContainer = styled(motion.div)`
 
             span {
                 position: relative;
-                right: 8rem;
+                right: 9rem;
                 width: 7rem;
                 height: 2rem;
                 border-radius: 25px 25px 25px 5px;
@@ -188,7 +190,7 @@ const LoaderContainer = styled(motion.div)`
 
             span {
                 position: relative;
-                right: 8rem;
+                right: 9rem;
                 width: 6rem;
                 height: 2rem;
                 border-radius: 5px 25px 25px 25px;
@@ -209,7 +211,7 @@ const LoaderContainer = styled(motion.div)`
 
             span {
                 position: relative;
-                left: 8rem;
+                left: 9rem;
                 width: 13rem;
                 height: 2rem;
                 border-radius: 25px 25px 5px 25px;
@@ -230,7 +232,7 @@ const LoaderContainer = styled(motion.div)`
 
             span {
                 position: relative;
-                left: 8rem;
+                left: 9rem;
                 width: 10rem;
                 height: 2rem;
                 border-radius: 25px 5px 25px 25px;
@@ -251,9 +253,9 @@ const LoaderContainer = styled(motion.div)`
 
             span {
                 position: relative;
-                right: 8rem;
+                right: 9rem;
                 width: 13rem;
-                height: 2rem;
+                height: 3rem;
                 border-radius: 25px;
                 background-color: #ffffff14;
                 background-image: linear-gradient(90deg, #ffffff00 0%, #ffffff14 50%, #ffffff00 100%);

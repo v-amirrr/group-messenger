@@ -81,7 +81,7 @@ const SelectBar = () => {
 const SelectBarContainer = styled(motion.div)`
     position: absolute;
     bottom: 1rem;
-    border: solid 1.5px #ffffff14;
+    border: solid 2.5px #ffffff14;
     border-radius: 50px;
     box-shadow: var(--normal-shadow);
     backdrop-filter: var(--bold-glass);

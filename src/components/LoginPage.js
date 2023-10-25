@@ -123,7 +123,7 @@ const Login = styled(motion.section)`
         align-items: center;
         width: 12rem;
         height: 2.5rem;
-        border: solid 1.5px #ffffff14;
+        border: solid 2.5px #ffffff14;
         margin: 1rem;
         position: relative;
 

@@ -51,23 +51,25 @@ const MessageOptions = ({ clickEvent, show, message, replyTo }) => {
                     <MessageOptionsContainer key={message.id} ref={messageOptionsRef} initial='hidden' animate='visible' exit='exit' variants={optionsVariants} ismessagefromlocaluser={message.isMessageFromLocalUser ? 1 : 0} x={clickEvent?.pageX} y={clickEvent?.pageY} guest={enterAsAGuest ? 1 : 0}>
                         {
                             !replyTo ?
-                            <motion.div className='reply' onClick={() => optionClick("REPLY")} variants={message.isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants}>
-                                <i><BsReplyFill /></i>
-                                <p>Reply</p>
-                            </motion.div>
+                            <>
+                                <motion.div className='reply' onClick={() => optionClick("REPLY")} variants={message.isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants}>
+                                    <i><BsReplyFill /></i>
+                                    <p>Reply</p>
+                                </motion.div>
+                                <motion.hr variants={message.isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants} />
+                            </>
                             : ""
                         }
-
                         <motion.div className='select' onClick={() => optionClick("SELECT")} variants={message.isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants}>
                             <i><BiSelectMultiple /></i>
                             <p>Select</p>
                         </motion.div>
-
+                        <motion.hr variants={message.isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants} />
                         <motion.div className='copy' onClick={() => optionClick("COPY")} variants={message.isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants}>
                             <i><AiFillCopy /></i>
                             <p>Copy</p>
                         </motion.div>
-
+                        <motion.hr variants={message.isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants} />
                         {
                             message.isMessageFromLocalUser ?
                             <>
@@ -75,14 +77,15 @@ const MessageOptions = ({ clickEvent, show, message, replyTo }) => {
                                     <i><AiFillEdit /></i>
                                     <p>Edit</p>
                                 </motion.div>
+                                <motion.hr variants={message.isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants} />
                                 <motion.div className='delete' onClick={() => optionClick("DELETE")} variants={message.isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants}>
                                     <i><AiFillDelete /></i>
                                     <p>Delete</p>
                                 </motion.div>
+                                <motion.hr variants={message.isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants} />
                             </>
                             : ""
                         }
-
                         <motion.div className='time' variants={message.isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants}>
                             <i><AiFillClockCircle /></i>
                             {
@@ -90,7 +93,8 @@ const MessageOptions = ({ clickEvent, show, message, replyTo }) => {
                                 <p>
                                     <span>{message.time.hour < 10 ? `0${message.time.hour}` : message.time.hour}</span>:
                                     <span>{message.time.minute < 10 ? `0${message.time.minute}` : message.time.minute}</span>
-                                </p> : ""
+                                </p>
+                                : ""
                             }
                         </motion.div>
                     </MessageOptionsContainer>
@@ -104,14 +108,14 @@ const MessageOptions = ({ clickEvent, show, message, replyTo }) => {
 const MessageOptionsContainer = styled(motion.div)`
     margin: ${props => props.ismessagefromlocaluser ? "0 .4rem 0 0" : "0 0 0 .4rem"};
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
+    position: absolute;
     flex-direction: ${props => props.ismessagefromlocaluser ? "row-reverse" : "row"};
-    width: ${props => props.ismessagefromlocaluser ? "10rem" : ""};
 
     .reply, .copy, .edit, .delete, .select, .time {
         position: relative;
-        background-color: #ffffff08;
+        background-color: var(--normal-bg);
         margin: 0 .15rem;
         display: flex;
         justify-content: center;
@@ -154,7 +158,8 @@ const MessageOptionsContainer = styled(motion.div)`
 
     .time {
         cursor: auto;
-        padding: .5rem 2.5rem .5rem .5rem;
+        padding: .5rem 2.4rem .5rem .5rem;
+        border: none;
 
         p {
             transform: scale(1);
@@ -208,28 +213,42 @@ const MessageOptionsContainer = styled(motion.div)`
         }
     }
 
+    hr {
+        display: none;
+    }
+
     @media (max-width: 768px) {
-        width: 6.8rem;
-        /* height: ${props => props.guest ? "3rem" : props.ismessagefromlocaluser ? "10rem" : "6rem"}; */
+        width: 6rem;
         flex-direction: column;
         justify-content: center;
-        position: absolute;
+        /* position: absolute; */
         /* left: ${props => props.ismessagefromlocaluser ? `${props.y}px` : "none"}; */
         /* left: ${props => props.ismessagefromlocaluser ? "none" : `${props.y}px`}; */
         margin: ${props => props.ismessagefromlocaluser ? "13rem 0 0 0" : "8rem 0 0 0"};
         z-index: 3;
+        background-color: var(--normal-bg);
+        border-radius: 20px;
+        backdrop-filter: blur(20px) saturate(100%);
+        -webkit-backdrop-filter: blur(20px) saturate(100%);
+        overflow: hidden;
+
+        hr {
+            display: block;
+            width: 100%;
+            height: .1px;
+            background-color: #ffffff30;
+            border: none;
+        }
 
         .reply, .copy, .edit, .delete, .select, .time {
             margin: .1rem 0;
-            border-radius: 50px;
-            background-color: var(--normal-bg);
+            background-color: #ffffff00;
             display: flex;
             justify-content: center;
             align-items: center;
             width: 6rem;
             height: 2rem;
-            backdrop-filter: blur(20px) saturate(100%);
-            -webkit-backdrop-filter: blur(20px) saturate(100%);
+            backdrop-filter: none;
 
             i {
                 position: absolute;

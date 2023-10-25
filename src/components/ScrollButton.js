@@ -17,13 +17,13 @@ const ScrollButton = ({ click, scroll }) => {
 const ScrollButtonContainer = styled(motion.button)`
     position: absolute;
     bottom: 1.2rem;
-    right: 2.4rem;
+    right: 8.2rem;
     width: 2.5rem;
     height: 2.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: solid 1.5px #ffffff14;
+    border: solid 2.5px #ffffff14;
     border-radius: 50%;
     box-shadow: var(--normal-shadow);
     backdrop-filter: var(--bold-glass);

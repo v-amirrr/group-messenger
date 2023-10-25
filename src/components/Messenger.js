@@ -32,15 +32,15 @@ const Messenger = () => {
                 <Notification />
                 <MessengerContainer>
                     <AnimatePresence exitBeforeEnter>
-                        {loading ? (
+                        {
+                            loading ?
                             <Loader key='loader' usage={1} />
-                        ) : error ? (
+                            : error ?
                             <ErrorBox key='error-box' errorMessage={error} />
-                        ) : !loading && !error ? (
+                            : !loading && !error ?
                             <GroupChat />
-                        ) : (
-                            ''
-                        )}
+                            : ''
+                        }
                     </AnimatePresence>
                 </MessengerContainer>
             </MessengerPage>
@@ -64,7 +64,7 @@ const MessengerContainer = styled.div`
     align-items: center;
     flex-direction: column;
     text-align: center;
-    width: 55%;
+    width: 62%;
     height: 100%;
     font-family: 'Outfit', sans-serif;
     position: relative;

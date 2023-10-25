@@ -127,14 +127,14 @@ const MessengerMenu = () => {
 const MessengerMenuContainer = styled(motion.div)`
     position: absolute;
     top: 1rem;
-    right: 2.4rem;
+    right: 8.2rem;
     width: ${(props) => (props.openmenu ? '7.2rem' : '2.5rem')};
     height: ${(props) => (props.openmenu ? '9.4rem' : '2.5rem')};
     display: flex;
     justify-content: center;
     align-items: center;
     color: var(--normal-color);
-    border: solid 1.5px #ffffff14;
+    border: solid 2.5px #ffffff14;
     border-radius: ${(props) => (props.openmenu ? '25px' : '50px')};
     box-shadow: var(--normal-shadow);
     backdrop-filter: var(--bold-glass);

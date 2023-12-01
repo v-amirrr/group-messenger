@@ -116,7 +116,7 @@ const MessageOptionsContainer = styled(motion.div)`
     .reply, .copy, .edit, .delete, .select, .time {
         position: relative;
         background-color: var(--normal-bg);
-        margin: 0 .15rem;
+        margin: 0 .1rem;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -158,7 +158,7 @@ const MessageOptionsContainer = styled(motion.div)`
 
     .time {
         cursor: auto;
-        padding: .5rem 2.4rem .5rem .5rem;
+        padding: .5rem 2.5rem .5rem .5rem;
         border: none;
 
         p {
@@ -218,7 +218,7 @@ const MessageOptionsContainer = styled(motion.div)`
     }
 
     @media (max-width: 768px) {
-        width: 6rem;
+        width: 6.5rem;
         flex-direction: column;
         justify-content: center;
         /* position: absolute; */
@@ -227,7 +227,7 @@ const MessageOptionsContainer = styled(motion.div)`
         margin: ${props => props.ismessagefromlocaluser ? "13rem 0 0 0" : "8rem 0 0 0"};
         z-index: 3;
         background-color: var(--normal-bg);
-        border-radius: 20px;
+        border-radius: 15px;
         backdrop-filter: blur(20px) saturate(100%);
         -webkit-backdrop-filter: blur(20px) saturate(100%);
         overflow: hidden;
@@ -246,20 +246,20 @@ const MessageOptionsContainer = styled(motion.div)`
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 6rem;
+            width: 6.5rem;
             height: 2rem;
             backdrop-filter: none;
 
             i {
                 position: absolute;
-                left: 1rem;
+                left: .6rem;
                 margin: 0;
             }
 
             p {
                 font-size: .8rem;
                 right: none;
-                left: 2.4rem;
+                left: 2.6rem;
                 text-align: start;
                 transform: scale(1);
                 opacity: 1;

@@ -165,15 +165,14 @@ const ReplyConatiner = styled(motion.div)`
     align-items: center;
     flex-direction: column;
     border-radius: 25px;
-    background-color: ${(props) =>
-        props.editReplyOpen ? '#000000aa' : '#00000000'};
-    border: solid 1.5px #ffffff14;
+    background-color: ${(props) => props.editReplyOpen ? '#000000aa' : '#00000000'};
+    border: ${(props) => props.editReplyOpen ? 'solid 2.5px #ffffff00' : 'solid 2.5px #ffffff14'};
     box-shadow: var(--shadow-second);
     overflow: hidden;
     transition: ${(props) =>
         props.editReplyOpen
-            ? 'background .4s, width .6s cubic-bezier(.53,0,0,.98), height .6s cubic-bezier(.53,0,0,.98), bottom .6s, left .6s'
-            : 'background .4s .4s, width .4s .1s cubic-bezier(.53,0,0,.98), height .4s .1s cubic-bezier(.53,0,0,.98), bottom .4s .1s, left .4s .1s'};
+            ? 'border .4s .6s, background .2s, width .5s cubic-bezier(.53,0,0,.98), height .5s cubic-bezier(.53,0,0,.98), bottom .5s, left .5s'
+            : 'border .4s, background .2s .6s, width .4s .1s cubic-bezier(.53,0,0,.98), height .4s .1s cubic-bezier(.53,0,0,.98), bottom .4s .1s, left .4s .1s'};
 
     .open-button {
         all: unset;

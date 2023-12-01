@@ -20,9 +20,6 @@ const Popup = () => {
         if (!popupPage.current.contains(e.target)) {
             if (editReplyOpen) {
                 setEditReplyOpen(false);
-                setTimeout(() => {
-                    closePopup();
-                }, 500);
             } else {
                 closePopup();
             }
@@ -94,7 +91,7 @@ const PopupContainer = styled(motion.div)`
     align-items: center;
     flex-direction: column;
     background-color: #ffffff04;
-    border: solid 1.5px #ffffff14;
+    border: solid 2.5px #ffffff14;
     border-radius: 25px;
     box-shadow: var(--normal-shadow);
     position: relative;

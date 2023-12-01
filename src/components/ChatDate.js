@@ -3,11 +3,11 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { chatDateVariants } from '../config/varitans';
 
-const ChatDate = ({ dateObj, priorDifferentDate }) => {
+const ChatDate = ({ dateObj, priorDifferentDate, blur }) => {
     return (
         <>
             {priorDifferentDate && dateObj.year && dateObj.month && dateObj.day ?
-                <ChatDateContainer initial='hidden' animate='visible' exit='exit' variants={chatDateVariants}>
+                <ChatDateContainer initial='hidden' animate='visible' exit='exit' variants={chatDateVariants} blur={blur}>
                     <div className='date'>
                         <p className='year'>{dateObj.year}</p>
                         <p className='month'>{dateObj.month}</p>
@@ -20,6 +20,7 @@ const ChatDate = ({ dateObj, priorDifferentDate }) => {
 };
 
 const ChatDateContainer = styled(motion.div)`
+    filter: ${props => props.blur ? "blur(5px)" : "blur(0px)"};
     margin: .3rem auto;
     user-select: none;
     display: flex;
@@ -28,6 +29,7 @@ const ChatDateContainer = styled(motion.div)`
     position: absolute;
     top: 0;
     width: 100%;
+    transition: filter .4s;
 
     .date {
         padding: .3rem .4rem;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import backgroundTowImageSRC from '../assets/images/2.webp';
@@ -11,12 +11,25 @@ import { backgroundImageVariants } from '../config/varitans';
 const MessengerBackground = () => {
     const location = useLocation();
     const { theme } = useSelector((store) => store.appStore);
-    const { popupShow } = useSelector((store) => store.popupStore);
+
+    const [scale, setScale] = useState(true);
+
+    useEffect(() => {
+        setScale(false);
+    }, [location.pathname]);
+
+    useEffect(() => {
+        if (!scale) {
+            setTimeout(() => {
+                setScale(true);
+            }, 100);
+        }
+    }, [scale]);
 
     return (
         <>
-            <CoverContainer cover={location.pathname == '/warning' || location.pathname == '/enter' || location.pathname == '/login' || location.pathname == '/signup'}></CoverContainer>
-            <BackgroundContainer scale={popupShow || location.pathname == '/warning' || location.pathname == '/settings' || location.pathname == '/guidance' || location.pathname == '/enter' || location.pathname == '/login' || location.pathname == '/signup'}>
+            <CoverContainer cover={location.pathname == '/warning' || location.pathname == '/login'}></CoverContainer>
+            <BackgroundContainer scale={scale}>
                 <AnimatePresence exitBeforeEnter>
                     {
                         theme == 1 ?
@@ -63,7 +76,7 @@ const BackgroundContainer = styled.div`
     justify-content: center;
     align-items: center;
     transform: ${props => props.scale ? "scale(1.1)" : "scale(1)"};
-    transition: transform 1s cubic-bezier(.53,0,0,.98);
+    transition: ${props => props.scale ? "transform 1s cubic-bezier(.53,0,0,.98)" : "transform .1s"};
 
     img {
         object-fit: cover;

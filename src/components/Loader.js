@@ -40,10 +40,10 @@ const LoaderContainer = styled(motion.div)`
         position: absolute;
         width: 2.5rem;
         height: 2.5rem;
-        border: solid 2.5px #ffffff14;
+        border: solid 2.5px #ffffff24;
         border-radius: 50px;
         background-color: #ffffff00;
-        background-image: linear-gradient(90deg, #ffffff00 0%, #ffffff14 50%, #ffffff00 100%);
+        background-image: linear-gradient(90deg, #ffffff00 10%, #ffffff14 50%, #ffffff00 90%);
         background-position: left -2.5rem top 0;
         background-repeat: no-repeat;
         animation: skeleton-loading-button ease-out 1.5s infinite;
@@ -75,10 +75,10 @@ const LoaderContainer = styled(motion.div)`
         bottom: 1rem;
         width: 20rem;
         height: 2.6rem;
-        border: solid 2.5px #ffffff14;
+        border: solid 2.5px #ffffff24;
         border-radius: 50px;
         background-color: #ffffff00;
-        background-image: linear-gradient(90deg, #ffffff00 0%, #ffffff14 50%, #ffffff00 100%);
+        background-image: linear-gradient(90deg, #ffffff00 10%, #ffffff14 50%, #ffffff00 90%);
         background-position: left -20rem top 0;
         background-repeat: no-repeat;
         animation: skeleton-loading-input ease-out 1.5s infinite;
@@ -109,8 +109,9 @@ const LoaderContainer = styled(motion.div)`
                 width: 10rem;
                 height: 2rem;
                 border-radius: 25px 25px 25px 5px;
-                background-color: #ffffff14;
-                background-image: linear-gradient(90deg, #ffffff00 0%, #ffffff14 50%, #ffffff00 100%);
+                /* background-color: #ffffff14; */
+                border: solid 2.5px #ffffff24;
+                background-image: linear-gradient(90deg, #ffffff00 0%, #ffffff24 50%, #ffffff00 100%);
                 background-position: left -20rem top 0;
                 background-repeat: no-repeat;
                 animation: skeleton-loading-input ease-out 1.5s infinite;
@@ -130,8 +131,9 @@ const LoaderContainer = styled(motion.div)`
                 width: 12rem;
                 height: 2rem;
                 border-radius: 5px 25px 25px 5px;
-                background-color: #ffffff14;
-                background-image: linear-gradient(90deg, #ffffff00 0%, #ffffff14 50%, #ffffff00 100%);
+                /* background-color: #ffffff14; */
+                border: solid 2.5px #ffffff24;
+                background-image: linear-gradient(90deg, #ffffff00 0%, #ffffff24 50%, #ffffff00 100%);
                 background-position: left -20rem top 0;
                 background-repeat: no-repeat;
                 animation: skeleton-loading-input ease-out 1.5s infinite;
@@ -152,8 +154,9 @@ const LoaderContainer = styled(motion.div)`
                 width: 11rem;
                 height: 2rem;
                 border-radius: 5px 25px 25px 25px;
-                background-color: #ffffff14;
-                background-image: linear-gradient(90deg, #ffffff00 0%, #ffffff14 50%, #ffffff00 100%);
+                /* background-color: #ffffff14; */
+                border: solid 2.5px #ffffff24;
+                background-image: linear-gradient(90deg, #ffffff00 0%, #ffffff24 50%, #ffffff00 100%);
                 background-position: left -20rem top 0;
                 background-repeat: no-repeat;
                 animation: skeleton-loading-input ease-out 1.5s infinite;
@@ -173,8 +176,9 @@ const LoaderContainer = styled(motion.div)`
                 width: 7rem;
                 height: 2rem;
                 border-radius: 25px 25px 25px 5px;
-                background-color: #ffffff14;
-                background-image: linear-gradient(90deg, #ffffff00 0%, #ffffff14 50%, #ffffff00 100%);
+                /* background-color: #ffffff14; */
+                border: solid 2.5px #ffffff24;
+                background-image: linear-gradient(90deg, #ffffff00 0%, #ffffff24 50%, #ffffff00 100%);
                 background-position: left -20rem top 0;
                 background-repeat: no-repeat;
                 animation: skeleton-loading-input ease-out 1.5s infinite;
@@ -194,8 +198,9 @@ const LoaderContainer = styled(motion.div)`
                 width: 6rem;
                 height: 2rem;
                 border-radius: 5px 25px 25px 25px;
-                background-color: #ffffff14;
-                background-image: linear-gradient(90deg, #ffffff00 0%, #ffffff14 50%, #ffffff00 100%);
+                /* background-color: #ffffff14; */
+                border: solid 2.5px #ffffff24;
+                background-image: linear-gradient(90deg, #ffffff00 0%, #ffffff24 50%, #ffffff00 100%);
                 background-position: left -20rem top 0;
                 background-repeat: no-repeat;
                 animation: skeleton-loading-input ease-out 1.5s infinite;
@@ -215,8 +220,9 @@ const LoaderContainer = styled(motion.div)`
                 width: 13rem;
                 height: 2rem;
                 border-radius: 25px 25px 5px 25px;
-                background-color: #ffffff14;
-                background-image: linear-gradient(90deg, #ffffff00 0%, #ffffff14 50%, #ffffff00 100%);
+                /* background-color: #ffffff14; */
+                border: solid 2.5px #ffffff24;
+                background-image: linear-gradient(90deg, #ffffff00 0%, #ffffff24 50%, #ffffff00 100%);
                 background-position: left -20rem top 0;
                 background-repeat: no-repeat;
                 animation: skeleton-loading-input ease-out 1.5s infinite;
@@ -236,8 +242,9 @@ const LoaderContainer = styled(motion.div)`
                 width: 10rem;
                 height: 2rem;
                 border-radius: 25px 5px 25px 25px;
-                background-color: #ffffff14;
-                background-image: linear-gradient(90deg, #ffffff00 0%, #ffffff14 50%, #ffffff00 100%);
+                /* background-color: #ffffff14; */
+                border: solid 2.5px #ffffff24;
+                background-image: linear-gradient(90deg, #ffffff00 0%, #ffffff24 50%, #ffffff00 100%);
                 background-position: left -20rem top 0;
                 background-repeat: no-repeat;
                 animation: skeleton-loading-input ease-out 1.5s infinite;
@@ -257,8 +264,9 @@ const LoaderContainer = styled(motion.div)`
                 width: 13rem;
                 height: 3rem;
                 border-radius: 25px;
-                background-color: #ffffff14;
-                background-image: linear-gradient(90deg, #ffffff00 0%, #ffffff14 50%, #ffffff00 100%);
+                /* background-color: #ffffff14; */
+                border: solid 2.5px #ffffff24;
+                background-image: linear-gradient(90deg, #ffffff00 0%, #ffffff24 50%, #ffffff00 100%);
                 background-position: left -20rem top 0;
                 background-repeat: no-repeat;
                 animation: skeleton-loading-input ease-out 1.5s infinite;

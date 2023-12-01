@@ -30,7 +30,7 @@ const Message = (props) => {
     } = props.message;
 
     const dispatch = useDispatch();
-    const { messageOptionsId, selectedMessages, menuShow } = useSelector((store) => store.appStore);
+    const { messageOptionsId, selectedMessages } = useSelector((store) => store.appStore);
     const { replyTo: replyToApp } = useSelector((store) => store.sendMessageStore);
 
     const { selectMessage, checkMessage, unSelectMessage } = useSelect();
@@ -177,6 +177,12 @@ const Message = (props) => {
                 newreply={props.newreply ? 1 : 0}
                 date={priorDifferentDate ? 1 : 0}
                 letters={letters}
+                blur={
+                    messageOptionsId &&
+                    messageOptionsId != id &&
+                    props.type == 'CHAT' &&
+                    !selectedMessages.length
+                }
             >
                 <ChatDate
                     layout={props.type == 'EDIT_REPLY' ? 0 : 1}
@@ -184,6 +190,12 @@ const Message = (props) => {
                     key='chat-date'
                     dateObj={time}
                     priorDifferentDate={priorDifferentDate}
+                    blur={
+                        messageOptionsId &&
+                        messageOptionsId != id &&
+                        props.type == 'CHAT' &&
+                        !selectedMessages.length
+                    }
                 />
 
                 <div
@@ -199,7 +211,7 @@ const Message = (props) => {
                         <div className='username-reply'>
                             <MessageUsername
                                 username={messageUsername}
-                                show={messageUid != localUid && messagePosition != 2 && messagePosition != 3}
+                                show={messageUid != localUid}
                             />
                             <MessageReply replyTo={replyTo} type={props.type} />
                         </div>
@@ -244,7 +256,6 @@ const Message = (props) => {
                         show={
                             messageOptionsId == id &&
                             props.type == 'CHAT' &&
-                            !menuShow &&
                             !selectedMessages.length
                         }
                         message={{
@@ -276,6 +287,7 @@ const MessageBox = styled(motion.div)`
     }
 
     .message-box {
+        filter: ${props => props.blur ? "blur(5px)" : "blur(0px)"};
         z-index: 1;
         display: flex;
         justify-content: ${(props) => props.localuser ? 'flex-start' : 'flex-end'};
@@ -319,10 +331,10 @@ const MessageBox = styled(motion.div)`
         font-weight: 200;
         word-break: break-all;
         cursor: pointer;
-        box-shadow: var(--normal-shadow);
+        box-shadow: ${props => props.blur ? "var(--bold-shadow)" : "var(--normal-shadow)"};
         color: var(--normal-color);
         transition: backdrop-filter 0.4s, border-radius 0.4s, margin 0.4s,
-            background 0.4s, background 0.2s, padding 0.2s;
+            background 0.4s, background 0.2s, padding 0.2s, filter .4s, box-shadow .2s;
 
         .message {
             text-align: ${(props) => (props.ispersian ? 'right' : 'left')};
@@ -344,6 +356,10 @@ const MessageBox = styled(motion.div)`
                 word-spacing: 0;
                 white-space: nowrap;
             }
+        }
+
+        &:hover {
+            filter: ${props => props.blur ? "blur(0px)" : "blur(0px)"};
         }
     }
 

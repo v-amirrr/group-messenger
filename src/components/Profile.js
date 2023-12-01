@@ -15,6 +15,7 @@ const Profile = () => {
                 animate='visible'
                 exit='exit'
                 variants={profileVariants}
+                letters={user?.displayName.length < 15 ? user?.displayName.length : enterAsAGuest ? 8 : 15}
             >
                 {
                     enterAsAGuest ?
@@ -30,7 +31,6 @@ const Profile = () => {
                         </i>
                         <p className='text'>{user?.displayName}</p>
                     </div>
-
                 }
             </ProfileContainer>
         </>
@@ -86,14 +86,14 @@ const ProfileContainer = styled(motion.div)`
     }
 
     &:hover {
-        width: 7.5rem;
+        width: ${props => `${props.letters}rem`};
         /* height: 5rem; */
         border-radius: 50px;
 
         .guest,
         .user {
             .text {
-                margin-left: 6.5rem;
+                margin-left: ${props => `${props.letters-1.5}rem`};
                 letter-spacing: 0.5px;
                 opacity: 1;
             }

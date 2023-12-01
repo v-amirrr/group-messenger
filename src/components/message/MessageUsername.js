@@ -32,7 +32,7 @@ const MessageUsernameContainer = styled.div`
     box-shadow: var(--bold-shadow);
     border-radius: 50px;
     padding: 0.2rem 0.5rem 0.2rem 1.2rem;
-    max-width: 6.5rem;
+    max-width: 8rem;
     text-overflow: ellipsis;
     overflow: hidden;
 

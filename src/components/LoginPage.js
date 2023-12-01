@@ -116,15 +116,13 @@ const Login = styled(motion.section)`
     color: var(--normal-color);
 
     header {
-        background-color: var(--normal-bg);
         border-radius: 50px;
         display: flex;
         justify-content: center;
         align-items: center;
         width: 12rem;
-        height: 2.5rem;
-        border: solid 2.5px #ffffff14;
-        margin: 1rem;
+        height: 2.8rem;
+        margin: 1.5rem;
         position: relative;
 
         button {
@@ -136,7 +134,7 @@ const Login = styled(motion.section)`
             justify-content: center;
             align-items: center;
             cursor: pointer;
-            transition: color .2s;
+            transition: color .2s, letter-spacing .4s;
         }
 
         :disabled {
@@ -145,20 +143,28 @@ const Login = styled(motion.section)`
 
         .login {
             color: ${props => props.toggle ? "var(--normal-color)" : "var(--pale-color)"};
+            letter-spacing: ${props => !props.toggle ? "0px" : "1px"};
         }
 
         .signup {
             color: ${props => !props.toggle ? "var(--normal-color)" : "var(--pale-color)"};
+            letter-spacing: ${props => !props.toggle ? "1px" : "0px"};
+        }
+
+        .login, .signup {
+            &:hover {
+                letter-spacing: 1px;
+                color: var(--normal-color);
+            }
         }
 
         span {
             position: absolute;
-            left: ${props => props.toggle ? "7%" : "57%"};
-            height: 70%;
-            width: 35%;
-            background-color: var(--normal-bg);
-            border-radius: 50px;
-            transition: left .4s cubic-bezier(0.53, 0, 0, 0.98);
+            left: ${props => props.toggle ? "13.5%" : "61%"};
+            height: 60%;
+            width: ${props => props.toggle ? "22%" : "27%"};
+            border-bottom: solid 3px #ffffffaa;
+            transition: left .4s cubic-bezier(0.53, 0, 0, 0.98), width .4s cubic-bezier(0.53, 0, 0, 0.98);
         }
     }
 
@@ -342,7 +348,6 @@ const Login = styled(motion.section)`
             margin: 0 .2rem;
         }
     }
-
 `;
 
 export default LoginPage;

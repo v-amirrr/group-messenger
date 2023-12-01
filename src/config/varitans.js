@@ -240,11 +240,12 @@ export const messageLoaderVariants = {
 
 export const optionsVariants = onMobile
     ? {
-          hidden: { opacity: 0, y: 80 },
+          hidden: { opacity: 0, scale: 0.9, y: 30 },
           visible: {
               opacity: 1,
+              scale: 1,
               y: 0,
-              transition: { duration: 0.4, staggerChildren: 0.03, type: 'spring', stiffness: 70 },
+              transition: { duration: 0.2, staggerChildren: 0.02, type: 'spring', stiffness: 100 },
 
           },
           exit: {
@@ -275,12 +276,11 @@ export const optionsVariants = onMobile
 
 export const optionLocalVariants = onMobile
     ? {
-          hidden: { opacity: 0, y: 30 },
+          hidden: { opacity: 0, y: 20 },
           visible: {
               opacity: 1,
               y: 0,
-              scale: 1,
-              transition: { duration: 0.4 },
+              transition: { duration: 0.3 },
 
           },
           exit: {
@@ -305,12 +305,11 @@ export const optionLocalVariants = onMobile
 
 export const optionNonLocalVariants = onMobile
     ? {
-        hidden: { opacity: 0, y: 30 },
+        hidden: { opacity: 0, y: 20 },
         visible: {
             opacity: 1,
             y: 0,
-            scale: 1,
-            transition: { duration: 0.4 },
+            transition: { duration: 0.3 },
 
         },
         exit: {
@@ -559,7 +558,7 @@ export const replyAddSectionVariants = {
             duration: 0.4,
         },
     },
-    exit: { opacity: 0, scale: 0.9, transition: { duration: 0.2 } },
+    exit: { opacity: 0, scale: 0, transition: { duration: 0.2 } },
 };
 
 export const replyButtonVariants = {

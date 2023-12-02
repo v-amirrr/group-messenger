@@ -29,7 +29,7 @@ const MessageOptions = ({ clickEvent, show, message, replyTo }) => {
                     selectMessage(message);
                 break;
             }
-        }, 350);
+        }, 400);
         switch (option) {
             case 'COPY':
                 copyMessage(message.message);

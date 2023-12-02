@@ -177,12 +177,6 @@ const Message = (props) => {
                 newreply={props.newreply ? 1 : 0}
                 date={priorDifferentDate ? 1 : 0}
                 letters={letters}
-                blur={
-                    messageOptionsId &&
-                    messageOptionsId != id &&
-                    props.type == 'CHAT' &&
-                    !selectedMessages.length
-                }
             >
                 <ChatDate
                     layout={props.type == 'EDIT_REPLY' ? 0 : 1}
@@ -190,12 +184,6 @@ const Message = (props) => {
                     key='chat-date'
                     dateObj={time}
                     priorDifferentDate={priorDifferentDate}
-                    blur={
-                        messageOptionsId &&
-                        messageOptionsId != id &&
-                        props.type == 'CHAT' &&
-                        !selectedMessages.length
-                    }
                 />
 
                 <div
@@ -287,7 +275,6 @@ const MessageBox = styled(motion.div)`
     }
 
     .message-box {
-        filter: ${props => props.blur ? "blur(5px)" : "blur(0px)"};
         z-index: 1;
         display: flex;
         justify-content: ${(props) => props.localuser ? 'flex-start' : 'flex-end'};
@@ -334,7 +321,7 @@ const MessageBox = styled(motion.div)`
         box-shadow: ${props => props.blur ? "var(--bold-shadow)" : "var(--normal-shadow)"};
         color: var(--normal-color);
         transition: backdrop-filter 0.4s, border-radius 0.4s, margin 0.4s,
-            background 0.4s, background 0.2s, padding 0.2s, filter .4s, box-shadow .2s;
+            background 0.4s, background 0.2s, padding 0.2s, box-shadow .2s;
 
         .message {
             text-align: ${(props) => (props.ispersian ? 'right' : 'left')};

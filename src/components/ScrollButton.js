@@ -16,7 +16,7 @@ const ScrollButton = ({ click, scroll }) => {
 
 const ScrollButtonContainer = styled(motion.button)`
     position: absolute;
-    bottom: 1.2rem;
+    bottom: 1.1rem;
     right: 8.2rem;
     width: 2.5rem;
     height: 2.5rem;

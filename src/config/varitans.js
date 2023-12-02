@@ -260,7 +260,7 @@ export const optionsVariants = onMobile
               opacity: 1,
               transition: {
                   duration: 0.1,
-                  staggerChildren: 0.02,
+                  staggerChildren: 0.01,
                   when: 'beforeChildren',
               },
           },
@@ -298,7 +298,7 @@ export const optionLocalVariants = onMobile
           },
           exit: {
               opacity: 0,
-              x: 30,
+              x: 20,
               transition: { duration: 0.3 },
           },
       };
@@ -327,7 +327,7 @@ export const optionNonLocalVariants = onMobile
           },
           exit: {
               opacity: 0,
-              x: -30,
+              x: -20,
               transition: { duration: 0.3 },
           },
       };
@@ -347,7 +347,7 @@ export const timeVariants = {
 };
 
 export const replyIconLocalVariants = {
-    hidden: { opacity: 0, x: 50 },
+    hidden: { opacity: 0, x: 70 },
     visible: {
         opacity: 1,
         x: 0,
@@ -359,11 +359,11 @@ export const replyIconLocalVariants = {
             time: [0.53, 0, 0, 0.98],
         },
     },
-    exit: { opacity: 0, x: 50, transition: { duration: 0.3 } },
+    exit: { opacity: 0, x: 70, transition: { duration: 0.8, ease: [0.53, 0, 0, 0.98], time: [0.53, 0, 0, 0.98] } },
 };
 
 export const replyIconNonLocalVariants = {
-    hidden: { opacity: 0, x: -50 },
+    hidden: { opacity: 0, x: -70 },
     visible: {
         opacity: 1,
         x: 0,
@@ -375,7 +375,7 @@ export const replyIconNonLocalVariants = {
             time: [0.53, 0, 0, 0.98],
         },
     },
-    exit: { opacity: 0, x: -50, transition: { duration: 0.3 } },
+    exit: { opacity: 0, x: -70, transition: { duration: 0.8, ease: [0.53, 0, 0, 0.98], time: [0.53, 0, 0, 0.98] } },
 };
 
 export const selectCheckLocalVariants = {
@@ -432,11 +432,10 @@ export const sendInputIconVariants = {
 };
 
 export const replyVariants = {
-    hidden: { opacity: 0, y: 50, scaleY: 0.8 },
+    hidden: { opacity: 0, y: 50 },
     visible: {
         opacity: 1,
         y: 0,
-        scaleY: 1,
         transition: {
             type: 'spring',
             stiffness: 100,
@@ -445,7 +444,7 @@ export const replyVariants = {
             time: [0.53, 0, 0, 0.98],
         },
     },
-    exit: { opacity: 0, y: 30, transition: { duration: 0.3 } },
+    exit: { opacity: 0, y: 50, transition: { duration: 0.8, ease: [0.53, 0, 0, 0.98], time: [0.53, 0, 0, 0.98] } },
 };
 
 export const emojiPickerContainerVariatns = {
@@ -575,7 +574,6 @@ export const selectBarVariants = {
         transition: {
             type: 'spring',
             stiffness: 100,
-            delay: 0.2,
             duration: 0.8,
             ease: [0.53, 0, 0, 0.98],
             time: [0.53, 0, 0, 0.98],

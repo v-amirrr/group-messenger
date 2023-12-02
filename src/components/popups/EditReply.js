@@ -171,8 +171,8 @@ const ReplyConatiner = styled(motion.div)`
     overflow: hidden;
     transition: ${(props) =>
         props.editReplyOpen
-            ? 'border .4s .6s, background .2s, width .5s cubic-bezier(.53,0,0,.98), height .5s cubic-bezier(.53,0,0,.98), bottom .5s, left .5s'
-            : 'border .4s, background .2s .6s, width .4s .1s cubic-bezier(.53,0,0,.98), height .4s .1s cubic-bezier(.53,0,0,.98), bottom .4s .1s, left .4s .1s'};
+            ? 'border .4s .6s, background .2s, width .4s cubic-bezier(.53,0,0,.98), height .4s cubic-bezier(.53,0,0,.98), bottom .4s, left .4s'
+            : 'border .4s, background .2s .6s, width .35s .1s, height .35s .1s, bottom .35s .1s, left .35s .1s'};
 
     .open-button {
         all: unset;

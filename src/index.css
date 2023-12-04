@@ -9,8 +9,8 @@
     --red-color: #cc0000;
     --green-color: #00cc00;
 
-    --normal-glass: blur(5px) saturate(100%);
-    --bold-glass: blur(20px) saturate(100%);
+    --normal-glass: blur(5px) saturate(150%);
+    --bold-glass: blur(20px) saturate(150%);
 
     --normal-bg: #ffffff10;
     --normal-bg-hover: #ffffff20;

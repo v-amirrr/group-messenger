@@ -6,7 +6,7 @@ import { useAuth } from '../hooks/useAuth';
 import { useRedirection } from '../hooks/useRedirection';
 import { FaRegEye, FaUserLock } from 'react-icons/fa';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { loginVariants, loginItemVariants } from '../config/varitans';
 
 const LoginPage = () => {
@@ -58,31 +58,33 @@ const LoginPage = () => {
 
     return (
         <>
-            <Login toggle={toggle} layout showpassword={showPassword} loading={signupData.loading || loginData.loading} googleloading={googleData.loading} initial='hidden' animate='visible' exit='exit' variants={loginVariants}>
+            <Login toggle={toggle} showpassword={showPassword} loading={signupData.loading || loginData.loading} googleloading={googleData.loading} initial='hidden' animate='visible' exit='exit' variants={loginVariants}>
                 <Notification />
-                <motion.header layout variants={loginItemVariants}>
+                <motion.header variants={loginItemVariants}>
                     <button className='login' onClick={() => setToggle(true)} disabled={loginData.loading || signupData.loading || googleData.loading}>LOGIN</button>
                     <button className='signup' onClick={() => setToggle(false)} disabled={loginData.loading || signupData.loading || googleData.loading}>SIGN UP</button>
                     <span></span>
                 </motion.header>
-                {
-                    !toggle ?
-                    <motion.div layout key="1" layoutId='1' variants={loginItemVariants} className='username'>
-                        <input type='text' placeholder='Username' value={username} onChange={e => setUsername(e.target.value)} />
-                    </motion.div>
-                    : ""
-                }
-                <motion.div layout className='email' variants={loginItemVariants}>
-                    <input type='email' placeholder='Email' value={email} onChange={e => setEmail(e.target.value)} />
+                <AnimatePresence>
+                    {
+                        !toggle ?
+                        <motion.div key="username" initial='hidden' animate='visible' exit='exit' variants={loginItemVariants} className='username'>
+                            <input type='text' placeholder='Username' value={username} onChange={e => setUsername(e.target.value)} disabled={loginData.loading || signupData.loading || googleData.loading} />
+                        </motion.div>
+                        : ""
+                    }
+                </AnimatePresence>
+                <motion.div className='email' variants={loginItemVariants}>
+                    <input type='email' placeholder='Email' value={email} onChange={e => setEmail(e.target.value)} disabled={loginData.loading || signupData.loading || googleData.loading} />
                 </motion.div>
-                <motion.div layout className='password' variants={loginItemVariants}>
-                    <input type={showPassword ? 'text' : 'password'} placeholder='Password' value={password} onChange={e => setPassword(e.target.value)} />
-                    <button onClick={() => setShowPassword(!showPassword)}>
+                <motion.div className='password' variants={loginItemVariants}>
+                    <input type={showPassword ? 'text' : 'password'} placeholder='Password' value={password} onChange={e => setPassword(e.target.value)} disabled={loginData.loading || signupData.loading || googleData.loading} />
+                    <button onClick={() => setShowPassword(!showPassword)} disabled={loginData.loading || signupData.loading || googleData.loading}>
                         <i><FaRegEye /></i>
                         <hr />
                     </button>
                 </motion.div>
-                <motion.div layout className='buttons' variants={loginItemVariants}>
+                <motion.div className='buttons' variants={loginItemVariants}>
                     <button className='clear' onClick={clear} disabled={googleData.loading}>
                         <p>Clear</p>
                     </button>
@@ -91,11 +93,11 @@ const LoginPage = () => {
                     </button>
                     <div className='loader'><MessageLoader size={"1.5rem"}/></div>
                 </motion.div>
-                <motion.button layout className='google' variants={loginItemVariants} onClick={googleHandler} disabled={loginData.loading || signupData.loading}>
+                <motion.button className='google' variants={loginItemVariants} onClick={googleHandler} disabled={loginData.loading || signupData.loading}>
                     <p className='google-logo'><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 272 92" width="272" height="92"><path fill="#EA4335" d="M115.75 47.18c0 12.77-9.99 22.18-22.25 22.18s-22.25-9.41-22.25-22.18C71.25 34.32 81.24 25 93.5 25s22.25 9.32 22.25 22.18zm-9.74 0c0-7.98-5.79-13.44-12.51-13.44S80.99 39.2 80.99 47.18c0 7.9 5.79 13.44 12.51 13.44s12.51-5.55 12.51-13.44z"/><path fill="#FBBC05" d="M163.75 47.18c0 12.77-9.99 22.18-22.25 22.18s-22.25-9.41-22.25-22.18c0-12.85 9.99-22.18 22.25-22.18s22.25 9.32 22.25 22.18zm-9.74 0c0-7.98-5.79-13.44-12.51-13.44s-12.51 5.46-12.51 13.44c0 7.9 5.79 13.44 12.51 13.44s12.51-5.55 12.51-13.44z"/><path fill="#4285F4" d="M209.75 26.34v39.82c0 16.38-9.66 23.07-21.08 23.07-10.75 0-17.22-7.19-19.66-13.07l8.48-3.53c1.51 3.61 5.21 7.87 11.17 7.87 7.31 0 11.84-4.51 11.84-13v-3.19h-.34c-2.18 2.69-6.38 5.04-11.68 5.04-11.09 0-21.25-9.66-21.25-22.09 0-12.52 10.16-22.26 21.25-22.26 5.29 0 9.49 2.35 11.68 4.96h.34v-3.61h9.25zm-8.56 20.92c0-7.81-5.21-13.52-11.84-13.52-6.72 0-12.35 5.71-12.35 13.52 0 7.73 5.63 13.36 12.35 13.36 6.63 0 11.84-5.63 11.84-13.36z"/><path fill="#34A853" d="M225 3v65h-9.5V3h9.5z"/><path fill="#EA4335" d="M262.02 54.48l7.56 5.04c-2.44 3.61-8.32 9.83-18.48 9.83-12.6 0-22.01-9.74-22.01-22.18 0-13.19 9.49-22.18 20.92-22.18 11.51 0 17.14 9.16 18.98 14.11l1.01 2.52-29.65 12.28c2.27 4.45 5.8 6.72 10.75 6.72 4.96 0 8.4-2.44 10.92-6.14zm-23.27-7.98l19.82-8.23c-1.09-2.77-4.37-4.7-8.23-4.7-4.95 0-11.84 4.37-11.59 12.93z"/><path fill="#4285F4" d="M35.29 41.41V32H67c.31 1.64.47 3.58.47 5.68 0 7.06-1.93 15.79-8.15 22.01-6.05 6.3-13.78 9.66-24.02 9.66C16.32 69.35.36 53.89.36 34.91.36 15.93 16.32.47 35.3.47c10.5 0 17.98 4.12 23.6 9.49l-6.64 6.64c-4.03-3.78-9.49-6.72-16.97-6.72-13.86 0-24.7 11.17-24.7 25.03 0 13.86 10.84 25.03 24.7 25.03 8.99 0 14.11-3.61 17.39-6.89 2.66-2.66 4.41-6.46 5.1-11.65l-22.49.01z"/></svg></p>
                     <div className='google-loader'><MessageLoader size={"1.5rem"}/></div>
                 </motion.button>
-                <motion.button layout className='guest' variants={loginItemVariants} onClick={enterAsAGuest} disabled={loginData.loading || signupData.loading || googleData.loading}>
+                <motion.button className='guest' variants={loginItemVariants} onClick={enterAsAGuest} disabled={loginData.loading || signupData.loading || googleData.loading}>
                 <i><FaUserLock /></i>
                 Guest Mode
                 </motion.button>
@@ -120,51 +122,52 @@ const Login = styled(motion.section)`
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 12rem;
-        height: 2.8rem;
-        margin: 1.5rem;
+        height: 2rem;
+        margin: ${props => props.toggle ? "1.5rem" : "4rem"};
+        padding: .1rem;
         position: relative;
+        border: solid 2.5px #ffffff20;
+        box-shadow: var(--normal-shadow);
+        backdrop-filter: var(--bold-glass);
+        -webkit-backdrop-filter: var(--bold-glass);
+        transition: margin .4s;
 
         button {
-            font-size: .8rem;
+            font-size: .6rem;
             font-weight: 600;
-            margin: 0 .2rem;
-            width: 50%;
+            width: 3.4rem;
+            height: 1.5rem;
             display: flex;
             justify-content: center;
             align-items: center;
             cursor: pointer;
-            transition: color .2s, letter-spacing .4s;
-        }
+            color: var(--pale-color);
+            z-index: 2;
+            transition: color .4s .1s;
 
-        :disabled {
-            cursor: not-allowed;
+            :disabled {
+                cursor: not-allowed;
+            }
         }
 
         .login {
             color: ${props => props.toggle ? "var(--normal-color)" : "var(--pale-color)"};
-            letter-spacing: ${props => !props.toggle ? "0px" : "1px"};
         }
 
         .signup {
             color: ${props => !props.toggle ? "var(--normal-color)" : "var(--pale-color)"};
-            letter-spacing: ${props => !props.toggle ? "1px" : "0px"};
-        }
-
-        .login, .signup {
-            &:hover {
-                letter-spacing: 1px;
-                color: var(--normal-color);
-            }
         }
 
         span {
             position: absolute;
-            left: ${props => props.toggle ? "13.5%" : "61%"};
-            height: 60%;
-            width: ${props => props.toggle ? "22%" : "27%"};
-            border-bottom: solid 3px #ffffffaa;
-            transition: left .4s cubic-bezier(0.53, 0, 0, 0.98), width .4s cubic-bezier(0.53, 0, 0, 0.98);
+            left: ${props => props.toggle ? ".3rem" : "96.5%"};
+            transform: ${props => props.toggle ? "translateX(0%)" : "translateX(-100%)"};
+            width: 3.1rem;
+            height: 1.2rem;
+            border-radius: 50px;
+            background-color: #ffffff20;
+            transition: left .4s cubic-bezier(0.53, 0, 0, 0.98), transform .4s cubic-bezier(0.53, 0, 0, 0.98);
+            box-shadow: var(--normal-shadow);
         }
     }
 
@@ -180,6 +183,9 @@ const Login = styled(motion.section)`
         display: flex;
         justify-content: center;
         align-items: center;
+        box-shadow: var(--normal-shadow);
+        backdrop-filter: var(--bold-glass);
+        -webkit-backdrop-filter: var(--bold-glass);
 
         input {
             all: unset;
@@ -191,6 +197,10 @@ const Login = styled(motion.section)`
             &:-webkit-autofill{
                 background-color: var(--normal-bg);
                 transition: background-color 1s ease-in 2000s;
+            }
+
+            :disabled {
+                cursor: not-allowed;
             }
         }
 
@@ -222,7 +232,16 @@ const Login = styled(motion.section)`
                 transform: rotate(45deg);
                 transition: width .3s;
             }
+
+            :disabled {
+                cursor: not-allowed;
+            }
         }
+    }
+
+    .username {
+        position: absolute;
+        margin-bottom: 5.7rem;
     }
 
     .buttons {
@@ -248,8 +267,11 @@ const Login = styled(motion.section)`
             font-size: 1rem;
             font-weight: 400;
             letter-spacing: -1px;
+            box-shadow: var(--normal-shadow);
+            backdrop-filter: var(--bold-glass);
+            -webkit-backdrop-filter: var(--bold-glass);
             white-space: nowrap;
-            transition: background .2s, margin .4s, border-radius .4s;
+            transition: background .2s, ${props => props.loading ? "margin .4s, border-radius .4s" : "margin .6s, border-radius .4s"};
 
             @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
                 &:hover {
@@ -272,7 +294,6 @@ const Login = styled(motion.section)`
             position: absolute;
             transform: ${props => props.loading ? "scale(1)" : "scale(0)"};
             transition: transform .4s;
-            z-index: -1;
         }
 
         .clear {
@@ -307,6 +328,9 @@ const Login = styled(motion.section)`
         align-items: center;
         white-space: nowrap;
         transition: background .2s;
+        box-shadow: var(--normal-shadow);
+        backdrop-filter: var(--bold-glass);
+        -webkit-backdrop-filter: var(--bold-glass);
 
         @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
             &:hover {
@@ -321,13 +345,15 @@ const Login = styled(motion.section)`
         .google-logo {
             position: relative;
             transform: ${props => props.googleloading ? "scale(0)" : "scale(1)"};
+            filter: ${props => props.loading ? "grayscale(100%)" : "grayscale(0%)"};
+            -webkit-filter: ${props => props.loading ? "grayscale(100%)" : "grayscale(0%)"};
             display: flex;
             justify-content: center;
             align-items: center;
             width: 3.5rem;
             height: 100%;
             margin-left: .2rem;
-            transition: transform .4s;
+            transition: transform .4s, filter .4s;
 
             svg {
                 margin-top: .1rem;

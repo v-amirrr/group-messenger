@@ -12,19 +12,14 @@ const MessengerBackground = () => {
     const location = useLocation();
     const { theme } = useSelector((store) => store.appStore);
 
-    const [scale, setScale] = useState(true);
+    const [scale, setScale] = useState(false);
 
     useEffect(() => {
-        setScale(false);
+        setScale(true);
+        setTimeout(() => {
+            setScale(false);
+        }, 1000);
     }, [location.pathname]);
-
-    useEffect(() => {
-        if (!scale) {
-            setTimeout(() => {
-                setScale(true);
-            }, 100);
-        }
-    }, [scale]);
 
     return (
         <>
@@ -76,7 +71,7 @@ const BackgroundContainer = styled.div`
     justify-content: center;
     align-items: center;
     transform: ${props => props.scale ? "scale(1.1)" : "scale(1)"};
-    transition: ${props => props.scale ? "transform 1s cubic-bezier(.53,0,0,.98)" : "transform .1s"};
+    transition: ${props => props.scale ? "transform 1s cubic-bezier(.53,0,0,.98)" : "transform 2s"};
 
     img {
         object-fit: cover;

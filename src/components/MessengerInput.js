@@ -206,7 +206,7 @@ const MessengerInputContainer = styled(motion.section)`
     justify-content: center;
     align-items: center;
     color: var(--normal-color);
-    border: solid 2.5px #ffffff14;
+    border: solid 2.5px #ffffff20;
     border-radius: 50px;
     box-shadow: var(--normal-shadow);
     backdrop-filter: var(--bold-glass);
@@ -245,13 +245,13 @@ const MessengerInputContainer = styled(motion.section)`
 
         /* Handle */
         ::-webkit-scrollbar-thumb {
-            background: ${(props) => props.multiline ? '#ffffff14' : '#ffffff00'};
+            background: ${(props) => props.multiline ? '#ffffff20' : '#ffffff00'};
             border-radius: 50px;
         }
     }
 
     .placeholder {
-        color: #ffffff24;
+        color: #ffffff20;
         font-weight: 200;
         white-space: nowrap;
         font-size: 1rem;
@@ -267,7 +267,7 @@ const MessengerInputContainer = styled(motion.section)`
         display: flex;
         justify-content: center;
         align-items: center;
-        color: #ffffff14;
+        color: #ffffff20;
         cursor: pointer;
         position: absolute;
         right: 2.5rem;
@@ -282,7 +282,7 @@ const MessengerInputContainer = styled(motion.section)`
         justify-content: center;
         align-items: center;
         border: none;
-        color: #ffffff14;
+        color: #ffffff20;
         cursor: pointer;
         position: absolute;
         right: .2rem;
@@ -300,8 +300,8 @@ const MessengerInputContainer = styled(motion.section)`
     }
 
     @media (max-width: 768px) {
-        width: 18rem;
-        height: 3rem;
+        width: 15rem;
+        height: 2.6rem;
         margin-right: 4rem;
     }
 `;
@@ -316,7 +316,7 @@ const ReplyTo = styled(motion.div)`
     align-items: center;
     padding: 0 0.2rem;
     color: var(--normal-color);
-    border: solid 2.5px #ffffff14;
+    border: solid 2.5px #ffffff20;
     border-radius: 50px;
     box-shadow: var(--normal-shadow);
     backdrop-filter: var(--bold-glass);
@@ -375,7 +375,7 @@ const ReplyTo = styled(motion.div)`
     @media (max-width: 768px) {
         max-width: 50%;
         margin-right: 4rem;
-        bottom: 4.3rem;
+        bottom: 4rem;
     }
 `;
 

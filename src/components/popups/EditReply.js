@@ -166,7 +166,7 @@ const ReplyConatiner = styled(motion.div)`
     flex-direction: column;
     border-radius: 25px;
     background-color: ${(props) => props.editReplyOpen ? '#000000aa' : '#00000000'};
-    border: ${(props) => props.editReplyOpen ? 'solid 2.5px #ffffff00' : 'solid 2.5px #ffffff14'};
+    border: ${(props) => props.editReplyOpen ? 'solid 2.5px #ffffff00' : 'solid 2.5px #ffffff20'};
     box-shadow: var(--shadow-second);
     overflow: hidden;
     transition: ${(props) =>

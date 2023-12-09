@@ -77,7 +77,6 @@ const AuthError = () => {
                                     <button className='link' onClick={logout}>
                                         Login
                                     </button>
-                                    .
                                 </p>
                             ) : (
                                 <p>{notification?.message}</p>

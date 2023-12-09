@@ -15,15 +15,16 @@ const ScrollButton = ({ click, scroll }) => {
 };
 
 const ScrollButtonContainer = styled(motion.button)`
+    box-sizing: content-box;
     position: absolute;
     bottom: 1.1rem;
     right: 8.2rem;
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2.3rem;
+    height: 2.3rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: solid 2.5px #ffffff14;
+    border: solid 2.5px #ffffff20;
     border-radius: 50%;
     box-shadow: var(--normal-shadow);
     backdrop-filter: var(--bold-glass);
@@ -43,14 +44,8 @@ const ScrollButtonContainer = styled(motion.button)`
     }
 
     @media (max-width: 768px) {
-        width: 3rem;
-        height: 3rem;
         right: 0;
         bottom: 1rem;
-
-        i {
-            font-size: 1.2rem;
-        }
     }
 `;
 

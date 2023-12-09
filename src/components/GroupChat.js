@@ -77,7 +77,7 @@ const GroupChat = () => {
     return (
         <>
             <AnimatePresence exitBeforeEnter>
-                {!selectedMessages.length ? <MessengerMenu key="messenger-menu" /> : ""}
+                {!selectedMessages.length ? <MessengerMenu key="menu" /> : ""}
             </AnimatePresence>
 
             <AnimatePresence exitBeforeEnter>

@@ -567,19 +567,19 @@ export const replyButtonVariants = {
 };
 
 export const selectBarVariants = {
-    hidden: { opacity: 0, y: 50 },
+    hidden: { opacity: 0, y: 50, scale: 0.9 },
     visible: {
         opacity: 1,
         y: 0,
+        scale: 1,
         transition: {
-            type: 'spring',
-            stiffness: 100,
-            duration: 0.8,
+            delay: 0.2,
+            duration: 0.6,
             ease: [0.53, 0, 0, 0.98],
             time: [0.53, 0, 0, 0.98],
         },
     },
-    exit: { opacity: 0, y: 30, transition: { duration: 0.3 } },
+    exit: { opacity: 0, y: 30, transition: { duration: 0.6, ease: [0.53, 0, 0, 0.98], time: [0.53, 0, 0, 0.98] }},
 };
 
 export const checkButtonVariants = {

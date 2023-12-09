@@ -81,7 +81,7 @@ const SelectBar = () => {
 const SelectBarContainer = styled(motion.div)`
     position: absolute;
     bottom: 1rem;
-    border: solid 2.5px #ffffff14;
+    border: solid 2.5px #ffffff20;
     border-radius: 50px;
     box-shadow: var(--normal-shadow);
     backdrop-filter: var(--bold-glass);
@@ -198,9 +198,16 @@ const SelectBarContainer = styled(motion.div)`
     }
 
     @media (max-width: 500px) {
-        width: 18rem;
-        height: 3rem;
+        width: 15rem;
+        height: 2.6rem;
         margin-right: 4rem;
+
+        .options {
+            .delete, .copy {
+                margin: 0;
+                width: 4.5rem;
+            }
+        }
     }
 `;
 

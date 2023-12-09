@@ -91,7 +91,7 @@ const PopupContainer = styled(motion.div)`
     align-items: center;
     flex-direction: column;
     background-color: #ffffff04;
-    border: solid 2.5px #ffffff14;
+    border: solid 2.5px #ffffff20;
     border-radius: 25px;
     box-shadow: var(--normal-shadow);
     position: relative;

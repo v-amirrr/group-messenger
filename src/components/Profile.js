@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { useAuth } from '../hooks/useAuth';
 import { FaUserLock, FaUser } from 'react-icons/fa';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
@@ -7,6 +8,7 @@ import { profileVariants } from '../config/varitans';
 
 const Profile = () => {
     const { user, enterAsAGuest } = useSelector((store) => store.userStore);
+    const { logout } = useAuth();
 
     return (
         <>
@@ -38,13 +40,14 @@ const Profile = () => {
 };
 
 const ProfileContainer = styled(motion.div)`
+    box-sizing: content-box;
     position: absolute;
     top: 1rem;
     left: 8.2rem;
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2.3rem;
+    height: 2.3rem;
     color: var(--normal-color);
-    border: solid 2.5px #ffffff14;
+    border: solid 2.5px #ffffff20;
     border-radius: 50px;
     box-shadow: var(--normal-shadow);
     backdrop-filter: var(--bold-glass);
@@ -54,15 +57,15 @@ const ProfileContainer = styled(motion.div)`
     align-items: center;
     z-index: 2;
     overflow: hidden;
-    transition: width 0.4s cubic-bezier(0.53, 0, 0, 0.98), height 0.4s cubic-bezier(0.53, 0, 0, 0.98), border-radius 0.4s 0.4s;
+    transition: width 0.3s cubic-bezier(0.53, 0, 0, 0.98), height 0.3s cubic-bezier(0.53, 0, 0, 0.98), border-radius .2s .6s;
 
     .guest,
     .user {
         position: absolute;
         top: 0;
         left: 0;
-        width: 2.45rem;
-        height: 2.45rem;
+        width: 2.3rem;
+        height: 2.3rem;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -87,8 +90,8 @@ const ProfileContainer = styled(motion.div)`
 
     &:hover {
         width: ${props => `${props.letters}rem`};
-        /* height: 5rem; */
-        border-radius: 50px;
+        border-radius: 25px;
+        transition: width 0.4s cubic-bezier(0.53, 0, 0, 0.98), height 0.4s cubic-bezier(0.53, 0, 0, 0.98), border-radius .1s;
 
         .guest,
         .user {
@@ -101,36 +104,7 @@ const ProfileContainer = styled(motion.div)`
     }
 
     @media (max-width: 768px) {
-        width: 3rem;
-        height: 3rem;
         left: 0;
-
-        .guest,
-        .user {
-            width: 2.8rem;
-            height: 2.8rem;
-
-            .text {
-                font-size: 1rem;
-                margin-left: 18rem;
-                letter-spacing: 10px;
-            }
-
-            .icon {
-                font-size: 1.2rem;
-            }
-        }
-
-        &:hover {
-            width: 10rem;
-
-            .guest,
-            .user {
-                .text {
-                    margin-left: 9rem;
-                }
-            }
-        }
     }
 `;
 

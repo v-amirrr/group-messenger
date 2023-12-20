@@ -75,7 +75,6 @@ export const useMessageOptions = () => {
         const docRef = doc(db, 'messages', id);
         deleteDoc(docRef);
         closePopup();
-        openNotification('Message was deleted.', false, 'DELETE');
     };
 
     const undeleteMessage = (id) => {
@@ -83,7 +82,6 @@ export const useMessageOptions = () => {
         updateDoc(docRef, {
             deleted: false,
         });
-        openNotification('Message restored.', false, 'RESTORE');
     };
 
     const editMessage = (id, editInput) => {

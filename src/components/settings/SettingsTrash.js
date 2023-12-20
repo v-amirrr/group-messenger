@@ -40,6 +40,7 @@ const SettingsTrash = ({ open, setOpen, setHeight }) => {
 
     useEffect(() => {
         setMessages(deletedMessages?.filter(item => item?.uid == user?.uid));
+        setOpen(false);
     }, [deletedMessages]);
 
     return (
@@ -99,8 +100,8 @@ const SettingsTrash = ({ open, setOpen, setHeight }) => {
                                             ))}
                                         </AnimatePresence>
                                     </motion.div>
-                                </>
-                                : <motion.div key="trash-empty" className='trash-empty' initial='hidden' animate='visible' exit='exit' variants={trashVariants}>
+                                </> :
+                                <motion.div key="trash-empty" className='trash-empty' initial='hidden' animate='visible' exit='exit' variants={trashVariants}>
                                     <p>Trash is empty!</p>
                                 </motion.div>}
                             </AnimatePresence>

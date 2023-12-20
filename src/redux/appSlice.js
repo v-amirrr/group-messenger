@@ -18,7 +18,6 @@ const initialState = {
         background: false,
         username: true,
     },
-    menuShow: false,
 };
 
 const appSlice = createSlice({
@@ -120,12 +119,6 @@ const appSlice = createSlice({
                 },
             };
         },
-        setMenuShow: (state, action) => {
-            return {
-                ...state,
-                menuShow: action.payload,
-            };
-        },
     },
 });
 
@@ -142,7 +135,6 @@ export const {
     setCloseNotification,
     setClearNotifications,
     setNotificationSettings,
-    setMenuShow,
 } = appSlice.actions;
 
 export default appSlice.reducer;

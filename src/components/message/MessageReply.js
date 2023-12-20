@@ -40,7 +40,7 @@ const ReplySection = styled.div`
     margin-right: 0.2rem;
     font-weight: 400;
     color: var(--pale-color);
-    background-color: var(--normal-bg);
+    background-color: #ffffff09;
     box-shadow: var(--bold-shadow);
     padding: 0.2rem 0.5rem 0.2rem 1.2rem;
     position: relative;

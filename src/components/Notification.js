@@ -7,10 +7,7 @@ import { IoClose } from 'react-icons/io5';
 import { FcAdvertising, FcHighPriority, FcKey } from 'react-icons/fc';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
-import {
-    notificationContainerVariants,
-    notificationVariants,
-} from '../config/varitans';
+import { notificationVariants } from '../config/varitans';
 
 const AuthError = () => {
     const location = useLocation();
@@ -32,13 +29,7 @@ const AuthError = () => {
 
     return (
         <>
-            <NotificationsContainer
-                layout
-                initial='hidden'
-                animate='visible'
-                exit='exit'
-                variants={notificationContainerVariants}
-            >
+            <NotificationsContainer layout initial='hidden' animate='visible' exit='exit' variants={notificationVariants}>
                 <AnimatePresence>
                     {notifications?.map((notification) => (
                         <NotificationContainer
@@ -50,37 +41,32 @@ const AuthError = () => {
                             variants={notificationVariants}
                             error={notification.isError ? 1 : 0}
                         >
-                            <button
-                                className='close-button'
-                                onClick={() =>
-                                    closeNotification(notification.time)
-                                }
-                            >
+                            <button className='close-button' onClick={() => closeNotification(notification.time)}>
                                 <IoClose />
                             </button>
-                            {notification?.isError ? (
+                            {
+                                notification?.isError ?
                                 <i className='error-icon'>
                                     <FcHighPriority />
-                                </i>
-                            ) : notification.isGuest ? (
+                                </i> :
+                                notification.isGuest ?
                                 <i className='guest-icon'>
                                     <FcKey />
-                                </i>
-                            ) : (
+                                </i> :
                                 <i className='notification-icon'>
                                     <FcAdvertising />
                                 </i>
-                            )}
-                            {notification.isGuest ? (
+                            }
+                            {
+                                notification.isGuest ?
                                 <p>
                                     In order to use this feature you need to{' '}
                                     <button className='link' onClick={logout}>
                                         Login
                                     </button>
-                                </p>
-                            ) : (
+                                </p> :
                                 <p>{notification?.message}</p>
-                            )}
+                            }
                         </NotificationContainer>
                     ))}
                 </AnimatePresence>
@@ -97,6 +83,7 @@ const NotificationsContainer = styled(motion.div)`
     align-items: center;
     flex-direction: column-reverse;
     z-index: 3;
+    width: 100vw;
 `;
 
 const NotificationContainer = styled(motion.div)`

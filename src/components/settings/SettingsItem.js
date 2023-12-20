@@ -12,7 +12,7 @@ const SettingsItem = ({ open, openValue, component, height }) => {
 };
 
 const SettingsItemContainer = styled.div`
-    width: 80%;
+    width: 70%;
     height: ${props => props.open ? `${props.height}rem` : "2.2rem"};
     display: flex;
     justify-content: flex-start;

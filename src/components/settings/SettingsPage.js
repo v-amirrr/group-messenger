@@ -110,8 +110,8 @@ const Settings = styled(motion.section)`
 
 const SettingsContainer = styled(motion.section)`
     position: relative;
-    width: 18rem;
-    height: 30rem;
+    width: 20rem;
+    height: 32rem;
     display: flex;
     justify-content: center;
     align-items: center;

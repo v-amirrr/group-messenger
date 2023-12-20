@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { setMessageOptionsId, setSelectedMessages, setClearSelectedMessages, setUnselectMessages, setSelectOthersMessage } from '../redux/appSlice';
+import { setSelectedMessages, setClearSelectedMessages, setUnselectMessages, setSelectOthersMessage } from '../redux/appSlice';
 import { useMessageOptions } from "./useMessageOptions";
 import { useNotification } from "./useNotification";
 
@@ -9,7 +9,7 @@ export const useSelect = () => {
     const { selectedMessages } = useSelector(store => store.appStore);
     const { enterAsAGuest } = useSelector(store => store.userStore);
 
-    const { trashMessage, clearReplyMessage, copyMessage, undeleteMessage, deleteMessage, closePopup } = useMessageOptions();
+    const { trashMessage, clearReplyMessage, undeleteMessage, deleteMessage, closePopup } = useMessageOptions();
     const { openNotification } = useNotification();
 
     const selectMessage = (message) => {
@@ -39,7 +39,6 @@ export const useSelect = () => {
             if (!selectedMessages[i].isMessageFromLocalUser) {
                 dispatch(setSelectOthersMessage(true));
             }
-
             if (selectedMessages[i].id == id) {
                 setSelected(true);
                 break;
@@ -76,7 +75,7 @@ export const useSelect = () => {
         selectedMessages.map((message, index) => {
             setTimeout(() => {
                 trashMessage(message.id);
-            }, index * 600);
+            }, index * 800);
         });
         clearSelectedMessages();
     };
@@ -93,22 +92,38 @@ export const useSelect = () => {
     };
 
     const restoreSelectedMessages = () => {
-        selectedMessages.map((message, index) => {
-            setTimeout(() => {
+        if (selectedMessages.length > 4) {
+            selectedMessages.map((message) => {
                 undeleteMessage(message.id);
-            }, index * 600);
-        });
+            });
+            openNotification('Messages restored.', false, 'RESTORE');
+        } else {
+            selectedMessages.map((message, index) => {
+                setTimeout(() => {
+                    undeleteMessage(message.id);
+                    openNotification('Message restored.', false, 'RESTORE');
+                }, index * 600);
+            });
+        }
         clearSelectedMessages();
     };
 
     const deleteSelectedMessages = () => {
         closePopup();
         setTimeout(() => {
-            selectedMessages.map((message, index) => {
-                setTimeout(() => {
+            if (selectedMessages.length > 4) {
+                selectedMessages.map((message) => {
                     deleteMessage(message.id);
-                }, index * 600);
-            });
+                });
+                openNotification('Messages were permenately deleted.', false, 'RESTORE');
+            } else {
+                selectedMessages.map((message, index) => {
+                    setTimeout(() => {
+                        deleteMessage(message.id);
+                        openNotification('Messages were permenately deleted.', false, 'RESTORE');
+                    }, index * 600);
+                });
+            }
         }, 400);
         clearSelectedMessages();
     };

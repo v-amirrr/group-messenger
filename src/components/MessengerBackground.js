@@ -12,13 +12,23 @@ const MessengerBackground = () => {
     const location = useLocation();
     const { theme } = useSelector((store) => store.appStore);
 
-    const [scale, setScale] = useState(false);
+    const [scale, setScale] = useState(true);
+    const [prePath, setPrePath] = useState(location.pathname);
 
     useEffect(() => {
-        setScale(true);
-        setTimeout(() => {
+        if (prePath != '/') {
             setScale(false);
-        }, 1000);
+            setTimeout(() => {
+                setScale(true);
+                setPrePath(location.pathname)
+            }, 300);
+        } else if (prePath == '/') {
+            setScale(false);
+            setTimeout(() => {
+                setScale(true);
+                setPrePath(location.pathname)
+            }, location.pathname == '/settings' ? 200 : 200);
+        }
     }, [location.pathname]);
 
     return (
@@ -71,7 +81,7 @@ const BackgroundContainer = styled.div`
     justify-content: center;
     align-items: center;
     transform: ${props => props.scale ? "scale(1.1)" : "scale(1)"};
-    transition: ${props => props.scale ? "transform 1s cubic-bezier(.53,0,0,.98)" : "transform 2s"};
+    transition: ${props => props.scale ? "transform 1s cubic-bezier(.53,0,0,.98)" : "transform .3s"};
 
     img {
         object-fit: cover;
@@ -81,7 +91,7 @@ const BackgroundContainer = styled.div`
     }
 
     @media (max-width: 768px) {
-        transform: scale(1);
+        /* transform: scale(1); */
 
         img {
             position: absolute;

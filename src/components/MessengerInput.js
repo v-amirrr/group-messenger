@@ -32,7 +32,7 @@ const MessengerInput = ({ scrollDown }) => {
 
     const inputRef = useRef();
 
-    const [inputText, setInputText] = useState('');
+    const [inputText, setInputText] = useState(localStorage.getItem('input-text') ? localStorage.getItem('input-text') : '');
     const [multiline, setMultiline] = useState(false);
     const [emojiPickerShow, setEmojiPickerShow] = useState(false);
 
@@ -84,7 +84,12 @@ const MessengerInput = ({ scrollDown }) => {
                 setMultiline(true);
             }
         });
+        localStorage.setItem('input-text', inputText);
     }, [inputText]);
+
+    useEffect(() => {
+        inputText && inputRef?.current?.setSelectionRange(inputText.length, inputText.length);
+    }, []);
 
     return (
         <>

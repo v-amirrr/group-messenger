@@ -42,13 +42,12 @@ const MessageOptions = ({ clickEvent, show, message, replyTo }) => {
             break;
         }
     };
-
     return (
         <>
             <AnimatePresence>
                 {
                     show ?
-                    <MessageOptionsContainer key={message.id} ref={messageOptionsRef} initial='hidden' animate='visible' exit='exit' variants={optionsVariants} ismessagefromlocaluser={message.isMessageFromLocalUser ? 1 : 0} x={clickEvent?.pageX} y={clickEvent?.pageY} guest={enterAsAGuest ? 1 : 0}>
+                    <MessageOptionsContainer key={message.id} ref={messageOptionsRef} initial='hidden' animate='visible' exit='exit' variants={optionsVariants} ismessagefromlocaluser={message.isMessageFromLocalUser ? 1 : 0} x={clickEvent?.pageX} y={clickEvent?.pageY} guest={enterAsAGuest ? 1 : 0} hour={message.time.hour > 12 ? (message.time.hour-12) / 12 * 360 + 90 : message.time.hour / 12 * 360 + 90} minute={message.time.minute / 60 * 360 + 90}>
                         {
                             !replyTo ?
                             <>
@@ -87,15 +86,14 @@ const MessageOptions = ({ clickEvent, show, message, replyTo }) => {
                             : ""
                         }
                         <motion.div className='time' variants={message.isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants}>
-                            <i><AiFillClockCircle /></i>
-                            {
-                                message.time.hour != null && message.time.minute != null ?
-                                <p>
-                                    <span>{message.time.hour < 10 ? `0${message.time.hour}` : message.time.hour}</span>:
-                                    <span>{message.time.minute < 10 ? `0${message.time.minute}` : message.time.minute}</span>
-                                </p>
-                                : ""
-                            }
+                            <div>
+                                <span className="hour"></span>
+                                <span className="minute"></span>
+                            </div>
+                            <p>
+                                <span>{message.time.hour < 10 ? `0${message.time.hour}` : message.time.hour}</span>:
+                                <span>{message.time.minute < 10 ? `0${message.time.minute}` : message.time.minute}</span>
+                            </p>
                         </motion.div>
                     </MessageOptionsContainer>
                     : ""
@@ -160,6 +158,41 @@ const MessageOptionsContainer = styled(motion.div)`
         cursor: auto;
         padding: .5rem 2.5rem .5rem .5rem;
         border: none;
+
+        div {
+            background-color: #fff;
+            width: 1.1rem;
+            height: 1.1rem;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+
+            .hour {
+                position: absolute;
+                top: 50%;
+                right: 50%;
+                width: 40%;
+                height: 2.5px;
+                border-radius: 100px;
+                background-color: #000;
+                transform-origin: 100%;
+                transform: ${props => `rotate(${props.hour}deg)`};
+            }
+
+            .minute {
+                position: absolute;
+                top: 50%;
+                right: 50%;
+                width: 30%;
+                height: 2.5px;
+                border-radius: 100px;
+                background-color: #000;
+                transform-origin: 100%;
+                transform: ${props => `rotate(${props.minute}deg)`};
+            }
+        }
 
         p {
             transform: scale(1);

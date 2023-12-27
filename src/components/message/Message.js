@@ -202,7 +202,7 @@ const Message = (props) => {
                     onTouchEnd={onHoldEnds}
                 >
                     <p className='message'>
-                        <div className='username-reply'>
+                        <div className='reply'>
                             <MessageReply replyTo={replyTo} type={props.type} />
                         </div>
                         {
@@ -281,7 +281,6 @@ const MessageContainer = styled(motion.div)`
         display: flex;
         justify-content: ${(props) => props.localuser ? 'flex-start' : 'flex-end'};
         align-items: center;
-        flex-direction: ${(props) => (props.localuser ? 'row' : 'row')};
         background-color: ${(props) => props.selected ? 'var(--normal-bg-hover)' : 'var(--normal-bg)'};
         margin: ${(props) =>
             props.messageposition == 0
@@ -335,7 +334,7 @@ const MessageContainer = styled(motion.div)`
                 'Vazirmatn', sans-serif;
             font-size: ${(props) => (props.type == 'TRASH' ? '.6rem' : '1rem')};
 
-            .username-reply {
+            .reply {
                 display: inline-flex;
                 justify-content: center;
                 align-items: center;

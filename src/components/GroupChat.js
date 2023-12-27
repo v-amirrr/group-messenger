@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useRedirection } from '../hooks/useRedirection';
 import Message from './message/Message';
@@ -41,9 +41,9 @@ const GroupChat = () => {
         } else if (messagesRef?.current?.scrollTop < scrollPosition) {
             setScroll(false);
         }
-        if (messagesRef?.current?.scrollTop <= 100) {
+        if (messagesRef?.current?.scrollTop <= 200) {
             setScroll(true);
-        } else if (~~messagesRef?.current?.scrollTop + 100 >= messagesRef?.current?.scrollHeight - messagesRef?.current?.clientHeight) {
+        } else if (~~messagesRef?.current?.scrollTop + 200 >= messagesRef?.current?.scrollHeight - messagesRef?.current?.clientHeight) {
             setScroll(false);
         }
         scrollPosition = messagesRef?.current?.scrollTop;
@@ -65,13 +65,15 @@ const GroupChat = () => {
 
     useEffect(() => {
         const localstorageScroll = localStorage.getItem("scroll");
-        setTimeout(() => {
             if (localstorageScroll == 'end') {
                 scrollDown();
             } else {
-                messagesRef?.current?.scrollTo(0, localstorageScroll);
+                messagesRef?.current?.scrollBy({
+                    top: localstorageScroll,
+                    left: 0,
+                    behavior: "instant"
+                });
             }
-        }, 1000);
     }, []);
 
     return (

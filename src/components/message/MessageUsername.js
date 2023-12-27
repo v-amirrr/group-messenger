@@ -25,13 +25,13 @@ const MessageUsernameContainer = styled.div`
     margin-right: 0.2rem;
     white-space: nowrap;
     position: absolute;
-    top: ${props => props.chatdate ? "35%" : "15%"};
+    top: ${props => props.chatdate ? "34%" : "15%"};
     margin-left: ${(props) => props.anymessageselected ? '3rem' : ''};
     font-weight: 400;
     color: var(--pale-color);
-    background-color: #ffffff09;
+    background-color: #ffffff0b;
     box-shadow: var(--bold-shadow);
-    border-radius: 50px 50px 50px 5px;
+    border-radius: 50px 50px 50px 10px;
     padding: 0.2rem 0.5rem 0.2rem 1.2rem;
     max-width: 8rem;
     text-overflow: ellipsis;

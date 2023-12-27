@@ -49,16 +49,25 @@ export const errorBoxVariants = {
 };
 
 export const notificationVariants = {
-    hidden: { opacity: 0, y: -20, scale: 0.9 },
+    hidden: { opacity: 0, y: -40 },
     visible: {
         opacity: 1,
         y: 0,
-        scale: 1,
         transition: {
-            duration: 0.4,
+            duration: 0.7,
+            ease: [0.53, 0, 0, 0.98],
+            time: [0.53, 0, 0, 0.98],
         },
     },
-    exit: { opacity: 0, scale: 0.8, transition: { duration: 0.2 } },
+    exit: {
+        opacity: 0,
+        scale: 0.5,
+        transition: {
+            duration: 0.5,
+            ease: [0.53, 0, 0, 0.98],
+            time: [0.53, 0, 0, 0.98],
+        },
+    },
 };
 
 export const enterPageVariants = {
@@ -221,9 +230,9 @@ export const messageVariants = onMobile
               scale: 0.5,
               x: 120,
               transition: {
-                duration: 0.5,
-                ease: [0.53, 0, 0, 0.98],
-                time: [0.53, 0, 0, 0.98],
+                  duration: 0.5,
+                  ease: [0.53, 0, 0, 0.98],
+                  time: [0.53, 0, 0, 0.98],
               },
           },
       };
@@ -528,21 +537,21 @@ export const popupContainerVariants = {
 };
 
 export const replyAddSectionVariants = {
-    hidden: { opacity: 0, scale: 0.9 },
+    hidden: { opacity: 0 },
     visible: {
         opacity: 1,
-        scale: 1,
         transition: {
-            delay: 0.4,
+            delay: 0.25,
             duration: 0.4,
+            when: 'beforeChildren',
         },
     },
-    exit: { opacity: 0, scale: 0, transition: { duration: 0.2 } },
+    exit: { opacity: 0, scale: 0.9, transition: { duration: 0.2 } },
 };
 
 export const replyButtonVariants = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 0.4, delay: 0.4 } },
+    visible: { opacity: 1, transition: { duration: 0.2 } },
     exit: { opacity: 0, transition: { duration: 0.2 } },
 };
 

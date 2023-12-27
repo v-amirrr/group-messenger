@@ -11,9 +11,7 @@ import { useGetMessages } from '../hooks/useGetMessages';
 
 const Messenger = () => {
     const { loadingOff } = useGetMessages();
-    const { loading, error, messages } = useSelector(
-        (store) => store.messagesStore,
-    );
+    const { loading, error, messages } = useSelector((store) => store.messagesStore);
 
     useEffect(() => {
         if (messages?.length) {

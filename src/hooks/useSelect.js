@@ -77,6 +77,9 @@ export const useSelect = () => {
                 trashMessage(message.id);
             }, index * 800);
         });
+        setTimeout(() => {
+            openNotification('Messages were moved to trash.', false, 'TRASH');
+        }, selectedMessages.length * 800);
         clearSelectedMessages();
     };
 

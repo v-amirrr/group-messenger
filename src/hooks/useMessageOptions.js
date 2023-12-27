@@ -67,7 +67,6 @@ export const useMessageOptions = () => {
             updateDoc(docRef, {
                 deleted: true,
             });
-            openNotification('Message was moved to trash.', false, 'TRASH');
         }, 500);
     };
 

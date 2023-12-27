@@ -11,6 +11,7 @@ import { backgroundImageVariants } from '../config/varitans';
 const MessengerBackground = () => {
     const location = useLocation();
     const { theme } = useSelector((store) => store.appStore);
+    const { loading } = useSelector((store) => store.messagesStore);
 
     const [scale, setScale] = useState(true);
     const [prePath, setPrePath] = useState(location.pathname);
@@ -20,21 +21,21 @@ const MessengerBackground = () => {
             setScale(false);
             setTimeout(() => {
                 setScale(true);
-                setPrePath(location.pathname)
-            }, 300);
+                setPrePath(location.pathname);
+            }, 350);
         } else if (prePath == '/') {
             setScale(false);
             setTimeout(() => {
                 setScale(true);
-                setPrePath(location.pathname)
-            }, location.pathname == '/settings' ? 200 : 200);
+                setPrePath(location.pathname);
+            }, location.pathname == '/settings' ? 300 : 200);
         }
     }, [location.pathname]);
 
     return (
         <>
-            <CoverContainer cover={location.pathname == '/warning' || location.pathname == '/login'}></CoverContainer>
-            <BackgroundContainer scale={scale}>
+            <CoverContainer cover={location.pathname == '/warning' || location.pathname == '/login' || loading}></CoverContainer>
+            <BackgroundContainer scale={scale ? 1 : 0}>
                 <AnimatePresence exitBeforeEnter>
                     {
                         theme == 1 ?
@@ -105,7 +106,7 @@ const BackgroundContainer = styled.div`
 const CoverContainer = styled.div`
     width: 100vw;
     height: 100vh;
-    background-color: ${props => props.cover ? "#000000aa" : "#00000066"};
+    background-color: ${props => props.cover ? "#000000dd" : "#000000aa"};
     position: absolute;
     top: 0;
     left: 0;

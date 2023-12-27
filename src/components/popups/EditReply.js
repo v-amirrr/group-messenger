@@ -29,12 +29,12 @@ const EditReply = ({ replyTo, id, editReplyOpen, setEditReplyOpen }) => {
     const openHandler = () => {
         setEditReplyOpen(!editReplyOpen);
         setTimeout(() => {
-            messagesRef?.current?.scrollTo(
-                0,
-                messagesRef?.current?.scrollHeight -
-                    messagesRef?.current?.clientHeight,
-            );
-        }, 1000);
+            messagesRef?.current?.scrollBy({
+                top: messagesRef?.current?.scrollHeight - messagesRef?.current?.clientHeight,
+                left: 0,
+                behavior: "instant"
+            });
+        }, 250);
     };
 
     useEffect(() => {
@@ -171,8 +171,8 @@ const ReplyConatiner = styled(motion.div)`
     overflow: hidden;
     transition: ${(props) =>
         props.editReplyOpen
-            ? 'border .4s .6s, background .2s, width .4s cubic-bezier(.53,0,0,.98), height .4s cubic-bezier(.53,0,0,.98), bottom .4s, left .4s'
-            : 'border .4s, background .2s .6s, width .35s .1s, height .35s .1s, bottom .35s .1s, left .35s .1s'};
+            ? 'border .4s .4s, background .2s, width .4s cubic-bezier(.53,0,0,.98), height .4s cubic-bezier(.53,0,0,.98), bottom .4s, left .4s'
+            : 'border .4s, background .2s .6s, width .3s .1s, height .3s .1s, bottom .3s .1s, left .3s .1s'};
 
     .open-button {
         all: unset;
@@ -250,10 +250,6 @@ const ReplyConatiner = styled(motion.div)`
         bottom: auto;
         top: ${(props) => (props.editReplyOpen ? '0' : '.8rem')};
         left: ${(props) => (props.editReplyOpen ? '0' : '2rem')};
-        transition: ${(props) =>
-            props.editReplyOpen
-                ? 'background .4s, width .6s, height .6s, top .6s, left .6s'
-                : 'background .4s .4s, width .4s .1s, height .4s .1s, top .4s .1s, left .4s .1s'};
 
         .reply-messages {
             padding: 1rem 0.5rem;

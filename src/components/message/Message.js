@@ -9,10 +9,11 @@ import ChatDate from '../ChatDate';
 import MessageReply from './MessageReply';
 import MessageSelectCheck from './MessageSelectCheck';
 import MessageUsername from './MessageUsername';
-import styled from 'styled-components';
-import { motion } from 'framer-motion';
-import { messageVariants } from '../../config/varitans';
+import MessageLoader from './MessageLoader';
 import MessageReplyIcon from './MessageReplyIcon';
+import styled from 'styled-components';
+import { AnimatePresence, motion } from 'framer-motion';
+import { messageVariants } from '../../config/varitans';
 
 const Message = (props) => {
     const {
@@ -31,7 +32,7 @@ const Message = (props) => {
 
     const dispatch = useDispatch();
     const { messageOptionsId, selectedMessages } = useSelector((store) => store.appStore);
-    const { replyTo: replyToApp } = useSelector((store) => store.sendMessageStore);
+    const { replyTo: replyToApp, loading } = useSelector((store) => store.sendMessageStore);
 
     const { selectMessage, checkMessage, unSelectMessage } = useSelect();
     const { replyMessage } = useMessageOptions();
@@ -246,7 +247,8 @@ const Message = (props) => {
                         show={
                             messageOptionsId == id &&
                             props.type == 'CHAT' &&
-                            !selectedMessages.length
+                            !selectedMessages.length &&
+                            time.hour != undefined
                         }
                         message={{
                             ...props.message,
@@ -256,6 +258,9 @@ const Message = (props) => {
                         replyTo={replyToApp.id == id ? 1 : 0}
                     />
                 </div>
+
+                <MessageLoader time={time.hour} />
+
             </MessageContainer>
         </>
     );

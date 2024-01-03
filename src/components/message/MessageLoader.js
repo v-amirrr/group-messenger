@@ -1,143 +1,121 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { messageLoaderVariants } from '../../config/varitans';
 
-const MessageLoader = ({ size }) => {
+const MessageLoader = ({ time }) => {
+
+    const [status, setStatus] = useState(time == undefined ? 1 : 0);
+
+    useEffect(() => {
+        if (status == 1) {
+            setTimeout(() => {
+                setStatus(2);
+                setTimeout(() => {
+                    setStatus(0);
+                }, 2000);
+            }, 1000);
+        }
+    }, [time]);
+
     return (
         <>
-            <MessageLoaderContainer
-                initial='hidden'
-                animate='visible'
-                exit='exit'
-                variants={messageLoaderVariants}
-                size={size}
-            >
-                <svg
-                    className='spinner'
-                    width='65px'
-                    height='65px'
-                    viewBox='0 0 66 66'
-                    xmlns='http://www.w3.org/2000/svg'
-                >
-                    <circle
-                        className='path'
-                        fill='none'
-                        strokeWidth='6'
-                        strokeLinecap='round'
-                        cx='33'
-                        cy='33'
-                        r='30'
-                    ></circle>
-                </svg>
+            <MessageLoaderContainer>
+                <AnimatePresence exitBeforeEnter>
+                {
+                    status == 1 ?
+                        <motion.p key='loader' initial='hidden' animate='visible' exit='exit' variants={messageLoaderVariants}>
+                            sending
+                            <span className='dot'>.</span>
+                            <span className='dot'>.</span>
+                            <span className='dot'>.</span>
+                        </motion.p> :
+                    status == 2 ?
+                        <motion.p key='sent' initial='hidden' animate='visible' exit='exit' variants={messageLoaderVariants}>
+                            sent successfully
+                            <div className='tick'>
+                                <span className='first-line-tick'></span>
+                                <span className='second-line-tick'></span>
+                            </div>
+                        </motion.p>
+                    : ''
+                }
+                </AnimatePresence>
             </MessageLoaderContainer>
         </>
     );
 };
 
-const MessageLoaderContainer = styled(motion.div)`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
+const MessageLoaderContainer = styled.div`
+    margin: 0 .2rem;
 
-    .spinner {
-        width: ${(props) => props.size};
-        height: ${(props) => props.size};
-        -webkit-animation: rotator 1.4s linear infinite;
-        animation: rotator 1.4s linear infinite;
+    p {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: .6rem;
+        font-weight: 200;
+        color: #666;
+
+        .dot {
+            font-size: 1rem;
+            margin-bottom: .3rem;
+            letter-spacing: -2px;
+
+            &:nth-child(1) {
+                animation: dot-flashing .5s infinite alternate;
+                animation-delay: 0s;
+            }
+
+            &:nth-child(2) {
+                animation: dot-flashing .5s infinite alternate;
+                animation-delay: .25s;
+            }
+
+            &:nth-child(3) {
+                animation: dot-flashing .5s infinite alternate;
+                animation-delay: .5s;
+            }
+        }
+
+        .tick {
+            width: 1rem;
+            height: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+
+            .first-line-tick {
+                position: absolute;
+                left: 0;
+                background-color: #666;
+                border-radius: 50px;
+                width: .6rem;
+                height: .5px;
+                transform: rotate(-55deg);
+                margin: 0 0 0 .12rem;
+            }
+
+            .second-line-tick {
+                position: absolute;
+                left: 0;
+                background-color: #666;
+                border-radius: 50px;
+                width: .3rem;
+                height: .5px;
+                transform: rotate(60deg);
+                margin: .24rem 0 0 .05rem;
+            }
+        }
     }
 
-    @-webkit-keyframes rotator {
+    @keyframes dot-flashing {
         0% {
-            transform: rotate(0deg);
+            color: #666;
         }
         100% {
-            transform: rotate(270deg);
-        }
-    }
-
-    @keyframes rotator {
-        0% {
-            transform: rotate(0deg);
-        }
-        100% {
-            transform: rotate(270deg);
-        }
-    }
-
-    .path {
-        stroke-dasharray: 187;
-        stroke-dashoffset: 0;
-        transform-origin: center;
-        -webkit-animation: dash 1.4s ease-in-out infinite,
-            colors 5.6s ease-in-out infinite;
-        animation: dash 1.4s ease-in-out infinite,
-            colors 5.6s ease-in-out infinite;
-    }
-
-    @-webkit-keyframes colors {
-        0% {
-            stroke: #4285f4;
-        }
-        25% {
-            stroke: #de3e35;
-        }
-        50% {
-            stroke: #f7c223;
-        }
-        75% {
-            stroke: #1b9a59;
-        }
-        100% {
-            stroke: #4285f4;
-        }
-    }
-
-    @keyframes colors {
-        0% {
-            stroke: #4285f4;
-        }
-        25% {
-            stroke: #de3e35;
-        }
-        50% {
-            stroke: #f7c223;
-        }
-        75% {
-            stroke: #1b9a59;
-        }
-        100% {
-            stroke: #4285f4;
-        }
-    }
-
-    @-webkit-keyframes dash {
-        0% {
-            stroke-dashoffset: 187;
-        }
-        50% {
-            stroke-dashoffset: 46.75;
-            transform: rotate(135deg);
-        }
-        100% {
-            stroke-dashoffset: 187;
-            transform: rotate(450deg);
-        }
-    }
-
-    @keyframes dash {
-        0% {
-            stroke-dashoffset: 187;
-        }
-        50% {
-            stroke-dashoffset: 46.75;
-            transform: rotate(135deg);
-        }
-        100% {
-            stroke-dashoffset: 187;
-            transform: rotate(450deg);
+            color: #ffffff11;
         }
     }
 `;

@@ -242,13 +242,13 @@ export const messageLoaderVariants = {
     visible: {
         opacity: 1,
         scale: 1,
-        transition: {
-            duration: 0.6,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
-        },
+        transition: { duration: 0.4 },
     },
-    exit: { opacity: 0, scale: 0.9, transition: { duration: 0.4 } },
+    exit: {
+        opacity: 0,
+        scale: 0.9,
+        transition: { duration: 0.4, delay: 0.5 },
+    },
 };
 
 export const optionsVariants = onMobile

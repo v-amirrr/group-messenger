@@ -33,10 +33,8 @@ export const useSendMessage = () => {
                     replyTo: replyTo.id,
                 })
                 .then(() => {
-                    setTimeout(() => {
-                        dispatch(setSendMessageLoading(false));
-                        openNotification("Message was sent.", false, "SEND");
-                    }, 1000);
+                    dispatch(setSendMessageLoading(false));
+                    openNotification("Message was sent.", false, "SEND");
                 })
                 .catch(() => {
                     dispatch(setSendMessageError(true));
@@ -44,15 +42,13 @@ export const useSendMessage = () => {
                     dispatch(setRestoredText(messageText));
                 });
             } else {
-                setTimeout(() => {
-                    dispatch(setSendMessageError(true));
-                    dispatch(setSendMessageLoading(false));
-                    dispatch(setRestoredText(messageText));
+                dispatch(setSendMessageError(true));
+                dispatch(setSendMessageLoading(false));
+                dispatch(setRestoredText(messageText));
 
-                    setTimeout(() => {
-                        dispatch(setSendMessageError(null));
-                    }, 3000);
-                }, 1000);
+                setTimeout(() => {
+                    dispatch(setSendMessageError(null));
+                }, 3000);
             }
         }
     };

@@ -2,10 +2,9 @@ import React, { useState, useRef, useEffect, memo } from 'react';
 import { useSelector } from 'react-redux';
 import { useSendMessage } from '../hooks/useSendMessage';
 import { useMessageOptions } from '../hooks/useMessageOptions';
-import MessageLoader from './message/MessageLoader';
 import Emoji from './Emoji';
 import { isRTL } from '../functions/isRlt';
-import { IoSend, IoAlert, IoClose } from 'react-icons/io5';
+import { IoSend, IoClose } from 'react-icons/io5';
 import { BsReplyFill } from 'react-icons/bs';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -13,7 +12,7 @@ import { messengerInputVariants, sendInputIconVariants, replyVariants } from '..
 
 const MessengerInput = () => {
     const { error, localUsername } = useSelector((store) => store.messagesStore);
-    const { error: sendMessageError, loading: sendMessageLoading, replyTo, restoredText } = useSelector((store) => store.sendMessageStore);
+    const { error: sendMessageError, replyTo, restoredText } = useSelector((store) => store.sendMessageStore);
     const { popupShow, popupName } = useSelector((store) => store.popupStore);
 
     const { sendMessage } = useSendMessage();
@@ -25,7 +24,7 @@ const MessengerInput = () => {
     const [multiline, setMultiline] = useState(false);
 
     const inputSubmitHandler = () => {
-        if (inputText != '' && !sendMessageLoading) {
+        if (inputText != '') {
             sendMessage(inputText, localUsername);
             setInputText('');
             inputRef.current.focus();
@@ -147,33 +146,9 @@ const MessengerInput = () => {
                     disabled={!inputText}
                     onClick={inputSubmitHandler}
                 >
-                    <AnimatePresence exitBeforeEnter>
-                        {
-                            sendMessageLoading ?
-                            <div key='pending' className='loader'>
-                                <MessageLoader size={'1.5rem'} />
-                            </div> :
-                            sendMessageError ?
-                            <motion.div
-                                initial='hidden'
-                                animate='visible'
-                                exit='exit'
-                                variants={sendInputIconVariants}
-                                key='error'
-                            >
-                                <IoAlert color='red' />
-                            </motion.div> :
-                            <motion.div
-                                initial='hidden'
-                                animate='visible'
-                                exit='exit'
-                                variants={sendInputIconVariants}
-                                key='send'
-                            >
-                                <IoSend />
-                            </motion.div>
-                        }
-                    </AnimatePresence>
+                    <div>
+                        <IoSend />
+                    </div>
                 </button>
             </MessengerInputContainer>
         </>

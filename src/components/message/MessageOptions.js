@@ -169,27 +169,24 @@ const MessageOptionsContainer = styled(motion.div)`
             align-items: center;
             position: relative;
 
-            .hour {
+            .hour, .minute {
                 position: absolute;
                 top: 50%;
                 right: 50%;
-                width: 40%;
-                height: 2.5px;
+                height: 2.2px;
                 border-radius: 100px;
                 background-color: #000;
                 transform-origin: 100%;
                 transform: ${props => `rotate(${props.hour}deg)`};
             }
 
-            .minute {
-                position: absolute;
-                top: 50%;
-                right: 50%;
+            .hour {
                 width: 30%;
-                height: 2.5px;
-                border-radius: 100px;
-                background-color: #000;
-                transform-origin: 100%;
+                transform: ${props => `rotate(${props.hour}deg)`};
+            }
+
+            .minute {
+                width: 40%;
                 transform: ${props => `rotate(${props.minute}deg)`};
             }
         }

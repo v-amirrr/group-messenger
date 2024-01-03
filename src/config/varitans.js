@@ -486,17 +486,16 @@ export const replyVariants = {
     },
 };
 
-export const emojiPickerContainerVariatns = {
-    hidden: { opacity: 0, y: 20, scale: 0.95 },
+export const emojiPickerVariatns = {
+    hidden: { opacity: 0, y: 20 },
     visible: {
         opacity: 1,
         y: 0,
-        scale: 1,
         transition: {
-            duration: 0.4,
+            duration: 0.3,
         },
     },
-    exit: { opacity: 0, y: 20, scale: 0.95, transition: { duration: 0.2 } },
+    exit: { opacity: 0, y: 10, transition: { duration: 0.2 } },
 };
 
 export const menuVariants = {

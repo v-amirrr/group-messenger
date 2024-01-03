@@ -9,22 +9,11 @@ import { IoSend, IoAlert, IoClose } from 'react-icons/io5';
 import { BsReplyFill } from 'react-icons/bs';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
-import {
-    messengerInputVariants,
-    sendInputIconVariants,
-    replyVariants,
-} from '../config/varitans';
+import { messengerInputVariants, sendInputIconVariants, replyVariants } from '../config/varitans';
 
-const MessengerInput = ({ scrollDown }) => {
-    const { error, localUsername } = useSelector(
-        (store) => store.messagesStore,
-    );
-    const {
-        error: sendMessageError,
-        loading: sendMessageLoading,
-        replyTo,
-        restoredText,
-    } = useSelector((store) => store.sendMessageStore);
+const MessengerInput = () => {
+    const { error, localUsername } = useSelector((store) => store.messagesStore);
+    const { error: sendMessageError, loading: sendMessageLoading, replyTo, restoredText } = useSelector((store) => store.sendMessageStore);
     const { popupShow, popupName } = useSelector((store) => store.popupStore);
 
     const { sendMessage } = useSendMessage();
@@ -34,12 +23,9 @@ const MessengerInput = ({ scrollDown }) => {
 
     const [inputText, setInputText] = useState(localStorage.getItem('input-text') ? localStorage.getItem('input-text') : '');
     const [multiline, setMultiline] = useState(false);
-    const [emojiPickerShow, setEmojiPickerShow] = useState(false);
 
     const inputSubmitHandler = () => {
         if (inputText != '' && !sendMessageLoading) {
-            scrollDown();
-            setEmojiPickerShow(false);
             sendMessage(inputText, localUsername);
             setInputText('');
             inputRef.current.focus();
@@ -55,9 +41,7 @@ const MessengerInput = ({ scrollDown }) => {
 
     const focusHandler = () => {
         if (
-            document.documentElement.offsetWidth > 500 &&
-            !popupShow &&
-            !emojiPickerShow
+            document.documentElement.offsetWidth > 500 && !popupShow
         ) {
             inputRef.current.focus();
         } else if (popupShow) {
@@ -136,13 +120,7 @@ const MessengerInput = ({ scrollDown }) => {
                     autoFocus={document.documentElement.offsetWidth > 500 && !popupShow ? true : false}
                 />
 
-                {/* <Emoji
-                    replyToId={replyTo.id}
-                    inputText={inputText}
-                    setInputText={setInputText}
-                    show={emojiPickerShow}
-                    setShow={setEmojiPickerShow}
-                /> */}
+                <Emoji setInputText={setInputText} />
 
                 <p className='placeholder'>Send a message...</p>
 
@@ -206,7 +184,7 @@ const MessengerInputContainer = styled(motion.section)`
     position: absolute;
     bottom: 1rem;
     width: 20rem;
-    height: 2.6rem;
+    height: 2.4rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -217,7 +195,7 @@ const MessengerInputContainer = styled(motion.section)`
     backdrop-filter: var(--bold-glass);
     -webkit-backdrop-filter: var(--bold-glass);
     z-index: 2;
-    overflow: hidden;
+    box-sizing: content-box;
 
     .messenger-input {
         width: 15.5rem;
@@ -262,9 +240,9 @@ const MessengerInputContainer = styled(motion.section)`
         font-size: 1rem;
         position: absolute;
         opacity: ${props => props.inputtext ? "0" : "1"};
-        left: ${props => props.inputtext ? "-4rem" : "1rem"};
-        letter-spacing: ${props => props.inputtext ? "5px" : "0"};
-        transition: left .6s, opacity .4s, letter-spacing .6s;
+        left: ${props => props.inputtext ? "2rem" : "1rem"};
+        letter-spacing: ${props => props.inputtext ? "2px" : "0"};
+        transition: left .4s, opacity .4s, letter-spacing .6s;
     }
 
     .clear {
@@ -275,7 +253,7 @@ const MessengerInputContainer = styled(motion.section)`
         color: #ffffff20;
         cursor: pointer;
         position: absolute;
-        right: 2.5rem;
+        right: 4.2rem;
         height: 2.6rem;
     }
 

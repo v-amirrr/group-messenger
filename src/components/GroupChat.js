@@ -64,6 +64,12 @@ const GroupChat = () => {
     }, [messages]);
 
     useEffect(() => {
+        if (messages[messages.length-1].time.year && messages[messages.length-1].uid == user.uid) {
+            scrollDown();
+        }
+    }, [messages[messages.length-1].time]);
+
+    useEffect(() => {
         const localstorageScroll = localStorage.getItem("scroll");
             if (localstorageScroll == 'end') {
                 scrollDown();
@@ -118,7 +124,7 @@ const GroupChat = () => {
             </GroupChatContainer>
 
             <AnimatePresence exitBeforeEnter>
-                {!selectedMessages.length ? <MessengerInput key="messenger-input" scrollDown={scrollDown} /> : ""}
+                {!selectedMessages.length ? <MessengerInput key="input" /> : ""}
             </AnimatePresence>
         </>
     );

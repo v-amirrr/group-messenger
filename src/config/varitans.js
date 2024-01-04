@@ -87,26 +87,6 @@ export const notificationFastVariants = {
     },
 };
 
-export const enterPageVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-        opacity: 1,
-        transition: {
-            duration: 0.4,
-            staggerChildren: 0.05,
-            when: 'beforeChildren',
-        },
-    },
-    exit: {
-        opacity: 0,
-        transition: {
-            duration: 0.4,
-            staggerChildren: 0.05,
-            when: 'afterChildren',
-        },
-    },
-};
-
 export const boxVariants = {
     hidden: { opacity: 0, scale: 0.9 },
     visible: {
@@ -122,20 +102,17 @@ export const boxVariants = {
 };
 
 export const loginVariants = {
-    hidden: { opacity: 0 },
+    hidden: { opacity: 0, scale: 0.9 },
     visible: {
         opacity: 1,
+        scale: 1,
         transition: {
-            duration: 0.1,
-            staggerChildren: 0.1,
-            when: 'beforeChildren',
+            duration: 0.6,
+            ease: [0.53, 0, 0, 0.98],
+            time: [0.53, 0, 0, 0.98],
         },
     },
-    exit: {
-        opacity: 0,
-        scale: 0.9,
-        transition: { duration: 0.2, when: 'beforeChildren' },
-    },
+    exit: { opacity: 0, scale: 0.9, transition: { duration: 0.2 } },
 };
 
 export const loginItemVariants = {

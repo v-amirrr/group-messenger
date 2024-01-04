@@ -1,22 +1,9 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo } from 'react';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { messageLoaderVariants } from '../../config/varitans';
 
-const MessageLoader = ({ time }) => {
-
-    const [status, setStatus] = useState(time == undefined ? 1 : 0);
-
-    useEffect(() => {
-        if (status == 1) {
-            setTimeout(() => {
-                setStatus(2);
-                setTimeout(() => {
-                    setStatus(0);
-                }, 2000);
-            }, 1000);
-        }
-    }, [time]);
+const MessageLoader = ({ status }) => {
 
     return (
         <>
@@ -24,20 +11,16 @@ const MessageLoader = ({ time }) => {
                 <AnimatePresence exitBeforeEnter>
                 {
                     status == 1 ?
-                        <motion.p key='loader' initial='hidden' animate='visible' exit='exit' variants={messageLoaderVariants}>
-                            sending
-                            <span className='dot'>.</span>
-                            <span className='dot'>.</span>
-                            <span className='dot'>.</span>
-                        </motion.p> :
+                        <motion.div key='loader' initial='hidden' animate='visible' exit='exit' variants={messageLoaderVariants}>
+                            <span className='dot'></span>
+                            <span className='dot'></span>
+                            <span className='dot'></span>
+                        </motion.div> :
                     status == 2 ?
-                        <motion.p key='sent' initial='hidden' animate='visible' exit='exit' variants={messageLoaderVariants}>
-                            sent successfully
-                            <div className='tick'>
-                                <span className='first-line-tick'></span>
-                                <span className='second-line-tick'></span>
-                            </div>
-                        </motion.p>
+                        <motion.div key='checkmark' initial='hidden' animate='visible' exit='exit' variants={messageLoaderVariants}>
+                            <span className='checkmark'></span>
+                            <span className='checkmark'></span>
+                        </motion.div>
                     : ''
                 }
                 </AnimatePresence>
@@ -49,73 +32,82 @@ const MessageLoader = ({ time }) => {
 const MessageLoaderContainer = styled.div`
     margin: 0 .2rem;
 
-    p {
+    div {
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: .6rem;
-        font-weight: 200;
-        color: #666;
+        position: relative;
 
         .dot {
-            font-size: 1rem;
-            margin-bottom: .3rem;
-            letter-spacing: -2px;
+            width: .5rem;
+            height: .5rem;
+            border-radius: 50%;
+            background-color: #666;
 
             &:nth-child(1) {
-                animation: dot-flashing .5s infinite alternate;
+                animation: loader .6s infinite alternate;
                 animation-delay: 0s;
             }
 
             &:nth-child(2) {
-                animation: dot-flashing .5s infinite alternate;
+                animation: loader .6s infinite alternate;
                 animation-delay: .25s;
             }
 
             &:nth-child(3) {
-                animation: dot-flashing .5s infinite alternate;
+                animation: loader .6s infinite alternate;
                 animation-delay: .5s;
             }
         }
 
-        .tick {
-            width: 1rem;
-            height: 1rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
+        .checkmark {
+            background-color: #00b7ff;
+            border-radius: 50px;
+            position: absolute;
+            right: 0;
 
-            .first-line-tick {
-                position: absolute;
-                left: 0;
-                background-color: #666;
-                border-radius: 50px;
-                width: .6rem;
-                height: .5px;
-                transform: rotate(-55deg);
-                margin: 0 0 0 .12rem;
+            &:nth-child(1) {
+                margin: .16rem .55rem 0 0;
+                transform: rotate(-150deg);
+                animation: checkmark-one .4s forwards;
             }
 
-            .second-line-tick {
-                position: absolute;
-                left: 0;
-                background-color: #666;
-                border-radius: 50px;
-                width: .3rem;
-                height: .5px;
-                transform: rotate(60deg);
-                margin: .24rem 0 0 .05rem;
+            &:nth-child(2) {
+                margin: .54rem .79rem 0 0;
+                transform: rotate(-40deg);
+                animation: checkmark-two .2s .2s forwards;
             }
         }
     }
 
-    @keyframes dot-flashing {
+    @keyframes loader {
         0% {
-            color: #666;
+            transform: scale(1);
         }
         100% {
-            color: #ffffff11;
+            transform: scale(0.6);
+        }
+    }
+
+    @keyframes checkmark-one {
+        0% {
+            width: 0;
+            height: 0;
+        }
+        100% {
+            width: .12rem;
+            height: .7rem;
+        }
+    }
+
+    @keyframes checkmark-two {
+        0% {
+            width: 0;
+            height: 0;
+        }
+        100% {
+            width: .12rem;
+            height: .35rem;
         }
     }
 `;

@@ -40,9 +40,10 @@ const Message = (props) => {
     const [messagePosition, setMessagePosition] = useState(null);
     const [clickEvent, setClickEvent] = useState(null);
     const [selected, setSelected] = useState(false);
+    const [status, setStatus] = useState(time.year == undefined ? 1 : 0);
     const [hold, setHold] = useState(false);
-    let timer;
 
+    let timer;
     let letters;
     props.type != 'TRASH' && message?.map(item => letters =+ item.word.length);
 
@@ -137,6 +138,17 @@ const Message = (props) => {
             setHold(false);
         }
     }, [selectedMessages]);
+
+    useEffect(() => {
+        if (status == 1) {
+            setTimeout(() => {
+                setStatus(2);
+                setTimeout(() => {
+                    setStatus(0);
+                }, 2000);
+            }, 1000);
+        }
+    }, [time]);
 
     const onHoldStarts = () => {
         if (!selectedMessages.length && props.type == 'CHAT') {
@@ -248,7 +260,7 @@ const Message = (props) => {
                             messageOptionsId == id &&
                             props.type == 'CHAT' &&
                             !selectedMessages.length &&
-                            time.hour != undefined
+                            status == 0
                         }
                         message={{
                             ...props.message,
@@ -259,7 +271,7 @@ const Message = (props) => {
                     />
                 </div>
 
-                <MessageLoader time={time.hour} />
+                <MessageLoader status={status} />
 
             </MessageContainer>
         </>

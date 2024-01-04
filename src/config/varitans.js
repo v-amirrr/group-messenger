@@ -242,12 +242,12 @@ export const messageLoaderVariants = {
     visible: {
         opacity: 1,
         scale: 1,
-        transition: { duration: 0.4 },
+        transition: { duration: 0.2 },
     },
     exit: {
         opacity: 0,
         scale: 0.9,
-        transition: { duration: 0.4, delay: 0.5 },
+        transition: { duration: 0.2, delay: 0.5 },
     },
 };
 

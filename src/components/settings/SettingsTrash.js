@@ -11,7 +11,7 @@ import { RiArrowRightSLine } from "react-icons/ri";
 import { BsCheckAll } from 'react-icons/bs';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
-import { trashVariants, trashSelectbarVariants } from '../../config/varitans';
+import { trashVariants } from '../../config/varitans';
 
 const SettingsTrash = ({ open, setOpen, setHeight }) => {
 
@@ -40,8 +40,13 @@ const SettingsTrash = ({ open, setOpen, setHeight }) => {
 
     useEffect(() => {
         setMessages(deletedMessages?.filter(item => item?.uid == user?.uid));
-        setOpen(false);
     }, [deletedMessages]);
+
+    useEffect(() => {
+        if (!messages.length) {
+            setOpen(false);
+        }
+    }, [messages]);
 
     return (
         <>

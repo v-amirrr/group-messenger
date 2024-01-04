@@ -63,11 +63,9 @@ export const useMessageOptions = () => {
 
     const trashMessage = (id) => {
         const docRef = doc(db, 'messages', id);
-        setTimeout(() => {
-            updateDoc(docRef, {
-                deleted: true,
-            });
-        }, 500);
+        updateDoc(docRef, {
+            deleted: true,
+        });
     };
 
     const deleteMessage = (id) => {

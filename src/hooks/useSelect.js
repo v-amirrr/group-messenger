@@ -72,14 +72,21 @@ export const useSelect = () => {
     };
 
     const trashSelectedMessages = () => {
-        selectedMessages.map((message, index) => {
-            setTimeout(() => {
+        if (selectedMessages.length < 5) {
+            selectedMessages.map((message, index) => {
+                setTimeout(() => {
+                    trashMessage(message.id);
+                    openNotification('Message was moved to trash.', false, 'TRASH');
+                }, index * 600);
+            });
+        } else {
+            selectedMessages.map((message) => {
                 trashMessage(message.id);
-            }, index * 800);
-        });
-        setTimeout(() => {
-            openNotification('Messages were moved to trash.', false, 'TRASH');
-        }, selectedMessages.length * 800);
+            });
+            setTimeout(() => {
+                openNotification('Messages were moved to trash.', false, 'TRASH');
+            }, 200);
+        }
         clearSelectedMessages();
     };
 
@@ -95,18 +102,20 @@ export const useSelect = () => {
     };
 
     const restoreSelectedMessages = () => {
-        if (selectedMessages.length > 4) {
-            selectedMessages.map((message) => {
-                undeleteMessage(message.id);
-            });
-            openNotification('Messages restored.', false, 'RESTORE');
-        } else {
+        if (selectedMessages.length < 5) {
             selectedMessages.map((message, index) => {
                 setTimeout(() => {
                     undeleteMessage(message.id);
                     openNotification('Message restored.', false, 'RESTORE');
                 }, index * 600);
             });
+        } else {
+            selectedMessages.map((message) => {
+                undeleteMessage(message.id);
+            });
+            setTimeout(() => {
+                openNotification('Messages restored.', false, 'RESTORE');
+            }, 200);
         }
         clearSelectedMessages();
     };
@@ -114,18 +123,20 @@ export const useSelect = () => {
     const deleteSelectedMessages = () => {
         closePopup();
         setTimeout(() => {
-            if (selectedMessages.length > 4) {
-                selectedMessages.map((message) => {
-                    deleteMessage(message.id);
-                });
-                openNotification('Messages were permenately deleted.', false, 'RESTORE');
-            } else {
+            if (selectedMessages.length < 5) {
                 selectedMessages.map((message, index) => {
                     setTimeout(() => {
                         deleteMessage(message.id);
                         openNotification('Messages were permenately deleted.', false, 'RESTORE');
                     }, index * 600);
                 });
+            } else {
+                selectedMessages.map((message) => {
+                    deleteMessage(message.id);
+                });
+                setTimeout(() => {
+                    openNotification('Messages were permenately deleted.', false, 'RESTORE');
+                }, 200);
             }
         }, 400);
         clearSelectedMessages();

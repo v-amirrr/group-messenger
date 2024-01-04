@@ -64,7 +64,7 @@ const GroupChat = () => {
     }, [messages]);
 
     useEffect(() => {
-        if (messages[messages.length-1].time.year && messages[messages.length-1].uid == user.uid) {
+        if (messages[messages.length-1].time.year && messages[messages.length-1].uid == user?.uid) {
             scrollDown();
         }
     }, [messages[messages.length-1].time]);

@@ -48,10 +48,9 @@ export const errorBoxVariants = {
     exit: { opacity: 0, scale: 0.9, transition: { duration: 0.2 } },
 };
 
-export const notificationVariants = {
-    hidden: { opacity: 0, y: -40 },
+export const notificationSlowVariants = {
+    hidden: { y: -80 },
     visible: {
-        opacity: 1,
         y: 0,
         transition: {
             duration: 0.7,
@@ -61,11 +60,29 @@ export const notificationVariants = {
     },
     exit: {
         opacity: 0,
-        scale: 0.5,
+        scale: 0.6,
+        y: 22,
         transition: {
             duration: 0.5,
+        },
+    },
+};
+
+export const notificationFastVariants = {
+    hidden: { y: -80 },
+    visible: {
+        y: 0,
+        transition: {
+            duration: 0.7,
             ease: [0.53, 0, 0, 0.98],
             time: [0.53, 0, 0, 0.98],
+        },
+    },
+    exit: {
+        opacity: 0,
+        scale: 0.8,
+        transition: {
+            duration: 0.2,
         },
     },
 };

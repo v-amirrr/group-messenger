@@ -20,7 +20,7 @@ export const useNotification = () => {
             dispatch(setNotifications({ show: true, message: message, isError: isError, isGuest: type == "GUEST", time: time }));
             setTimeout(() => {
                 closeNotification(time);
-            }, 5000);
+            }, 3000);
         }
     };
 

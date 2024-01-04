@@ -7,7 +7,7 @@ import { IoClose } from 'react-icons/io5';
 import { FcAdvertising, FcHighPriority, FcKey } from 'react-icons/fc';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
-import { notificationVariants } from '../config/varitans';
+import { notificationSlowVariants, notificationFastVariants } from '../config/varitans';
 
 const AuthError = () => {
     const location = useLocation();
@@ -22,14 +22,17 @@ const AuthError = () => {
     }, [location.pathname, popupShow]);
 
     useEffect(() => {
-        if (notifications.length > 3) {
-            closeNotification(notifications[0].time);
+        let firstItem = notifications[0]?.time;
+        setTimeout(() => {
+        if (notifications.length > 1) {
+            closeNotification(firstItem);
         }
+        }, 150);
     }, [notifications]);
 
     return (
         <>
-            <NotificationsContainer layout initial='hidden' animate='visible' exit='exit' variants={notificationVariants}>
+            <NotificationsContainer layout initial='hidden' animate='visible' exit='exit' variants={notificationFastVariants}>
                 <AnimatePresence>
                     {notifications?.map((notification) => (
                         <NotificationContainer
@@ -38,7 +41,7 @@ const AuthError = () => {
                             initial='hidden'
                             animate='visible'
                             exit='exit'
-                            variants={notificationVariants}
+                            variants={notifications.length > 1 ? notificationSlowVariants : notificationFastVariants}
                             error={notification.isError ? 1 : 0}
                         >
                             <button className='close-button' onClick={() => closeNotification(notification.time)}>
@@ -82,26 +85,29 @@ const NotificationsContainer = styled(motion.div)`
     justify-content: center;
     align-items: center;
     flex-direction: column-reverse;
-    z-index: 3;
     width: 100vw;
 `;
 
 const NotificationContainer = styled(motion.div)`
-    min-width: 10rem;
+    box-sizing: content-box;
+    min-width: 7rem;
     max-width: 30rem;
-    min-height: 2.2rem;
-    margin: 0.1rem;
+    min-height: 2.3rem;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
-    background-color: var(--normal-bg-hover);
+    background-color: #1a1a1aaa;
+    border: solid 2.5px #ffffff00;
     border-radius: 50px;
     box-shadow: var(--normal-shadow);
     backdrop-filter: var(--bold-glass);
     -webkit-backdrop-filter: var(--bold-glass);
     color: var(--normal-color);
     padding: 0 3rem 0 0.5rem;
+    z-index: 3;
+    position: absolute;
+    top: .01rem;
 
     p {
         font-size: 0.8rem;

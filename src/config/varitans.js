@@ -53,17 +53,18 @@ export const notificationSlowVariants = {
     visible: {
         y: 0,
         transition: {
-            duration: 0.7,
+            duration: 0.8,
             ease: [0.53, 0, 0, 0.98],
             time: [0.53, 0, 0, 0.98],
         },
     },
     exit: {
-        opacity: 0,
-        scale: 0.6,
-        y: 22,
+        opacity: [1, 1, 1, 0],
+        scale: 0.8,
         transition: {
             duration: 0.5,
+            ease: [0.53, 0, 0, 0.98],
+            time: [0.53, 0, 0, 0.98],
         },
     },
 };

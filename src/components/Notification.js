@@ -23,11 +23,9 @@ const AuthError = () => {
 
     useEffect(() => {
         let firstItem = notifications[0]?.time;
-        setTimeout(() => {
         if (notifications.length > 1) {
             closeNotification(firstItem);
         }
-        }, 150);
     }, [notifications]);
 
     return (
@@ -100,7 +98,7 @@ const NotificationContainer = styled(motion.div)`
     background-color: #1a1a1aaa;
     border: solid 2.5px #ffffff00;
     border-radius: 50px;
-    box-shadow: var(--normal-shadow);
+    box-shadow: var(--bold-shadow);
     backdrop-filter: var(--bold-glass);
     -webkit-backdrop-filter: var(--bold-glass);
     color: var(--normal-color);

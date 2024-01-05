@@ -1,30 +1,18 @@
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { auth, googleProvider } from '../config/firebase';
-import {
-    createUserWithEmailAndPassword,
-    updateProfile,
-    signInWithEmailAndPassword,
-    signInWithPopup,
-} from 'firebase/auth';
-import {
-    setUser,
-    setLogin,
-    setSignup,
-    setEnterAsAGuest,
-    setGoogleLogin,
-} from '../redux/userSlice';
+import { createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import { setUser, setLogin, setSignup, setEnterAsAGuest, setGoogleLogin } from '../redux/userSlice';
 import { useNotification } from './useNotification';
 
 export const useAuth = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const { openNotification, clearNotifications } = useNotification();
+    const { openNotification } = useNotification();
 
     const login = (email, password) => {
         dispatch(setLogin({ loading: true }));
-        clearNotifications();
 
         if (email && password) {
             signInWithEmailAndPassword(auth, email, password)
@@ -47,7 +35,6 @@ export const useAuth = () => {
 
     const signup = (username, email, password) => {
         dispatch(setSignup({ loading: true }));
-        clearNotifications();
 
         if (username && email && password) {
             createUserWithEmailAndPassword(auth, email, password)
@@ -103,7 +90,6 @@ export const useAuth = () => {
 
     const googleLogin = () => {
         dispatch(setGoogleLogin({ loading: true }));
-        clearNotifications();
 
         signInWithPopup(auth, googleProvider)
             .then((res) => {

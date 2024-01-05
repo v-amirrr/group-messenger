@@ -15,7 +15,7 @@ const LoginPage = () => {
     const { signup, login, enterAsAGuest, googleLogin, cancelAuth } = useAuth();
     const { authRedirection } = useRedirection();
 
-    const [toggle, setToggle] = useState(false);
+    const [toggle, setToggle] = useState(true);
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");

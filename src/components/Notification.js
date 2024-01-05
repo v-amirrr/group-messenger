@@ -27,7 +27,7 @@ const AuthError = () => {
             closeNotification(firstItem);
         }
     }, [notifications]);
-
+console.log(notifications);
     return (
         <>
             <NotificationsContainer layout initial='hidden' animate='visible' exit='exit' variants={notificationFastVariants}>
@@ -41,6 +41,7 @@ const AuthError = () => {
                             exit='exit'
                             variants={notifications.length > 1 ? notificationSlowVariants : notificationFastVariants}
                             error={notification.isError ? 1 : 0}
+                            letters={notification?.message.length > 50 ? 1 : 0}
                         >
                             <button className='close-button' onClick={() => closeNotification(notification.time)}>
                                 <IoClose />
@@ -97,12 +98,12 @@ const NotificationContainer = styled(motion.div)`
     text-align: center;
     background-color: #1a1a1aaa;
     border: solid 2.5px #ffffff00;
-    border-radius: 50px;
+    border-radius: ${props => props.letters ? "25px" : "50px"};
     box-shadow: var(--bold-shadow);
     backdrop-filter: var(--bold-glass);
     -webkit-backdrop-filter: var(--bold-glass);
     color: var(--normal-color);
-    padding: 0 3rem 0 0.5rem;
+    padding: ${props => props.letters ? "1rem 3rem 1rem 0.5rem" : "0 3rem 0 0.5rem"};
     z-index: 3;
     position: absolute;
     top: .01rem;
@@ -126,8 +127,8 @@ const NotificationContainer = styled(motion.div)`
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: 1.4rem;
         margin-right: 0.2rem;
+        font-size: ${props => props.letters ? "2rem" : "1.4rem;"};
     }
 
     .guest-icon {

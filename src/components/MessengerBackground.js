@@ -12,30 +12,10 @@ const MessengerBackground = () => {
     const location = useLocation();
     const { theme } = useSelector((store) => store.appStore);
     const { loading } = useSelector((store) => store.messagesStore);
-
-    const [scale, setScale] = useState(true);
-    const [prePath, setPrePath] = useState(location.pathname);
-
-    useEffect(() => {
-        if (prePath != '/') {
-            setScale(false);
-            setTimeout(() => {
-                setScale(true);
-                setPrePath(location.pathname);
-            }, 350);
-        } else if (prePath == '/') {
-            setScale(false);
-            setTimeout(() => {
-                setScale(true);
-                setPrePath(location.pathname);
-            }, location.pathname == '/settings' ? 300 : 200);
-        }
-    }, [location.pathname]);
-
     return (
         <>
             <CoverContainer cover={location.pathname == '/warning' || location.pathname == '/login' || loading}></CoverContainer>
-            <BackgroundContainer scale={scale ? 1 : 0}>
+            <BackgroundContainer>
                 <AnimatePresence exitBeforeEnter>
                     {
                         theme == 1 ?
@@ -81,8 +61,6 @@ const BackgroundContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    transform: ${props => props.scale ? "scale(1.1)" : "scale(1)"};
-    transition: ${props => props.scale ? "transform 1s cubic-bezier(.53,0,0,.98)" : "transform .3s"};
 
     img {
         object-fit: cover;
@@ -92,8 +70,6 @@ const BackgroundContainer = styled.div`
     }
 
     @media (max-width: 768px) {
-        /* transform: scale(1); */
-
         img {
             position: absolute;
             width: 100vh !important;
@@ -112,6 +88,10 @@ const CoverContainer = styled.div`
     left: 0;
     z-index: -1;
     transition: background 1s .2s cubic-bezier(.53,0,0,.98);
+
+    @media (max-width: 768px) {
+        background-color: ${props => props.cover ? "#000000aa" : "#00000055"};
+    }
 `;
 
 export default MessengerBackground;

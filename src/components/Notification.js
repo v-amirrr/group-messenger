@@ -27,7 +27,7 @@ const AuthError = () => {
             closeNotification(firstItem);
         }
     }, [notifications]);
-console.log(notifications);
+
     return (
         <>
             <NotificationsContainer layout initial='hidden' animate='visible' exit='exit' variants={notificationFastVariants}>

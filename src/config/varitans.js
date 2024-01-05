@@ -165,7 +165,13 @@ export const messengerVariants = onMobile
                   when: 'beforeChildren',
               },
           },
-          exit: { opacity: 0, scale: 0.9, transition: { duration: 0.2 } },
+          exit: {
+              opacity: 0,
+              scale: 0.9,
+              transition: {
+                  duration: 0.2,
+              },
+          },
       };
 
 export const groupChatVariants = onMobile
@@ -272,7 +278,7 @@ export const optionsVariants = onMobile
               opacity: 1,
               transition: {
                   duration: 0.1,
-                  staggerChildren: 0.01,
+                  staggerChildren: 0.008,
                   when: 'beforeChildren',
               },
           },
@@ -280,7 +286,7 @@ export const optionsVariants = onMobile
               opacity: 0,
               transition: {
                   duration: 0.1,
-                  staggerChildren: 0.01,
+                  staggerChildren: 0.008,
                   when: 'afterChildren',
               },
           },

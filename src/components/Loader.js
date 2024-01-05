@@ -4,24 +4,46 @@ import { motion } from 'framer-motion';
 import { loaderVariants } from '../config/varitans';
 
 const Loader = () => {
+    const messages = [
+        { width: '4rem', height: '1rem', position: 1, local: false },
+        { width: '7rem', height: '2rem', position: 2, local: false },
+        { width: '10rem', height: '2rem', position: 3, local: false },
+
+        { width: '7rem', height: '2rem', position: 1, local: true },
+        { width: '12rem', height: '2rem', position: 2, local: true },
+        { width: '10rem', height: '2rem', position: 3, local: true },
+
+        { width: '4rem', height: '1rem', position: 1, local: false },
+        { width: '10rem', height: '2rem', position: 2, local: false },
+        { width: '7rem', height: '2rem', position: 3, local: false },
+
+        { width: '8rem', height: '2rem', position: 1, local: true },
+        { width: '6rem', height: '2rem', position: 3, local: true },
+    ];
     return (
         <>
-            <LoaderContainer initial='hidden' animate='visible' exit='exit' variants={loaderVariants}>
+            <LoaderContainer
+                initial='hidden'
+                animate='visible'
+                exit='exit'
+                variants={loaderVariants}
+            >
                 <div className='profile'></div>
                 <div className='menu'></div>
                 <div className='scroll'></div>
                 <div className='input'></div>
                 <div className='messages'>
-                    <div className='one'><span></span></div>
-                    <div className='two'><span></span></div>
-                    <div className='three'><span></span></div>
-                    <div className='four'><span></span></div>
-                    <div className='five'><span></span></div>
-                    <div className='six'><span></span></div>
-                    <div className='seven'><span></span></div>
-                    <div className='eight'><span></span></div>
-                    <div className='six'><span></span></div>
-                    <div className='seven'><span></span></div>
+                    {messages.map((message) => (
+                        <MessageContainer
+                            className='message-container'
+                            width={message.width}
+                            height={message.height}
+                            position={message.position}
+                            local={message.local}
+                        >
+                            <div className={message.position == 4 ? 'date' : 'message'}></div>
+                        </MessageContainer>
+                    ))}
                 </div>
             </LoaderContainer>
         </>
@@ -32,21 +54,29 @@ const LoaderContainer = styled(motion.div)`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
+    width: 62vw;
     height: 100vh;
     padding: 5rem 2rem 9rem 2rem;
 
-    .profile, .menu, .scroll {
+    .profile,
+    .menu,
+    .scroll {
+        box-sizing: content-box;
         position: absolute;
-        width: 2.5rem;
-        height: 2.5rem;
-        border: solid 2.5px #ffffff24;
+        width: 2.3rem;
+        height: 2.3rem;
+        border: solid 2.5px #333;
         border-radius: 50px;
         background-color: #ffffff00;
-        background-image: linear-gradient(90deg, #ffffff00 10%, #ffffff14 50%, #ffffff00 90%);
-        background-position: left -2.5rem top 0;
+        background-image: linear-gradient(
+            90deg,
+            #ffffff00 0%,
+            #ffffff14 50%,
+            #ffffff00 100%
+        );
+        background-position: left -2.3rem top 0;
         background-repeat: no-repeat;
-        animation: skeleton-loading-button ease-out 1.5s infinite;
+        animation: skeleton-loading-button linear 1.5s infinite;
     }
 
     .profile {
@@ -66,22 +96,28 @@ const LoaderContainer = styled(motion.div)`
 
     @keyframes skeleton-loading-button {
         to {
-            background-position: left 2.5rem top 0;
+            background-position: left 2.3rem top 0;
         }
     }
 
     .input {
+        box-sizing: content-box;
         position: absolute;
         bottom: 1rem;
         width: 20rem;
-        height: 2.6rem;
-        border: solid 2.5px #ffffff24;
+        height: 2.4rem;
+        border: solid 2.5px #333;
         border-radius: 50px;
         background-color: #ffffff00;
-        background-image: linear-gradient(90deg, #ffffff00 10%, #ffffff14 50%, #ffffff00 90%);
+        background-image: linear-gradient(
+            90deg,
+            #ffffff00 0%,
+            #ffffff14 50%,
+            #ffffff00 100%
+        );
         background-position: left -20rem top 0;
         background-repeat: no-repeat;
-        animation: skeleton-loading-input ease-out 1.5s infinite;
+        animation: skeleton-loading-input linear 1.5s infinite;
     }
 
     @keyframes skeleton-loading-input {
@@ -95,183 +131,11 @@ const LoaderContainer = styled(motion.div)`
         justify-content: center;
         align-items: center;
         flex-direction: column;
-
-        .one {
-            width: 100%;
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            margin: .1rem 0 0 0;
-
-            span {
-                position: relative;
-                right: 9rem;
-                width: 10rem;
-                height: 2rem;
-                border-radius: 25px 25px 25px 5px;
-                /* background-color: #ffffff14; */
-                border: solid 2.5px #ffffff24;
-                background-image: linear-gradient(90deg, #ffffff00 0%, #ffffff24 50%, #ffffff00 100%);
-                background-position: left -20rem top 0;
-                background-repeat: no-repeat;
-                animation: skeleton-loading-input ease-out 1.5s infinite;
-            }
-        }
-
-        .two {
-            width: 100%;
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            margin: .1rem 0 0 0;
-
-            span {
-                position: relative;
-                right: 9rem;
-                width: 12rem;
-                height: 2rem;
-                border-radius: 5px 25px 25px 5px;
-                /* background-color: #ffffff14; */
-                border: solid 2.5px #ffffff24;
-                background-image: linear-gradient(90deg, #ffffff00 0%, #ffffff24 50%, #ffffff00 100%);
-                background-position: left -20rem top 0;
-                background-repeat: no-repeat;
-                animation: skeleton-loading-input ease-out 1.5s infinite;
-            }
-        }
-
-        .three {
-            width: 100%;
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            margin: .1rem 0 0 0;
-
-
-            span {
-                position: relative;
-                right: 9rem;
-                width: 11rem;
-                height: 2rem;
-                border-radius: 5px 25px 25px 25px;
-                /* background-color: #ffffff14; */
-                border: solid 2.5px #ffffff24;
-                background-image: linear-gradient(90deg, #ffffff00 0%, #ffffff24 50%, #ffffff00 100%);
-                background-position: left -20rem top 0;
-                background-repeat: no-repeat;
-                animation: skeleton-loading-input ease-out 1.5s infinite;
-            }
-        }
-
-        .four {
-            width: 100%;
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            margin: .5rem 0 0 0;
-
-            span {
-                position: relative;
-                right: 9rem;
-                width: 7rem;
-                height: 2rem;
-                border-radius: 25px 25px 25px 5px;
-                /* background-color: #ffffff14; */
-                border: solid 2.5px #ffffff24;
-                background-image: linear-gradient(90deg, #ffffff00 0%, #ffffff24 50%, #ffffff00 100%);
-                background-position: left -20rem top 0;
-                background-repeat: no-repeat;
-                animation: skeleton-loading-input ease-out 1.5s infinite;
-            }
-        }
-
-        .five {
-            width: 100%;
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            margin: .1rem 0 0 0;
-
-            span {
-                position: relative;
-                right: 9rem;
-                width: 6rem;
-                height: 2rem;
-                border-radius: 5px 25px 25px 25px;
-                /* background-color: #ffffff14; */
-                border: solid 2.5px #ffffff24;
-                background-image: linear-gradient(90deg, #ffffff00 0%, #ffffff24 50%, #ffffff00 100%);
-                background-position: left -20rem top 0;
-                background-repeat: no-repeat;
-                animation: skeleton-loading-input ease-out 1.5s infinite;
-            }
-        }
-
-        .six {
-            width: 100%;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            margin: .5rem 0 0 0;
-
-            span {
-                position: relative;
-                left: 9rem;
-                width: 13rem;
-                height: 2rem;
-                border-radius: 25px 25px 5px 25px;
-                /* background-color: #ffffff14; */
-                border: solid 2.5px #ffffff24;
-                background-image: linear-gradient(90deg, #ffffff00 0%, #ffffff24 50%, #ffffff00 100%);
-                background-position: left -20rem top 0;
-                background-repeat: no-repeat;
-                animation: skeleton-loading-input ease-out 1.5s infinite;
-            }
-        }
-
-        .seven {
-            width: 100%;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            margin: .1rem 0 0 0;
-
-            span {
-                position: relative;
-                left: 9rem;
-                width: 10rem;
-                height: 2rem;
-                border-radius: 25px 5px 25px 25px;
-                /* background-color: #ffffff14; */
-                border: solid 2.5px #ffffff24;
-                background-image: linear-gradient(90deg, #ffffff00 0%, #ffffff24 50%, #ffffff00 100%);
-                background-position: left -20rem top 0;
-                background-repeat: no-repeat;
-                animation: skeleton-loading-input ease-out 1.5s infinite;
-            }
-        }
-
-        .eight {
-            width: 100%;
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            margin: .5rem 0 0 0;
-
-            span {
-                position: relative;
-                right: 9rem;
-                width: 13rem;
-                height: 3rem;
-                border-radius: 25px;
-                /* background-color: #ffffff14; */
-                border: solid 2.5px #ffffff24;
-                background-image: linear-gradient(90deg, #ffffff00 0%, #ffffff24 50%, #ffffff00 100%);
-                background-position: left -20rem top 0;
-                background-repeat: no-repeat;
-                animation: skeleton-loading-input ease-out 1.5s infinite;
-            }
-        }
+        width: 100%;
+        height: 100vh;
+        position: absolute;
+        top: 0;
+        padding: 8rem 8rem 9rem 8rem;
     }
 
     @media (max-width: 768px) {
@@ -302,19 +166,77 @@ const LoaderContainer = styled(motion.div)`
             height: 3rem;
             margin-right: 4rem;
         }
+    }
+`;
 
-        .messages {
-            .one, .two, .three, .four, .five, .eight {
-                span {
-                    right: 4rem;
-                }
-            }
+const MessageContainer = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: ${props => props.position == 4 ? 'center' : 'flex-start'};
+    flex-direction: ${props => props.local ? 'row-reverse' : 'row'};
+    align-items: center;
 
-            .six, .seven {
-                span {
-                    left: 4rem;
-                }
-            }
+    .date {
+        position: relative;
+        width: ${(props) => props.width};
+        height: ${(props) => props.height};
+        margin: 1rem;
+        border-radius: 50px;
+        background-color: #ffffff0b;
+        background-image: linear-gradient(
+            90deg,
+            #ffffff00 0%,
+            #ffffff20 50%,
+            #ffffff00 100%
+        );
+        background-position: ${props => `left -${props.width}rem top 0`};
+        background-repeat: no-repeat;
+        animation: skeleton-loading-input ease-out 1s infinite;
+    }
+
+    .message {
+        position: relative;
+        width: ${(props) => props.width};
+        height: ${(props) => props.height};
+        margin: ${(props) =>
+            props.position == 0
+                ? '.2rem 0 .2rem 0'
+                : props.position == 1
+                ? '.2rem 0 .06rem 0'
+                : props.position == 2
+                ? '.06rem 0 .06rem 0'
+                : props.position == 3 && '.06rem 0 .2rem 0'};
+        border-radius: ${(props) =>
+            props.local
+                ? props.position == 0
+                    ? '25px'
+                    : props.position == 1
+                    ? '25px 25px 5px 25px'
+                    : props.position == 2
+                    ? '25px 5px 5px 25px'
+                    : props.position == 3 && '25px 5px 25px 25px'
+                : props.position == 0
+                ? '25px'
+                : props.position == 1
+                ? '25px 25px 25px 5px'
+                : props.position == 2
+                ? '5px 25px 25px 5px'
+                : props.position == 3 && '5px 25px 25px 25px'};
+        background-color: ${props => props.position == 1 && !props.local ? '#ffffff0b' : '#ffffff14'};
+        background-image: linear-gradient(
+            90deg,
+            #ffffff00 0%,
+            #ffffff07 50%,
+            #ffffff00 100%
+        );
+        background-position: ${props => `left -12rem top 0`};
+        background-repeat: no-repeat;
+        animation: skeleton-loading-message linear 1.5s infinite;
+    }
+
+    @keyframes skeleton-loading-message {
+        to {
+            background-position: ${props => `left 12rem top 0`};
         }
     }
 `;

@@ -68,12 +68,12 @@ const MessageLoaderContainer = styled.div`
 
             &:nth-child(1) {
                 margin: .16rem .55rem 0 0;
-                transform: rotate(-150deg);
+                transform: rotate(45deg);
                 animation: checkmark-one .4s forwards;
             }
 
             &:nth-child(2) {
-                margin: .54rem .79rem 0 0;
+                margin: .4rem .85rem 0 0;
                 transform: rotate(-40deg);
                 animation: checkmark-two .2s .2s forwards;
             }

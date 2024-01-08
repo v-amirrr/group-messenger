@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import Notification from './Notification';
 import { useAuth } from '../hooks/useAuth';
 import { useRedirection } from '../hooks/useRedirection';
 import { FaRegEye, FaUserLock } from 'react-icons/fa';
@@ -58,7 +57,6 @@ const LoginPage = () => {
     return (
         <>
             <Login toggle={toggle} showpassword={showPassword} loading={signupData.loading || loginData.loading} googleloading={googleData.loading} initial='hidden' animate='visible' exit='exit' variants={loginVariants}>
-                <Notification />
                 <header>
                     <button className='login' onClick={() => setToggle(true)} disabled={loginData.loading || signupData.loading || googleData.loading}>LOGIN</button>
                     <button className='signup' onClick={() => setToggle(false)} disabled={loginData.loading || signupData.loading || googleData.loading}>SIGN UP</button>
@@ -396,7 +394,7 @@ const Login = styled(motion.section)`
             width: .5rem;
             height: .5rem;
             border-radius: 50%;
-            background-color: #666;
+            background-color: var(--normal-color);
 
             &:nth-child(1) {
                 animation: loader .6s infinite alternate;

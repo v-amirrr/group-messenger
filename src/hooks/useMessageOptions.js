@@ -12,6 +12,7 @@ export const useMessageOptions = () => {
     const { popupMessages } = useSelector((store) => store.popupStore);
     const { enterAsAGuest } = useSelector((store) => store.userStore);
     const { replyTo } = useSelector((store) => store.sendMessageStore);
+    const { selectedMessages } = useSelector(store => store.appStore);
 
     const { openNotification } = useNotification();
 
@@ -62,10 +63,18 @@ export const useMessageOptions = () => {
     };
 
     const trashMessage = (id) => {
-        const docRef = doc(db, 'messages', id);
-        updateDoc(docRef, {
-            deleted: true,
-        });
+        if (selectedMessages.length == 0) {
+            const docRef = doc(db, 'messages', id);
+            updateDoc(docRef, {
+                deleted: true,
+            });
+            openNotification('Message was moved to trash.', false, 'TRASH');
+        } else {
+            const docRef = doc(db, 'messages', id);
+            updateDoc(docRef, {
+                deleted: true,
+            });
+        }
     };
 
     const deleteMessage = (id) => {
@@ -92,6 +101,7 @@ export const useMessageOptions = () => {
         } else {
             closePopup();
             trashMessage(id);
+            openNotification('Message was moved to trash.', false, 'TRASH');
         }
     };
 

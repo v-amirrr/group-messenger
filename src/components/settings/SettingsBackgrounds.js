@@ -8,7 +8,7 @@ import { FcGallery } from 'react-icons/fc';
 import { RiArrowRightSLine } from 'react-icons/ri';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
-import { backgroundsVariants } from '../../config/varitans';
+import { backgroundsSettingsVariants } from '../../config/varitans';
 
 const SettingsBackgrounds = ({ open, setOpen, setHeight }) => {
     const { theme } = useSelector((store) => store.appStore);
@@ -20,7 +20,7 @@ const SettingsBackgrounds = ({ open, setOpen, setHeight }) => {
             setOpen(false);
         } else {
             setOpen('SETTINGS_BACKGROUND');
-            setHeight(18);
+            setHeight(24);
         }
     };
 
@@ -37,38 +37,40 @@ const SettingsBackgrounds = ({ open, setOpen, setHeight }) => {
             </div>
 
             <AnimatePresence exitBeforeEnter>
-                {open == 'SETTINGS_BACKGROUND' ? (
+                {
+                    open == 'SETTINGS_BACKGROUND' ?
                     <div key='item-data' className='item-data'>
                         <BackgroundsContainer
                             theme={theme}
                             initial='hidden'
                             animate='visible'
                             exit='exit'
-                            variants={backgroundsVariants}
+                            variants={backgroundsSettingsVariants}
                         >
-                            <div
-                                className='background'
-                                onClick={() => changeTheme(1)}
-                            >
+                            <div className='background' onClick={() => changeTheme(1)}>
                                 <img src={themeTowImageSRC} />
+                                <div className='select'>
+                                    <span className='checkmark-one'></span>
+                                    <span className='checkmark-two'></span>
+                                </div>
                             </div>
-                            <div
-                                className='background'
-                                onClick={() => changeTheme(2)}
-                            >
+                            <div className='background' onClick={() => changeTheme(2)}>
                                 <img src={themeThreeImageSRC} />
+                                <div className='select'>
+                                    <span className='checkmark-one'></span>
+                                    <span className='checkmark-two'></span>
+                                </div>
                             </div>
-                            <div
-                                className='background'
-                                onClick={() => changeTheme(3)}
-                            >
+                            <div className='background' onClick={() => changeTheme(3)}>
                                 <img src={themeFourImageSRC} />
+                                <div className='select'>
+                                    <span className='checkmark-one'></span>
+                                    <span className='checkmark-two'></span>
+                                </div>
                             </div>
                         </BackgroundsContainer>
-                    </div>
-                ) : (
-                    ''
-                )}
+                    </div> : ''
+                }
             </AnimatePresence>
         </>
     );
@@ -84,7 +86,6 @@ const BackgroundsContainer = styled(motion.div)`
     height: 100%;
     margin-top: 5rem;
     padding-bottom: 3rem;
-    overflow: hidden scroll;
 
     .background {
         border-radius: 25px;
@@ -92,25 +93,65 @@ const BackgroundsContainer = styled(motion.div)`
         height: 8rem;
         margin: 0.2rem 0;
         cursor: pointer;
-        border: solid 3px #ffffff00;
-        transition: border 0.2s;
+        border: solid 3px #ffffff20;
+        position: relative;
 
         img {
             width: 100%;
             height: 100%;
             border-radius: 25px;
+            filter: blur(5px);
+        }
+
+        .select {
+            position: absolute;
+            top: .4rem;
+            right: .4rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #ffffff15;
+            border-radius: 50%;
+            z-index: 999;
+            width: 1.3rem;
+            height: 1.3rem;
+            transition: opacity .4s;
+
+            .checkmark-one {
+                margin: .3rem .18rem 0 0;
+                transform: rotate(-40deg);
+                background-color: #00b7ff;
+                border-radius: 50px;
+                width: .12rem;
+                height: .35rem;
+            }
+
+            .checkmark-two {
+                margin: .1rem .1rem 0 0;
+                transform: rotate(45deg);
+                background-color: #00b7ff;
+                border-radius: 50px;
+                width: .12rem;
+                height: .7rem;
+            }
         }
 
         &:nth-child(1) {
-            border: ${(props) => (props.theme == 1 ? 'solid 3px #fff' : '')};
+            .select {
+                opacity: ${props => props.theme == 1 ? '1' : '0'};
+            }
         }
 
         &:nth-child(2) {
-            border: ${(props) => (props.theme == 2 ? 'solid 3px #fff' : '')};
+            .select {
+                opacity: ${props => props.theme == 2 ? '1' : '0'};
+            }
         }
 
         &:nth-child(3) {
-            border: ${(props) => (props.theme == 3 ? 'solid 3px #fff' : '')};
+            .select {
+                opacity: ${props => props.theme == 3 ? '1' : '0'};
+            }
         }
     }
 `;

@@ -12,14 +12,13 @@ import { notificationSlowVariants, notificationFastVariants } from '../config/va
 const AuthError = () => {
     const location = useLocation();
     const { notifications } = useSelector((store) => store.appStore);
-    const { popupShow } = useSelector((store) => store.popupStore);
 
     const { closeNotification, clearNotifications } = useNotification();
     const { logout } = useAuth();
 
     useEffect(() => {
         clearNotifications();
-    }, [location.pathname, popupShow]);
+    }, [location.pathname]);
 
     useEffect(() => {
         let firstItem = notifications[0]?.time;
@@ -85,6 +84,7 @@ const NotificationsContainer = styled(motion.div)`
     align-items: center;
     flex-direction: column-reverse;
     width: 100vw;
+    z-index: 999;
 `;
 
 const NotificationContainer = styled(motion.div)`

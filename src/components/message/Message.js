@@ -12,7 +12,7 @@ import MessageUsername from './MessageUsername';
 import MessageLoader from './MessageLoader';
 import MessageReplyIcon from './MessageReplyIcon';
 import styled from 'styled-components';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { messageVariants } from '../../config/varitans';
 
 const Message = (props) => {
@@ -32,7 +32,7 @@ const Message = (props) => {
 
     const dispatch = useDispatch();
     const { messageOptionsId, selectedMessages } = useSelector((store) => store.appStore);
-    const { replyTo: replyToApp, loading } = useSelector((store) => store.sendMessageStore);
+    const { replyTo: replyToApp } = useSelector((store) => store.sendMessageStore);
 
     const { selectMessage, checkMessage, unSelectMessage } = useSelect();
     const { replyMessage } = useMessageOptions();
@@ -44,8 +44,8 @@ const Message = (props) => {
     const [hold, setHold] = useState(false);
 
     let timer;
-    let letters;
-    props.type != 'TRASH' && message?.map(item => letters =+ item.word.length);
+    let letters = 0;
+    props.type != 'TRASH' ? message?.map(item => letters =+ item.word.length) : letters =+ message.length;
 
     // either opens options, or selects
     const messageClickHandler = (e) => {
@@ -299,34 +299,29 @@ const MessageContainer = styled(motion.div)`
         justify-content: ${(props) => props.localuser ? 'flex-start' : 'flex-end'};
         align-items: center;
         background-color: ${(props) => props.selected ? 'var(--normal-bg-hover)' : 'var(--normal-bg)'};
-        margin: ${(props) =>
-            props.messageposition == 0
-                ? '.1rem 0 .1rem 0'
-                : props.messageposition == 1
-                ? '.1rem 0 .06rem 0'
-                : props.messageposition == 2
-                ? '.06rem 0 .06rem 0'
-                : props.messageposition == 3 && '.06rem 0 .2rem 0'};
+        margin: ${props =>
+            props.type == 'TRASH' ? '.2rem' :
+            props.messageposition == 0 ? '.1rem 0 .1rem 0'
+            : props.messageposition == 1 ? '.1rem 0 .06rem 0'
+            : props.messageposition == 2 ? '.06rem 0 .06rem 0'
+            : props.messageposition == 3 && '.06rem 0 .2rem 0'
+        };
         border-radius: 25px;
         border-radius: ${(props) =>
-            props.localuser
-                ? props.messageposition == 0
-                    ? '25px'
-                    : props.messageposition == 1
-                    ? '25px 25px 5px 25px'
-                    : props.messageposition == 2
-                    ? '25px 5px 5px 25px'
-                    : props.messageposition == 3 && '25px 5px 25px 25px'
-                : props.messageposition == 0
-                ? '5px 25px 25px 25px'
-                : props.messageposition == 1
-                ? '5px 25px 25px 5px'
-                : props.messageposition == 2
-                ? '5px 25px 25px 5px'
-                : props.messageposition == 3 && '5px 25px 25px 25px'};
-        margin-right: ${(props) => props.type != 'TRASH' && props.anymessageselected && props.localuser ? '3rem' : ''};
+            props.type == 'TRASH' ? '20px' :
+            props.localuser ?
+                props.messageposition == 0 ? '25px'
+                : props.messageposition == 1 ? '25px 25px 5px 25px'
+                : props.messageposition == 2 ? '25px 5px 5px 25px'
+                : props.messageposition == 3 && '25px 5px 25px 25px'
+            : props.messageposition == 0 ? '5px 25px 25px 25px'
+            : props.messageposition == 1 ? '5px 25px 25px 5px'
+            : props.messageposition == 2 ? '5px 25px 25px 5px'
+            : props.messageposition == 3 && '5px 25px 25px 25px'
+        };
+        margin-right: ${(props) => props.type == 'TRASH' ? '2rem' : props.anymessageselected && props.localuser ? '3rem' : ''};
         margin-left: ${(props) => props.type != 'TRASH' && props.anymessageselected && !props.localuser ? '3rem' : ''};
-        padding: ${props => props.letters < 3 && !props.isreply ? ".45rem .8rem" : ".45rem .5rem"};
+        padding: ${props => props.type == 'TRASH' && props.letters > 3  ? '.5rem' : props.type == 'TRASH' && props.letters <= 3 ? '.5rem .8rem' : props.letters < 3 && !props.isreply ? ".45rem .8rem" : ".45rem .5rem"};
         width: fit-content;
         max-width: ${(props) => props.type == 'EDIT_REPLY' ? '80%' : '65%'};
         backdrop-filter: ${(props) =>
@@ -338,18 +333,15 @@ const MessageContainer = styled(motion.div)`
         cursor: pointer;
         box-shadow: ${props => props.blur ? "var(--bold-shadow)" : "var(--normal-shadow)"};
         color: var(--normal-color);
-        transition: backdrop-filter 0.4s, border-radius 0.4s, margin 0.4s,
-            background 0.4s, background 0.2s, padding 0.2s, box-shadow .2s;
+        transition: backdrop-filter .4s, border-radius .4s, margin .4s, background .4s, background .2s, padding .2s, box-shadow .2s;
 
         .message {
             text-align: ${(props) => (props.ispersian ? 'right' : 'left')};
             word-spacing: 1px;
             white-space: pre-wrap;
             word-break: ${(props) => (props.type == 'TRASH' ? '' : 'keep-all')};
-            font-family: ${(props) =>
-                    props.ispersian ? 'Vazirmatn' : 'Outfit'},
-                'Vazirmatn', sans-serif;
-            font-size: ${(props) => (props.type == 'TRASH' ? '.6rem' : '1rem')};
+            font-family: ${(props) => props.ispersian ? 'Vazirmatn' : 'Outfit'}, 'Vazirmatn', sans-serif;
+            font-size: ${(props) => (props.type == 'TRASH' ? '.7rem' : '1rem')};
 
             .reply {
                 display: inline-flex;
@@ -361,10 +353,6 @@ const MessageContainer = styled(motion.div)`
                 word-spacing: 0;
                 white-space: nowrap;
             }
-        }
-
-        &:hover {
-            filter: ${props => props.blur ? "blur(0px)" : "blur(0px)"};
         }
     }
 

@@ -2,7 +2,6 @@ import React, { useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import DeletePopup from './DeletePopup';
 import EditPopup from './EditPopup';
-import Notification from '../Notification';
 import { useMessageOptions } from '../../hooks/useMessageOptions';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -37,7 +36,6 @@ const Popup = () => {
                         variants={popupPageVariants}
                         onClick={(e) => closePopupByTap(e)}
                     >
-                        <Notification />
                         <PopupContainer
                             variants={popupContainerVariants}
                             ref={popupPage}

@@ -6,7 +6,7 @@ import { FcBusinessman, FcCheckmark, FcAddressBook } from "react-icons/fc";
 import { RiArrowRightSLine } from "react-icons/ri";
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
-import { userVariants } from '../../config/varitans';
+import { userSettingsVariants } from '../../config/varitans';
 
 const SettingsUser = ({ open, setOpen, setHeight }) => {
 
@@ -30,7 +30,7 @@ const SettingsUser = ({ open, setOpen, setHeight }) => {
                 setOpen(false);
             } else {
                 setOpen("SETTINGS_USER");
-                setHeight(10);
+                setHeight(8);
             }
         }
     };
@@ -51,7 +51,7 @@ const SettingsUser = ({ open, setOpen, setHeight }) => {
                 {
                     open == "SETTINGS_USER" ?
                     <div key="item-data" className='item-data'>
-                        <UserContainer initial='hidden' animate='visible' exit='exit' variants={userVariants}>
+                        <UserContainer initial='hidden' animate='visible' exit='exit' variants={userSettingsVariants}>
                             <div className='change-username'>
                                 <header className='user-item-header'>
                                     <h5>Username</h5>
@@ -71,9 +71,18 @@ const SettingsUser = ({ open, setOpen, setHeight }) => {
 };
 
 const UserContainer = styled(motion.div)`
+    position: absolute;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    margin-top: 5rem;
+
     .change-username {
         padding: .5rem;
-        border: solid 1.5px #ffffff14;
+        border: solid 2.5px #ffffff20;
         border-radius: 15px;
 
         .user-item-header {
@@ -99,7 +108,7 @@ const UserContainer = styled(motion.div)`
                 padding: .5rem;
                 border: none;
                 border-radius: 50px;
-                background-color: #ffffff08;
+                background-color: var(--normal-bg);
             }
 
             i {
@@ -113,7 +122,6 @@ const UserContainer = styled(motion.div)`
                 padding: .2rem;
             }
         }
-
     }
 `;
 

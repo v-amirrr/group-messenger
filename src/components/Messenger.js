@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import Loader from './Loader';
 import ErrorBox from './ErrorBox';
 import GroupChat from './GroupChat';
-import Notification from './Notification';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 import { messengerVariants } from '../config/varitans';
@@ -27,7 +26,6 @@ const Messenger = () => {
                 exit='exit'
                 variants={messengerVariants}
             >
-                <Notification />
                 <MessengerContainer>
                     <AnimatePresence exitBeforeEnter>
                         {

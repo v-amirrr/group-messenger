@@ -11,7 +11,7 @@ import { RiArrowRightSLine } from "react-icons/ri";
 import { BsCheckAll } from 'react-icons/bs';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
-import { trashVariants } from '../../config/varitans';
+import { trashSettingsVariants } from '../../config/varitans';
 
 const SettingsTrash = ({ open, setOpen, setHeight }) => {
 
@@ -43,7 +43,7 @@ const SettingsTrash = ({ open, setOpen, setHeight }) => {
     }, [deletedMessages]);
 
     useEffect(() => {
-        if (!messages.length) {
+        if (!messages?.length) {
             setOpen(false);
         }
     }, [messages]);
@@ -60,7 +60,7 @@ const SettingsTrash = ({ open, setOpen, setHeight }) => {
                 <AnimatePresence exitBeforeEnter>
                     {
                         messages?.length ?
-                        <motion.div key="trash-counter" className='deleted-messages-counter' initial='hidden' animate='visible' exit='exit' variants={trashVariants}>
+                        <motion.div key="trash-counter" className='deleted-messages-counter' initial='hidden' animate='visible' exit='exit' variants={trashSettingsVariants}>
                             {messages?.length}
                         </motion.div>
                         : ""
@@ -73,11 +73,11 @@ const SettingsTrash = ({ open, setOpen, setHeight }) => {
                 {
                     open == "SETTINGS_TRASH" ?
                     <div key="item-data" className='item-data'>
-                        <MessagesContainer initial='hidden' animate='visible' exit='exit' variants={trashVariants} selectbarshow={selectedMessages.length}>
+                        <MessagesContainer initial='hidden' animate='visible' exit='exit' variants={trashSettingsVariants} selectbarshow={selectedMessages.length}>
                             <AnimatePresence exitBeforeEnter>
                                 {messages?.length ?
                                 <>
-                                    <motion.div key="trash-selectbar" className='select-bar' initial='hidden' animate='visible' exit='exit' variants={trashVariants}>
+                                    <motion.div key="trash-selectbar" className='select-bar' initial='hidden' animate='visible' exit='exit' variants={trashSettingsVariants}>
                                         <div className='counter'>{selectedMessages.length}</div>
                                         <button className='delete-button' disabled={!selectedMessages.length} onClick={() => openPopup("DELETE_POPUP", [selectedMessages])}>
                                             <i><TbTrashX /></i>
@@ -89,7 +89,7 @@ const SettingsTrash = ({ open, setOpen, setHeight }) => {
                                         </button>
                                         <div className='all' onClick={() => switchSelectAllTrash(messages)}><BsCheckAll /></div>
                                     </motion.div>
-                                    <motion.div layout key="trash-messages" className='deleted-messages' initial='hidden' animate='visible' exit='exit' variants={trashVariants}>
+                                    <motion.div layout key="trash-messages" className='deleted-messages' initial='hidden' animate='visible' exit='exit' variants={trashSettingsVariants}>
                                         <AnimatePresence>
                                             {messages?.map(message => (
                                                 <Message
@@ -106,7 +106,7 @@ const SettingsTrash = ({ open, setOpen, setHeight }) => {
                                         </AnimatePresence>
                                     </motion.div>
                                 </> :
-                                <motion.div key="trash-empty" className='trash-empty' initial='hidden' animate='visible' exit='exit' variants={trashVariants}>
+                                <motion.div key="trash-empty" className='trash-empty' initial='hidden' animate='visible' exit='exit' variants={trashSettingsVariants}>
                                     <p>Trash is empty!</p>
                                 </motion.div>}
                             </AnimatePresence>

@@ -7,6 +7,7 @@ import SettingsPage from './components/settings/SettingsPage';
 import GuidancePage from './components/GuidancePage';
 import MessengerBackground from './components/MessengerBackground';
 import Popup from './components/popups/Popup';
+import Notification from './components/Notification';
 import { useGetMessages } from './hooks/useGetMessages';
 import { useWarningPage } from './hooks/useWarningPage';
 import { useChangeTheme } from './hooks/useChangeTheme';
@@ -39,10 +40,9 @@ const App = () => {
 
     return (
         <>
+            <Notification />
             <MessengerBackground />
-
             <Popup />
-
             <AnimatePresence exitBeforeEnter>
                 <Routes location={location} key={location.key}>
                     <Route path="/" element={<Messenger />} />

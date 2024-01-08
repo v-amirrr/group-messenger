@@ -11,7 +11,7 @@ const initialState = {
     notificationSettings: {
         send: false,
         trash: true,
-        edit: false,
+        edit: true,
         copy: true,
         restore: true,
         delete: false,

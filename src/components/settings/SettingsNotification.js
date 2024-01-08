@@ -44,42 +44,42 @@ const SettingsNotification = ({ open, setOpen, setHeight }) => {
                         <div className='notification-item'>
                             <i><IoSend /></i>
                             <p>Sending</p>
-                            <Toggle toggleHandler={() => changeNotificationSettings("send", !notificationSettings.send)} toggleValue={notificationSettings.send}/>
+                            <Toggle toggleHandler={() => changeNotificationSettings("send", !notificationSettings.send)} toggleValue={notificationSettings.send} scale={0.9} />
                         </div>
                         <div className='notification-item'>
                             <i><AiFillDelete /></i>
                             <p>Moving to trash</p>
-                            <Toggle toggleHandler={() => changeNotificationSettings("trash", !notificationSettings.trash)} toggleValue={notificationSettings.trash}/>
+                            <Toggle toggleHandler={() => changeNotificationSettings("trash", !notificationSettings.trash)} toggleValue={notificationSettings.trash} scale={0.9} />
                         </div>
                         <div className='notification-item'>
                             <i><AiFillEdit /></i>
                             <p>Editing</p>
-                            <Toggle toggleHandler={() => changeNotificationSettings("edit", !notificationSettings.edit)} toggleValue={notificationSettings.edit}/>
+                            <Toggle toggleHandler={() => changeNotificationSettings("edit", !notificationSettings.edit)} toggleValue={notificationSettings.edit} scale={0.9} />
                         </div>
                         <div className='notification-item'>
                             <i><AiFillCopy /></i>
                             <p>Copying</p>
-                            <Toggle toggleHandler={() => changeNotificationSettings("copy", !notificationSettings.copy)} toggleValue={notificationSettings.copy}/>
+                            <Toggle toggleHandler={() => changeNotificationSettings("copy", !notificationSettings.copy)} toggleValue={notificationSettings.copy} scale={0.9} />
                         </div>
                         <div className='notification-item'>
                             <i><FaTrashRestore /></i>
                             <p>Restoring</p>
-                            <Toggle toggleHandler={() => changeNotificationSettings("restore", !notificationSettings.restore)} toggleValue={notificationSettings.restore}/>
+                            <Toggle toggleHandler={() => changeNotificationSettings("restore", !notificationSettings.restore)} toggleValue={notificationSettings.restore} scale={0.9} />
                         </div>
                         <div className='notification-item'>
                             <i><TbTrashX /></i>
                             <p>Deleting</p>
-                            <Toggle toggleHandler={() => changeNotificationSettings("delete", !notificationSettings.delete)} toggleValue={notificationSettings.delete}/>
+                            <Toggle toggleHandler={() => changeNotificationSettings("delete", !notificationSettings.delete)} toggleValue={notificationSettings.delete} scale={0.9} />
                         </div>
                         <div className='notification-item'>
                             <i><MdWallpaper /></i>
-                            <p>Changing backgrounds</p>
-                            <Toggle toggleHandler={() => changeNotificationSettings("background", !notificationSettings.background)} toggleValue={notificationSettings.background}/>
+                            <p>Changing background</p>
+                            <Toggle toggleHandler={() => changeNotificationSettings("background", !notificationSettings.background)} toggleValue={notificationSettings.background} scale={0.9} />
                         </div>
                         <div className='notification-item'>
                             <i><FaUserCircle /></i>
                             <p>Changing username</p>
-                            <Toggle toggleHandler={() => changeNotificationSettings("username", !notificationSettings.username)} toggleValue={notificationSettings.username}/>
+                            <Toggle toggleHandler={() => changeNotificationSettings("username", !notificationSettings.username)} toggleValue={notificationSettings.username} scale={0.9} />
                         </div>
                     </NotificationContainer>
                     : ""
@@ -90,13 +90,14 @@ const SettingsNotification = ({ open, setOpen, setHeight }) => {
 };
 
 const NotificationContainer = styled(motion.div)`
+    position: absolute;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     flex-direction: column;
     width: 100%;
-    height: 16rem;
-    margin-top: 2rem;
+    height: 100%;
+    margin-top: 5rem;
 
     .notification-item {
         display: flex;
@@ -111,11 +112,14 @@ const NotificationContainer = styled(motion.div)`
             justify-content: center;
             align-items: center;
             position: absolute;
-            left: .8rem;
+            left: .4rem;
+            width: 2rem;
+            height: 2rem;
         }
 
         p {
             font-size: .7rem;
+            font-weight: 400;
             text-align: left;
             width: 100%;
             margin-left: 1.7rem;
@@ -124,6 +128,54 @@ const NotificationContainer = styled(motion.div)`
         .toggle {
             position: absolute;
             right: .8rem;
+        }
+
+        &:nth-child(1) {
+            i {
+                font-size: .8rem;
+            }
+        }
+
+        &:nth-child(2) {
+            i {
+                font-size: .95rem;
+            }
+        }
+
+        &:nth-child(3) {
+            i {
+                font-size: .95rem;
+            }
+        }
+
+        &:nth-child(4) {
+            i {
+                font-size: .95rem;
+            }
+        }
+
+        &:nth-child(5) {
+            i {
+                font-size: .8rem;
+            }
+        }
+
+        &:nth-child(6) {
+            i {
+                font-size: 1rem;
+            }
+        }
+
+        &:nth-child(7) {
+            i {
+                font-size: .9rem;
+            }
+        }
+
+        &:nth-child(8) {
+            i {
+                font-size: .85rem;
+            }
         }
     }
 `;

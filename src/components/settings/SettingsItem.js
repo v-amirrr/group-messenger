@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const SettingsItem = ({ open, openValue, component, height }) => {
+const SettingsItem = ({ open, hide, component, height }) => {
     return (
         <>
-            <SettingsItemContainer open={open == openValue ? 1 : 0} height={height}>
+            <SettingsItemContainer open={open} hide={hide} height={height}>
                 {component}
             </SettingsItemContainer>
         </>
@@ -13,7 +13,7 @@ const SettingsItem = ({ open, openValue, component, height }) => {
 
 const SettingsItemContainer = styled.div`
     width: 70%;
-    height: ${props => props.open ? `${props.height}rem` : "2.2rem"};
+    height: ${props => props.open ? `${props.height}rem` : props.hide ? "0" : "2.2rem"};
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -24,7 +24,8 @@ const SettingsItemContainer = styled.div`
     margin: .15rem;
     background-color: #00000066;
     box-shadow: var(--normal-shadow);
-    transition: ${props => props.open ? "height .6s, border-radius .1s" : "height .4s, border-radius 2s"}, background .2s;
+    opacity: ${props => props.hide ? '0' : '1'};
+    transition: opacity .2s, margin .5s, ${props => props.open ? "height .6s" : "height .4s, border-radius 2s"};
 
     .item-header {
         position: absolute;
@@ -33,7 +34,6 @@ const SettingsItemContainer = styled.div`
         display: flex;
         justify-content: flex-start;
         align-items: center;
-        border-bottom: ${props => props.open ? "solid 2.5px #ffffff20" : "solid .1px #ffffff00"};
         padding: 0 .5rem .4rem .8rem;
         cursor: pointer;
         transition: ${props => props.open ? "top .1s" : "top .4s .6s"}, border-bottom .4s;
@@ -72,7 +72,7 @@ const SettingsItemContainer = styled.div`
             justify-content: center;
             align-items: center;
             border-radius: 50%;
-            background-color: var(--red-color);
+            background-color: #ff0000aa;
         }
     }
 

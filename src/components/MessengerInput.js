@@ -259,8 +259,8 @@ const MessengerInputContainer = styled(motion.section)`
 
     @media (max-width: 768px) {
         width: 15rem;
-        height: 2.6rem;
         margin-right: 4rem;
+        bottom: .9rem;
     }
 `;
 

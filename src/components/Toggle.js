@@ -1,13 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Toggle = ({ toggleHandler, toggleValue }) => {
+const Toggle = ({ toggleHandler, toggleValue, scale }) => {
     return (
         <>
             <ToggleContainer
+                className='toggle'
                 onClick={toggleHandler}
                 toggle={toggleValue ? 1 : 0}
-                className='toggle'
+                scale={scale}
             >
                 <span></span>
             </ToggleContainer>
@@ -22,18 +23,19 @@ const ToggleContainer = styled.div`
     position: relative;
     border-radius: 50px;
     width: 2rem;
-    height: 1.2rem;
-    background-color: ${(props) => (props.toggle ? 'var(--green-color)' : '#ffffff20')};
+    height: 1.25rem;
+    background-color: ${(props) => (props.toggle ? 'var(--blue-color)' : '#ffffff20')};
     cursor: pointer;
     transition: background 0.2s;
+    transform: ${props => `scale(${props.scale})`};
 
     span {
         position: absolute;
-        left: ${(props) => (!props.toggle ? '0' : '35%')};
+        left: ${(props) => (!props.toggle ? '-2%' : '35%')};
         margin: .2rem;
         border-radius: 50%;
-        width: .9rem;
-        height: .9rem;
+        width: 1rem;
+        height: 1rem;
         background-color: ${(props) => (props.toggle ? 'var(--normal-color)' : '#ffffff20')};
         box-shadow: var(--bold-shadow);
         display: flex;

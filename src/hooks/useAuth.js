@@ -1,6 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { auth, googleProvider } from '../config/firebase';
+import { auth, db, googleProvider } from '../config/firebase';
+import { doc, updateDoc } from 'firebase/firestore';
 import { createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { setUser, setLogin, setSignup, setEnterAsAGuest, setGoogleLogin } from '../redux/userSlice';
 import { useNotification } from './useNotification';
@@ -21,7 +22,6 @@ export const useAuth = () => {
                     localStorage.setItem("user", JSON.stringify(res.user));
                     dispatch(setUser(res.user));
                     navigate("/");
-                    openNotification(`Welcome ${res.user.displayName}`, false, "ENTER");
                 })
                 .catch(err => {
                     dispatch(setLogin({ loading: false }));
@@ -35,7 +35,6 @@ export const useAuth = () => {
 
     const signup = (username, email, password) => {
         dispatch(setSignup({ loading: true }));
-
         if (username && email && password) {
             createUserWithEmailAndPassword(auth, email, password)
                 .then((res) => {
@@ -43,23 +42,14 @@ export const useAuth = () => {
                         displayName: username,
                     })
                         .then(() => {
+                            updateDoc(doc(db, "users", auth.currentUser.uid), {
+                                username: username
+                            });
                             dispatch(setSignup({ loading: false }));
-                            localStorage.setItem(
-                                'user',
-                                JSON.stringify(res.user),
-                            );
+                            localStorage.setItem('user', JSON.stringify(res.user));
                             dispatch(setUser(res.user));
                             navigate('/');
-                            openNotification(
-                                `Welcome ${username}`,
-                                true,
-                                'ENTER',
-                            );
                         })
-                        .catch((err) => {
-                            dispatch(setSignup({ loading: false }));
-                            openNotification(err.message, true, 'ERROR');
-                        });
                 })
                 .catch((err) => {
                     dispatch(setSignup({ loading: false }));
@@ -90,18 +80,15 @@ export const useAuth = () => {
 
     const googleLogin = () => {
         dispatch(setGoogleLogin({ loading: true }));
-
         signInWithPopup(auth, googleProvider)
             .then((res) => {
+                updateDoc(doc(db, "users", auth.currentUser.uid), {
+                    username: res.user.displayName
+                });
                 dispatch(setGoogleLogin({ loading: false }));
                 localStorage.setItem('user', JSON.stringify(res.user));
                 dispatch(setUser(res.user));
                 navigate('/');
-                openNotification(
-                    `Welcome ${res.user.displayName}`,
-                    true,
-                    'ENTER',
-                );
             })
             .catch((err) => {
                 dispatch(setGoogleLogin({ loading: false }));

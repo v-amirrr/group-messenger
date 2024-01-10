@@ -17,7 +17,7 @@ const GroupChat = () => {
     const messagesRef = useRef();
     const { groupChatRedirection } = useRedirection();
 
-    const { messages } = useSelector(store => store.messagesStore);
+    const { messages, usernames } = useSelector(store => store.messagesStore);
     const { user } = useSelector(store => store.userStore);
     const { selectedMessages } = useSelector(store => store.appStore);
 
@@ -64,10 +64,10 @@ const GroupChat = () => {
     }, [messages]);
 
     useEffect(() => {
-        if (messages[messages.length-1].time.year && messages[messages.length-1].uid == user?.uid) {
+        if (messages[messages?.length-1]?.time?.year && messages[messages?.length-1]?.uid == user?.uid) {
             scrollDown();
         }
-    }, [messages[messages.length-1].time]);
+    }, [messages[messages?.length-1]?.time]);
 
     useEffect(() => {
         const localstorageScroll = localStorage.getItem("scroll");
@@ -107,7 +107,7 @@ const GroupChat = () => {
                             message={{
                                 messageUid: message.uid,
                                 localUid: user?.uid,
-                                messageUsername: message.username,
+                                messageUsername: usernames[message.uid],
                                 id: message.id,
                                 message: message.message,
                                 periorUsername: message.periorUsername,

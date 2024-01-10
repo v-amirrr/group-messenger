@@ -10,7 +10,6 @@ export const useChangeUsername = () => {
     const dispatch = useDispatch();
 
     const { user } = useSelector(store => store.userStore);
-    const { messages, deletedMessages } = useSelector(store => store.messagesStore);
 
     const { openNotification } = useNotification();
 
@@ -19,23 +18,9 @@ export const useChangeUsername = () => {
             await updateProfile(auth.currentUser, {
                 displayName: newUsername,
             }).then(() => {
-                dispatch(setUser({
-                    ...user,
-                    displayName: newUsername,
-                }));
-                messages.map(message => {
-                    if (message.uid == user.uid) {
-                        updateDoc(doc(db, "messages", message.id), {
-                            username: newUsername
-                        });
-                    }
-                });
-                deletedMessages.map(message => {
-                    if (message.uid == user.uid) {
-                        updateDoc(doc(db, "messages", message.id), {
-                            username: newUsername
-                        });
-                    }
+                dispatch(setUser({ ...user, displayName: newUsername}));
+                updateDoc(doc(db, "users", auth.currentUser.uid), {
+                    username: newUsername
                 });
                 openNotification("Username changed.", false, "USERNAME");
             }).catch((err) => {

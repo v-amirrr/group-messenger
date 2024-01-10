@@ -179,7 +179,7 @@ const Message = (props) => {
                 animate='visible'
                 exit='exit'
                 variants={messageVariants}
-                chatdate={priorDifferentDate && time.year && time.month && time.day}
+                chatdate={priorDifferentDate && time?.year && time?.month && time?.day ? 1 : 0}
                 localuser={messageUid == localUid ? 1 : 0}
                 ispersian={isRTL(message) ? 1 : 0}
                 messageposition={messagePosition}

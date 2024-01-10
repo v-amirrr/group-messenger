@@ -1,8 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import { db } from "../config/firebase";
 import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
-import { setMessages, setError, setLoadingOn, setLoadingOff, setDeletedMessages } from "../redux/messagesSlice";
+import { setMessages, setError, setLoadingOn, setLoadingOff, setDeletedMessages, useUsernames, setUsernames } from "../redux/messagesSlice";
 import { isURL } from "../functions/isURL";
+
 
 export const useGetMessages = () => {
 
@@ -12,6 +13,9 @@ export const useGetMessages = () => {
     let firstTime, lastTime, time;
 
     const getMessages = () => {
+        let usernames = {};
+        let messages = [];
+
         dispatch(setError(null));
 
         const ref = collection(db, 'messages');
@@ -19,16 +23,23 @@ export const useGetMessages = () => {
 
         const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-        const unsub = onSnapshot(q, (snapshot) => {
-            firstTime = performance.now();
+        const unsubUsers = onSnapshot(collection(db, 'users'), (snapshot) => {
+            usernames = {};
+            snapshot.docs.forEach(doc => {
+                usernames[doc.id] = doc.data().username;
+            });
+            
+            dispatch(setUsernames(usernames));
+        });
 
-            let messages = [];
+        const unsubMessages = onSnapshot(q, (snapshot) => {
+            messages = [];
             dispatch(setMessages(null));
 
             snapshot.docs.forEach(doc => {
                 messages.push({
+                    // username: usernames[doc.data().uid],
                     uid: doc.data().uid,
-                    username: doc.data().username,
                     message: doc.data().message,
                     time: {
                         year: doc.data().time?.toDate()?.getFullYear(),
@@ -78,9 +89,7 @@ export const useGetMessages = () => {
                 dispatch(setError("There's a problem with your connection. If you're in sanctioned countries like Iran, you have to turn on your VPN for using this app and if you're already using a VPN you need to change it. (You can use checan.ir)"));
             }
 
-            lastTime = performance.now();
         }, (error) => {
-            lastTime = performance.now();
             dispatch(setError(error));
         });
     };

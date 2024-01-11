@@ -11,29 +11,19 @@ const WarningPage = () => {
 
     const [warningModalCheckbox, setWarningModalCheckbox] = useState(false);
 
-    const pressEnter = (e) => {
-        if (e.key == 'Enter') {
-            warningPageSubmit(warningModalCheckbox);
-        }
-    };
-
     useEffect(() => {
         warningRedirection();
+        document.addEventListener("keydown", (e) => {
+            if (e.key == 'Enter') {
+                warningPageSubmit(warningModalCheckbox);
+            }
+        });
     }, []);
 
     return (
         <>
-            <Warning
-                initial='hidden'
-                animate='visible'
-                exit='exit'
-                variants={warningPageVariants}
-                onKeyDown={(e) => pressEnter(e)}
-            >
-                <motion.div
-                    className='container'
-                    variants={warningContainerVariants}
-                >
+            <Warning initial='hidden' animate='visible' exit='exit' variants={warningPageVariants}>
+                <motion.div className='container' variants={warningContainerVariants}>
                     <h1 className='title'>THINGS YOU NEED TO KNOW</h1>
                     <p className='warning'>
                         If you're in sanctioned countries like <b>Iran</b>, you
@@ -41,33 +31,24 @@ const WarningPage = () => {
                         app.
                     </p>
                     <p className='guide'>
-                        In this app you can send message, reply to a message,
-                        delete your messege, edit your message also edit your
-                        message's replies. For doing those things you just need
-                        to hit on one of your message to see the options. You
-                        also can change background of the app.
+                        Login, Sign up, Enter as a guest, Enter by Google.
+                        Send, reply, edit you message, edit the reply you've choose for your message,
+                        delete your message, copy the text of anyone's message,
+                        select bunch of messages then delete or copy them together.
+                        Change the background, decide when to recieve a notification,
+                        change your username, bring back deleted messages from the trash or
+                        delete them forever.
                     </p>
-                    <div
-                        className='show-again'
-                        onClick={() =>
-                            setWarningModalCheckbox(!warningModalCheckbox)
-                        }
-                    >
+                    <div className='show-again' onClick={() => setWarningModalCheckbox(!warningModalCheckbox)}>
                         <input
                             type='checkbox'
                             autoFocus
                             checked={warningModalCheckbox}
-                            onChange={() =>
-                                setWarningModalCheckbox(!warningModalCheckbox)
-                            }
+                            onChange={() =>setWarningModalCheckbox(!warningModalCheckbox)}
                         />
                         <p>Don't show this again.</p>
                     </div>
-                    <button
-                        type='submit'
-                        className='submit'
-                        onClick={() => warningPageSubmit(warningModalCheckbox)}
-                    >
+                    <button type='submit' className='submit' onClick={() => warningPageSubmit(warningModalCheckbox)}>
                         LET'S GO
                     </button>
                 </motion.div>
@@ -95,8 +76,8 @@ const Warning = styled(motion.section)`
         .title {
             font-size: 2rem;
             font-weight: 900;
-            margin-bottom: 1.2rem;
             letter-spacing: -2px;
+            margin-bottom: 1.2rem;
             word-spacing: 5px;
             white-space: nowrap;
             color: var(--normal-color);
@@ -119,13 +100,13 @@ const Warning = styled(motion.section)`
         }
 
         .show-again {
-            font-size: 0.6rem;
-            font-weight: 400;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: var(--pale-color);
+            font-size: 0.6rem;
+            font-weight: 400;
             margin-bottom: 1.2rem;
+            color: var(--pale-color);
             cursor: pointer;
 
             input {
@@ -154,7 +135,7 @@ const Warning = styled(motion.section)`
             word-spacing: 3px;
             letter-spacing: -1px;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: background .2s;
 
             @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
                 &:hover {
@@ -171,8 +152,8 @@ const Warning = styled(motion.section)`
             }
 
             .warning {
-                font-size: 0.8rem;
                 max-width: 80%;
+                font-size: 0.8rem;
             }
 
             .guide {

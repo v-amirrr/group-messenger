@@ -89,11 +89,9 @@ const LoginPage = () => {
                         <p>OK</p>
                     </button>
                     <div className='loader'>
-                        <div class='loader'>
-                            <span className='dot'></span>
-                            <span className='dot'></span>
-                            <span className='dot'></span>
-                        </div>
+                        <span className='dot'></span>
+                        <span className='dot'></span>
+                        <span className='dot'></span>
                     </div>
                 </div>
                 <button className='google' onClick={googleHandler} disabled={loginData.loading || signupData.loading}>

@@ -31,7 +31,7 @@ const MessageUsernameContainer = styled.div`
     color: var(--pale-color);
     background-color: #ffffff0b;
     box-shadow: var(--bold-shadow);
-    border-radius: 50px 50px 50px 10px;
+    border-radius: 50px 50px 50px 20px;
     padding: 0.2rem 0.5rem 0.2rem 1.2rem;
     max-width: 8rem;
     text-overflow: ellipsis;

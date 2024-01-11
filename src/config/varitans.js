@@ -691,12 +691,8 @@ export const trashSettingsVariants = {
     },
     exit: {
         opacity: 0,
-        scale: 0.9,
-        y: 40,
         transition: {
-            duration: 0.5,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
+            duration: 0.4,
         },
     },
 };

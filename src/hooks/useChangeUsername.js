@@ -13,8 +13,9 @@ export const useChangeUsername = () => {
 
     const { openNotification } = useNotification();
 
-    const changeUsername = async (newUsername) => {
-        if (newUsername) {
+    const changeUsername = async (newUsername, oldUsername, setLoading, setInputEnabled) => {
+        if (newUsername && newUsername != oldUsername) {
+            setLoading(true);
             await updateProfile(auth.currentUser, {
                 displayName: newUsername,
             }).then(() => {
@@ -23,9 +24,17 @@ export const useChangeUsername = () => {
                     username: newUsername
                 });
                 openNotification("Username changed.", false, "USERNAME");
+                setLoading(false);
+                setInputEnabled(false)
             }).catch((err) => {
-                openNotification(err.message, true);
+                openNotification(err.message, true, "ERROR");
+                setLoading(false);
+                setInputEnabled(false)
             });
+        } else if (newUsername == oldUsername) {
+            openNotification("The old and the new usernames are the same", true, "ERROR");
+        } else {
+            openNotification("Type a new username", true, "ERROR");
         }
     };
 

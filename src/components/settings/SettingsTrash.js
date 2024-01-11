@@ -75,40 +75,42 @@ const SettingsTrash = ({ open, setOpen, setHeight }) => {
                     <div key="item-data" className='item-data'>
                         <MessagesContainer initial='hidden' animate='visible' exit='exit' variants={trashSettingsVariants} selectbarshow={selectedMessages.length}>
                             <AnimatePresence exitBeforeEnter>
-                                {messages?.length ?
-                                <>
-                                    <motion.div key="trash-selectbar" className='select-bar' initial='hidden' animate='visible' exit='exit' variants={trashSettingsVariants}>
-                                        <div className='counter'>{selectedMessages.length}</div>
-                                        <button className='delete-button' disabled={!selectedMessages.length} onClick={() => openPopup("DELETE_POPUP", [selectedMessages])}>
-                                            <i><TbTrashX /></i>
-                                            <p>Delete</p>
-                                        </button>
-                                        <button className='restore-button' disabled={!selectedMessages.length} onClick={restoreSelectedMessages}>
-                                            <i><FaTrashRestore /></i>
-                                            <p>Restore</p>
-                                        </button>
-                                        <div className='all' onClick={() => switchSelectAllTrash(messages)}><BsCheckAll /></div>
+                                {
+                                    messages?.length ?
+                                    <>
+                                        <motion.div key="trash-selectbar" className='select-bar' initial='hidden' animate='visible' exit='exit' variants={trashSettingsVariants}>
+                                            <div className='counter'>{selectedMessages.length}</div>
+                                            <button className='delete-button' disabled={!selectedMessages.length} onClick={() => openPopup("DELETE_POPUP", [selectedMessages])}>
+                                                <i><TbTrashX /></i>
+                                                <p>Delete</p>
+                                            </button>
+                                            <button className='restore-button' disabled={!selectedMessages.length} onClick={restoreSelectedMessages}>
+                                                <i><FaTrashRestore /></i>
+                                                <p>Restore</p>
+                                            </button>
+                                            <div className='all' onClick={() => switchSelectAllTrash(messages)}><BsCheckAll /></div>
+                                        </motion.div>
+                                        <motion.div layout key="trash-messages" className='deleted-messages' initial='hidden' animate='visible' exit='exit' variants={trashSettingsVariants}>
+                                            <AnimatePresence>
+                                                {messages?.map(message => (
+                                                    <Message
+                                                        key={message.id}
+                                                        type="TRASH"
+                                                        message={{
+                                                            id: message.id,
+                                                            message: message.message,
+                                                            time: message.time,
+                                                            replyTo: message.replyTo,
+                                                        }}
+                                                    />
+                                                ))}
+                                            </AnimatePresence>
+                                        </motion.div>
+                                    </> :
+                                    <motion.div key="trash-empty" className='trash-empty' initial='hidden' animate='visible' exit='exit' variants={trashSettingsVariants}>
+                                        <p>Trash is empty!</p>
                                     </motion.div>
-                                    <motion.div layout key="trash-messages" className='deleted-messages' initial='hidden' animate='visible' exit='exit' variants={trashSettingsVariants}>
-                                        <AnimatePresence>
-                                            {messages?.map(message => (
-                                                <Message
-                                                    key={message.id}
-                                                    type="TRASH"
-                                                    message={{
-                                                        id: message.id,
-                                                        message: message.message,
-                                                        time: message.time,
-                                                        replyTo: message.replyTo,
-                                                    }}
-                                                />
-                                            ))}
-                                        </AnimatePresence>
-                                    </motion.div>
-                                </> :
-                                <motion.div key="trash-empty" className='trash-empty' initial='hidden' animate='visible' exit='exit' variants={trashSettingsVariants}>
-                                    <p>Trash is empty!</p>
-                                </motion.div>}
+                                }
                             </AnimatePresence>
                         </MessagesContainer>
                     </div>

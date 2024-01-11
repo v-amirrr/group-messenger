@@ -2,7 +2,7 @@ import React, { memo, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { useMessageOptions } from '../../hooks/useMessageOptions';
 import { useSelect } from '../../hooks/useSelect';
-import { AiFillDelete, AiFillCopy, AiFillEdit, AiFillClockCircle } from 'react-icons/ai';
+import { AiFillDelete, AiFillCopy, AiFillEdit } from 'react-icons/ai';
 import { BsReplyFill } from 'react-icons/bs';
 import { BiSelectMultiple } from "react-icons/bi";
 import styled from 'styled-components';

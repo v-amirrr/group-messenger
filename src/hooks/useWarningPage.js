@@ -26,10 +26,10 @@ export const useWarningPage = () => {
         }
     };
 
-    const warningPageSubmit = (warningModalCheckbox) => {
+    const warningPageSubmit = (warningToggle) => {
         sessionStorage.setItem("warning", "true");
         dispatch(setWarningShowed(true));
-        if (warningModalCheckbox) {
+        if (!warningToggle) {
             localStorage.setItem("warning-check", "true");
         }
         if (!!localStorage.getItem("user")) {

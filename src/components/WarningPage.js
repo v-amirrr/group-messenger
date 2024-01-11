@@ -4,18 +4,19 @@ import { useRedirection } from '../hooks/useRedirection';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { warningPageVariants, warningContainerVariants } from '../config/varitans';
+import Toggle from './Toggle';
 
 const WarningPage = () => {
     const { warningPageSubmit } = useWarningPage();
     const { warningRedirection } = useRedirection();
 
-    const [warningModalCheckbox, setWarningModalCheckbox] = useState(false);
+    const [warningToggle, setWarningToggle] = useState(true);
 
     useEffect(() => {
         warningRedirection();
         document.addEventListener("keydown", (e) => {
             if (e.key == 'Enter') {
-                warningPageSubmit(warningModalCheckbox);
+                warningPageSubmit(warningToggle);
             }
         });
     }, []);
@@ -39,16 +40,15 @@ const WarningPage = () => {
                         change your username, bring back deleted messages from the trash or
                         delete them forever.
                     </p>
-                    <div className='show-again' onClick={() => setWarningModalCheckbox(!warningModalCheckbox)}>
-                        <input
-                            type='checkbox'
-                            autoFocus
-                            checked={warningModalCheckbox}
-                            onChange={() =>setWarningModalCheckbox(!warningModalCheckbox)}
+                    <div className='show-again' onClick={() => setWarningToggle(!warningToggle)}>
+                        <p>Show the warning page everytime.</p>
+                        <Toggle
+                            toggleHandler={() => setWarningToggle(!warningToggle)}
+                            toggleValue={warningToggle}
+                            scale={0.6}
                         />
-                        <p>Don't show this again.</p>
                     </div>
-                    <button type='submit' className='submit' onClick={() => warningPageSubmit(warningModalCheckbox)}>
+                    <button type='submit' className='submit' onClick={() => warningPageSubmit(setWarningToggle)}>
                         LET'S GO
                     </button>
                 </motion.div>
@@ -108,16 +108,6 @@ const Warning = styled(motion.section)`
             margin-bottom: 1.2rem;
             color: var(--pale-color);
             cursor: pointer;
-
-            input {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                width: 0.5rem;
-                height: 0.5rem;
-                margin: 0 0.2rem 0 0;
-                cursor: pointer;
-            }
         }
 
         .submit {

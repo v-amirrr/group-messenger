@@ -55,20 +55,17 @@ const MessageOptions = ({ clickEvent, show, message, replyTo }) => {
                                     <i><BsReplyFill /></i>
                                     <p>Reply</p>
                                 </motion.div>
-                                <motion.hr variants={message.isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants} />
                             </>
-                            : ""
+                            : ''
                         }
                         <motion.div className='select' onClick={() => optionClick("SELECT")} variants={message.isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants}>
                             <i><BiSelectMultiple /></i>
                             <p>Select</p>
                         </motion.div>
-                        <motion.hr variants={message.isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants} />
                         <motion.div className='copy' onClick={() => optionClick("COPY")} variants={message.isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants}>
                             <i><AiFillCopy /></i>
                             <p>Copy</p>
                         </motion.div>
-                        <motion.hr variants={message.isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants} />
                         {
                             message.isMessageFromLocalUser ?
                             <>
@@ -76,14 +73,12 @@ const MessageOptions = ({ clickEvent, show, message, replyTo }) => {
                                     <i><AiFillEdit /></i>
                                     <p>Edit</p>
                                 </motion.div>
-                                <motion.hr variants={message.isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants} />
                                 <motion.div className='delete' onClick={() => optionClick("DELETE")} variants={message.isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants}>
                                     <i><AiFillDelete /></i>
                                     <p>Delete</p>
                                 </motion.div>
-                                <motion.hr variants={message.isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants} />
                             </>
-                            : ""
+                            : ''
                         }
                         <motion.div className='time' variants={message.isMessageFromLocalUser ? optionLocalVariants : optionNonLocalVariants}>
                             <div>
@@ -96,7 +91,7 @@ const MessageOptions = ({ clickEvent, show, message, replyTo }) => {
                             </p>
                         </motion.div>
                     </MessageOptionsContainer>
-                    : ""
+                    : ''
                 }
             </AnimatePresence>
         </>
@@ -121,22 +116,23 @@ const MessageOptionsContainer = styled(motion.div)`
         border-radius: 50px;
         width: 100%;
         height: 50%;
-        cursor: pointer;
         padding: .5rem;
-        transition: padding .2s;
         backdrop-filter: var(--normal-glass);
         -webkit-backdrop-filter: var(--normal-glass);
+        cursor: pointer;
+        transition: padding .2s;
 
         i {
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: row;
-            font-size: 1rem;
+            font-size: 1.1rem;
         }
 
         p {
-            font-size: .7rem;
+            font-size: .8rem;
+            font-weight: 400;
             position: absolute;
             right: .6rem;
             transform: scale(0);
@@ -149,6 +145,7 @@ const MessageOptionsContainer = styled(motion.div)`
                 p {
                     transform: scale(1);
                     opacity: 1;
+                    letter-spacing: 0;
                 }
             }
         }
@@ -156,7 +153,7 @@ const MessageOptionsContainer = styled(motion.div)`
 
     .time {
         cursor: auto;
-        padding: .5rem 2.5rem .5rem .5rem;
+        padding: .5rem 2.8rem .5rem .5rem;
         border: none;
 
         div {
@@ -201,7 +198,7 @@ const MessageOptionsContainer = styled(motion.div)`
     .reply {
         @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
             &:hover {
-                padding: .5rem 2.6rem .5rem .5rem;
+                padding: .5rem 2.8rem .5rem .5rem;
                 transition: padding .3s;
             }
         }
@@ -210,7 +207,7 @@ const MessageOptionsContainer = styled(motion.div)`
     .copy {
         @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
             &:hover {
-                padding: .5rem 2.4rem .5rem .5rem;
+                padding: .5rem 2.7rem .5rem .5rem;
                 transition: padding .3s;
             }
         }
@@ -219,7 +216,7 @@ const MessageOptionsContainer = styled(motion.div)`
     .edit {
         @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
             &:hover {
-                padding: .5rem 2.1rem .5rem .5rem;
+                padding: .5rem 2.3rem .5rem .5rem;
                 transition: padding .3s;
             }
         }
@@ -228,7 +225,7 @@ const MessageOptionsContainer = styled(motion.div)`
     .delete {
         @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
             &:hover {
-                padding: .5rem 2.9rem .5rem .5rem;
+                padding: .5rem 3.1rem .5rem .5rem;
                 transition: padding .3s;
             }
         }
@@ -237,14 +234,10 @@ const MessageOptionsContainer = styled(motion.div)`
     .select {
         @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
             &:hover {
-                padding: .5rem 2.8rem .5rem .5rem;
+                padding: .5rem 3rem .5rem .5rem;
                 transition: padding .3s;
             }
         }
-    }
-
-    hr {
-        display: none;
     }
 
     @media (max-width: 768px) {

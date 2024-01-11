@@ -107,10 +107,10 @@ const MessengerMenuContainer = styled(motion.div)`
             font-weight: 400;
             white-space: nowrap;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: background .2s;
 
             p {
-                font-size: 0.8rem;
+                font-size: .8rem;
                 margin-left: 2rem;
                 text-align: left;
                 width: 100%;

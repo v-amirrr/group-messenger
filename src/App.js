@@ -19,7 +19,7 @@ const App = () => {
 
     const location = useLocation();
 
-    const { getMessages, loadingOn } = useGetMessages();
+    const { getMessages, loadingOn, getUsers } = useGetMessages();
     const { showWelcomePages } = useWarningPage();
     const { setDefaultTheme } = useChangeTheme();
     const { setDefaultNotification, clearNotifications } = useNotification();
@@ -30,6 +30,7 @@ const App = () => {
         setDefaultNotification();
         loadingOn();
         getMessages();
+        getUsers();
         showWelcomePages();
     }, []);
 

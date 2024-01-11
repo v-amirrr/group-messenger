@@ -12,8 +12,19 @@ export const useGetMessages = () => {
 
     let firstTime, lastTime, time;
 
-    const getMessages = () => {
+    const getUsers = () => {
         let usernames = {};
+        const unsubUsers = onSnapshot(collection(db, 'users'), (snapshot) => {
+            usernames = {};
+            snapshot.docs.forEach(doc => {
+                usernames[doc.id] = doc.data().username;
+            });
+
+            dispatch(setUsernames(usernames));
+        });
+    };
+
+    const getMessages = () => {
         let messages = [];
 
         dispatch(setError(null));
@@ -23,22 +34,12 @@ export const useGetMessages = () => {
 
         const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-        const unsubUsers = onSnapshot(collection(db, 'users'), (snapshot) => {
-            usernames = {};
-            snapshot.docs.forEach(doc => {
-                usernames[doc.id] = doc.data().username;
-            });
-            
-            dispatch(setUsernames(usernames));
-        });
-
         const unsubMessages = onSnapshot(q, (snapshot) => {
             messages = [];
             dispatch(setMessages(null));
 
             snapshot.docs.forEach(doc => {
                 messages.push({
-                    // username: usernames[doc.data().uid],
                     uid: doc.data().uid,
                     message: doc.data().message,
                     time: {
@@ -109,5 +110,10 @@ export const useGetMessages = () => {
         }
     };
 
-    return { getMessages, loadingOn, loadingOff };
+    return {
+        getMessages,
+        loadingOn,
+        loadingOff,
+        getUsers
+    };
 };

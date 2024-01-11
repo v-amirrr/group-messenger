@@ -121,9 +121,7 @@ const NotificationContainer = styled(motion.div)`
         }
     }
 
-    .error-icon,
-    .notification-icon,
-    .guest-icon {
+    .error-icon, .notification-icon, .guest-icon {
         display: flex;
         justify-content: center;
         align-items: center;

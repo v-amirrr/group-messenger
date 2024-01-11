@@ -5,13 +5,10 @@ import { useMessageOptions } from '../../hooks/useMessageOptions';
 import { BsReplyFill } from 'react-icons/bs';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
-import {
-    replyAddSectionVariants,
-    replyButtonVariants,
-} from '../../config/varitans';
+import { replyAddSectionVariants, replyButtonVariants } from '../../config/varitans';
 
 const EditReply = ({ replyTo, id, editReplyOpen, setEditReplyOpen }) => {
-    const { messages } = useSelector((store) => store.messagesStore);
+    const { messages, usernames } = useSelector((store) => store.messagesStore);
     const { user } = useSelector((store) => store.userStore);
 
     const { editMessageReply } = useMessageOptions();
@@ -64,7 +61,8 @@ const EditReply = ({ replyTo, id, editReplyOpen, setEditReplyOpen }) => {
         <>
             <ReplyConatiner editReplyOpen={editReplyOpen ? 1 : 0}>
                 <AnimatePresence exitBeforeEnter>
-                    {editReplyOpen ? (
+                    {
+                        editReplyOpen ?
                         <motion.div
                             key='reply-messages-open'
                             className='open-items'
@@ -74,58 +72,51 @@ const EditReply = ({ replyTo, id, editReplyOpen, setEditReplyOpen }) => {
                             variants={replyAddSectionVariants}
                         >
                             <div className='messages' ref={messagesRef}>
-                                {messagesBefore?.map((message) => (
-                                    <Message
-                                        onClick={() =>
-                                            newReply.id == message.id
-                                                ? setNewReply('deleted')
-                                                : setNewReply(message)
-                                        }
-                                        replyIconClick={() =>
-                                            setNewReply('deleted')
-                                        }
-                                        key={message.id}
-                                        type='EDIT_REPLY'
-                                        newreply={newReply.id == message.id}
-                                        message={{
-                                            messageUid: message.uid,
-                                            localUid: user?.uid,
-                                            messageUsername: message.username,
-                                            id: message.id,
-                                            message: message.message,
-                                            periorUsername:
-                                                message.periorUsername,
-                                            nextUsername: message.nextUsername,
-                                            time: message.time,
-                                            priorDifferentDate:
-                                                message.priorDifferentDate,
-                                            nextDifferentDate:
-                                                message.nextDifferentDate,
-                                            replyTo: message.replyTo,
-                                        }}
-                                    />
-                                ))}
+                                {
+                                    messagesBefore?.map((message) => (
+                                        <Message
+                                            onClick={() =>
+                                                newReply.id == message.id
+                                                    ? setNewReply('deleted')
+                                                    : setNewReply(message)
+                                            }
+                                            replyIconClick={() =>
+                                                setNewReply('deleted')
+                                            }
+                                            key={message.id}
+                                            type='EDIT_REPLY'
+                                            newreply={newReply.id == message.id}
+                                            message={{
+                                                messageUid: message.uid,
+                                                localUid: user?.uid,
+                                                messageUsername: usernames[message.uid],
+                                                id: message.id,
+                                                message: message.message,
+                                                periorUsername:
+                                                    message.periorUsername,
+                                                nextUsername: message.nextUsername,
+                                                time: message.time,
+                                                priorDifferentDate:
+                                                    message.priorDifferentDate,
+                                                nextDifferentDate:
+                                                    message.nextDifferentDate,
+                                                replyTo: message.replyTo,
+                                            }}
+                                        />
+                                    ))
+                                }
                             </div>
                             <div className='buttons'>
-                                <button
-                                    className='cancel'
-                                    onClick={() =>
-                                        setEditReplyOpen(!editReplyOpen)
-                                    }
-                                >
-                                    Cancel
-                                </button>
-                                <button className='edit' onClick={editHandler}>
-                                    Edit Reply
-                                </button>
+                                <button className='cancel' onClick={() => setEditReplyOpen(!editReplyOpen)}>Cancel</button>
+                                <button className='edit' onClick={editHandler}>Edit Reply</button>
                             </div>
                         </motion.div>
-                    ) : (
-                        ''
-                    )}
+                        : ''
+                    }
 
                     <AnimatePresence>
-                        {!editReplyOpen ? (
+                        {
+                            !editReplyOpen ?
                             <motion.button
                                 className='open-button'
                                 onClick={openHandler}
@@ -144,9 +135,8 @@ const EditReply = ({ replyTo, id, editReplyOpen, setEditReplyOpen }) => {
                                         : 'Add Reply'}
                                 </p>
                             </motion.button>
-                        ) : (
-                            ''
-                        )}
+                            : ''
+                        }
                     </AnimatePresence>
                 </AnimatePresence>
             </ReplyConatiner>

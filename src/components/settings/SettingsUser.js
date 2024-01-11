@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useChangeUsername } from '../../hooks/useChangeUsername';
 import { useNotification } from '../../hooks/useNotification';
@@ -7,7 +7,7 @@ import { FaUserEdit } from "react-icons/fa";
 import { RiArrowRightSLine } from "react-icons/ri";
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
-import { settingsContainerVariants, settingsPageVariants, userSettingsVariants } from '../../config/varitans';
+import { settingsContainerVariants, userSettingsVariants } from '../../config/varitans';
 
 const SettingsUser = ({ open, setOpen, setHeight }) => {
 
@@ -40,11 +40,6 @@ const SettingsUser = ({ open, setOpen, setHeight }) => {
         setLoading(false);
     };
 
-    useEffect(() => {
-        enterAsAGuest || localStorage.setItem("user", JSON.stringify(user));
-        enterAsAGuest || itemSwitch();
-    }, [user]);
-
     return (
         <>
             <div className='item-header' onClick={itemSwitch}>
@@ -68,7 +63,7 @@ const SettingsUser = ({ open, setOpen, setHeight }) => {
                                     <button className='cancel' onClick={cancelHandler} disabled={!inputEnabled}>
                                         Cancel
                                     </button>
-                                    <button className='submit' onClick={() => changeUsername(changeUsernameInput, user?.displayName, setLoading, setInputEnabled)} disabled={!inputEnabled}>
+                                    <button className='submit' onClick={() => changeUsername(changeUsernameInput, user?.displayName, setLoading, itemSwitch)} disabled={!inputEnabled}>
                                         Submit
                                     </button>
                                 </div>

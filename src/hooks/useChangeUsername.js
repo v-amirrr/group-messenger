@@ -13,23 +13,23 @@ export const useChangeUsername = () => {
 
     const { openNotification } = useNotification();
 
-    const changeUsername = async (newUsername, oldUsername, setLoading, setInputEnabled) => {
+    const changeUsername = async (newUsername, oldUsername, setLoading, closeUserSettings) => {
         if (newUsername && newUsername != oldUsername) {
             setLoading(true);
             await updateProfile(auth.currentUser, {
                 displayName: newUsername,
             }).then(() => {
-                dispatch(setUser({ ...user, displayName: newUsername}));
                 updateDoc(doc(db, "users", auth.currentUser.uid), {
                     username: newUsername
                 });
+                dispatch(setUser({ ...user, displayName: newUsername}));
+                localStorage.setItem("user", JSON.stringify(user));
                 openNotification("Username changed.", false, "USERNAME");
-                setLoading(false);
-                setInputEnabled(false)
+                closeUserSettings();
             }).catch((err) => {
                 openNotification(err.message, true, "ERROR");
                 setLoading(false);
-                setInputEnabled(false)
+                closeUserSettings();
             });
         } else if (newUsername == oldUsername) {
             openNotification("The old and the new usernames are the same", true, "ERROR");

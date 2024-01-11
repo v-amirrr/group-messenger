@@ -33,56 +33,88 @@ const SettingsNotification = ({ open, setOpen, setHeight }) => {
         <>
             <div className='item-header' onClick={itemSwitch}>
                 <i className='item-icon'><FcAdvertising /></i>
-                <h4>Notification</h4>
+                <h4>Notifications</h4>
                 <i className='item-back'><RiArrowRightSLine /></i>
             </div>
 
             <AnimatePresence exitBeforeEnter>
                 {
-                    open == "SETTINGS_NOTIFICATION" ?
+                    open == 'SETTINGS_NOTIFICATION' ?
                     <NotificationContainer initial='hidden' animate='visible' exit='exit' variants={notificationSettingsVariants}>
-                        <div className='notification-item'>
+                        <div className='notification-item' onClick={() => changeNotificationSettings('send', !notificationSettings.send)}>
                             <i><IoSend /></i>
                             <p>Sending</p>
-                            <Toggle toggleHandler={() => changeNotificationSettings("send", !notificationSettings.send)} toggleValue={notificationSettings.send} scale={0.9} />
+                            <Toggle
+                                toggleHandler={() => changeNotificationSettings('send', !notificationSettings.send)}
+                                toggleValue={notificationSettings.send}
+                                scale={0.9}
+                            />
                         </div>
-                        <div className='notification-item'>
+                        <div className='notification-item' onClick={() => changeNotificationSettings('trash', !notificationSettings.trash)}>
                             <i><AiFillDelete /></i>
                             <p>Moving to trash</p>
-                            <Toggle toggleHandler={() => changeNotificationSettings("trash", !notificationSettings.trash)} toggleValue={notificationSettings.trash} scale={0.9} />
+                            <Toggle
+                                toggleHandler={() => changeNotificationSettings('trash', !notificationSettings.trash)}
+                                toggleValue={notificationSettings.trash}
+                                scale={0.9}
+                            />
                         </div>
-                        <div className='notification-item'>
+                        <div className='notification-item' onClick={() => changeNotificationSettings('edit', !notificationSettings.edit)}>
                             <i><AiFillEdit /></i>
                             <p>Editing</p>
-                            <Toggle toggleHandler={() => changeNotificationSettings("edit", !notificationSettings.edit)} toggleValue={notificationSettings.edit} scale={0.9} />
+                            <Toggle
+                                toggleHandler={() => changeNotificationSettings('edit', !notificationSettings.edit)}
+                                toggleValue={notificationSettings.edit}
+                                scale={0.9}
+                            />
                         </div>
-                        <div className='notification-item'>
+                        <div className='notification-item' onClick={() => changeNotificationSettings('copy', !notificationSettings.copy)}>
                             <i><AiFillCopy /></i>
                             <p>Copying</p>
-                            <Toggle toggleHandler={() => changeNotificationSettings("copy", !notificationSettings.copy)} toggleValue={notificationSettings.copy} scale={0.9} />
+                            <Toggle
+                                toggleHandler={() => changeNotificationSettings('copy', !notificationSettings.copy)}
+                                toggleValue={notificationSettings.copy}
+                                scale={0.9}
+                            />
                         </div>
-                        <div className='notification-item'>
+                        <div className='notification-item' onClick={() => changeNotificationSettings('restore', !notificationSettings.restore)}>
                             <i><FaTrashRestore /></i>
                             <p>Restoring</p>
-                            <Toggle toggleHandler={() => changeNotificationSettings("restore", !notificationSettings.restore)} toggleValue={notificationSettings.restore} scale={0.9} />
+                            <Toggle
+                                toggleHandler={() => changeNotificationSettings('restore', !notificationSettings.restore)}
+                                toggleValue={notificationSettings.restore}
+                                scale={0.9}
+                            />
                         </div>
-                        <div className='notification-item'>
+                        <div className='notification-item' onClick={() => changeNotificationSettings('delete', !notificationSettings.delete)}>
                             <i><TbTrashX /></i>
                             <p>Deleting</p>
-                            <Toggle toggleHandler={() => changeNotificationSettings("delete", !notificationSettings.delete)} toggleValue={notificationSettings.delete} scale={0.9} />
+                            <Toggle
+                                toggleHandler={() => changeNotificationSettings('delete', !notificationSettings.delete)}
+                                toggleValue={notificationSettings.delete}
+                                scale={0.9}
+                            />
                         </div>
-                        <div className='notification-item'>
+                        <div className='notification-item' onClick={() => changeNotificationSettings('background', !notificationSettings.background)}>
                             <i><MdWallpaper /></i>
                             <p>Changing background</p>
-                            <Toggle toggleHandler={() => changeNotificationSettings("background", !notificationSettings.background)} toggleValue={notificationSettings.background} scale={0.9} />
+                            <Toggle
+                                toggleHandler={() => changeNotificationSettings('background', !notificationSettings.background)}
+                                toggleValue={notificationSettings.background}
+                                scale={0.9}
+                            />
                         </div>
-                        <div className='notification-item'>
+                        <div className='notification-item' onClick={() => changeNotificationSettings('username', !notificationSettings.username)}>
                             <i><FaUserCircle /></i>
                             <p>Changing username</p>
-                            <Toggle toggleHandler={() => changeNotificationSettings("username", !notificationSettings.username)} toggleValue={notificationSettings.username} scale={0.9} />
+                            <Toggle
+                                toggleHandler={() => changeNotificationSettings('username', !notificationSettings.username)}
+                                toggleValue={notificationSettings.username}
+                                scale={0.9}
+                            />
                         </div>
                     </NotificationContainer>
-                    : ""
+                    : ''
                 }
             </AnimatePresence>
         </>
@@ -91,37 +123,38 @@ const SettingsNotification = ({ open, setOpen, setHeight }) => {
 
 const NotificationContainer = styled(motion.div)`
     position: absolute;
+    width: 100%;
+    height: 100%;
     display: flex;
     justify-content: flex-start;
     align-items: center;
     flex-direction: column;
-    width: 100%;
-    height: 100%;
     margin-top: 5rem;
 
     .notification-item {
+        position: relative;
+        width: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 100%;
         padding: .5rem;
-        position: relative;
+        cursor: pointer;
 
         i {
-            display: flex;
-            justify-content: center;
-            align-items: center;
             position: absolute;
             left: .4rem;
             width: 2rem;
             height: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         p {
+            width: 100%;
             font-size: .7rem;
             font-weight: 400;
             text-align: left;
-            width: 100%;
             margin-left: 1.7rem;
         }
 

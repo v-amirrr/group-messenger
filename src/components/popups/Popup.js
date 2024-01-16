@@ -8,11 +8,15 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { popupPageVariants, popupContainerVariants } from '../../config/varitans';
 
 const Popup = () => {
-    const { popupShow, popupName, popupMessages, popupMessagesSelected, popupMessageReplyTo } = useSelector((store) => store.popupStore);
+    const {
+        popupShow,
+        popupName,
+        popupMessages,
+        popupMessagesSelected,
+        popupMessageReplyTo
+    } = useSelector(store => store.popupStore);
     const { closePopup } = useMessageOptions();
-
     const popupPage = useRef();
-
     const [editReplyOpen, setEditReplyOpen] = useState(false);
 
     const closePopupByTap = (e) => {
@@ -28,7 +32,8 @@ const Popup = () => {
     return (
         <>
             <AnimatePresence exitBeforeEnter>
-                {popupShow ? (
+                {
+                    popupShow ?
                     <PopupPage
                         initial='hidden'
                         animate='visible'
@@ -42,13 +47,11 @@ const Popup = () => {
                         >
                             {
                                 popupName == 'DELETE_POPUP' ?
-                                <DeletePopup popupMessages={popupMessages} />
-                                : popupName == 'EDIT_POPUP' ?
+                                <DeletePopup popupMessages={popupMessages} /> :
+                                popupName == 'EDIT_POPUP' ?
                                 <EditPopup
                                     popupMessages={popupMessages}
-                                    popupMessagesSelected={
-                                        popupMessagesSelected
-                                    }
+                                    popupMessagesSelected={popupMessagesSelected}
                                     popupMessageReplyTo={popupMessageReplyTo}
                                     editReplyOpen={editReplyOpen}
                                     setEditReplyOpen={setEditReplyOpen}
@@ -57,9 +60,8 @@ const Popup = () => {
                             }
                         </PopupContainer>
                     </PopupPage>
-                ) : (
-                    ''
-                )}
+                    : ''
+                }
             </AnimatePresence>
         </>
     );
@@ -110,7 +112,7 @@ const PopupContainer = styled(motion.div)`
             font-size: 1rem;
             font-weight: 400;
             cursor: pointer;
-            transition: background-color 0.2s;
+            transition: background .2s;
 
             @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
                 &:hover {

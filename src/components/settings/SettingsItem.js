@@ -4,7 +4,11 @@ import styled from 'styled-components';
 const SettingsItem = ({ open, hide, component, height }) => {
     return (
         <>
-            <SettingsItemContainer open={open} hide={hide} height={height ? height : 0}>
+            <SettingsItemContainer
+                open={open}
+                hide={hide}
+                height={height ? height : 0}
+            >
                 {component}
             </SettingsItemContainer>
         </>
@@ -25,7 +29,14 @@ const SettingsItemContainer = styled.div`
     background-color: #00000066;
     box-shadow: var(--normal-shadow);
     opacity: ${props => props.hide ? '0' : '1'};
-    transition: ${props => props.hide ? 'opacity .2s' : 'opacity .4s .1s'}, ${props => props.open ? "height .6s" : "height .4s, border-radius 2s"};
+    transition: ${props => props.hide ?
+            'opacity .2s' :
+            'opacity .4s .1s'
+        },
+        ${props => props.open ?
+            "height .6s" :
+            "height .4s, border-radius 2s"
+        };
 
     .item-header {
         position: absolute;

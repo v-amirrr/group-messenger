@@ -448,21 +448,18 @@ export const selectCheckNonLocalVariants = {
     exit: { opacity: 0, x: 50, scale: 0.5, transition: { duration: 0.25 } },
 };
 
-export const messengerInputVariants = {
-    hidden: { opacity: 0, y: 50 },
+export const InputVariants = {
+    hidden: { opacity: 0, scale: 0.9 },
     visible: {
         opacity: 1,
-        y: 0,
+        scale: 1,
         transition: {
-            type: 'spring',
-            stiffness: 100,
-            delay: 0.2,
-            duration: 0.8,
+            duration: 0.6,
             ease: [0.53, 0, 0, 0.98],
             time: [0.53, 0, 0, 0.98],
         },
     },
-    exit: { opacity: 0, y: 30, transition: { duration: 0.3 } },
+    exit: { opacity: 0, scale: 0.9, transition: { duration: 0.3 } },
 };
 
 export const sendInputIconVariants = {
@@ -508,20 +505,17 @@ export const emojiPickerVariatns = {
 };
 
 export const menuVariants = {
-    hidden: { opacity: 0, y: 50 },
+    hidden: { opacity: 0, scale: 0.9 },
     visible: {
         opacity: 1,
-        y: 0,
+        scale: 1,
         transition: {
-            type: 'spring',
-            stiffness: 100,
-            delay: 0.2,
-            duration: 0.8,
+            duration: 0.6,
             ease: [0.53, 0, 0, 0.98],
             time: [0.53, 0, 0, 0.98],
         },
     },
-    exit: { opacity: 0, y: 30, transition: { duration: 0.3 } },
+    exit: { opacity: 0, scale: 0.9, transition: { duration: 0.3 } },
 };
 
 export const popupPageVariants = {
@@ -564,21 +558,15 @@ export const replyButtonVariants = {
 };
 
 export const selectBarVariants = {
-    hidden: { opacity: 0, y: 50, scaleX: 0.9 },
+    hidden: { opacity: 0, scale: 0.9 },
     visible: {
         opacity: 1,
-        y: 0,
-        scaleX: 1,
+        scale: 1,
         transition: {
-            type: 'spring',
-            stiffness: 100,
-            delay: 0.2,
-            duration: 0.8,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
+            duration: 0.4,
         },
     },
-    exit: { opacity: 0, y: 30, transition: { duration: 0.3 } },
+    exit: { opacity: 0, scale: 0.9, transition: { duration: 0.3 } },
 };
 
 export const checkButtonVariants = {
@@ -710,20 +698,17 @@ export const trashSelectbarVariants = {
 };
 
 export const scrollButtonVariants = {
-    hidden: { opacity: 0, y: 50 },
+    hidden: { opacity: 0, scale: 0.9 },
     visible: {
         opacity: 1,
-        y: 0,
+        scale: 1,
         transition: {
-            type: 'spring',
-            stiffness: 100,
-            delay: 0.2,
-            duration: 0.8,
+            duration: 0.6,
             ease: [0.53, 0, 0, 0.98],
             time: [0.53, 0, 0, 0.98],
         },
     },
-    exit: { opacity: 0, y: 30, transition: { duration: 0.3 } },
+    exit: { opacity: 0, scale: 0.9, transition: { duration: 0.3 } },
 };
 
 export const scrollButtonIconsVariants = {
@@ -739,20 +724,17 @@ export const scrollButtonIconsVariants = {
 };
 
 export const profileVariants = {
-    hidden: { opacity: 0, y: 50 },
+    hidden: { opacity: 0, scale: 0.9 },
     visible: {
         opacity: 1,
-        y: 0,
+        scale: 1,
         transition: {
-            type: 'spring',
-            stiffness: 100,
-            delay: 0.2,
-            duration: 0.8,
+            duration: 0.6,
             ease: [0.53, 0, 0, 0.98],
             time: [0.53, 0, 0, 0.98],
         },
     },
-    exit: { opacity: 0, y: 30, transition: { duration: 0.3 } },
+    exit: { opacity: 0, scale: 0.9, transition: { duration: 0.3 } },
 };
 
 export const featuresPageVariants = {

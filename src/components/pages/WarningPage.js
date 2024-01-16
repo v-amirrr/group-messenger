@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useWarningPage } from '../hooks/useWarningPage';
-import { useRedirection } from '../hooks/useRedirection';
+import { useWarningPage } from '../../hooks/useWarningPage';
+import { useRedirection } from '../../hooks/useRedirection';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { warningPageVariants, warningContainerVariants } from '../config/varitans';
-import Toggle from './Toggle';
+import { warningPageVariants, warningContainerVariants } from '../../config/varitans';
+import Toggle from '../Toggle';
 
 const WarningPage = () => {
     const { warningPageSubmit } = useWarningPage();

@@ -10,12 +10,9 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { settingsContainerVariants, userSettingsVariants } from '../../config/varitans';
 
 const SettingsUser = ({ open, setOpen, setHeight }) => {
-
     const { user, enterAsAGuest } = useSelector(store => store.userStore);
-
     const { changeUsername } = useChangeUsername();
     const { openNotification } = useNotification();
-
     const [changeUsernameInput, setChangeUsernameInput] = useState(user?.displayName);
     const [inputEnabled, setInputEnabled] = useState(false);
     const [loading, setLoading] = useState(false);

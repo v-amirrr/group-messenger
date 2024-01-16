@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import backgroundTowImageSRC from '../assets/images/2.webp';
@@ -8,10 +8,10 @@ import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { backgroundImageVariants } from '../config/varitans';
 
-const MessengerBackground = () => {
+const Background = () => {
     const location = useLocation();
-    const { theme } = useSelector((store) => store.appStore);
-    const { loading } = useSelector((store) => store.messagesStore);
+    const { theme } = useSelector(store => store.appStore);
+    const { loading } = useSelector(store => store.messagesStore);
     return (
         <>
             <CoverContainer cover={location.pathname == '/warning' || location.pathname == '/login' || loading}></CoverContainer>
@@ -26,7 +26,8 @@ const MessengerBackground = () => {
                             animate='visible'
                             exit='exit'
                             variants={backgroundImageVariants}
-                        /> : theme == 2 ?
+                        /> :
+                        theme == 2 ?
                         <motion.img
                             src={backgroundThreeImageSRC}
                             key='second-image'
@@ -34,7 +35,8 @@ const MessengerBackground = () => {
                             animate='visible'
                             exit='exit'
                             variants={backgroundImageVariants}
-                        /> : theme == 3 ?
+                        /> :
+                        theme == 3 ?
                         <motion.img
                             src={backgroundFourImageSRC}
                             key='third-image'
@@ -94,4 +96,4 @@ const CoverContainer = styled.div`
     }
 `;
 
-export default MessengerBackground;
+export default Background;

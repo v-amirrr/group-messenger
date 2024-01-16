@@ -6,7 +6,7 @@ import { BiMenu } from "react-icons/bi";
 import { TiArrowLeft } from "react-icons/ti";
 import { AnimatePresence, motion } from 'framer-motion';
 import styled from 'styled-components';
-import { featuresPageVariants, featuresContainerVariants, featuresIconVariants, featuresListVariants, featuresItemVariants, featuresSectionUpVariatns, featuresSectionDownVariatns } from '../config/varitans';
+import { featuresPageVariants, featuresContainerVariants, featuresIconVariants, featuresListVariants, featuresItemVariants, featuresSectionUpVariatns, featuresSectionDownVariatns } from '../../config/varitans';
 
 const GuidancePage = () => {
 

@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Message from '../message/Message';
 import { useMessageOptions } from '../../hooks/useMessageOptions';
@@ -14,15 +14,12 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { trashSettingsVariants } from '../../config/varitans';
 
 const SettingsTrash = ({ open, setOpen, setHeight }) => {
-
     const { deletedMessages } = useSelector(store => store.messagesStore);
     const { selectedMessages } = useSelector(store => store.appStore);
     const { user, enterAsAGuest } = useSelector(store => store.userStore);
-
     const { openPopup } = useMessageOptions();
     const { openNotification } = useNotification();
     const { switchSelectAllTrash, restoreSelectedMessages } = useSelect();
-
     const [messages, setMessages] = useState(deletedMessages?.filter(item => item?.uid == user?.uid));
 
     const itemSwitch = () => {
@@ -235,4 +232,4 @@ const MessagesContainer = styled(motion.div)`
     }
 `;
 
-export default memo(SettingsTrash);
+export default SettingsTrash;

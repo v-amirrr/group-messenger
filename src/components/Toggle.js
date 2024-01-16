@@ -24,24 +24,24 @@ const ToggleContainer = styled.div`
     border-radius: 50px;
     width: 2rem;
     height: 1.25rem;
-    background-color: ${(props) => (props.toggle ? 'var(--blue-color)' : '#ffffff20')};
+    background-color: ${props => props.toggle ? 'var(--blue-color)' : '#ffffff20'};
     cursor: pointer;
     transition: background 0.2s;
     transform: ${props => `scale(${props.scale})`};
 
     span {
         position: absolute;
-        left: ${(props) => (!props.toggle ? '-2%' : '35%')};
+        left: ${props => !props.toggle ? '-2%' : '35%'};
         margin: .2rem;
         border-radius: 50%;
         width: 1rem;
         height: 1rem;
-        background-color: ${(props) => (props.toggle ? 'var(--normal-color)' : '#ffffff20')};
+        background-color: ${props => props.toggle ? 'var(--normal-color)' : '#ffffff20'};
         box-shadow: var(--bold-shadow);
         display: flex;
         justify-content: center;
         align-items: center;
-        transition: left 0.2s, background 0.2s;
+        transition: left .2s, background .2s;
     }
 `;
 

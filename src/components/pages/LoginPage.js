@@ -1,19 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { useAuth } from '../hooks/useAuth';
-import { useRedirection } from '../hooks/useRedirection';
+import { useAuth } from '../../hooks/useAuth';
+import { useRedirection } from '../../hooks/useRedirection';
 import { FaRegEye, FaUserLock } from 'react-icons/fa';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
-import { loginVariants, loginItemVariants } from '../config/varitans';
+import { loginVariants, loginItemVariants } from '../../config/varitans';
 
 const LoginPage = () => {
-
     const { signup: signupData, login: loginData, googleLogin: googleData } = useSelector(store => store.userStore);
-
     const { signup, login, enterAsAGuest, googleLogin, cancelAuth } = useAuth();
     const { authRedirection } = useRedirection();
-
     const [toggle, setToggle] = useState(true);
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
@@ -68,7 +65,7 @@ const LoginPage = () => {
                         <motion.div key="username" initial='hidden' animate='visible' exit='exit' variants={loginItemVariants} className='username'>
                             <input type='text' placeholder='Username' value={username} onChange={e => setUsername(e.target.value)} disabled={loginData.loading || signupData.loading || googleData.loading} />
                         </motion.div>
-                        : ""
+                        : ''
                     }
                 </AnimatePresence>
                 <div className='email'>
@@ -105,8 +102,8 @@ const LoginPage = () => {
                     </div>
                 </button>
                 <button className='guest' onClick={enterAsAGuest} disabled={loginData.loading || signupData.loading || googleData.loading}>
-                <i><FaUserLock /></i>
-                Guest Mode
+                    <i><FaUserLock /></i>
+                    Guest Mode
                 </button>
             </Login>
         </>

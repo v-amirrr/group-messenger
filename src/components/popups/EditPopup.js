@@ -1,17 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useMessageOptions } from '../../hooks/useMessageOptions';
 import EditReply from './EditReply';
-import Emoji from '../Emoji';
 import { isRTL } from '../../functions/isRlt';
 import styled from 'styled-components';
 
 const EditPopup = ({ popupMessages, editReplyOpen, setEditReplyOpen }) => {
     const { message: messageText, id, replyTo } = popupMessages[0];
-
     const { editMessage, closePopup } = useMessageOptions();
-
     const [editInput, setEditInput] = useState('');
-    const [emojiPickerShow, setEmojiPickerShow] = useState(false);
 
     const pressEnter = (e) => {
         if (e.key == 'Enter' && !e.shiftKey) {
@@ -27,12 +23,6 @@ const EditPopup = ({ popupMessages, editReplyOpen, setEditReplyOpen }) => {
         });
         setEditInput(text.join(' '));
     }, []);
-
-    useEffect(() => {
-        if (editReplyOpen) {
-            setEmojiPickerShow(false);
-        }
-    }, [editReplyOpen]);
 
     return (
         <>
@@ -58,9 +48,6 @@ const EditPopup = ({ popupMessages, editReplyOpen, setEditReplyOpen }) => {
                         Edit
                     </button>
                 </div>
-                {/* <div className='emoji-picker'>
-                    <Emoji replyToId={0} inputText={editInput} setInputText={setEditInput} show={emojiPickerShow} setShow={setEmojiPickerShow} place={"EDIT_POPUP"} />
-                </div> */}
             </EditPopupContainer>
 
             <EditReply
@@ -75,13 +62,13 @@ const EditPopup = ({ popupMessages, editReplyOpen, setEditReplyOpen }) => {
 
 const EditPopupContainer = styled.div`
     position: relative;
-    padding: ${(props) => props.editreplyopen ? '7rem 2rem' : '1rem 1rem 0 1rem'};
-    transform: ${(props) => (props.editreplyopen ? 'scale(0.8)' : 'scale(1)')};
-    opacity: ${(props) => (props.editreplyopen ? '0' : '1')};
-    transition: ${(props) =>
+    padding: ${props => props.editreplyopen ? '7rem 2rem' : '1rem 1rem 0 1rem'};
+    transform: ${props => props.editreplyopen ? 'scale(0.8)' : 'scale(1)'};
+    opacity: ${props => props.editreplyopen ? '0' : '1'};
+    transition: ${props =>
         props.editreplyopen
-            ? 'transform .4s, padding .8s cubic-bezier(.53,0,0,.98), opacity .4s'
-            : 'transform .8s, padding .4s cubic-bezier(.53,0,0,.98), opacity .6s .2s'};
+        ? 'transform .4s, padding .8s cubic-bezier(.53,0,0,.98), opacity .4s'
+        : 'transform .8s, padding .4s cubic-bezier(.53,0,0,.98), opacity .6s .2s'};
 
     textarea {
         border: none;
@@ -94,10 +81,10 @@ const EditPopupContainer = styled.div`
         min-height: 6rem;
         max-height: 8rem;
         padding: 0 0.5rem;
-        text-align: ${(props) => (props.ispersian ? 'right' : 'left')};
+        text-align: ${props => props.ispersian ? 'right' : 'left'};
         word-spacing: 1px;
         line-break: loose;
-        font-family: ${(props) => (props.ispersian ? 'Vazirmatn' : 'Outfit')},
+        font-family: ${props => props.ispersian ? 'Vazirmatn' : 'Outfit'},
             'Vazirmatn', sans-serif;
     }
 
@@ -109,7 +96,7 @@ const EditPopupContainer = styled.div`
     }
 
     @media (max-width: 768px) {
-        padding: ${(props) => (props.editreplyopen ? '6rem 1rem' : '')};
+        padding: ${props => props.editreplyopen ? '6rem 1rem' : ''};
 
         textarea {
             font-size: 0.8rem;

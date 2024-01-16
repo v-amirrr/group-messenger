@@ -14,7 +14,6 @@ import { settingsPageVariants, settingsContainerVariants } from '../../config/va
 const SettingsPage = () => {
     const navigate = useNavigate();
     const { groupChatRedirection } = useRedirection();
-
     const [open, setOpen] = useState(false);
     const [height, setHeight] = useState(false);
 

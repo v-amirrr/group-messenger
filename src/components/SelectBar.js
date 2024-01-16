@@ -9,9 +9,7 @@ import { selectBarVariants } from '../config/varitans';
 
 const SelectBar = () => {
     const { selectedMessages, selectOthersMessage } = useSelector((store) => store.appStore);
-
     const { clearSelectedMessages, copySelectedMessages, trashSelectedMessages } = useSelect();
-
     const [counterOne, setCounterOne] = useState(selectedMessages.length);
     const [counterTwo, setCounterTwo] = useState(selectedMessages.length);
     const [changeCounter, setChangeCounter] = useState(false);
@@ -166,7 +164,7 @@ const SelectBarContainer = styled(motion.div)`
         }
     }
 
-    @media (max-width: 500px) {
+    @media (max-width: 745px) {
         width: 15rem;
         height: 2.6rem;
         margin-right: 4rem;

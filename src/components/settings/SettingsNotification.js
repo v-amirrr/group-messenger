@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useNotification } from '../../hooks/useNotification';
 import Toggle from "../Toggle";
 import { FcAdvertising } from "react-icons/fc";
@@ -13,7 +13,6 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { notificationSettingsVariants } from '../../config/varitans';
 
 const SettingsNotification = ({ open, setOpen, setHeight }) => {
-
     const { changeNotificationSettings, notificationSettings } = useNotification();
 
     const itemSwitch = () => {
@@ -213,4 +212,4 @@ const NotificationContainer = styled(motion.div)`
     }
 `;
 
-export default memo(SettingsNotification);
+export default SettingsNotification;

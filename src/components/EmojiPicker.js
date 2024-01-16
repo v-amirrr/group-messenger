@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { useState } from 'react';
 import data from '@emoji-mart/data/sets/14/twitter.json';
 import Picker from '@emoji-mart/react';
 import { GrEmoji } from 'react-icons/gr';
@@ -6,8 +6,7 @@ import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { emojiPickerVariatns } from '../config/varitans';
 
-const Emoji = ({ setInputText }) => {
-
+const EmojiPicker = ({ setInputText }) => {
     const [open, setOpen] = useState(false);
 
     const emojiHandler = (e) => {
@@ -75,4 +74,4 @@ const EmojiPickerContainer = styled.div`
     }
 `;
 
-export default memo(Emoji);
+export default EmojiPicker;

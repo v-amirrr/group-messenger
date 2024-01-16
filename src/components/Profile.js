@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 import { profileVariants } from '../config/varitans';
 
 const Profile = () => {
-    const { user, enterAsAGuest } = useSelector((store) => store.userStore);
+    const { user, enterAsAGuest } = useSelector(store => store.userStore);
     return (
         <>
             <ProfileContainer
@@ -15,7 +15,11 @@ const Profile = () => {
                 animate='visible'
                 exit='exit'
                 variants={profileVariants}
-                letters={user?.displayName.length < 15 ? user?.displayName.length : enterAsAGuest ? 8 : 15}
+                letters={
+                    user?.displayName.length < 15 ?
+                    user?.displayName.length :
+                    enterAsAGuest ? 8 : 15
+                }
             >
                 {
                     enterAsAGuest ?
@@ -51,9 +55,12 @@ const ProfileContainer = styled(motion.div)`
     -webkit-backdrop-filter: var(--bold-glass);
     overflow: hidden;
     z-index: 2;
-    transition: width 0.3s cubic-bezier(0.53, 0, 0, 0.98), height 0.3s cubic-bezier(0.53, 0, 0, 0.98), border-radius .2s .6s;
+    transition: width 0.3s cubic-bezier(0.53, 0, 0, 0.98),
+                height 0.3s cubic-bezier(0.53, 0, 0, 0.98),
+                border-radius .2s .6s;
 
-    .guest, .user {
+    .guest,
+    .user {
         position: absolute;
         top: 0;
         left: 0;
@@ -88,9 +95,12 @@ const ProfileContainer = styled(motion.div)`
     &:hover {
         width: ${props => `${props.letters}rem`};
         border-radius: 25px;
-        transition: width 0.4s cubic-bezier(0.53, 0, 0, 0.98), height 0.4s cubic-bezier(0.53, 0, 0, 0.98), border-radius .1s;
+        transition: width 0.4s cubic-bezier(0.53, 0, 0, 0.98),
+                    height 0.4s cubic-bezier(0.53, 0, 0, 0.98),
+                    border-radius .1s;
 
-        .guest, .user {
+        .guest,
+        .user {
             .text {
                 margin-left: ${props => `${props.letters-1.5}rem`};
                 letter-spacing: 0.5px;

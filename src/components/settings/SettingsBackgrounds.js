@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { useChangeTheme } from '../../hooks/useChangeTheme';
 import themeTowImageSRC from '../../assets/images/2.webp';
@@ -11,8 +11,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { backgroundsSettingsVariants } from '../../config/varitans';
 
 const SettingsBackgrounds = ({ open, setOpen, setHeight }) => {
-    const { theme } = useSelector((store) => store.appStore);
-
+    const { theme } = useSelector(store => store.appStore);
     const { changeTheme } = useChangeTheme();
 
     const itemSwitch = () => {
@@ -39,35 +38,35 @@ const SettingsBackgrounds = ({ open, setOpen, setHeight }) => {
             <AnimatePresence exitBeforeEnter>
                 {
                     open == 'SETTINGS_BACKGROUND' ?
-                        <BackgroundsContainer
-                            theme={theme}
-                            initial='hidden'
-                            animate='visible'
-                            exit='exit'
-                            variants={backgroundsSettingsVariants}
-                        >
-                            <div className='background' onClick={() => changeTheme(1)}>
-                                <img src={themeTowImageSRC} />
-                                <div className='select'>
-                                    <span className='checkmark-one'></span>
-                                    <span className='checkmark-two'></span>
-                                </div>
+                    <BackgroundsContainer
+                        theme={theme}
+                        initial='hidden'
+                        animate='visible'
+                        exit='exit'
+                        variants={backgroundsSettingsVariants}
+                    >
+                        <div className='background' onClick={() => changeTheme(1)}>
+                            <img src={themeTowImageSRC} />
+                            <div className='select'>
+                                <span className='checkmark-one'></span>
+                                <span className='checkmark-two'></span>
                             </div>
-                            <div className='background' onClick={() => changeTheme(2)}>
-                                <img src={themeThreeImageSRC} />
-                                <div className='select'>
-                                    <span className='checkmark-one'></span>
-                                    <span className='checkmark-two'></span>
-                                </div>
+                        </div>
+                        <div className='background' onClick={() => changeTheme(2)}>
+                            <img src={themeThreeImageSRC} />
+                            <div className='select'>
+                                <span className='checkmark-one'></span>
+                                <span className='checkmark-two'></span>
                             </div>
-                            <div className='background' onClick={() => changeTheme(3)}>
-                                <img src={themeFourImageSRC} />
-                                <div className='select'>
-                                    <span className='checkmark-one'></span>
-                                    <span className='checkmark-two'></span>
-                                </div>
+                        </div>
+                        <div className='background' onClick={() => changeTheme(3)}>
+                            <img src={themeFourImageSRC} />
+                            <div className='select'>
+                                <span className='checkmark-one'></span>
+                                <span className='checkmark-two'></span>
                             </div>
-                        </BackgroundsContainer>
+                        </div>
+                    </BackgroundsContainer>
                     : ''
                 }
             </AnimatePresence>
@@ -155,4 +154,4 @@ const BackgroundsContainer = styled(motion.div)`
     }
 `;
 
-export default memo(SettingsBackgrounds);
+export default SettingsBackgrounds;

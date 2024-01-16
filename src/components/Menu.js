@@ -7,11 +7,11 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { menuVariants } from '../config/varitans';
 
-const MessengerMenu = () => {
+const Menu = () => {
     const navigate = useNavigate();
     const { logout } = useAuth();
 
-    const clickHandler = (type) => {
+    const clickHandler = type => {
         if (type == 'LOGOUT') {
             logout();
         } else if (type == 'SETTINGS') {
@@ -23,7 +23,7 @@ const MessengerMenu = () => {
 
     return (
         <>
-            <MessengerMenuContainer initial='hidden' animate='visible' exit='exit' variants={menuVariants}>
+            <MenuContainer initial='hidden' animate='visible' exit='exit' variants={menuVariants}>
                 <div className='buttons'>
                     <button onClick={() => clickHandler('GUIDANCE')}>
                         <i className='features-icon'><FcInfo /></i>
@@ -39,12 +39,12 @@ const MessengerMenu = () => {
                     </button>
                 </div>
                 <i className='icon'><HiDotsVertical /></i>
-            </MessengerMenuContainer>
+            </MenuContainer>
         </>
     );
 };
 
-const MessengerMenuContainer = styled(motion.div)`
+const MenuContainer = styled(motion.div)`
     box-sizing: content-box;
     position: absolute;
     top: 1rem;
@@ -167,4 +167,4 @@ const MessengerMenuContainer = styled(motion.div)`
     }
 `;
 
-export default memo(MessengerMenu);
+export default memo(Menu);

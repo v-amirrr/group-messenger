@@ -8,15 +8,12 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { replyAddSectionVariants, replyButtonVariants } from '../../config/varitans';
 
 const EditReply = ({ replyTo, id, editReplyOpen, setEditReplyOpen }) => {
-    const { messages, usernames } = useSelector((store) => store.messagesStore);
-    const { user } = useSelector((store) => store.userStore);
-
+    const { messages, usernames } = useSelector(store => store.messagesStore);
+    const { user } = useSelector(store => store.userStore);
     const { editMessageReply } = useMessageOptions();
-
+    const messagesRef = useRef();
     const [newReply, setNewReply] = useState(replyTo);
     const [messagesBefore, setMessagesBefore] = useState([]);
-
-    const messagesRef = useRef();
 
     const editHandler = () => {
         editMessageReply(id, newReply);
@@ -76,9 +73,9 @@ const EditReply = ({ replyTo, id, editReplyOpen, setEditReplyOpen }) => {
                                     messagesBefore?.map((message) => (
                                         <Message
                                             onClick={() =>
-                                                newReply.id == message.id
-                                                    ? setNewReply('deleted')
-                                                    : setNewReply(message)
+                                                newReply.id == message.id ?
+                                                setNewReply('deleted') :
+                                                setNewReply(message)
                                             }
                                             replyIconClick={() =>
                                                 setNewReply('deleted')
@@ -92,14 +89,11 @@ const EditReply = ({ replyTo, id, editReplyOpen, setEditReplyOpen }) => {
                                                 messageUsername: usernames[message.uid],
                                                 id: message.id,
                                                 message: message.message,
-                                                periorUsername:
-                                                    message.periorUsername,
+                                                periorUsername: message.periorUsername,
                                                 nextUsername: message.nextUsername,
                                                 time: message.time,
-                                                priorDifferentDate:
-                                                    message.priorDifferentDate,
-                                                nextDifferentDate:
-                                                    message.nextDifferentDate,
+                                                priorDifferentDate: message.priorDifferentDate,
+                                                nextDifferentDate:  message.nextDifferentDate,
                                                 replyTo: message.replyTo,
                                             }}
                                         />
@@ -107,8 +101,12 @@ const EditReply = ({ replyTo, id, editReplyOpen, setEditReplyOpen }) => {
                                 }
                             </div>
                             <div className='buttons'>
-                                <button className='cancel' onClick={() => setEditReplyOpen(!editReplyOpen)}>Cancel</button>
-                                <button className='edit' onClick={editHandler}>Edit Reply</button>
+                                <button className='cancel' onClick={() => setEditReplyOpen(!editReplyOpen)}>
+                                    Cancel
+                                </button>
+                                <button className='edit' onClick={editHandler}>
+                                    Edit Reply
+                                </button>
                             </div>
                         </motion.div>
                         : ''
@@ -129,10 +127,12 @@ const EditReply = ({ replyTo, id, editReplyOpen, setEditReplyOpen }) => {
                                     <BsReplyFill />
                                 </i>
                                 <p>
-                                    {replyTo != 'no_reply' &&
-                                    replyTo != 'deleted'
-                                        ? replyTo?.message
-                                        : 'Add Reply'}
+                                    {
+                                        replyTo != 'no_reply' &&
+                                        replyTo != 'deleted' ?
+                                        replyTo?.message :
+                                        'Add Reply'
+                                    }
                                 </p>
                             </motion.button>
                             : ''
@@ -146,23 +146,24 @@ const EditReply = ({ replyTo, id, editReplyOpen, setEditReplyOpen }) => {
 
 const ReplyConatiner = styled(motion.div)`
     position: absolute;
-    bottom: ${(props) => (props.editReplyOpen ? '0' : '1.7rem')};
-    left: ${(props) => (props.editReplyOpen ? '0' : '3rem')};
-    width: ${(props) => (props.editReplyOpen ? '100%' : '4.8rem')};
-    height: ${(props) => (props.editReplyOpen ? '100%' : '1.4rem')};
+    bottom: ${props => props.editReplyOpen ? '0' : '1.7rem'};
+    left: ${props => props.editReplyOpen ? '0' : '3rem'};
+    width: ${props => props.editReplyOpen ? '100%' : '4.8rem'};
+    height: ${props => props.editReplyOpen ? '100%' : '1.4rem'};
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     border-radius: 25px;
-    background-color: ${(props) => props.editReplyOpen ? '#000000aa' : '#00000000'};
-    border: ${(props) => props.editReplyOpen ? 'solid 2.5px #ffffff00' : 'solid 2.5px #ffffff20'};
+    background-color: ${props => props.editReplyOpen ? '#000000aa' : '#00000000'};
+    border: ${props => props.editReplyOpen ? 'solid 2.5px #ffffff00' : 'solid 2.5px #ffffff20'};
     box-shadow: var(--shadow-second);
     overflow: hidden;
-    transition: ${(props) =>
-        props.editReplyOpen
-            ? 'border .4s .4s, background .2s, width .4s cubic-bezier(.53,0,0,.98), height .4s cubic-bezier(.53,0,0,.98), bottom .4s, left .4s'
-            : 'border .4s, background .2s .6s, width .3s .1s, height .3s .1s, bottom .3s .1s, left .3s .1s'};
+    transition: ${props =>
+        props.editReplyOpen ?
+        'border .4s .4s, background .2s, width .4s cubic-bezier(.53,0,0,.98), height .4s cubic-bezier(.53,0,0,.98), bottom .4s, left .4s' :
+        'border .4s, background .2s .6s, width .3s .1s, height .3s .1s, bottom .3s .1s, left .3s .1s'
+    };
 
     .open-button {
         all: unset;
@@ -238,8 +239,8 @@ const ReplyConatiner = styled(motion.div)`
 
     @media (max-width: 768px) {
         bottom: auto;
-        top: ${(props) => (props.editReplyOpen ? '0' : '.8rem')};
-        left: ${(props) => (props.editReplyOpen ? '0' : '2rem')};
+        top: ${props => props.editReplyOpen ? '0' : '.8rem'};
+        left: ${props => props.editReplyOpen ? '0' : '2rem'};
 
         .reply-messages {
             padding: 1rem 0.5rem;

@@ -9,7 +9,6 @@ import { messengerVariants } from '../config/varitans';
 
 const Messenger = () => {
     const { loading, error } = useSelector((store) => store.messagesStore);
-
     return (
         <>
             <MessengerPage
@@ -22,7 +21,7 @@ const Messenger = () => {
                     <AnimatePresence exitBeforeEnter>
                         {
                             loading ?
-                            <Loader key='loader' usage={1} />
+                            <Loader key='loader' />
                             : error ?
                             <ErrorBox key='error-box' errorMessage={error} />
                             : !loading && !error ?

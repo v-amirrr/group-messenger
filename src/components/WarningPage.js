@@ -14,11 +14,15 @@ const WarningPage = () => {
 
     useEffect(() => {
         warningRedirection();
-        document.addEventListener("keydown", (e) => {
-            if (e.key == 'Enter') {
-                warningPageSubmit(warningToggle);
-            }
-        });
+        document.addEventListener(
+            "keydown",
+            (e) => {
+                if (e.key == 'Enter') {
+                    warningPageSubmit(warningToggle);
+                }
+            },
+            { once: true }
+        );
     }, []);
 
     return (

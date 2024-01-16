@@ -69,7 +69,7 @@ const MessageLoaderContainer = styled.div`
             &:nth-child(1) {
                 margin: .16rem .55rem 0 0;
                 transform: rotate(45deg);
-                animation: checkmark-one .4s forwards;
+                animation: checkmark-one .2s forwards;
             }
 
             &:nth-child(2) {

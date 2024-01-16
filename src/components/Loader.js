@@ -33,7 +33,8 @@ const Loader = () => {
                 <div className='scroll'></div>
                 <div className='input'></div>
                 <div className='messages'>
-                    {messages.map((message) => (
+                    {
+                        messages.map((message) => (
                         <MessageContainer
                             className='message-container'
                             width={message.width}
@@ -43,7 +44,8 @@ const Loader = () => {
                         >
                             <div className={message.position == 4 ? 'date' : 'message'}></div>
                         </MessageContainer>
-                    ))}
+                        ))
+                    }
                 </div>
             </LoaderContainer>
         </>
@@ -90,14 +92,8 @@ const LoaderContainer = styled(motion.div)`
     }
 
     .scroll {
-        bottom: 1.2rem;
+        bottom: 1.1rem;
         right: 8.2rem;
-    }
-
-    @keyframes skeleton-loading-button {
-        to {
-            background-position: left 2.3rem top 0;
-        }
     }
 
     .input {
@@ -126,6 +122,12 @@ const LoaderContainer = styled(motion.div)`
         }
     }
 
+    @keyframes skeleton-loading-button {
+        to {
+            background-position: left 2.3rem top 0;
+        }
+    }
+
     .messages {
         display: flex;
         justify-content: center;
@@ -143,28 +145,26 @@ const LoaderContainer = styled(motion.div)`
         padding: 5rem 1rem 10rem 1rem;
 
         .profile {
-            width: 3rem;
-            height: 3rem;
             left: 0;
         }
 
         .menu {
-            width: 3rem;
-            height: 3rem;
             right: 0;
         }
 
         .scroll {
-            width: 3rem;
-            height: 3rem;
             right: 0;
             bottom: 1rem;
         }
 
         .input {
-            width: 18rem;
-            height: 3rem;
+            width: 15rem;
             margin-right: 4rem;
+            bottom: .9rem;
+        }
+
+        .messages {
+            padding: 1rem;
         }
     }
 `;
@@ -175,24 +175,6 @@ const MessageContainer = styled.div`
     justify-content: ${props => props.position == 4 ? 'center' : 'flex-start'};
     flex-direction: ${props => props.local ? 'row-reverse' : 'row'};
     align-items: center;
-
-    .date {
-        position: relative;
-        width: ${(props) => props.width};
-        height: ${(props) => props.height};
-        margin: 1rem;
-        border-radius: 50px;
-        background-color: #ffffff0b;
-        background-image: linear-gradient(
-            90deg,
-            #ffffff00 0%,
-            #ffffff20 50%,
-            #ffffff00 100%
-        );
-        background-position: ${props => `left -${props.width}rem top 0`};
-        background-repeat: no-repeat;
-        animation: skeleton-loading-input ease-out 1s infinite;
-    }
 
     .message {
         position: relative;

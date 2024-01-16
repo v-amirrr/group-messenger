@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { db } from "../config/firebase";
 import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
 import { setMessages, setError, setLoadingOn, setLoadingOff, setDeletedMessages, setUsernames } from "../redux/messagesSlice";
@@ -6,7 +6,6 @@ import { isURL } from "../functions/isURL";
 
 export const useGetMessages = () => {
     const dispatch = useDispatch();
-    const { messages } = useSelector(store => store.messagesStore);
 
     const getUsers = () => {
         let usernames = {};
@@ -24,7 +23,6 @@ export const useGetMessages = () => {
         let messages = [];
         dispatch(setError(null));
         dispatch(setLoadingOn());
-        getUsers();
         const ref = collection(db, 'messages');
         const q = query(ref, orderBy("time", "asc"));
         const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];

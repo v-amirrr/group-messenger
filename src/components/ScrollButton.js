@@ -1,6 +1,5 @@
 import React from 'react';
 import { FaArrowDown } from "react-icons/fa";
-import { TbMessagePlus } from "react-icons/tb";
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { scrollButtonVariants } from '../config/varitans';
@@ -18,7 +17,6 @@ const ScrollButton = ({ click, scroll, newMessage, scrollDown }) => {
             >
                 <div>
                     <div className='message' onClick={scrollDown}>
-                        {/* <TbMessagePlus /> */}
                         <p>
                             new
                         </p>

@@ -19,8 +19,8 @@ const App = () => {
 
     const location = useLocation();
 
-    const { getMessages, loadingOn, getUsers } = useGetMessages();
-    const { showWelcomePages } = useWarningPage();
+    const { getMessages, getUsers } = useGetMessages();
+    const { showWarningPages } = useWarningPage();
     const { setDefaultTheme } = useChangeTheme();
     const { setDefaultNotification, clearNotifications } = useNotification();
     const { clearSelectedMessages } = useSelect();
@@ -29,7 +29,8 @@ const App = () => {
         setDefaultTheme();
         setDefaultNotification();
         getMessages();
-        showWelcomePages();
+        getUsers();
+        showWarningPages();
     }, []);
 
     useEffect(() => {

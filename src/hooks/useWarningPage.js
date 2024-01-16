@@ -12,7 +12,7 @@ export const useWarningPage = () => {
     let guestNameLocalStorage = JSON.parse(localStorage.getItem("guest-name"));
     let userLocalStorage = JSON.parse(localStorage.getItem("user"));
 
-    const showWelcomePages = () => {
+    const showWarningPages = () => {
         if (warningPupupNeverShowLocalStorage) {
             sessionStorage.setItem("warning", "true");
             dispatch(setWarningShowed(true));
@@ -39,5 +39,5 @@ export const useWarningPage = () => {
         }
     };
 
-    return { showWelcomePages, warningPageSubmit };
+    return { showWarningPages, warningPageSubmit };
 };

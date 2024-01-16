@@ -39,7 +39,6 @@ const SettingsBackgrounds = ({ open, setOpen, setHeight }) => {
             <AnimatePresence exitBeforeEnter>
                 {
                     open == 'SETTINGS_BACKGROUND' ?
-                    <div key='item-data' className='item-data'>
                         <BackgroundsContainer
                             theme={theme}
                             initial='hidden'
@@ -69,7 +68,7 @@ const SettingsBackgrounds = ({ open, setOpen, setHeight }) => {
                                 </div>
                             </div>
                         </BackgroundsContainer>
-                    </div> : ''
+                    : ''
                 }
             </AnimatePresence>
         </>

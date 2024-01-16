@@ -72,13 +72,12 @@ const SettingsTrash = ({ open, setOpen, setHeight }) => {
             <AnimatePresence exitBeforeEnter>
                 {
                     open == "SETTINGS_TRASH" ?
-                    <div key="item-data" className='item-data'>
                         <MessagesContainer initial='hidden' animate='visible' exit='exit' variants={trashSettingsVariants} selectbarshow={selectedMessages.length}>
                             <AnimatePresence exitBeforeEnter>
                                 {
                                     messages?.length ?
                                     <>
-                                        <motion.div key="trash-selectbar" className='select-bar' initial='hidden' animate='visible' exit='exit' variants={trashSettingsVariants}>
+                                        <div className='select-bar'>
                                             <div className='counter'>{selectedMessages.length}</div>
                                             <button className='delete-button' disabled={!selectedMessages.length} onClick={() => openPopup("DELETE_POPUP", [selectedMessages])}>
                                                 <i><TbTrashX /></i>
@@ -89,7 +88,7 @@ const SettingsTrash = ({ open, setOpen, setHeight }) => {
                                                 <p>Restore</p>
                                             </button>
                                             <div className='all' onClick={() => switchSelectAllTrash(messages)}><BsCheckAll /></div>
-                                        </motion.div>
+                                        </div>
                                         <motion.div layout key="trash-messages" className='deleted-messages' initial='hidden' animate='visible' exit='exit' variants={trashSettingsVariants}>
                                             <AnimatePresence>
                                                 {messages?.map(message => (
@@ -113,8 +112,7 @@ const SettingsTrash = ({ open, setOpen, setHeight }) => {
                                 }
                             </AnimatePresence>
                         </MessagesContainer>
-                    </div>
-                    : ""
+                    : ''
                 }
             </AnimatePresence>
         </>
@@ -131,19 +129,6 @@ const MessagesContainer = styled(motion.div)`
     height: 100%;
     margin-top: 5rem;
 
-    ::-webkit-scrollbar {
-        width: .3rem;
-    }
-
-    ::-webkit-scrollbar-track {
-        background: #ffffff00;
-    }
-
-    ::-webkit-scrollbar-thumb {
-        background: #ffffff10;
-        border-radius: 50px;
-    }
-
     .select-bar {
         width: 100%;
         padding: .4rem 0;
@@ -151,7 +136,6 @@ const MessagesContainer = styled(motion.div)`
         display: flex;
         justify-content: center;
         align-items: center;
-        position: fixed;
 
         .delete-button, .restore-button {
             display: flex;
@@ -222,11 +206,9 @@ const MessagesContainer = styled(motion.div)`
 
     .deleted-messages {
         position: relative;
-        margin-top: 2.5rem;
         overflow: hidden scroll;
         width: 100%;
-        padding: .5rem .5rem 5rem .5rem;
-        transition: margin .3s;
+        padding: .5rem .5rem 3rem .5rem;
     }
 
     .trash-empty {

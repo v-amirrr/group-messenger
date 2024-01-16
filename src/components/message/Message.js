@@ -145,7 +145,7 @@ const Message = (props) => {
                 setStatus(2);
                 setTimeout(() => {
                     setStatus(0);
-                }, 2000);
+                }, 1500);
             }, 1000);
         }
     }, [time]);
@@ -232,12 +232,10 @@ const Message = (props) => {
                                     {item.word}
                                 </a>
                                 : `${item.word} `
-                            )
-                            : message
+                            ) : message
                         }
                     </p>
                 </div>
-
                 <MessageSelectCheck
                     type={props.type}
                     selected={selected}
@@ -245,14 +243,12 @@ const Message = (props) => {
                     messageClickHandler={messageClickHandler}
                     isMessageFromLocalUser={messageUid == localUid ? 1 : 0}
                 />
-
                 <MessageReplyIcon
                     editReply={props.newreply}
                     editReplyClick={props.replyIconClick}
                     show={replyToApp.id == id || props.newreply}
                     isMessageFromLocalUser={messageUid == localUid ? 1 : 0}
                 />
-
                 <div className='options'>
                     <MessageOptions
                         clickEvent={clickEvent}
@@ -270,9 +266,7 @@ const Message = (props) => {
                         replyTo={replyToApp.id == id ? 1 : 0}
                     />
                 </div>
-
                 <MessageLoader status={status} />
-
             </MessageContainer>
         </>
     );

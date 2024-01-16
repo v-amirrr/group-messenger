@@ -726,6 +726,18 @@ export const scrollButtonVariants = {
     exit: { opacity: 0, y: 30, transition: { duration: 0.3 } },
 };
 
+export const scrollButtonIconsVariants = {
+    hidden: { opacity: 0, scale: 0.5 },
+    visible: {
+        opacity: 1,
+        scale: 1,
+        transition: {
+            duration: 0.4,
+        },
+    },
+    exit: { opacity: 0, scale: 0.5, transition: { duration: 0.3 } },
+};
+
 export const profileVariants = {
     hidden: { opacity: 0, y: 50 },
     visible: {

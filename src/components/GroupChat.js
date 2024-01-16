@@ -22,6 +22,8 @@ const GroupChat = () => {
     const { selectedMessages } = useSelector(store => store.appStore);
 
     const [scroll, setScroll] = useState(true);
+    const [newMessage, setNewMessage] = useState(false);
+    const [lastMessageTime, setLastMessageTime] = useState(messages[messages?.length-1]?.time);
 
     let scrollPosition = messagesRef?.current?.scrollTop;
 
@@ -30,6 +32,8 @@ const GroupChat = () => {
             messagesEndRef?.current?.scrollIntoView({
                 behavior: "smooth", block: "center", inline: "end"
             });
+            setNewMessage(false);
+            setLastMessageTime(messages[messages?.length-1]?.time);
         } else {
             messagesRef?.current?.scrollTo(0, 0);
         }
@@ -48,8 +52,10 @@ const GroupChat = () => {
         }
         scrollPosition = messagesRef?.current?.scrollTop;
         localStorage.setItem("scroll", scrollPosition);
-        if (~~messagesRef?.current?.scrollTop >= messagesRef?.current?.scrollHeight - messagesRef?.current?.clientHeight) {
+        if (~~messagesRef?.current?.scrollTop + 100 >= messagesRef?.current?.scrollHeight - messagesRef?.current?.clientHeight) {
             localStorage.setItem("scroll", "end");
+            setNewMessage(false);
+            setLastMessageTime(messages[messages?.length-1]?.time);
         }
     };
 
@@ -57,6 +63,8 @@ const GroupChat = () => {
         messagesEndRef?.current?.scrollIntoView({
             behavior: "smooth", block: "center", inline: "end"
         });
+        setNewMessage(false);
+        setLastMessageTime(messages[messages?.length-1]?.time);
     };
 
     useEffect(() => {
@@ -64,15 +72,43 @@ const GroupChat = () => {
     }, [messages]);
 
     useEffect(() => {
-        if (messages[messages?.length-1]?.time?.year && messages[messages?.length-1]?.uid == user?.uid) {
-            scrollDown();
-        }
+        let newMessageTime = new Date(
+            messages[messages?.length-1]?.time?.year,
+            messages[messages?.length-1]?.time?.monthNum,
+            messages[messages?.length-1]?.time?.day,
+            messages[messages?.length-1]?.time?.hour,
+            messages[messages?.length-1]?.time?.minute,
+            messages[messages?.length-1]?.time?.second
+        );
+        let previousLastMessageTime = new Date(
+            lastMessageTime?.year,
+            lastMessageTime?.monthNum,
+            lastMessageTime?.day,
+            lastMessageTime?.hour,
+            lastMessageTime?.minute,
+            lastMessageTime?.second
+        );
+        if (messages[messages?.length-1]?.time != lastMessageTime &&
+            newMessageTime.getTime() > previousLastMessageTime.getTime() &&
+            ~~messagesRef?.current?.scrollTop + 100 <= messagesRef?.current?.scrollHeight - messagesRef?.current?.clientHeight){
+                setNewMessage(true);
+                setLastMessageTime(messages[messages?.length-1]?.time);
+        } else if (messages[messages?.length-1]?.time != lastMessageTime &&
+            newMessageTime.getTime() > previousLastMessageTime.getTime() &&
+            ~~messagesRef?.current?.scrollTop + 100 >= messagesRef?.current?.scrollHeight - messagesRef?.current?.clientHeight) {
+                setLastMessageTime(messages[messages?.length-1]?.time);
+                scrollDown();
+            }
     }, [messages[messages?.length-1]?.time]);
 
     useEffect(() => {
         const localstorageScroll = localStorage.getItem("scroll");
             if (localstorageScroll == 'end') {
-                scrollDown();
+                messagesRef?.current?.scrollBy({
+                    top: messagesRef?.current?.scrollHeight - messagesRef?.current?.clientHeight,
+                    left: 0,
+                    behavior: "instant"
+                });
             } else {
                 messagesRef?.current?.scrollBy({
                     top: localstorageScroll,
@@ -92,7 +128,7 @@ const GroupChat = () => {
                 {!selectedMessages.length ? <Profile key="profile" /> : ""}
             </AnimatePresence>
 
-            <ScrollButton key="scroll-button" click={scrollButtonClickHandler} scroll={scroll} />
+            <ScrollButton key="scroll-button" click={scrollButtonClickHandler} scroll={scroll} newMessage={newMessage} scrollDown={scrollDown} />
 
             <AnimatePresence exitBeforeEnter>
                 {selectedMessages.length ? <SelectBar key="select-bar" /> : ""}
@@ -100,7 +136,8 @@ const GroupChat = () => {
 
             <GroupChatContainer onScroll={onScrollHandler} ref={messagesRef} layout initial='hidden' animate='visible' exit='exit' variants={groupChatVariants}>
                 <AnimatePresence>
-                    {messages?.map(message => (
+                    {
+                        messages?.map(message => (
                         <Message
                             key={message.id}
                             type="CHAT"
@@ -118,7 +155,8 @@ const GroupChat = () => {
                                 replyTo: message.replyTo,
                             }}
                         />
-                    ))}
+                        ))
+                    }
                 </AnimatePresence>
                 <div ref={messagesEndRef} />
             </GroupChatContainer>

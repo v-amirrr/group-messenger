@@ -42,7 +42,7 @@ const MessageLoaderContainer = styled.div`
             width: .5rem;
             height: .5rem;
             border-radius: 50%;
-            background-color: #666;
+            background-color: #fff;
 
             &:nth-child(1) {
                 animation: loader .6s infinite alternate;

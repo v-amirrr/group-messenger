@@ -121,7 +121,6 @@ const SettingsContainer = styled(motion.section)`
     border-radius: 25px;
     background-color: #00000088;
     padding-top: 4rem;
-    overflow: hidden;
 
     .settings-header {
         position: absolute;

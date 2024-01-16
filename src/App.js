@@ -28,9 +28,7 @@ const App = () => {
     useEffect(() => {
         setDefaultTheme();
         setDefaultNotification();
-        loadingOn();
         getMessages();
-        getUsers();
         showWelcomePages();
     }, []);
 

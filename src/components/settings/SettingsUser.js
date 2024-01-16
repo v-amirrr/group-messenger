@@ -51,7 +51,6 @@ const SettingsUser = ({ open, setOpen, setHeight }) => {
             <AnimatePresence exitBeforeEnter>
                 {
                     open == "SETTINGS_USER" ?
-                    <div key="item-data" className='item-data'>
                         <UserContainer initial='hidden' animate='visible' exit='exit' variants={userSettingsVariants} loading={loading ? 1 : 0} inputEnabled={inputEnabled ? 1 : 0}>
                             <div className='username'>
                                 <h5>Username</h5>
@@ -80,7 +79,6 @@ const SettingsUser = ({ open, setOpen, setHeight }) => {
                                 </AnimatePresence>
                             </div>
                         </UserContainer>
-                    </div>
                     : ""
                 }
             </AnimatePresence>

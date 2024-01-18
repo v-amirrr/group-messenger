@@ -11,9 +11,9 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { InputVariants, sendInputIconVariants, replyVariants } from '../config/varitans';
 
 const Input = () => {
-    const { error, localUsername } = useSelector((store) => store.messagesStore);
-    const { error: sendMessageError, replyTo, restoredText } = useSelector((store) => store.sendMessageStore);
-    const { popupShow, popupName } = useSelector((store) => store.popupStore);
+    const { error, localUsername } = useSelector(store => store.messagesStore);
+    const { error: sendMessageError, replyTo, restoredText } = useSelector(store => store.sendMessageStore);
+    const { popupShow, popupName } = useSelector(store => store.popupStore);
     const { sendMessage } = useSendMessage();
     const { clearReplyMessage } = useMessageOptions();
     const inputRef = useRef();

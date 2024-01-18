@@ -4,6 +4,7 @@ import Message from '../message/Message';
 import { useMessageOptions } from '../../hooks/useMessageOptions';
 import { useNotification } from '../../hooks/useNotification';
 import { useSelect } from '../../hooks/useSelect';
+import { isRTL } from '../../functions/isRlt';
 import { FcEmptyTrash, FcFullTrash } from "react-icons/fc";
 import { TbTrashX } from 'react-icons/tb';
 import { FaTrashRestore } from "react-icons/fa";
@@ -88,18 +89,30 @@ const SettingsTrash = ({ open, setOpen, setHeight }) => {
                                         </div>
                                         <motion.div layout key="trash-messages" className='deleted-messages' initial='hidden' animate='visible' exit='exit' variants={trashSettingsVariants}>
                                             <AnimatePresence>
-                                                {messages?.map(message => (
+                                                {
+                                                    messages?.map((message) => (
                                                     <Message
                                                         key={message.id}
                                                         type="TRASH"
                                                         message={{
+                                                            messageUid: message.uid,
+                                                            localUid: user?.uid,
+                                                            localMessage: user?.uid == message.uid,
                                                             id: message.id,
-                                                            message: message.message,
+                                                            text: message.message,
+                                                            plainText: message.plainText,
+                                                            isTextPersian : isRTL(message.message) ? 1 : 0,
+                                                            textLetters: message.plainText.length,
+                                                            periorUsername: message.periorUsername,
+                                                            nextUsername: message.nextUsername,
                                                             time: message.time,
+                                                            priorDifferentDate: message.priorDifferentDate,
+                                                            nextDifferentDate: message.nextDifferentDate,
                                                             replyTo: message.replyTo,
                                                         }}
                                                     />
-                                                ))}
+                                                    ))
+                                                }
                                             </AnimatePresence>
                                         </motion.div>
                                     </> :

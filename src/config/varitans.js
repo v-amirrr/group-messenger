@@ -370,50 +370,20 @@ export const timeVariants = {
     exit: { opacity: 0, scale: 0.9, transition: { duration: 0.4 } },
 };
 
-export const replyIconLocalVariants = {
-    hidden: { opacity: 0, x: 70 },
+export const replyIconVariants = {
+    hidden: { opacity: 0, scale: 0 },
     visible: {
         opacity: 1,
-        x: 0,
+        scale: 1,
         transition: {
-            type: 'spring',
-            stiffness: 100,
-            duration: 0.8,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
+            duration: 0.3,
         },
     },
     exit: {
         opacity: 0,
-        x: 70,
+        scale: 0,
         transition: {
-            duration: 0.8,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
-        },
-    },
-};
-
-export const replyIconNonLocalVariants = {
-    hidden: { opacity: 0, x: -70 },
-    visible: {
-        opacity: 1,
-        x: 0,
-        transition: {
-            type: 'spring',
-            stiffness: 100,
-            duration: 0.8,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
-        },
-    },
-    exit: {
-        opacity: 0,
-        x: -70,
-        transition: {
-            duration: 0.8,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
+            duration: 0.3,
         },
     },
 };
@@ -454,9 +424,7 @@ export const InputVariants = {
         opacity: 1,
         scale: 1,
         transition: {
-            duration: 0.6,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
+            duration: 0.4,
         },
     },
     exit: { opacity: 0, scale: 0.9, transition: { duration: 0.3 } },
@@ -510,9 +478,7 @@ export const menuVariants = {
         opacity: 1,
         scale: 1,
         transition: {
-            duration: 0.6,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
+            duration: 0.4,
         },
     },
     exit: { opacity: 0, scale: 0.9, transition: { duration: 0.3 } },
@@ -623,6 +589,7 @@ export const backgroundsSettingsVariants = {
     exit: {
         opacity: 0,
         transition: {
+            delay: 0.2,
             duration: 0.4,
         },
     },
@@ -642,6 +609,7 @@ export const notificationSettingsVariants = {
     exit: {
         opacity: 0,
         transition: {
+            delay: 0.2,
             duration: 0.4,
         },
     },
@@ -661,6 +629,7 @@ export const userSettingsVariants = {
     exit: {
         opacity: 0,
         transition: {
+            delay: 0.2,
             duration: 0.4,
         },
     },
@@ -680,6 +649,7 @@ export const trashSettingsVariants = {
     exit: {
         opacity: 0,
         transition: {
+            delay: 0.2,
             duration: 0.4,
         },
     },
@@ -703,9 +673,7 @@ export const scrollButtonVariants = {
         opacity: 1,
         scale: 1,
         transition: {
-            duration: 0.6,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
+            duration: 0.4,
         },
     },
     exit: { opacity: 0, scale: 0.9, transition: { duration: 0.3 } },
@@ -729,9 +697,7 @@ export const profileVariants = {
         opacity: 1,
         scale: 1,
         transition: {
-            duration: 0.6,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
+            duration: 0.4,
         },
     },
     exit: { opacity: 0, scale: 0.9, transition: { duration: 0.3 } },

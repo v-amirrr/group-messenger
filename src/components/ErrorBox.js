@@ -1,36 +1,26 @@
 import React from 'react';
-import { useGetMessages } from "../hooks/useGetMessages";
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { errorBoxVariants } from '../config/varitans';
 
 const ErrorBox = ({ errorMessage }) => {
-
-    const { getMessages } = useGetMessages();
-
     return (
         <>
             <ErrorBoxContainer initial='hidden' animate='visible' exit='exit' variants={errorBoxVariants}>
                 <h2>Looks like there's a problem</h2>
                 <p>{errorMessage}</p>
-                <button onClick={() => getMessages("try_again")}>Try Again</button>
+                <button onClick={() => window.location.reload(false)}>Refresh</button>
             </ErrorBoxContainer>
         </>
     );
 };
 
 const ErrorBoxContainer = styled(motion.div)`
-    padding: 2rem;
     text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    border: solid 1.5px #ffffff14;
-    background-color: #000000aa;
-    box-shadow: var(--normal-shadow);
-    border-radius: 25px;
-    color: var(--normal-colot);
 
     h2 {
         margin: 1rem;

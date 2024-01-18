@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, memo } from 'react';
 import Message from '../message/Message';
 import { useSelector } from 'react-redux';
 import { useMessageOptions } from '../../hooks/useMessageOptions';
+import { isRTL } from '../../functions/isRlt';
 import { BsReplyFill } from 'react-icons/bs';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -77,23 +78,25 @@ const EditReply = ({ replyTo, id, editReplyOpen, setEditReplyOpen }) => {
                                                 setNewReply('deleted') :
                                                 setNewReply(message)
                                             }
-                                            replyIconClick={() =>
-                                                setNewReply('deleted')
-                                            }
+                                            replyIconClick={() => setNewReply('deleted')}
                                             key={message.id}
                                             type='EDIT_REPLY'
                                             newreply={newReply.id == message.id}
                                             message={{
                                                 messageUid: message.uid,
                                                 localUid: user?.uid,
+                                                localMessage: user?.uid == message.uid,
                                                 messageUsername: usernames[message.uid],
                                                 id: message.id,
-                                                message: message.message,
+                                                text: message.message,
+                                                plainText: message.plainText,
+                                                isTextPersian : isRTL(message.message) ? 1 : 0,
+                                                textLetters: message.plainText.length,
                                                 periorUsername: message.periorUsername,
                                                 nextUsername: message.nextUsername,
                                                 time: message.time,
                                                 priorDifferentDate: message.priorDifferentDate,
-                                                nextDifferentDate:  message.nextDifferentDate,
+                                                nextDifferentDate: message.nextDifferentDate,
                                                 replyTo: message.replyTo,
                                             }}
                                         />

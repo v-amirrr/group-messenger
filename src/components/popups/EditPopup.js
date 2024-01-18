@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useMessageOptions } from '../../hooks/useMessageOptions';
 import EditReply from './EditReply';
 import { isRTL } from '../../functions/isRlt';
 import styled from 'styled-components';
 
 const EditPopup = ({ popupMessages, editReplyOpen, setEditReplyOpen }) => {
-    const { message: messageText, id, replyTo } = popupMessages[0];
+    const { plainText, id, replyTo } = popupMessages[0];
     const { editMessage, closePopup } = useMessageOptions();
-    const [editInput, setEditInput] = useState('');
+    const [editInput, setEditInput] = useState(plainText);
 
     const pressEnter = (e) => {
         if (e.key == 'Enter' && !e.shiftKey) {
@@ -15,14 +15,6 @@ const EditPopup = ({ popupMessages, editReplyOpen, setEditReplyOpen }) => {
             editMessage(id, editInput);
         }
     };
-
-    useEffect(() => {
-        let text = [];
-        messageText?.map((item) => {
-            text.push(item.word);
-        });
-        setEditInput(text.join(' '));
-    }, []);
 
     return (
         <>
@@ -41,10 +33,7 @@ const EditPopup = ({ popupMessages, editReplyOpen, setEditReplyOpen }) => {
                     <button className='cancel' onClick={closePopup}>
                         Cancel
                     </button>
-                    <button
-                        className='edit'
-                        onClick={() => editMessage(id, editInput)}
-                    >
+                    <button className='edit' onClick={() => editMessage(id, editInput)}>
                         Edit
                     </button>
                 </div>
@@ -66,9 +55,10 @@ const EditPopupContainer = styled.div`
     transform: ${props => props.editreplyopen ? 'scale(0.8)' : 'scale(1)'};
     opacity: ${props => props.editreplyopen ? '0' : '1'};
     transition: ${props =>
-        props.editreplyopen
-        ? 'transform .4s, padding .8s cubic-bezier(.53,0,0,.98), opacity .4s'
-        : 'transform .8s, padding .4s cubic-bezier(.53,0,0,.98), opacity .6s .2s'};
+        props.editreplyopen ?
+        'transform .4s, padding .8s cubic-bezier(.53,0,0,.98), opacity .4s' :
+        'transform .8s, padding .4s cubic-bezier(.53,0,0,.98), opacity .6s .2s'
+    };
 
     textarea {
         border: none;
@@ -84,8 +74,7 @@ const EditPopupContainer = styled.div`
         text-align: ${props => props.ispersian ? 'right' : 'left'};
         word-spacing: 1px;
         line-break: loose;
-        font-family: ${props => props.ispersian ? 'Vazirmatn' : 'Outfit'},
-            'Vazirmatn', sans-serif;
+        font-family: ${props => props.ispersian ? 'Vazirmatn' : 'Outfit'}, 'Vazirmatn', sans-serif;
     }
 
     .emoji-picker {

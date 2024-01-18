@@ -54,8 +54,6 @@ const Background = () => {
 
 const BackgroundContainer = styled.div`
     position: absolute;
-    top: 0;
-    left: 0;
     width: 100vw;
     height: 100vh;
     z-index: -2;
@@ -86,8 +84,6 @@ const CoverContainer = styled.div`
     height: 100vh;
     background-color: ${props => props.cover ? "#000000dd" : "#000000aa"};
     position: absolute;
-    top: 0;
-    left: 0;
     z-index: -1;
     transition: background 1s .2s cubic-bezier(.53,0,0,.98);
 

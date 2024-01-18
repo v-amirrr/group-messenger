@@ -1,11 +1,10 @@
 import React, { useState, useEffect, memo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { setMessageOptionsId } from '../../redux/appSlice';
+import { useSelector } from 'react-redux';
 import { useSelect } from '../../hooks/useSelect';
 import { useMessageOptions } from '../../hooks/useMessageOptions';
 import { isRTL } from '../../functions/isRlt';
-import MessageOptions from '../message/MessageOptions';
-import ChatDate from '../ChatDate';
+import MessageOptions from './MessageOptions';
+import MessageDate from './MessageDate';
 import MessageReply from './MessageReply';
 import MessageSelectCheck from './MessageSelectCheck';
 import MessageUsername from './MessageUsername';
@@ -15,11 +14,15 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { messageVariants } from '../../config/varitans';
 
-const Message = (props) => {
+const Message = ({ message, type, options, onClick, replyIconClick, newreply }) => {
     const {
         messageUid,
         localUid,
-        message,
+        localMessage,
+        text,
+        plainText,
+        isTextPersian,
+        textLetters,
         id,
         replyTo,
         messageUsername,
@@ -28,29 +31,20 @@ const Message = (props) => {
         time,
         priorDifferentDate,
         nextDifferentDate,
-    } = props.message;
-
-    const dispatch = useDispatch();
-    const { messageOptionsId, selectedMessages } = useSelector((store) => store.appStore);
-    const { replyTo: replyToApp } = useSelector((store) => store.sendMessageStore);
-
+    } = message;
+    const { selectedMessages } = useSelector(store => store.appStore);
+    const { replyTo: inputReply } = useSelector(store => store.sendMessageStore);
     const { selectMessage, checkMessage, unSelectMessage } = useSelect();
     const { replyMessage } = useMessageOptions();
-
     const [messagePosition, setMessagePosition] = useState(null);
-    const [clickEvent, setClickEvent] = useState(null);
     const [selected, setSelected] = useState(false);
-    const [status, setStatus] = useState(time.year == undefined ? 1 : 0);
+    const [status, setStatus] = useState(time?.year == undefined ? 1 : 0);
     const [hold, setHold] = useState(false);
-
     let timer;
-    let letters = 0;
-    props.type != 'TRASH' ? message?.map(item => letters =+ item.word.length) : letters =+ message.length;
 
-    // either opens options, or selects
-    const messageClickHandler = (e) => {
-        if (props.type == 'CHAT' || props.type == 'TRASH') {
-            if (selectedMessages.length || props.type == 'TRASH') {
+    const messageClickHandler = () => {
+        if (type == 'CHAT' || type == 'TRASH') {
+            if (selectedMessages?.length || type == 'TRASH') {
                 if (hold) {
                     setHold(false);
                 } else if (selected && !hold) {
@@ -58,34 +52,32 @@ const Message = (props) => {
                     setSelected(false);
                 } else {
                     selectMessage({
-                        ...props.message,
+                        ...message,
                         isMessageFromLocalUser: messageUid == localUid ? 1 : 0,
-                        isPersian: isRTL(message) ? 1 : 0,
+                        isPersian: isRTL(text) ? 1 : 0,
                     });
                 }
             } else {
-                if (messageOptionsId == id && props.type == 'CHAT') {
-                    dispatch(setMessageOptionsId(null));
-                    setClickEvent(null);
+                if (options?.messageOptions?.id == id && type == 'CHAT') {
+                    options.setMessageOptions(false);
                 } else {
-                    dispatch(setMessageOptionsId(id));
-                    setClickEvent(e);
+                    options.setMessageOptions(message);
                 }
             }
         } else {
-            props?.onClick();
+            onClick();
         }
     };
 
     const messageDoubleClickHandler = () => {
-        if (!selectedMessages.length && props.type == 'CHAT') {
-            replyMessage(id, message, messageUsername);
+        if (!selectedMessages?.length && type == 'CHAT') {
+            options.setMessageOptions(false);
+            replyMessage(id, plainText, messageUsername);
         }
     };
 
-    // detect message's position in order to set its border-radius
     useEffect(() => {
-        if (props.type == 'TRASH') {
+        if (type == 'TRASH') {
             setMessagePosition(0);
         } else {
             if (priorDifferentDate && nextDifferentDate) {
@@ -106,41 +98,28 @@ const Message = (props) => {
                 }
             }
             if (!priorDifferentDate && !nextDifferentDate) {
-                if (
-                    periorUsername != messageUid &&
-                    nextUsername != messageUid
-                ) {
+                if (periorUsername != messageUid && nextUsername != messageUid) {
                     setMessagePosition(0);
-                } else if (
-                    periorUsername != messageUid &&
-                    nextUsername == messageUid
-                ) {
+                } else if (periorUsername != messageUid && nextUsername == messageUid) {
                     setMessagePosition(1);
-                } else if (
-                    periorUsername == messageUid &&
-                    nextUsername == messageUid
-                ) {
+                } else if (periorUsername == messageUid && nextUsername == messageUid) {
                     setMessagePosition(2);
-                } else if (
-                    periorUsername == messageUid &&
-                    nextUsername != messageUid
-                ) {
+                } else if (periorUsername == messageUid && nextUsername != messageUid) {
                     setMessagePosition(3);
                 }
             }
         }
     }, [nextUsername, periorUsername, priorDifferentDate, nextDifferentDate]);
 
-    // check the selected messages in order to detect select bar's options
     useEffect(() => {
         checkMessage(id, selected, setSelected);
-        if (!selectedMessages.length) {
+        if (!selectedMessages?.length) {
             setHold(false);
         }
     }, [selectedMessages]);
 
     useEffect(() => {
-        if (status == 1) {
+        if (status == 1 && time.year && time.month && time.day && time.hour && time.minute && time.second) {
             setTimeout(() => {
                 setStatus(2);
                 setTimeout(() => {
@@ -151,12 +130,12 @@ const Message = (props) => {
     }, [time]);
 
     const onHoldStarts = () => {
-        if (!selectedMessages.length && props.type == 'CHAT') {
+        if (!selectedMessages?.length && type == 'CHAT') {
             timer = setTimeout(() => {
                 selectMessage({
-                    ...props.message,
+                    ...message,
                     isMessageFromLocalUser: messageUid == localUid ? 1 : 0,
-                    isPersian: isRTL(message) ? 1 : 0,
+                    isPersian: isRTL(text) ? 1 : 0,
                 });
                 setHold(true);
             }, 300);
@@ -164,7 +143,7 @@ const Message = (props) => {
     };
 
     const onHoldEnds = () => {
-        if (!selectedMessages.length) {
+        if (!selectedMessages?.length) {
             clearTimeout(timer);
             setHold(false);
         }
@@ -173,37 +152,38 @@ const Message = (props) => {
     return (
         <>
             <MessageContainer
-                layout={props.type == 'EDIT_REPLY' ? 0 : 1}
-                layoutId={props.type == 'EDIT_REPLY' ? id : null}
                 initial='hidden'
                 animate='visible'
                 exit='exit'
                 variants={messageVariants}
-                chatdate={priorDifferentDate && time?.year && time?.month && time?.day ? 1 : 0}
-                localuser={messageUid == localUid ? 1 : 0}
-                ispersian={isRTL(message) ? 1 : 0}
-                messageposition={messagePosition}
-                isreply={replyTo != 'no_reply' ? 1 : 0}
+                layout={type == 'EDIT_REPLY' ? 0 : 1}
+                layoutId={type == 'EDIT_REPLY' ? id : null}
+                date={priorDifferentDate && time.year && time.month && time.day && time.hour && time.minute && time.second ? 1 : 0}
+                type={type}
+                localmessage={localMessage ? 1 : 0}
+                persian={isTextPersian ? 1 : 0}
+                letters={textLetters}
+                position={messagePosition}
                 selected={selected ? 1 : 0}
-                anymessageselected={selectedMessages.length ? 1 : 0}
-                type={props.type}
-                replyto={replyToApp.id == id ? 1 : 0}
-                newreply={props.newreply ? 1 : 0}
-                date={priorDifferentDate ? 1 : 0}
-                letters={letters}
+                messagesselected={selectedMessages.length ? 1 : 0}
+                reply={replyTo != 'no_reply' ? 1 : 0}
             >
-                <ChatDate
-                    layout={props.type == 'EDIT_REPLY' ? 0 : 1}
-                    layoutId={props.type == 'EDIT_REPLY' ? id : null}
-                    key='chat-date'
-                    dateObj={time}
-                    priorDifferentDate={priorDifferentDate}
+                <MessageDate
+                    key='date'
+                    layout={type == 'EDIT_REPLY' ? 0 : 1}
+                    layoutId={type == 'EDIT_REPLY' ? id : null}
+                    date={{
+                        year: time.year,
+                        month: time.month,
+                        day: time.day
+                    }}
+                    show={priorDifferentDate && time.year && time.month && time.day}
                 />
                 <MessageUsername
-                    username={messageUsername}
                     show={messageUid != localUid && messagePosition < 2}
-                    chatdate={priorDifferentDate && time.year && time.month && time.day}
-                    anymessageselected={selectedMessages.length ? 1 : 0}
+                    username={messageUsername}
+                    dateShown={priorDifferentDate && time.year && time.month && time.day}
+                    messagesSelected={selectedMessages.length ? 1 : 0}
                 />
                 <div
                     className='message-box'
@@ -216,11 +196,11 @@ const Message = (props) => {
                 >
                     <p className='message'>
                         <div className='reply'>
-                            <MessageReply replyTo={replyTo} type={props.type} />
+                            <MessageReply replyTo={replyTo} type={type} />
                         </div>
                         {
-                            props.type != 'TRASH' ?
-                            message?.map((item, index) =>
+                            type != 'TRASH' ?
+                            text?.map((item, index) =>
                                 item.link ?
                                 <a
                                     key={index}
@@ -230,120 +210,137 @@ const Message = (props) => {
                                     rel='noopener nereferrer'
                                 >
                                     {item.word}
-                                </a>
-                                : `${item.word} `
-                            ) : message
+                                </a> :
+                                `${item.word} `
+                            ) :
+                            text
                         }
                     </p>
                 </div>
                 <MessageSelectCheck
-                    type={props.type}
+                    type={type}
                     selected={selected}
                     selectedMessagesLength={selectedMessages.length}
                     messageClickHandler={messageClickHandler}
                     isMessageFromLocalUser={messageUid == localUid ? 1 : 0}
                 />
                 <MessageReplyIcon
-                    editReply={props.newreply}
-                    editReplyClick={props.replyIconClick}
-                    show={replyToApp.id == id || props.newreply}
+                    editReply={newreply}
+                    editReplyClick={replyIconClick}
+                    show={inputReply.id == id || newreply}
                     isMessageFromLocalUser={messageUid == localUid ? 1 : 0}
                 />
                 <div className='options'>
-                    <MessageOptions
-                        clickEvent={clickEvent}
-                        show={
-                            messageOptionsId == id &&
-                            props.type == 'CHAT' &&
-                            !selectedMessages.length &&
-                            status == 0
-                        }
-                        message={{
-                            ...props.message,
-                            isMessageFromLocalUser: messageUid == localUid ? 1 : 0,
-                            isPersian: isRTL(message) ? 1 : 0,
-                        }}
-                        replyTo={replyToApp.id == id ? 1 : 0}
-                    />
+                    <MessageOptions options={options} id={id} />
                 </div>
-                <MessageLoader status={status} />
+                <MessageLoader
+                    status={status}
+                />
             </MessageContainer>
         </>
     );
 };
 
 const MessageContainer = styled(motion.div)`
+    position: relative;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    flex-direction: ${props => props.localuser ? 'row-reverse' : 'row'};
-    padding-top: ${props => props.messageposition < 2 && !props.localuser && !props.chatdate ? '1.8rem' : props.messageposition < 2 && !props.localuser && props.chatdate ? '3rem' : props.chatdate ? '1.8rem' : ''};
-    position: relative;
+    flex-direction: ${props => props.localmessage ? 'row-reverse' : 'row'};
+    padding-top: ${props =>
+        props.position < 2 && !props.localmessage && !props.date ?
+        '1.8rem' :
+        props.position < 2 && !props.localmessage && props.date ?
+        '3rem' :
+        props.date && '1.8rem'
+    };
     transition: padding 0.4s;
 
     .options {
         display: flex;
-        justify-content: ${(props) => props.localuser ? 'flex-end' : 'flex-start'};
+        justify-content: ${props => props.localmessage ? 'flex-end' : 'flex-start'};
         align-items: center;
     }
 
     .message-box {
         z-index: 1;
         display: flex;
-        justify-content: ${(props) => props.localuser ? 'flex-start' : 'flex-end'};
+        justify-content: ${props => props.localmessage ? 'flex-start' : 'flex-end'};
         align-items: center;
-        background-color: ${(props) => props.selected ? 'var(--normal-bg-hover)' : 'var(--normal-bg)'};
+        background-color: ${props => props.selected ? 'var(--normal-bg-hover)' : 'var(--normal-bg)'};
         margin: ${props =>
-            props.type == 'TRASH' ? '.2rem' :
-            props.messageposition == 0 ? '.1rem 0 .1rem 0'
-            : props.messageposition == 1 ? '.1rem 0 .06rem 0'
-            : props.messageposition == 2 ? '.06rem 0 .06rem 0'
-            : props.messageposition == 3 && '.06rem 0 .2rem 0'
+            props.type == 'TRASH' ?
+            '.2rem' :
+            props.position == 0 ?
+            '.1rem 0 .1rem 0' :
+            props.position == 1 ?
+            '.1rem 0 .06rem 0' :
+            props.position == 2 ?
+            '.06rem 0 .06rem 0' :
+            props.position == 3 &&
+            '.06rem 0 .2rem 0'
         };
+        margin-right: ${props =>
+            props.type == 'TRASH' ?
+            '2rem' :
+            props.messagesselected && props.localmessage ?
+            '3rem' :
+            ''
+        };
+        margin-left: ${props => props.type != 'TRASH' && props.messagesselected && !props.localmessage ? '3rem' : ''};
         border-radius: 25px;
-        border-radius: ${(props) =>
-            props.type == 'TRASH' ? '20px' :
-            props.localuser ?
-                props.messageposition == 0 ? '25px'
-                : props.messageposition == 1 ? '25px 25px 5px 25px'
-                : props.messageposition == 2 ? '25px 5px 5px 25px'
-                : props.messageposition == 3 && '25px 5px 25px 25px'
-            : props.messageposition == 0 ? '5px 25px 25px 25px'
-            : props.messageposition == 1 ? '5px 25px 25px 5px'
-            : props.messageposition == 2 ? '5px 25px 25px 5px'
-            : props.messageposition == 3 && '5px 25px 25px 25px'
+        border-radius: ${props => props.type == 'TRASH' ?
+            '20px' :
+            props.localmessage ?
+            props.position == 0 ?
+            '25px' : props.position == 1 ?
+            '25px 25px 5px 25px' :
+            props.position == 2 ?
+            '25px 5px 5px 25px' :
+            props.position == 3 &&
+            '25px 5px 25px 25px' :
+            props.position == 0 ?
+            '5px 25px 25px 25px' :
+            props.position == 1 ?
+            '5px 25px 25px 5px' :
+            props.position == 2 ?
+            '5px 25px 25px 5px' :
+            props.position == 3 &&
+            '5px 25px 25px 25px'
         };
-        margin-right: ${(props) => props.type == 'TRASH' ? '2rem' : props.anymessageselected && props.localuser ? '3rem' : ''};
-        margin-left: ${(props) => props.type != 'TRASH' && props.anymessageselected && !props.localuser ? '3rem' : ''};
-        padding: ${props => props.type == 'TRASH' && props.letters > 3  ? '.5rem' : props.type == 'TRASH' && props.letters <= 3 ? '.5rem .8rem' : props.letters < 3 && !props.isreply ? ".45rem .8rem" : ".45rem .5rem"};
+        padding: ${props => props.type == 'TRASH' && props.letters > 3 ?
+            '.5rem' :
+            props.type == 'TRASH' && props.letters <= 3 ?
+            '.5rem .8rem' :
+            props.letters < 3 &&
+            !props.reply ?
+            '.45rem .8rem' :
+            '.45rem .5rem'
+        };
         width: fit-content;
-        max-width: ${(props) => props.type == 'EDIT_REPLY' ? '80%' : '65%'};
-        backdrop-filter: ${(props) =>
-            props.type == 'CHAT' ? 'var(--normal-glass)' : 'blur(0)'};
-        -webkit-backdrop-filter: ${(props) =>
-            props.type == 'CHAT' ? 'var(--normal-glass)' : ''};
-        font-weight: 200;
+        max-width: ${props => props.type == 'EDIT_REPLY' || props.type == 'TRASH' ? '80%' : '65%'};
         word-break: break-all;
         cursor: pointer;
-        box-shadow: ${props => props.blur ? "var(--bold-shadow)" : "var(--normal-shadow)"};
+        box-shadow: var(--normal-shadow);
         color: var(--normal-color);
-        transition: backdrop-filter .4s, border-radius .4s, margin .4s, background .4s, background .2s, padding .2s, box-shadow .2s;
+        transition: border-radius .2s, margin .4s, background .2s, padding .2s;
 
         .message {
-            text-align: ${(props) => (props.ispersian ? 'right' : 'left')};
+            text-align: ${props => props.persian ? 'right' : 'left'};
             word-spacing: 1px;
             white-space: pre-wrap;
-            word-break: ${(props) => (props.type == 'TRASH' ? '' : 'keep-all')};
-            font-family: ${(props) => props.ispersian ? 'Vazirmatn' : 'Outfit'}, 'Vazirmatn', sans-serif;
-            font-size: ${(props) => (props.type == 'TRASH' ? '.7rem' : '1rem')};
+            word-break: ${props => props.type == 'TRASH' ? '' : 'keep-all'};
+            font-family: ${props => props.persian ? 'Vazirmatn' : 'Outfit'}, 'Vazirmatn', sans-serif;
+            font-size: ${props => props.type == 'TRASH' ? '.7rem' : '1rem'};
+            font-weight: 200;
 
             .reply {
                 display: inline-flex;
                 justify-content: center;
                 align-items: center;
                 position: relative;
-                bottom: .075rem;
-                margin-right: .2rem;
+                bottom: 0.075rem;
+                margin-right: 0.2rem;
                 word-spacing: 0;
                 white-space: nowrap;
             }
@@ -353,22 +350,24 @@ const MessageContainer = styled(motion.div)`
     @media (max-width: 768px) {
         .message-box {
             max-width: 85%;
-            border-radius: ${(props) =>
-                props.localuser
-                    ? props.messageposition == 0
-                        ? '20px'
-                        : props.messageposition == 1
-                        ? '20px 20px 5px 20px'
-                        : props.messageposition == 2
-                        ? '20px 5px 5px 20px'
-                        : props.messageposition == 3 && '20px 5px 20px 20px'
-                    : props.messageposition == 0
-                    ? '5px 20px 20px 20px'
-                    : props.messageposition == 1
-                    ? '5px 20px 20px 5px'
-                    : props.messageposition == 2
-                    ? '5px 20px 20px 5px'
-                    : props.messageposition == 3 && '5px 20px 20px 20px'};
+            border-radius: ${props => props.localmessage ?
+                props.position == 0 ?
+                '20px' :
+                props.position == 1
+                ? '20px 20px 5px 20px' :
+                props.position == 2 ?
+                '20px 5px 5px 20px' :
+                props.position == 3 &&
+                '20px 5px 20px 20px' :
+                props.position == 0 ?
+                '5px 20px 20px 20px' :
+                props.position == 1 ?
+                '5px 20px 20px 5px' :
+                props.position == 2 ?
+                '5px 20px 20px 5px' :
+                props.position == 3 &&
+                '5px 20px 20px 20px'
+            };
         }
 
         .options {

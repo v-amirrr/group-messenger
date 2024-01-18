@@ -18,13 +18,13 @@ const messagesSlice = createSlice({
             return { ...state, loading: action.payload };
         },
         setSendMessageReplyTo: (state, action) => {
-            return { 
-                ...state, 
-                replyTo: { 
+            return {
+                ...state,
+                replyTo: {
                     id: action.payload.id,
-                    message: action.payload.messageText,
+                    message: action.payload.messagePlainText,
                     username: action.payload.username,
-                }, 
+                },
             };
         },
         setClearReplyTo: (state) => {
@@ -43,7 +43,7 @@ const messagesSlice = createSlice({
     },
 });
 
-export const { 
+export const {
     setSendMessageError,
     setSendMessageLoading,
     setSendMessageReplyTo,

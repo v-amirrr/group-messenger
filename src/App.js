@@ -8,7 +8,7 @@ import GuidancePage from './components/pages/GuidancePage';
 import Background from './components/Background';
 import Popup from './components/popups/Popup';
 import Notification from './components/Notification';
-import { useGetMessages } from './hooks/useGetMessages';
+import { useFirestore } from './hooks/useFirestore';
 import { useWarningPage } from './hooks/useWarningPage';
 import { useChangeTheme } from './hooks/useChangeTheme';
 import { useNotification } from './hooks/useNotification';
@@ -17,7 +17,7 @@ import { AnimatePresence } from 'framer-motion';
 
 const App = () => {
     const location = useLocation();
-    const { getMessages, getUsers } = useGetMessages();
+    const { getMessages, getUsers } = useFirestore();
     const { showWarningPages } = useWarningPage();
     const { setDefaultTheme } = useChangeTheme();
     const { setDefaultNotification, clearNotifications } = useNotification();

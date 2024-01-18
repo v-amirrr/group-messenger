@@ -1,11 +1,12 @@
-import React, { memo } from 'react';
+import React from 'react';
 import { BsReplyFill } from 'react-icons/bs';
 import styled from 'styled-components';
 
 const MessageReply = ({ replyTo, type }) => {
     return (
         <>
-            {replyTo != 'no_reply' && type != 'TRASH' ? (
+            {
+                replyTo != 'no_reply' && type != 'TRASH' ?
                 <ReplySection
                     usernamelen={replyTo?.username?.length}
                     messagelen={replyTo?.message?.length}
@@ -19,9 +20,8 @@ const MessageReply = ({ replyTo, type }) => {
                         <p className='reply-username'>Deleted Message</p>
                     }
                 </ReplySection>
-            ) : (
-                ''
-            )}
+                : ''
+            }
         </>
     );
 };
@@ -30,8 +30,7 @@ const ReplySection = styled.div`
     border-radius: 50px;
     white-space: nowrap;
     overflow: hidden;
-    font-family: ${(props) => (props.isrlt ? 'Vazirmatn' : 'Outfit')},
-        'Vazirmatn', sans-serif;
+    font-family: ${props => props.isrlt ? 'Vazirmatn' : 'Outfit'}, 'Vazirmatn', sans-serif;
     display: inline-flex;
     justify-content: flex-start;
     align-items: center;
@@ -66,4 +65,4 @@ const ReplySection = styled.div`
     }
 `;
 
-export default memo(MessageReply);
+export default MessageReply;

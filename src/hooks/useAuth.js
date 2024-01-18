@@ -9,12 +9,10 @@ import { useNotification } from './useNotification';
 export const useAuth = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
     const { openNotification } = useNotification();
 
     const login = (email, password) => {
         dispatch(setLogin({ loading: true }));
-
         if (email && password) {
             signInWithEmailAndPassword(auth, email, password)
                 .then(res => {
@@ -105,5 +103,12 @@ export const useAuth = () => {
         openNotification("Authentication got canceled.", true, "ERROR");
     };
 
-    return { login, signup, enterAsAGuest, logout, googleLogin, cancelAuth };
+    return {
+        login,
+        signup,
+        enterAsAGuest,
+        logout,
+        googleLogin,
+        cancelAuth
+    };
 };

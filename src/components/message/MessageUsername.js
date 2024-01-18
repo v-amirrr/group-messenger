@@ -2,41 +2,38 @@ import React from 'react';
 import { TiUser } from 'react-icons/ti';
 import styled from 'styled-components';
 
-const MessageUsername = ({ username, show, chatdate, anymessageselected }) => {
+const MessageUsername = ({ show, username, dateShown, messagesSelected }) => {
     return (
         <>
-            {show ? (
-                <MessageUsernameContainer chatdate={chatdate} anymessageselected={anymessageselected}>
-                    <i>
-                        <TiUser />
-                    </i>
+            {
+                show ?
+                <MessageUsernameContainer dateshown={dateShown} messagesselected={messagesSelected}>
+                    <i><TiUser /></i>
                     {username}
                 </MessageUsernameContainer>
-            ) : (
-                ''
-            )}
+                : ''
+            }
         </>
     );
 };
 
 const MessageUsernameContainer = styled.div`
-    font-size: 0.6rem;
-    font-weight: 300;
-    margin-right: 0.2rem;
-    white-space: nowrap;
     position: absolute;
-    top: ${props => props.chatdate ? "34%" : "15%"};
-    margin-left: ${(props) => props.anymessageselected ? '3rem' : ''};
-    font-weight: 400;
-    color: var(--pale-color);
-    background-color: #ffffff0b;
-    box-shadow: var(--bold-shadow);
-    border-radius: 50px 50px 50px 20px;
-    padding: 0.2rem 0.5rem 0.2rem 1.2rem;
+    top: ${props => props.dateshown ? "34%" : "15%"};
     max-width: 8rem;
+    margin-left: ${props => props.messagesselected ? '3rem' : ''};
+    padding: 0.2rem 0.5rem 0.2rem 1.2rem;
+    background-color: #ffffff0b;
+    border-radius: 50px 50px 50px 20px;
+    margin-right: .2rem;
+    font-size: 0.6rem;
+    font-weight: 400;
+    white-space: nowrap;
+    color: var(--pale-color);
+    box-shadow: var(--bold-shadow);
     text-overflow: ellipsis;
     overflow: hidden;
-    transition: margin 0.4s;
+    transition: margin .4s;
 
     i {
         display: flex;

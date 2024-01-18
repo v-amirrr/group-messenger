@@ -3,7 +3,6 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
     warningPageShowed: false,
     warningPageNeverShow: JSON.parse(localStorage.getItem('warning-check')),
-    messageOptionsId: null,
     theme: 2,
     selectedMessages: [],
     selectOthersMessage: false,
@@ -29,9 +28,6 @@ const appSlice = createSlice({
         },
         setWarningPageNeverShow: (state, action) => {
             return { ...state, warningPageNeverShow: action.payload };
-        },
-        setMessageOptionsId: (state, action) => {
-            return { ...state, messageOptionsId: action.payload };
         },
         setTheme: (state, action) => {
             return { ...state, theme: action.payload };
@@ -125,7 +121,6 @@ const appSlice = createSlice({
 export const {
     setWarningShowed,
     setWarningPageNeverShow,
-    setMessageOptionsId,
     setTheme,
     setSelectedMessages,
     setClearSelectedMessages,

@@ -8,15 +8,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { popupPageVariants, popupContainerVariants } from '../../config/varitans';
 
 const Popup = () => {
-    const {
-        popupShow,
-        popupName,
-        popupMessages,
-        popupMessagesSelected,
-        popupMessageReplyTo
-    } = useSelector(store => store.popupStore);
-    const { closePopup } = useMessageOptions();
+    const { popupShow, popupName, popupMessages, popupMessagesSelected, popupMessageReplyTo } = useSelector(store => store.popupStore);
     const popupPage = useRef();
+    const { closePopup } = useMessageOptions();
     const [editReplyOpen, setEditReplyOpen] = useState(false);
 
     const closePopupByTap = (e) => {
@@ -41,10 +35,7 @@ const Popup = () => {
                         variants={popupPageVariants}
                         onClick={(e) => closePopupByTap(e)}
                     >
-                        <PopupContainer
-                            variants={popupContainerVariants}
-                            ref={popupPage}
-                        >
+                        <PopupContainer variants={popupContainerVariants} ref={popupPage}>
                             {
                                 popupName == 'DELETE_POPUP' ?
                                 <DeletePopup popupMessages={popupMessages} /> :
@@ -69,16 +60,12 @@ const Popup = () => {
 
 const PopupPage = styled(motion.section)`
     position: absolute;
-    top: 0;
-    left: 0;
     width: 100vw;
     height: 100dvh;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #00000088;
-    backdrop-filter: var(--bold-glass);
-    -webkit-backdrop-filter: var(--bold-glass);
     z-index: 3;
     color: var(--normal-color);
 `;

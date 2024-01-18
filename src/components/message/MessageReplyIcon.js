@@ -4,12 +4,9 @@ import { BsReplyFill } from 'react-icons/bs';
 import { IoClose } from 'react-icons/io5';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
-import {
-    replyIconLocalVariants,
-    replyIconNonLocalVariants,
-} from '../../config/varitans';
+import { replyIconVariants } from '../../config/varitans';
 
-const MessageReplyIcon = ({ editReply, editReplyClick, show, isMessageFromLocalUser }) => {
+const MessageReplyIcon = ({ editReply, editReplyClick, show }) => {
     const { clearReplyMessage } = useMessageOptions();
 
     const closeHandler = () => {
@@ -30,7 +27,7 @@ const MessageReplyIcon = ({ editReply, editReplyClick, show, isMessageFromLocalU
                         initial='hidden'
                         animate='visible'
                         exit='exit'
-                        variants={isMessageFromLocalUser ? replyIconLocalVariants : replyIconNonLocalVariants}
+                        variants={replyIconVariants}
                     >
                         <i className='reply'>
                             <BsReplyFill />
@@ -57,7 +54,7 @@ const MessageReplyIconContainer = styled(motion.div)`
     border-radius: 50%;
     cursor: pointer;
     margin: 0 .5rem;
-    transition: background 0.5s;
+    transition: background .5s;
 
     .reply {
         position: absolute;

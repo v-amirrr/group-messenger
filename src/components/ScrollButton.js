@@ -16,7 +16,7 @@ const ScrollButton = ({ click, scroll, newMessage, scrollDown }) => {
                 newmessage={newMessage ? 1 : 0}
             >
                 <div>
-                    <div className='message' onClick={scrollDown}>
+                    <div className='new' onClick={scrollDown}>
                         <p>
                             new
                         </p>
@@ -35,7 +35,7 @@ const ScrollButtonContainer = styled(motion.button)`
     position: absolute;
     bottom: 1.1rem;
     right: 8.2rem;
-    width: ${props => props.newmessage ? '4.1rem' : '2.3rem'};
+    width: ${props => props.newmessage ? '4.3rem' : '2.3rem'};
     height: ${props => props.newmessage ? '2.4rem' : '2.3rem'};
     display: flex;
     justify-content: center;
@@ -49,8 +49,7 @@ const ScrollButtonContainer = styled(motion.button)`
     cursor: ${props => props.newmessage ? 'auto' : 'pointer'};
     overflow: hidden;
     z-index: 2;
-    transition: width .3s cubic-bezier(0.53, 0, 0, 0.98),
-                height .3s cubic-bezier(0.53, 0, 0, 0.98);
+    transition: width .3s cubic-bezier(0.53, 0, 0, 0.98), height .3s cubic-bezier(0.53, 0, 0, 0.98);
 
     div {
         width: ${props => props.newmessage ? '4.6rem' : '2.3rem'};
@@ -74,9 +73,9 @@ const ScrollButtonContainer = styled(motion.button)`
         cursor: pointer;
     }
 
-    .message {
+    .new {
         position: absolute;
-        left: 0;
+        left: .1rem;
         display: flex;
         justify-content: center;
         align-items: center;

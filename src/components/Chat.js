@@ -13,11 +13,11 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { groupChatVariants } from '../config/varitans';
 
 const Chat = () => {
-    const messagesEndRef = useRef();
-    const messagesRef = useRef();
     const { messages, usernames } = useSelector(store => store.messagesStore);
     const { user } = useSelector(store => store.userStore);
     const { selectedMessages } = useSelector(store => store.appStore);
+    const messagesEndRef = useRef();
+    const messagesRef = useRef();
     const { groupChatRedirection } = useRedirection();
     const [scroll, setScroll] = useState(true);
     const [newMessage, setNewMessage] = useState(false);
@@ -102,18 +102,14 @@ const Chat = () => {
         if (
             messages[messages?.length - 1]?.time != lastMessageTime &&
             newMessageTime.getTime() > previousLastMessageTime.getTime() &&
-            ~~messagesRef?.current?.scrollTop + 100 <=
-                messagesRef?.current?.scrollHeight -
-                    messagesRef?.current?.clientHeight
+            ~~messagesRef?.current?.scrollTop + 200 <= messagesRef?.current?.scrollHeight - messagesRef?.current?.clientHeight
         ) {
             setNewMessage(true);
             setLastMessageTime(messages[messages?.length - 1]?.time);
         } else if (
             messages[messages?.length - 1]?.time != lastMessageTime &&
             newMessageTime.getTime() > previousLastMessageTime.getTime() &&
-            ~~messagesRef?.current?.scrollTop + 100 >=
-                messagesRef?.current?.scrollHeight -
-                    messagesRef?.current?.clientHeight
+            ~~messagesRef?.current?.scrollTop + 200 >= messagesRef?.current?.scrollHeight - messagesRef?.current?.clientHeight
         ) {
             setLastMessageTime(messages[messages?.length - 1]?.time);
             scrollDown();

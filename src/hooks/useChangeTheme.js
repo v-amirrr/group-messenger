@@ -3,10 +3,8 @@ import { setTheme } from "../redux/appSlice";
 import { useNotification } from "./useNotification";
 
 export const useChangeTheme = () => {
-
     const dispatch = useDispatch();
     const { openNotification } = useNotification();
-
     let themeLocalSotrage = localStorage.getItem("theme");
 
     const changeTheme = (themeNumber) => {
@@ -27,5 +25,8 @@ export const useChangeTheme = () => {
         }
     };
 
-    return { changeTheme, setDefaultTheme };
+    return {
+        changeTheme,
+        setDefaultTheme
+    };
 };

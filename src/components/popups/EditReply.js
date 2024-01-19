@@ -9,7 +9,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { replyAddSectionVariants, replyButtonVariants } from '../../config/varitans';
 
 const EditReply = ({ replyTo, id, editReplyOpen, setEditReplyOpen }) => {
-    const { messages, usernames } = useSelector(store => store.messagesStore);
+    const { messages, usernames } = useSelector(store => store.firestoreStore);
     const { user } = useSelector(store => store.userStore);
     const { editMessageReply } = useMessageOptions();
     const messagesRef = useRef();
@@ -57,7 +57,7 @@ const EditReply = ({ replyTo, id, editReplyOpen, setEditReplyOpen }) => {
 
     return (
         <>
-            <ReplyConatiner editReplyOpen={editReplyOpen ? 1 : 0}>
+            <ReplyConatiner editreplyopen={editReplyOpen ? 1 : 0}>
                 <AnimatePresence exitBeforeEnter>
                     {
                         editReplyOpen ?
@@ -114,7 +114,6 @@ const EditReply = ({ replyTo, id, editReplyOpen, setEditReplyOpen }) => {
                         </motion.div>
                         : ''
                     }
-
                     <AnimatePresence>
                         {
                             !editReplyOpen ?
@@ -126,13 +125,10 @@ const EditReply = ({ replyTo, id, editReplyOpen, setEditReplyOpen }) => {
                                 exit='exit'
                                 variants={replyButtonVariants}
                             >
-                                <i>
-                                    <BsReplyFill />
-                                </i>
+                                <i><BsReplyFill /></i>
                                 <p>
                                     {
-                                        replyTo != 'no_reply' &&
-                                        replyTo != 'deleted' ?
+                                        replyTo != 'no_reply' && replyTo != 'deleted' ?
                                         replyTo?.message :
                                         'Add Reply'
                                     }
@@ -149,22 +145,22 @@ const EditReply = ({ replyTo, id, editReplyOpen, setEditReplyOpen }) => {
 
 const ReplyConatiner = styled(motion.div)`
     position: absolute;
-    bottom: ${props => props.editReplyOpen ? '0' : '1.7rem'};
-    left: ${props => props.editReplyOpen ? '0' : '3rem'};
-    width: ${props => props.editReplyOpen ? '100%' : '4.8rem'};
-    height: ${props => props.editReplyOpen ? '100%' : '1.4rem'};
+    bottom: ${props => props.editreplyopen ? '0' : '1.7rem'};
+    left: ${props => props.editreplyopen ? '0' : '3rem'};
+    width: ${props => props.editreplyopen ? '100%' : '4.8rem'};
+    height: ${props => props.editreplyopen ? '100%' : '1.4rem'};
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     border-radius: 25px;
-    background-color: ${props => props.editReplyOpen ? '#000000aa' : '#00000000'};
-    border: ${props => props.editReplyOpen ? 'solid 2.5px #ffffff00' : 'solid 2.5px #ffffff20'};
+    background-color: ${props => props.editreplyopen ? '#000000aa' : '#00000000'};
+    border: ${props => props.editreplyopen ? 'solid 2.5px #ffffff00' : 'solid 2.5px #ffffff20'};
     box-shadow: var(--shadow-second);
     overflow: hidden;
     transition: ${props =>
-        props.editReplyOpen ?
-        'border .4s .4s, background .2s, width .4s cubic-bezier(.53,0,0,.98), height .4s cubic-bezier(.53,0,0,.98), bottom .4s, left .4s' :
+        props.editreplyopen ?
+        'border .4s .2s, background .2s, width .3s cubic-bezier(.53,0,0,.98), height .3s cubic-bezier(.53,0,0,.98), bottom .3s, left .3s' :
         'border .4s, background .2s .6s, width .3s .1s, height .3s .1s, bottom .3s .1s, left .3s .1s'
     };
 
@@ -221,20 +217,20 @@ const ReplyConatiner = styled(motion.div)`
             z-index: 3;
 
             .cancel {
-                background-color: #990000;
+                background-color: #990000 !important;
 
                 &:hover {
-                    background-color: #cc0000;
+                    background-color: #cc0000 !important;
                 }
             }
 
             .edit {
-                background-color: #009900;
+                background-color: #009900 !important;
                 color: #fff;
                 width: 6rem;
 
                 &:hover {
-                    background-color: #00cc00;
+                    background-color: #00cc00 !important;
                 }
             }
         }
@@ -242,8 +238,8 @@ const ReplyConatiner = styled(motion.div)`
 
     @media (max-width: 768px) {
         bottom: auto;
-        top: ${props => props.editReplyOpen ? '0' : '.8rem'};
-        left: ${props => props.editReplyOpen ? '0' : '2rem'};
+        top: ${props => props.editreplyopen ? '0' : '.8rem'};
+        left: ${props => props.editreplyopen ? '0' : '2rem'};
 
         .reply-messages {
             padding: 1rem 0.5rem;

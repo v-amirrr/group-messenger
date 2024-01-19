@@ -49,6 +49,7 @@ const DeletePopupContainer = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    padding: .5rem 0;
 
     h4 {
         white-space: nowrap;

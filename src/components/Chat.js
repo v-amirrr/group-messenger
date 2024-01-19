@@ -13,7 +13,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { groupChatVariants } from '../config/varitans';
 
 const Chat = () => {
-    const { messages, usernames } = useSelector(store => store.messagesStore);
+    const { messages, usernames } = useSelector(store => store.firestoreStore);
     const { user } = useSelector(store => store.userStore);
     const { selectedMessages } = useSelector(store => store.appStore);
     const messagesEndRef = useRef();
@@ -137,11 +137,11 @@ const Chat = () => {
 
     return (
         <>
-            <AnimatePresence exitBeforeEnter>
+            <AnimatePresence>
                 {!selectedMessages.length ? <Menu key='menu' /> : ''}
             </AnimatePresence>
 
-            <AnimatePresence exitBeforeEnter>
+            <AnimatePresence>
                 {!selectedMessages.length ? <Profile key='profile' /> : ''}
             </AnimatePresence>
 
@@ -153,7 +153,7 @@ const Chat = () => {
                 scrollDown={scrollDown}
             />
 
-            <AnimatePresence exitBeforeEnter>
+            <AnimatePresence>
                 {selectedMessages.length ? <SelectBar key='select' /> : ''}
             </AnimatePresence>
 
@@ -200,7 +200,7 @@ const Chat = () => {
                 <div ref={messagesEndRef} />
             </ChatContainer>
 
-            <AnimatePresence exitBeforeEnter>
+            <AnimatePresence>
                 {!selectedMessages.length ? <Input key='input' /> : ''}
             </AnimatePresence>
         </>

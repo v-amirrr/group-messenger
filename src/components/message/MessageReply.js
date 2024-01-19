@@ -7,7 +7,7 @@ const MessageReply = ({ replyTo, type }) => {
         <>
             {
                 replyTo != 'no_reply' && type != 'TRASH' ?
-                <ReplySection
+                <ReplyContainer
                     usernamelen={replyTo?.username?.length}
                     messagelen={replyTo?.message?.length}
                 >
@@ -19,32 +19,33 @@ const MessageReply = ({ replyTo, type }) => {
                         <p className='reply-message'>{replyTo?.message}</p> :
                         <p className='reply-username'>Deleted Message</p>
                     }
-                </ReplySection>
+                </ReplyContainer>
                 : ''
             }
         </>
     );
 };
 
-const ReplySection = styled.div`
+const ReplyContainer = styled.div`
+    max-width: 6.5rem;
+    height: 100%;
     border-radius: 50px;
-    white-space: nowrap;
     overflow: hidden;
     font-family: ${props => props.isrlt ? 'Vazirmatn' : 'Outfit'}, 'Vazirmatn', sans-serif;
-    display: inline-flex;
-    justify-content: flex-start;
-    align-items: center;
     font-size: 0.6rem;
     font-weight: 300;
-    margin-right: 0.2rem;
     font-weight: 400;
     color: var(--pale-color);
     background-color: #ffffff09;
     box-shadow: var(--bold-shadow);
     padding: 0.2rem 0.5rem 0.2rem 1.2rem;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
     position: relative;
-    max-width: 6.5rem;
-    height: 100%;
+    bottom: 0.075rem;
+    margin-right: 0.4rem;
+    white-space: nowrap;
 
     i {
         display: flex;

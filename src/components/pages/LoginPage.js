@@ -53,7 +53,16 @@ const LoginPage = () => {
 
     return (
         <>
-            <Login toggle={toggle} showpassword={showPassword} loading={signupData.loading || loginData.loading} googleloading={googleData.loading} initial='hidden' animate='visible' exit='exit' variants={loginVariants}>
+            <Login
+                toggle={toggle ? 1 : 0}
+                showpassword={showPassword ? 1 : 0}
+                loading={signupData.loading || loginData.loading ? 1 : 0}
+                googleloading={googleData.loading ? 1 : 0}
+                initial='hidden'
+                animate='visible'
+                exit='exit'
+                variants={loginVariants}
+            >
                 <header>
                     <button className='login' onClick={() => setToggle(true)} disabled={loginData.loading || signupData.loading || googleData.loading}>LOGIN</button>
                     <button className='signup' onClick={() => setToggle(false)} disabled={loginData.loading || signupData.loading || googleData.loading}>SIGN UP</button>

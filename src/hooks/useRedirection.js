@@ -2,7 +2,6 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 export const useRedirection = () => {
-
     const navigate = useNavigate();
     const { user, enterAsAGuest } = useSelector(store => store.userStore);
     const { warningPageShowed, warningPageNeverShowCheck } = useSelector(store => store.appStore);

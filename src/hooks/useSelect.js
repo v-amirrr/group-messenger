@@ -4,11 +4,9 @@ import { useMessageOptions } from "./useMessageOptions";
 import { useNotification } from "./useNotification";
 
 export const useSelect = () => {
-
     const dispatch = useDispatch();
     const { selectedMessages } = useSelector(store => store.appStore);
     const { enterAsAGuest } = useSelector(store => store.userStore);
-
     const { trashMessage, clearReplyMessage, undeleteMessage, deleteMessage, closePopup } = useMessageOptions();
     const { openNotification } = useNotification();
 
@@ -36,7 +34,7 @@ export const useSelect = () => {
 
     const checkMessage = (id, selected, setSelected) => {
         for (let i = 0; i < selectedMessages.length; i++) {
-            if (!selectedMessages[i].isMessageFromLocalUser) {
+            if (!selectedMessages[i].localMessage) {
                 dispatch(setSelectOthersMessage(true));
             }
             if (selectedMessages[i].id == id) {
@@ -55,17 +53,14 @@ export const useSelect = () => {
     };
 
     const copySelectedMessages = () => {
-        let text = [];
-        selectedMessages.map((message) => {
-            message.message.map((item, index) => {
-                if (index+1 == message.message.length) {
-                    text.push(`${item.word}\n`);
-                } else {
-                    text.push(`${item.word} `);
-                }
-            });
+        let text = '';
+        selectedMessages.map((message, index) => {
+            if (index == 0 && index == selectedMessages.length-1) {
+                text+=`${message.plainText} `;
+            } else {
+                text+=`${message.plainText}\n`;
+            }
         });
-        text = text.join('');
         navigator.clipboard.writeText(text);
         clearSelectedMessages();
         openNotification('Messages copied.', false, 'COPY');

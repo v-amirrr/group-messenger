@@ -19,7 +19,7 @@ const MessageReplyIcon = ({ editReply, editReplyClick, show }) => {
 
     return (
         <>
-            <AnimatePresence exitBeforeEnter>
+            <AnimatePresence>
                 {
                     show ?
                     <MessageReplyIconContainer
@@ -57,21 +57,25 @@ const MessageReplyIconContainer = styled(motion.div)`
     transition: background .5s;
 
     .reply {
+        width: 100%;
+        height: 100%;
         position: absolute;
         display: flex;
         justify-content: center;
         align-items: center;
         transform: scale(1);
-        transition: transform 0.3s;
+        transition: transform .3s;
     }
 
     .close {
+        width: 100%;
+        height: 100%;
         position: absolute;
         display: flex;
         justify-content: center;
         align-items: center;
         transform: scale(0);
-        transition: transform 0.3s;
+        transition: transform .3s;
         font-size: 1.6rem;
     }
 

@@ -4,7 +4,6 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { messageLoaderVariants } from '../../config/varitans';
 
 const MessageLoader = ({ status }) => {
-
     return (
         <>
             <MessageLoaderContainer>

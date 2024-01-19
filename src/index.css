@@ -29,7 +29,7 @@
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #ffffff10;
+    background: #ffffff20;
     box-shadow: var(--shadow-first);
     border-radius: 50px;
     -webkit-border-radius: 50px;
@@ -83,7 +83,11 @@ button {
     color: #fff;
 }
 
-.link {
+.disabled-link {
+    pointer-events: none;
+}
+
+.link, .disabled-link {
     position: relative;
     padding: .04rem .1rem;
     margin: .1rem;

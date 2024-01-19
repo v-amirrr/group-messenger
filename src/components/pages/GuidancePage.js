@@ -9,9 +9,7 @@ import styled from 'styled-components';
 import { featuresPageVariants, featuresContainerVariants, featuresIconVariants, featuresListVariants, featuresItemVariants, featuresSectionUpVariatns, featuresSectionDownVariatns } from '../../config/varitans';
 
 const GuidancePage = () => {
-
     const featuresRef = useRef();
-
     const [content, setContent] = useState(localStorage.getItem("guidance") ? localStorage.getItem("guidance") : 1);
     const [down, setDown] = useState(true);
     const [onPhone, setOnPhone] = useState(document.documentElement.offsetWidth < 900);
@@ -37,7 +35,7 @@ const GuidancePage = () => {
                     {
                         onPhone ?
                         <div className='menu-icon' onClick={() => setMenu(!menu)}>
-                            <AnimatePresence exitBeforeEnter>
+                            <AnimatePresence>
                                 {
                                     menu ?
                                     <motion.i key="back" className='back' initial='hidden' animate='visible' exit='exit' variants={featuresIconVariants}><TiArrowLeft /></motion.i> :

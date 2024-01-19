@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import { useRedirection } from '../../hooks/useRedirection';
 import SettingsBackgrounds from './SettingsBackgrounds';
 import SettingsUser from './SettingsUser';
@@ -14,7 +13,6 @@ import { settingsPageVariants, settingsContainerVariants } from '../../config/va
 
 const SettingsPage = () => {
     const navigate = useNavigate();
-    const { popupShow } = useSelector(store => store.popupStore);
     const { groupChatRedirection } = useRedirection();
     const [open, setOpen] = useState(false);
     const [height, setHeight] = useState(false);
@@ -39,7 +37,6 @@ const SettingsPage = () => {
                 animate='visible'
                 exit='exit'
                 variants={settingsPageVariants}
-                blur={popupShow ? 1 : 0}
             >
                 <SettingsContainer variants={settingsContainerVariants}>
                     <header className='settings-header'>
@@ -109,8 +106,6 @@ const Settings = styled(motion.section)`
     align-items: center;
     position: absolute;
     inset: 0 0 0 0;
-    filter: ${props => props.blur ? 'blur(20px)' : ''};
-    transition: filter .5s;
 `;
 
 const SettingsContainer = styled(motion.section)`

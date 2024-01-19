@@ -9,25 +9,21 @@ import Toggle from '../Toggle';
 const WarningPage = () => {
     const { warningPageSubmit } = useWarningPage();
     const { warningRedirection } = useRedirection();
-
     const [warningToggle, setWarningToggle] = useState(true);
 
     useEffect(() => {
         warningRedirection();
-        document.addEventListener(
-            "keydown",
-            (e) => {
-                if (e.key == 'Enter') {
-                    warningPageSubmit(warningToggle);
-                }
-            },
-            { once: true }
-        );
     }, []);
+
+    const pressEnter = (e) => {
+        if (e.key == 'Enter') {
+            warningPageSubmit(warningToggle);
+        }
+    };
 
     return (
         <>
-            <Warning initial='hidden' animate='visible' exit='exit' variants={warningPageVariants}>
+            <Warning initial='hidden' animate='visible' exit='exit' variants={warningPageVariants} onKeyDown={(e) => pressEnter(e)}>
                 <motion.div className='container' variants={warningContainerVariants}>
                     <h1 className='title'>THINGS YOU NEED TO KNOW</h1>
                     <p className='warning'>
@@ -52,7 +48,7 @@ const WarningPage = () => {
                             scale={0.6}
                         />
                     </div>
-                    <button type='submit' className='submit' onClick={() => warningPageSubmit(setWarningToggle)}>
+                    <button className='submit' onClick={() => warningPageSubmit(setWarningToggle)} autoFocus>
                         LET'S GO
                     </button>
                 </motion.div>

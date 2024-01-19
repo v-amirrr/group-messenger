@@ -34,13 +34,14 @@ const ChatLoader = () => {
                 <div className='input'></div>
                 <div className='messages'>
                     {
-                        messages.map((message) => (
+                        messages.map((message, index) => (
                         <MessageContainer
+                            key={index}
                             className='message-container'
                             width={message.width}
                             height={message.height}
                             position={message.position}
-                            local={message.local}
+                            local={message.local ? 1 : 0}
                         >
                             <div className={message.position == 4 ? 'date' : 'message'}></div>
                         </MessageContainer>

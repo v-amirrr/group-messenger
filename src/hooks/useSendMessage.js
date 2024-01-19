@@ -5,14 +5,10 @@ import { setSendMessageError, setSendMessageLoading, setClearReplyTo, setRestore
 import { useNotification } from "./useNotification";
 
 export const useSendMessage = () => {
-
     const dispatch = useDispatch();
-
     const { replyTo } = useSelector(store => store.sendMessageStore);
     const { user, enterAsAGuest } = useSelector(store => store.userStore);
-
     const { openNotification } = useNotification();
-
     const firebaseRef = collection(db, 'messages');
 
     const sendMessage = (messageText) => {

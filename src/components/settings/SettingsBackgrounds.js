@@ -35,7 +35,7 @@ const SettingsBackgrounds = ({ open, setOpen, setHeight }) => {
                 </i>
             </div>
 
-            <AnimatePresence exitBeforeEnter>
+            <AnimatePresence>
                 {
                     open == 'SETTINGS_BACKGROUND' ?
                     <BackgroundsContainer

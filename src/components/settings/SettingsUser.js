@@ -45,7 +45,7 @@ const SettingsUser = ({ open, setOpen, setHeight }) => {
                 <i className='item-back'><RiArrowRightSLine /></i>
             </div>
 
-            <AnimatePresence exitBeforeEnter>
+            <AnimatePresence>
                 {
                     open == "SETTINGS_USER" ?
                         <UserContainer initial='hidden' animate='visible' exit='exit' variants={userSettingsVariants} loading={loading ? 1 : 0} inputEnabled={inputEnabled ? 1 : 0}>

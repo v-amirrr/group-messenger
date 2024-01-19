@@ -25,20 +25,22 @@ const Popup = () => {
 
     return (
         <>
-            <AnimatePresence exitBeforeEnter>
+            <AnimatePresence>
                 {
                     popupShow ?
-                    <PopupPage
+                    <PopupContainer
                         initial='hidden'
                         animate='visible'
                         exit='exit'
                         variants={popupPageVariants}
                         onClick={(e) => closePopupByTap(e)}
                     >
-                        <PopupContainer variants={popupContainerVariants} ref={popupPage}>
+                        <motion.div className='popup' variants={popupContainerVariants} ref={popupPage}>
                             {
                                 popupName == 'DELETE_POPUP' ?
-                                <DeletePopup popupMessages={popupMessages} /> :
+                                <DeletePopup
+                                    popupMessages={popupMessages}
+                                /> :
                                 popupName == 'EDIT_POPUP' ?
                                 <EditPopup
                                     popupMessages={popupMessages}
@@ -49,8 +51,8 @@ const Popup = () => {
                                 />
                                 : ''
                             }
-                        </PopupContainer>
-                    </PopupPage>
+                        </motion.div>
+                    </PopupContainer>
                     : ''
                 }
             </AnimatePresence>
@@ -58,7 +60,7 @@ const Popup = () => {
     );
 };
 
-const PopupPage = styled(motion.section)`
+const PopupContainer = styled(motion.section)`
     position: absolute;
     width: 100vw;
     height: 100dvh;
@@ -68,82 +70,86 @@ const PopupPage = styled(motion.section)`
     background-color: #00000088;
     z-index: 3;
     color: var(--normal-color);
-`;
 
-const PopupContainer = styled(motion.div)`
-    padding: 1.2rem 1.5rem;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    background-color: #ffffff04;
-    border: solid 2.5px #ffffff20;
-    border-radius: 25px;
-    box-shadow: var(--normal-shadow);
-    position: relative;
+    .popup {
+        padding: 1.2rem 1.5rem;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background-color: #ffffff04;
+        border: solid 2.5px #ffffff20;
+        border-radius: 25px;
+        box-shadow: var(--bold-shadow);
+        backdrop-filter: var(--bold-glass);
+        -webkit-backdrop-filter: var(--bold-glass);
+        position: relative;
 
-    .buttons {
-        margin-top: 1.5rem;
+        .buttons {
+            margin-top: 1.5rem;
 
-        .edit,
-        .delete,
-        .cancel {
-            border: none;
-            border-radius: 50px;
-            background-color: #ffffff08;
-            box-shadow: var(--normal-shadow);
-            margin: 0 0.3rem;
-            width: 5rem;
-            height: 2.3rem;
-            font-size: 1rem;
-            font-weight: 400;
-            cursor: pointer;
-            transition: background .2s;
+            .edit,
+            .delete,
+            .cancel {
+                border: none;
+                border-radius: 50px;
+                background-color: #ffffff08;
+                box-shadow: var(--normal-shadow);
+                margin: 0 0.3rem;
+                width: 5rem;
+                height: 2.3rem;
+                font-size: 1rem;
+                font-weight: 400;
+                cursor: pointer;
+                transition: background .2s;
 
-            @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
-                &:hover {
-                    background-color: #ffffff14;
+                @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
+                    &:hover {
+                        background-color: #ffffff14;
+                    }
                 }
             }
-        }
 
-        .delete {
-            color: #ff0000;
-            background-color: #ff000040;
+            .delete {
+                color: #ff0000;
+                background-color: #ff000040;
 
-            @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
-                &:hover {
-                    background-color: #ff000050;
+                @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
+                    &:hover {
+                        background-color: #ff000050;
+                    }
                 }
             }
-        }
 
-        .edit {
-            color: #00ff00;
-            background-color: #00ff0010;
+            .edit {
+                color: #00ff00;
+                background-color: #00ff0010;
 
-            @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
-                &:hover {
-                    background-color: #00ff0020;
+                @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
+                    &:hover {
+                        background-color: #00ff0020;
+                    }
                 }
             }
         }
     }
 
     @media (max-width: 768px) {
-        padding: 1rem;
+        .popup {
+            padding: 1rem;
 
-        textarea {
-            font-size: 1rem;
-            width: 16rem;
-        }
+            textarea {
+                font-size: 1rem;
+                width: 16rem;
+            }
 
-        .buttons {
-            margin-top: 1.5rem;
+            .buttons {
+                margin-top: 1.5rem;
 
-            button {
-                font-size: 0.8rem;
+                button {
+                    font-size: 0.8rem;
+                }
             }
         }
     }

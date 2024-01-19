@@ -17,7 +17,7 @@ const EmojiPicker = ({ setInputText }) => {
         <>
             <EmojiPickerContainer>
                 <button onClick={() => setOpen(!open)}><GrEmoji /></button>
-                <AnimatePresence exitBeforeEnter>
+                <AnimatePresence>
                     {
                         open ?
                         <motion.div className='picker' initial='hidden' animate='visible' exit='exit' variants={emojiPickerVariatns}>

@@ -8,8 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { messengerVariants } from '../../config/varitans';
 
 const MessengerPage = () => {
-    const { loading, error } = useSelector(store => store.messagesStore);
-    const { popupShow } = useSelector(store => store.popupStore);
+    const { loading, error } = useSelector(store => store.firestoreStore);
     return (
         <>
             <MessengerPageContainer
@@ -17,7 +16,6 @@ const MessengerPage = () => {
                 animate='visible'
                 exit='exit'
                 variants={messengerVariants}
-                blur={popupShow ? 1 : 0}
             >
                 <div className='chat'>
                     <AnimatePresence exitBeforeEnter>
@@ -45,8 +43,6 @@ const MessengerPageContainer = styled(motion.main)`
     align-items: center;
     flex-direction: column;
     position: fixed;
-    filter: ${props => props.blur ? 'blur(20px)' : ''};
-    transition: filter .5s;
 
     .chat {
         display: flex;

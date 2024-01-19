@@ -36,7 +36,7 @@ const SettingsNotification = ({ open, setOpen, setHeight }) => {
                 <i className='item-back'><RiArrowRightSLine /></i>
             </div>
 
-            <AnimatePresence exitBeforeEnter>
+            <AnimatePresence>
                 {
                     open == 'SETTINGS_NOTIFICATION' ?
                     <NotificationContainer initial='hidden' animate='visible' exit='exit' variants={notificationSettingsVariants}>

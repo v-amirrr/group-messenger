@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useMessageOptions } from '../../hooks/useMessageOptions';
 import EditReply from './EditReply';
 import { isRTL } from '../../functions/isRlt';
@@ -7,6 +7,7 @@ import styled from 'styled-components';
 const EditPopup = ({ popupMessages, editReplyOpen, setEditReplyOpen }) => {
     const { plainText, id, replyTo } = popupMessages[0];
     const { editMessage, closePopup } = useMessageOptions();
+    const inputRef = useRef();
     const [editInput, setEditInput] = useState(plainText);
 
     const pressEnter = (e) => {
@@ -16,6 +17,10 @@ const EditPopup = ({ popupMessages, editReplyOpen, setEditReplyOpen }) => {
         }
     };
 
+    useEffect(() => {
+        editInput && inputRef?.current?.setSelectionRange(editInput.length, editInput.length);
+    }, []);
+
     return (
         <>
             <EditPopupContainer
@@ -24,6 +29,7 @@ const EditPopup = ({ popupMessages, editReplyOpen, setEditReplyOpen }) => {
                 ispersian={isRTL(editInput) ? 1 : 0}
             >
                 <textarea
+                    ref={inputRef}
                     value={editInput}
                     onChange={(e) => setEditInput(e.target.value)}
                     autoFocus={document.documentElement.offsetWidth > 500}
@@ -56,8 +62,8 @@ const EditPopupContainer = styled.div`
     opacity: ${props => props.editreplyopen ? '0' : '1'};
     transition: ${props =>
         props.editreplyopen ?
-        'transform .4s, padding .8s cubic-bezier(.53,0,0,.98), opacity .4s' :
-        'transform .8s, padding .4s cubic-bezier(.53,0,0,.98), opacity .6s .2s'
+        'transform .2s, padding .8s cubic-bezier(.53,0,0,.98), opacity .3s' :
+        'transform .8s, padding .4s, opacity .3s .3s'
     };
 
     textarea {
@@ -75,13 +81,6 @@ const EditPopupContainer = styled.div`
         word-spacing: 1px;
         line-break: loose;
         font-family: ${props => props.ispersian ? 'Vazirmatn' : 'Outfit'}, 'Vazirmatn', sans-serif;
-    }
-
-    .emoji-picker {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        z-index: 99;
     }
 
     @media (max-width: 768px) {

@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { setWarningShowed, setWarningPageNeverShow } from "../redux/appSlice";
 
 export const useWarningPage = () => {
-
     const dispatch = useDispatch();
     const navigate = useNavigate();
 

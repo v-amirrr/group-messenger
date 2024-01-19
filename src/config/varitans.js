@@ -256,7 +256,7 @@ export const messageLoaderVariants = {
     exit: {
         opacity: 0,
         scale: 0.9,
-        transition: { duration: 0.2, delay: 0.5 },
+        transition: { duration: 0.2 },
     },
 };
 
@@ -315,7 +315,7 @@ export const optionLocalVariants = onMobile
           },
       }
     : {
-          hidden: { opacity: 0, x: 20 },
+          hidden: { opacity: 0, x: 10 },
           visible: {
               opacity: 1,
               x: 0,
@@ -323,7 +323,7 @@ export const optionLocalVariants = onMobile
           },
           exit: {
               opacity: 0,
-              x: 20,
+              x: 10,
               transition: { duration: 0.3 },
           },
       };
@@ -343,7 +343,7 @@ export const optionNonLocalVariants = onMobile
           },
       }
     : {
-          hidden: { opacity: 0, x: -20 },
+          hidden: { opacity: 0, x: -10 },
           visible: {
               opacity: 1,
               x: 0,
@@ -351,7 +351,7 @@ export const optionNonLocalVariants = onMobile
           },
           exit: {
               opacity: 0,
-              x: -20,
+              x: -10,
               transition: { duration: 0.3 },
           },
       };

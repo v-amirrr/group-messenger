@@ -8,7 +8,7 @@ import { motion } from 'framer-motion';
 import { selectBarVariants } from '../config/varitans';
 
 const SelectBar = () => {
-    const { selectedMessages, selectOthersMessage } = useSelector((store) => store.appStore);
+    const { selectedMessages, selectOthersMessage } = useSelector(store => store.appStore);
     const { clearSelectedMessages, copySelectedMessages, trashSelectedMessages } = useSelect();
     const [counterOne, setCounterOne] = useState(selectedMessages.length);
     const [counterTwo, setCounterTwo] = useState(selectedMessages.length);

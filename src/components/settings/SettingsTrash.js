@@ -15,7 +15,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { trashSettingsVariants } from '../../config/varitans';
 
 const SettingsTrash = ({ open, setOpen, setHeight }) => {
-    const { deletedMessages } = useSelector(store => store.messagesStore);
+    const { deletedMessages } = useSelector(store => store.firestoreStore);
     const { selectedMessages } = useSelector(store => store.appStore);
     const { user, enterAsAGuest } = useSelector(store => store.userStore);
     const { openPopup } = useMessageOptions();
@@ -67,7 +67,7 @@ const SettingsTrash = ({ open, setOpen, setHeight }) => {
                 <i className='item-back'><RiArrowRightSLine /></i>
             </div>
 
-            <AnimatePresence exitBeforeEnter>
+            <AnimatePresence>
                 {
                     open == "SETTINGS_TRASH" ?
                         <MessagesContainer initial='hidden' animate='visible' exit='exit' variants={trashSettingsVariants} selectbarshow={selectedMessages.length}>

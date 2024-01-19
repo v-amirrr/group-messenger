@@ -194,17 +194,15 @@ const Message = ({ message, type, options, onClick, replyIconClick, newreply }) 
                     onTouchStart={onHoldStarts}
                     onTouchEnd={onHoldEnds}
                 >
-                    <p className='message'>
-                        <div className='reply'>
-                            <MessageReply replyTo={replyTo} type={type} />
-                        </div>
+                    <div className='message'>
+                        <MessageReply replyTo={replyTo} type={type} />
                         {
                             type != 'TRASH' ?
                             text?.map((item, index) =>
                                 item.link ?
                                 <a
                                     key={index}
-                                    className='link'
+                                    className={type == 'EDIT_REPLY' ? 'disabled-link' : 'link'}
                                     href={item.word}
                                     target='_blank'
                                     rel='noopener nereferrer'
@@ -215,20 +213,19 @@ const Message = ({ message, type, options, onClick, replyIconClick, newreply }) 
                             ) :
                             text
                         }
-                    </p>
+                    </div>
                 </div>
                 <MessageSelectCheck
                     type={type}
                     selected={selected}
                     selectedMessagesLength={selectedMessages.length}
                     messageClickHandler={messageClickHandler}
-                    isMessageFromLocalUser={messageUid == localUid ? 1 : 0}
+                    localMessage={localMessage}
                 />
                 <MessageReplyIcon
                     editReply={newreply}
                     editReplyClick={replyIconClick}
                     show={inputReply.id == id || newreply}
-                    isMessageFromLocalUser={messageUid == localUid ? 1 : 0}
                 />
                 <div className='options'>
                     <MessageOptions options={options} id={id} />
@@ -333,17 +330,6 @@ const MessageContainer = styled(motion.div)`
             font-family: ${props => props.persian ? 'Vazirmatn' : 'Outfit'}, 'Vazirmatn', sans-serif;
             font-size: ${props => props.type == 'TRASH' ? '.7rem' : '1rem'};
             font-weight: 200;
-
-            .reply {
-                display: inline-flex;
-                justify-content: center;
-                align-items: center;
-                position: relative;
-                bottom: 0.075rem;
-                margin-right: 0.2rem;
-                word-spacing: 0;
-                white-space: nowrap;
-            }
         }
     }
 

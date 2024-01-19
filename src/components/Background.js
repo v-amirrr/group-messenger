@@ -11,7 +11,7 @@ import { backgroundImageVariants } from '../config/varitans';
 const Background = () => {
     const location = useLocation();
     const { theme } = useSelector(store => store.appStore);
-    const { loading } = useSelector(store => store.messagesStore);
+    const { loading } = useSelector(store => store.firestoreStore);
     return (
         <>
             <CoverContainer cover={location.pathname == '/warning' || location.pathname == '/login' || loading}></CoverContainer>

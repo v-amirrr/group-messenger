@@ -9,7 +9,7 @@ import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { notificationSlowVariants, notificationFastVariants } from '../config/varitans';
 
-const AuthError = () => {
+const Notification = () => {
     const location = useLocation();
     const { notifications } = useSelector(store => store.appStore);
     const { closeNotification, clearNotifications } = useNotification();
@@ -156,4 +156,4 @@ const NotificationsContainer = styled(motion.div)`
     }
 `;
 
-export default AuthError;
+export default Notification;

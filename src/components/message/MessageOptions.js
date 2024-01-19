@@ -46,7 +46,7 @@ const MessageOptions = ({ options, id }) => {
 
     return (
         <>
-            <AnimatePresence exitBeforeEnter>
+            <AnimatePresence>
                 {
                     options?.messageOptions.id == id ?
                     <MessageOptionsContainer

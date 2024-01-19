@@ -11,7 +11,6 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { InputVariants, sendInputIconVariants, replyVariants } from '../config/varitans';
 
 const Input = () => {
-    const { error, localUsername } = useSelector(store => store.messagesStore);
     const { error: sendMessageError, replyTo, restoredText } = useSelector(store => store.sendMessageStore);
     const { popupShow, popupName } = useSelector(store => store.popupStore);
     const { sendMessage } = useSendMessage();
@@ -22,7 +21,7 @@ const Input = () => {
 
     const inputSubmitHandler = () => {
         if (inputText != '') {
-            sendMessage(inputText, localUsername);
+            sendMessage(inputText);
             setInputText('');
             inputRef.current.focus();
         }
@@ -73,7 +72,7 @@ const Input = () => {
 
     return (
         <>
-            <AnimatePresence exitBeforeEnter>
+            <AnimatePresence>
                 {
                     replyTo.id ?
                     <ReplyTo
@@ -108,7 +107,6 @@ const Input = () => {
                     className='messenger-input'
                     value={inputText}
                     dir='auto'
-                    disabled={!!error ? true : false}
                     ref={inputRef}
                     onChange={(e) => setInputText(e.target.value)}
                     onKeyDown={(e) => inputKeyHandler(e)}
@@ -120,7 +118,7 @@ const Input = () => {
 
                 <p className='placeholder'>Send a message...</p>
 
-                <AnimatePresence exitBeforeEnter>
+                <AnimatePresence>
                     {
                         inputText ?
                         <motion.button

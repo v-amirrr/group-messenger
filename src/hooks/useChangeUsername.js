@@ -6,11 +6,8 @@ import { setUser } from '../redux/userSlice';
 import { useNotification } from "./useNotification";
 
 export const useChangeUsername = () => {
-
     const dispatch = useDispatch();
-
     const { user } = useSelector(store => store.userStore);
-
     const { openNotification } = useNotification();
 
     const changeUsername = async (newUsername, oldUsername, setLoading, closeUserSettings) => {

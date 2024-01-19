@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { db } from "../config/firebase";
 import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
-import { setMessages, setError, setLoadingOn, setLoadingOff, setDeletedMessages, setUsernames } from "../redux/messagesSlice";
+import { setMessages, setError, setLoadingOn, setLoadingOff, setDeletedMessages, setUsernames } from "../redux/firestoreSlice";
 import { isURL } from "../functions/isURL";
 
 export const useFirestore = () => {

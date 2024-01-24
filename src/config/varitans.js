@@ -389,33 +389,27 @@ export const replyIconVariants = {
 };
 
 export const selectCheckLocalVariants = {
-    hidden: { opacity: 0, x: -50, scale: 0.5 },
+    hidden: { opacity: 0, x: 50 },
     visible: {
         opacity: 1,
         x: 0,
-        scale: 1,
         transition: {
-            duration: 0.8,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
+            duration: 0.4,
         },
     },
-    exit: { opacity: 0, x: -50, scale: 0.5, transition: { duration: 0.25 } },
+    exit: { opacity: 0, x: 50, transition: { duration: 0.25 } },
 };
 
 export const selectCheckNonLocalVariants = {
-    hidden: { opacity: 0, x: 50, scale: 0.5 },
+    hidden: { opacity: 0, x: -50 },
     visible: {
         opacity: 1,
         x: 0,
-        scale: 1,
         transition: {
-            duration: 0.8,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
+            duration: 0.4,
         },
     },
-    exit: { opacity: 0, x: 50, scale: 0.5, transition: { duration: 0.25 } },
+    exit: { opacity: 0, x: -50, transition: { duration: 0.25 } },
 };
 
 export const InputVariants = {

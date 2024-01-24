@@ -2,7 +2,15 @@ import React from 'react';
 import { BsReplyFill } from 'react-icons/bs';
 import styled from 'styled-components';
 
-const MessageReply = ({ replyTo, type }) => {
+const MessageReply = ({ replyTo, type, applyScrollMessageId }) => {
+
+    const clickHandler = (e) => {
+        e.stopPropagation();
+        if (type == 'CHAT') {
+            applyScrollMessageId(replyTo?.id)
+        }
+    };
+
     return (
         <>
             {
@@ -10,6 +18,7 @@ const MessageReply = ({ replyTo, type }) => {
                 <ReplyContainer
                     usernamelen={replyTo?.username?.length}
                     messagelen={replyTo?.message?.length}
+                    onClick={(e) => clickHandler(e)}
                 >
                     <i>
                         <BsReplyFill />
@@ -33,7 +42,6 @@ const ReplyContainer = styled.div`
     overflow: hidden;
     font-family: ${props => props.isrlt ? 'Vazirmatn' : 'Outfit'}, 'Vazirmatn', sans-serif;
     font-size: 0.6rem;
-    font-weight: 300;
     font-weight: 400;
     color: var(--pale-color);
     background-color: #ffffff09;
@@ -46,6 +54,12 @@ const ReplyContainer = styled.div`
     bottom: 0.075rem;
     margin-right: 0.4rem;
     white-space: nowrap;
+    cursor: pointer;
+    transition: background .2s;
+
+    &:hover {
+        background-color: #ffffff15;
+    }
 
     i {
         display: flex;

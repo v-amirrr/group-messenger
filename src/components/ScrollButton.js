@@ -83,8 +83,9 @@ const ScrollButtonContainer = styled(motion.button)`
         width: 2.3rem;
         height: 2.3rem;
         opacity: ${props => props.newmessage ? 1 : 0};
+        transform: ${props => props.newmessage ? 'scale(1)' : 'scale(0)'};
         cursor: pointer;
-        transition: opacity .2s;
+        transition: ${props => props.newmessage ? 'opacity .2s .1s, transform .5s' : 'opacity .2s, transform .2s .5s'};
 
         p {
             font-size: .6rem;

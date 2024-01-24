@@ -81,10 +81,10 @@ const MessageLoaderContainer = styled.div`
 
     @keyframes loader {
         0% {
-            transform: scale(1);
+            transform: scale(1.2);
         }
         100% {
-            transform: scale(0.6);
+            transform: scale(0.7);
         }
     }
 

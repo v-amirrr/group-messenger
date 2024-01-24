@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useChangeUsername } from '../../hooks/useChangeUsername';
 import { useNotification } from '../../hooks/useNotification';
@@ -26,7 +26,7 @@ const SettingsUser = ({ open, setOpen, setHeight }) => {
                 setOpen(false);
             } else {
                 setOpen("SETTINGS_USER");
-                setHeight(11);
+                setHeight(12);
             }
         }
     };
@@ -48,7 +48,7 @@ const SettingsUser = ({ open, setOpen, setHeight }) => {
             <AnimatePresence>
                 {
                     open == "SETTINGS_USER" ?
-                        <UserContainer initial='hidden' animate='visible' exit='exit' variants={userSettingsVariants} loading={loading ? 1 : 0} inputEnabled={inputEnabled ? 1 : 0}>
+                        <UserContainer initial='hidden' animate='visible' exit='exit' variants={userSettingsVariants} loading={loading ? 1 : 0} inputenabled={inputEnabled ? 1 : 0}>
                             <div className='username'>
                                 <h5>Username</h5>
                                 <div className='username-input'>
@@ -104,7 +104,7 @@ const UserContainer = styled(motion.div)`
         align-items: center;
         flex-direction: column;
         overflow: hidden;
-        padding-bottom: ${props => props.inputEnabled ? '2rem' : '0'};
+        padding-bottom: ${props => props.inputenabled ? '2rem' : '0'};
         transition: border .4s, padding .4s;
 
         h5 {
@@ -136,13 +136,13 @@ const UserContainer = styled(motion.div)`
 
             .edit {
                 position: absolute;
-                right: ${props => props.inputEnabled ? '-.4rem' : '.1rem'};
+                right: ${props => props.inputenabled ? '-.4rem' : '.1rem'};
                 font-size: .9rem;
                 padding: .3rem;
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                opacity: ${props => props.inputEnabled ? 0 : 1};
+                opacity: ${props => props.inputenabled ? 0 : 1};
                 transition: opacity .2s, right .4s;
             }
         }
@@ -150,12 +150,12 @@ const UserContainer = styled(motion.div)`
         .buttons {
             filter: ${props => props.loading ? "blur(3px)" : "blur(0)"};
             position: absolute;
-            bottom: ${props => props.inputEnabled ? '.5rem' : '-1rem'};
+            bottom: ${props => props.inputenabled ? '.5rem' : '-1rem'};
             display: flex;
             justify-content: center;
             align-items: center;
             width: 100%;
-            opacity: ${props => props.inputEnabled ? 1 : 0};
+            opacity: ${props => props.inputenabled ? 1 : 0};
             transition: filter .4s, bottom .4s, opacity .2s;
 
             .submit, .cancel {
@@ -226,4 +226,4 @@ const UserContainer = styled(motion.div)`
     }
 `;
 
-export default memo(SettingsUser);
+export default SettingsUser;

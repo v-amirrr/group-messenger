@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useRedirection } from '../hooks/useRedirection';
+import { useMessageOptions } from '../hooks/useMessageOptions';
 import Message from './message/Message';
 import Input from './Input';
 import Menu from './Menu';
@@ -15,16 +16,17 @@ import { groupChatVariants } from '../config/varitans';
 const Chat = () => {
     const { messages, usernames } = useSelector(store => store.firestoreStore);
     const { user } = useSelector(store => store.userStore);
-    const { selectedMessages } = useSelector(store => store.appStore);
+    const { selectedMessages, messagesScrollPosition, scrollMessageId } = useSelector(store => store.appStore);
+    const { groupChatRedirection } = useRedirection();
+    const { clearReplyMessage } = useMessageOptions();
+    const [scroll, setScroll] = useState(true);
     const messagesEndRef = useRef();
     const messagesRef = useRef();
-    const { groupChatRedirection } = useRedirection();
-    const [scroll, setScroll] = useState(true);
     const [newMessage, setNewMessage] = useState(false);
     const [lastMessageTime, setLastMessageTime] = useState(messages[messages?.length - 1]?.time);
     const [messageOptions, setMessageOptions] = useState(false);
 
-    let scrollPosition = messagesRef?.current?.scrollTop;
+    let currentScrollPosition = messagesRef?.current?.scrollTop;
 
     const scrollButtonClickHandler = () => {
         if (scroll) {
@@ -41,9 +43,9 @@ const Chat = () => {
     };
 
     const onScrollHandler = () => {
-        if (messagesRef?.current?.scrollTop > scrollPosition) {
+        if (messagesRef?.current?.scrollTop > currentScrollPosition) {
             setScroll(true);
-        } else if (messagesRef?.current?.scrollTop < scrollPosition) {
+        } else if (messagesRef?.current?.scrollTop < currentScrollPosition) {
             setScroll(false);
         }
         if (messagesRef?.current?.scrollTop <= 200) {
@@ -55,8 +57,8 @@ const Chat = () => {
         ) {
             setScroll(false);
         }
-        scrollPosition = messagesRef?.current?.scrollTop;
-        localStorage.setItem('scroll', scrollPosition);
+        currentScrollPosition = messagesRef?.current?.scrollTop;
+        localStorage.setItem('scroll', currentScrollPosition);
         if (
             ~~messagesRef?.current?.scrollTop + 100 >=
             messagesRef?.current?.scrollHeight -
@@ -117,12 +119,20 @@ const Chat = () => {
     }, [messages[messages?.length - 1]?.time]);
 
     useEffect(() => {
+        if (scrollMessageId) {
+            clearReplyMessage();
+            messagesRef?.current?.scrollTo(0, ~~messagesScrollPosition[scrollMessageId] - 200);
+            setTimeout(() => {
+                clearReplyMessage();
+            }, 2000);
+        }
+    }, [scrollMessageId]);
+
+    useEffect(() => {
         const localstorageScroll = localStorage.getItem('scroll');
         if (localstorageScroll == 'end') {
             messagesRef?.current?.scrollBy({
-                top:
-                    messagesRef?.current?.scrollHeight -
-                    messagesRef?.current?.clientHeight,
+                top: messagesRef?.current?.scrollHeight - messagesRef?.current?.clientHeight,
                 left: 0,
                 behavior: 'instant',
             });

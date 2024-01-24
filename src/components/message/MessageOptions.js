@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { useMessageOptions } from '../../hooks/useMessageOptions';
 import { useSelect } from '../../hooks/useSelect';
@@ -161,9 +161,9 @@ const MessageOptions = ({ options, id }) => {
                             <p>
                                 <span>
                                     {
-                                        options?.messageOptions.time?.hour < 10
-                                        ? `0${options?.messageOptions.time?.hour}`
-                                        : options?.messageOptions.time?.hour
+                                        options?.messageOptions.time?.hour < 10 ?
+                                        `0${options?.messageOptions.time?.hour}` :
+                                        options?.messageOptions.time?.hour
                                     }
                                 </span>
                                 :

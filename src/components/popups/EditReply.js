@@ -226,8 +226,8 @@ const ReplyConatiner = styled(motion.div)`
 
             .edit {
                 background-color: #009900 !important;
-                color: #fff;
-                width: 6rem;
+                color: #fff !important;
+                width: 6rem !important;
 
                 &:hover {
                     background-color: #00cc00 !important;

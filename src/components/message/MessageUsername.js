@@ -19,7 +19,7 @@ const MessageUsername = ({ show, username, dateShown, messagesSelected }) => {
 
 const MessageUsernameContainer = styled.div`
     position: absolute;
-    top: ${props => props.dateshown ? "34%" : "15%"};
+    top: ${props => props.dateshown ? "1.83rem" : ".64rem"};
     max-width: 8rem;
     margin-left: ${props => props.messagesselected ? '3rem' : ''};
     padding: 0.2rem 0.5rem 0.2rem 1.2rem;

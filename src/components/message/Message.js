@@ -1,4 +1,4 @@
-import React, { useState, useEffect, memo } from 'react';
+import React, { useState, useEffect, memo, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { useSelect } from '../../hooks/useSelect';
 import { useMessageOptions } from '../../hooks/useMessageOptions';
@@ -32,10 +32,11 @@ const Message = ({ message, type, options, onClick, replyIconClick, newreply }) 
         priorDifferentDate,
         nextDifferentDate,
     } = message;
-    const { selectedMessages } = useSelector(store => store.appStore);
+    const { selectedMessages, scrollMessageId } = useSelector(store => store.appStore);
     const { replyTo: inputReply } = useSelector(store => store.sendMessageStore);
     const { selectMessage, checkMessage, unSelectMessage } = useSelect();
-    const { replyMessage } = useMessageOptions();
+    const { replyMessage, addMessageScrollPosition, applyScrollMessageId } = useMessageOptions();
+    const messageRef = useRef();
     const [messagePosition, setMessagePosition] = useState(null);
     const [selected, setSelected] = useState(false);
     const [status, setStatus] = useState(time?.year == undefined ? 1 : 0);
@@ -76,7 +77,30 @@ const Message = ({ message, type, options, onClick, replyIconClick, newreply }) 
         }
     };
 
+    const onHoldStarts = () => {
+        if (!selectedMessages?.length && type == 'CHAT') {
+            timer = setTimeout(() => {
+                selectMessage({
+                    ...message,
+                    isMessageFromLocalUser: messageUid == localUid ? 1 : 0,
+                    isPersian: isRTL(text) ? 1 : 0,
+                });
+                setHold(true);
+            }, 300);
+        }
+    };
+
+    const onHoldEnds = () => {
+        if (!selectedMessages?.length) {
+            clearTimeout(timer);
+            setHold(false);
+        }
+    };
+
     useEffect(() => {
+        if (type == 'CHAT') {
+            addMessageScrollPosition(id, messageRef.current?.getBoundingClientRect().top);
+        }
         if (type == 'TRASH') {
             setMessagePosition(0);
         } else {
@@ -129,25 +153,14 @@ const Message = ({ message, type, options, onClick, replyIconClick, newreply }) 
         }
     }, [time]);
 
-    const onHoldStarts = () => {
-        if (!selectedMessages?.length && type == 'CHAT') {
-            timer = setTimeout(() => {
-                selectMessage({
-                    ...message,
-                    isMessageFromLocalUser: messageUid == localUid ? 1 : 0,
-                    isPersian: isRTL(text) ? 1 : 0,
-                });
-                setHold(true);
-            }, 300);
+    useEffect(() => {
+        if (scrollMessageId == id) {
+            setSelected(true);
+            setTimeout(() => {
+                setSelected(false);
+            }, 2000);
         }
-    };
-
-    const onHoldEnds = () => {
-        if (!selectedMessages?.length) {
-            clearTimeout(timer);
-            setHold(false);
-        }
-    };
+    }, [scrollMessageId]);
 
     return (
         <>
@@ -156,6 +169,7 @@ const Message = ({ message, type, options, onClick, replyIconClick, newreply }) 
                 animate='visible'
                 exit='exit'
                 variants={messageVariants}
+                ref={messageRef}
                 layout={type == 'EDIT_REPLY' ? 0 : 1}
                 layoutId={type == 'EDIT_REPLY' ? id : null}
                 date={priorDifferentDate && time.year && time.month && time.day && time.hour && time.minute && time.second ? 1 : 0}
@@ -195,7 +209,7 @@ const Message = ({ message, type, options, onClick, replyIconClick, newreply }) 
                     onTouchEnd={onHoldEnds}
                 >
                     <div className='message'>
-                        <MessageReply replyTo={replyTo} type={type} />
+                        <MessageReply replyTo={replyTo} type={type} applyScrollMessageId={applyScrollMessageId} />
                         {
                             type != 'TRASH' ?
                             text?.map((item, index) =>
@@ -206,9 +220,12 @@ const Message = ({ message, type, options, onClick, replyIconClick, newreply }) 
                                     href={item.word}
                                     target='_blank'
                                     rel='noopener nereferrer'
+                                    onClick={(e) => e.stopPropagation()}
                                 >
                                     {item.word}
                                 </a> :
+                                index == text.length-1 ?
+                                `${item.word}` :
                                 `${item.word} `
                             ) :
                             text
@@ -284,9 +301,14 @@ const MessageContainer = styled(motion.div)`
             '3rem' :
             ''
         };
-        margin-left: ${props => props.type != 'TRASH' && props.messagesselected && !props.localmessage ? '3rem' : ''};
+        margin-left: ${props =>
+            props.type != 'TRASH' && props.messagesselected && !props.localmessage ?
+            '3rem' :
+            ''
+        };
         border-radius: 25px;
-        border-radius: ${props => props.type == 'TRASH' ?
+        border-radius: ${props =>
+            props.type == 'TRASH' ?
             '20px' :
             props.localmessage ?
             props.position == 0 ?
@@ -305,14 +327,17 @@ const MessageContainer = styled(motion.div)`
             props.position == 3 &&
             '5px 25px 25px 25px'
         };
-        padding: ${props => props.type == 'TRASH' && props.letters > 3 ?
-            '.5rem' :
+        padding: ${props =>
+            props.type == 'TRASH' && props.letters > 3 ?
+            '.45rem' :
             props.type == 'TRASH' && props.letters <= 3 ?
-            '.5rem .8rem' :
-            props.letters < 3 &&
-            !props.reply ?
             '.45rem .8rem' :
-            '.45rem .5rem'
+            props.reply ?
+            '.45rem .8rem .45rem .45rem' :
+            props.letters <= 3 ?
+            '.45rem 1rem' :
+            props.letters > 3 ?
+            '.45rem .7rem' : ''
         };
         width: fit-content;
         max-width: ${props => props.type == 'EDIT_REPLY' || props.type == 'TRASH' ? '80%' : '65%'};

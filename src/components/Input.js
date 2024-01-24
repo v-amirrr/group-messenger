@@ -14,7 +14,7 @@ const Input = () => {
     const { error: sendMessageError, replyTo, restoredText } = useSelector(store => store.sendMessageStore);
     const { popupShow, popupName } = useSelector(store => store.popupStore);
     const { sendMessage } = useSendMessage();
-    const { clearReplyMessage } = useMessageOptions();
+    const { clearReplyMessage, applyScrollMessageId } = useMessageOptions();
     const inputRef = useRef();
     const [inputText, setInputText] = useState(localStorage.getItem('input-text') ? localStorage.getItem('input-text') : '');
     const [multiline, setMultiline] = useState(false);
@@ -42,6 +42,11 @@ const Input = () => {
         } else if (popupShow) {
             inputRef.current.blur();
         }
+    };
+
+    const closeHandler = (e) => {
+        e.stopPropagation();
+        clearReplyMessage();
     };
 
     useEffect(() => {
@@ -82,12 +87,13 @@ const Input = () => {
                         exit='exit'
                         variants={replyVariants}
                         messageletters={replyTo?.username?.length + replyTo?.message?.length}
+                        onClick={() => applyScrollMessageId(replyTo.id)}
                     >
                         <div className='message'>
                             <i><BsReplyFill /></i>
                             <p className='text'>{replyTo.message}</p>
                         </div>
-                        <button onClick={clearReplyMessage}><IoClose /></button>
+                        <button onClick={(e) => closeHandler(e)}><IoClose /></button>
                     </ReplyTo>
                     : ''
                 }
@@ -274,6 +280,7 @@ const ReplyTo = styled(motion.div)`
     box-shadow: var(--normal-shadow);
     backdrop-filter: var(--bold-glass);
     overflow: hidden;
+    cursor: pointer;
     z-index: 2;
 
     button {

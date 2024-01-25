@@ -18,7 +18,7 @@ const Chat = () => {
     const { user } = useSelector(store => store.userStore);
     const { selectedMessages, messagesScrollPosition, scrollMessageId } = useSelector(store => store.appStore);
     const { groupChatRedirection } = useRedirection();
-    const { clearReplyMessage } = useMessageOptions();
+    const { resetScrollMessageId } = useMessageOptions();
     const [scroll, setScroll] = useState(true);
     const messagesEndRef = useRef();
     const messagesRef = useRef();
@@ -119,11 +119,12 @@ const Chat = () => {
     }, [messages[messages?.length - 1]?.time]);
 
     useEffect(() => {
-        if (scrollMessageId) {
-            clearReplyMessage();
-            messagesRef?.current?.scrollTo(0, ~~messagesScrollPosition[scrollMessageId] - 200);
+        if (scrollMessageId.id) {
+            if (scrollMessageId.type == 'CLICK') {
+                messagesRef?.current?.scrollTo(0, ~~messagesScrollPosition[scrollMessageId.id] - 200);
+            }
             setTimeout(() => {
-                clearReplyMessage();
+                resetScrollMessageId();
             }, 2000);
         }
     }, [scrollMessageId]);

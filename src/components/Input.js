@@ -87,7 +87,8 @@ const Input = () => {
                         exit='exit'
                         variants={replyVariants}
                         messageletters={replyTo?.username?.length + replyTo?.message?.length}
-                        onClick={() => applyScrollMessageId(replyTo.id)}
+                        onClick={() => applyScrollMessageId(replyTo.id, 'CLICK')}
+                        onMouseEnter={() => applyScrollMessageId(replyTo.id, 'HOVER')}
                     >
                         <div className='message'>
                             <i><BsReplyFill /></i>

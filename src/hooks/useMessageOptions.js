@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNotification } from './useNotification';
 import { setPopup, setNewReply } from '../redux/popupSlice';
 import { setSendMessageReplyTo, setClearReplyTo } from '../redux/sendMessageSlice';
-import { setMessagesScrollPosition, setScrollMessageId } from '../redux/appSlice';
+import { setClearScrollMessageId, setMessagesScrollPosition, setScrollMessageId } from '../redux/appSlice';
 
 export const useMessageOptions = () => {
     const dispatch = useDispatch();
@@ -64,7 +64,6 @@ export const useMessageOptions = () => {
     };
 
     const clearReplyMessage = () => {
-        resetScrollMessageId();
         dispatch(setClearReplyTo());
     };
 
@@ -134,15 +133,15 @@ export const useMessageOptions = () => {
     };
 
     const addMessageScrollPosition = (id, position) => {
-        dispatch(setMessagesScrollPosition({id, position}));
+        dispatch(setMessagesScrollPosition({ id, position }));
     };
 
-    const applyScrollMessageId = (id) => {
-        dispatch(setScrollMessageId(id));
+    const applyScrollMessageId = (id, type) => {
+        dispatch(setScrollMessageId({ id, type }));
     };
 
     const resetScrollMessageId = () => {
-        dispatch(setScrollMessageId(false));
+        dispatch(setClearScrollMessageId());
     };
 
     return {

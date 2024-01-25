@@ -7,7 +7,13 @@ const MessageReply = ({ replyTo, type, applyScrollMessageId }) => {
     const clickHandler = (e) => {
         e.stopPropagation();
         if (type == 'CHAT') {
-            applyScrollMessageId(replyTo?.id)
+            applyScrollMessageId(replyTo?.id, 'CLICK');
+        }
+    };
+
+    const hoverHandler = () => {
+        if (type == 'CHAT') {
+            applyScrollMessageId(replyTo?.id, 'HOVER');
         }
     };
 
@@ -19,6 +25,7 @@ const MessageReply = ({ replyTo, type, applyScrollMessageId }) => {
                     usernamelen={replyTo?.username?.length}
                     messagelen={replyTo?.message?.length}
                     onClick={(e) => clickHandler(e)}
+                    onMouseEnter={hoverHandler}
                 >
                     <i>
                         <BsReplyFill />

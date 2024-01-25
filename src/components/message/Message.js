@@ -39,6 +39,7 @@ const Message = ({ message, type, options, onClick, replyIconClick, newreply }) 
     const messageRef = useRef();
     const [messagePosition, setMessagePosition] = useState(null);
     const [selected, setSelected] = useState(false);
+    const [replyEffect, setReplyEffect] = useState(false);
     const [status, setStatus] = useState(time?.year == undefined ? 1 : 0);
     const [hold, setHold] = useState(false);
     let timer;
@@ -154,11 +155,13 @@ const Message = ({ message, type, options, onClick, replyIconClick, newreply }) 
     }, [time]);
 
     useEffect(() => {
-        if (scrollMessageId == id) {
-            setSelected(true);
+        if (scrollMessageId.id == id) {
             setTimeout(() => {
-                setSelected(false);
-            }, 2000);
+                setReplyEffect(true);
+                setTimeout(() => {
+                    setReplyEffect(false);
+                }, 2000);
+            }, 500);
         }
     }, [scrollMessageId]);
 
@@ -181,6 +184,7 @@ const Message = ({ message, type, options, onClick, replyIconClick, newreply }) 
                 selected={selected ? 1 : 0}
                 messagesselected={selectedMessages.length ? 1 : 0}
                 reply={replyTo != 'no_reply' ? 1 : 0}
+                replyeffect={replyEffect ? 1 : 0}
             >
                 <MessageDate
                     key='date'
@@ -281,7 +285,7 @@ const MessageContainer = styled(motion.div)`
         display: flex;
         justify-content: ${props => props.localmessage ? 'flex-start' : 'flex-end'};
         align-items: center;
-        background-color: ${props => props.selected ? 'var(--normal-bg-hover)' : 'var(--normal-bg)'};
+        background-color: var(--normal-bg);
         margin: ${props =>
             props.type == 'TRASH' ?
             '.2rem' :
@@ -345,6 +349,15 @@ const MessageContainer = styled(motion.div)`
         cursor: pointer;
         box-shadow: var(--normal-shadow);
         color: var(--normal-color);
+        background-image: linear-gradient(
+            90deg,
+            #ffffff00 0%,
+            #ffffff20 50%,
+            #ffffff00 100%
+        );
+        background-position: left -11rem top 0;
+        background-repeat: no-repeat;
+        animation: ${props => props.selected || props.replyeffect ? 'skeleton-loading-message linear 1s' : ''};
         transition: border-radius .2s, margin .4s, background .2s, padding .2s;
 
         .message {

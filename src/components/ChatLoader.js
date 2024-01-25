@@ -179,32 +179,33 @@ const MessageContainer = styled.div`
 
     .message {
         position: relative;
-        width: ${(props) => props.width};
-        height: ${(props) => props.height};
-        margin: ${(props) =>
-            props.position == 0
-                ? '.2rem 0 .2rem 0'
-                : props.position == 1
-                ? '.2rem 0 .06rem 0'
-                : props.position == 2
-                ? '.06rem 0 .06rem 0'
-                : props.position == 3 && '.06rem 0 .2rem 0'};
-        border-radius: ${(props) =>
-            props.local
-                ? props.position == 0
-                    ? '25px'
-                    : props.position == 1
-                    ? '25px 25px 5px 25px'
-                    : props.position == 2
-                    ? '25px 5px 5px 25px'
-                    : props.position == 3 && '25px 5px 25px 25px'
-                : props.position == 0
-                ? '25px'
-                : props.position == 1
-                ? '25px 25px 25px 5px'
-                : props.position == 2
-                ? '5px 25px 25px 5px'
-                : props.position == 3 && '5px 25px 25px 25px'};
+        width: ${props => props.width};
+        height: ${props => props.height};
+        margin: ${props =>
+            props.position == 0 ?
+            '.2rem 0 .2rem 0' :
+            props.position == 1 ?
+            '.2rem 0 .06rem 0' :
+            props.position == 2 ?
+            '.06rem 0 .06rem 0' :
+            props.position == 3 && '.06rem 0 .2rem 0'
+        };
+        border-radius: ${props =>
+            props.local ? props.position == 0 ?
+            '25px' :
+            props.position == 1 ?
+            '25px 25px 5px 25px' :
+            props.position == 2 ?
+            '25px 5px 5px 25px' :
+            props.position == 3 && '25px 5px 25px 25px' :
+            props.position == 0 ?
+            '25px' :
+            props.position == 1 ?
+            '25px 25px 25px 5px' :
+            props.position == 2 ?
+            '5px 25px 25px 5px' :
+            props.position == 3 && '5px 25px 25px 25px'
+        };
         background-color: ${props => props.position == 1 && !props.local ? '#ffffff0b' : '#ffffff14'};
         background-image: linear-gradient(
             90deg,

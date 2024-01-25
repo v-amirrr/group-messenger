@@ -18,7 +18,7 @@ const initialState = {
         username: true,
     },
     messagesScrollPosition: {},
-    scrollMessageId: null,
+    scrollMessageId: { id: null, type: null },
 };
 
 const appSlice = createSlice({
@@ -132,7 +132,13 @@ const appSlice = createSlice({
         setScrollMessageId: (state, action) => {
             return {
                 ...state,
-                scrollMessageId: action.payload
+                scrollMessageId: { id: action.payload.id, type: action.payload.type }
+            };
+        },
+        setClearScrollMessageId: (state) => {
+            return {
+                ...state,
+                scrollMessageId: { id: null, type: null }
             };
         },
     },
@@ -152,6 +158,7 @@ export const {
     setNotificationSettings,
     setMessagesScrollPosition,
     setScrollMessageId,
+    setClearScrollMessageId,
 } = appSlice.actions;
 
 export default appSlice.reducer;

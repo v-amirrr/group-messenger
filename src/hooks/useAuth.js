@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { auth, db, googleProvider } from '../config/firebase';
-import { doc, updateDoc } from 'firebase/firestore';
+import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
 import { createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { setUser, setLogin, setSignup, setEnterAsAGuest, setGoogleLogin } from '../redux/userSlice';
 import { useNotification } from './useNotification';
@@ -40,7 +40,7 @@ export const useAuth = () => {
                         displayName: username,
                     })
                         .then(() => {
-                            updateDoc(doc(db, "users", auth.currentUser.uid), {
+                            setDoc(doc(db, 'users', res.user.uid), {
                                 username: username
                             });
                             dispatch(setSignup({ loading: false }));
@@ -80,7 +80,7 @@ export const useAuth = () => {
         dispatch(setGoogleLogin({ loading: true }));
         signInWithPopup(auth, googleProvider)
             .then((res) => {
-                updateDoc(doc(db, "users", auth.currentUser.uid), {
+                setDoc(doc(db, 'users', res.user.uid), {
                     username: res.user.displayName
                 });
                 dispatch(setGoogleLogin({ loading: false }));

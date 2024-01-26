@@ -33,7 +33,6 @@ const Message = ({ message, type, options, onClick, replyIconClick, newreply }) 
         nextDifferentDate,
     } = message;
     const { selectedMessages, scrollMessageId } = useSelector(store => store.appStore);
-    const { replyTo: inputReply } = useSelector(store => store.sendMessageStore);
     const { selectMessage, checkMessage, unSelectMessage } = useSelect();
     const { replyMessage, addMessageScrollPosition, applyScrollMessageId } = useMessageOptions();
     const messageRef = useRef();
@@ -145,26 +144,22 @@ const Message = ({ message, type, options, onClick, replyIconClick, newreply }) 
 
     useEffect(() => {
         if (status == 1 && time.year && time.month && time.day && time.hour && time.minute && time.second) {
+            setStatus(2);
             setTimeout(() => {
-                setStatus(2);
-                setTimeout(() => {
-                    setStatus(0);
-                }, 1500);
-            }, 1000);
+                setStatus(0);
+            }, 1500);
         }
     }, [time]);
 
     useEffect(() => {
         if (scrollMessageId.id == id) {
+            setReplyEffect(true);
             setTimeout(() => {
-                setReplyEffect(true);
-                setTimeout(() => {
-                    setReplyEffect(false);
-                }, 2000);
-            }, 500);
+                setReplyEffect(false);
+            }, 2000);
         }
     }, [scrollMessageId]);
-
+console.log(message);
     return (
         <>
             <MessageContainer
@@ -175,7 +170,7 @@ const Message = ({ message, type, options, onClick, replyIconClick, newreply }) 
                 ref={messageRef}
                 layout={type == 'EDIT_REPLY' ? 0 : 1}
                 layoutId={type == 'EDIT_REPLY' ? id : null}
-                date={priorDifferentDate && time.year && time.month && time.day && time.hour && time.minute && time.second ? 1 : 0}
+                date={priorDifferentDate && time.year && time.month ? 1 : 0}
                 type={type}
                 localmessage={localMessage ? 1 : 0}
                 persian={isTextPersian ? 1 : 0}
@@ -246,7 +241,7 @@ const Message = ({ message, type, options, onClick, replyIconClick, newreply }) 
                 <MessageReplyIcon
                     editReply={newreply}
                     editReplyClick={replyIconClick}
-                    show={inputReply.id == id || newreply}
+                    show={newreply}
                 />
                 <div className='options'>
                     <MessageOptions options={options} id={id} />
@@ -355,7 +350,7 @@ const MessageContainer = styled(motion.div)`
             #ffffff20 50%,
             #ffffff00 100%
         );
-        background-position: left -11rem top 0;
+        background-position: left -20rem top 0;
         background-repeat: no-repeat;
         animation: ${props => props.selected || props.replyeffect ? 'skeleton-loading-message linear 1s' : ''};
         transition: border-radius .2s, margin .4s, background .2s, padding .2s;

@@ -64,8 +64,10 @@ const ReplyContainer = styled.div`
     cursor: pointer;
     transition: background .2s;
 
-    &:hover {
-        background-color: #ffffff15;
+    @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
+        &:hover {
+            background-color: #ffffff15;
+        }
     }
 
     i {

@@ -159,7 +159,7 @@ const Message = ({ message, type, options, onClick, replyIconClick, newreply }) 
             }, 2000);
         }
     }, [scrollMessageId]);
-console.log(message);
+
     return (
         <>
             <MessageContainer

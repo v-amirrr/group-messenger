@@ -15,26 +15,36 @@ export const useMessageOptions = () => {
     const { openNotification } = useNotification();
 
     const openPopup = (popupName, popupMessages) => {
-        let sortedPopupMessages = [...popupMessages];
-        if (popupMessages.length > 1) {
-            sortedPopupMessages.sort((a, b) => {
-                return (
-                    new Date(
-                        `${a.time.month} ${a.time.day} ${a.time.year} ${a.time.hour}:${a.time.minute}:${a.time.second}`
-                    ).getTime() -
-                    new Date(
-                        `${b.time.month} ${b.time.day} ${b.time.year} ${b.time.hour}:${b.time.minute}:${b.time.second}`
-                    ).getTime()
-                );
-            });
-        };
-        dispatch(
-            setPopup({
-                popupShow: true,
-                popupName: popupName,
-                popupMessages: sortedPopupMessages,
-            })
-        );
+        if (popupName == 'CHANGE_USERNAME_POPUP') {
+            dispatch(
+                setPopup({
+                    popupShow: true,
+                    popupName: popupName,
+                    popupMessages: popupMessages
+                })
+            );
+        } else {
+            let sortedPopupMessages = [...popupMessages];
+            if (popupMessages.length > 1) {
+                sortedPopupMessages?.sort((a, b) => {
+                    return (
+                        new Date(
+                            `${a.time.month} ${a.time.day} ${a.time.year} ${a.time.hour}:${a.time.minute}:${a.time.second}`
+                        ).getTime() -
+                        new Date(
+                            `${b.time.month} ${b.time.day} ${b.time.year} ${b.time.hour}:${b.time.minute}:${b.time.second}`
+                        ).getTime()
+                    );
+                });
+            };
+            dispatch(
+                setPopup({
+                    popupShow: true,
+                    popupName: popupName,
+                    popupMessages: sortedPopupMessages,
+                })
+            );
+        }
     };
 
     const closePopup = () => {

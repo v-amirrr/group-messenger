@@ -6,9 +6,11 @@ import { useMessageOptions } from '../../hooks/useMessageOptions';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 import { popupPageVariants, popupContainerVariants } from '../../config/varitans';
+import ChangeUsernamePopup from './ChangeUsernamePopup';
 
 const Popup = () => {
     const { popupShow, popupName, popupMessages, popupMessagesSelected, popupMessageReplyTo } = useSelector(store => store.popupStore);
+    const { user } = useSelector(store => store.userStore);
     const popupPage = useRef();
     const { closePopup } = useMessageOptions();
     const [editReplyOpen, setEditReplyOpen] = useState(false);
@@ -48,6 +50,12 @@ const Popup = () => {
                                     popupMessageReplyTo={popupMessageReplyTo}
                                     editReplyOpen={editReplyOpen}
                                     setEditReplyOpen={setEditReplyOpen}
+                                /> :
+                                popupName == 'CHANGE_USERNAME_POPUP' ?
+                                <ChangeUsernamePopup
+                                    closePopup={closePopup}
+                                    newUsername={popupMessages}
+                                    oldUsername={user?.displayName}
                                 />
                                 : ''
                             }
@@ -91,7 +99,8 @@ const PopupContainer = styled(motion.section)`
 
             .edit,
             .delete,
-            .cancel {
+            .cancel,
+            .change {
                 border: none;
                 border-radius: 50px;
                 background-color: #ffffff08;
@@ -122,7 +131,7 @@ const PopupContainer = styled(motion.section)`
                 }
             }
 
-            .edit {
+            .edit, .change {
                 color: #00ff00;
                 background-color: #00ff0010;
 

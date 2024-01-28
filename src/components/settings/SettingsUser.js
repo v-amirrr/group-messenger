@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useChangeUsername } from '../../hooks/useChangeUsername';
+import { useMessageOptions } from '../../hooks/useMessageOptions';
 import { useNotification } from '../../hooks/useNotification';
 import { FcBusinessman } from "react-icons/fc";
 import { FaUserEdit } from "react-icons/fa";
@@ -11,7 +11,7 @@ import { settingsContainerVariants, userSettingsVariants } from '../../config/va
 
 const SettingsUser = ({ open, setOpen, setHeight }) => {
     const { user, enterAsAGuest } = useSelector(store => store.userStore);
-    const { changeUsername } = useChangeUsername();
+    const { openPopup } = useMessageOptions();
     const { openNotification } = useNotification();
     const [changeUsernameInput, setChangeUsernameInput] = useState(user?.displayName);
     const [inputEnabled, setInputEnabled] = useState(false);
@@ -28,6 +28,16 @@ const SettingsUser = ({ open, setOpen, setHeight }) => {
                 setOpen("SETTINGS_USER");
                 setHeight(12);
             }
+        }
+    };
+
+    const changeUsernameHandler = () => {
+        if (changeUsernameInput && changeUsernameInput != user?.displayName) {
+            openPopup('CHANGE_USERNAME_POPUP', changeUsernameInput);
+        } else if (changeUsernameInput == user?.displayName) {
+            openNotification("The old and the new usernames are the same", true, "ERROR");
+        } else {
+            openNotification("Type a new username", true, "ERROR");
         }
     };
 
@@ -59,8 +69,8 @@ const SettingsUser = ({ open, setOpen, setHeight }) => {
                                     <button className='cancel' onClick={cancelHandler} disabled={!inputEnabled}>
                                         Cancel
                                     </button>
-                                    <button className='submit' onClick={() => changeUsername(changeUsernameInput, user?.displayName, setLoading, itemSwitch)} disabled={!inputEnabled}>
-                                        Submit
+                                    <button className='submit' onClick={changeUsernameHandler} disabled={!inputEnabled} autoFocus>
+                                        Change
                                     </button>
                                 </div>
                                 <AnimatePresence>

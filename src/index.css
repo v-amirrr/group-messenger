@@ -5,7 +5,7 @@
     --bold-shadow: rgba(0, 0, 0, 0.4) 0px 4px 12px;
 
     --normal-color: #eee;
-    --pale-color: #666;
+    --pale-color: #ffffff40;
     --red-color: #cc0000;
     --green-color: #00cc00;
     --blue-color: #00b7ff;
@@ -87,7 +87,8 @@ button {
     pointer-events: none;
 }
 
-.link, .disabled-link {
+.link,
+.disabled-link {
     position: relative;
     padding: .04rem .1rem;
     margin: .1rem;

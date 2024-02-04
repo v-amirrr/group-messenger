@@ -143,7 +143,7 @@ const Message = ({ message, type, options, onClick, replyIconClick, newreply }) 
     }, [selectedMessages]);
 
     useEffect(() => {
-        if (status == 1 && time.year && time.month && time.day && time.hour && time.minute && time.second) {
+        if (status == 1 && time.year) {
             setStatus(2);
             setTimeout(() => {
                 setStatus(0);
@@ -352,7 +352,7 @@ const MessageContainer = styled(motion.div)`
         );
         background-position: left -20rem top 0;
         background-repeat: no-repeat;
-        animation: ${props => props.selected || props.replyeffect ? 'skeleton-loading-message linear 1s' : ''};
+        animation: ${props => props.replyeffect ? 'skeleton-loading-message linear 1s' : ''};
         transition: border-radius .2s, margin .4s, background .2s, padding .2s;
 
         .message {

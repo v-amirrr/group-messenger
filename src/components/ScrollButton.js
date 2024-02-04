@@ -48,7 +48,7 @@ const ScrollButtonContainer = styled(motion.button)`
     color: var(--normal-color);
     cursor: ${props => props.newmessage ? 'auto' : 'pointer'};
     overflow: hidden;
-    z-index: 2;
+    z-index: 3;
     transition: width .3s cubic-bezier(0.53, 0, 0, 0.98), height .3s cubic-bezier(0.53, 0, 0, 0.98);
 
     div {

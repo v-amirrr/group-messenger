@@ -1,26 +1,23 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useSendMessage } from '../hooks/useSendMessage';
-import { useMessageOptions } from '../hooks/useMessageOptions';
-import EmojiPicker from './EmojiPicker';
 import { isRTL } from '../functions/isRlt';
+import { GrEmoji } from 'react-icons/gr';
 import { IoSend, IoClose } from 'react-icons/io5';
-import { BsReplyFill } from 'react-icons/bs';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
-import { InputVariants, sendInputIconVariants, replyVariants } from '../config/varitans';
+import { inputBarVariants, sendInputIconVariants } from '../config/varitans';
 
-const Input = () => {
+const InputBar = ({ inputText, setInputText, inputBarEmojiPicker, setInputBarEmojiPicker }) => {
     const { error: sendMessageError, replyTo, restoredText } = useSelector(store => store.sendMessageStore);
     const { popupShow, popupName } = useSelector(store => store.popupStore);
     const { sendMessage } = useSendMessage();
-    const { clearReplyMessage, applyScrollMessageId } = useMessageOptions();
     const inputRef = useRef();
-    const [inputText, setInputText] = useState(localStorage.getItem('input-text') ? localStorage.getItem('input-text') : '');
     const [multiline, setMultiline] = useState(false);
 
     const inputSubmitHandler = () => {
         if (inputText != '') {
+            setInputBarEmojiPicker(false);
             sendMessage(inputText);
             setInputText('');
             inputRef.current.focus();
@@ -42,11 +39,6 @@ const Input = () => {
         } else if (popupShow) {
             inputRef.current.blur();
         }
-    };
-
-    const closeHandler = (e) => {
-        e.stopPropagation();
-        clearReplyMessage();
     };
 
     useEffect(() => {
@@ -77,41 +69,18 @@ const Input = () => {
 
     return (
         <>
-            <AnimatePresence>
-                {
-                    replyTo.id ?
-                    <ReplyTo
-                        className='reply-section'
-                        initial='hidden'
-                        animate='visible'
-                        exit='exit'
-                        variants={replyVariants}
-                        messageletters={replyTo?.username?.length + replyTo?.message?.length}
-                        onClick={() => applyScrollMessageId(replyTo.id, 'CLICK')}
-                        onMouseEnter={() => applyScrollMessageId(replyTo.id, 'HOVER')}
-                    >
-                        <div className='message'>
-                            <i><BsReplyFill /></i>
-                            <p className='text'>{replyTo.message}</p>
-                        </div>
-                        <button onClick={(e) => closeHandler(e)}><IoClose /></button>
-                    </ReplyTo>
-                    : ''
-                }
-            </AnimatePresence>
-
-            <InputContainer
+            <InputBarContainer
+                initial='hidden'
+                animate='visible'
+                exit='exit'
+                variants={inputBarVariants}
                 multiline={multiline ? 1 : 0}
                 isreplyto={replyTo.id ? 1 : 0}
                 isrlt={isRTL(inputText) ? 1 : 0}
                 inputtext={inputText ? 1 : 0}
-                initial='hidden'
-                animate='visible'
-                exit='exit'
-                variants={InputVariants}
             >
                 <textarea
-                    className='messenger-input'
+                    className='input'
                     value={inputText}
                     dir='auto'
                     ref={inputRef}
@@ -121,15 +90,13 @@ const Input = () => {
                     autoFocus={document.documentElement.offsetWidth > 500 && !popupShow ? true : false}
                 />
 
-                <EmojiPicker setInputText={setInputText} />
-
                 <p className='placeholder'>Send a message...</p>
 
                 <AnimatePresence>
                     {
                         inputText ?
                         <motion.button
-                            className='clear'
+                            className='clear-button'
                             initial='hidden'
                             animate='visible'
                             exit='exit'
@@ -143,55 +110,48 @@ const Input = () => {
                 </AnimatePresence>
 
                 <button
-                    type='submit'
-                    className='messenger-submit'
+                    className='send-button'
                     disabled={!inputText}
                     onClick={inputSubmitHandler}
                 >
-                    <div>
-                        <IoSend />
-                    </div>
+                    <IoSend />
                 </button>
-            </InputContainer>
+
+                <button className='emoji-button' onClick={() => setInputBarEmojiPicker(!inputBarEmojiPicker)}>
+                    <GrEmoji />
+                </button>
+
+            </InputBarContainer>
         </>
     );
 };
 
-const InputContainer = styled(motion.section)`
+const InputBarContainer = styled(motion.div)`
     position: absolute;
-    bottom: 1rem;
-    width: 20rem;
-    height: 2.4rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: var(--normal-color);
-    border: solid 2.5px #ffffff20;
-    border-radius: 50px;
-    box-shadow: var(--normal-shadow);
-    backdrop-filter: var(--bold-glass);
-    -webkit-backdrop-filter: var(--bold-glass);
+    width: 100%;
+    height: 2.5rem;
     z-index: 2;
-    box-sizing: content-box;
 
-    .messenger-input {
-        width: 15.5rem;
+    .input {
+        position: absolute;
+        left: 0;
+        width: 13rem;
         height: 100%;
-        border: none;
-        padding: .6rem 1rem;
-        background-color: #ffffff00;
-        font-family: ${(props) => (props.isrlt ? 'Vazirmatn' : 'Outfit')}, 'Vazirmatn', sans-serif;
-        font-weight: 200;
-        font-size: 1rem;
-        resize: none;
         display: flex;
         justify-content: center;
         align-items: center;
-        position: absolute;
-        left: 0;
+        border: none;
+        padding: .6rem 1rem;
+        background-color: #ffffff00;
+        font-family: ${props => props.isrlt ? 'Vazirmatn' : 'Outfit'}, 'Vazirmatn', sans-serif;
+        font-weight: 200;
+        font-size: 1rem;
+        resize: none;
         vertical-align: middle;
-        overflow: ${(props) => (props.inputtext ? 'hidden scroll' : '')};
-        transition: height 0.5s cubic-bezier(0.53, 0, 0, 0.98);
+        overflow: ${props => props.inputtext ? 'hidden scroll' : ''};
 
         ::-webkit-scrollbar {
             width: 0.1rem;
@@ -222,7 +182,7 @@ const InputContainer = styled(motion.section)`
         transition: left .4s, opacity .4s, letter-spacing .6s;
     }
 
-    .clear {
+    .clear-button {
         font-size: 1.8rem;
         display: flex;
         justify-content: center;
@@ -234,110 +194,37 @@ const InputContainer = styled(motion.section)`
         height: 2.6rem;
     }
 
-    .messenger-submit {
-        all: unset;
-        font-size: 1.5rem;
+    .send-button {
+        position: absolute;
+        right: .2rem;
         width: 2.5rem;
+        height: 2.6rem;
         display: flex;
         justify-content: center;
         align-items: center;
         border: none;
+        font-size: 1.5rem;
         color: #ffffff20;
         cursor: pointer;
-        position: absolute;
-        right: .2rem;
-        height: 2.6rem;
-
-        div {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
 
         &:disabled {
             cursor: not-allowed;
         }
     }
 
-    @media (max-width: 768px) {
-        width: 15rem;
-        margin-right: 4rem;
-        bottom: .9rem;
-    }
-`;
-
-const ReplyTo = styled(motion.div)`
-    position: absolute;
-    bottom: 4rem;
-    max-width: 25%;
-    height: 2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0 0.2rem;
-    color: var(--normal-color);
-    border: solid 2.5px #ffffff20;
-    border-radius: 50px;
-    box-shadow: var(--normal-shadow);
-    backdrop-filter: var(--bold-glass);
-    overflow: hidden;
-    cursor: pointer;
-    z-index: 2;
-
-    button {
-        all: unset;
+    .emoji-button {
+        position: absolute;
+        right: 2.2rem;
+        width: 2.5rem;
+        height: 2.4rem;
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: 1.3rem;
-        color: var(--red-color);
-        border-radius: 50%;
+        border: none;
+        font-size: 1.6rem;
+        color: #ffffff20;
         cursor: pointer;
-        padding: 0.1rem;
-        margin-left: 0.5rem;
-        transition: background 0.2s;
-
-        @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
-            &:hover {
-                background-color: var(--normal-bg-hover);
-            }
-        }
-    }
-
-    .message {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        width: 100%;
-        height: 100%;
-        margin: 0 0.2rem;
-        overflow: hidden;
-        font-family: ${(props) => (props.isrlt ? 'Vazirmatn' : 'Outfit')},
-            'Vazirmatn', sans-serif;
-        color: var(--pale-color);
-        font-weight: 400;
-
-        i {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1rem;
-            margin-right: 0.2rem;
-        }
-
-        .text {
-            font-size: 0.7rem;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-    }
-
-    @media (max-width: 768px) {
-        max-width: 50%;
-        margin-right: 4rem;
-        bottom: 4rem;
     }
 `;
 
-export default Input;
+export default InputBar;

@@ -54,7 +54,7 @@ const ProfileContainer = styled(motion.div)`
     backdrop-filter: var(--bold-glass);
     -webkit-backdrop-filter: var(--bold-glass);
     overflow: hidden;
-    z-index: 2;
+    z-index: 3;
     transition: width 0.3s cubic-bezier(0.53, 0, 0, 0.98),
                 height 0.3s cubic-bezier(0.53, 0, 0, 0.98),
                 border-radius .2s .6s;

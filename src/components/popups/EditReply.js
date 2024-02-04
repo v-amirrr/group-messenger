@@ -154,14 +154,14 @@ const ReplyConatiner = styled(motion.div)`
     align-items: center;
     flex-direction: column;
     border-radius: 25px;
-    background-color: ${props => props.editreplyopen ? '#000000aa' : '#00000000'};
+    background-color: ${props => props.editreplyopen ? '#000000aa' : '#00000044'};
     border: ${props => props.editreplyopen ? 'solid 2.5px #ffffff00' : 'solid 2.5px #ffffff20'};
     box-shadow: var(--shadow-second);
     overflow: hidden;
     transition: ${props =>
         props.editreplyopen ?
         'border .4s .2s, background .2s, width .3s cubic-bezier(.53,0,0,.98), height .3s cubic-bezier(.53,0,0,.98), bottom .3s, left .3s' :
-        'border .4s, background .2s .6s, width .3s .1s, height .3s .1s, bottom .3s .1s, left .3s .1s'
+        'border .4s, background .2s .4s, width .3s .1s, height .3s .1s, bottom .3s .1s, left .3s .1s'
     };
 
     .open-button {
@@ -240,6 +240,11 @@ const ReplyConatiner = styled(motion.div)`
         bottom: auto;
         top: ${props => props.editreplyopen ? '0' : '.8rem'};
         left: ${props => props.editreplyopen ? '0' : '2rem'};
+        transition: ${props =>
+            props.editreplyopen ?
+            'border .4s .2s, background .2s, width .3s cubic-bezier(.53,0,0,.98), height .3s cubic-bezier(.53,0,0,.98), top .3s, left .3s' :
+            'border .4s, background .2s .6s, width .3s .1s, height .3s .1s, top .3s .1s, left .3s .1s'
+        };
 
         .reply-messages {
             padding: 1rem 0.5rem;

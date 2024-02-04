@@ -3,11 +3,10 @@ import { useSelector } from 'react-redux';
 import { useRedirection } from '../hooks/useRedirection';
 import { useMessageOptions } from '../hooks/useMessageOptions';
 import Message from './message/Message';
-import Input from './Input';
 import Menu from './Menu';
-import SelectBar from './SelectBar';
 import Profile from './Profile';
 import ScrollButton from './ScrollButton';
+import InputSelectWrapper from './InputSelectWrapper';
 import { isRTL } from '../functions/isRlt';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -164,10 +163,6 @@ const Chat = () => {
                 scrollDown={scrollDown}
             />
 
-            <AnimatePresence>
-                {selectedMessages.length ? <SelectBar key='select' /> : ''}
-            </AnimatePresence>
-
             <ChatContainer
                 onScroll={onScrollHandler}
                 ref={messagesRef}
@@ -211,9 +206,7 @@ const Chat = () => {
                 <div ref={messagesEndRef} />
             </ChatContainer>
 
-            <AnimatePresence>
-                {!selectedMessages.length ? <Input key='input' /> : ''}
-            </AnimatePresence>
+            <InputSelectWrapper />
         </>
     );
 };

@@ -61,6 +61,7 @@ const BackgroundContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    transform: scale(2);
 
     img {
         object-fit: cover;

@@ -80,30 +80,26 @@ const PopupContainer = styled(motion.section)`
     color: var(--normal-color);
 
     .popup {
+        position: relative;
         padding: 1.2rem 1.5rem;
         text-align: center;
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        background-color: #ffffff04;
         border: solid 2.5px #ffffff20;
         border-radius: 25px;
         box-shadow: var(--bold-shadow);
         backdrop-filter: var(--bold-glass);
         -webkit-backdrop-filter: var(--bold-glass);
-        position: relative;
 
         .buttons {
             margin-top: 1.5rem;
 
-            .edit,
-            .delete,
-            .cancel,
-            .change {
+            .edit, .delete, .cancel, .change {
                 border: none;
                 border-radius: 50px;
-                background-color: #ffffff08;
+                background-color: #ffffff10;
                 box-shadow: var(--normal-shadow);
                 margin: 0 0.3rem;
                 width: 5rem;
@@ -115,7 +111,7 @@ const PopupContainer = styled(motion.section)`
 
                 @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
                     &:hover {
-                        background-color: #ffffff14;
+                        background-color: #ffffff18;
                     }
                 }
             }
@@ -133,11 +129,11 @@ const PopupContainer = styled(motion.section)`
 
             .edit, .change {
                 color: #00ff00;
-                background-color: #00ff0010;
+                background-color: #00ff0020;
 
                 @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
                     &:hover {
-                        background-color: #00ff0020;
+                        background-color: #00ff0030;
                     }
                 }
             }

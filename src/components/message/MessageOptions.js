@@ -192,12 +192,7 @@ const MessageOptionsContainer = styled(motion.div)`
     flex-direction: ${props => props.localmessage ? 'row-reverse' : 'row'};
     margin: ${props => props.localmessage ? '0 .4rem 0 0' : '0 0 0 .4rem'};
 
-    .reply,
-    .copy,
-    .edit,
-    .delete,
-    .select,
-    .time {
+    .reply, .copy, .edit, .delete, .select, .time {
         position: relative;
         background-color: var(--normal-bg);
         margin: 0 0.1rem;
@@ -236,6 +231,51 @@ const MessageOptionsContainer = styled(motion.div)`
                     opacity: 1;
                     letter-spacing: 0;
                 }
+            }
+        }
+    }
+
+    .reply {
+        @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
+            &:hover {
+                padding: 0.5rem 2.8rem 0.5rem 0.5rem;
+                transition: padding 0.3s;
+            }
+        }
+    }
+
+    .select {
+        @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
+            &:hover {
+                padding: 0.5rem 3rem 0.5rem 0.5rem;
+                transition: padding 0.3s;
+            }
+        }
+    }
+
+    .copy {
+        @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
+            &:hover {
+                padding: 0.5rem 2.7rem 0.5rem 0.5rem;
+                transition: padding 0.3s;
+            }
+        }
+    }
+
+    .edit {
+        @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
+            &:hover {
+                padding: 0.5rem 2.3rem 0.5rem 0.5rem;
+                transition: padding 0.3s;
+            }
+        }
+    }
+
+    .delete {
+        @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
+            &:hover {
+                padding: 0.5rem 3.1rem 0.5rem 0.5rem;
+                transition: padding 0.3s;
             }
         }
     }
@@ -285,70 +325,17 @@ const MessageOptionsContainer = styled(motion.div)`
         }
     }
 
-    .reply {
-        @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
-            &:hover {
-                padding: 0.5rem 2.8rem 0.5rem 0.5rem;
-                transition: padding 0.3s;
-            }
-        }
-    }
-
-    .copy {
-        @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
-            &:hover {
-                padding: 0.5rem 2.7rem 0.5rem 0.5rem;
-                transition: padding 0.3s;
-            }
-        }
-    }
-
-    .edit {
-        @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
-            &:hover {
-                padding: 0.5rem 2.3rem 0.5rem 0.5rem;
-                transition: padding 0.3s;
-            }
-        }
-    }
-
-    .delete {
-        @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
-            &:hover {
-                padding: 0.5rem 3.1rem 0.5rem 0.5rem;
-                transition: padding 0.3s;
-            }
-        }
-    }
-
-    .select {
-        @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
-            &:hover {
-                padding: 0.5rem 3rem 0.5rem 0.5rem;
-                transition: padding 0.3s;
-            }
-        }
-    }
-
     @media (max-width: 768px) {
-        width: 6.5rem;
+        width: 6rem;
         flex-direction: column;
         justify-content: center;
         margin: ${props => props.localmessage ? '13rem 0 0 0' : '8rem 0 0 0'};
-        z-index: 3;
+        z-index: 2;
         background-color: var(--normal-bg);
         border-radius: 15px;
         backdrop-filter: blur(20px) saturate(100%);
         -webkit-backdrop-filter: blur(20px) saturate(100%);
         overflow: hidden;
-
-        hr {
-            display: block;
-            width: 100%;
-            height: 0.1px;
-            background-color: #ffffff30;
-            border: none;
-        }
 
         .reply,
         .copy,
@@ -365,16 +352,16 @@ const MessageOptionsContainer = styled(motion.div)`
             height: 2rem;
             backdrop-filter: none;
 
-            i {
+            div, i {
                 position: absolute;
-                left: 0.6rem;
+                left: 0.9rem;
                 margin: 0;
             }
 
             p {
                 font-size: 0.8rem;
                 right: none;
-                left: 2.6rem;
+                left: 2.7rem;
                 text-align: start;
                 transform: scale(1);
                 opacity: 1;

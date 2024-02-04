@@ -62,8 +62,8 @@ const EditPopupContainer = styled.div`
     opacity: ${props => props.editreplyopen ? '0' : '1'};
     transition: ${props =>
         props.editreplyopen ?
-        'transform .2s, padding .8s cubic-bezier(.53,0,0,.98), opacity .3s' :
-        'transform .8s, padding .4s, opacity .3s .3s'
+        'transform .4s, padding .8s cubic-bezier(.53,0,0,.98), opacity .3s' :
+        'transform .6s, padding .4s, opacity .3s .3s'
     };
 
     textarea {

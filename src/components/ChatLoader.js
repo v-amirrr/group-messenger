@@ -101,7 +101,7 @@ const ChatLoaderContainer = styled(motion.div)`
         box-sizing: content-box;
         position: absolute;
         bottom: 1rem;
-        width: 20rem;
+        width: 18rem;
         height: 2.4rem;
         border: solid 2.5px #333;
         border-radius: 50px;

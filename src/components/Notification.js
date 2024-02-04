@@ -92,12 +92,12 @@ const NotificationsContainer = styled(motion.div)`
         box-sizing: content-box;
         min-width: 7rem;
         max-width: 30rem;
-        min-height: 2.3rem;
+        min-height: 2.4rem;
         display: flex;
         justify-content: center;
         align-items: center;
         text-align: center;
-        background-color: #1a1a1aaa;
+        background-color: var(--normal-bg);
         border-radius: ${props => props.letters ? "25px" : "50px"};
         box-shadow: var(--bold-shadow);
         backdrop-filter: var(--bold-glass);

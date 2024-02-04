@@ -53,18 +53,16 @@ export const notificationSlowVariants = {
     visible: {
         y: 0,
         transition: {
-            duration: 0.8,
+            duration: 0.7,
             ease: [0.53, 0, 0, 0.98],
             time: [0.53, 0, 0, 0.98],
         },
     },
     exit: {
-        opacity: [1, 1, 1, 0],
-        scale: 0.8,
+        opacity: 0,
+        scale: 0.2,
         transition: {
-            duration: 0.5,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
+            duration: 0.8,
         },
     },
 };
@@ -394,10 +392,10 @@ export const selectCheckLocalVariants = {
         opacity: 1,
         x: 0,
         transition: {
-            duration: 0.4,
+            duration: 0.35,
         },
     },
-    exit: { opacity: 0, x: 50, transition: { duration: 0.25 } },
+    exit: { opacity: 0, x: 50, transition: { duration: 0.2 } },
 };
 
 export const selectCheckNonLocalVariants = {
@@ -406,64 +404,10 @@ export const selectCheckNonLocalVariants = {
         opacity: 1,
         x: 0,
         transition: {
-            duration: 0.4,
+            duration: 0.35,
         },
     },
-    exit: { opacity: 0, x: -50, transition: { duration: 0.25 } },
-};
-
-export const InputVariants = {
-    hidden: { opacity: 0, scale: 0.9 },
-    visible: {
-        opacity: 1,
-        scale: 1,
-        transition: {
-            duration: 0.4,
-        },
-    },
-    exit: { opacity: 0, scale: 0.9, transition: { duration: 0.3 } },
-};
-
-export const sendInputIconVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.4 } },
-    exit: { opacity: 0, scale: 0.8, transition: { duration: 0.4 } },
-};
-
-export const replyVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-        opacity: 1,
-        y: 0,
-        transition: {
-            type: 'spring',
-            stiffness: 100,
-            duration: 0.8,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
-        },
-    },
-    exit: {
-        opacity: 0,
-        y: 50,
-        transition: {
-            duration: 0.8,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
-        },
-    },
-};
-
-export const emojiPickerVariatns = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-        opacity: 1,
-        y: 0,
-        transition: {
-            duration: 0.3,
-        },
-    },
-    exit: { opacity: 0, y: 10, transition: { duration: 0.2 } },
+    exit: { opacity: 0, x: -50, transition: { duration: 0.2 } },
 };
 
 export const menuVariants = {
@@ -515,18 +459,6 @@ export const replyButtonVariants = {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { duration: 0.2 } },
     exit: { opacity: 0, transition: { duration: 0.2 } },
-};
-
-export const selectBarVariants = {
-    hidden: { opacity: 0, scale: 0.9 },
-    visible: {
-        opacity: 1,
-        scale: 1,
-        transition: {
-            duration: 0.4,
-        },
-    },
-    exit: { opacity: 0, scale: 0.9, transition: { duration: 0.3 } },
 };
 
 export const checkButtonVariants = {
@@ -783,4 +715,87 @@ export const featuresSectionDownVariatns = {
         },
     },
     exit: { opacity: 0, y: -50, transition: { duration: 0.3 } },
+};
+
+export const inputSelectContainerVariants = {
+    hidden: { opacity: 0, scale: 0.9 },
+    visible: {
+        opacity: 1,
+        scale: 1,
+        transition: {
+            duration: 0.4,
+        },
+    },
+    exit: { opacity: 0, scale: 0.9, transition: { duration: 0.3 } },
+};
+
+export const selectBarVariants = {
+    hidden: { opacity: 0, x: 20 },
+    visible: {
+        opacity: 1,
+        x: 0,
+        transition: {
+            duration: 0.6,
+            ease: [0.53, 0, 0, 0.98],
+            time: [0.53, 0, 0, 0.98],
+        },
+    },
+    exit: { opacity: 0, x: 20, transition: { duration: 0.2 } },
+};
+
+export const inputBarVariants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: {
+        opacity: 1,
+        x: 0,
+        transition: {
+            duration: 0.6,
+            ease: [0.53, 0, 0, 0.98],
+            time: [0.53, 0, 0, 0.98],
+        },
+    },
+    exit: { opacity: 0, x: -20, transition: { duration: 0.2 } },
+};
+
+export const sendInputIconVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.4 } },
+    exit: { opacity: 0, scale: 0.8, transition: { duration: 0.4 } },
+};
+
+export const inputBarReplyToVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            type: 'spring',
+            stiffness: 100,
+            duration: 0.8,
+            ease: [0.53, 0, 0, 0.98],
+            time: [0.53, 0, 0, 0.98],
+        },
+    },
+    exit: {
+        opacity: 0,
+        y: 70,
+        transition: {
+            duration: 0.6,
+            ease: [0.53, 0, 0, 0.98],
+            time: [0.53, 0, 0, 0.98],
+        },
+    },
+};
+
+export const inputBarEmojiPickerVariatns = {
+    hidden: { y: 80 },
+    visible: {
+        y: 0,
+        transition: {
+            duration: 0.8,
+            ease: [0.53, 0, 0, 0.98],
+            time: [0.53, 0, 0, 0.98],
+        },
+    },
+    exit: { opacity: 0, transition: { delay: 0.4, duration: 0.4 } },
 };

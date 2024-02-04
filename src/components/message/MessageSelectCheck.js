@@ -45,17 +45,19 @@ const MessageSelectCheck = ({ selected, selectedMessagesLength, messageClickHand
 };
 
 const MessageSelectCheckContainer = styled(motion.div)`
-    width: ${props => props.trash ? '1.6rem' : '1.8rem'};
-    height: ${props => props.trash ? '1.6rem' : '1.8rem'};
-    border-radius: 50%;
     position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
+    width: ${props => props.trash ? '1.6rem' : '1.8rem'};
+    height: ${props => props.trash ? '1.6rem' : '1.8rem'};
+    border: ${props => props.selected ? 'solid 2.5px #ffffff00' : 'solid 2.5px #ffffff20'};
+    border-radius: 50%;
+    background: ${props => props.selected ? 'var(--normal-bg)' : '#ffffff00'};
     overflow: hidden;
+    box-shadow: var(--normal-shadow);
     cursor: pointer;
-    border: solid 2.5px #ffffff20;
-    transition: background .2s;
+    transition: background .2s, border .2s;
 
     i {
         display: flex;

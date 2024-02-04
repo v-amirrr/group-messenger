@@ -61,24 +61,15 @@ const SelectBar = () => {
 
 const SelectBarContainer = styled(motion.div)`
     position: absolute;
-    bottom: 1rem;
-    border: solid 2.5px #ffffff20;
-    border-radius: 50px;
-    box-shadow: var(--normal-shadow);
-    backdrop-filter: var(--bold-glass);
-    -webkit-backdrop-filter: var(--bold-glass);
-    color: var(--normal-color);
-    width: 20rem;
-    height: 2.6rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
-    z-index: 2;
+    width: 100%;
+    height: 100%;
 
     .close {
         position: absolute;
-        right: 0.3rem;
+        right: 0.25rem;
         border-radius: 50%;
         display: flex;
         justify-content: center;
@@ -93,7 +84,7 @@ const SelectBarContainer = styled(motion.div)`
 
     .count {
         position: absolute;
-        left: 0.3rem;
+        left: 0.25rem;
         width: 2rem;
         height: 2rem;
         display: flex;
@@ -165,10 +156,6 @@ const SelectBarContainer = styled(motion.div)`
     }
 
     @media (max-width: 745px) {
-        width: 15rem;
-        height: 2.6rem;
-        margin-right: 4rem;
-
         .options {
             .delete, .copy {
                 margin: 0;

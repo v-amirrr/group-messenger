@@ -61,7 +61,7 @@ const MenuContainer = styled(motion.div)`
     backdrop-filter: var(--bold-glass);
     -webkit-backdrop-filter: var(--bold-glass);
     overflow: hidden;
-    z-index: 2;
+    z-index: 3;
     transition: width 0.3s cubic-bezier(0.53, 0, 0, 0.98), height 0.3s cubic-bezier(0.53, 0, 0, 0.98), border-radius .2s .6s;
 
     .icon {
@@ -78,7 +78,7 @@ const MenuContainer = styled(motion.div)`
         display: flex;
         justify-content: center;
         align-items: center;
-        transition: transform .3s .2s, opacity .3s .2s;
+        transition: transform .1s, opacity .5s .2s;
     }
 
     .buttons {
@@ -111,7 +111,7 @@ const MenuContainer = styled(motion.div)`
 
             p {
                 font-size: .8rem;
-                margin-left: 2rem;
+                margin-left: 1.9rem;
                 text-align: left;
                 width: 100%;
             }
@@ -122,7 +122,7 @@ const MenuContainer = styled(motion.div)`
                 align-items: center;
                 font-size: 1.2rem;
                 position: absolute;
-                left: .9rem;
+                left: .85rem;
             }
 
             .logout-icon {
@@ -142,10 +142,10 @@ const MenuContainer = styled(motion.div)`
     }
 
     &:hover, &:active {
-        width: 6.6rem;
-        height: 7.3rem;
+        width: 6.5rem;
+        height: 7.2rem;
         border-radius: 25px;
-        transition: width 0.5s cubic-bezier(0.53, 0, 0, 0.98), height 0.4s cubic-bezier(0.53, 0, 0, 0.98), border-radius .1s;
+        transition: width 0.4s cubic-bezier(0.53, 0, 0, 0.98), height 0.4s cubic-bezier(0.53, 0, 0, 0.98), border-radius .1s;
 
         .icon {
             transform: scale(0.5);

@@ -51,8 +51,8 @@ const ReplyContainer = styled.div`
     font-size: 0.6rem;
     font-weight: 400;
     color: var(--pale-color);
-    background-color: #ffffff09;
-    box-shadow: var(--bold-shadow);
+    background-color: #ffffff08;
+    box-shadow: var(--normal-shadow);
     padding: 0.2rem 0.5rem 0.2rem 1.2rem;
     display: inline-flex;
     justify-content: center;

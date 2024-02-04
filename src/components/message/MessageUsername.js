@@ -30,7 +30,7 @@ const MessageUsernameContainer = styled.div`
     font-weight: 400;
     white-space: nowrap;
     color: var(--pale-color);
-    box-shadow: var(--bold-shadow);
+    box-shadow: var(--normal-shadow);
     text-overflow: ellipsis;
     overflow: hidden;
     transition: margin .4s;

@@ -164,6 +164,10 @@ const MenuContainer = styled(motion.div)`
 
     @media (max-width: 768px) {
         right: 0;
+
+        &:hover, &:active {
+            border-radius: 22px;
+        }
     }
 `;
 

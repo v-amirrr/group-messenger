@@ -143,6 +143,8 @@ const PopupContainer = styled(motion.section)`
     @media (max-width: 768px) {
         .popup {
             padding: 1rem;
+            max-width: 20rem;
+            border-radius: 20px;
 
             textarea {
                 font-size: 1rem;

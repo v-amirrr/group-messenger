@@ -58,6 +58,7 @@ const DeletePopupContainer = styled.div`
     @media (max-width: 768px) {
         h4 {
             font-size: 0.8rem;
+            white-space: normal;
         }
     }
 `;

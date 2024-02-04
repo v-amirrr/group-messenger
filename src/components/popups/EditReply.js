@@ -240,6 +240,7 @@ const ReplyConatiner = styled(motion.div)`
         bottom: auto;
         top: ${props => props.editreplyopen ? '0' : '.8rem'};
         left: ${props => props.editreplyopen ? '0' : '2rem'};
+        border-radius: 20px;
         transition: ${props =>
             props.editreplyopen ?
             'border .4s .2s, background .2s, width .3s cubic-bezier(.53,0,0,.98), height .3s cubic-bezier(.53,0,0,.98), top .3s, left .3s' :

@@ -96,7 +96,7 @@ const SettingsItemContainer = styled.div`
     }
 
     @media (max-width: 768px) {
-        width: 60%;
+        width: 65%;
     }
 `;
 

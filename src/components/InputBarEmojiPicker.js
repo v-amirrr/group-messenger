@@ -50,6 +50,11 @@ const InputBarEmojiPickerContainer = styled.div`
         align-items: center;
         z-index: -1;
     }
+
+    @media (max-width: 745px) {
+        transform: scale(0.7);
+        top: 0;
+    }
 `;
 
 export default InputBarEmojiPicker;

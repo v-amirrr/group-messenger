@@ -80,13 +80,15 @@ const InputSelectWrapperContainer = styled(motion.div)`
     overflow: hidden;
     transition: ${props => props.emoji ?
         'padding .8s cubic-bezier(.53,0,0,.98)' :
-        'padding .8s cubic-bezier(.53,0,0,.98), border-radius 2s .2s'
+        'padding .6s cubic-bezier(.53,0,0,.98), border-radius 2s .2s'
     };
 
     @media (max-width: 768px) {
         width: 15rem;
         margin-right: 4rem;
         bottom: .9rem;
+        padding-bottom: ${props => props.emoji ? '13.3rem' : '0'};
+        border-radius: ${props => props.emoji ? '20px' : '50px'};
     }
 `;
 

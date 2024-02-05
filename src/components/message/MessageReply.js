@@ -4,6 +4,8 @@ import styled from 'styled-components';
 
 const MessageReply = ({ replyTo, type, applyScrollMessageId }) => {
 
+    let mouseSituation = 'OUT';
+
     const clickHandler = (e) => {
         if (type == 'CHAT' && replyTo) {
             e.stopPropagation();
@@ -12,9 +14,12 @@ const MessageReply = ({ replyTo, type, applyScrollMessageId }) => {
     };
 
     const hoverHandler = () => {
-        if (type == 'CHAT' && replyTo) {
-            applyScrollMessageId(replyTo?.id, 'HOVER');
-        }
+        mouseSituation = 'IN';
+        setTimeout(() => {
+            if (type == 'CHAT' && replyTo && mouseSituation == 'IN') {
+                applyScrollMessageId(replyTo?.id, 'HOVER');
+            }
+        }, 300);
     };
 
     return (
@@ -24,9 +29,10 @@ const MessageReply = ({ replyTo, type, applyScrollMessageId }) => {
                 <ReplyContainer
                     onClick={(e) => clickHandler(e)}
                     onMouseEnter={hoverHandler}
+                    onMouseLeave={() => mouseSituation = 'OUT'}
                     usernamelen={replyTo?.username?.length}
                     messagelen={replyTo?.message?.length}
-                    deletedreply={!replyTo ? 1 : 0}
+                    deletedreplyto={!replyTo ? 1 : 0}
                 >
                     <i><BsReplyFill /></i>
                     {
@@ -42,46 +48,46 @@ const MessageReply = ({ replyTo, type, applyScrollMessageId }) => {
 };
 
 const ReplyContainer = styled.div`
+    position: relative;
+    bottom: .075rem;
+    max-width: 6.5rem;
+    height: 100%;
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    position: relative;
-    bottom: 0.075rem;
-    max-width: 6.5rem;
-    height: 100%;
     border-radius: 50px;
-    padding: 0.2rem 0.5rem 0.2rem 1.2rem;
-    margin-right: 0.4rem;
-    font-size: 0.6rem;
-    font-weight: 300;
-    color: var(--pale-color);
+    padding: .2rem .5rem .2rem 1.2rem;
+    margin-right: .4rem;
     background-color: #ffffff08;
+    color: var(--pale-color);
     box-shadow: var(--normal-shadow);
+    font-size: .6rem;
+    font-weight: 300;
     white-space: nowrap;
     overflow: hidden;
-    cursor: ${props => !props.deletedreply && 'pointer'};
+    cursor: ${props => !props.deletedreplyto && 'pointer'};
     transition: background .2s;
 
     @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
         &:hover {
-            background-color: ${props => !props.deletedreply && '#ffffff15'};
+            background-color: ${props => !props.deletedreplyto && '#ffffff15'};
         }
     }
 
     i {
+        position: absolute;
+        left: .3rem;
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: 0.8rem;
-        margin-right: 0.2rem;
-        position: absolute;
-        left: 0.3rem;
+        margin-right: .2rem;
+        font-size: .8rem;
         color: #ffffff22;
     }
 
     .reply-message {
-        white-space: nowrap;
         display: inline;
+        white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
     }

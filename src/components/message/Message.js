@@ -156,7 +156,7 @@ const Message = ({ message, type, options, onClick, replyIconClick, newreply }) 
             setReplyEffect(true);
             setTimeout(() => {
                 setReplyEffect(false);
-            }, 2000);
+            }, 1000);
         }
     }, [scrollMessageId]);
 
@@ -183,10 +183,10 @@ const Message = ({ message, type, options, onClick, replyIconClick, newreply }) 
                 len={replyTo != 'no_reply' && !replyTo.deleted ?
                     textLetters+replyTo.message.length < 5 ?
                     5 :
-                    textLetters+replyTo.message.length :
+                    textLetters+replyTo.message.length+1 :
                     textLetters < 5 ?
                     5 :
-                    textLetters
+                    textLetters+1
                 }
             >
                 <MessageDate
@@ -275,7 +275,7 @@ const MessageContainer = styled(motion.div)`
         '3rem' :
         props.date && '1.8rem'
     };
-    transition: padding 0.4s;
+    transition: padding .4s;
 
     .options {
         display: flex;
@@ -360,7 +360,7 @@ const MessageContainer = styled(motion.div)`
         );
         background-position: ${props => `left ${-props.len}rem top 0`};
         background-repeat: no-repeat;
-        animation: ${props => props.replyeffect || props.selected ? 'message-animation linear 1s' : ''};
+        animation: ${props => props.replyeffect || props.selected ? 'message-skeleton-animation linear 1s' : ''};
         transition: border-radius .2s, margin .4s, background .2s, padding .4s;
 
         .message {
@@ -373,7 +373,7 @@ const MessageContainer = styled(motion.div)`
             font-weight: 200;
         }
 
-        @keyframes message-animation {
+        @keyframes message-skeleton-animation {
             to {
                 background-position: ${props => `left ${props.len}rem top 0`};
             }

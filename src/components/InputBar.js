@@ -120,7 +120,6 @@ const InputBar = ({ inputText, setInputText, inputBarEmojiPicker, setInputBarEmo
                 <button className='emoji-button' onClick={() => setInputBarEmojiPicker(!inputBarEmojiPicker)}>
                     <GrEmoji />
                 </button>
-
             </InputBarContainer>
         </>
     );

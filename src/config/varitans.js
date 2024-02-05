@@ -788,7 +788,7 @@ export const inputBarReplyToVariants = {
 };
 
 export const inputBarEmojiPickerVariatns = {
-    hidden: { y: 80 },
+    hidden: { y: 20 },
     visible: {
         y: 0,
         transition: {
@@ -797,5 +797,5 @@ export const inputBarEmojiPickerVariatns = {
             time: [0.53, 0, 0, 0.98],
         },
     },
-    exit: { opacity: 0, transition: { delay: 0.4, duration: 0.4 } },
+    exit: { opacity: 0, transition: { delay: 0.2, duration: 0.4 } },
 };

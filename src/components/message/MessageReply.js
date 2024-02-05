@@ -5,14 +5,14 @@ import styled from 'styled-components';
 const MessageReply = ({ replyTo, type, applyScrollMessageId }) => {
 
     const clickHandler = (e) => {
-        e.stopPropagation();
-        if (type == 'CHAT') {
+        if (type == 'CHAT' && replyTo) {
+            e.stopPropagation();
             applyScrollMessageId(replyTo?.id, 'CLICK');
         }
     };
 
     const hoverHandler = () => {
-        if (type == 'CHAT') {
+        if (type == 'CHAT' && replyTo) {
             applyScrollMessageId(replyTo?.id, 'HOVER');
         }
     };
@@ -22,14 +22,13 @@ const MessageReply = ({ replyTo, type, applyScrollMessageId }) => {
             {
                 replyTo != 'no_reply' && type != 'TRASH' ?
                 <ReplyContainer
-                    usernamelen={replyTo?.username?.length}
-                    messagelen={replyTo?.message?.length}
                     onClick={(e) => clickHandler(e)}
                     onMouseEnter={hoverHandler}
+                    usernamelen={replyTo?.username?.length}
+                    messagelen={replyTo?.message?.length}
+                    deletedreply={!replyTo ? 1 : 0}
                 >
-                    <i>
-                        <BsReplyFill />
-                    </i>
+                    <i><BsReplyFill /></i>
                     {
                         replyTo ?
                         <p className='reply-message'>{replyTo?.message}</p> :
@@ -43,30 +42,29 @@ const MessageReply = ({ replyTo, type, applyScrollMessageId }) => {
 };
 
 const ReplyContainer = styled.div`
-    max-width: 6.5rem;
-    height: 100%;
-    border-radius: 50px;
-    overflow: hidden;
-    font-family: ${props => props.isrlt ? 'Vazirmatn' : 'Outfit'}, 'Vazirmatn', sans-serif;
-    font-size: 0.6rem;
-    font-weight: 400;
-    color: var(--pale-color);
-    background-color: #ffffff08;
-    box-shadow: var(--normal-shadow);
-    padding: 0.2rem 0.5rem 0.2rem 1.2rem;
     display: inline-flex;
     justify-content: center;
     align-items: center;
     position: relative;
     bottom: 0.075rem;
+    max-width: 6.5rem;
+    height: 100%;
+    border-radius: 50px;
+    padding: 0.2rem 0.5rem 0.2rem 1.2rem;
     margin-right: 0.4rem;
+    font-size: 0.6rem;
+    font-weight: 300;
+    color: var(--pale-color);
+    background-color: #ffffff08;
+    box-shadow: var(--normal-shadow);
     white-space: nowrap;
-    cursor: pointer;
+    overflow: hidden;
+    cursor: ${props => !props.deletedreply && 'pointer'};
     transition: background .2s;
 
     @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
         &:hover {
-            background-color: #ffffff15;
+            background-color: ${props => !props.deletedreply && '#ffffff15'};
         }
     }
 

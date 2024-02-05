@@ -180,6 +180,14 @@ const Message = ({ message, type, options, onClick, replyIconClick, newreply }) 
                 messagesselected={selectedMessages.length ? 1 : 0}
                 reply={replyTo != 'no_reply' ? 1 : 0}
                 replyeffect={replyEffect ? 1 : 0}
+                len={replyTo != 'no_reply' && !replyTo.deleted ?
+                    textLetters+replyTo.message.length < 5 ?
+                    5 :
+                    textLetters+replyTo.message.length :
+                    textLetters < 5 ?
+                    5 :
+                    textLetters
+                }
             >
                 <MessageDate
                     key='date'
@@ -347,13 +355,13 @@ const MessageContainer = styled(motion.div)`
         background-image: linear-gradient(
             90deg,
             #ffffff00 0%,
-            #ffffff20 50%,
+            #ffffff30 50%,
             #ffffff00 100%
         );
-        background-position: left -20rem top 0;
+        background-position: ${props => `left ${-props.len}rem top 0`};
         background-repeat: no-repeat;
-        animation: ${props => props.replyeffect ? 'skeleton-loading-message linear 1s' : ''};
-        transition: border-radius .2s, margin .4s, background .2s, padding .2s;
+        animation: ${props => props.replyeffect || props.selected ? 'message-animation linear 1s' : ''};
+        transition: border-radius .2s, margin .4s, background .2s, padding .4s;
 
         .message {
             text-align: ${props => props.persian ? 'right' : 'left'};
@@ -363,6 +371,12 @@ const MessageContainer = styled(motion.div)`
             font-family: ${props => props.persian ? 'Vazirmatn' : 'Outfit'}, 'Vazirmatn', sans-serif;
             font-size: ${props => props.type == 'TRASH' ? '.7rem' : '1rem'};
             font-weight: 200;
+        }
+
+        @keyframes message-animation {
+            to {
+                background-position: ${props => `left ${props.len}rem top 0`};
+            }
         }
     }
 

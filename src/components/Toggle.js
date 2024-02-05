@@ -31,7 +31,7 @@ const ToggleContainer = styled.div`
 
     span {
         position: absolute;
-        left: ${props => !props.toggle ? '-2%' : '35%'};
+        left: ${props => !props.toggle ? '-2%' : '34%'};
         margin: .2rem;
         border-radius: 50%;
         width: 1rem;

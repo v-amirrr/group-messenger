@@ -79,8 +79,8 @@ const InputSelectWrapperContainer = styled(motion.div)`
     z-index: 3;
     overflow: hidden;
     transition: ${props => props.emoji ?
-        'padding .8s cubic-bezier(.53,0,0,.98)' :
-        'padding .6s cubic-bezier(.53,0,0,.98), border-radius 2s .2s'
+        'padding .6s cubic-bezier(.53,0,0,.98)' :
+        'padding .4s cubic-bezier(.53,0,0,.98), border-radius 2s .2s'
     };
 
     @media (max-width: 768px) {

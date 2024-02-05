@@ -26,7 +26,7 @@ const MessageUsernameContainer = styled.div`
     background-color: #ffffff0b;
     border-radius: 50px 50px 50px 20px;
     margin-right: .2rem;
-    font-size: 0.6rem;
+    font-size: .6rem;
     font-weight: 400;
     white-space: nowrap;
     color: var(--pale-color);

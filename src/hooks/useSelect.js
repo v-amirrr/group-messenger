@@ -7,11 +7,10 @@ export const useSelect = () => {
     const dispatch = useDispatch();
     const { selectedMessages } = useSelector(store => store.appStore);
     const { enterAsAGuest } = useSelector(store => store.userStore);
-    const { trashMessage, clearReplyMessage, undeleteMessage, deleteMessage, closePopup } = useMessageOptions();
+    const { trashMessage, undeleteMessage, deleteMessage, closePopup } = useMessageOptions();
     const { openNotification } = useNotification();
 
     const selectMessage = (message) => {
-        clearReplyMessage();
         if (enterAsAGuest) {
             openNotification("In order to use this feature you need to login.", false, "GUEST");
         } else {

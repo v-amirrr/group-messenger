@@ -31,10 +31,8 @@ const InputBar = ({ inputText, setInputText, inputBarEmojiPicker, setInputBarEmo
         }
     };
 
-    const focusHandler = () => {
-        if (
-            document.documentElement.offsetWidth > 500 && !popupShow
-        ) {
+    const blurHandler = () => {
+        if (document.documentElement.offsetWidth > 500 && !popupShow && !inputBarEmojiPicker) {
             inputRef.current.focus();
         } else if (popupShow) {
             inputRef.current.blur();
@@ -42,7 +40,7 @@ const InputBar = ({ inputText, setInputText, inputBarEmojiPicker, setInputBarEmo
     };
 
     useEffect(() => {
-        focusHandler();
+        blurHandler();
     }, [popupShow, popupName]);
 
     useEffect(() => {
@@ -86,7 +84,7 @@ const InputBar = ({ inputText, setInputText, inputBarEmojiPicker, setInputBarEmo
                     ref={inputRef}
                     onChange={(e) => setInputText(e.target.value)}
                     onKeyDown={(e) => inputKeyHandler(e)}
-                    onBlur={focusHandler}
+                    onBlur={blurHandler}
                     autoFocus={document.documentElement.offsetWidth > 500 && !popupShow ? true : false}
                 />
 
@@ -178,6 +176,7 @@ const InputBarContainer = styled(motion.div)`
         opacity: ${props => props.inputtext ? "0" : "1"};
         left: ${props => props.inputtext ? "2rem" : "1rem"};
         letter-spacing: ${props => props.inputtext ? "2px" : "0"};
+        z-index: -1;
         transition: left .4s, opacity .4s, letter-spacing .6s;
     }
 

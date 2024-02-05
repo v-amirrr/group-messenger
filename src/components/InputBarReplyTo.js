@@ -5,20 +5,34 @@ import { BsReplyFill } from 'react-icons/bs';
 import { AnimatePresence, motion } from 'framer-motion';
 import { inputBarReplyToVariants } from '../config/varitans';
 
-const InputBarReplyTo = ({ replyTo, applyScrollMessageId, closeHandler }) => {
+const InputBarReplyTo = ({ replyTo, applyScrollMessageId, closeHandler, inputBarEmojiPicker }) => {
+
+    let mouseSituation = 'OUT';
+
+    const hoverHandler = () => {
+        mouseSituation = 'IN';
+        setTimeout(() => {
+            if (mouseSituation == 'IN') {
+                applyScrollMessageId(replyTo?.id, 'HOVER');
+            }
+        }, 300);
+    };
+
     return (
         <>
             <AnimatePresence>
                 {
-                    replyTo.id ?
+                    replyTo?.id ?
                     <InputBarReplyToContainer
                         initial='hidden'
                         animate='visible'
                         exit='exit'
                         variants={inputBarReplyToVariants}
-                        messageletters={replyTo?.username?.length + replyTo?.message?.length}
                         onClick={() => applyScrollMessageId(replyTo.id, 'CLICK')}
-                        onMouseEnter={() => applyScrollMessageId(replyTo.id, 'HOVER')}
+                        onMouseEnter={hoverHandler}
+                        onMouseLeave={() => mouseSituation = 'OUT'}
+                        messageletters={replyTo?.username?.length + replyTo?.message?.length}
+                        emoji={inputBarEmojiPicker ? 1 : 0}
                     >
                         <div className='message'>
                             <i><BsReplyFill /></i>
@@ -35,7 +49,7 @@ const InputBarReplyTo = ({ replyTo, applyScrollMessageId, closeHandler }) => {
 
 const InputBarReplyToContainer = styled(motion.div)`
     position: absolute;
-    bottom: 4rem;
+    bottom: ${props => props.emoji ? '22.9rem' : '4rem'};
     max-width: 25%;
     height: 2rem;
     display: flex;
@@ -50,6 +64,10 @@ const InputBarReplyToContainer = styled(motion.div)`
     -webkit-backdrop-filter: var(--bold-glass);
     cursor: pointer;
     z-index: 2;
+    transition: ${props => props.emoji ?
+        'bottom .6s cubic-bezier(.53,0,0,.98)' :
+        'bottom .4s cubic-bezier(.53,0,0,.98)'
+    };
 
     button {
         display: flex;

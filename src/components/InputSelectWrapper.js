@@ -30,9 +30,10 @@ const InputSelectWrapper = () => {
     return (
         <>
             <InputBarReplyTo
-                replyTo={replyTo}
+                replyTo={selectedMessages.length ? null : replyTo}
                 applyScrollMessageId={applyScrollMessageId}
                 closeHandler={closeHandler}
+                inputBarEmojiPicker={inputBarEmojiPicker}
             />
 
             <InputSelectWrapperContainer initial='hidden' animate='visible' exit='exit' variants={inputSelectContainerVariants} emoji={inputBarEmojiPicker ? 1 : 0}>

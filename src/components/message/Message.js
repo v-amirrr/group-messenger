@@ -180,10 +180,10 @@ const Message = ({ message, type, options, onClick, replyIconClick, newreply }) 
                 messagesselected={selectedMessages.length ? 1 : 0}
                 reply={replyTo != 'no_reply' ? 1 : 0}
                 replyeffect={replyEffect ? 1 : 0}
-                len={replyTo != 'no_reply' && !replyTo.deleted ?
-                    textLetters+replyTo.message.length < 5 ?
+                len={replyTo != 'no_reply' && !replyTo?.deleted && type != 'TRASH' ?
+                    textLetters+replyTo?.message?.length < 5 ?
                     5 :
-                    textLetters+replyTo.message.length+1 :
+                    textLetters+replyTo?.message?.length+1 :
                     textLetters < 5 ?
                     5 :
                     textLetters+1

@@ -70,18 +70,18 @@ const SettingsTrash = ({ open, setOpen, setHeight }) => {
             <AnimatePresence>
                 {
                     open == "SETTINGS_TRASH" ?
-                        <MessagesContainer initial='hidden' animate='visible' exit='exit' variants={trashSettingsVariants} selectbarshow={selectedMessages.length}>
+                        <MessagesContainer initial='hidden' animate='visible' exit='exit' variants={trashSettingsVariants} selectbarshow={selectedMessages?.length}>
                             <AnimatePresence exitBeforeEnter>
                                 {
                                     messages?.length ?
                                     <>
                                         <div className='select-bar'>
-                                            <div className='counter'>{selectedMessages.length}</div>
-                                            <button className='delete-button' disabled={!selectedMessages.length} onClick={() => openPopup("DELETE_POPUP", [selectedMessages])}>
+                                            <div className='counter'>{selectedMessages?.length}</div>
+                                            <button className='delete-button' disabled={!selectedMessages?.length} onClick={() => openPopup("DELETE_POPUP", [selectedMessages])}>
                                                 <i><TbTrashX /></i>
                                                 <p>Delete</p>
                                             </button>
-                                            <button className='restore-button' disabled={!selectedMessages.length} onClick={restoreSelectedMessages}>
+                                            <button className='restore-button' disabled={!selectedMessages?.length} onClick={restoreSelectedMessages}>
                                                 <i><FaTrashRestore /></i>
                                                 <p>Restore</p>
                                             </button>

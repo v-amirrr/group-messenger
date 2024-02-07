@@ -198,7 +198,7 @@ const Message = ({ message, type, options, onClick, replyIconClick, newreply }) 
                         month: time.month,
                         day: time.day
                     }}
-                    show={priorDifferentDate && time.year && time.month && time.day}
+                    show={priorDifferentDate && time.year}
                 />
                 <MessageUsername
                     show={messageUid != localUid && messagePosition < 2}

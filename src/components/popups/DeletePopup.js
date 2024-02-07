@@ -1,6 +1,7 @@
 import React from 'react';
 import { useMessageOptions } from '../../hooks/useMessageOptions';
 import { useSelect } from '../../hooks/useSelect';
+import Message from '../message/Message';
 import styled from 'styled-components';
 
 const DeletePopup = ({ popupMessages }) => {
@@ -9,7 +10,7 @@ const DeletePopup = ({ popupMessages }) => {
 
     const pressEnter = (e) => {
         if (e.key == 'Enter') {
-            deleteMessage(popupMessages.id);
+            deleteSelectedMessages();
         }
     };
 
@@ -20,7 +21,7 @@ const DeletePopup = ({ popupMessages }) => {
                     Are you sure you want to delete
                     {' '}
                     {
-                        popupMessages.length > 1 ?
+                        popupMessages[0].length > 1 ?
                         'these messages' :
                         'this message'
                     }

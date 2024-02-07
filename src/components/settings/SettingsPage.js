@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRedirection } from '../../hooks/useRedirection';
 import SettingsBackgrounds from './SettingsBackgrounds';
 import SettingsUser from './SettingsUser';
 import SettingsTrash from './SettingsTrash';
@@ -13,13 +12,8 @@ import { settingsPageVariants, settingsContainerVariants } from '../../config/va
 
 const SettingsPage = () => {
     const navigate = useNavigate();
-    const { groupChatRedirection } = useRedirection();
     const [open, setOpen] = useState(false);
     const [height, setHeight] = useState(false);
-
-    useEffect(() => {
-        groupChatRedirection();
-    }, []);
 
     const backClickHandler = () => {
         if (open) {

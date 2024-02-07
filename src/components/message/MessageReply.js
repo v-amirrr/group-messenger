@@ -49,7 +49,7 @@ const MessageReply = ({ replyTo, type, applyScrollMessageId }) => {
 
 const ReplyContainer = styled.div`
     position: relative;
-    bottom: .075rem;
+    bottom: .095rem;
     max-width: 6.5rem;
     height: 100%;
     display: inline-flex;

@@ -6,15 +6,13 @@ export const useRedirection = () => {
     const { user, enterAsAGuest } = useSelector(store => store.userStore);
     const { warningPageShowed, warningPageNeverShowCheck } = useSelector(store => store.appStore);
 
-    const authRedirection = () => {
-        if (user || enterAsAGuest) {
-            navigate("/", { replace: true });
-        }
-    };
-
-    const groupChatRedirection = () => {
-        if (!user && !enterAsAGuest) {
-            navigate("/login", { replace: true });
+    const messengerRedirection = () => {
+        if (warningPageShowed || warningPageNeverShowCheck) {
+            if (!user && !enterAsAGuest) {
+                navigate("/login", { replace: true });
+            }
+        } else {
+            navigate("/warning", { replace: true });
         }
     };
 
@@ -24,5 +22,49 @@ export const useRedirection = () => {
         }
     };
 
-    return { authRedirection, groupChatRedirection, warningRedirection };
+    const loginRedirection = () => {
+        if (warningPageShowed || warningPageNeverShowCheck) {
+            if (user || enterAsAGuest) {
+                navigate("/", { replace: true });
+            }
+        } else {
+            navigate("/warning", { replace: true });
+        }
+    };
+
+    const settingsRedirection = () => {
+        console.log(!user && !enterAsAGuest);
+        if (warningPageShowed || warningPageNeverShowCheck) {
+            if (!user && !enterAsAGuest) {
+                navigate("/login", { replace: true });
+            }
+        } else {
+            navigate("/warning", { replace: true });
+        }
+    };
+
+    const autoRedirection = (path) => {
+        switch (path) {
+            case '/':
+                messengerRedirection();
+                break;
+
+            case '/warning':
+                warningRedirection();
+                break;
+
+            case '/login':
+                loginRedirection();
+                break;
+
+            case '/settings':
+                settingsRedirection();
+                break;
+
+            default:
+                break;
+        }
+    };
+
+    return { autoRedirection };
 };

@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useAuth } from '../../hooks/useAuth';
-import { useRedirection } from '../../hooks/useRedirection';
 import { FaRegEye, FaUserLock } from 'react-icons/fa';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -10,7 +9,6 @@ import { loginVariants, loginItemVariants } from '../../config/varitans';
 const LoginPage = () => {
     const { signup: signupData, login: loginData, googleLogin: googleData } = useSelector(store => store.userStore);
     const { signup, login, enterAsAGuest, googleLogin, cancelAuth } = useAuth();
-    const { authRedirection } = useRedirection();
     const [toggle, setToggle] = useState(true);
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
@@ -47,21 +45,17 @@ const LoginPage = () => {
         }
     };
 
-    useEffect(() => {
-        authRedirection();
-    }, []);
-
     return (
         <>
             <Login
-                toggle={toggle ? 1 : 0}
-                showpassword={showPassword ? 1 : 0}
-                loading={signupData.loading || loginData.loading ? 1 : 0}
-                googleloading={googleData.loading ? 1 : 0}
                 initial='hidden'
                 animate='visible'
                 exit='exit'
                 variants={loginVariants}
+                toggle={toggle ? 1 : 0}
+                showpassword={showPassword ? 1 : 0}
+                loading={signupData.loading || loginData.loading ? 1 : 0}
+                googleloading={googleData.loading ? 1 : 0}
             >
                 <header>
                     <button className='login' onClick={() => setToggle(true)} disabled={loginData.loading || signupData.loading || googleData.loading}>LOGIN</button>

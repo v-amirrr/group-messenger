@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    warningPageShowed: false,
+    warningPageShowed: JSON.parse(sessionStorage.getItem("warning")),
     warningPageNeverShow: JSON.parse(localStorage.getItem('warning-check')),
     theme: 2,
     selectedMessages: [],

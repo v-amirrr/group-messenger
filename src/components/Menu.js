@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { HiDotsVertical } from 'react-icons/hi';
@@ -12,12 +12,18 @@ const Menu = () => {
     const { logout } = useAuth();
 
     const clickHandler = type => {
-        if (type == 'LOGOUT') {
-            logout();
-        } else if (type == 'SETTINGS') {
-            navigate('/settings');
-        } else if (type == 'GUIDANCE') {
-            navigate('/guidance');
+        switch (type) {
+            case 'LOGOUT':
+                logout();
+                break;
+            case 'SETTINGS':
+                navigate('/settings');
+                break;
+            case 'GUIDANCE':
+                navigate('/guidance');
+                break;
+            default:
+                break;
         }
     };
 
@@ -34,7 +40,7 @@ const Menu = () => {
                         <p>Logout</p>
                     </button>
                     <button onClick={() => clickHandler('SETTINGS')}>
-                        <i><FcSettings /></i>
+                        <i className='settings-icon'><FcSettings /></i>
                         <p>Settings</p>
                     </button>
                 </div>
@@ -62,7 +68,9 @@ const MenuContainer = styled(motion.div)`
     -webkit-backdrop-filter: var(--bold-glass);
     overflow: hidden;
     z-index: 3;
-    transition: width 0.3s cubic-bezier(0.53, 0, 0, 0.98), height 0.3s cubic-bezier(0.53, 0, 0, 0.98), border-radius .2s .6s;
+    transition: width 0.3s cubic-bezier(0.53, 0, 0, 0.98),
+                height 0.3s cubic-bezier(0.53, 0, 0, 0.98),
+                border-radius .2s .6s;
 
     .icon {
         position: absolute;
@@ -92,7 +100,10 @@ const MenuContainer = styled(motion.div)`
         flex-direction: column;
         opacity: 0;
         transform: scale(0.5);
-        transition: opacity .3s, transform .3s cubic-bezier(0.53, 0, 0, 0.98), bottom .5s cubic-bezier(0.53, 0, 0, 0.98), left .5s cubic-bezier(0.53, 0, 0, 0.98);
+        transition: opacity .3s,
+                    transform .3s cubic-bezier(0.53, 0, 0, 0.98),
+                    bottom .5s cubic-bezier(0.53, 0, 0, 0.98),
+                    left .5s cubic-bezier(0.53, 0, 0, 0.98);
 
         button {
             width: 90%;
@@ -145,7 +156,9 @@ const MenuContainer = styled(motion.div)`
         width: 6.5rem;
         height: 7.2rem;
         border-radius: 25px;
-        transition: width 0.4s cubic-bezier(0.53, 0, 0, 0.98), height 0.4s cubic-bezier(0.53, 0, 0, 0.98), border-radius .1s;
+        transition: width .4s cubic-bezier(0.53, 0, 0, 0.98),
+                    height .4s cubic-bezier(0.53, 0, 0, 0.98),
+                    border-radius .1s;
 
         .icon {
             transform: scale(0.5);
@@ -158,7 +171,10 @@ const MenuContainer = styled(motion.div)`
             bottom: 0;
             transform: scale(1);
             opacity: 1;
-            transition: opacity .5s, transform .5s cubic-bezier(0.53, 0, 0, 0.98), bottom .5s cubic-bezier(0.53, 0, 0, 0.98), left .5s cubic-bezier(0.53, 0, 0, 0.98);
+            transition: opacity .5s,
+                        transform .5s cubic-bezier(0.53, 0, 0, 0.98),
+                        bottom .5s cubic-bezier(0.53, 0, 0, 0.98),
+                        left .5s cubic-bezier(0.53, 0, 0, 0.98);
         }
     }
 
@@ -171,4 +187,4 @@ const MenuContainer = styled(motion.div)`
     }
 `;
 
-export default memo(Menu);
+export default Menu;

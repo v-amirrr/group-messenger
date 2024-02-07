@@ -16,11 +16,11 @@ const ErrorBox = ({ errorMessage }) => {
 };
 
 const ErrorBoxContainer = styled(motion.div)`
-    text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    text-align: center;
 
     h2 {
         margin: 1rem;
@@ -36,16 +36,14 @@ const ErrorBoxContainer = styled(motion.div)`
     }
 
     button {
-        all: unset;
         display: flex;
         justify-content: center;
-        width: 50%;
-        height: 2.3rem;
         align-items: center;
-        background-color: #ffffff08;
+        width: 25%;
+        height: 2.3rem;
+        background-color: var(--normal-bg);
         box-shadow: var(--normal-shadow);
         color: var(--normal-color);
-        border: solid 1px #ffffff14;
         border-radius: 50px;
         font-size: 1rem;
         font-weight: 600;
@@ -53,21 +51,16 @@ const ErrorBoxContainer = styled(motion.div)`
         letter-spacing: -1px;
         margin: 1rem;
         cursor: pointer;
-        transition: background 0.2s;
+        transition: background .2s;
 
         @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
             &:hover {
-                background-color: #ffffff10;
+                background-color: var(--normal-bg-hover);
             }
         }
     }
 
     @media (max-width: 500px) {
-        padding: 1rem;
-        background-color: #ffffff00;
-        border: none;
-        box-shadow: none;
-
         p {
             font-size: .6rem;
             max-width: 15rem;

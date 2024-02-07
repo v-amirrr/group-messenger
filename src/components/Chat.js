@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useRedirection } from '../hooks/useRedirection';
 import { useMessageOptions } from '../hooks/useMessageOptions';
 import Message from './message/Message';
 import Menu from './Menu';
@@ -16,7 +15,6 @@ const Chat = () => {
     const { messages, usernames } = useSelector(store => store.firestoreStore);
     const { user } = useSelector(store => store.userStore);
     const { selectedMessages, messagesScrollPosition, scrollMessageId } = useSelector(store => store.appStore);
-    const { groupChatRedirection } = useRedirection();
     const { resetScrollMessageId } = useMessageOptions();
     const [scroll, setScroll] = useState(true);
     const messagesEndRef = useRef();
@@ -78,10 +76,6 @@ const Chat = () => {
         setNewMessage(false);
         setLastMessageTime(messages[messages?.length - 1]?.time);
     };
-
-    useEffect(() => {
-        groupChatRedirection();
-    }, [messages]);
 
     useEffect(() => {
         let newMessageTime = new Date(

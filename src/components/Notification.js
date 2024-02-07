@@ -28,18 +28,17 @@ const Notification = () => {
 
     return (
         <>
-            <NotificationsContainer layout initial='hidden' animate='visible' exit='exit' variants={notificationFastVariants}>
+            <NotificationsContainer initial='hidden' animate='visible' exit='exit' variants={notificationFastVariants}>
                 <AnimatePresence>
                     {
                         notifications?.map((notification) => (
                         <motion.div
-                            className='notification'
                             key={notification.time}
-                            layout
                             initial='hidden'
                             animate='visible'
                             exit='exit'
                             variants={notifications.length > 1 ? notificationSlowVariants : notificationFastVariants}
+                            className='notification'
                             error={notification.isError ? 1 : 0}
                             letters={notification?.message.length > 50 ? 1 : 0}
                         >
@@ -81,15 +80,17 @@ const Notification = () => {
 const NotificationsContainer = styled(motion.div)`
     position: absolute;
     top: 1rem;
+    width: 100vw;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column-reverse;
-    width: 100vw;
     z-index: 999;
 
     .notification {
         box-sizing: content-box;
+        position: absolute;
+        top: .01rem;
         min-width: 7rem;
         max-width: 30rem;
         min-height: 2.4rem;
@@ -105,19 +106,17 @@ const NotificationsContainer = styled(motion.div)`
         color: var(--normal-color);
         padding: ${props => props.letters ? "1rem 3rem 1rem 0.5rem" : "0 3rem 0 0.5rem"};
         z-index: 3;
-        position: absolute;
-        top: .01rem;
 
         p {
-            font-size: 0.8rem;
+            font-size: .8rem;
             font-weight: 400;
             line-height: 1.5;
 
             .link {
                 display: inline;
-                cursor: pointer;
-                font-size: 0.8rem;
+                font-size: .8rem;
                 font-weight: 400;
+                cursor: pointer;
             }
         }
 
@@ -125,7 +124,7 @@ const NotificationsContainer = styled(motion.div)`
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-right: 0.2rem;
+            margin-right: .2rem;
             font-size: ${props => props.letters ? "2rem" : "1.4rem;"};
         }
 
@@ -137,12 +136,12 @@ const NotificationsContainer = styled(motion.div)`
             all: unset;
             position: absolute;
             right: 0.25rem;
+            width: 1.8rem;
+            height: 1.8rem;
             display: flex;
             justify-content: center;
             align-items: center;
             border-radius: 50%;
-            width: 1.8rem;
-            height: 1.8rem;
             font-size: 1.4rem;
             cursor: pointer;
             transition: background .2s;

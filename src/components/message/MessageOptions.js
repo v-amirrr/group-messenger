@@ -30,7 +30,7 @@ const MessageOptions = ({ options, id }) => {
                     selectMessage(options?.messageOptions);
                     break;
             }
-        }, 400);
+        }, 250);
         switch (option) {
             case 'COPY':
                 copyMessage(options?.messageOptions.plainText);

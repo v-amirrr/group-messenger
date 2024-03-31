@@ -83,10 +83,10 @@ const BackgroundContainer = styled.div`
 const CoverContainer = styled.div`
     width: 100vw;
     height: 100vh;
-    background-color: ${props => props.cover ? "#000000dd" : "#000000aa"};
+    background-color: ${props => props.cover ? "#000000dd" : "#00000088"};
     position: absolute;
     z-index: -1;
-    transition: background 1s .2s cubic-bezier(.53,0,0,.98);
+    transition: background .8s;
 
     @media (max-width: 768px) {
         background-color: ${props => props.cover ? "#000000aa" : "#00000055"};

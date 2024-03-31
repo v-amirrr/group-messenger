@@ -70,7 +70,7 @@ const InputSelectWrapperContainer = styled(motion.div)`
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-bottom: ${props => props.emoji ? '18.8rem' : '0'};
+    padding-bottom: ${props => props.emoji ? '12rem' : '0'};
     color: var(--normal-color);
     border: solid 2.5px #ffffff20;
     border-radius: ${props => props.emoji ? '25px' : '50px'};
@@ -80,7 +80,7 @@ const InputSelectWrapperContainer = styled(motion.div)`
     z-index: 3;
     overflow: hidden;
     transition: ${props => props.emoji ?
-        'padding .6s cubic-bezier(.53,0,0,.98)' :
+        'padding .5s cubic-bezier(.53,0,0,.98)' :
         'padding .4s cubic-bezier(.53,0,0,.98), border-radius 2s .2s'
     };
 

@@ -1,143 +1,36 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useMessageOptions } from '../hooks/useMessageOptions';
+import { useScroll } from '../hooks/useScroll';
+import { isRTL } from '../functions/isRlt';
 import Message from './message/Message';
 import Menu from './Menu';
 import Profile from './Profile';
 import ScrollButton from './ScrollButton';
 import InputSelectWrapper from './InputSelectWrapper';
-import { isRTL } from '../functions/isRlt';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { groupChatVariants } from '../config/varitans';
 
 const Chat = () => {
+    const chatRef = useRef();
     const { messages, usernames } = useSelector(store => store.firestoreStore);
     const { user } = useSelector(store => store.userStore);
-    const { selectedMessages, messagesScrollPosition, scrollMessageId } = useSelector(store => store.appStore);
+    const { scrollPosition, selectedMessages, messagesScrollPosition, scrollMessageId } = useSelector(store => store.appStore);
     const { resetScrollMessageId } = useMessageOptions();
-    const [scroll, setScroll] = useState(true);
-    const messagesEndRef = useRef();
-    const messagesRef = useRef();
-    const [newMessage, setNewMessage] = useState(false);
-    const [lastMessageTime, setLastMessageTime] = useState(messages[messages?.length - 1]?.time);
+    const { arrow, newMessage, scrollButtonClickHandler, onChatScrollHandler, scrollDown } = useScroll(chatRef);
     const [messageOptions, setMessageOptions] = useState(false);
-
-    let currentScrollPosition = messagesRef?.current?.scrollTop;
-
-    const scrollButtonClickHandler = () => {
-        if (scroll) {
-            messagesEndRef?.current?.scrollIntoView({
-                behavior: 'smooth',
-                block: 'center',
-                inline: 'end',
-            });
-            setNewMessage(false);
-            setLastMessageTime(messages[messages?.length - 1]?.time);
-        } else {
-            messagesRef?.current?.scrollTo(0, 0);
-        }
-    };
-
-    const onScrollHandler = () => {
-        if (messagesRef?.current?.scrollTop > currentScrollPosition) {
-            setScroll(true);
-        } else if (messagesRef?.current?.scrollTop < currentScrollPosition) {
-            setScroll(false);
-        }
-        if (messagesRef?.current?.scrollTop <= 200) {
-            setScroll(true);
-        } else if (
-            ~~messagesRef?.current?.scrollTop + 200 >=
-            messagesRef?.current?.scrollHeight -
-                messagesRef?.current?.clientHeight
-        ) {
-            setScroll(false);
-        }
-        currentScrollPosition = messagesRef?.current?.scrollTop;
-        localStorage.setItem('scroll', currentScrollPosition);
-        if (
-            ~~messagesRef?.current?.scrollTop + 100 >=
-            messagesRef?.current?.scrollHeight -
-                messagesRef?.current?.clientHeight
-        ) {
-            localStorage.setItem('scroll', 'end');
-            setNewMessage(false);
-            setLastMessageTime(messages[messages?.length - 1]?.time);
-        }
-    };
-
-    const scrollDown = () => {
-        messagesEndRef?.current?.scrollIntoView({
-            behavior: 'smooth',
-            block: 'center',
-            inline: 'end',
-        });
-        setNewMessage(false);
-        setLastMessageTime(messages[messages?.length - 1]?.time);
-    };
-
-    useEffect(() => {
-        let newMessageTime = new Date(
-            messages[messages?.length - 1]?.time?.year,
-            messages[messages?.length - 1]?.time?.monthNum,
-            messages[messages?.length - 1]?.time?.day,
-            messages[messages?.length - 1]?.time?.hour,
-            messages[messages?.length - 1]?.time?.minute,
-            messages[messages?.length - 1]?.time?.second,
-        );
-        let previousLastMessageTime = new Date(
-            lastMessageTime?.year,
-            lastMessageTime?.monthNum,
-            lastMessageTime?.day,
-            lastMessageTime?.hour,
-            lastMessageTime?.minute,
-            lastMessageTime?.second,
-        );
-        if (
-            messages[messages?.length - 1]?.time != lastMessageTime &&
-            newMessageTime.getTime() > previousLastMessageTime.getTime() &&
-            ~~messagesRef?.current?.scrollTop + 200 <= messagesRef?.current?.scrollHeight - messagesRef?.current?.clientHeight
-        ) {
-            setNewMessage(true);
-            setLastMessageTime(messages[messages?.length - 1]?.time);
-        } else if (
-            messages[messages?.length - 1]?.time != lastMessageTime &&
-            newMessageTime.getTime() > previousLastMessageTime.getTime() &&
-            ~~messagesRef?.current?.scrollTop + 200 >= messagesRef?.current?.scrollHeight - messagesRef?.current?.clientHeight
-        ) {
-            setLastMessageTime(messages[messages?.length - 1]?.time);
-            scrollDown();
-        }
-    }, [messages[messages?.length - 1]?.time]);
 
     useEffect(() => {
         if (scrollMessageId.id) {
             if (scrollMessageId.type == 'CLICK') {
-                messagesRef?.current?.scrollTo(0, ~~messagesScrollPosition[scrollMessageId.id] - 200);
+                chatRef?.current?.scrollTo(0, ~~messagesScrollPosition[scrollMessageId.id] - 200);
             }
             setTimeout(() => {
                 resetScrollMessageId();
             }, 2000);
         }
     }, [scrollMessageId]);
-
-    useEffect(() => {
-        const localstorageScroll = localStorage.getItem('scroll');
-        if (localstorageScroll == 'end') {
-            messagesRef?.current?.scrollBy({
-                top: messagesRef?.current?.scrollHeight - messagesRef?.current?.clientHeight,
-                left: 0,
-                behavior: 'instant',
-            });
-        } else {
-            messagesRef?.current?.scrollBy({
-                top: localstorageScroll,
-                left: 0,
-                behavior: 'instant',
-            });
-        }
-    }, []);
 
     return (
         <>
@@ -152,19 +45,21 @@ const Chat = () => {
             <ScrollButton
                 key='scroll'
                 click={scrollButtonClickHandler}
-                scroll={scroll}
+                arrow={arrow}
                 newMessage={newMessage}
                 scrollDown={scrollDown}
             />
 
+            <InputSelectWrapper />
+
             <ChatContainer
-                onScroll={onScrollHandler}
-                ref={messagesRef}
-                layout
                 initial='hidden'
                 animate='visible'
                 exit='exit'
                 variants={groupChatVariants}
+                layout
+                ref={chatRef}
+                onScroll={onChatScrollHandler}
             >
                 <AnimatePresence>
                     {
@@ -197,21 +92,18 @@ const Chat = () => {
                         ))
                     }
                 </AnimatePresence>
-                <div ref={messagesEndRef} />
             </ChatContainer>
-
-            <InputSelectWrapper />
         </>
     );
 };
 
 const ChatContainer = styled(motion.div)`
+    position: relative;
     width: 100%;
     height: 100%;
-    overflow: hidden scroll;
-    position: relative;
     padding: 5rem 8rem 9rem 8rem;
     scroll-behavior: smooth;
+    overflow: hidden scroll;
 
     @media (max-width: 768px) {
         width: 100vw;

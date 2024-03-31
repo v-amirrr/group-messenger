@@ -4,19 +4,19 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { scrollButtonVariants } from '../config/varitans';
 
-const ScrollButton = ({ click, scroll, newMessage, scrollDown }) => {
+const ScrollButton = ({ click, arrow, newMessage, scrollDown }) => {
     return (
         <>
             <ScrollButtonContainer
-                scrollup={scroll ? 1 : 0}
                 initial='hidden'
                 animate='visible'
                 exit='exit'
                 variants={scrollButtonVariants}
+                arrow={arrow == 'UP' ? 1 : 0}
                 newmessage={newMessage ? 1 : 0}
             >
                 <div>
-                    <div className='new' onClick={scrollDown}>
+                    <div className='new' onClick={() => scrollDown('smooth')}>
                         <p>
                             new
                         </p>
@@ -68,7 +68,7 @@ const ScrollButtonContainer = styled(motion.button)`
         font-size: 1rem;
         width: 2.3rem;
         height: 2.3rem;
-        transform: ${props => !props.scrollup ? "rotateX(180deg)" : "rotateX(0deg)"};
+        transform: ${props => props.arrow ? "rotateX(180deg)" : "rotateX(0deg)"};
         transition: transform .5s .3s;
         cursor: pointer;
     }

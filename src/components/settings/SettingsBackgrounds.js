@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { useChangeTheme } from '../../hooks/useChangeTheme';
+import { useBackground } from '../../hooks/useBackground';
 import themeTowImageSRC from '../../assets/images/2.webp';
 import themeThreeImageSRC from '../../assets/images/3.webp';
 import themeFourImageSRC from '../../assets/images/4.webp';
@@ -12,7 +12,7 @@ import { backgroundsSettingsVariants } from '../../config/varitans';
 
 const SettingsBackgrounds = ({ open, setOpen, setHeight }) => {
     const { theme } = useSelector(store => store.appStore);
-    const { changeTheme } = useChangeTheme();
+    const { changeBackground } = useBackground();
 
     const itemSwitch = () => {
         if (open == 'SETTINGS_BACKGROUND') {
@@ -46,21 +46,21 @@ const SettingsBackgrounds = ({ open, setOpen, setHeight }) => {
                         variants={backgroundsSettingsVariants}
                     >
                         <div className='backgrounds'>
-                            <div className='background' onClick={() => changeTheme(1)}>
+                            <div className='background' onClick={() => changeBackground(1)}>
                                 <img src={themeTowImageSRC} />
                                 <div className='select'>
                                     <span className='checkmark-one'></span>
                                     <span className='checkmark-two'></span>
                                 </div>
                             </div>
-                            <div className='background' onClick={() => changeTheme(2)}>
+                            <div className='background' onClick={() => changeBackground(2)}>
                                 <img src={themeThreeImageSRC} />
                                 <div className='select'>
                                     <span className='checkmark-one'></span>
                                     <span className='checkmark-two'></span>
                                 </div>
                             </div>
-                            <div className='background' onClick={() => changeTheme(3)}>
+                            <div className='background' onClick={() => changeBackground(3)}>
                                 <img src={themeFourImageSRC} />
                                 <div className='select'>
                                     <span className='checkmark-one'></span>

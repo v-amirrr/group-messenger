@@ -151,7 +151,7 @@ const NotificationContainer = styled(motion.div)`
 
         p {
             width: 100%;
-            font-size: .7rem;
+            font-size: .65rem;
             font-weight: 400;
             text-align: left;
             margin-left: 1.7rem;

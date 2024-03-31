@@ -173,7 +173,7 @@ export const messengerVariants = onMobile
           },
           exit: {
               opacity: 0,
-              scale: 0.9,
+              scale: 0.95,
               transition: {
                   duration: 0.2,
               },
@@ -387,24 +387,26 @@ export const replyIconVariants = {
 };
 
 export const selectCheckLocalVariants = {
-    hidden: { opacity: 0, x: 50 },
+    hidden: { opacity: 0, x: 10 },
     visible: {
         opacity: 1,
         x: 0,
         transition: {
-            duration: 0.35,
+            delay: 0.2,
+            duration: 0.4,
         },
     },
     exit: { opacity: 0, x: 50, transition: { duration: 0.2 } },
 };
 
 export const selectCheckNonLocalVariants = {
-    hidden: { opacity: 0, x: -50 },
+    hidden: { opacity: 0, x: -10 },
     visible: {
         opacity: 1,
         x: 0,
         transition: {
-            duration: 0.35,
+            delay: 0.2,
+            duration: 0.4,
         },
     },
     exit: { opacity: 0, x: -50, transition: { duration: 0.2 } },
@@ -788,14 +790,12 @@ export const inputBarReplyToVariants = {
 };
 
 export const inputBarEmojiPickerVariatns = {
-    hidden: { y: 20 },
+    hidden: { opacity: 0 },
     visible: {
-        y: 0,
+        opacity: 1,
         transition: {
-            duration: 0.8,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
+            duration: 0.5,
         },
     },
-    exit: { opacity: 0, transition: { delay: 0.2, duration: 0.4 } },
+    exit: { opacity: 0, transition: { duration: 0.4 } },
 };

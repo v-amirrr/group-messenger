@@ -2,19 +2,19 @@ import { useDispatch } from "react-redux";
 import { setTheme } from "../redux/appSlice";
 import { useNotification } from "./useNotification";
 
-export const useChangeTheme = () => {
+export const useBackground = () => {
     const dispatch = useDispatch();
     const { openNotification } = useNotification();
     let themeLocalSotrage = localStorage.getItem("theme");
 
-    const changeTheme = (themeNumber) => {
+    const changeBackground = (themeNumber) => {
         dispatch(setTheme(themeNumber));
         localStorage.setItem("theme", themeNumber);
         document.documentElement.setAttribute('data-theme', themeNumber);
         openNotification("Background changed.", false, "BACKGROUND");
     };
 
-    const setDefaultTheme = () => {
+    const setDefaultBackground = () => {
         if (themeLocalSotrage) {
             dispatch(setTheme(themeLocalSotrage));
             document.documentElement.setAttribute('data-theme', themeLocalSotrage);
@@ -26,7 +26,7 @@ export const useChangeTheme = () => {
     };
 
     return {
-        changeTheme,
-        setDefaultTheme
+        changeBackground,
+        setDefaultBackground
     };
 };

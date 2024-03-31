@@ -33,7 +33,6 @@ export const useRedirection = () => {
     };
 
     const settingsRedirection = () => {
-        console.log(!user && !enterAsAGuest);
         if (warningPageShowed || warningPageNeverShowCheck) {
             if (!user && !enterAsAGuest) {
                 navigate("/login", { replace: true });

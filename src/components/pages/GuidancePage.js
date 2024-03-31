@@ -378,7 +378,7 @@ const Guidance = styled(motion.div)`
 
     .container {
         width: 65%;
-        height: 80%;
+        height: 90%;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -469,7 +469,6 @@ const Guidance = styled(motion.div)`
             width: 25%;
             height: 100%;
             position: relative;
-            border-right: solid 1.5px #ffffff14;
 
             ul {
                 padding: 3.2rem 0 2rem 0;
@@ -486,7 +485,7 @@ const Guidance = styled(motion.div)`
                 }
 
                 li {
-                    background-color: #ffffff08;
+                    background-color: #ffffff10;
                     font-weight: 400;
                     border-radius: 50px;
                     width: 90%;
@@ -604,7 +603,7 @@ const Guidance = styled(motion.div)`
                         margin: 0 .2rem;
                         cursor: pointer;
                         font-size: .9rem;
-                        background-color: #ffffff08;
+                        background-color: #ffffff10;
                         display: flex;
                         justify-content: center;
                         align-items: center;
@@ -613,7 +612,7 @@ const Guidance = styled(motion.div)`
                         transition: background .2s;
 
                         &:not(:disabled):hover {
-                            background-color: #ffffff15;
+                            background-color: #ffffff20;
                         }
                     }
                 }
@@ -632,7 +631,7 @@ const Guidance = styled(motion.div)`
                 }
 
                 .important {
-                    border: solid 1.5px #ffffff14;
+                    border: solid 2.5px #ffffff20;
                     border-radius: 20px;
                     background-color: #ffffff04;
                     box-shadow: var(--shadow-second);

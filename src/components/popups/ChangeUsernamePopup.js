@@ -1,10 +1,10 @@
 import React from 'react';
-import { useChangeUsername } from '../../hooks/useChangeUsername';
+import { useUser } from '../../hooks/useUser';
 import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
 import styled from 'styled-components';
 
 const ChangeUsernamePopup = ({ closePopup, newUsername, oldUsername }) => {
-    const { changeUsername } = useChangeUsername();
+    const { changeUsername } = useUser();
 
     const pressEnter = (e) => {
         if (e.key == 'Enter') {

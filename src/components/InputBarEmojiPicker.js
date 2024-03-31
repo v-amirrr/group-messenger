@@ -40,7 +40,7 @@ const InputBarEmojiPickerContainer = styled.div`
     position: absolute;
     top: 2.6rem;
     z-index: 3;
-    height: 18rem;
+    height: 11.2rem;
     overflow: hidden;
     border-radius: 15px;
 

@@ -66,13 +66,13 @@ export const useAuth = () => {
     };
 
     const logout = () => {
-        navigate('/login');
         localStorage.removeItem('user');
         localStorage.removeItem('notification');
         localStorage.setItem('guest-login', 'false');
         setTimeout(() => {
             dispatch(setUser(null));
             dispatch(setEnterAsAGuest(false));
+            navigate('/login');
         }, 150);
     };
 

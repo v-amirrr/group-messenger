@@ -49,7 +49,7 @@ const InputBarReplyTo = ({ replyTo, applyScrollMessageId, closeHandler, inputBar
 
 const InputBarReplyToContainer = styled(motion.div)`
     position: absolute;
-    bottom: ${props => props.emoji ? '22.9rem' : '4rem'};
+    bottom: ${props => props.emoji ? '16rem' : '4rem'};
     max-width: 25%;
     height: 2rem;
     display: flex;
@@ -65,7 +65,7 @@ const InputBarReplyToContainer = styled(motion.div)`
     cursor: pointer;
     z-index: 2;
     transition: ${props => props.emoji ?
-        'bottom .6s cubic-bezier(.53,0,0,.98)' :
+        'bottom .5s cubic-bezier(.53,0,0,.98)' :
         'bottom .4s cubic-bezier(.53,0,0,.98)'
     };
 

@@ -31,17 +31,17 @@ const ToggleContainer = styled.div`
 
     span {
         position: absolute;
-        left: ${props => !props.toggle ? '-2%' : '34%'};
+        left: ${props => !props.toggle ? '-2%' : '37%'};
         margin: .2rem;
         border-radius: 50%;
-        width: 1rem;
-        height: 1rem;
+        width: .9rem;
+        height: .9rem;
         background-color: ${props => props.toggle ? 'var(--normal-color)' : '#ffffff20'};
         box-shadow: var(--bold-shadow);
         display: flex;
         justify-content: center;
         align-items: center;
-        transition: left .2s, background .2s;
+        transition: left .4s cubic-bezier(0.53, 0, 0, 0.98), background .2s;
     }
 `;
 

@@ -20,8 +20,16 @@ const SettingsTrash = ({ open, setOpen, setHeight }) => {
     const { user, enterAsAGuest } = useSelector(store => store.userStore);
     const { openPopup } = useMessageOptions();
     const { openNotification } = useNotification();
-    const { switchSelectAllTrash, restoreSelectedMessages } = useSelect();
+    const { switchSelectAllTrash, restoreSelectedMessages, clearSelectedMessages } = useSelect();
     const [messages, setMessages] = useState(deletedMessages?.filter(item => item?.uid == user?.uid));
+
+    const setTrashHeight = () => {
+        if (messages.length == 0) {
+            return 10;
+        } else {
+            return 16;
+        }
+    };
 
     const itemSwitch = () => {
         if (enterAsAGuest) {
@@ -29,9 +37,10 @@ const SettingsTrash = ({ open, setOpen, setHeight }) => {
         } else {
             if (open == "SETTINGS_TRASH") {
                 setOpen(false);
+                clearSelectedMessages();
             } else {
                 setOpen("SETTINGS_TRASH");
-                setHeight(15);
+                setHeight(setTrashHeight());
             }
         }
     };
@@ -140,12 +149,13 @@ const MessagesContainer = styled(motion.div)`
     margin-top: 5rem;
 
     .select-bar {
-        width: 100%;
-        padding: .4rem 0;
-        border-radius: 50px;
+        height: ${props => props.selectbarshow ? '2rem' : '0rem'};
+        opacity: ${props => props.selectbarshow ? '1' : '0'};
         display: flex;
         justify-content: center;
         align-items: center;
+        overflow: hidden;
+        transition: height .2s, opacity .2s;
 
         .delete-button, .restore-button {
             display: flex;

@@ -35,7 +35,7 @@ const SettingsItemContainer = styled.div`
         },
         ${props => props.open ?
             "height .6s" :
-            "height .4s, border-radius 2s"
+            "height .3s, border-radius 2s"
         };
 
     .item-header {

@@ -12,6 +12,7 @@ import MessageReplyIcon from './MessageReplyIcon';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { messageVariants } from '../../config/varitans';
+import MessageBox from './MessageBox';
 
 const Message = ({ message, type, options, onClick, replyIconClick, newreply }) => {
     const {
@@ -31,9 +32,8 @@ const Message = ({ message, type, options, onClick, replyIconClick, newreply }) 
         priorDifferentDate,
         nextDifferentDate,
     } = message;
-    const { selectedMessages } = useSelector(store => store.appStore);
     const messageRef = useRef();
-    const { applyScrollMessageId } = useMessageOptions();
+    const { selectedMessages } = useSelector(store => store.appStore);
     const {
         messagePosition,
         messageClickHandler,
@@ -43,6 +43,7 @@ const Message = ({ message, type, options, onClick, replyIconClick, newreply }) 
         selected,
         replyEffect,
         status,
+        messageData
     } = useMessage(message, type, messageRef, options, onClick);
 
     return (
@@ -58,23 +59,9 @@ const Message = ({ message, type, options, onClick, replyIconClick, newreply }) 
                 data={{
                     type: type,
                     localmessage: localMessage ? 1 : 0,
-                    persian: isTextPersian ? 1 : 0,
-                    letters: textLetters,
                     position: messagePosition,
-                    selected: selected ? 1 : 0,
-                    selectmode: selectedMessages.length ? 1 : 0,
                     date: priorDifferentDate && time.year && time.month ? 1 : 0,
-                    reply: replyTo != 'no_reply' ? 1 : 0,
-                    replyeffect: replyEffect ? 1 : 0,
-                    len: replyTo != 'no_reply' && !replyTo?.deleted && type != 'TRASH' ?
-                        textLetters+replyTo?.message?.length < 5 ?
-                        5 :
-                        textLetters+replyTo?.message?.length+1 :
-                        textLetters < 5 ?
-                        5 :
-                        textLetters+1
-                }}
-            >
+                }}>
                 <MessageDate
                     layout={type == 'EDIT_REPLY' ? 0 : 1}
                     layoutId={type == 'EDIT_REPLY' ? id : null}
@@ -91,43 +78,38 @@ const Message = ({ message, type, options, onClick, replyIconClick, newreply }) 
                     dateShown={priorDifferentDate && time.year && time.month && time.day}
                     selectMode={selectedMessages.length ? 1 : 0}
                 />
-                <div
-                    className='message-box'
-                    onClick={(e) => messageClickHandler(e)}
-                    onDoubleClick={messageDoubleClickHandler}
-                    onMouseDown={onHoldStarts}
-                    onMouseUp={onHoldEnds}
-                    onTouchStart={onHoldStarts}
-                    onTouchEnd={onHoldEnds}
-                >
-                    <div className='message-text'>
-                        <MessageReply
-                            replyTo={replyTo}
-                            type={type}
-                            applyScrollMessageId={applyScrollMessageId}
-                        />
-                        {
-                            type != 'TRASH' ?
-                            text?.map((item, index) =>
-                                item.link ?
-                                <a
-                                    key={index}
-                                    className={type == 'EDIT_REPLY' ? 'disabled-link' : 'link'}
-                                    href={item.word}
-                                    target='_blank'
-                                    rel='noopener nereferrer'
-                                    onClick={(e) => e.stopPropagation()}
-                                >
-                                    {item.word}
-                                </a> :
-                                index == text.length-1 ?
-                                `${item.word}` :
-                                `${item.word} `
-                            ) :
-                            text
-                        }
-                    </div>
-                </div>
+                <MessageBox
+                    functions={{
+                        messageClickHandler,
+                        messageDoubleClickHandler,
+                        onHoldStarts,
+                        onHoldEnds,
+                        onHoldStarts
+                    }}
+                    type={type}
+                    replyTo={replyTo}
+                    text={text}
+                    data={{
+                        ...messageData,
+                        type: type,
+                        localmessage: localMessage ? 1 : 0,
+                        persian: isTextPersian ? 1 : 0,
+                        letters: textLetters,
+                        position: messagePosition,
+                        selected: selected ? 1 : 0,
+                        selectmode: selectedMessages.length ? 1 : 0,
+                        date: priorDifferentDate && time.year && time.month ? 1 : 0,
+                        reply: replyTo != 'no_reply' ? 1 : 0,
+                        replyeffect: replyEffect ? 1 : 0,
+                        len: replyTo != 'no_reply' && !replyTo?.deleted && type != 'TRASH' ?
+                            textLetters+replyTo?.message?.length < 5 ?
+                            5 :
+                            textLetters+replyTo?.message?.length+1 :
+                            textLetters < 5 ?
+                            5 :
+                            textLetters+1
+                    }}
+                />
                 <MessageSelectCheck
                     type={type}
                     selected={selected}
@@ -172,126 +154,7 @@ const MessageContainer = styled(motion.div)`
         align-items: center;
     }
 
-    .message-box {
-        z-index: 1;
-        display: flex;
-        justify-content: ${props => props.data.localmessage ? 'flex-start' : 'flex-end'};
-        align-items: center;
-        background-color: var(--normal-bg);
-        margin: ${props =>
-            props.data.type == 'TRASH' ?
-            '.2rem' :
-            props.data.position == 0 ?
-            '.1rem 0 .1rem 0' :
-            props.data.position == 1 ?
-            '.1rem 0 .06rem 0' :
-            props.data.position == 2 ?
-            '.06rem 0 .06rem 0' :
-            props.data.position == 3 &&
-            '.06rem 0 .2rem 0'
-        };
-        margin-right: ${props =>
-            props.data.type == 'TRASH' ?
-            '2rem' :
-            props.data.selectmode && props.data.localmessage ?
-            '3rem' :
-            ''
-        };
-        margin-left: ${props =>
-            props.data.type != 'TRASH' && props.data.selectmode && !props.data.localmessage ?
-            '3rem' :
-            ''
-        };
-        border-radius: 25px;
-        border-radius: ${props =>
-            props.data.type == 'TRASH' ?
-            '20px' :
-            props.data.localmessage ?
-            props.data.position == 0 ?
-            '25px' : props.data.position == 1 ?
-            '25px 25px 5px 25px' :
-            props.data.position == 2 ?
-            '25px 5px 5px 25px' :
-            props.data.position == 3 &&
-            '25px 5px 25px 25px' :
-            props.data.position == 0 ?
-            '5px 25px 25px 25px' :
-            props.data.position == 1 ?
-            '5px 25px 25px 5px' :
-            props.data.position == 2 ?
-            '5px 25px 25px 5px' :
-            props.data.position == 3 &&
-            '5px 25px 25px 25px'
-        };
-        padding: ${props =>
-            props.data.type == 'TRASH' && props.data.letters > 3 ?
-            '.5rem' :
-            props.data.type == 'TRASH' && props.data.letters <= 3 ?
-            '.5rem 1rem' :
-            props.data.reply ?
-            '.45rem .8rem .45rem .45rem' :
-            props.data.letters <= 3 ?
-            '.45rem 1rem' :
-            props.data.letters > 3 ?
-            '.45rem .7rem' : ''
-        };
-        width: fit-content;
-        max-width: ${props => props.data.type == 'EDIT_REPLY' || props.data.type == 'TRASH' ? '80%' : '65%'};
-        word-break: break-all;
-        cursor: pointer;
-        box-shadow: var(--normal-shadow);
-        color: var(--normal-color);
-        background-image: linear-gradient(
-            90deg,
-            #ffffff00 0%,
-            #ffffff30 50%,
-            #ffffff00 100%
-        );
-        background-position: ${props => `left ${-props.data.len}rem top 0`};
-        background-repeat: no-repeat;
-        animation: ${props => props.data.replyeffect || props.data.selected ? 'message-skeleton-animation linear 1s' : ''};
-        transition: border-radius .2s, margin .4s, background .2s, padding .4s;
-
-        .message-text {
-            text-align: ${props => props.data.persian ? 'right' : 'left'};
-            word-spacing: 1px;
-            white-space: pre-wrap;
-            word-break: ${props => props.data.type == 'TRASH' ? '' : 'keep-all'};
-            font-family: ${props => props.data.persian ? 'Vazirmatn' : 'Outfit'}, 'Vazirmatn', sans-serif;
-            font-size: ${props => props.data.type == 'TRASH' ? '.8rem' : '1rem'};
-            font-weight: 200;
-        }
-
-        @keyframes message-skeleton-animation {
-            to {
-                background-position: ${props => `left ${props.data.len}rem top 0`};
-            }
-        }
-    }
-
     @media (max-width: 768px) {
-        .message-box {
-            max-width: 85%;
-            border-radius: ${props => props.data.localmessage ?
-                props.data.position == 0 ?
-                '20px' :
-                props.data.position == 1
-                ? '20px 20px 5px 20px' :
-                props.data.position == 2 ?
-                '20px 5px 5px 20px' :
-                props.data.position == 3 &&
-                '20px 5px 20px 20px' :
-                props.data.position == 0 ?
-                '5px 20px 20px 20px' :
-                props.data.position == 1 ?
-                '5px 20px 20px 5px' :
-                props.data.position == 2 ?
-                '5px 20px 20px 5px' :
-                props.data.position == 3 &&
-                '5px 20px 20px 20px'
-            };
-        }
-
         .options {
             position: absolute;
         }

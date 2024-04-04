@@ -1,9 +1,11 @@
 import React from 'react';
+import { useMessageOptions } from '../../hooks/useMessageOptions';
 import { BsReplyFill } from 'react-icons/bs';
 import styled from 'styled-components';
 
-const MessageReply = ({ replyTo, type, applyScrollMessageId }) => {
+const MessageReply = ({ replyTo, type }) => {
 
+    const { applyScrollMessageId } = useMessageOptions();
     let mouseSituation = 'OUT';
 
     const clickHandler = (e) => {

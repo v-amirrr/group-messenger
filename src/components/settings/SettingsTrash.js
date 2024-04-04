@@ -149,7 +149,9 @@ const MessagesContainer = styled(motion.div)`
     margin-top: 5rem;
 
     .select-bar {
-        height: ${props => props.selectbarshow ? '2rem' : '0rem'};
+        position: absolute;
+        top: 0;
+        height: ${props => props.selectbarshow ? '2rem' : '0'};
         opacity: ${props => props.selectbarshow ? '1' : '0'};
         display: flex;
         justify-content: center;
@@ -166,6 +168,9 @@ const MessagesContainer = styled(motion.div)`
             width: 4rem;
             margin: 0 .1rem;
             cursor: pointer;
+            backdrop-filter: var(--bold-glass);
+            -webkit-backdrop-filter: var(--bold-glass);
+            z-index: 2;
 
             i {
                 display: flex;
@@ -209,6 +214,9 @@ const MessagesContainer = styled(motion.div)`
             font-size: 1rem;
             cursor: pointer;
             margin-left: .2rem;
+            backdrop-filter: var(--bold-glass);
+            -webkit-backdrop-filter: var(--bold-glass);
+            z-index: 2;
         }
 
         .counter {
@@ -221,6 +229,9 @@ const MessagesContainer = styled(motion.div)`
             align-items: center;
             font-size: .8rem;
             margin-right: .2rem;
+            backdrop-filter: var(--bold-glass);
+            -webkit-backdrop-filter: var(--bold-glass);
+            z-index: 2;
         }
     }
 
@@ -228,7 +239,8 @@ const MessagesContainer = styled(motion.div)`
         position: relative;
         overflow: hidden scroll;
         width: 100%;
-        padding: .5rem .5rem 3rem .5rem;
+        padding: ${props => props.selectbarshow ? '2.5rem .5rem 3rem .5rem' : '.5rem .5rem 3rem .5rem'};
+        transition: padding .2s;
     }
 
     .trash-empty {

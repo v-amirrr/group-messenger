@@ -1,17 +1,15 @@
 let onMobile = document.documentElement.offsetWidth < 600;
 
 export const backgroundImageVariants = {
-    hidden: { opacity: 0, scale: 1.08 },
+    hidden: { opacity: 0, scale: 1.2 },
     visible: {
         opacity: 1,
         scale: 1,
         transition: {
-            duration: 0.8,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
+            duration: 0.4,
         },
     },
-    exit: { opacity: 0, scale: 1.08, transition: { duration: 0.3 } },
+    exit: { opacity: 0, scale: 1.2, transition: { duration: 0.4 } },
 };
 
 export const warningPageVariants = {
@@ -84,20 +82,6 @@ export const notificationFastVariants = {
             duration: 0.2,
         },
     },
-};
-
-export const boxVariants = {
-    hidden: { opacity: 0, scale: 0.9 },
-    visible: {
-        opacity: 1,
-        scale: 1,
-        transition: {
-            duration: 0.6,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
-        },
-    },
-    exit: { opacity: 0, scale: 0.9, transition: { duration: 0.2 } },
 };
 
 export const loginVariants = {
@@ -581,18 +565,6 @@ export const trashSettingsVariants = {
             duration: 0.4,
         },
     },
-};
-
-export const trashSelectbarVariants = {
-    hidden: { opacity: 0, y: -20 },
-    visible: {
-        opacity: 1,
-        y: 0,
-        transition: {
-            duration: 0.3,
-        },
-    },
-    exit: { opacity: 0, y: -20, transition: { duration: 0.2 } },
 };
 
 export const scrollButtonVariants = {

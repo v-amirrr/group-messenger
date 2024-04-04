@@ -33,6 +33,67 @@ export const useMessage = (message, type, messageRef, options, onClick) => {
     const [replyEffect, setReplyEffect] = useState(false);
     const [status, setStatus] = useState(time?.year == undefined ? 1 : 0);
     let timer;
+    let messageData = {
+        messageBoxMargin: type == 'TRASH' ?
+            '.2rem' :
+            messagePosition == 0 ?
+            '.1rem 0 .1rem 0' :
+            messagePosition == 1 ?
+            '.1rem 0 .06rem 0' :
+            messagePosition == 2 ?
+            '.06rem 0 .06rem 0' :
+            messagePosition == 3 &&
+            '.06rem 0 .2rem 0',
+        messageBoxMarginRight: type == 'TRASH' ?
+            '2rem' :
+            selectedMessages.length && localMessage ?
+            '3rem' : '',
+        messageBoxMarginLeft: type != 'TRASH' && selectedMessages.length && !localMessage ? '3rem' : '',
+        messageBoxBorderRadius: type == 'TRASH' ?
+            '20px' :
+            localMessage ?
+            messagePosition == 0 ?
+            '25px' : messagePosition == 1 ?
+            '25px 25px 5px 25px' :
+            messagePosition == 2 ?
+            '25px 5px 5px 25px' :
+            messagePosition == 3 &&
+            '25px 5px 25px 25px' :
+            messagePosition == 0 ?
+            '5px 25px 25px 25px' :
+            messagePosition == 1 ?
+            '5px 25px 25px 5px' :
+            messagePosition == 2 ?
+            '5px 25px 25px 5px' :
+            messagePosition == 3 &&
+            '5px 25px 25px 25px',
+        messageBoxPadding: type == 'TRASH' && textLetters > 3 ?
+            '.5rem' :
+            type == 'TRASH' && textLetters <= 3 ?
+            '.5rem 1rem' :
+            replyTo != 'no_reply' ?
+            '.45rem .8rem .45rem .45rem' :
+            textLetters <= 3 ?
+            '.45rem 1rem' :
+            textLetters > 3 ?
+            '.45rem .7rem' : '',
+        messageBoxBorderRadiusPhone: localMessage ?
+            messagePosition == 0 ?
+            '20px' :
+            messagePosition == 1 ?
+            '20px 20px 5px 20px' :
+            messagePosition == 2 ?
+            '20px 5px 5px 20px' :
+            messagePosition == 3 && '20px 5px 20px 20px' :
+            messagePosition == 0 ?
+            '5px 20px 20px 20px' :
+            messagePosition == 1 ?
+            '5px 20px 20px 5px' :
+            messagePosition == 2 ?
+            '5px 20px 20px 5px' :
+            messagePosition == 3 &&
+            '5px 20px 20px 20px',
+    };
 
     useEffect(() => {
         detectMessagePosition();
@@ -164,5 +225,6 @@ export const useMessage = (message, type, messageRef, options, onClick) => {
         selected,
         replyEffect,
         status,
+        messageData,
     };
 };

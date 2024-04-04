@@ -68,8 +68,8 @@ const MenuContainer = styled(motion.div)`
     -webkit-backdrop-filter: var(--bold-glass);
     overflow: hidden;
     z-index: 3;
-    transition: width 0.3s cubic-bezier(0.53, 0, 0, 0.98),
-                height 0.3s cubic-bezier(0.53, 0, 0, 0.98),
+    transition: width .25s cubic-bezier(0.53, 0, 0, 0.98),
+                height .25s cubic-bezier(0.53, 0, 0, 0.98),
                 border-radius .2s .6s;
 
     .icon {
@@ -100,8 +100,8 @@ const MenuContainer = styled(motion.div)`
         flex-direction: column;
         opacity: 0;
         transform: scale(0.5);
-        transition: opacity .3s,
-                    transform .3s cubic-bezier(0.53, 0, 0, 0.98),
+        transition: opacity .2s,
+                    transform .5s cubic-bezier(0.53, 0, 0, 0.98),
                     bottom .5s cubic-bezier(0.53, 0, 0, 0.98),
                     left .5s cubic-bezier(0.53, 0, 0, 0.98);
 

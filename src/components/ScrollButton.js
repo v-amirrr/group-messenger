@@ -36,7 +36,7 @@ const ScrollButtonContainer = styled(motion.button)`
     bottom: 1.1rem;
     right: 8.2rem;
     width: ${props => props.newmessage ? '4.3rem' : '2.3rem'};
-    height: ${props => props.newmessage ? '2.4rem' : '2.3rem'};
+    height: 2.3rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -49,7 +49,7 @@ const ScrollButtonContainer = styled(motion.button)`
     cursor: ${props => props.newmessage ? 'auto' : 'pointer'};
     overflow: hidden;
     z-index: 3;
-    transition: width .3s cubic-bezier(0.53, 0, 0, 0.98), height .3s cubic-bezier(0.53, 0, 0, 0.98);
+    transition: width .3s cubic-bezier(0.53, 0, 0, 0.98);
 
     div {
         width: ${props => props.newmessage ? '4.6rem' : '2.3rem'};

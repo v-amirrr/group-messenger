@@ -1,10 +1,8 @@
 import React, { memo, useRef } from 'react';
 import { useSelector } from 'react-redux';
-import { useMessageOptions } from '../../hooks/useMessageOptions';
 import { useMessage } from '../../hooks/useMessage';
 import MessageOptions from './MessageOptions';
 import MessageDate from './MessageDate';
-import MessageReply from './MessageReply';
 import MessageSelectCheck from './MessageSelectCheck';
 import MessageUsername from './MessageUsername';
 import MessageLoader from './MessageLoader';

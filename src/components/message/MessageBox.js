@@ -18,10 +18,15 @@ const MessageBox = ({ functions, type, replyTo, text, data }) => {
                 }}
             >
                 <div className='message-text'>
-                    <MessageReply
-                        replyTo={replyTo}
-                        type={type}
-                    />
+                    {
+                        !data.localmessage ?
+                        <MessageReply
+                            replyTo={replyTo}
+                            type={type}
+                            localMessage={data.localmessage}
+                        />
+                        : ''
+                    }
                     {
                         type != 'TRASH' ?
                         text?.map((item, index) =>
@@ -41,6 +46,15 @@ const MessageBox = ({ functions, type, replyTo, text, data }) => {
                             `${item.word} `
                         ) :
                         text
+                    }
+                    {
+                        data.localmessage ?
+                        <MessageReply
+                            replyTo={replyTo}
+                            type={type}
+                            localMessage={data.localmessage}
+                        />
+                        : ''
                     }
                 </div>
             </MessageBoxContainer>

@@ -3,7 +3,7 @@ import { useMessageOptions } from '../../hooks/useMessageOptions';
 import { BsReplyFill } from 'react-icons/bs';
 import styled from 'styled-components';
 
-const MessageReply = ({ replyTo, type }) => {
+const MessageReply = ({ replyTo, type, localMessage }) => {
 
     const { applyScrollMessageId } = useMessageOptions();
     let mouseSituation = 'OUT';
@@ -35,6 +35,7 @@ const MessageReply = ({ replyTo, type }) => {
                     usernamelen={replyTo?.username?.length}
                     messagelen={replyTo?.message?.length}
                     deletedreplyto={!replyTo ? 1 : 0}
+                    localmessage={localMessage ? 1 : 0}
                 >
                     <i><BsReplyFill /></i>
                     {
@@ -59,7 +60,7 @@ const ReplyContainer = styled.div`
     align-items: center;
     border-radius: 50px;
     padding: .2rem .5rem .2rem 1.2rem;
-    margin-right: .4rem;
+    margin: ${props => props.localmessage ? '0 .2rem 0 .4rem' : '0 .4rem 0 0'};
     background-color: #ffffff08;
     color: var(--pale-color);
     box-shadow: var(--normal-shadow);

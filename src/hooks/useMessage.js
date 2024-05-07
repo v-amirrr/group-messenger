@@ -71,10 +71,8 @@ export const useMessage = (message, type, messageRef, options, onClick) => {
             '.5rem' :
             type == 'TRASH' && textLetters <= 3 ?
             '.5rem 1rem' :
-            replyTo != 'no_reply' && localMessage ?
-            '.45rem .45rem .45rem .8rem' :
-            replyTo != 'no_reply' && !localMessage ?
-            '.45rem .8rem .45rem .45rem' :
+            replyTo != 'no_reply' ?
+            '.45rem .7rem .45rem .45rem' :
             textLetters <= 3 ?
             '.45rem 1rem' :
             textLetters > 3 ?

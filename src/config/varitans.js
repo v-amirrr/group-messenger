@@ -218,12 +218,10 @@ export const messageVariants = onMobile
           },
           exit: {
               opacity: 0,
-              scale: 0.5,
+              scale: 0,
               x: 120,
               transition: {
-                  duration: 0.5,
-                  ease: [0.53, 0, 0, 0.98],
-                  time: [0.53, 0, 0, 0.98],
+                  duration: 0.3,
               },
           },
       };

@@ -5,7 +5,7 @@ export const useScroll = (chatRef) => {
 
     const { messages } = useSelector(store => store.firestoreStore);
     const [arrow, setArrow] = useState(true);
-    const [newMessage, setNewMessage] = useState(true);
+    const [newMessage, setNewMessage] = useState(false);
     const [scrollLastPosition, setScrollLastPosition] = useState(chatRef?.current?.scrollTop);
     const [lastMessageTime, setLastMessageTime] = useState(messages[messages?.length - 1]?.time);
 

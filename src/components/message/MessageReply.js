@@ -60,8 +60,8 @@ const ReplyContainer = styled.div`
     align-items: center;
     border-radius: 50px;
     padding: .2rem .5rem .2rem 1.2rem;
-    margin: ${props => props.localmessage ? '0 .2rem 0 .4rem' : '0 .4rem 0 0'};
-    background-color: #ffffff08;
+    margin: 0 .4rem 0 0;
+    background-color: #ffffff10;
     color: var(--pale-color);
     box-shadow: var(--normal-shadow);
     font-size: .6rem;

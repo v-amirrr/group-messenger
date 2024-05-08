@@ -4,7 +4,7 @@ import Message from '../message/Message';
 import { useMessageOptions } from '../../hooks/useMessageOptions';
 import { useNotification } from '../../hooks/useNotification';
 import { useSelect } from '../../hooks/useSelect';
-import { isRTL } from '../../functions/isRlt';
+import { isPersian } from '../../functions/isPersian';
 import { FcEmptyTrash, FcFullTrash } from "react-icons/fc";
 import { TbTrashX } from 'react-icons/tb';
 import { FaTrashRestore } from "react-icons/fa";
@@ -110,7 +110,7 @@ const SettingsTrash = ({ open, setOpen, setHeight }) => {
                                                             id: message.id,
                                                             text: message.message,
                                                             plainText: message.plainText,
-                                                            isTextPersian : isRTL(message.message) ? 1 : 0,
+                                                            isTextPersian : isPersian(message.message) ? 1 : 0,
                                                             textLetters: message.plainText.length,
                                                             periorUsername: message.periorUsername,
                                                             nextUsername: message.nextUsername,

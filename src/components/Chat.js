@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useMessageOptions } from '../hooks/useMessageOptions';
 import { useScroll } from '../hooks/useScroll';
-import { isRTL } from '../functions/isRlt';
+import { isPersian } from '../functions/isPersian';
 import Message from './message/Message';
 import Menu from './Menu';
 import Profile from './Profile';
@@ -75,7 +75,7 @@ const Chat = () => {
                                 id: message.id,
                                 text: message.message,
                                 plainText: message.plainText,
-                                isTextPersian : isRTL(message.message) ? 1 : 0,
+                                isTextPersian : isPersian(message.plainText) ? 1 : 0,
                                 textLetters: message.plainText.length,
                                 periorUsername: message.periorUsername,
                                 nextUsername: message.nextUsername,

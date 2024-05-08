@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, memo } from 'react';
 import Message from '../message/Message';
 import { useSelector } from 'react-redux';
 import { useMessageOptions } from '../../hooks/useMessageOptions';
-import { isRTL } from '../../functions/isRlt';
+import { isPersian } from '../../functions/isPersian';
 import { BsReplyFill } from 'react-icons/bs';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -90,7 +90,7 @@ const EditReply = ({ replyTo, id, editReplyOpen, setEditReplyOpen }) => {
                                                 id: message.id,
                                                 text: message.message,
                                                 plainText: message.plainText,
-                                                isTextPersian : isRTL(message.message) ? 1 : 0,
+                                                isTextPersian : isPersian(message.message) ? 1 : 0,
                                                 textLetters: message.plainText.length,
                                                 periorUsername: message.periorUsername,
                                                 nextUsername: message.nextUsername,

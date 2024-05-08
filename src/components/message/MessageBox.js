@@ -17,7 +17,7 @@ const MessageBox = ({ functions, type, replyTo, text, data }) => {
                     ...data
                 }}
             >
-                <div className='message-text'>
+                <div className='message-text' dir='auto'>
                     <MessageReply
                         replyTo={replyTo}
                         type={type}
@@ -83,7 +83,7 @@ const MessageBoxContainer = styled(motion.div)`
         white-space: pre-wrap;
         word-break: ${props => props.data.type == 'TRASH' ? '' : 'keep-all'};
         font-family: ${props => props.data.persian ? 'Vazirmatn' : 'Outfit'}, 'Vazirmatn', sans-serif;
-        font-size: ${props => props.data.type == 'TRASH' ? '.8rem' : '1rem'};
+        font-size: ${props => props.data.type == 'TRASH' ? '.8rem' : props.data.persian ? '.9rem' : '1rem'};
         font-weight: 200;
     }
 

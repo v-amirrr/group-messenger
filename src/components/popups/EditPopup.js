@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useMessageOptions } from '../../hooks/useMessageOptions';
 import EditReply from './EditReply';
-import { isRTL } from '../../functions/isRlt';
+import { isPersian } from '../../functions/isPersian';
 import styled from 'styled-components';
 
 const EditPopup = ({ popupMessages, editReplyOpen, setEditReplyOpen }) => {
@@ -26,14 +26,14 @@ const EditPopup = ({ popupMessages, editReplyOpen, setEditReplyOpen }) => {
             <EditPopupContainer
                 onKeyDown={(e) => pressEnter(e)}
                 editreplyopen={editReplyOpen}
-                ispersian={isRTL(editInput) ? 1 : 0}
+                ispersian={isPersian(editInput) ? 1 : 0}
             >
                 <textarea
                     ref={inputRef}
                     value={editInput}
                     onChange={(e) => setEditInput(e.target.value)}
                     autoFocus={document.documentElement.offsetWidth > 500}
-                    dir={isRTL(editInput) ? 'rtl' : 'ltr'}
+                    dir={isPersian(editInput) ? 'rtl' : 'ltr'}
                 />
                 <div className='buttons'>
                     <button className='cancel' onClick={closePopup}>

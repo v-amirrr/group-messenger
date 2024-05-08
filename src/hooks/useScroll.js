@@ -43,7 +43,9 @@ export const useScroll = (chatRef) => {
             ~~chatRef?.current?.scrollTop + 200 >= chatRef?.current?.scrollHeight - chatRef?.current?.clientHeight
         ) {
             setLastMessageTime(messages[messages?.length - 1]?.time);
-            scrollDown();
+            setTimeout(() => {
+                scrollDown();
+            }, 500);
         }
     }, [messages[messages?.length - 1]?.time]);
 
@@ -77,6 +79,7 @@ export const useScroll = (chatRef) => {
             setArrow('DOWN');
         } else if (~~chatRef?.current?.scrollTop + 200 >= chatRef?.current?.scrollHeight - chatRef?.current?.clientHeight) {
             setArrow('UP');
+            setNewMessage(false);
         }
         setScrollLastPosition(chatRef?.current?.scrollTop);
     };

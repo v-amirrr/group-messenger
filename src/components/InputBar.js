@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useSendMessage } from '../hooks/useSendMessage';
-import { isRTL } from '../functions/isRlt';
+import { isPersian } from '../functions/isPersian';
 import { GrEmoji } from 'react-icons/gr';
 import { IoSend, IoClose } from 'react-icons/io5';
 import styled from 'styled-components';
@@ -74,7 +74,7 @@ const InputBar = ({ inputText, setInputText, inputBarEmojiPicker, setInputBarEmo
                 variants={inputBarVariants}
                 multiline={multiline ? 1 : 0}
                 isreplyto={replyTo.id ? 1 : 0}
-                isrlt={isRTL(inputText) ? 1 : 0}
+                isrlt={isPersian(inputText) ? 1 : 0}
                 inputtext={inputText ? 1 : 0}
             >
                 <textarea

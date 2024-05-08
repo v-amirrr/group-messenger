@@ -22,7 +22,7 @@ const MessageUsernameContainer = styled.div`
     top: ${props => props.dateshown ? "1.83rem" : ".64rem"};
     max-width: 8rem;
     margin-left: ${props => props.selectmode ? '3rem' : ''};
-    padding: 0.2rem 0.5rem 0.2rem 1.2rem;
+    padding: 0.2rem 0.5rem 0.2rem 1.1rem;
     background-color: #ffffff11;
     border-radius: 50px 50px 50px 20px;
     margin-right: .2rem;
@@ -40,9 +40,8 @@ const MessageUsernameContainer = styled.div`
         justify-content: center;
         align-items: center;
         font-size: 0.8rem;
-        margin-right: 0.2rem;
         position: absolute;
-        left: 0.3rem;
+        left: 0.2rem;
         color: #ffffff22;
     }
 `;

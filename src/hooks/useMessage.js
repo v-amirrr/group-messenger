@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useMessageOptions } from "./useMessageOptions";
 import { useSelector } from "react-redux";
 import { useSelect } from "./useSelect";
-import { isRTL } from '../functions/isRlt';
+import { isPersian } from '../functions/isPersian';
 
 export const useMessage = (message, type, messageRef, options, onClick) => {
 
@@ -68,9 +68,9 @@ export const useMessage = (message, type, messageRef, options, onClick) => {
             messagePosition == 3 &&
             '5px 25px 25px 25px',
         messageBoxPadding: type == 'TRASH' && textLetters > 3 ?
-            '.5rem' :
+            '.45rem .6rem' :
             type == 'TRASH' && textLetters <= 3 ?
-            '.5rem 1rem' :
+            '.45rem .9rem' :
             replyTo != 'no_reply' ?
             '.45rem .7rem .45rem .45rem' :
             textLetters <= 3 ?
@@ -175,7 +175,7 @@ export const useMessage = (message, type, messageRef, options, onClick) => {
                     selectMessage({
                         ...message,
                         isMessageFromLocalUser: messageUid == localUid ? 1 : 0,
-                        isPersian: isRTL(text) ? 1 : 0,
+                        isPersian: isPersian(text) ? 1 : 0,
                     });
                 }
             } else {
@@ -203,7 +203,7 @@ export const useMessage = (message, type, messageRef, options, onClick) => {
                 selectMessage({
                     ...message,
                     isMessageFromLocalUser: messageUid == localUid ? 1 : 0,
-                    isPersian: isRTL(text) ? 1 : 0,
+                    isPersian: isPersian(text) ? 1 : 0,
                 });
                 setHold(true);
             }, 300);

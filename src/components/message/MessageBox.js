@@ -65,7 +65,7 @@ const MessageBoxContainer = styled(motion.div)`
     cursor: pointer;
     box-shadow: var(--normal-shadow);
     color: var(--normal-color);
-    background-color: var(--normal-bg);
+    background-color: #ffffff0f;
     background-image: linear-gradient(
         90deg,
         #ffffff00 0%,

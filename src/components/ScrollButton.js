@@ -40,7 +40,7 @@ const ScrollButtonContainer = styled(motion.button)`
     display: flex;
     justify-content: center;
     align-items: center;
-    border: solid 2.5px #ffffff20;
+    border: solid 2.5px #ffffff10;
     border-radius: 50px;
     box-shadow: var(--normal-shadow);
     backdrop-filter: var(--bold-glass);

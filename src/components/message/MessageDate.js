@@ -44,7 +44,7 @@ const MessageDateContainer = styled(motion.div)`
     .date {
         padding: 0.3rem 0.4rem;
         margin-bottom: 1rem;
-        background-color: #ffffff10;
+        background-color: #ffffff14;
         color: var(--normal-color);
         border-radius: 50px;
         font-size: 0.45rem;

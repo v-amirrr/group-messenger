@@ -55,7 +55,7 @@ const ProfileContainer = styled(motion.div)`
     display: flex;
     justify-content: center;
     align-items: center;
-    border: solid 2.5px #ffffff20;
+    border: solid 2.5px #ffffff10;
     border-radius: 50px;
     color: var(--normal-color);
     box-shadow: var(--normal-shadow);

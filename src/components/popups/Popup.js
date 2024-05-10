@@ -80,6 +80,7 @@ const PopupContainer = styled(motion.section)`
     color: var(--normal-color);
 
     .popup {
+        z-index: 4;
         position: relative;
         padding: 1.2rem 1.5rem;
         text-align: center;
@@ -87,7 +88,7 @@ const PopupContainer = styled(motion.section)`
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        border: solid 2.5px #ffffff20;
+        border: solid 2.5px #ffffff10;
         border-radius: 25px;
         box-shadow: var(--bold-shadow);
         backdrop-filter: var(--bold-glass);

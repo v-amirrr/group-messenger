@@ -14,7 +14,6 @@ export const useNotification = () => {
         || type == "COPY" && notificationSettings.copy
         || type == "RESTORE" && notificationSettings.restore
         || type == "DELETE" && notificationSettings.delete
-        || type == "BACKGROUND" && notificationSettings.background
         || type == "USERNAME" && notificationSettings.username
         || type == "GUEST" && enterAsAGuest || type == "ERROR" || type == "ENTER") {
             dispatch(setNotifications({ show: true, message: message, isError: isError, isGuest: type == "GUEST", time: time }));
@@ -50,7 +49,6 @@ export const useNotification = () => {
                 copy: notificationSettingsLocalStorage.copy,
                 restore: notificationSettingsLocalStorage.restore,
                 delete: notificationSettingsLocalStorage.delete,
-                background: notificationSettingsLocalStorage.background,
                 username: notificationSettingsLocalStorage.username,
             }));
         } else {

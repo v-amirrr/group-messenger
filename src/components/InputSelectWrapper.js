@@ -72,7 +72,7 @@ const InputSelectWrapperContainer = styled(motion.div)`
     align-items: center;
     padding-bottom: ${props => props.emoji ? '12rem' : '0'};
     color: var(--normal-color);
-    border: solid 2.5px #ffffff20;
+    border: solid 2.5px #ffffff10;
     border-radius: ${props => props.emoji ? '25px' : '50px'};
     box-shadow: var(--normal-shadow);
     backdrop-filter: var(--bold-glass);

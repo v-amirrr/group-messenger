@@ -3,7 +3,6 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
     warningPageShowed: JSON.parse(sessionStorage.getItem("warning")),
     warningPageNeverShow: JSON.parse(localStorage.getItem('warning-check')),
-    theme: 2,
     selectedMessages: [],
     selectOthersMessage: false,
     notifications: [],
@@ -14,7 +13,6 @@ const initialState = {
         copy: true,
         restore: true,
         delete: false,
-        background: false,
         username: true,
     },
     messagesScrollPosition: {},
@@ -30,9 +28,6 @@ const appSlice = createSlice({
         },
         setWarningPageNeverShow: (state, action) => {
             return { ...state, warningPageNeverShow: action.payload };
-        },
-        setTheme: (state, action) => {
-            return { ...state, theme: action.payload };
         },
         setSelectedMessages: (state, action) => {
             return {
@@ -109,10 +104,6 @@ const appSlice = createSlice({
                         action.payload.delete != undefined ?
                         action.payload.delete :
                         state.notificationSettings.delete,
-                    background:
-                        action.payload.background != undefined ?
-                        action.payload.background :
-                        state.notificationSettings.background,
                     username:
                         action.payload.username != undefined ?
                         action.payload.username :
@@ -147,7 +138,6 @@ const appSlice = createSlice({
 export const {
     setWarningShowed,
     setWarningPageNeverShow,
-    setTheme,
     setSelectedMessages,
     setClearSelectedMessages,
     setUnselectMessages,

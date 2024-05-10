@@ -154,8 +154,8 @@ const ReplyConatiner = styled(motion.div)`
     align-items: center;
     flex-direction: column;
     border-radius: 25px;
-    background-color: ${props => props.editreplyopen ? '#000000aa' : '#00000044'};
-    border: ${props => props.editreplyopen ? 'solid 2.5px #ffffff00' : 'solid 2.5px #ffffff20'};
+    background-color: ${props => props.editreplyopen ? '#00000088' : '#00000044'};
+    border: ${props => props.editreplyopen ? 'solid 2.5px #ffffff00' : 'solid 2.5px #ffffff10'};
     box-shadow: var(--shadow-second);
     overflow: hidden;
     transition: ${props =>

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import SettingsBackgrounds from './SettingsBackgrounds';
 import SettingsUser from './SettingsUser';
 import SettingsTrash from './SettingsTrash';
 import SettingsItem from './SettingsItem';
@@ -37,18 +36,6 @@ const SettingsPage = () => {
                         <h1>Settings</h1>
                         <button className='back' onClick={backClickHandler}><TiArrowLeft /></button>
                     </header>
-                    <SettingsItem
-                        open={open == 'SETTINGS_BACKGROUND'}
-                        hide={open != 'SETTINGS_BACKGROUND' && open}
-                        component={
-                            <SettingsBackgrounds
-                                open={open}
-                                setOpen={setOpen}
-                                setHeight={setHeight}
-                            />
-                        }
-                        height={height}
-                    />
                     <SettingsItem
                         open={open == 'SETTINGS_NOTIFICATION'}
                         hide={open != 'SETTINGS_NOTIFICATION' && open}
@@ -110,9 +97,9 @@ const SettingsContainer = styled(motion.section)`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    border: solid 2.5px #ffffff20;
+    border: solid 2.5px #ffffff10;
     border-radius: 25px;
-    background-color: #00000088;
+    background-color: #00000044;
     padding-top: 4rem;
 
     .settings-header {

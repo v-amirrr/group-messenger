@@ -57,7 +57,7 @@ const InputBarReplyToContainer = styled(motion.div)`
     align-items: center;
     padding: 0 0.2rem;
     color: var(--normal-color);
-    border: solid 2.5px #ffffff20;
+    border: solid 2.5px #ffffff10;
     border-radius: 50px;
     box-shadow: var(--normal-shadow);
     backdrop-filter: var(--bold-glass);

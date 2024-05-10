@@ -21,12 +21,12 @@ const SettingsItemContainer = styled.div`
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    border: solid 2.5px #ffffff20;
+    border: solid 2.5px #ffffff10;
     border-radius: ${props => props.open ? "20px" : "50px"};
     overflow: hidden;
     position: relative;
-    margin: .15rem;
-    background-color: #00000066;
+    margin: .18rem;
+    background-color: #00000044;
     box-shadow: var(--normal-shadow);
     opacity: ${props => props.hide ? '0' : '1'};
     transition: ${props => props.hide ?

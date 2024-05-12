@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { inputBarEmojiPickerVariatns } from '../config/varitans';
 
-const InputBarEmojiPicker = ({ setInputText, inputBarEmojiPicker, setInputBarEmojiPicker }) => {
+const InputBarEmojiPicker = ({ setInputText, inputBarEmojiPicker }) => {
 
     const emojiHandler = (e) => {
         setInputText(pre => `${pre}${e.native}`);

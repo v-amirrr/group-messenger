@@ -54,28 +54,28 @@ export const useMessage = (message, type, messageRef, options, onClick) => {
             localMessage ?
             messagePosition == 0 ?
             '25px' : messagePosition == 1 ?
-            '25px 25px 5px 25px' :
+            '25px 25px 8px 25px' :
             messagePosition == 2 ?
-            '25px 5px 5px 25px' :
+            '25px 8px 8px 25px' :
             messagePosition == 3 &&
-            '25px 5px 25px 25px' :
+            '25px 8px 25px 25px' :
             messagePosition == 0 ?
-            '5px 25px 25px 25px' :
+            '8px 25px 25px 25px' :
             messagePosition == 1 ?
-            '5px 25px 25px 5px' :
+            '8px 25px 25px 8px' :
             messagePosition == 2 ?
-            '5px 25px 25px 5px' :
+            '8px 25px 25px 8px' :
             messagePosition == 3 &&
-            '5px 25px 25px 25px',
-        messageBoxPadding: type == 'TRASH' && textLetters > 3 ?
+            '8px 25px 25px 25px',
+        messageBoxPadding: type == 'TRASH' && textLetters > 2 ?
             '.45rem .6rem' :
-            type == 'TRASH' && textLetters <= 3 ?
+            type == 'TRASH' && textLetters <= 2 ?
             '.45rem .9rem' :
             replyTo != 'no_reply' ?
             '.45rem .7rem .45rem .45rem' :
-            textLetters <= 3 ?
+            textLetters <= 2 ?
             '.45rem 1rem' :
-            textLetters > 3 ?
+            textLetters > 2 ?
             '.45rem .7rem' : '',
         messageBoxBorderRadiusPhone: localMessage ?
             messagePosition == 0 ?

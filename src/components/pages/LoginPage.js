@@ -133,7 +133,7 @@ const Login = styled(motion.section)`
         margin: ${props => props.toggle ? "1.5rem" : "4rem"};
         padding: .1rem;
         position: relative;
-        border: solid 2.5px #ffffff20;
+        border: solid 2.5px #ffffff10;
         box-shadow: var(--normal-shadow);
         backdrop-filter: var(--bold-glass);
         -webkit-backdrop-filter: var(--bold-glass);
@@ -248,7 +248,7 @@ const Login = styled(motion.section)`
 
     .username {
         position: absolute;
-        margin-bottom: 5.7rem;
+        margin-bottom: 5.79rem;
     }
 
     .buttons {

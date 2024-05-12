@@ -59,17 +59,13 @@ export const useMessageOptions = () => {
     };
 
     const replyMessage = (id, messagePlainText, username) => {
-        if (enterAsAGuest) {
-            openNotification('In order to use this feature you need to login.', false, 'GUEST');
-        } else {
-            if (replyTo.id && replyTo.id != id) {
-                clearReplyMessage();
-                setTimeout(() => {
-                    dispatch(setSendMessageReplyTo({ id, messagePlainText, username }));
-                }, 300);
-            } else {
+        if (replyTo.id && replyTo.id != id) {
+            clearReplyMessage();
+            setTimeout(() => {
                 dispatch(setSendMessageReplyTo({ id, messagePlainText, username }));
-            }
+            }, 300);
+        } else {
+            dispatch(setSendMessageReplyTo({ id, messagePlainText, username }));
         }
     };
 

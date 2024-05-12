@@ -1,19 +1,26 @@
 import React, { useState, useRef, useEffect } from 'react';
+import InputBarReplyTo from './InputBarReplyTo';
 import { useSelector } from 'react-redux';
 import { useSendMessage } from '../hooks/useSendMessage';
+import { useMessageOptions } from '../hooks/useMessageOptions';
 import { isPersian } from '../functions/isPersian';
 import { GrEmoji } from 'react-icons/gr';
 import { IoSend, IoClose } from 'react-icons/io5';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { inputBarVariants, sendInputIconVariants } from '../config/varitans';
+import InputBarEmojiPicker from './InputBarEmojiPicker';
 
-const InputBar = ({ inputText, setInputText, inputBarEmojiPicker, setInputBarEmojiPicker }) => {
+const InputBar = () => {
     const { error: sendMessageError, replyTo, restoredText } = useSelector(store => store.sendMessageStore);
     const { popupShow, popupName } = useSelector(store => store.popupStore);
+    const { selectedMessages } = useSelector(store => store.appStore);
     const { sendMessage } = useSendMessage();
     const inputRef = useRef();
+    const { clearReplyMessage, applyScrollMessageId } = useMessageOptions();
     const [multiline, setMultiline] = useState(false);
+    const [inputText, setInputText] = useState(localStorage.getItem('input-text') ? localStorage.getItem('input-text') : '');
+    const [inputBarEmojiPicker, setInputBarEmojiPicker] = useState(false);
 
     const inputSubmitHandler = () => {
         if (inputText != '') {
@@ -39,6 +46,11 @@ const InputBar = ({ inputText, setInputText, inputBarEmojiPicker, setInputBarEmo
         }
     };
 
+    const closeHandler = (e) => {
+        e.stopPropagation();
+        clearReplyMessage();
+    };
+
     useEffect(() => {
         blurHandler();
     }, [popupShow, popupName]);
@@ -62,11 +74,28 @@ const InputBar = ({ inputText, setInputText, inputBarEmojiPicker, setInputBarEmo
     }, [inputText]);
 
     useEffect(() => {
+        if (selectedMessages.length) {
+            setInputBarEmojiPicker(false);
+        }
+    }, [selectedMessages]);
+
+    useEffect(() => {
+        blurHandler();
+    }, [inputBarEmojiPicker]);
+
+    useEffect(() => {
         inputText && inputRef?.current?.setSelectionRange(inputText.length, inputText.length);
     }, []);
 
     return (
         <>
+            <InputBarReplyTo
+                replyTo={selectedMessages.length ? null : replyTo}
+                applyScrollMessageId={applyScrollMessageId}
+                closeHandler={closeHandler}
+                inputBarEmojiPicker={inputBarEmojiPicker}
+            />
+
             <InputBarContainer
                 initial='hidden'
                 animate='visible'
@@ -76,6 +105,7 @@ const InputBar = ({ inputText, setInputText, inputBarEmojiPicker, setInputBarEmo
                 isreplyto={replyTo.id ? 1 : 0}
                 isrlt={isPersian(inputText) ? 1 : 0}
                 inputtext={inputText ? 1 : 0}
+                emoji={inputBarEmojiPicker ? 1 : 0}
             >
                 <textarea
                     className='input'
@@ -93,50 +123,75 @@ const InputBar = ({ inputText, setInputText, inputBarEmojiPicker, setInputBarEmo
                 <AnimatePresence>
                     {
                         inputText ?
-                        <motion.button
-                            className='clear-button'
-                            initial='hidden'
-                            animate='visible'
-                            exit='exit'
-                            variants={sendInputIconVariants}
-                            onClick={() => setInputText('')}
-                        >
-                            <IoClose />
-                        </motion.button>
+                        <>
+                            <motion.button
+                                className='clear-button'
+                                initial='hidden'
+                                animate='visible'
+                                exit='exit'
+                                variants={sendInputIconVariants}
+                                onClick={() => setInputText('')}
+                            >
+                                <IoClose />
+                            </motion.button>
+                            <motion.button
+                                className='send-button'
+                                initial='hidden'
+                                animate='visible'
+                                exit='exit'
+                                variants={sendInputIconVariants}
+                                disabled={!inputText}
+                                onClick={inputSubmitHandler}
+                            >
+                                <IoSend />
+                            </motion.button>
+                        </>
                         : ''
                     }
                 </AnimatePresence>
 
-                <button
-                    className='send-button'
-                    disabled={!inputText}
-                    onClick={inputSubmitHandler}
-                >
-                    <IoSend />
-                </button>
-
                 <button className='emoji-button' onClick={() => setInputBarEmojiPicker(!inputBarEmojiPicker)}>
                     <GrEmoji />
                 </button>
+
+                <InputBarEmojiPicker
+                    setInputText={setInputText}
+                    inputBarEmojiPicker={inputBarEmojiPicker}
+                    setInputBarEmojiPicker={setInputBarEmojiPicker}
+                />
             </InputBarContainer>
         </>
     );
 };
 
 const InputBarContainer = styled(motion.div)`
+    box-sizing: content-box;
     position: absolute;
+    bottom: 1rem;
+    width: 18rem;
+    height: 2.4rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    height: 2.5rem;
-    z-index: 2;
+    padding-bottom: ${props => props.emoji ? '12rem' : '0'};
+    color: var(--normal-color);
+    border: solid 2.5px #ffffff10;
+    border-radius: ${props => props.emoji ? '25px' : '50px'};
+    box-shadow: var(--normal-shadow);
+    backdrop-filter: var(--bold-glass);
+    -webkit-backdrop-filter: var(--bold-glass);
+    z-index: 3;
+    overflow: hidden;
+    transition: ${props => props.emoji ?
+        'padding .5s cubic-bezier(.53,0,0,.98)' :
+        'padding .3s cubic-bezier(.53,0,0,.98), border-radius 2s .2s'
+    };
 
     .input {
         position: absolute;
         left: 0;
         width: 13rem;
-        height: 100%;
+        height: 2.4rem;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -185,7 +240,7 @@ const InputBarContainer = styled(motion.div)`
         display: flex;
         justify-content: center;
         align-items: center;
-        color: #ffffff20;
+        color: #ffffff10;
         cursor: pointer;
         position: absolute;
         right: 4.2rem;
@@ -201,8 +256,8 @@ const InputBarContainer = styled(motion.div)`
         justify-content: center;
         align-items: center;
         border: none;
-        font-size: 1.5rem;
-        color: #ffffff20;
+        font-size: 1.4rem;
+        color: #ffffff10;
         cursor: pointer;
 
         &:disabled {
@@ -212,7 +267,7 @@ const InputBarContainer = styled(motion.div)`
 
     .emoji-button {
         position: absolute;
-        right: 2.2rem;
+        right: ${props => props.inputtext ? '2.2rem' : '.2rem'};
         width: 2.5rem;
         height: 2.4rem;
         display: flex;
@@ -220,8 +275,17 @@ const InputBarContainer = styled(motion.div)`
         align-items: center;
         border: none;
         font-size: 1.6rem;
-        color: #ffffff20;
+        color: #ffffff10;
         cursor: pointer;
+        transition: right .25s;
+    }
+
+    @media (max-width: 768px) {
+        width: 15rem;
+        margin-right: 4rem;
+        bottom: .9rem;
+        padding-bottom: ${props => props.emoji ? '13.3rem' : '0'};
+        border-radius: ${props => props.emoji ? '20px' : '50px'};
     }
 `;
 

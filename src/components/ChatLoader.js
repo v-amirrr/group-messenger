@@ -68,9 +68,8 @@ const ChatLoaderContainer = styled(motion.div)`
         position: absolute;
         width: 2.3rem;
         height: 2.3rem;
-        border: solid 2.5px #333;
         border-radius: 50px;
-        background-color: #ffffff00;
+        background-color: #ffffff0f;
         background-image: linear-gradient(
             90deg,
             #ffffff00 0%,
@@ -103,9 +102,8 @@ const ChatLoaderContainer = styled(motion.div)`
         bottom: 1rem;
         width: 18rem;
         height: 2.4rem;
-        border: solid 2.5px #333;
         border-radius: 50px;
-        background-color: #ffffff00;
+        background-color: #ffffff0f;
         background-image: linear-gradient(
             90deg,
             #ffffff00 0%,
@@ -194,19 +192,19 @@ const MessageContainer = styled.div`
             props.local ? props.position == 0 ?
             '25px' :
             props.position == 1 ?
-            '25px 25px 5px 25px' :
+            '25px 25px 8px 25px' :
             props.position == 2 ?
-            '25px 5px 5px 25px' :
-            props.position == 3 && '25px 5px 25px 25px' :
+            '25px 8px 8px 25px' :
+            props.position == 3 && '25px 8px 25px 25px' :
             props.position == 0 ?
             '25px' :
             props.position == 1 ?
-            '25px 25px 25px 5px' :
+            '25px 25px 25px 8px' :
             props.position == 2 ?
-            '5px 25px 25px 5px' :
-            props.position == 3 && '5px 25px 25px 25px'
+            '8px 25px 25px 8px' :
+            props.position == 3 && '8px 25px 25px 25px'
         };
-        background-color: ${props => props.position == 1 && !props.local ? '#ffffff0b' : '#ffffff14'};
+        background-color: ${props => props.position == 1 && !props.local ? '#ffffff0f' : '#ffffff0f'};
         background-image: linear-gradient(
             90deg,
             #ffffff00 0%,

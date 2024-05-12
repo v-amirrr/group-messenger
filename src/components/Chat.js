@@ -7,7 +7,8 @@ import Message from './message/Message';
 import Menu from './Menu';
 import Profile from './Profile';
 import ScrollButton from './ScrollButton';
-import InputSelectWrapper from './InputSelectWrapper';
+import InputBar from './InputBar';
+import SelectBar from './SelectBar';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { groupChatVariants } from '../config/varitans';
@@ -50,7 +51,9 @@ const Chat = () => {
                 scrollDown={scrollDown}
             />
 
-            <InputSelectWrapper />
+            <AnimatePresence>
+                {!selectedMessages.length ? <InputBar key='input' /> : <SelectBar key='select' />}
+            </AnimatePresence>
 
             <ChatContainer
                 initial='hidden'

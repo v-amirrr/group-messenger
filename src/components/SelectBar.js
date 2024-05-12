@@ -60,12 +60,28 @@ const SelectBar = () => {
 };
 
 const SelectBarContainer = styled(motion.div)`
+    box-sizing: content-box;
     position: absolute;
+    bottom: 1rem;
+    width: 18rem;
+    height: 2.4rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    height: 100%;
+    color: var(--normal-color);
+    border: solid 2.5px #ffffff10;
+    border-radius: 50px;
+    box-shadow: var(--normal-shadow);
+    backdrop-filter: var(--bold-glass);
+    -webkit-backdrop-filter: var(--bold-glass);
+    z-index: 3;
+    overflow: hidden;
+
+    @media (max-width: 768px) {
+        width: 15rem;
+        margin-right: 4rem;
+        bottom: .9rem;
+    }
 
     .close {
         position: absolute;

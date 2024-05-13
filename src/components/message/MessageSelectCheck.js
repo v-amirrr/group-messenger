@@ -51,7 +51,7 @@ const MessageSelectCheckContainer = styled(motion.div)`
     align-items: center;
     width: ${props => props.trash ? '1.6rem' : '1.8rem'};
     height: ${props => props.trash ? '1.6rem' : '1.8rem'};
-    border: ${props => props.selected ? 'solid 2.5px #ffffff00' : 'solid 2.5px #ffffff20'};
+    border: ${props => props.selected ? 'solid 2.5px #ffffff00' : 'solid 2.5px #ffffff10'};
     border-radius: 50%;
     background: ${props => props.selected ? 'var(--normal-bg)' : '#ffffff00'};
     overflow: hidden;

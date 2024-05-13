@@ -28,13 +28,15 @@ const InputBarReplyTo = ({ replyTo, applyScrollMessageId, closeHandler, inputBar
                         animate='visible'
                         exit='exit'
                         variants={inputBarReplyToVariants}
-                        onClick={() => applyScrollMessageId(replyTo.id, 'CLICK')}
-                        onMouseEnter={hoverHandler}
-                        onMouseLeave={() => mouseSituation = 'OUT'}
-                        messageletters={replyTo?.username?.length + replyTo?.message?.length}
                         emoji={inputBarEmojiPicker ? 1 : 0}
+                        messageletters={replyTo?.username?.length + replyTo?.message?.length}
                     >
-                        <div className='message'>
+                        <div
+                            className='message'
+                            onClick={() => applyScrollMessageId(replyTo.id, 'CLICK')}
+                            onMouseEnter={hoverHandler}
+                            onMouseLeave={() => mouseSituation = 'OUT'}
+                        >
                             <i><BsReplyFill /></i>
                             <p className='text'>{replyTo.message}</p>
                         </div>
@@ -66,7 +68,7 @@ const InputBarReplyToContainer = styled(motion.div)`
     z-index: 2;
     transition: ${props => props.emoji ?
         'bottom .5s cubic-bezier(.53,0,0,.98)' :
-        'bottom .4s cubic-bezier(.53,0,0,.98)'
+        'bottom .3s cubic-bezier(.53,0,0,.98)'
     };
 
     button {

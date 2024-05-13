@@ -79,7 +79,7 @@ const Chat = () => {
                                 text: message.message,
                                 plainText: message.plainText,
                                 isTextPersian : isPersian(message.plainText) ? 1 : 0,
-                                textLetters: message.plainText.length,
+                                textLetters: message.plainText.length > 20 ? 20 : message.plainText.length,
                                 periorUsername: message.periorUsername,
                                 nextUsername: message.nextUsername,
                                 time: message.time,

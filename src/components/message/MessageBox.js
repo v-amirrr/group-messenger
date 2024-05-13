@@ -68,9 +68,9 @@ const MessageBoxContainer = styled(motion.div)`
     background-color: #ffffff0f;
     background-image: linear-gradient(
         90deg,
-        #ffffff00 0%,
-        #ffffff30 50%,
-        #ffffff00 100%
+        #ffffff00 20%,
+        #ffffff20 50%,
+        #ffffff00 80%
     );
     background-position: ${props => `left ${-props.data.len}rem top 0`};
     background-repeat: no-repeat;

@@ -198,7 +198,7 @@ export const useMessage = (message, type, messageRef, options, onClick) => {
     };
 
     const onHoldStarts = () => {
-        if (!selectedMessages?.length && type == 'CHAT') {
+        if (!selectedMessages?.length && type == 'CHAT' && document.documentElement.offsetWidth > 600) {
             timer = setTimeout(() => {
                 selectMessage({
                     ...message,

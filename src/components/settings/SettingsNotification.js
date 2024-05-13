@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
+import Toggle from "../common/Toggle";
 import { useNotification } from '../../hooks/useNotification';
-import Toggle from "../Toggle";
 import { FcAdvertising } from "react-icons/fc";
 import { FaTrashRestore, FaUserCircle } from "react-icons/fa";
 import { RiArrowRightSLine } from "react-icons/ri";

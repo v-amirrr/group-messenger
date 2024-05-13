@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Message from '../message/Message';
+import Counter from '../common/Counter';
 import { useMessageOptions } from '../../hooks/useMessageOptions';
 import { useNotification } from '../../hooks/useNotification';
 import { useSelect } from '../../hooks/useSelect';
@@ -85,7 +86,7 @@ const SettingsTrash = ({ open, setOpen, setHeight }) => {
                                     messages?.length ?
                                     <>
                                         <div className='select-bar'>
-                                            <div className='counter'>{selectedMessages?.length}</div>
+                                            <div className='counter'><Counter num={selectedMessages?.length} /></div>
                                             <button className='delete-button' disabled={!selectedMessages?.length} onClick={() => openPopup("DELETE_POPUP", [selectedMessages])}>
                                                 <i><TbTrashX /></i>
                                                 <p>Delete</p>
@@ -227,11 +228,11 @@ const MessagesContainer = styled(motion.div)`
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: .8rem;
             margin-right: .2rem;
             backdrop-filter: var(--bold-glass);
             -webkit-backdrop-filter: var(--bold-glass);
             z-index: 2;
+            overflow: hidden;
         }
     }
 

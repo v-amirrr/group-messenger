@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import Counter from './common/Counter';
 import { useSelect } from '../hooks/useSelect';
 import { useSelector } from 'react-redux';
 import { IoClose } from 'react-icons/io5';
@@ -10,23 +11,6 @@ import { selectBarVariants } from '../config/varitans';
 const SelectBar = () => {
     const { selectedMessages, selectOthersMessage } = useSelector(store => store.appStore);
     const { clearSelectedMessages, copySelectedMessages, trashSelectedMessages } = useSelect();
-    const [counterOne, setCounterOne] = useState(selectedMessages.length);
-    const [counterTwo, setCounterTwo] = useState(selectedMessages.length);
-    const [changeCounter, setChangeCounter] = useState(false);
-
-    useEffect(() => {
-        if (selectedMessages.length != 0) {
-            setCounterTwo(selectedMessages.length);
-        }
-    }, [selectedMessages.length]);
-
-    useEffect(() => {
-        setChangeCounter(true);
-        setTimeout(() => {
-            setCounterOne(selectedMessages.length);
-            setChangeCounter(false);
-        }, 400);
-    }, [counterTwo]);
 
     return (
         <>
@@ -35,15 +19,13 @@ const SelectBar = () => {
                 animate='visible'
                 exit='exit'
                 variants={selectBarVariants}
-                changecounter={changeCounter ? 1 : 0}
             >
                 <motion.button className='close' onClick={clearSelectedMessages}>
                     <IoClose />
                 </motion.button>
-                <div className='count'>
-                    <p className='counter-one'>{counterOne}</p>
-                    <p className='counter-two'>{counterTwo}</p>
-                </div>
+
+                <div className='counter'><Counter num={selectedMessages?.length} /></div>
+
                 <div className='options'>
                     <button className='copy' onClick={copySelectedMessages}>
                         <i><AiFillCopy /></i>
@@ -98,32 +80,11 @@ const SelectBarContainer = styled(motion.div)`
         transition: background 0.2s;
     }
 
-    .count {
+    .counter {
         position: absolute;
         left: 0.25rem;
         width: 2rem;
         height: 2rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 1rem;
-        font-weight: 400;
-
-        .counter-one {
-            position: absolute;
-            top: ${props => props.changecounter ? '2rem' : '50%'};
-            opacity: ${props => props.changecounter ? '0' : '1'};
-            transform: translate(0, -50%);
-            transition: ${props => props.changecounter ? 'top .2s, opacity .2s' : ''};
-        }
-
-        .counter-two {
-            position: absolute;
-            top: ${props => props.changecounter ? '50%' : '-.5rem'};
-            opacity: ${props => props.changecounter ? '1' : '0'};
-            transform: translate(0, -50%);
-            transition: ${props => props.changecounter ? 'top .2s, opacity .2s' : ''};
-        }
     }
 
     .options {

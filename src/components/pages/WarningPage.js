@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
+import Toggle from '../common/Toggle';
 import { useWarningPage } from '../../hooks/useWarningPage';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { warningPageVariants, warningContainerVariants } from '../../config/varitans';
-import Toggle from '../Toggle';
 
 const WarningPage = () => {
     const { warningPageSubmit } = useWarningPage();

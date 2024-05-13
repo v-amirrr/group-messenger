@@ -93,9 +93,11 @@ export const useScroll = (chatRef) => {
     };
 
     const storeChatScrollPosition = () => {
-        localStorage.setItem('scroll', scrollLastPosition);
-        if (~~chatRef?.current?.scrollTop + 100 >= chatRef?.current?.scrollHeight - chatRef?.current?.clientHeight) {
-            localStorage.setItem('scroll', 'end');
+        if (scrollLastPosition != undefined) {
+            localStorage.setItem('scroll', scrollLastPosition);
+            if (~~chatRef?.current?.scrollTop + 100 >= chatRef?.current?.scrollHeight - chatRef?.current?.clientHeight) {
+                localStorage.setItem('scroll', 'end');
+            }
         }
     };
 

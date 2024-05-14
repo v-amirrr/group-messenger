@@ -9,7 +9,6 @@ import { setClearScrollMessageId, setMessagesScrollPosition, setScrollMessageId 
 export const useMessageOptions = () => {
     const dispatch = useDispatch();
     const { popupMessages } = useSelector(store => store.popupStore);
-    const { enterAsAGuest } = useSelector(store => store.userStore);
     const { replyTo } = useSelector(store => store.sendMessageStore);
     const { selectedMessages } = useSelector(store => store.appStore);
     const { openNotification } = useNotification();
@@ -117,6 +116,9 @@ export const useMessageOptions = () => {
                 deleted: true,
             });
             openNotification('Message was moved to trash.', false, 'TRASH');
+            if (id == replyTo?.id) {
+                clearReplyMessage();
+            }
         } else {
             const docRef = doc(db, 'messages', id);
             updateDoc(docRef, {

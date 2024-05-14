@@ -229,7 +229,6 @@ const MessageOptionsContainer = styled(motion.div)`
                 p {
                     transform: scale(1);
                     opacity: 1;
-                    letter-spacing: 0;
                 }
             }
         }
@@ -337,12 +336,7 @@ const MessageOptionsContainer = styled(motion.div)`
         -webkit-backdrop-filter: blur(20px) saturate(100%);
         overflow: hidden;
 
-        .reply,
-        .copy,
-        .edit,
-        .delete,
-        .select,
-        .time {
+        .reply, .copy, .edit, .delete, .select, .time, .mark {
             margin: 0.1rem 0;
             background-color: #ffffff00;
             display: flex;

@@ -60,7 +60,7 @@ const MessageBoxContainer = styled(motion.div)`
     border-radius: ${props => props.data.messageBoxBorderRadius};
     padding: ${props => props.data.messageBoxPadding};
     width: fit-content;
-    max-width: ${props => props.data.type == 'EDIT_REPLY' || props.data.type == 'TRASH' ? '80%' : '65%'};
+    max-width: ${props => props.data.type == 'EDIT_REPLY' ? '70%' : props.data.type == 'TRASH' ? '100%' : '65%'};
     word-break: break-all;
     cursor: pointer;
     box-shadow: var(--normal-shadow);
@@ -81,7 +81,7 @@ const MessageBoxContainer = styled(motion.div)`
         text-align: ${props => props.data.persian ? 'right' : 'left'};
         word-spacing: 1px;
         white-space: pre-wrap;
-        word-break: ${props => props.data.type == 'TRASH' ? '' : 'keep-all'};
+        word-break: keep-all;
         font-family: ${props => props.data.persian ? 'Vazirmatn' : 'Outfit'}, 'Vazirmatn', sans-serif;
         font-size: ${props => props.data.type == 'TRASH' ? '.8rem' : props.data.persian ? '.9rem' : '1rem'};
         font-weight: 200;

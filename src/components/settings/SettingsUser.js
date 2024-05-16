@@ -7,7 +7,7 @@ import { FaUserEdit } from "react-icons/fa";
 import { RiArrowRightSLine } from "react-icons/ri";
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
-import { settingsContainerVariants, userSettingsVariants } from '../../config/varitans';
+import { userSettingsVariants } from '../../config/varitans';
 
 const SettingsUser = ({ open, setOpen, setHeight }) => {
     const { user, enterAsAGuest } = useSelector(store => store.userStore);
@@ -15,7 +15,6 @@ const SettingsUser = ({ open, setOpen, setHeight }) => {
     const { openNotification } = useNotification();
     const [changeUsernameInput, setChangeUsernameInput] = useState(user?.displayName);
     const [inputEnabled, setInputEnabled] = useState(false);
-    const [loading, setLoading] = useState(false);
 
     const itemSwitch = () => {
         cancelHandler();
@@ -44,46 +43,34 @@ const SettingsUser = ({ open, setOpen, setHeight }) => {
     const cancelHandler = () => {
         setChangeUsernameInput(user?.displayName);
         setInputEnabled(false);
-        setLoading(false);
     };
 
     return (
         <>
             <div className='item-header' onClick={itemSwitch}>
                 <i className='item-icon'><FcBusinessman /></i>
-                <h4>User</h4>
-                <i className='item-back'><RiArrowRightSLine /></i>
+                <p className='item-text'>User</p>
+                <i className='item-arrow'><RiArrowRightSLine /></i>
             </div>
 
             <AnimatePresence>
                 {
                     open == "SETTINGS_USER" ?
-                        <UserContainer initial='hidden' animate='visible' exit='exit' variants={userSettingsVariants} loading={loading ? 1 : 0} inputenabled={inputEnabled ? 1 : 0}>
+                        <UserContainer initial='hidden' animate='visible' exit='exit' variants={userSettingsVariants} inputenabled={inputEnabled ? 1 : 0}>
                             <div className='username'>
-                                <h5>Username</h5>
+                                <p className='username-header'>Username</p>
                                 <div className='username-input'>
                                     <input type='text' value={changeUsernameInput} onChange={(e) => setChangeUsernameInput(e.target.value)} disabled={!inputEnabled} autoFocus={inputEnabled} />
-                                    <button className='edit' onClick={() => setInputEnabled(true)}><FaUserEdit /></button>
+                                    <button className='username-input-icon' onClick={() => setInputEnabled(true)}><FaUserEdit /></button>
                                 </div>
                                 <div className='buttons'>
-                                    <button className='cancel' onClick={cancelHandler} disabled={!inputEnabled}>
+                                    <button className='cancel-button' onClick={cancelHandler} disabled={!inputEnabled}>
                                         Cancel
                                     </button>
-                                    <button className='submit' onClick={changeUsernameHandler} disabled={!inputEnabled} autoFocus>
+                                    <button className='submit-button' onClick={changeUsernameHandler} disabled={!inputEnabled} autoFocus>
                                         Change
                                     </button>
                                 </div>
-                                <AnimatePresence>
-                                    {
-                                        loading ?
-                                        <motion.div key='loader' className='loader' initial='hidden' animate='visible' exit='exit' variants={settingsContainerVariants}>
-                                            <span className='dot'></span>
-                                            <span className='dot'></span>
-                                            <span className='dot'></span>
-                                        </motion.div>
-                                        : ''
-                                    }
-                                </AnimatePresence>
                             </div>
                         </UserContainer>
                     : ""
@@ -105,9 +92,8 @@ const UserContainer = styled(motion.div)`
 
     .username {
         position: relative;
-        padding: .5rem;
         border-radius: 15px;
-        width: 10rem;
+        width: 9rem;
         height: 7rem;
         display: flex;
         justify-content: center;
@@ -115,15 +101,15 @@ const UserContainer = styled(motion.div)`
         flex-direction: column;
         overflow: hidden;
         padding-bottom: ${props => props.inputenabled ? '2rem' : '0'};
-        transition: border .4s, padding .4s;
+        transition: padding .4s;
 
-        h5 {
-            filter: ${props => props.loading ? "blur(3px)" : "blur(0)"};
-            text-align: left;
+        .username-header {
             width: 100%;
             padding: 0 .3rem;
-            margin: .2rem 0 .5rem 0;
-            transition: filter .4s;
+            margin: .2rem 0 .4rem 0;
+            font-size: .8rem;
+            font-weight: 600;
+            text-align: left;
         }
 
         .username-input {
@@ -131,20 +117,20 @@ const UserContainer = styled(motion.div)`
             justify-content: center;
             align-items: center;
             position: relative;
-            filter: ${props => props.loading ? "blur(3px)" : "blur(0)"};
-            transition: filter .4s;
             overflow: hidden;
 
             input {
-                padding: 0 .5rem;
                 width: 100%;
                 height: 1.8rem;
+                padding: 0 .5rem;
                 border: none;
                 border-radius: 50px;
                 background-color: var(--normal-bg);
+                font-size: .7rem;
+                font-weight: 400;
             }
 
-            .edit {
+            .username-input-icon {
                 position: absolute;
                 right: ${props => props.inputenabled ? '-.4rem' : '.1rem'};
                 font-size: .9rem;
@@ -158,30 +144,27 @@ const UserContainer = styled(motion.div)`
         }
 
         .buttons {
-            filter: ${props => props.loading ? "blur(3px)" : "blur(0)"};
             position: absolute;
-            bottom: ${props => props.inputenabled ? '.5rem' : '-1rem'};
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            bottom: ${props => props.inputenabled ? '.7rem' : '-1rem'};
             width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             opacity: ${props => props.inputenabled ? 1 : 0};
-            transition: filter .4s, bottom .4s, opacity .2s;
+            transition: bottom .4s, opacity .2s;
 
-            .submit, .cancel {
-                overflow: hidden;
-                width: 4rem;
-                padding: .5rem;
-                margin: 0 .25rem;
+            .submit-button, .cancel-button {
+                width: 4.3rem;
+                height: 1.8rem;
                 border-radius: 50px;
-                font-weight: 400;
-                cursor: pointer;
                 background-color: var(--normal-bg);
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                font-size: .8rem;
                 font-weight: 400;
                 white-space: nowrap;
+                overflow: hidden;
                 transition: background .2s;
 
                 @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
@@ -190,46 +173,15 @@ const UserContainer = styled(motion.div)`
                     }
                 }
             }
-        }
 
-        .loader {
-            position: absolute;
-            top: 0;
-            width: 10rem;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9;
+            .submit-button {
+                color: #00ff00;
+                background-color: #00ff0030;
 
-            .dot {
-                width: .9rem;
-                height: .9rem;
-                border-radius: 50%;
-                background-color: var(--normal-color);
-
-                &:nth-child(1) {
-                    animation: loader .6s infinite alternate;
-                    animation-delay: 0s;
-                }
-
-                &:nth-child(2) {
-                    animation: loader .6s infinite alternate;
-                    animation-delay: .25s;
-                }
-
-                &:nth-child(3) {
-                    animation: loader .6s infinite alternate;
-                    animation-delay: .5s;
-                }
-            }
-
-            @keyframes loader {
-                0% {
-                    transform: scale(1);
-                }
-                100% {
-                    transform: scale(0.6);
+                @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
+                    &:hover {
+                        background-color: #00ff0050;
+                    }
                 }
             }
         }

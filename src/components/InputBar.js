@@ -199,8 +199,8 @@ const InputBarContainer = styled(motion.div)`
         padding: .6rem 1rem;
         background-color: #ffffff00;
         font-family: ${props => props.isrlt ? 'Vazirmatn' : 'Outfit'}, 'Vazirmatn', sans-serif;
-        font-weight: 200;
         font-size: 1rem;
+        font-weight: 200;
         resize: none;
         vertical-align: middle;
         overflow: ${props => props.inputtext ? 'hidden scroll' : ''};
@@ -284,7 +284,7 @@ const InputBarContainer = styled(motion.div)`
         width: 15rem;
         margin-right: 4rem;
         bottom: .9rem;
-        padding-bottom: ${props => props.emoji ? '13.3rem' : '0'};
+        padding-bottom: ${props => props.emoji ? '8.5rem' : '0'};
         border-radius: ${props => props.emoji ? '20px' : '50px'};
     }
 `;

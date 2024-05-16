@@ -24,20 +24,12 @@ const Profile = () => {
                 {
                     enterAsAGuest ?
                     <div className='guest'>
-                        <i className='icon'>
-                            <FaUserLock />
-                        </i>
-                        <p className='text'>
-                            Guest Mode
-                        </p>
+                        <i className='icon'><FaUserLock /></i>
+                        <p className='text'>Guest Mode</p>
                     </div> :
                     <div className='user'>
-                        <i className='icon'>
-                            <TiUser />
-                        </i>
-                        <p className='text'>
-                            {user?.displayName}
-                        </p>
+                        <i className='icon'><TiUser /></i>
+                        <p className='text'>{user?.displayName}</p>
                     </div>
                 }
             </ProfileContainer>

@@ -119,7 +119,7 @@ const PopupContainer = styled(motion.section)`
 
             .delete {
                 color: #ff0000;
-                background-color: #ff000040;
+                background-color: #ff000030;
 
                 @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
                     &:hover {
@@ -130,11 +130,11 @@ const PopupContainer = styled(motion.section)`
 
             .edit, .change {
                 color: #00ff00;
-                background-color: #00ff0020;
+                background-color: #00ff0030;
 
                 @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
                     &:hover {
-                        background-color: #00ff0030;
+                        background-color: #00ff0050;
                     }
                 }
             }

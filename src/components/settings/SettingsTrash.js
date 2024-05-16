@@ -26,7 +26,7 @@ const SettingsTrash = ({ open, setOpen, setHeight }) => {
 
     const setTrashHeight = () => {
         if (messages.length == 0) {
-            return 10;
+            return 16;
         } else {
             return 16;
         }
@@ -64,7 +64,7 @@ const SettingsTrash = ({ open, setOpen, setHeight }) => {
                     <i className='item-icon'><FcFullTrash /></i> :
                     <i className='item-icon'><FcEmptyTrash /></i>
                 }
-                <h4>Trash</h4>
+                <p className='item-text'>Trash</p>
                 <AnimatePresence exitBeforeEnter>
                     {
                         messages?.length ?
@@ -74,7 +74,7 @@ const SettingsTrash = ({ open, setOpen, setHeight }) => {
                         : ""
                     }
                 </AnimatePresence>
-                <i className='item-back'><RiArrowRightSLine /></i>
+                <i className='item-arrow'><RiArrowRightSLine /></i>
             </div>
 
             <AnimatePresence>
@@ -153,10 +153,10 @@ const MessagesContainer = styled(motion.div)`
         position: absolute;
         top: 0;
         height: ${props => props.selectbarshow ? '2rem' : '0'};
-        opacity: ${props => props.selectbarshow ? '1' : '0'};
         display: flex;
         justify-content: center;
         align-items: center;
+        opacity: ${props => props.selectbarshow ? '1' : '0'};
         overflow: hidden;
         transition: height .2s, opacity .2s;
 
@@ -165,13 +165,14 @@ const MessagesContainer = styled(motion.div)`
             justify-content: center;
             align-items: center;
             border-radius: 25px;
+            width: 4.3rem;
             height: 1.8rem;
-            width: 4rem;
-            margin: 0 .1rem;
+            margin: 0 .15rem;
             cursor: pointer;
             backdrop-filter: var(--bold-glass);
             -webkit-backdrop-filter: var(--bold-glass);
             z-index: 2;
+            transition: background .2s;
 
             i {
                 display: flex;
@@ -180,7 +181,8 @@ const MessagesContainer = styled(motion.div)`
             }
 
             p {
-                font-size: .65rem;
+                font-size: .8rem;
+                font-weight: 400;
             }
         }
 
@@ -192,6 +194,12 @@ const MessagesContainer = styled(motion.div)`
                 font-size: 1rem;
                 margin-right: .05rem;
             }
+
+            @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
+                &:hover {
+                    background-color: #ff000050;
+                }
+            }
         }
 
         .restore-button {
@@ -200,7 +208,13 @@ const MessagesContainer = styled(motion.div)`
 
             i {
                 font-size: .75rem;
-                margin-right: .1rem;
+                margin-right: .05rem;
+            }
+
+            @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
+                &:hover {
+                    background-color: #00ff0050;
+                }
             }
         }
 
@@ -218,6 +232,13 @@ const MessagesContainer = styled(motion.div)`
             backdrop-filter: var(--bold-glass);
             -webkit-backdrop-filter: var(--bold-glass);
             z-index: 2;
+            transition: background .2s;
+
+            @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
+                &:hover {
+                    background-color: #ffffff20;
+                }
+            }
         }
 
         .counter {

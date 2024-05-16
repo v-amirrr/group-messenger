@@ -7,7 +7,7 @@ import SettingsNotification from './SettingsNotification';
 import { TiArrowLeft } from 'react-icons/ti';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { settingsPageVariants, settingsContainerVariants } from '../../config/varitans';
+import { settingsContainerVariants } from '../../config/varitans';
 
 const SettingsPage = () => {
     const navigate = useNavigate();
@@ -25,16 +25,11 @@ const SettingsPage = () => {
 
     return (
         <>
-            <Settings
-                initial='hidden'
-                animate='visible'
-                exit='exit'
-                variants={settingsPageVariants}
-            >
-                <SettingsContainer variants={settingsContainerVariants}>
+            <Settings>
+                <motion.div className='settings-container' initial='hidden' animate='visible' exit='exit' variants={settingsContainerVariants}>
                     <header className='settings-header'>
-                        <h1>Settings</h1>
-                        <button className='back' onClick={backClickHandler}><TiArrowLeft /></button>
+                        <p className='header-text'>Settings</p>
+                        <button className='header-button' onClick={backClickHandler}><TiArrowLeft /></button>
                     </header>
                     <SettingsItem
                         open={open == 'SETTINGS_NOTIFICATION'}
@@ -73,59 +68,65 @@ const SettingsPage = () => {
                         }
                         height={height}
                     />
-                </SettingsContainer>
+                </motion.div>
             </Settings>
         </>
     );
 };
 
-const Settings = styled(motion.section)`
+const Settings = styled.section`
+    position: absolute;
+    inset: 0 0 0 0;
     width: 100vw;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    position: absolute;
-    inset: 0 0 0 0;
-`;
 
-const SettingsContainer = styled(motion.section)`
-    position: relative;
-    width: 19.5rem;
-    height: 31rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    border: solid 2.5px #ffffff10;
-    border-radius: 25px;
-    background-color: #00000044;
-    padding-top: 4rem;
-
-    .settings-header {
-        position: absolute;
-        top: 0;
-        width: 100%;
+    .settings-container {
+        position: relative;
+        width: 20rem;
+        height: 31rem;
         display: flex;
         justify-content: center;
         align-items: center;
-        padding: 1rem 0;
+        flex-direction: column;
+        border: solid 2.5px #ffffff10;
+        border-radius: 25px;
+        background-color: #00000044;
+        padding-top: 4rem;
 
-        .back {
+        .settings-header {
             position: absolute;
-            left: .7rem;
+            top: 0;
+            width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 2rem;
-        }
-    }
+            padding: 1rem 0;
 
-    @media (max-width: 768px) {
-        width: 100%;
-        height: 100%;
-        border: solid 2.5px #ffffff00;
-        border-radius: 0;
+            .header-text {
+                font-size: 1.2rem;
+                font-weight: 600;
+            }
+
+            .header-button {
+                position: absolute;
+                left: .7rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: none;
+            background-color: #00000000;
+        }
     }
 `;
 

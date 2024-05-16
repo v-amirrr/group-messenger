@@ -37,10 +37,10 @@ const InputBarReplyTo = ({ replyTo, applyScrollMessageId, closeHandler, inputBar
                             onMouseEnter={hoverHandler}
                             onMouseLeave={() => mouseSituation = 'OUT'}
                         >
-                            <i><BsReplyFill /></i>
+                            <i className='icon'><BsReplyFill /></i>
                             <p className='text'>{replyTo.message}</p>
                         </div>
-                        <button onClick={(e) => closeHandler(e)}><IoClose /></button>
+                        <button className='close-button' onClick={(e) => closeHandler(e)}><IoClose /></button>
                     </InputBarReplyToContainer>
                     : ''
                 }
@@ -71,25 +71,6 @@ const InputBarReplyToContainer = styled(motion.div)`
         'bottom .3s cubic-bezier(.53,0,0,.98)'
     };
 
-    button {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 1.3rem;
-        color: var(--red-color);
-        border-radius: 50%;
-        cursor: pointer;
-        padding: 0.1rem;
-        margin-left: 0.5rem;
-        transition: background 0.2s;
-
-        @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
-            &:hover {
-                background-color: var(--normal-bg-hover);
-            }
-        }
-    }
-
     .message {
         display: flex;
         justify-content: flex-start;
@@ -98,12 +79,11 @@ const InputBarReplyToContainer = styled(motion.div)`
         height: 100%;
         margin: 0 0.2rem;
         overflow: hidden;
-        font-family: ${(props) => (props.isrlt ? 'Vazirmatn' : 'Outfit')},
-            'Vazirmatn', sans-serif;
+        font-family: ${(props) => (props.isrlt ? 'Vazirmatn' : 'Outfit')}, 'Vazirmatn', sans-serif;
         color: var(--pale-color);
         font-weight: 400;
 
-        i {
+        .icon {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -119,11 +99,33 @@ const InputBarReplyToContainer = styled(motion.div)`
         }
     }
 
+    .close-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.3rem;
+        color: var(--red-color);
+        border-radius: 50%;
+        cursor: pointer;
+        padding: .1rem;
+        transition: background .2s;
+
+        @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
+            &:hover {
+                background-color: var(--normal-bg-hover);
+            }
+        }
+    }
+
     @media (max-width: 768px) {
         max-width: 50%;
         margin-right: 4rem;
-        bottom: 4rem;
+        bottom: ${props => props.emoji ? '12.4rem' : '4rem'};
     }
+`;
+
+const CloseButton = styled(motion.div)`
+
 `;
 
 export default InputBarReplyTo;

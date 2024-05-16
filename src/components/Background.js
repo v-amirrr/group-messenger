@@ -38,6 +38,10 @@ const BackgroundContainer = styled.div`
     }
 
     @media (max-width: 768px) {
+        div {
+            background-color: #00000022;
+        }
+
         img {
             position: absolute;
             width: 100vh !important;

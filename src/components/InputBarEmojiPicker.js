@@ -53,7 +53,7 @@ const InputBarEmojiPickerContainer = styled.div`
 
     @media (max-width: 745px) {
         transform: scale(0.7);
-        top: 0;
+        top: .7rem;
     }
 `;
 

@@ -11,7 +11,6 @@ import { selectBarVariants } from '../config/varitans';
 const SelectBar = () => {
     const { selectedMessages, selectOthersMessage } = useSelector(store => store.appStore);
     const { clearSelectedMessages, copySelectedMessages, trashSelectedMessages } = useSelect();
-
     return (
         <>
             <SelectBarContainer
@@ -58,12 +57,6 @@ const SelectBarContainer = styled(motion.div)`
     -webkit-backdrop-filter: var(--bold-glass);
     z-index: 3;
     overflow: hidden;
-
-    @media (max-width: 768px) {
-        width: 15rem;
-        margin-right: 4rem;
-        bottom: .9rem;
-    }
 
     .close {
         position: absolute;
@@ -133,6 +126,10 @@ const SelectBarContainer = styled(motion.div)`
     }
 
     @media (max-width: 745px) {
+        width: 15rem;
+        margin-right: 4rem;
+        bottom: .9rem;
+
         .options {
             .delete, .copy {
                 margin: 0;

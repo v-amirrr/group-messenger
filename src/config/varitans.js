@@ -120,62 +120,17 @@ export const loaderVariants = {
     },
 };
 
-export const messengerVariants = onMobile
-    ? {
-          hidden: { opacity: 0 },
-          visible: {
-              opacity: 1,
-              transition: {
-                  duration: 0.2,
-                  when: 'beforeChildren',
-              },
-          },
-          exit: {
-              opacity: 0,
-              transition: { duration: 0.2, when: 'afterChildren' },
-          },
-      }
-    : {
-          hidden: { opacity: 0 },
-          visible: {
-              opacity: 1,
-              transition: {
-                  duration: 0.4,
-                  when: 'beforeChildren',
-              },
-          },
-          exit: {
-              opacity: 0,
-              scale: 0.95,
-              transition: {
-                  duration: 0.2,
-              },
-          },
-      };
-
-export const groupChatVariants = onMobile
-    ? {
-          hidden: { opacity: 0 },
-          visible: {
-              opacity: 1,
-              transition: {
-                  delay: 1,
-                  duration: 0.2,
-              },
-          },
-          exit: { opacity: 0, transition: { duration: 0.2 } },
-      }
-    : {
-          hidden: { opacity: 0 },
-          visible: {
-              opacity: 1,
-              transition: {
-                  duration: 0.4,
-                  when: 'beforeChildren',
-              },
-          },
-          exit: { opacity: 0, scale: 0.9, transition: { duration: 0.2 } },
-      };
+export const messengerVariants = {
+    hidden: { opacity: 0, scale: 0.95 },
+    visible: {
+        opacity: 1,
+        scale: 1,
+        transition: {
+            duration: 0.5,
+        },
+    },
+    exit: { opacity: 0, scale: 0.95, transition: { duration: 0.2 } },
+};
 
 export const chatDateVariants = {
     hidden: { opacity: 0, scale: 0.8 },
@@ -428,12 +383,6 @@ export const checkButtonVariants = {
     exit: { opacity: 0, scale: 0, transition: { duration: 0.2 } },
 };
 
-export const settingsPageVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 0.2 } },
-    exit: { opacity: 0, transition: { duration: 0.1, when: 'afterChildren' } },
-};
-
 export const settingsContainerVariants = {
     hidden: { opacity: 0, scale: 0.9 },
     visible: {
@@ -496,8 +445,7 @@ export const userSettingsVariants = {
     exit: {
         opacity: 0,
         transition: {
-            delay: 0.2,
-            duration: 0.4,
+            duration: 0.15,
         },
     },
 };
@@ -511,6 +459,7 @@ export const trashSettingsVariants = {
             duration: 0.7,
             ease: [0.53, 0, 0, 0.98],
             time: [0.53, 0, 0, 0.98],
+            when: 'beforeChildren',
         },
     },
     exit: {
@@ -647,29 +596,43 @@ export const featuresSectionDownVariatns = {
 };
 
 export const selectBarVariants = {
-    hidden: { opacity: 0, filter: 'blur(5px)', scale: 0.95 },
+    hidden: { y: 80 },
     visible: {
-        opacity: 1,
-        filter: 'blur(0px)',
-        scale: 1,
+        y: 0,
         transition: {
-            duration: 0.4,
+            duration: 0.7,
+            ease: [0.53, 0, 0, 0.98],
+            time: [0.53, 0, 0, 0.98],
         },
     },
-    exit: { opacity: 0, filter: 'blur(5px)', scale: 0.95, transition: { duration: 0.4 } },
+    exit: {
+        opacity: 0,
+        scale: 0.2,
+        y: -15,
+        transition: {
+            duration: 0.8,
+        },
+    },
 };
 
 export const inputBarVariants = {
-    hidden: { opacity: 0, filter: 'blur(5px)', scale: 0.95 },
+    hidden: { y: 80 },
     visible: {
-        opacity: 1,
-        filter: 'blur(0px)',
-        scale: 1,
+        y: 0,
         transition: {
-            duration: 0.4,
+            duration: 0.7,
+            ease: [0.53, 0, 0, 0.98],
+            time: [0.53, 0, 0, 0.98],
         },
     },
-    exit: { opacity: 0, filter: 'blur(5px)', scale: 0.95, transition: { duration: 0.4 } },
+    exit: {
+        opacity: 0,
+        scale: 0.2,
+        y: -15,
+        transition: {
+            duration: 0.8,
+        },
+    },
 };
 
 export const sendInputIconVariants = {

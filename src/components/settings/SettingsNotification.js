@@ -7,7 +7,6 @@ import { RiArrowRightSLine } from "react-icons/ri";
 import { AiFillDelete, AiFillCopy, AiFillEdit } from 'react-icons/ai';
 import { TbTrashX } from 'react-icons/tb';
 import { IoSend } from 'react-icons/io5';
-import { MdWallpaper } from "react-icons/md";
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { notificationSettingsVariants } from '../../config/varitans';
@@ -20,7 +19,7 @@ const SettingsNotification = ({ open, setOpen, setHeight }) => {
             setOpen(false);
         } else {
             setOpen("SETTINGS_NOTIFICATION");
-            setHeight(18);
+            setHeight(17);
         }
     };
 
@@ -32,8 +31,8 @@ const SettingsNotification = ({ open, setOpen, setHeight }) => {
         <>
             <div className='item-header' onClick={itemSwitch}>
                 <i className='item-icon'><FcAdvertising /></i>
-                <h4>Notifications</h4>
-                <i className='item-back'><RiArrowRightSLine /></i>
+                <p className='item-text'>Notifications</p>
+                <i className='item-arrow'><RiArrowRightSLine /></i>
             </div>
 
             <AnimatePresence>
@@ -94,15 +93,6 @@ const SettingsNotification = ({ open, setOpen, setHeight }) => {
                                 scale={0.9}
                             />
                         </div>
-                        <div className='notification-item' onClick={() => changeNotificationSettings('background', !notificationSettings.background)}>
-                            <i><MdWallpaper /></i>
-                            <p>Changing background</p>
-                            <Toggle
-                                toggleHandler={() => changeNotificationSettings('background', !notificationSettings.background)}
-                                toggleValue={notificationSettings.background}
-                                scale={0.9}
-                            />
-                        </div>
                         <div className='notification-item' onClick={() => changeNotificationSettings('username', !notificationSettings.username)}>
                             <i><FaUserCircle /></i>
                             <p>Changing username</p>
@@ -151,10 +141,10 @@ const NotificationContainer = styled(motion.div)`
 
         p {
             width: 100%;
-            font-size: .65rem;
+            font-size: .8rem;
             font-weight: 400;
             text-align: left;
-            margin-left: 1.7rem;
+            margin-left: 1.8rem;
         }
 
         .toggle {
@@ -164,49 +154,43 @@ const NotificationContainer = styled(motion.div)`
 
         &:nth-child(1) {
             i {
-                font-size: .8rem;
+                font-size: 1rem;
             }
         }
 
         &:nth-child(2) {
             i {
-                font-size: .95rem;
+                font-size: 1.2rem;
             }
         }
 
         &:nth-child(3) {
             i {
-                font-size: .95rem;
+                font-size: 1.2rem;
             }
         }
 
         &:nth-child(4) {
             i {
-                font-size: .95rem;
+                font-size: 1.2rem;
             }
         }
 
         &:nth-child(5) {
             i {
-                font-size: .8rem;
+                font-size: 1rem;
             }
         }
 
         &:nth-child(6) {
             i {
-                font-size: 1rem;
+                font-size: 1.3rem;
             }
         }
 
         &:nth-child(7) {
             i {
-                font-size: .9rem;
-            }
-        }
-
-        &:nth-child(8) {
-            i {
-                font-size: .85rem;
+                font-size: 1.1rem;
             }
         }
     }

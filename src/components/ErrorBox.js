@@ -7,7 +7,7 @@ const ErrorBox = ({ errorMessage }) => {
     return (
         <>
             <ErrorBoxContainer initial='hidden' animate='visible' exit='exit' variants={errorBoxVariants}>
-                <h2>Looks like there's a problem</h2>
+                <h1>Looks like there's a problem</h1>
                 <p>{errorMessage}</p>
                 <button onClick={() => window.location.reload(false)}>Refresh</button>
             </ErrorBoxContainer>
@@ -22,24 +22,26 @@ const ErrorBoxContainer = styled(motion.div)`
     flex-direction: column;
     text-align: center;
 
-    h2 {
+    h1 {
         margin: 1rem;
-        color: var(--red-color);
+        color: #cc0000;
         letter-spacing: -1px;
         white-space: nowrap;
     }
 
     p {
         max-width: 30rem;
-        font-size: .8rem;
+        font-size: 1em;
         font-weight: 400;
+        line-height: 1.5;
+        color: #ddd;
     }
 
     button {
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 25%;
+        width: 55%;
         height: 2.3rem;
         background-color: var(--normal-bg);
         box-shadow: var(--normal-shadow);
@@ -47,8 +49,6 @@ const ErrorBoxContainer = styled(motion.div)`
         border-radius: 50px;
         font-size: 1rem;
         font-weight: 600;
-        word-spacing: 3px;
-        letter-spacing: -1px;
         margin: 1rem;
         cursor: pointer;
         transition: background .2s;

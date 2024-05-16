@@ -16,53 +16,54 @@ const SettingsItem = ({ open, hide, component, height }) => {
 };
 
 const SettingsItemContainer = styled.div`
+    position: relative;
     width: 72%;
-    height: ${props => props.open ? `${props.height}rem` : props.hide ? "0" : "2.2rem"};
+    height: ${props => props.open ? `${props.height}rem` : props.hide ? "0" : "2.3rem"};
     display: flex;
     justify-content: flex-start;
     align-items: center;
     border: solid 2.5px #ffffff10;
     border-radius: ${props => props.open ? "20px" : "50px"};
-    overflow: hidden;
-    position: relative;
     margin: .18rem;
     background-color: #00000044;
     box-shadow: var(--normal-shadow);
     opacity: ${props => props.hide ? '0' : '1'};
+    overflow: hidden;
     transition: ${props => props.hide ?
             'opacity .2s' :
             'opacity .4s .1s'
         },
         ${props => props.open ?
-            "height .6s" :
-            "height .3s, border-radius 2s"
+            "height .6s, width .6s" :
+            "height .3s, width .3s, border-radius 2s"
         };
 
     .item-header {
         position: absolute;
-        top: ${props => props.open ? ".5rem" : "23%"};
+        top: 0;
         width: 100%;
+        height: ${props => props.open ? "2.3rem" : "100%"};
         display: flex;
         justify-content: flex-start;
         align-items: center;
-        padding: 0 .5rem .4rem .8rem;
+        padding: 0 .5rem 0 .6rem;
         cursor: pointer;
-        transition: ${props => props.open ? "top .1s" : "top .4s .6s"}, border-bottom .4s;
+        transition: ${props => props.open ? "height .1s" : "height 1s"};
 
         .item-icon {
             display: flex;
             justify-content: center;
             align-items: center;
             font-size: 1.2rem;
-            margin-right: .5rem;
+            margin-right: .2rem;
         }
 
-        h4 {
-            font-size: .9rem;
+        .item-text {
+            font-size: 1rem;
             font-weight: 600;
         }
 
-        .item-back {
+        .item-arrow {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -74,14 +75,14 @@ const SettingsItemContainer = styled.div`
         }
 
         .deleted-messages-counter {
-            margin: 0 .3rem;
-            font-size: .6rem;
-            font-weight: 600;
             width: 1rem;
             height: 1rem;
             display: flex;
             justify-content: center;
             align-items: center;
+            margin: 0 .3rem;
+            font-size: .55rem;
+            font-weight: 400;
             border-radius: 50%;
             background-color: #ff0000aa;
         }
@@ -96,7 +97,8 @@ const SettingsItemContainer = styled.div`
     }
 
     @media (max-width: 768px) {
-        width: 65%;
+        width: 60%;
+        height: ${props => props.open ? `${props.height}rem` : props.hide ? "0" : "2.6rem"};
     }
 `;
 

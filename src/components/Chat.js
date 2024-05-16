@@ -11,7 +11,6 @@ import InputBar from './InputBar';
 import SelectBar from './SelectBar';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
-import { groupChatVariants } from '../config/varitans';
 
 const Chat = () => {
     const chatRef = useRef();
@@ -56,10 +55,6 @@ const Chat = () => {
             </AnimatePresence>
 
             <ChatContainer
-                initial='hidden'
-                animate='visible'
-                exit='exit'
-                variants={groupChatVariants}
                 layout
                 ref={chatRef}
                 onScroll={onChatScrollHandler}

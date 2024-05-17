@@ -6,16 +6,11 @@ import { useNotification } from "./useNotification";
 export const useSelect = () => {
     const dispatch = useDispatch();
     const { selectedMessages } = useSelector(store => store.appStore);
-    const { enterAsAGuest } = useSelector(store => store.userStore);
     const { trashMessage, undeleteMessage, deleteMessage, closePopup } = useMessageOptions();
     const { openNotification } = useNotification();
 
     const selectMessage = (message) => {
-        if (enterAsAGuest) {
-            openNotification("In order to use this feature you need to login.", false, "GUEST");
-        } else {
-            dispatch(setSelectedMessages({ message }));
-        }
+        dispatch(setSelectedMessages({ message }));
     };
 
     const unSelectMessage = (uid) => {

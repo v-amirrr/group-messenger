@@ -164,34 +164,36 @@ export const useMessage = (message, type, messageRef, options, onClick) => {
     };
 
     const messageClickHandler = () => {
-        if (type == 'CHAT' || type == 'TRASH') {
-            if (selectedMessages?.length || type == 'TRASH') {
-                if (hold) {
-                    setHold(false);
-                } else if (selected && !hold) {
-                    unSelectMessage(id);
-                    setSelected(false);
+        if (status != 1 && status != 2) {
+            if (type == 'CHAT' || type == 'TRASH') {
+                if (selectedMessages?.length || type == 'TRASH') {
+                    if (hold) {
+                        setHold(false);
+                    } else if (selected && !hold) {
+                        unSelectMessage(id);
+                        setSelected(false);
+                    } else {
+                        selectMessage({
+                            ...message,
+                            isMessageFromLocalUser: messageUid == localUid ? 1 : 0,
+                            isPersian: isPersian(text) ? 1 : 0,
+                        });
+                    }
                 } else {
-                    selectMessage({
-                        ...message,
-                        isMessageFromLocalUser: messageUid == localUid ? 1 : 0,
-                        isPersian: isPersian(text) ? 1 : 0,
-                    });
+                    if (options?.messageOptions?.id == id && type == 'CHAT') {
+                        options.setMessageOptions(false);
+                    } else {
+                        options.setMessageOptions(message);
+                    }
                 }
             } else {
-                if (options?.messageOptions?.id == id && type == 'CHAT') {
-                    options.setMessageOptions(false);
-                } else {
-                    options.setMessageOptions(message);
-                }
+                onClick();
             }
-        } else {
-            onClick();
         }
     };
 
     const messageDoubleClickHandler = () => {
-        if (!selectedMessages?.length && type == 'CHAT') {
+        if (!selectedMessages?.length && type == 'CHAT' && status != 1 && status != 2) {
             options.setMessageOptions(false);
             replyMessage(id, plainText, messageUsername);
         }

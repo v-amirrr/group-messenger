@@ -1,17 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
 import { setNotifications, setCloseNotification, setClearNotifications, setNotificationSettings } from "../redux/appSlice";
 import { useEffect } from "react";
 
 export const useNotification = () => {
     const dispatch = useDispatch();
-    const location = useLocation();
     const { notifications, notificationSettings } = useSelector(store => store.appStore);
     const { enterAsAGuest } = useSelector(store => store.userStore);
-
-    useEffect(() => {
-        clearNotifications();
-    }, [location.pathname]);
 
     useEffect(() => {
         let firstItem = notifications[0]?.time;

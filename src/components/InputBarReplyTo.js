@@ -52,7 +52,7 @@ const InputBarReplyTo = ({ replyTo, applyScrollMessageId, closeHandler, inputBar
 const InputBarReplyToContainer = styled(motion.div)`
     position: absolute;
     bottom: ${props => props.emoji ? '16rem' : '4rem'};
-    max-width: 25%;
+    max-width: 18rem;
     height: 2rem;
     display: flex;
     justify-content: center;
@@ -92,7 +92,7 @@ const InputBarReplyToContainer = styled(motion.div)`
         }
 
         .text {
-            font-size: 0.7rem;
+            font-size: 0.8rem;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -118,14 +118,10 @@ const InputBarReplyToContainer = styled(motion.div)`
     }
 
     @media (max-width: 768px) {
-        max-width: 50%;
+        max-width: 15rem;
         margin-right: 4rem;
         bottom: ${props => props.emoji ? '12.4rem' : '4rem'};
     }
-`;
-
-const CloseButton = styled(motion.div)`
-
 `;
 
 export default InputBarReplyTo;

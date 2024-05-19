@@ -237,7 +237,7 @@ const MessageOptionsContainer = styled(motion.div)`
     .reply {
         @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
             &:hover {
-                padding: 0.5rem 2.8rem 0.5rem 0.5rem;
+                padding: 0.5rem 2.7rem 0.5rem 0.5rem;
                 transition: padding 0.3s;
             }
         }

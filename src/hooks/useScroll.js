@@ -95,9 +95,6 @@ export const useScroll = (chatRef) => {
     const storeChatScrollPosition = () => {
         if (scrollLastPosition != undefined) {
             localStorage.setItem('scroll', scrollLastPosition);
-            if (~~chatRef?.current?.scrollTop + 100 >= chatRef?.current?.scrollHeight - chatRef?.current?.clientHeight) {
-                localStorage.setItem('scroll', 'end');
-            }
         }
     };
 
@@ -107,12 +104,7 @@ export const useScroll = (chatRef) => {
     };
 
     const scrollToLastPosition = () => {
-        const lastScrollPosition = localStorage.getItem('scroll');
-        if (lastScrollPosition == 'end') {
-            scrollDown('instant');
-        } else {
-            scrollTo(lastScrollPosition, 'instant');
-        }
+        scrollTo(localStorage.getItem('scroll'), 'instant');
     };
 
     return {

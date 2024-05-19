@@ -200,14 +200,17 @@ export const useMessage = (message, type, messageRef, options, onClick) => {
     };
 
     const onHoldStarts = () => {
-        if (!selectedMessages?.length && type == 'CHAT' && document.documentElement.offsetWidth > 600) {
+        let scrollLocalStorage = localStorage.getItem('scroll');
+        if (!selectedMessages?.length && type == 'CHAT') {
             timer = setTimeout(() => {
-                selectMessage({
-                    ...message,
-                    isMessageFromLocalUser: messageUid == localUid ? 1 : 0,
-                    isPersian: isPersian(text) ? 1 : 0,
-                });
-                setHold(true);
+                if (scrollLocalStorage == localStorage.getItem('scroll')) {
+                    selectMessage({
+                        ...message,
+                        isMessageFromLocalUser: messageUid == localUid ? 1 : 0,
+                        isPersian: isPersian(text) ? 1 : 0,
+                    });
+                    setHold(true);
+                }
             }, 300);
         }
     };

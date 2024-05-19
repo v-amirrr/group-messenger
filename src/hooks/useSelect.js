@@ -47,7 +47,7 @@ export const useSelect = () => {
     };
 
     const copySelectedMessages = () => {
-        let text = '';
+        let text = '', notificationText = '';
         selectedMessages.map((message, index) => {
             if (index == 0 && index == selectedMessages.length-1) {
                 text+=`${message.plainText} `;
@@ -56,8 +56,15 @@ export const useSelect = () => {
             }
         });
         navigator.clipboard.writeText(text);
+        if (selectedMessages.length == 1) {
+            notificationText = 'Message copied.';
+        } else {
+            notificationText = 'Messages copied.';
+        }
         clearSelectedMessages();
-        openNotification('Messages copied.', false, 'COPY');
+        setTimeout(() => {
+            openNotification(notificationText, false, 'COPY');
+        }, 300);
     };
 
     const trashSelectedMessages = () => {
@@ -74,7 +81,7 @@ export const useSelect = () => {
             });
             setTimeout(() => {
                 openNotification('Messages were moved to trash.', false, 'TRASH');
-            }, 200);
+            }, 300);
         }
         clearSelectedMessages();
     };
@@ -104,7 +111,7 @@ export const useSelect = () => {
             });
             setTimeout(() => {
                 openNotification('Messages restored.', false, 'RESTORE');
-            }, 200);
+            }, 300);
         }
         clearSelectedMessages();
     };
@@ -125,7 +132,7 @@ export const useSelect = () => {
                 });
                 setTimeout(() => {
                     openNotification('Messages were permenately deleted.', false, 'RESTORE');
-                }, 200);
+                }, 300);
             }
         }, 400);
         clearSelectedMessages();

@@ -65,10 +65,11 @@ export const notificationFastVariants = {
         },
     },
     exit: {
-        opacity: 0,
-        scale: 0.5,
+        y: -80,
         transition: {
-            duration: 0.2,
+            duration: 0.7,
+            ease: [0.53, 0, 0, 0.98],
+            time: [0.53, 0, 0, 0.98],
         },
     },
 };

@@ -78,6 +78,7 @@ const MessageBoxContainer = styled(motion.div)`
     transition: border-radius .2s, margin .4s, background .2s, padding .4s;
 
     .message-text {
+        display: inline-block;
         text-align: ${props => props.data.persian ? 'right' : 'left'};
         word-spacing: 1px;
         white-space: pre-wrap;

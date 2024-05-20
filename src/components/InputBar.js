@@ -13,6 +13,7 @@ import InputBarEmojiPicker from './InputBarEmojiPicker';
 
 const InputBar = () => {
     const { error: sendMessageError, replyTo, restoredText } = useSelector(store => store.sendMessageStore);
+    const { enterAsAGuest } = useSelector(store => store.userStore);
     const { popupShow, popupName } = useSelector(store => store.popupStore);
     const { selectedMessages } = useSelector(store => store.appStore);
     const { sendMessage } = useSendMessage();
@@ -26,13 +27,14 @@ const InputBar = () => {
         if (inputText != '') {
             setInputBarEmojiPicker(false);
             sendMessage(inputText);
-            setInputText('');
-            inputRef.current.focus();
+            if (!enterAsAGuest) {
+                setInputText('');
+            }
         }
     };
 
     const inputKeyHandler = (e) => {
-        if (e.keyCode == 13 && !e.shiftKey) {
+        if (e.keyCode == 13 && !e.shiftKey && !navigator.userAgentData.mobile) {
             e.preventDefault();
             inputSubmitHandler();
         }

@@ -39,24 +39,26 @@ const MessageDateContainer = styled(motion.div)`
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0.3rem auto;
+    margin: .3rem auto;
 
     .date {
-        padding: 0.3rem 0.4rem;
+        width: fit-content;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: .3rem .4rem;
         margin-bottom: 1rem;
         background-color: #ffffff14;
         color: var(--normal-color);
         border-radius: 50px;
-        font-size: 0.45rem;
+        font-size: 0.5rem;
         font-weight: 400;
-        width: fit-content;
+        letter-spacing: -.5px;
         box-shadow: var(--normal-shadow);
-        display: flex;
-        justify-content: center;
-        align-items: center;
 
         .month {
-            margin: 0 0.18rem 0 0.18rem;
+            margin: 0 0.2rem 0 0.2rem;
+            letter-spacing: 0;
         }
     }
 `;

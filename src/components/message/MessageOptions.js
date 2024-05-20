@@ -63,27 +63,22 @@ const MessageOptions = ({ options, id }) => {
                             (options?.messageOptions.time.hour / 12) * 360 + 90
                         }
                         minute={(options?.messageOptions.time.minute / 60) * 360 + 90}
+                        unreply={replyToApp.id == options?.messageOptions.id ? 1 : 0}
                     >
-                        {
-                            replyToApp.id != options?.messageOptions.id ?
-                            <>
-                                <motion.div
-                                    className='reply'
-                                    onClick={() => optionClick('REPLY')}
-                                    variants={
-                                        options?.messageOptions.localMessage ?
-                                        optionLocalVariants :
-                                        optionNonLocalVariants
-                                    }
-                                >
-                                    <i>
-                                        <BsReplyFill />
-                                    </i>
-                                    <p>Reply</p>
-                                </motion.div>
-                            </>
-                            : ''
-                        }
+                        <motion.div
+                            className='reply'
+                            onClick={() => optionClick('REPLY')}
+                            variants={
+                                options?.messageOptions.localMessage ?
+                                optionLocalVariants :
+                                optionNonLocalVariants
+                            }
+                        >
+                            <i>
+                                <BsReplyFill />
+                            </i>
+                            <p>{replyToApp.id == options?.messageOptions.id ? 'Unreply' : 'Reply'}</p>
+                        </motion.div>
                         <motion.div
                             className='select'
                             onClick={() => optionClick('SELECT')}
@@ -237,7 +232,7 @@ const MessageOptionsContainer = styled(motion.div)`
     .reply {
         @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
             &:hover {
-                padding: 0.5rem 2.7rem 0.5rem 0.5rem;
+                padding: ${props => props.unreply ? '0.5rem 3.5rem 0.5rem 0.5rem' : '0.5rem 2.7rem 0.5rem 0.5rem'};
                 transition: padding 0.3s;
             }
         }

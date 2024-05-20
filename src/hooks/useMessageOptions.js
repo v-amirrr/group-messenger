@@ -63,6 +63,8 @@ export const useMessageOptions = () => {
             setTimeout(() => {
                 dispatch(setSendMessageReplyTo({ id, messagePlainText, username }));
             }, 300);
+        } else if (replyTo.id == id) {
+            clearReplyMessage();
         } else {
             dispatch(setSendMessageReplyTo({ id, messagePlainText, username }));
         }

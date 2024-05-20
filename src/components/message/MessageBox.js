@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import MessageReply from './MessageReply';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
 const MessageBox = ({ functions, type, replyTo, text, data }) => {
+    const messageBoxRef = useRef();
     return (
         <>
             <MessageBoxContainer
+                ref={messageBoxRef}
                 onClick={(e) => functions?.messageClickHandler(e)}
                 onDoubleClick={functions?.messageDoubleClickHandler}
                 onMouseDown={functions?.onHoldStarts}
@@ -14,7 +16,8 @@ const MessageBox = ({ functions, type, replyTo, text, data }) => {
                 onTouchStart={functions?.onHoldStarts}
                 onTouchEnd={functions?.onHoldEnds}
                 data={{
-                    ...data
+                    ...data,
+                    width: messageBoxRef?.current?.offsetWidth
                 }}
             >
                 <div className='message-text' dir='auto'>
@@ -72,9 +75,9 @@ const MessageBoxContainer = styled(motion.div)`
         #ffffff20 50%,
         #ffffff00 80%
     );
-    background-position: ${props => `left ${-props.data.len}rem top 0`};
+    background-position: ${props => `left ${-props.data.width}px top 0`};
     background-repeat: no-repeat;
-    animation: ${props => props.data.replyeffect || props.data.selected ? 'message-skeleton-animation linear 1s' : ''};
+    animation: ${props => props.data.replyeffect || props.data.selected ? 'message-skeleton-animation linear .8s' : ''};
     transition: border-radius .2s, margin .4s, background .2s, padding .4s;
 
     .message-text {
@@ -90,7 +93,7 @@ const MessageBoxContainer = styled(motion.div)`
 
     @keyframes message-skeleton-animation {
         to {
-            background-position: ${props => `left ${props.data.len}rem top 0`};
+            background-position: ${props => `left ${props.data.width}px top 0`};
         }
     }
 

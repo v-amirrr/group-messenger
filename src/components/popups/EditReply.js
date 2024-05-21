@@ -71,33 +71,24 @@ const EditReply = ({ replyTo, id, editReplyOpen, setEditReplyOpen }) => {
                         >
                             <div className='messages' ref={messagesRef}>
                                 {
-                                    messagesBefore?.map((message) => (
+                                    messagesBefore?.map((messageData) => (
                                         <Message
                                             onClick={() =>
-                                                newReply.id == message.id ?
+                                                newReply.id == messageData.id ?
                                                 setNewReply('deleted') :
-                                                setNewReply(message)
+                                                setNewReply(messageData)
                                             }
                                             replyIconClick={() => setNewReply('deleted')}
-                                            key={message.id}
+                                            key={messageData.id}
                                             type='EDIT_REPLY'
-                                            newreply={newReply.id == message.id}
-                                            message={{
-                                                messageUid: message.uid,
+                                            newreply={newReply.id == messageData.id}
+                                            messageData={{
+                                                ...messageData,
+                                                username: usernames[messageData.uid],
+                                                isLocalMessage: user?.uid == messageData.uid,
                                                 localUid: user?.uid,
-                                                localMessage: user?.uid == message.uid,
-                                                messageUsername: usernames[message.uid],
-                                                id: message.id,
-                                                text: message.message,
-                                                plainText: message.plainText,
-                                                isTextPersian : isPersian(message.message) ? 1 : 0,
-                                                textLetters: message.plainText.length,
-                                                periorUsername: message.periorUsername,
-                                                nextUsername: message.nextUsername,
-                                                time: message.time,
-                                                priorDifferentDate: message.priorDifferentDate,
-                                                nextDifferentDate: message.nextDifferentDate,
-                                                replyTo: message.replyTo,
+                                                isTextPersian : isPersian(messageData.plainText),
+                                                textLetters: messageData.plainText.length > 20 ? 20 : messageData.plainText.length,
                                             }}
                                         />
                                     ))
@@ -129,7 +120,7 @@ const EditReply = ({ replyTo, id, editReplyOpen, setEditReplyOpen }) => {
                                 <p>
                                     {
                                         replyTo != 'no_reply' && replyTo != 'deleted' ?
-                                        replyTo?.message :
+                                        replyTo?.plainText :
                                         'Add Reply'
                                     }
                                 </p>

@@ -1,28 +1,28 @@
 import { useState, useEffect } from "react";
 import { useMessageOptions } from "./useMessageOptions";
-import { useSelector } from "react-redux";
 import { useSelect } from "./useSelect";
-import { isPersian } from '../functions/isPersian';
+import { useSelector } from "react-redux";
 
-export const useMessage = (message, type, messageRef, options, onClick) => {
+export const useMessage = (messageData, type, messageRef, options, onClick) => {
 
     const {
-        messageUid,
-        localUid,
-        localMessage,
-        text,
+        uid,
         plainText,
-        isTextPersian,
-        textLetters,
+        time,
         id,
         replyTo,
-        messageUsername,
-        periorUsername,
-        nextUsername,
-        time,
-        priorDifferentDate,
-        nextDifferentDate,
-    } = message;
+        deleted,
+        arrayText,
+        previousMessageUid,
+        nextMessageUid,
+        previousMessageDifferentDate,
+        nextMessageDifferentDate,
+        username,
+        isLocalMessage,
+        localUid,
+        isTextPersian,
+        textLetters,
+     } = messageData;
 
     const { selectedMessages, scrollMessageId } = useSelector(store => store.appStore);
     const { replyMessage, addMessageScrollPosition, applyScrollMessageId } = useMessageOptions();
@@ -33,7 +33,7 @@ export const useMessage = (message, type, messageRef, options, onClick) => {
     const [replyEffect, setReplyEffect] = useState(false);
     const [status, setStatus] = useState(time?.year == undefined ? 1 : 0);
     let timer;
-    let messageData = {
+    let messageStyles = {
         messageBoxMargin: type == 'TRASH' ?
             '.2rem' :
             messagePosition == 0 ?
@@ -46,12 +46,12 @@ export const useMessage = (message, type, messageRef, options, onClick) => {
             '.06rem 0 .2rem 0',
         messageBoxMarginRight: type == 'TRASH' ?
             '2rem' :
-            selectedMessages.length && localMessage ?
+            selectedMessages.length && isLocalMessage ?
             '3rem' : '',
-        messageBoxMarginLeft: type != 'TRASH' && selectedMessages.length && !localMessage ? '3rem' : '',
+        messageBoxMarginLeft: type != 'TRASH' && selectedMessages.length && !isLocalMessage ? '3rem' : '',
         messageBoxBorderRadius: type == 'TRASH' ?
             '20px' :
-            localMessage ?
+            isLocalMessage ?
             messagePosition == 0 ?
             '25px' : messagePosition == 1 ?
             '25px 25px 8px 25px' :
@@ -77,7 +77,7 @@ export const useMessage = (message, type, messageRef, options, onClick) => {
             '.45rem 1rem' :
             textLetters > 2 ?
             '.45rem .7rem' : '',
-        messageBoxBorderRadiusPhone: localMessage ?
+        messageBoxBorderRadiusPhone: isLocalMessage ?
             messagePosition == 0 ?
             '20px' :
             messagePosition == 1 ?
@@ -97,11 +97,10 @@ export const useMessage = (message, type, messageRef, options, onClick) => {
 
     useEffect(() => {
         detectMessagePosition();
-
         if (type == 'CHAT') {
             addMessageScrollPosition(id, messageRef.current?.getBoundingClientRect().top);
         }
-    }, [nextUsername, periorUsername, priorDifferentDate, nextDifferentDate]);
+    }, [nextMessageUid, previousMessageUid, previousMessageDifferentDate, nextMessageDifferentDate]);
 
     useEffect(() => {
         checkMessage(id, selected, setSelected);
@@ -132,31 +131,31 @@ export const useMessage = (message, type, messageRef, options, onClick) => {
         if (type == 'TRASH') {
             setMessagePosition(0);
         } else {
-            if (priorDifferentDate && nextDifferentDate) {
+            if (previousMessageDifferentDate && nextMessageDifferentDate) {
                 setMessagePosition(0);
             }
-            if (priorDifferentDate && !nextDifferentDate) {
-                if (nextUsername == messageUid) {
+            if (previousMessageDifferentDate && !nextMessageDifferentDate) {
+                if (nextMessageUid == uid) {
                     setMessagePosition(1);
                 } else {
                     setMessagePosition(0);
                 }
             }
-            if (!priorDifferentDate && nextDifferentDate) {
-                if (periorUsername == messageUid) {
+            if (!previousMessageDifferentDate && nextMessageDifferentDate) {
+                if (previousMessageUid == uid) {
                     setMessagePosition(3);
                 } else {
                     setMessagePosition(0);
                 }
             }
-            if (!priorDifferentDate && !nextDifferentDate) {
-                if (periorUsername != messageUid && nextUsername != messageUid) {
+            if (!previousMessageDifferentDate && !nextMessageDifferentDate) {
+                if (previousMessageUid != uid && nextMessageUid != uid) {
                     setMessagePosition(0);
-                } else if (periorUsername != messageUid && nextUsername == messageUid) {
+                } else if (previousMessageUid != uid && nextMessageUid == uid) {
                     setMessagePosition(1);
-                } else if (periorUsername == messageUid && nextUsername == messageUid) {
+                } else if (previousMessageUid == uid && nextMessageUid == uid) {
                     setMessagePosition(2);
-                } else if (periorUsername == messageUid && nextUsername != messageUid) {
+                } else if (previousMessageUid == uid && nextMessageUid != uid) {
                     setMessagePosition(3);
                 }
             }
@@ -173,17 +172,13 @@ export const useMessage = (message, type, messageRef, options, onClick) => {
                         unSelectMessage(id);
                         setSelected(false);
                     } else {
-                        selectMessage({
-                            ...message,
-                            isMessageFromLocalUser: messageUid == localUid ? 1 : 0,
-                            isPersian: isPersian(text) ? 1 : 0,
-                        });
+                        selectMessage({ ...messageData });
                     }
                 } else {
                     if (options?.messageOptions?.id == id && type == 'CHAT') {
                         options.setMessageOptions(false);
                     } else {
-                        options.setMessageOptions(message);
+                        options.setMessageOptions(messageData);
                     }
                 }
             } else {
@@ -195,7 +190,7 @@ export const useMessage = (message, type, messageRef, options, onClick) => {
     const messageDoubleClickHandler = () => {
         if (!selectedMessages?.length && type == 'CHAT' && status != 1 && status != 2) {
             options.setMessageOptions(false);
-            replyMessage(id, plainText, messageUsername);
+            replyMessage(id, plainText, username);
         }
     };
 
@@ -204,11 +199,7 @@ export const useMessage = (message, type, messageRef, options, onClick) => {
         if (!selectedMessages?.length && type == 'CHAT') {
             timer = setTimeout(() => {
                 if (scrollLocalStorage == localStorage.getItem('scroll')) {
-                    selectMessage({
-                        ...message,
-                        isMessageFromLocalUser: messageUid == localUid ? 1 : 0,
-                        isPersian: isPersian(text) ? 1 : 0,
-                    });
+                    selectMessage({ ...messageData });
                     setHold(true);
                 }
             }, 300);
@@ -231,6 +222,6 @@ export const useMessage = (message, type, messageRef, options, onClick) => {
         selected,
         replyEffect,
         status,
-        messageData,
+        messageStyles,
     };
 };

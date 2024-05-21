@@ -1,6 +1,7 @@
 import React, { memo, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { useMessage } from '../../hooks/useMessage';
+import MessageBox from './MessageBox';
 import MessageOptions from './MessageOptions';
 import MessageDate from './MessageDate';
 import MessageSelectCheck from './MessageSelectCheck';
@@ -10,28 +11,28 @@ import MessageReplyIcon from './MessageReplyIcon';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { messageVariants } from '../../config/varitans';
-import MessageBox from './MessageBox';
 
-const Message = ({ message, type, options, onClick, replyIconClick, newreply }) => {
-    const {
-        messageUid,
-        localUid,
-        localMessage,
-        text,
-        plainText,
-        isTextPersian,
-        textLetters,
-        id,
-        replyTo,
-        messageUsername,
-        periorUsername,
-        nextUsername,
-        time,
-        priorDifferentDate,
-        nextDifferentDate,
-    } = message;
+const Message = ({ messageData, type, options, onClick, replyIconClick, newreply }) => {
     const messageRef = useRef();
     const { selectedMessages } = useSelector(store => store.appStore);
+    const {
+        uid,
+        plainText,
+        time,
+        id,
+        replyTo,
+        deleted,
+        arrayText,
+        previousMessageUid,
+        nextMessageUid,
+        previousMessageDifferentDate,
+        nextMessageDifferentDate,
+        username,
+        isLocalMessage,
+        localUid,
+        isTextPersian,
+        textLetters,
+     } = messageData;
     const {
         messagePosition,
         messageClickHandler,
@@ -41,9 +42,8 @@ const Message = ({ message, type, options, onClick, replyIconClick, newreply }) 
         selected,
         replyEffect,
         status,
-        messageData
-    } = useMessage(message, type, messageRef, options, onClick);
-
+        messageStyles
+    } = useMessage(messageData, type, messageRef, options, onClick);
     return (
         <>
             <MessageContainer
@@ -56,14 +56,15 @@ const Message = ({ message, type, options, onClick, replyIconClick, newreply }) 
                 layoutId={type == 'EDIT_REPLY' ? id : null}
                 data={{
                     type: type,
-                    localmessage: localMessage ? 1 : 0,
+                    localmessage: isLocalMessage ? 1 : 0,
                     position: messagePosition,
-                    date: priorDifferentDate && time.year && time.month ? 1 : 0,
-                }}>
+                    date: previousMessageDifferentDate && time.year && time.month ? 1 : 0,
+                }}
+            >
                 <MessageDate
                     layout={type == 'EDIT_REPLY' ? 0 : 1}
                     layoutId={type == 'EDIT_REPLY' ? id : null}
-                    show={priorDifferentDate && time.year}
+                    show={previousMessageDifferentDate && time.year}
                     date={{
                         year: time.year,
                         month: time.month,
@@ -71,9 +72,9 @@ const Message = ({ message, type, options, onClick, replyIconClick, newreply }) 
                     }}
                 />
                 <MessageUsername
-                    show={messageUid != localUid && messagePosition < 2}
-                    username={messageUsername}
-                    dateShown={priorDifferentDate && time.year && time.month && time.day}
+                    show={uid != localUid && messagePosition < 2}
+                    username={username}
+                    dateShown={previousMessageDifferentDate && time.year && time.month && time.day}
                     selectMode={selectedMessages.length ? 1 : 0}
                 />
                 <MessageBox
@@ -86,26 +87,19 @@ const Message = ({ message, type, options, onClick, replyIconClick, newreply }) 
                     }}
                     type={type}
                     replyTo={replyTo}
-                    text={text}
-                    data={{
-                        ...messageData,
+                    arrayText={arrayText}
+                    messageStyles={{
+                        ...messageStyles,
                         type: type,
-                        localmessage: localMessage ? 1 : 0,
+                        localmessage: isLocalMessage ? 1 : 0,
                         persian: isTextPersian ? 1 : 0,
                         letters: textLetters,
                         position: messagePosition,
                         selected: selected ? 1 : 0,
                         selectmode: selectedMessages.length ? 1 : 0,
-                        date: priorDifferentDate && time.year && time.month ? 1 : 0,
+                        date: previousMessageDifferentDate && time.year && time.month ? 1 : 0,
                         reply: replyTo != 'no_reply' ? 1 : 0,
                         replyeffect: replyEffect ? 1 : 0,
-                        len: replyTo != 'no_reply' && replyTo && !replyTo?.deleted && type != 'TRASH' ?
-                            textLetters+replyTo?.message?.length < 5 ?
-                            5 :
-                            textLetters+replyTo?.message?.length+1 :
-                            textLetters < 5 ?
-                            5 :
-                            textLetters+1
                     }}
                 />
                 <MessageSelectCheck
@@ -113,7 +107,7 @@ const Message = ({ message, type, options, onClick, replyIconClick, newreply }) 
                     selected={selected}
                     selectedMessagesLength={selectedMessages.length}
                     messageClickHandler={messageClickHandler}
-                    localMessage={localMessage}
+                    isLocalMessage={isLocalMessage}
                 />
                 <MessageReplyIcon
                     editReply={newreply}
@@ -123,9 +117,7 @@ const Message = ({ message, type, options, onClick, replyIconClick, newreply }) 
                 <div className='options'>
                     <MessageOptions options={options} id={id} />
                 </div>
-                <MessageLoader
-                    status={status}
-                />
+                <MessageLoader status={status} />
             </MessageContainer>
         </>
     );

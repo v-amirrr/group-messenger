@@ -100,25 +100,14 @@ const SettingsTrash = ({ open, setOpen, setHeight }) => {
                                         <motion.div layout key="trash-messages" className='deleted-messages' initial='hidden' animate='visible' exit='exit' variants={trashSettingsVariants}>
                                             <AnimatePresence>
                                                 {
-                                                    messages?.map((message) => (
+                                                    messages?.map((messageData) => (
                                                     <Message
-                                                        key={message.id}
+                                                        key={messageData.id}
                                                         type="TRASH"
-                                                        message={{
-                                                            messageUid: message.uid,
-                                                            localUid: user?.uid,
-                                                            localMessage: user?.uid == message.uid,
-                                                            id: message.id,
-                                                            text: message.message,
-                                                            plainText: message.plainText,
-                                                            isTextPersian : isPersian(message.message) ? 1 : 0,
-                                                            textLetters: message.plainText.length,
-                                                            periorUsername: message.periorUsername,
-                                                            nextUsername: message.nextUsername,
-                                                            time: message.time,
-                                                            priorDifferentDate: message.priorDifferentDate,
-                                                            nextDifferentDate: message.nextDifferentDate,
-                                                            replyTo: message.replyTo,
+                                                        messageData={{
+                                                            ...messageData,
+                                                            isTextPersian : isPersian(messageData.plainText),
+                                                            textLetters: messageData.plainText.length > 20 ? 20 : messageData.plainText.length,
                                                         }}
                                                     />
                                                     ))

@@ -2,10 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     messages: null,
-    error: null,
-    loading: true,
-    deletedMessages: null,
     usernames: null,
+    deletedMessages: null,
 };
 
 const firestoreSlice = createSlice({
@@ -14,15 +12,6 @@ const firestoreSlice = createSlice({
     reducers: {
         setMessages: (state, action) => {
             return { ...state, messages: action.payload };
-        },
-        setError: (state, action) => {
-            return { ...state, error: action.payload };
-        },
-        setLoadingOn: state => {
-            return { ...state, loading: true };
-        },
-        setLoadingOff: state => {
-            return { ...state, loading: false };
         },
         setDeletedMessages: (state, action) => {
             return { ...state, deletedMessages: action.payload };
@@ -35,11 +24,8 @@ const firestoreSlice = createSlice({
 
 export const {
     setMessages,
-    setError,
-    setLoadingOn,
-    setLoadingOff,
     setDeletedMessages,
-    setUsernames
+    setUsernames,
 } = firestoreSlice.actions;
 
 export default firestoreSlice.reducer;

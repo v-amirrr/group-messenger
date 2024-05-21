@@ -61,26 +61,17 @@ const Chat = () => {
             >
                 <AnimatePresence>
                     {
-                        messages?.map((message) => (
+                        messages?.map((messageData) => (
                         <Message
-                            key={message.id}
+                            key={messageData.id}
                             type='CHAT'
-                            message={{
-                                messageUid: message.uid,
+                            messageData={{
+                                ...messageData,
+                                username: usernames[messageData.uid],
+                                isLocalMessage: user?.uid == messageData.uid,
                                 localUid: user?.uid,
-                                localMessage: user?.uid == message.uid,
-                                messageUsername: usernames[message.uid],
-                                id: message.id,
-                                text: message.message,
-                                plainText: message.plainText,
-                                isTextPersian : isPersian(message.plainText) ? 1 : 0,
-                                textLetters: message.plainText.length > 20 ? 20 : message.plainText.length,
-                                periorUsername: message.periorUsername,
-                                nextUsername: message.nextUsername,
-                                time: message.time,
-                                priorDifferentDate: message.priorDifferentDate,
-                                nextDifferentDate: message.nextDifferentDate,
-                                replyTo: message.replyTo,
+                                isTextPersian : isPersian(messageData.plainText),
+                                textLetters: messageData.plainText.length > 20 ? 20 : messageData.plainText.length,
                             }}
                             options={{
                                 messageOptions: messageOptions,

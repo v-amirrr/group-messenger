@@ -3,7 +3,7 @@ import { useMessageOptions } from '../../hooks/useMessageOptions';
 import { BsReplyFill } from 'react-icons/bs';
 import styled from 'styled-components';
 
-const MessageReply = ({ replyTo, type, localMessage }) => {
+const MessageReply = ({ replyTo, type }) => {
 
     const { applyScrollMessageId } = useMessageOptions();
     let mouseSituation = 'OUT';
@@ -32,15 +32,12 @@ const MessageReply = ({ replyTo, type, localMessage }) => {
                     onClick={(e) => clickHandler(e)}
                     onMouseEnter={hoverHandler}
                     onMouseLeave={() => mouseSituation = 'OUT'}
-                    usernamelen={replyTo?.username?.length}
-                    messagelen={replyTo?.message?.length}
                     deletedreplyto={!replyTo ? 1 : 0}
-                    localmessage={localMessage ? 1 : 0}
                 >
                     <i><BsReplyFill /></i>
                     {
                         replyTo ?
-                        <p className='reply-message'>{replyTo?.message}</p> :
+                        <p className='reply-message'>{replyTo?.plainText}</p> :
                         <p className='reply-username'>Deleted Message</p>
                     }
                 </ReplyContainer>

@@ -3,7 +3,7 @@ import MessageReply from './MessageReply';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
-const MessageBox = ({ functions, type, replyTo, text, data }) => {
+const MessageBox = ({ functions, type, replyTo, arrayText, messageStyles }) => {
     const messageBoxRef = useRef();
     return (
         <>
@@ -16,7 +16,7 @@ const MessageBox = ({ functions, type, replyTo, text, data }) => {
                 onTouchStart={functions?.onHoldStarts}
                 onTouchEnd={functions?.onHoldEnds}
                 data={{
-                    ...data,
+                    ...messageStyles,
                     width: messageBoxRef?.current?.offsetWidth
                 }}
             >
@@ -27,7 +27,7 @@ const MessageBox = ({ functions, type, replyTo, text, data }) => {
                     />
                     {
                         type != 'TRASH' ?
-                        text?.map((item, index) =>
+                        arrayText?.map((item, index) =>
                             item.link ?
                             <a
                                 key={index}
@@ -39,11 +39,11 @@ const MessageBox = ({ functions, type, replyTo, text, data }) => {
                             >
                                 {item.word}
                             </a> :
-                            index == text.length-1 ?
+                            index == arrayText.length-1 ?
                             `${item.word}` :
                             `${item.word} `
                         ) :
-                        text
+                        arrayText
                     }
                 </div>
             </MessageBoxContainer>

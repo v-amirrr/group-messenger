@@ -23,7 +23,7 @@ const MessageOptions = ({ options, id }) => {
                     replyMessage(
                         options?.messageOptions.id,
                         options?.messageOptions.plainText,
-                        options?.messageOptions.messageUsername,
+                        options?.messageOptions.username,
                     );
                     break;
                 case 'SELECT':
@@ -55,7 +55,7 @@ const MessageOptions = ({ options, id }) => {
                         animate='visible'
                         exit='exit'
                         variants={optionsVariants}
-                        localmessage={options?.messageOptions.localMessage ? 1 : 0}
+                        localmessage={options?.messageOptions.isLocalMessage ? 1 : 0}
                         guest={enterAsAGuest ? 1 : 0}
                         hour={
                             options?.messageOptions.time.hour > 12 ?
@@ -69,7 +69,7 @@ const MessageOptions = ({ options, id }) => {
                             className='reply'
                             onClick={() => optionClick('REPLY')}
                             variants={
-                                options?.messageOptions.localMessage ?
+                                options?.messageOptions.isLocalMessage ?
                                 optionLocalVariants :
                                 optionNonLocalVariants
                             }
@@ -83,7 +83,7 @@ const MessageOptions = ({ options, id }) => {
                             className='select'
                             onClick={() => optionClick('SELECT')}
                             variants={
-                                options?.messageOptions.localMessage ?
+                                options?.messageOptions.isLocalMessage ?
                                 optionLocalVariants :
                                 optionNonLocalVariants
                             }
@@ -97,7 +97,7 @@ const MessageOptions = ({ options, id }) => {
                             className='copy'
                             onClick={() => optionClick('COPY')}
                             variants={
-                                options?.messageOptions.localMessage ?
+                                options?.messageOptions.isLocalMessage ?
                                 optionLocalVariants :
                                 optionNonLocalVariants
                             }
@@ -108,13 +108,13 @@ const MessageOptions = ({ options, id }) => {
                             <p>Copy</p>
                         </motion.div>
                         {
-                            options?.messageOptions.localMessage ?
+                            options?.messageOptions.isLocalMessage ?
                             <>
                                 <motion.div
                                     className='edit'
                                     onClick={() => optionClick('EDIT')}
                                     variants={
-                                        options?.messageOptions.localMessage ?
+                                        options?.messageOptions.isLocalMessage ?
                                         optionLocalVariants :
                                         optionNonLocalVariants
                                     }
@@ -128,7 +128,7 @@ const MessageOptions = ({ options, id }) => {
                                     className='delete'
                                     onClick={() => optionClick('DELETE')}
                                     variants={
-                                        options?.messageOptions.localMessage ?
+                                        options?.messageOptions.isLocalMessage ?
                                         optionLocalVariants :
                                         optionNonLocalVariants
                                     }
@@ -144,7 +144,7 @@ const MessageOptions = ({ options, id }) => {
                         <motion.div
                             className='time'
                             variants={
-                                options?.messageOptions.localMessage ?
+                                options?.messageOptions.isLocalMessage ?
                                 optionLocalVariants :
                                 optionNonLocalVariants
                             }

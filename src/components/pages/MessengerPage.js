@@ -1,14 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import ChatLoader from '../ChatLoader';
-import ErrorBox from '../ErrorBox';
+import ChatError from '../ChatError';
 import Chat from '../Chat';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 import { messengerVariants } from '../../config/varitans';
 
 const MessengerPage = () => {
-    const { loading, error } = useSelector(store => store.firestoreStore);
+    const { messages } = useSelector(store => store.firestoreStore);
+    const [chatLoading, setChatLoading] = useState(true);
+    const [chatError, setChatError] = useState(false);
+    useEffect(() => {
+        if (messages?.length) {
+            setChatLoading(false);
+            setChatError(false);
+        } else if (messages === undefined) {
+            setChatError(true);
+            setChatLoading(false);
+        }
+    }, [messages]);
     return (
         <>
             <MessengerPageContainer
@@ -20,11 +31,11 @@ const MessengerPage = () => {
                 <div className='chat'>
                     <AnimatePresence exitBeforeEnter>
                         {
-                            loading ?
+                            chatLoading && !chatError ?
                             <ChatLoader key='loader' />
-                            : error ?
-                            <ErrorBox key='error-box' errorMessage={error} />
-                            : !loading && !error ?
+                            : chatError && !chatLoading ?
+                            <ChatError key='error-box' />
+                            : !chatLoading && !chatError ?
                             <Chat />
                             : ''
                         }

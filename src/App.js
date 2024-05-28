@@ -5,14 +5,15 @@ import WarningPage from './components/pages/WarningPage';
 import LoginPage from './components/pages/LoginPage';
 import SettingsPage from './components/settings/SettingsPage';
 import GuidancePage from './components/pages/GuidancePage';
+import TrashPage from './components/pages/TrashPage';
 import Background from './components/Background';
 import Popup from './components/popups/Popup';
 import Notification from './components/Notification';
+import { useRedirection } from './hooks/useRedirection';
 import { useFirestore } from './hooks/useFirestore';
 import { useNotification } from './hooks/useNotification';
 import { useSelect } from './hooks/useSelect';
 import { AnimatePresence } from 'framer-motion';
-import { useRedirection } from './hooks/useRedirection';
 
 const App = () => {
     const location = useLocation();
@@ -45,6 +46,7 @@ const App = () => {
                     <Route path="/login" element={<LoginPage />} />
                     <Route path='/settings' element={<SettingsPage />} />
                     <Route path='/guidance' element={<GuidancePage />} />
+                    <Route path='/trash' element={<TrashPage />} />
                     <Route path='*' element={<MessengerPage />} />
                 </Routes>
             </AnimatePresence>

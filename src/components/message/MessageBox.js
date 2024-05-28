@@ -3,7 +3,7 @@ import MessageReply from './MessageReply';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
-const MessageBox = ({ functions, type, replyTo, arrayText, messageStyles }) => {
+const MessageBox = ({ functions, type, replyTo, arrayText, plainText, messageStyles }) => {
     const messageBoxRef = useRef();
     return (
         <>
@@ -43,7 +43,7 @@ const MessageBox = ({ functions, type, replyTo, arrayText, messageStyles }) => {
                             `${item.word}` :
                             `${item.word} `
                         ) :
-                        arrayText
+                        plainText
                     }
                 </div>
             </MessageBoxContainer>
@@ -63,7 +63,7 @@ const MessageBoxContainer = styled(motion.div)`
     border-radius: ${props => props.data.messageBoxBorderRadius};
     padding: ${props => props.data.messageBoxPadding};
     width: fit-content;
-    max-width: ${props => props.data.type == 'EDIT_REPLY' ? '70%' : props.data.type == 'TRASH' ? '100%' : '65%'};
+    max-width: ${props => props.data.type == 'EDIT_REPLY' ? '70%' : '65%'};
     word-break: break-all;
     cursor: pointer;
     box-shadow: var(--normal-shadow);
@@ -87,7 +87,7 @@ const MessageBoxContainer = styled(motion.div)`
         white-space: pre-wrap;
         word-break: keep-all;
         font-family: ${props => props.data.persian ? 'Vazirmatn' : 'Outfit'}, 'Vazirmatn', sans-serif;
-        font-size: ${props => props.data.type == 'TRASH' ? '.8rem' : props.data.persian ? '.9rem' : '1rem'};
+        font-size: ${props => props.data.persian ? '.9rem' : '1rem'};
         font-weight: 200;
     }
 

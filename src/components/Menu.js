@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { HiDotsVertical } from 'react-icons/hi';
-import { FcSettings, FcRedo, FcInfo } from 'react-icons/fc';
+import { FcSettings, FcRedo, FcInfo, FcEmptyTrash, FcFullTrash } from 'react-icons/fc';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { menuVariants } from '../config/varitans';
@@ -22,6 +22,9 @@ const Menu = () => {
             case 'GUIDANCE':
                 navigate('/guidance');
                 break;
+            case 'TRASH':
+                navigate('/trash');
+                break;
             default:
                 break;
         }
@@ -34,6 +37,10 @@ const Menu = () => {
                     <button onClick={() => clickHandler('GUIDANCE')}>
                         <i className='features-icon'><FcInfo /></i>
                         <p>Guidance</p>
+                    </button>
+                    <button onClick={() => clickHandler('TRASH')}>
+                        <i className='trash-icon'><FcFullTrash /></i>
+                        <p>Trash</p>
                     </button>
                     <button onClick={() => clickHandler('LOGOUT')}>
                         <i className='logout-icon'><FcRedo /></i>
@@ -154,7 +161,7 @@ const MenuContainer = styled(motion.div)`
 
     &:hover, &:active {
         width: 6.5rem;
-        height: 7.2rem;
+        height: 9.3rem;
         border-radius: 25px;
         transition: width .4s cubic-bezier(0.53, 0, 0, 0.98),
                     height .4s cubic-bezier(0.53, 0, 0, 0.98),

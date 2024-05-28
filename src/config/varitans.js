@@ -451,27 +451,6 @@ export const userSettingsVariants = {
     },
 };
 
-export const trashSettingsVariants = {
-    hidden: { opacity: 0, y: 40 },
-    visible: {
-        opacity: 1,
-        y: 0,
-        transition: {
-            duration: 0.7,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
-            when: 'beforeChildren',
-        },
-    },
-    exit: {
-        opacity: 0,
-        transition: {
-            delay: 0.2,
-            duration: 0.4,
-        },
-    },
-};
-
 export const scrollButtonVariants = {
     hidden: { opacity: 0, filter: 'blur(5px)' },
     visible: {
@@ -675,4 +654,54 @@ export const inputBarEmojiPickerVariatns = {
         },
     },
     exit: { opacity: 0, transition: { duration: 0.3 } },
+};
+
+export const trashPageVariants = {
+    hidden: { opacity: 0, scale: 0.9 },
+    visible: {
+        opacity: 1,
+        scale: 1,
+        transition: {
+            duration: 0.5,
+            ease: [0.53, 0, 0, 0.98],
+            time: [0.53, 0, 0, 0.98],
+        },
+    },
+    exit: { opacity: 0, scale: 0.9, transition: { duration: 0.2 } },
+};
+
+export const trashSelectBarVariants = {
+    hidden: { y: 80 },
+    visible: {
+        y: 0,
+        transition: {
+            duration: 0.7,
+            ease: [0.53, 0, 0, 0.98],
+            time: [0.53, 0, 0, 0.98],
+        },
+    },
+    exit: {
+        y: 80,
+        transition: {
+            duration: 0.7,
+            ease: [0.53, 0, 0, 0.98],
+            time: [0.53, 0, 0, 0.98],
+        },
+    },
+};
+
+export const trashSelectBarSwitchIconVariants = {
+    hidden: { scale: 0 },
+    visible: {
+        scale: 1,
+        transition: {
+            duration: 0.3,
+        },
+    },
+    exit: {
+        scale: 0,
+        transition: {
+            duration: 0.3,
+        },
+    },
 };

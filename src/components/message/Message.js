@@ -56,7 +56,7 @@ const Message = ({ messageData, type, options, onClick, replyIconClick, newreply
                 layoutId={type == 'EDIT_REPLY' ? id : null}
                 data={{
                     type: type,
-                    localmessage: isLocalMessage ? 1 : 0,
+                    islocalmessage: isLocalMessage ? 1 : 0,
                     position: messagePosition,
                     date: previousMessageDifferentDate && time.year && time.month ? 1 : 0,
                 }}
@@ -72,7 +72,7 @@ const Message = ({ messageData, type, options, onClick, replyIconClick, newreply
                     }}
                 />
                 <MessageUsername
-                    show={uid != localUid && messagePosition < 2}
+                    show={!isLocalMessage && messagePosition < 2}
                     username={username}
                     dateShown={previousMessageDifferentDate && time.year && time.month && time.day}
                     selectMode={selectedMessages.length ? 1 : 0}
@@ -88,6 +88,7 @@ const Message = ({ messageData, type, options, onClick, replyIconClick, newreply
                     type={type}
                     replyTo={replyTo}
                     arrayText={arrayText}
+                    plainText={plainText}
                     messageStyles={{
                         ...messageStyles,
                         type: type,
@@ -128,19 +129,20 @@ const MessageContainer = styled(motion.div)`
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    flex-direction: ${props => props.data.localmessage ? 'row-reverse' : 'row'};
+    flex-direction: ${props => props.data.islocalmessage ? 'row-reverse' : 'row'};
     padding-top: ${props =>
-        props.data.position < 2 && !props.data.localmessage && !props.data.date ?
+        props.data.position < 2 && !props.data.islocalmessage && !props.data.date ?
         '1.8rem' :
-        props.data.position < 2 && !props.data.localmessage && props.data.date ?
+        props.data.position < 2 && !props.data.islocalmessage && props.data.date ?
         '3rem' :
         props.data.date && '1.8rem'
     };
     transition: padding .4s;
+    width: 100%;
 
     .options {
         display: flex;
-        justify-content: ${props => props.data.localmessage ? 'flex-end' : 'flex-start'};
+        justify-content: ${props => props.data.islocalmessage ? 'flex-end' : 'flex-start'};
         align-items: center;
     }
 

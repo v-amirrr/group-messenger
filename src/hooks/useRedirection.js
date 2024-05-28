@@ -1,10 +1,13 @@
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useNotification } from './useNotification';
 
 export const useRedirection = () => {
     const navigate = useNavigate();
     const { user, enterAsAGuest } = useSelector(store => store.userStore);
+    const { deletedMessages } = useSelector(store => store.firestoreStore);
     const { warningPageShowed, warningPageNeverShowCheck } = useSelector(store => store.appStore);
+    const { openNotification } = useNotification();
 
     const messengerRedirection = () => {
         if (warningPageShowed || warningPageNeverShowCheck) {
@@ -42,6 +45,16 @@ export const useRedirection = () => {
         }
     };
 
+    const trashRedirection = () => {
+        if (enterAsAGuest) {
+            openNotification("In order to use this feature you need to login.", false, "GUEST");
+            navigate("/", { replace: true });
+        } else if (!deletedMessages?.length) {
+            navigate("/", { replace: true });
+            openNotification("Trash is empty.", true, "ERROR");
+        }
+    };
+
     const autoRedirection = (path) => {
         switch (path) {
             case '/':
@@ -58,6 +71,10 @@ export const useRedirection = () => {
 
             case '/settings':
                 settingsRedirection();
+                break;
+
+            case '/trash':
+                trashRedirection();
                 break;
 
             default:

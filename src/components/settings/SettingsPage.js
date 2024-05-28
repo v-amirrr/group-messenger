@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SettingsUser from './SettingsUser';
-import SettingsTrash from './SettingsTrash';
 import SettingsItem from './SettingsItem';
 import SettingsNotification from './SettingsNotification';
 import { TiArrowLeft } from 'react-icons/ti';
@@ -49,18 +48,6 @@ const SettingsPage = () => {
                         hide={open != 'SETTINGS_USER' && open}
                         component={
                             <SettingsUser
-                                open={open}
-                                setOpen={setOpen}
-                                setHeight={setHeight}
-                            />
-                        }
-                        height={height}
-                    />
-                    <SettingsItem
-                        open={open == 'SETTINGS_TRASH'}
-                        hide={open != 'SETTINGS_TRASH' && open}
-                        component={
-                            <SettingsTrash
                                 open={open}
                                 setOpen={setOpen}
                                 setHeight={setHeight}

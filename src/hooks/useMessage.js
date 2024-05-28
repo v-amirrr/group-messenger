@@ -43,15 +43,13 @@ export const useMessage = (messageData, type, messageRef, options, onClick) => {
             messagePosition == 2 ?
             '.06rem 0 .06rem 0' :
             messagePosition == 3 &&
-            '.06rem 0 .2rem 0',
+            '.06rem 0 .1rem 0',
         messageBoxMarginRight: type == 'TRASH' ?
             '2rem' :
             selectedMessages.length && isLocalMessage ?
             '3rem' : '',
-        messageBoxMarginLeft: type != 'TRASH' && selectedMessages.length && !isLocalMessage ? '3rem' : '',
-        messageBoxBorderRadius: type == 'TRASH' ?
-            '20px' :
-            isLocalMessage ?
+        messageBoxMarginLeft: selectedMessages?.length && !isLocalMessage ? '3rem' : '',
+        messageBoxBorderRadius: isLocalMessage ?
             messagePosition == 0 ?
             '25px' : messagePosition == 1 ?
             '25px 25px 8px 25px' :
@@ -72,11 +70,11 @@ export const useMessage = (messageData, type, messageRef, options, onClick) => {
             type == 'TRASH' && textLetters <= 2 ?
             '.45rem .9rem' :
             replyTo != 'no_reply' ?
-            '.45rem .7rem .45rem .45rem' :
+            '.45rem .6rem .45rem .45rem' :
             textLetters <= 2 ?
             '.45rem 1rem' :
             textLetters > 2 ?
-            '.45rem .7rem' : '',
+            '.45rem .6rem' : '',
         messageBoxBorderRadiusPhone: isLocalMessage ?
             messagePosition == 0 ?
             '20px' :

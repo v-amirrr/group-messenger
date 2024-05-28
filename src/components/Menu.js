@@ -74,7 +74,7 @@ const MenuContainer = styled(motion.div)`
     backdrop-filter: var(--bold-glass);
     -webkit-backdrop-filter: var(--bold-glass);
     overflow: hidden;
-    z-index: 3;
+    z-index: 4;
     transition: width .25s cubic-bezier(0.53, 0, 0, 0.98),
                 height .25s cubic-bezier(0.53, 0, 0, 0.98),
                 border-radius .2s .6s;
@@ -114,7 +114,7 @@ const MenuContainer = styled(motion.div)`
 
         button {
             width: 90%;
-            height: 2rem;
+            height: 2.1rem;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -122,13 +122,13 @@ const MenuContainer = styled(motion.div)`
             background-color: var(--normal-bg);
             box-shadow: var(--normal-shadow);
             border-radius: 50px;
-            font-weight: 400;
             white-space: nowrap;
             cursor: pointer;
             transition: background .2s;
 
             p {
-                font-size: .8rem;
+                font-size: .9rem;
+                font-weight: 400;
                 margin-left: 1.9rem;
                 text-align: left;
                 width: 100%;
@@ -160,8 +160,8 @@ const MenuContainer = styled(motion.div)`
     }
 
     &:hover, &:active {
-        width: 6.5rem;
-        height: 9.3rem;
+        width: 7rem;
+        height: 9.7rem;
         border-radius: 25px;
         transition: width .4s cubic-bezier(0.53, 0, 0, 0.98),
                     height .4s cubic-bezier(0.53, 0, 0, 0.98),

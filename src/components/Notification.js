@@ -83,7 +83,7 @@ const NotificationContainer = styled(motion.div)`
     top: .01rem;
     min-width: 7rem;
     max-width: 25rem;
-    min-height: 2.4rem;
+    height: 2.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -98,14 +98,14 @@ const NotificationContainer = styled(motion.div)`
     z-index: 3;
 
     .notification-message {
-        font-size: .8rem;
+        font-size: .9rem;
         font-weight: 400;
         line-height: 1.5;
         text-align: left;
 
         .link {
             display: inline;
-            font-size: .8rem;
+            font-size: 1rem;
             font-weight: 400;
             cursor: pointer;
         }
@@ -127,13 +127,13 @@ const NotificationContainer = styled(motion.div)`
         all: unset;
         position: absolute;
         right: 0.25rem;
-        width: 1.8rem;
-        height: 1.8rem;
+        width: 2rem;
+        height: 2rem;
         display: flex;
         justify-content: center;
         align-items: center;
         border-radius: 50%;
-        font-size: 1.4rem;
+        font-size: 1.5rem;
         cursor: pointer;
         transition: background .2s;
 

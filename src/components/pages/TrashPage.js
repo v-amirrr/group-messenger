@@ -169,8 +169,8 @@ const TrashPageContainer = styled(motion.div)`
             align-items: center;
             border-radius: 50px;
             margin: 0 0.2rem;
-            width: 5rem;
-            height: 2rem;
+            width: 5.8rem;
+            height: 2.2rem;
             cursor: pointer;
             backdrop-filter: var(--bold-glass);
             -webkit-backdrop-filter: var(--bold-glass);
@@ -185,12 +185,11 @@ const TrashPageContainer = styled(motion.div)`
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                margin-right: 0.2rem;
                 font-size: 1rem;
             }
 
             p {
-                font-size: 0.8rem;
+                font-size: 1rem;
                 font-weight: 400;
             }
         }
@@ -200,7 +199,7 @@ const TrashPageContainer = styled(motion.div)`
             color: #ff0000;
 
             i {
-                font-size: 1rem;
+                font-size: 1.2rem;
                 margin-right: .05rem;
             }
 
@@ -216,7 +215,7 @@ const TrashPageContainer = styled(motion.div)`
             color: #00ff00;
 
             i {
-                font-size: .75rem;
+                font-size: .9rem;
                 margin-right: .05rem;
             }
 

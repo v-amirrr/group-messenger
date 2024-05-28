@@ -189,7 +189,8 @@ const MessageContainer = styled.div`
             props.position == 3 && '.06rem 0 .2rem 0'
         };
         border-radius: ${props =>
-            props.local ? props.position == 0 ?
+            props.local ?
+            props.position == 0 ?
             '25px' :
             props.position == 1 ?
             '25px 25px 8px 25px' :
@@ -199,7 +200,7 @@ const MessageContainer = styled.div`
             props.position == 0 ?
             '25px' :
             props.position == 1 ?
-            '25px 25px 25px 8px' :
+            '25px 25px 25px 15px' :
             props.position == 2 ?
             '8px 25px 25px 8px' :
             props.position == 3 && '8px 25px 25px 25px'

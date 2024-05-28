@@ -49,7 +49,7 @@ export const useMessage = (messageData, type, messageRef, options, onClick) => {
             selectedMessages.length && isLocalMessage ?
             '3rem' : '',
         messageBoxMarginLeft: selectedMessages?.length && !isLocalMessage ? '3rem' : '',
-        messageBoxBorderRadius: isLocalMessage ?
+        messageBoxRoundBorderRadius: isLocalMessage ?
             messagePosition == 0 ?
             '25px' : messagePosition == 1 ?
             '25px 25px 8px 25px' :
@@ -65,6 +65,22 @@ export const useMessage = (messageData, type, messageRef, options, onClick) => {
             '8px 25px 25px 8px' :
             messagePosition == 3 &&
             '8px 25px 25px 25px',
+        messageBoxNotRoundBorderRadius: isLocalMessage ?
+            messagePosition == 0 ?
+            '20px' : messagePosition == 1 ?
+            '20px 20px 8px 20px' :
+            messagePosition == 2 ?
+            '20px 8px 8px 20px' :
+            messagePosition == 3 &&
+            '20px 8px 20px 20px' :
+            messagePosition == 0 ?
+            '8px 20px 20px 20px' :
+            messagePosition == 1 ?
+            '8px 20px 20px 8px' :
+            messagePosition == 2 ?
+            '8px 20px 20px 8px' :
+            messagePosition == 3 &&
+            '8px 20px 20px 20px',
         messageBoxPadding: type == 'TRASH' && textLetters > 2 ?
             '.45rem .6rem' :
             type == 'TRASH' && textLetters <= 2 ?
@@ -75,22 +91,6 @@ export const useMessage = (messageData, type, messageRef, options, onClick) => {
             '.45rem 1rem' :
             textLetters > 2 ?
             '.45rem .6rem' : '',
-        messageBoxBorderRadiusPhone: isLocalMessage ?
-            messagePosition == 0 ?
-            '20px' :
-            messagePosition == 1 ?
-            '20px 20px 5px 20px' :
-            messagePosition == 2 ?
-            '20px 5px 5px 20px' :
-            messagePosition == 3 && '20px 5px 20px 20px' :
-            messagePosition == 0 ?
-            '5px 20px 20px 20px' :
-            messagePosition == 1 ?
-            '5px 20px 20px 5px' :
-            messagePosition == 2 ?
-            '5px 20px 20px 5px' :
-            messagePosition == 3 &&
-            '5px 20px 20px 20px',
     };
 
     useEffect(() => {

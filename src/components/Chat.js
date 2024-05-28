@@ -15,7 +15,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 const Chat = () => {
     const chatRef = useRef();
     const { messages, usernames } = useSelector(store => store.firestoreStore);
-    const { user } = useSelector(store => store.userStore);
+    const { user, enterAsAGuest } = useSelector(store => store.userStore);
     const { scrollPosition, selectedMessages, messagesScrollPosition, scrollMessageId } = useSelector(store => store.appStore);
     const { resetScrollMessageId } = useMessageOptions();
     const { arrow, newMessage, scrollButtonClickHandler, onChatScrollHandler, scrollDown } = useScroll(chatRef);
@@ -34,12 +34,10 @@ const Chat = () => {
 
     return (
         <>
-            <AnimatePresence>
-                {!selectedMessages.length ? <Menu key='menu' /> : ''}
-            </AnimatePresence>
+            <Menu key='menu' />
 
             <AnimatePresence>
-                {!selectedMessages.length ? <Profile key='profile' /> : ''}
+                {!selectedMessages.length && enterAsAGuest ? <Profile key='profile' /> : ''}
             </AnimatePresence>
 
             <ScrollButton

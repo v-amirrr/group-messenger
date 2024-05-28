@@ -90,11 +90,9 @@ const SelectBarContainer = styled(motion.div)`
             justify-content: center;
             align-items: center;
             border-radius: 50px;
-            margin: 0 0.2rem;
-            width: 5rem;
-            height: 2rem;
+            margin: 0 .5rem;
             cursor: pointer;
-            transition: background 0.2s, color 0.2s;
+            transition: color .2s;
 
             &:disabled {
                 color: var(--pale-color);
@@ -105,12 +103,11 @@ const SelectBarContainer = styled(motion.div)`
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                margin-right: 0.2rem;
-                font-size: 1rem;
+                font-size: 1.1rem;
             }
 
             p {
-                font-size: 0.8rem;
+                font-size: .9rem;
                 font-weight: 400;
             }
         }
@@ -119,8 +116,6 @@ const SelectBarContainer = styled(motion.div)`
     @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
         .close, .copy, .delete {
             &:hover {
-                background-color: var(--normal-bg-hover);
-                box-shadow: var(--normal-shadow);
             }
         }
     }

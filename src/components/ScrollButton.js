@@ -29,8 +29,8 @@ const ScrollButton = ({ click, arrow, newMessage, scrollDown }) => {
 const ScrollButtonContainer = styled(motion.button)`
     box-sizing: content-box;
     position: absolute;
-    bottom: 1.1rem;
-    right: 8.2rem;
+    top: 1rem;
+    right: 11rem;
     width: ${props => props.newmessage ? '4.3rem' : '2.3rem'};
     height: 2.3rem;
     display: flex;

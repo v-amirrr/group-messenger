@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 
 const MessageBox = ({ functions, type, replyTo, arrayText, plainText, messageStyles }) => {
     const messageBoxRef = useRef();
+    console.log(messageBoxRef?.current?.offsetHeight);
     return (
         <>
             <MessageBoxContainer
@@ -17,7 +18,8 @@ const MessageBox = ({ functions, type, replyTo, arrayText, plainText, messageSty
                 onTouchEnd={functions?.onHoldEnds}
                 data={{
                     ...messageStyles,
-                    width: messageBoxRef?.current?.offsetWidth
+                    width: messageBoxRef?.current?.offsetWidth,
+                    height: messageBoxRef?.current?.offsetHeight
                 }}
             >
                 <div className='message-text' dir='auto'>
@@ -60,7 +62,7 @@ const MessageBoxContainer = styled(motion.div)`
     margin-right: ${props => props.data.messageBoxMarginRight};
     margin-left: ${props => props.data.messageBoxMarginLeft};
     border-radius: 25px;
-    border-radius: ${props => props.data.messageBoxBorderRadius};
+    border-radius: ${props => props.data.messageBoxRoundBorderRadius};
     padding: ${props => props.data.messageBoxPadding};
     width: fit-content;
     max-width: ${props => props.data.type == 'EDIT_REPLY' ? '70%' : '65%'};
@@ -100,7 +102,7 @@ const MessageBoxContainer = styled(motion.div)`
     @media (max-width: 768px) {
         .message-box {
             max-width: 85%;
-            border-radius: ${props => props.data.messageBoxBorderRadiusPhone};
+            border-radius: ${props => props.data.height > 50 ? props.data.messageBoxNotRoundBorderRadius : props.data.messageBoxRoundBorderRadius};
         }
     }
 `;

@@ -11,7 +11,7 @@ import { optionsVariants, optionLocalVariants, optionNonLocalVariants } from '..
 
 const MessageOptions = ({ options, id }) => {
     const { enterAsAGuest } = useSelector(store => store.userStore);
-    const { replyTo: replyToApp } = useSelector(store => store.sendMessageStore);
+    const { inputReply } = useSelector(store => store.appStore);
     const { openPopup, copyMessage, replyMessage, trashMessage } = useMessageOptions();
     const { selectMessage } = useSelect();
 
@@ -63,7 +63,7 @@ const MessageOptions = ({ options, id }) => {
                             (options?.messageOptions.time.hour / 12) * 360 + 90
                         }
                         minute={(options?.messageOptions.time.minute / 60) * 360 + 90}
-                        unreply={replyToApp.id == options?.messageOptions.id ? 1 : 0}
+                        unreply={inputReply.id == options?.messageOptions.id ? 1 : 0}
                     >
                         <motion.div
                             className='reply'
@@ -77,7 +77,7 @@ const MessageOptions = ({ options, id }) => {
                             <i>
                                 <BsReplyFill />
                             </i>
-                            <p>{replyToApp.id == options?.messageOptions.id ? 'Unreply' : 'Reply'}</p>
+                            <p>{inputReply.id == options?.messageOptions.id ? 'Unreply' : 'Reply'}</p>
                         </motion.div>
                         <motion.div
                             className='select'

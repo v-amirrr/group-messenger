@@ -67,7 +67,8 @@ export const useMessage = (messageData, type, messageRef, options, onClick) => {
             '8px 25px 25px 25px',
         messageBoxNotRoundBorderRadius: isLocalMessage ?
             messagePosition == 0 ?
-            '20px' : messagePosition == 1 ?
+            '20px' :
+            messagePosition == 1 ?
             '20px 20px 8px 20px' :
             messagePosition == 2 ?
             '20px 8px 8px 20px' :

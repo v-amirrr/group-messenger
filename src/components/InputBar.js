@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import InputBarReplyTo from './InputBarReplyTo';
 import { useSelector } from 'react-redux';
-import { useSendMessage } from '../hooks/useSendMessage';
+import { useSend } from '../hooks/useSend';
 import { useMessageOptions } from '../hooks/useMessageOptions';
 import { isPersian } from '../functions/isPersian';
 import { GrEmoji } from 'react-icons/gr';
@@ -12,31 +12,19 @@ import { inputBarVariants, sendInputIconVariants } from '../config/varitans';
 import InputBarEmojiPicker from './InputBarEmojiPicker';
 
 const InputBar = () => {
-    const { error: sendMessageError, replyTo, restoredText } = useSelector(store => store.sendMessageStore);
-    const { enterAsAGuest } = useSelector(store => store.userStore);
-    const { popupShow, popupName } = useSelector(store => store.popupStore);
-    const { selectedMessages } = useSelector(store => store.appStore);
-    const { sendMessage } = useSendMessage();
     const inputRef = useRef();
+    const { popupShow, popupName } = useSelector(store => store.popupStore);
+    const { inputReply, selectedMessages } = useSelector(store => store.appStore);
+    const { sendMessage } = useSend();
     const { clearReplyMessage, applyScrollMessageId } = useMessageOptions();
     const [multiline, setMultiline] = useState(false);
     const [inputText, setInputText] = useState(localStorage.getItem('input-text') ? localStorage.getItem('input-text') : '');
     const [inputBarEmojiPicker, setInputBarEmojiPicker] = useState(false);
 
-    const inputSubmitHandler = () => {
-        if (inputText != '') {
-            setInputBarEmojiPicker(false);
-            sendMessage(inputText);
-            if (!enterAsAGuest) {
-                setInputText('');
-            }
-        }
-    };
-
     const inputKeyHandler = (e) => {
         if (e.keyCode == 13 && !e.shiftKey && !navigator.userAgentData.mobile) {
             e.preventDefault();
-            inputSubmitHandler();
+            sendMessage(inputText, setInputText);
         }
     };
 
@@ -48,20 +36,14 @@ const InputBar = () => {
         }
     };
 
-    const closeHandler = (e) => {
+    const clearInputReply = (e) => {
         e.stopPropagation();
         clearReplyMessage();
     };
 
     useEffect(() => {
         blurHandler();
-    }, [popupShow, popupName]);
-
-    useEffect(() => {
-        if (restoredText) {
-            setInputText(restoredText);
-        }
-    }, [sendMessageError]);
+    }, [popupShow, popupName, inputBarEmojiPicker]);
 
     useEffect(() => {
         if (multiline) {
@@ -81,20 +63,12 @@ const InputBar = () => {
         }
     }, [selectedMessages]);
 
-    useEffect(() => {
-        blurHandler();
-    }, [inputBarEmojiPicker]);
-
-    useEffect(() => {
-        inputText && inputRef?.current?.setSelectionRange(inputText.length, inputText.length);
-    }, []);
-
     return (
         <>
             <InputBarReplyTo
-                replyTo={selectedMessages.length ? null : replyTo}
+                inputReply={selectedMessages.length ? null : inputReply}
                 applyScrollMessageId={applyScrollMessageId}
-                closeHandler={closeHandler}
+                clearInputReply={clearInputReply}
                 inputBarEmojiPicker={inputBarEmojiPicker}
             />
 
@@ -104,8 +78,7 @@ const InputBar = () => {
                 exit='exit'
                 variants={inputBarVariants}
                 multiline={multiline ? 1 : 0}
-                isreplyto={replyTo.id ? 1 : 0}
-                isrlt={isPersian(inputText) ? 1 : 0}
+                isperian={isPersian(inputText) ? 1 : 0}
                 inputtext={inputText ? 1 : 0}
                 emoji={inputBarEmojiPicker ? 1 : 0}
             >
@@ -142,8 +115,7 @@ const InputBar = () => {
                                 animate='visible'
                                 exit='exit'
                                 variants={sendInputIconVariants}
-                                disabled={!inputText}
-                                onClick={inputSubmitHandler}
+                                onClick={() => sendMessage(inputText, setInputText)}
                             >
                                 <IoSend />
                             </motion.button>
@@ -200,7 +172,7 @@ const InputBarContainer = styled(motion.div)`
         border: none;
         padding: .6rem 1rem;
         background-color: #ffffff00;
-        font-family: ${props => props.isrlt ? 'Vazirmatn' : 'Outfit'}, 'Vazirmatn', sans-serif;
+        font-family: ${props => props.ispersian ? 'Vazirmatn' : 'Outfit'}, 'Vazirmatn', sans-serif;
         font-size: 1rem;
         font-weight: 200;
         resize: none;
@@ -284,7 +256,6 @@ const InputBarContainer = styled(motion.div)`
 
     @media (max-width: 768px) {
         width: 15rem;
-        margin-right: 4rem;
         bottom: .9rem;
         padding-bottom: ${props => props.emoji ? '8.5rem' : '0'};
         border-radius: ${props => props.emoji ? '20px' : '50px'};

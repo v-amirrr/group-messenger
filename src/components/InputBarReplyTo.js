@@ -5,7 +5,7 @@ import { BsReplyFill } from 'react-icons/bs';
 import { AnimatePresence, motion } from 'framer-motion';
 import { inputBarReplyToVariants } from '../config/varitans';
 
-const InputBarReplyTo = ({ replyTo, applyScrollMessageId, closeHandler, inputBarEmojiPicker }) => {
+const InputBarReplyTo = ({ inputReply, applyScrollMessageId, clearInputReply, inputBarEmojiPicker }) => {
 
     let mouseSituation = 'OUT';
 
@@ -13,7 +13,7 @@ const InputBarReplyTo = ({ replyTo, applyScrollMessageId, closeHandler, inputBar
         mouseSituation = 'IN';
         setTimeout(() => {
             if (mouseSituation == 'IN') {
-                applyScrollMessageId(replyTo?.id, 'HOVER');
+                applyScrollMessageId(inputReply?.id, 'HOVER');
             }
         }, 300);
     };
@@ -22,25 +22,25 @@ const InputBarReplyTo = ({ replyTo, applyScrollMessageId, closeHandler, inputBar
         <>
             <AnimatePresence>
                 {
-                    replyTo?.id ?
+                    inputReply?.id ?
                     <InputBarReplyToContainer
                         initial='hidden'
                         animate='visible'
                         exit='exit'
                         variants={inputBarReplyToVariants}
                         emoji={inputBarEmojiPicker ? 1 : 0}
-                        messageletters={replyTo?.username?.length + replyTo?.message?.length}
+                        messageletters={inputReply?.username?.length + inputReply?.message?.length}
                     >
                         <div
                             className='message'
-                            onClick={() => applyScrollMessageId(replyTo.id, 'CLICK')}
+                            onClick={() => applyScrollMessageId(inputReply.id, 'CLICK')}
                             onMouseEnter={hoverHandler}
                             onMouseLeave={() => mouseSituation = 'OUT'}
                         >
                             <i className='icon'><BsReplyFill /></i>
-                            <p className='text'>{replyTo.message}</p>
+                            <p className='text'>{inputReply.message}</p>
                         </div>
-                        <button className='close-button' onClick={(e) => closeHandler(e)}><IoClose /></button>
+                        <button className='close-button' onClick={(e) => clearInputReply(e)}><IoClose /></button>
                     </InputBarReplyToContainer>
                     : ''
                 }

@@ -5,7 +5,6 @@ import { motion } from 'framer-motion';
 
 const MessageBox = ({ functions, type, replyTo, arrayText, plainText, messageStyles }) => {
     const messageBoxRef = useRef();
-    console.log(messageBoxRef?.current?.offsetHeight);
     return (
         <>
             <MessageBoxContainer
@@ -100,10 +99,8 @@ const MessageBoxContainer = styled(motion.div)`
     }
 
     @media (max-width: 768px) {
-        .message-box {
-            max-width: 85%;
-            border-radius: ${props => props.data.height > 50 ? props.data.messageBoxNotRoundBorderRadius : props.data.messageBoxRoundBorderRadius};
-        }
+        max-width: 75%;
+        border-radius: ${props => props.data.height > 50 ? props.data.messageBoxNotRoundBorderRadius : props.data.messageBoxRoundBorderRadius};
     }
 `;
 

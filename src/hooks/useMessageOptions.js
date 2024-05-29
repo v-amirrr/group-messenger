@@ -3,14 +3,12 @@ import { doc, deleteDoc, updateDoc } from 'firebase/firestore';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNotification } from './useNotification';
 import { setPopup, setNewReply } from '../redux/popupSlice';
-import { setSendMessageReplyTo, setClearReplyTo } from '../redux/sendMessageSlice';
-import { setClearScrollMessageId, setMessagesScrollPosition, setScrollMessageId } from '../redux/appSlice';
+import { setInputReply, setClearScrollMessageId, setMessagesScrollPosition, setScrollMessageId } from '../redux/appSlice';
 
 export const useMessageOptions = () => {
     const dispatch = useDispatch();
     const { popupMessages } = useSelector(store => store.popupStore);
-    const { replyTo } = useSelector(store => store.sendMessageStore);
-    const { selectedMessages } = useSelector(store => store.appStore);
+    const { inputReply, selectedMessages } = useSelector(store => store.appStore);
     const { openNotification } = useNotification();
 
     const openPopup = (popupName, popupMessages) => {
@@ -57,21 +55,21 @@ export const useMessageOptions = () => {
         );
     };
 
-    const replyMessage = (id, messagePlainText, username) => {
-        if (replyTo.id && replyTo.id != id) {
+    const replyMessage = (id, message) => {
+        if (inputReply.id && inputReply.id != id) {
             clearReplyMessage();
             setTimeout(() => {
-                dispatch(setSendMessageReplyTo({ id, messagePlainText, username }));
+                dispatch(setInputReply({ id, message }));
             }, 300);
-        } else if (replyTo.id == id) {
+        } else if (inputReply.id == id) {
             clearReplyMessage();
         } else {
-            dispatch(setSendMessageReplyTo({ id, messagePlainText, username }));
+            dispatch(setInputReply({ id, message }));
         }
     };
 
     const clearReplyMessage = () => {
-        dispatch(setClearReplyTo());
+        dispatch(setInputReply({ id: null, message: null }));
     };
 
     const copyMessage = (messagePlainText) => {
@@ -118,7 +116,7 @@ export const useMessageOptions = () => {
                 deleted: true,
             });
             openNotification('Message was moved to trash.', false, 'TRASH');
-            if (id == replyTo?.id) {
+            if (id == inputReply?.id) {
                 clearReplyMessage();
             }
         } else {

@@ -119,7 +119,6 @@ const InputBarReplyToContainer = styled(motion.div)`
 
     @media (max-width: 768px) {
         max-width: 15rem;
-        margin-right: 4rem;
         bottom: ${props => props.emoji ? '12.4rem' : '4rem'};
     }
 `;

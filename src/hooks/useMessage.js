@@ -19,7 +19,6 @@ export const useMessage = (messageData, type, messageRef, options, onClick) => {
         nextMessageDifferentDate,
         username,
         isLocalMessage,
-        localUid,
         isTextPersian,
         textLetters,
      } = messageData;
@@ -44,44 +43,42 @@ export const useMessage = (messageData, type, messageRef, options, onClick) => {
             '.06rem 0 .06rem 0' :
             messagePosition == 3 &&
             '.06rem 0 .1rem 0',
-        messageBoxMarginRight: type == 'TRASH' ?
-            '2rem' :
-            selectedMessages.length && isLocalMessage ?
+        messageBoxMarginRight: selectedMessages.length && isLocalMessage ?
             '3rem' : '',
         messageBoxMarginLeft: selectedMessages?.length && !isLocalMessage ? '3rem' : '',
         messageBoxRoundBorderRadius: isLocalMessage ?
             messagePosition == 0 ?
             '25px' : messagePosition == 1 ?
-            '25px 25px 8px 25px' :
+            '25px 25px 12px 25px' :
             messagePosition == 2 ?
-            '25px 8px 8px 25px' :
+            '25px 12px 12px 25px' :
             messagePosition == 3 &&
-            '25px 8px 25px 25px' :
+            '25px 12px 25px 25px' :
             messagePosition == 0 ?
-            '8px 25px 25px 25px' :
+            '12px 25px 25px 25px' :
             messagePosition == 1 ?
-            '8px 25px 25px 8px' :
+            '12px 25px 25px 8px' :
             messagePosition == 2 ?
-            '8px 25px 25px 8px' :
+            '12px 25px 25px 12px' :
             messagePosition == 3 &&
-            '8px 25px 25px 25px',
+            '12px 25px 25px 25px',
         messageBoxNotRoundBorderRadius: isLocalMessage ?
             messagePosition == 0 ?
             '20px' :
             messagePosition == 1 ?
-            '20px 20px 8px 20px' :
+            '20px 20px 12px 20px' :
             messagePosition == 2 ?
-            '20px 8px 8px 20px' :
+            '20px 12px 12px 20px' :
             messagePosition == 3 &&
-            '20px 8px 20px 20px' :
+            '20px 12px 20px 20px' :
             messagePosition == 0 ?
-            '8px 20px 20px 20px' :
+            '12px 20px 20px 20px' :
             messagePosition == 1 ?
-            '8px 20px 20px 8px' :
+            '12px 20px 20px 12px' :
             messagePosition == 2 ?
-            '8px 20px 20px 8px' :
+            '12px 20px 20px 12px' :
             messagePosition == 3 &&
-            '8px 20px 20px 20px',
+            '12px 20px 20px 20px',
         messageBoxPadding: type == 'TRASH' && textLetters > 2 ?
             '.45rem .6rem' :
             type == 'TRASH' && textLetters <= 2 ?
@@ -97,7 +94,7 @@ export const useMessage = (messageData, type, messageRef, options, onClick) => {
     useEffect(() => {
         detectMessagePosition();
         if (type == 'CHAT') {
-            addMessageScrollPosition(id, messageRef.current?.getBoundingClientRect().top);
+            addMessageScrollPosition(id, messageRef?.current?.getBoundingClientRect()?.top);
         }
     }, [nextMessageUid, previousMessageUid, previousMessageDifferentDate, nextMessageDifferentDate]);
 
@@ -164,7 +161,7 @@ export const useMessage = (messageData, type, messageRef, options, onClick) => {
     const messageClickHandler = () => {
         if (status != 1 && status != 2) {
             if (type == 'CHAT' || type == 'TRASH') {
-                if (selectedMessages?.length || type == 'TRASH') {
+                if (selectedMessages?.length) {
                     if (hold) {
                         setHold(false);
                     } else if (selected && !hold) {
@@ -174,11 +171,15 @@ export const useMessage = (messageData, type, messageRef, options, onClick) => {
                         selectMessage({ ...messageData });
                     }
                 } else {
-                    if (options?.messageOptions?.id == id && type == 'CHAT') {
-                        options.setMessageOptions(false);
-                    } else {
-                        options.setMessageOptions(messageData);
-                    }
+                    options.setMessageOptions({
+                        data: {
+                            ...messageData,
+                            ref: messageRef,
+                            messageStyles,
+                            messagePosition: 0,
+                        },
+                        animationStatus: 1
+                    });
                 }
             } else {
                 onClick();

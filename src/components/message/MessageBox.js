@@ -16,9 +16,9 @@ const MessageBox = ({ functions, type, replyTo, arrayText, plainText, messageSty
                 onTouchStart={functions?.onHoldStarts}
                 onTouchEnd={functions?.onHoldEnds}
                 data={{
-                    ...messageStyles,
                     width: messageBoxRef?.current?.offsetWidth,
-                    height: messageBoxRef?.current?.offsetHeight
+                    height: messageBoxRef?.current?.offsetHeight,
+                    ...messageStyles,
                 }}
             >
                 <div className='message-text' dir='auto'>
@@ -65,6 +65,7 @@ const MessageBoxContainer = styled(motion.div)`
     padding: ${props => props.data.messageBoxPadding};
     width: fit-content;
     max-width: ${props => props.data.type == 'EDIT_REPLY' ? '70%' : '65%'};
+    min-width: 5%;
     word-break: break-all;
     cursor: pointer;
     box-shadow: var(--normal-shadow);
@@ -76,10 +77,11 @@ const MessageBoxContainer = styled(motion.div)`
         #ffffff20 50%,
         #ffffff00 80%
     );
+    visibility: ${props => props.data.options ? 'hidden' : 'visible'};
     background-position: ${props => `left ${-props.data.width}px top 0`};
     background-repeat: no-repeat;
     animation: ${props => props.data.replyeffect || props.data.selected ? 'message-skeleton-animation linear .8s' : ''};
-    transition: border-radius .2s, margin .4s, background .2s, padding .4s;
+    transition: border-radius .2s, margin .4s;
 
     .message-text {
         display: inline-block;

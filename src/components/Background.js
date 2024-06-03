@@ -24,7 +24,7 @@ const BackgroundContainer = styled.div`
     align-items: center;
 
     div {
-        background-color: #00000088;
+        background-color: #00000022;
         position: absolute;
         width: 100%;
         height: 100%;
@@ -39,7 +39,7 @@ const BackgroundContainer = styled.div`
 
     @media (max-width: 768px) {
         div {
-            background-color: #00000022;
+            background-color: #00000000;
         }
 
         img {

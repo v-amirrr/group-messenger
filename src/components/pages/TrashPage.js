@@ -7,6 +7,7 @@ import { useSelect } from '../../hooks/useSelect';
 import { isPersian } from '../../functions/isPersian';
 import Message from '../message/Message';
 import Counter from '../common/Counter';
+import ChatOptions from '../ChatOptions';
 import { TiArrowLeft } from 'react-icons/ti';
 import { TbTrashX } from 'react-icons/tb';
 import { FaTrashRestore } from "react-icons/fa";
@@ -25,6 +26,7 @@ const TrashPage = () => {
     const { openNotification } = useNotification();
     const { switchSelectAllTrash, restoreSelectedMessages, clearSelectedMessages } = useSelect();
     const [messages, setMessages] = useState(deletedMessages?.filter(item => item?.uid == user?.uid));
+    const [messageOptions, setMessageOptions] = useState({ data: null, animationStatus: 0 });
 
     useEffect(() => {
         setMessages(deletedMessages?.filter(item => item?.uid == user?.uid));
@@ -47,11 +49,16 @@ const TrashPage = () => {
                                     isTextPersian : isPersian(messageData.plainText),
                                     textLetters: messageData.plainText.length > 20 ? 20 : messageData.plainText.length,
                                 }}
+                                options={{
+                                    messageOptions: messageOptions,
+                                    setMessageOptions: setMessageOptions,
+                                }}
                             />
                             ))
                         }
                     </AnimatePresence>
                 </motion.div>
+                <ChatOptions messageOptions={messageOptions} setMessageOptions={setMessageOptions} type='TRASH' />
                 <AnimatePresence>
                     {
                         selectedMessages?.length ?

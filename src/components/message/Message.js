@@ -29,7 +29,6 @@ const Message = ({ messageData, type, options, onClick, replyIconClick, newreply
         nextMessageDifferentDate,
         username,
         isLocalMessage,
-        localUid,
         isTextPersian,
         textLetters,
      } = messageData;
@@ -101,6 +100,7 @@ const Message = ({ messageData, type, options, onClick, replyIconClick, newreply
                         date: previousMessageDifferentDate && time.year && time.month ? 1 : 0,
                         reply: replyTo != 'no_reply' ? 1 : 0,
                         replyeffect: replyEffect ? 1 : 0,
+                        options: options?.messageOptions?.data?.id == id,
                     }}
                 />
                 <MessageSelectCheck
@@ -115,9 +115,6 @@ const Message = ({ messageData, type, options, onClick, replyIconClick, newreply
                     editReplyClick={replyIconClick}
                     show={newreply}
                 />
-                <div className='options'>
-                    <MessageOptions options={options} id={id} />
-                </div>
                 <MessageLoader status={status} />
             </MessageContainer>
         </>

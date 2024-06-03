@@ -11,6 +11,7 @@ import InputBar from './InputBar';
 import SelectBar from './SelectBar';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
+import ChatOptions from './ChatOptions';
 
 const Chat = () => {
     const chatRef = useRef();
@@ -19,7 +20,7 @@ const Chat = () => {
     const { scrollPosition, selectedMessages, messagesScrollPosition, scrollMessageId } = useSelector(store => store.appStore);
     const { resetScrollMessageId } = useMessageOptions();
     const { arrow, newMessage, scrollButtonClickHandler, onChatScrollHandler, scrollDown } = useScroll(chatRef);
-    const [messageOptions, setMessageOptions] = useState(false);
+    const [messageOptions, setMessageOptions] = useState({ data: null, animationStatus: 0 });
 
     useEffect(() => {
         if (scrollMessageId.id) {
@@ -52,6 +53,8 @@ const Chat = () => {
                 {!selectedMessages.length ? <InputBar key='input' /> : <SelectBar key='select' />}
             </AnimatePresence>
 
+            <ChatOptions messageOptions={messageOptions} setMessageOptions={setMessageOptions} type='CHAT' />
+
             <ChatContainer
                 layout
                 ref={chatRef}
@@ -67,7 +70,6 @@ const Chat = () => {
                                 ...messageData,
                                 username: usernames[messageData.uid],
                                 isLocalMessage: user?.uid == messageData.uid,
-                                localUid: user?.uid,
                                 isTextPersian : isPersian(messageData.plainText),
                                 textLetters: messageData.plainText.length > 20 ? 20 : messageData.plainText.length,
                             }}

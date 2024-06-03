@@ -4,12 +4,12 @@ import { FcCheckmark } from 'react-icons/fc';
 import { motion, AnimatePresence } from 'framer-motion';
 import { selectCheckLocalVariants, selectCheckNonLocalVariants, checkButtonVariants } from '../../config/varitans';
 
-const MessageSelectCheck = ({ selected, selectedMessagesLength, messageClickHandler, type, localMessage }) => {
+const MessageSelectCheck = ({ selected, selectedMessagesLength, messageClickHandler, localMessage }) => {
     return (
         <>
             <AnimatePresence>
                 {
-                    selectedMessagesLength || type == 'TRASH' ?
+                    selectedMessagesLength ?
                     <MessageSelectCheckContainer
                         className='select-section'
                         key='select-section'
@@ -18,7 +18,6 @@ const MessageSelectCheck = ({ selected, selectedMessagesLength, messageClickHand
                         exit='exit'
                         variants={localMessage ? selectCheckLocalVariants : selectCheckNonLocalVariants}
                         onClick={messageClickHandler}
-                        trash={type == 'TRASH' ? 1 : 0}
                         selected={selected ? 1 : 0}
                     >
                         <AnimatePresence>
@@ -49,8 +48,8 @@ const MessageSelectCheckContainer = styled(motion.div)`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: ${props => props.trash ? '1.6rem' : '1.8rem'};
-    height: ${props => props.trash ? '1.6rem' : '1.8rem'};
+    width: 1.8rem;
+    height: 1.8rem;
     border: ${props => props.selected ? 'solid 2.5px #ffffff00' : 'solid 2.5px #ffffff10'};
     border-radius: 50%;
     background: ${props => props.selected ? 'var(--normal-bg)' : '#ffffff00'};

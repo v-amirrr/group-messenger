@@ -6,65 +6,97 @@ import { AiFillDelete, AiFillCopy, AiFillEdit } from 'react-icons/ai';
 import { BsReplyFill } from 'react-icons/bs';
 import { BiSelectMultiple } from 'react-icons/bi';
 import styled from 'styled-components';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { optionsVariants, optionLocalVariants, optionNonLocalVariants } from '../../config/varitans';
 
-const MessageOptions = ({ options, id }) => {
+const MessageOptions = ({ options, type }) => {
     const { enterAsAGuest } = useSelector(store => store.userStore);
     const { inputReply } = useSelector(store => store.appStore);
     const { openPopup, copyMessage, replyMessage, trashMessage } = useMessageOptions();
     const { selectMessage } = useSelect();
 
     const optionClick = (option) => {
-        options?.setMessageOptions(false);
+        options.closeOptions();
         setTimeout(() => {
             switch (option) {
                 case 'REPLY':
                     replyMessage(
-                        options?.messageOptions.id,
-                        options?.messageOptions.plainText,
-                        options?.messageOptions.username,
+                        options?.messageOptions?.id,
+                        options?.messageOptions?.plainText,
+                        options?.messageOptions?.username,
                     );
                     break;
                 case 'SELECT':
                     selectMessage(options?.messageOptions);
                     break;
+                case 'COPY':
+                    copyMessage(options?.messageOptions?.plainText);
+                    break;
+                case 'EDIT':
+                    openPopup('EDIT_POPUP', [options?.messageOptions]);
+                    break;
+                case 'DELETE':
+                    trashMessage(options?.messageOptions?.id);
+                    break;
             }
-        }, 250);
-        switch (option) {
-            case 'COPY':
-                copyMessage(options?.messageOptions.plainText);
-                break;
-            case 'EDIT':
-                openPopup('EDIT_POPUP', [options?.messageOptions]);
-                break;
-            case 'DELETE':
-                trashMessage(options?.messageOptions.id);
-                break;
-        }
+        }, 500);
     };
 
     return (
         <>
-            <AnimatePresence>
+            <MessageOptionsContainer
+                initial='hidden'
+                animate='visible'
+                exit='exit'
+                variants={optionsVariants}
+                localmessage={options?.messageOptions.isLocalMessage ? 1 : 0}
+                guest={enterAsAGuest ? 1 : 0}
+                hour={
+                    options?.messageOptions.time.hour > 12 ?
+                    ((options?.messageOptions.time.hour - 12) / 12) * 360 + 90 :
+                    (options?.messageOptions.time.hour / 12) * 360 + 90
+                }
+                minute={(options?.messageOptions.time.minute / 60) * 360 + 90}
+                unreply={inputReply.id == options?.messageOptions.id ? 1 : 0}
+                type={type}
+            >
                 {
-                    options?.messageOptions.id == id ?
-                    <MessageOptionsContainer
-                        key={id}
-                        initial='hidden'
-                        animate='visible'
-                        exit='exit'
-                        variants={optionsVariants}
-                        localmessage={options?.messageOptions.isLocalMessage ? 1 : 0}
-                        guest={enterAsAGuest ? 1 : 0}
-                        hour={
-                            options?.messageOptions.time.hour > 12 ?
-                            ((options?.messageOptions.time.hour - 12) / 12) * 360 + 90 :
-                            (options?.messageOptions.time.hour / 12) * 360 + 90
-                        }
-                        minute={(options?.messageOptions.time.minute / 60) * 360 + 90}
-                        unreply={inputReply.id == options?.messageOptions.id ? 1 : 0}
-                    >
+                    type == 'TRASH' ?
+                    <>
+                        <motion.div
+                            className='copy'
+                            onClick={() => optionClick('COPY')}
+                            variants={optionLocalVariants}
+                        >
+                            <i><AiFillCopy /></i>
+                            <p>Copy</p>
+                        </motion.div>
+                        <motion.div
+                            className='select'
+                            onClick={() => optionClick('SELECT')}
+                            variants={optionLocalVariants}
+                        >
+                            <i><BiSelectMultiple /></i>
+                            <p>Select</p>
+                        </motion.div>
+                        {/* <motion.div
+                            className='restore'
+                            // onClick={() => optionClick('RESTORE')}
+                            variants={optionLocalVariants}
+                        >
+                            <i><BsReplyFill /></i>
+                            <p>Restore</p>
+                        </motion.div>
+                        <motion.div
+                            className='delete'
+                            // onClick={() => optionClick('DELETE')}
+                            variants={optionLocalVariants}
+                        >
+                            <i><BsReplyFill /></i>
+                            <p>Delete</p>
+                        </motion.div> */}
+                    </> :
+                    <>
                         <motion.div
                             className='reply'
                             onClick={() => optionClick('REPLY')}
@@ -74,9 +106,7 @@ const MessageOptions = ({ options, id }) => {
                                 optionNonLocalVariants
                             }
                         >
-                            <i>
-                                <BsReplyFill />
-                            </i>
+                            <i><BsReplyFill /></i>
                             <p>{inputReply.id == options?.messageOptions.id ? 'Unreply' : 'Reply'}</p>
                         </motion.div>
                         <motion.div
@@ -88,27 +118,23 @@ const MessageOptions = ({ options, id }) => {
                                 optionNonLocalVariants
                             }
                         >
-                            <i>
-                                <BiSelectMultiple />
-                            </i>
+                            <i><BiSelectMultiple /></i>
                             <p>Select</p>
                         </motion.div>
                         <motion.div
                             className='copy'
                             onClick={() => optionClick('COPY')}
                             variants={
-                                options?.messageOptions.isLocalMessage ?
+                                options?.messageOptions?.isLocalMessage ?
                                 optionLocalVariants :
                                 optionNonLocalVariants
                             }
                         >
-                            <i>
-                                <AiFillCopy />
-                            </i>
+                            <i><AiFillCopy /></i>
                             <p>Copy</p>
                         </motion.div>
                         {
-                            options?.messageOptions.isLocalMessage ?
+                            options?.messageOptions?.isLocalMessage ?
                             <>
                                 <motion.div
                                     className='edit'
@@ -119,62 +145,57 @@ const MessageOptions = ({ options, id }) => {
                                         optionNonLocalVariants
                                     }
                                 >
-                                    <i>
-                                        <AiFillEdit />
-                                    </i>
+                                    <i><AiFillEdit /></i>
                                     <p>Edit</p>
                                 </motion.div>
                                 <motion.div
                                     className='delete'
                                     onClick={() => optionClick('DELETE')}
                                     variants={
-                                        options?.messageOptions.isLocalMessage ?
+                                        options?.messageOptions?.isLocalMessage ?
                                         optionLocalVariants :
                                         optionNonLocalVariants
                                     }
                                 >
-                                    <i>
-                                        <AiFillDelete />
-                                    </i>
+                                    <i><AiFillDelete /></i>
                                     <p>Delete</p>
                                 </motion.div>
                             </>
                             : ''
                         }
-                        <motion.div
-                            className='time'
-                            variants={
-                                options?.messageOptions.isLocalMessage ?
-                                optionLocalVariants :
-                                optionNonLocalVariants
-                            }
-                        >
-                            <div>
-                                <span className='hour'></span>
-                                <span className='minute'></span>
-                            </div>
-                            <p>
-                                <span>
-                                    {
-                                        options?.messageOptions.time?.hour < 10 ?
-                                        `0${options?.messageOptions.time?.hour}` :
-                                        options?.messageOptions.time?.hour
-                                    }
-                                </span>
-                                :
-                                <span>
-                                    {
-                                        options?.messageOptions.time?.minute < 10 ?
-                                        `0${options?.messageOptions.time?.minute}` :
-                                        options?.messageOptions.time?.minute
-                                    }
-                                </span>
-                            </p>
-                        </motion.div>
-                    </MessageOptionsContainer>
-                    : ''
+                    </>
                 }
-            </AnimatePresence>
+                <motion.div
+                    className='time'
+                    variants={
+                        options?.messageOptions?.isLocalMessage ?
+                        optionLocalVariants :
+                        optionNonLocalVariants
+                    }
+                >
+                    <div>
+                        <span className='hour'></span>
+                        <span className='minute'></span>
+                    </div>
+                    <p>
+                        <span>
+                            {
+                                options?.messageOptions?.time?.hour < 10 ?
+                                `0${options?.messageOptions?.time?.hour}` :
+                                options?.messageOptions?.time?.hour
+                            }
+                        </span>
+                        :
+                        <span>
+                            {
+                                options?.messageOptions?.time?.minute < 10 ?
+                                `0${options?.messageOptions?.time?.minute}` :
+                                options?.messageOptions?.time?.minute
+                            }
+                        </span>
+                    </p>
+                </motion.div>
+            </MessageOptionsContainer>
         </>
     );
 };
@@ -185,21 +206,20 @@ const MessageOptionsContainer = styled(motion.div)`
     justify-content: center;
     align-items: center;
     flex-direction: ${props => props.localmessage ? 'row-reverse' : 'row'};
-    margin: ${props => props.localmessage ? '0 .4rem 0 0' : '0 0 0 .4rem'};
 
-    .reply, .copy, .edit, .delete, .select, .time {
+    .reply, .copy, .edit, .delete, .select, .time, .restore {
         position: relative;
+        top: 2.5rem;
         background-color: var(--normal-bg);
-        margin: 0 0.1rem;
+        margin: .2rem 0 0 .2rem;
         display: flex;
         justify-content: center;
         align-items: center;
         border-radius: 50px;
-        width: 100%;
-        height: 50%;
-        padding: 0.5rem;
+        height: 2.1rem;
+        padding: 0 .6rem 0 .5rem;
         cursor: pointer;
-        transition: padding 0.2s;
+        transition: background .2s;
 
         i {
             display: flex;
@@ -207,79 +227,27 @@ const MessageOptionsContainer = styled(motion.div)`
             align-items: center;
             flex-direction: row;
             font-size: 1.1rem;
+            margin-right: .2rem;
         }
 
         p {
-            font-size: 0.8rem;
+            font-size: .9rem;
             font-weight: 400;
-            position: absolute;
-            right: 0.6rem;
-            transform: scale(0);
-            opacity: 0;
-            transition: transform 0.2s, opacity 0.2s;
         }
 
         @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
             &:hover {
-                p {
-                    transform: scale(1);
-                    opacity: 1;
-                }
-            }
-        }
-    }
-
-    .reply {
-        @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
-            &:hover {
-                padding: ${props => props.unreply ? '0.5rem 3.5rem 0.5rem 0.5rem' : '0.5rem 2.7rem 0.5rem 0.5rem'};
-                transition: padding 0.3s;
-            }
-        }
-    }
-
-    .select {
-        @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
-            &:hover {
-                padding: 0.5rem 3rem 0.5rem 0.5rem;
-                transition: padding 0.3s;
-            }
-        }
-    }
-
-    .copy {
-        @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
-            &:hover {
-                padding: 0.5rem 2.7rem 0.5rem 0.5rem;
-                transition: padding 0.3s;
-            }
-        }
-    }
-
-    .edit {
-        @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
-            &:hover {
-                padding: 0.5rem 2.3rem 0.5rem 0.5rem;
-                transition: padding 0.3s;
-            }
-        }
-    }
-
-    .delete {
-        @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
-            &:hover {
-                padding: 0.5rem 3.1rem 0.5rem 0.5rem;
-                transition: padding 0.3s;
+                background-color: var(--normal-bg-hover);
             }
         }
     }
 
     .time {
         cursor: auto;
-        padding: 0.5rem 2.8rem 0.5rem 0.5rem;
         border: none;
 
         div {
+            margin-right: .2rem;
             background-color: #fff;
             width: 1.1rem;
             height: 1.1rem;
@@ -320,41 +288,11 @@ const MessageOptionsContainer = styled(motion.div)`
     }
 
     @media (max-width: 768px) {
-        width: 6rem;
-        flex-direction: column;
-        justify-content: center;
-        margin: ${props => props.localmessage ? '13rem 0 0 0' : '8rem 0 0 0'};
-        z-index: 2;
-        background-color: var(--normal-bg);
-        border-radius: 15px;
-        backdrop-filter: blur(20px) saturate(100%);
-        -webkit-backdrop-filter: blur(20px) saturate(100%);
-        overflow: hidden;
+        flex-wrap: wrap;
+        justify-content: flex-start;
 
-        .reply, .copy, .edit, .delete, .select, .time, .mark {
-            margin: 0.1rem 0;
-            background-color: #ffffff00;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 6.5rem;
-            height: 2rem;
-            backdrop-filter: none;
-
-            div, i {
-                position: absolute;
-                left: 0.9rem;
-                margin: 0;
-            }
-
-            p {
-                font-size: 0.8rem;
-                right: none;
-                left: 2.7rem;
-                text-align: start;
-                transform: scale(1);
-                opacity: 1;
-            }
+        .reply, .copy, .edit, .delete, .select, .time {
+            top: ${props => props.type != 'TRASH' ? props.localmessage ? '4.5rem' : '2.5rem' : ''};
         }
     }
 `;

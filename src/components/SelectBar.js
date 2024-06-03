@@ -122,7 +122,6 @@ const SelectBarContainer = styled(motion.div)`
 
     @media (max-width: 745px) {
         width: 15rem;
-        margin-right: 4rem;
         bottom: .9rem;
 
         .options {

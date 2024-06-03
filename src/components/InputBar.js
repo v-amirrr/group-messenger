@@ -164,7 +164,7 @@ const InputBarContainer = styled(motion.div)`
     .input {
         position: absolute;
         left: 0;
-        width: 12rem;
+        width: 13rem;
         height: 2.4rem;
         display: flex;
         justify-content: center;

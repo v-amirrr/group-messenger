@@ -25,7 +25,7 @@ export const useMessage = (messageData, type, messageRef, options, onClick) => {
 
     const { selectedMessages, scrollMessageId } = useSelector(store => store.appStore);
     const { replyMessage, addMessageScrollPosition, applyScrollMessageId } = useMessageOptions();
-    const { selectMessage, checkMessage, unSelectMessage } = useSelect();
+    const { selectMessage, unSelectMessage } = useSelect();
     const [messagePosition, setMessagePosition] = useState(null);
     const [hold, setHold] = useState(false);
     const [selected, setSelected] = useState(false);
@@ -177,7 +177,7 @@ export const useMessage = (messageData, type, messageRef, options, onClick) => {
                     if (hold) {
                         setHold(false);
                     } else if (selected && !hold) {
-                        unSelectMessage(id);
+                        unSelectMessage(id, messageData.isLocalMessage);
                         setSelected(false);
                     } else {
                         selectThisMessage();

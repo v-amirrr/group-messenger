@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setSelectedMessages, setClearSelectedMessages, setUnselectMessages } from '../redux/appSlice';
+import { setSelectedMessages, setClearSelectedMessages, setUnselectMessages, setSelectOthersMessage } from '../redux/appSlice';
 import { useMessageOptions } from "./useMessageOptions";
 import { useNotification } from "./useNotification";
 
@@ -11,25 +11,31 @@ export const useSelect = () => {
     const { openNotification } = useNotification();
     const [nonLocalSelectedMessages, setNonLocalSelectedMessages] = useState(0);
 
+    useEffect(() => {
+        if (!nonLocalSelectedMessages) {
+            dispatch(setSelectOthersMessage(false));
+        }
+    }, [nonLocalSelectedMessages]);
+
     const selectMessage = (message) => {
         dispatch(setSelectedMessages({ message }));
         if (!message.isLocalMessage) {
-            setNonLocalSelectedMessages(perv => perv + 1);
-            console.log(nonLocalSelectedMessages);
+            setNonLocalSelectedMessages(nonLocalSelectedMessages + 1);
+            dispatch(setSelectOthersMessage(true));
         }
     };
-    const unSelectMessage = (id) => {
-        let newSelectedMessages = selectedMessages.filter(item => item.id != id ? item : !item.isLocalMessage ? setNonLocalSelectedMessages(prev => prev - 1) : '');
+
+    const unSelectMessage = (id, isLocalMessage) => {
+        let newSelectedMessages = selectedMessages.filter(item => item.id != id ? item : '');
+        if (!isLocalMessage) {
+            setNonLocalSelectedMessages(nonLocalSelectedMessages - 1);
+        }
         dispatch(setUnselectMessages(newSelectedMessages));
-        // if (newSelectedMessages.every(item => item.isMessageFromLocalUser)) {
-        //     dispatch(setSelectOthersMessage(false));
-        // }
     };
 
     const clearSelectedMessages = () => {
-        dispatch(setClearSelectedMessages());
         setNonLocalSelectedMessages(0);
-        // dispatch(setSelectOthersMessage(false));
+        dispatch(setClearSelectedMessages());
     };
 
     const copySelectedMessages = () => {
@@ -132,7 +138,6 @@ export const useSelect = () => {
         switchSelectAllTrash,
         restoreSelectedMessages,
         deleteSelectedMessages,
-        copySelectedMessages,
-        nonLocalSelectedMessages
+        copySelectedMessages
     };
 };

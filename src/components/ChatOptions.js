@@ -10,7 +10,7 @@ const ChatOptions = ({ messageOptions, setMessageOptions, type }) => {
     const [noTopPositionChange, setNoTopPositionChange] = useState(false);
 
     const closeOptionsByTap = (e) => {
-        if (!chatOptionsMessageRef?.current?.contains(e.target)) {
+        if (!chatOptionsMessageRef?.current?.contains(e?.target)) {
             closeOptions();
         }
     };
@@ -111,7 +111,7 @@ const ChatOptionsContainer = styled(motion.div)`
     align-items: center;
     backdrop-filter: ${props => props.styles.chatOptionsStatus == 2 ? 'var(--bold-glass)' : 'none'};
     background-color: ${props => props.styles.chatOptionsStatus == 2 ? '#00000088' : '#00000000'};
-    transition: ${props => props.styles.chatOptionsStatus == 3 ? 'backdrop-filter .3s, background .3s' : 'backdrop-filter .4s, background .4s'};
+    transition: ${props => props.styles.chatOptionsStatus == 3 ? 'backdrop-filter .2s .15s, background .3s' : 'backdrop-filter .4s, background .4s'};
     z-index: 5;
 
     .message-box {
@@ -126,7 +126,7 @@ const ChatOptionsContainer = styled(motion.div)`
         flex-direction: column;
         margin: ${props => props.styles.chatOptionsStatus == 2 && props.styles.isMocalMessage ? '0 0rem 0 -2rem' : props.styles.chatOptionsStatus == 2 && !props.styles.isMocalMessage ? '0 0 0 2rem' : ''};
         transform: ${props => props.styles.chatOptionsStatus != 2 ? 'translate(0%, 0%) scale(1)' : 'translate(0%, -50%) scale(1.1)'};
-        transition: top .2s cubic-bezier(0.53, 0, 0, 0.98), transform .2s cubic-bezier(0.53, 0, 0, 0.98), margin .2s cubic-bezier(0.53, 0, 0, 0.98);
+        transition: top .3s cubic-bezier(0.53, 0, 0, 0.98), transform .3s cubic-bezier(0.53, 0, 0, 0.98), margin .3s cubic-bezier(0.53, 0, 0, 0.98);
     }
 
     @media (max-width: 745px) {

@@ -16,7 +16,7 @@ const MessageOptions = ({ options, type }) => {
     const { selectMessage } = useSelect();
 
     const optionClick = (option) => {
-        options.closeOptions();
+        options?.closeOptions();
         setTimeout(() => {
             switch (option) {
                 case 'REPLY':
@@ -27,7 +27,11 @@ const MessageOptions = ({ options, type }) => {
                     );
                     break;
                 case 'SELECT':
-                    selectMessage(options?.messageOptions);
+                    selectMessage({
+                        id: options?.messageOptions?.id,
+                        plainText: options?.messageOptions?.plainText,
+                        isLocalMessage: options?.messageOptions?.isLocalMessage
+                    });
                     break;
                 case 'COPY':
                     copyMessage(options?.messageOptions?.plainText);
@@ -49,15 +53,15 @@ const MessageOptions = ({ options, type }) => {
                 animate='visible'
                 exit='exit'
                 variants={optionsVariants}
-                localmessage={options?.messageOptions.isLocalMessage ? 1 : 0}
+                localmessage={options?.messageOptions?.isLocalMessage ? 1 : 0}
                 guest={enterAsAGuest ? 1 : 0}
                 hour={
-                    options?.messageOptions.time.hour > 12 ?
-                    ((options?.messageOptions.time.hour - 12) / 12) * 360 + 90 :
-                    (options?.messageOptions.time.hour / 12) * 360 + 90
+                    options?.messageOptions?.time?.hour > 12 ?
+                    ((options?.messageOptions?.time?.hour - 12) / 12) * 360 + 90 :
+                    (options?.messageOptions?.time?.hour / 12) * 360 + 90
                 }
-                minute={(options?.messageOptions.time.minute / 60) * 360 + 90}
-                unreply={inputReply.id == options?.messageOptions.id ? 1 : 0}
+                minute={(options?.messageOptions?.time?.minute / 60) * 360 + 90}
+                unreply={inputReply?.id == options?.messageOptions?.id ? 1 : 0}
                 type={type}
             >
                 {
@@ -101,19 +105,19 @@ const MessageOptions = ({ options, type }) => {
                             className='reply'
                             onClick={() => optionClick('REPLY')}
                             variants={
-                                options?.messageOptions.isLocalMessage ?
+                                options?.messageOptions?.isLocalMessage ?
                                 optionLocalVariants :
                                 optionNonLocalVariants
                             }
                         >
                             <i><BsReplyFill /></i>
-                            <p>{inputReply.id == options?.messageOptions.id ? 'Unreply' : 'Reply'}</p>
+                            <p>{inputReply?.id == options?.messageOptions.id ? 'Unreply' : 'Reply'}</p>
                         </motion.div>
                         <motion.div
                             className='select'
                             onClick={() => optionClick('SELECT')}
                             variants={
-                                options?.messageOptions.isLocalMessage ?
+                                options?.messageOptions?.isLocalMessage ?
                                 optionLocalVariants :
                                 optionNonLocalVariants
                             }
@@ -140,7 +144,7 @@ const MessageOptions = ({ options, type }) => {
                                     className='edit'
                                     onClick={() => optionClick('EDIT')}
                                     variants={
-                                        options?.messageOptions.isLocalMessage ?
+                                        options?.messageOptions?.isLocalMessage ?
                                         optionLocalVariants :
                                         optionNonLocalVariants
                                     }

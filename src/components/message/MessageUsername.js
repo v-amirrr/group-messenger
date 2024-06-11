@@ -23,7 +23,7 @@ const MessageUsernameContainer = styled.div`
     max-width: 8rem;
     margin-left: ${props => props.selectmode ? '3rem' : ''};
     padding: 0.2rem 0.5rem 0.2rem 1.1rem;
-    background-color: #ffffff0f;
+    background-color: #151515;
     border-radius: 50px 50px 50px 30px;
     margin-right: .2rem;
     font-size: .6rem;

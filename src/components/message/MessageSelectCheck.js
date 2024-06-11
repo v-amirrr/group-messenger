@@ -52,7 +52,7 @@ const MessageSelectCheckContainer = styled(motion.div)`
     height: 1.8rem;
     border: ${props => props.selected ? 'solid 2.5px #ffffff00' : 'solid 2.5px #ffffff10'};
     border-radius: 50%;
-    background: ${props => props.selected ? 'var(--normal-bg)' : '#ffffff00'};
+    background: ${props => props.selected ? '#151515' : '#ffffff00'};
     overflow: hidden;
     box-shadow: var(--normal-shadow);
     cursor: pointer;

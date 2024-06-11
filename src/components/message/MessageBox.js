@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 
 const MessageBox = ({ functions, type, replyTo, arrayText, plainText, messageStyles }) => {
     const messageBoxRef = useRef();
+
     return (
         <>
             <MessageBoxContainer
@@ -70,7 +71,7 @@ const MessageBoxContainer = styled(motion.div)`
     cursor: pointer;
     box-shadow: var(--normal-shadow);
     color: var(--normal-color);
-    background-color: #ffffff0f;
+    background-color: #151515;
     background-image: linear-gradient(
         90deg,
         #ffffff00 20%,

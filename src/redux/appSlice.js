@@ -4,7 +4,6 @@ const initialState = {
     warningPageShowed: JSON.parse(sessionStorage.getItem("warning")),
     warningPageNeverShow: JSON.parse(localStorage.getItem('warning-check')),
     selectedMessages: [],
-    selectOthersMessage: false,
     notifications: [],
     notificationSettings: {
         send: false,
@@ -45,9 +44,6 @@ const appSlice = createSlice({
         },
         setUnselectMessages: (state, action) => {
             return { ...state, selectedMessages: action.payload };
-        },
-        setSelectOthersMessage: (state, action) => {
-            return { ...state, selectOthersMessage: action.payload };
         },
         setNotifications: (state, action) => {
             return {
@@ -152,7 +148,6 @@ export const {
     setSelectedMessages,
     setClearSelectedMessages,
     setUnselectMessages,
-    setSelectOthersMessage,
     setNotifications,
     setCloseNotification,
     setClearNotifications,

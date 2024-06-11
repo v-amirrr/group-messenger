@@ -48,7 +48,7 @@ const MessageReplyIconContainer = styled(motion.div)`
     justify-content: center;
     align-items: center;
     font-size: 1.2rem;
-    background-color: var(--normal-bg);
+    background-color: #151515;
     box-shadow: var(--normal-shadow);
     padding: 1rem;
     border-radius: 50%;

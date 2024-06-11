@@ -57,7 +57,7 @@ export const useMessage = (messageData, type, messageRef, options, onClick) => {
             messagePosition == 0 ?
             '12px 25px 25px 25px' :
             messagePosition == 1 ?
-            '12px 25px 25px 8px' :
+            '12px 25px 25px 12px' :
             messagePosition == 2 ?
             '12px 25px 25px 12px' :
             messagePosition == 3 &&
@@ -99,9 +99,13 @@ export const useMessage = (messageData, type, messageRef, options, onClick) => {
     }, [nextMessageUid, previousMessageUid, previousMessageDifferentDate, nextMessageDifferentDate]);
 
     useEffect(() => {
-        checkMessage(id, selected, setSelected);
         if (!selectedMessages?.length) {
             setHold(false);
+            setSelected(false);
+        } else {
+            if (selectedMessages[selectedMessages.length-1].id == messageData.id) {
+                setSelected(true);
+            }
         }
     }, [selectedMessages]);
 
@@ -122,6 +126,14 @@ export const useMessage = (messageData, type, messageRef, options, onClick) => {
             }, 1000);
         }
     }, [scrollMessageId]);
+
+    const selectThisMessage = () => {
+        selectMessage({
+            id: messageData.id,
+            plainText: messageData.plainText,
+            isLocalMessage: messageData.isLocalMessage
+        });
+    };
 
     const detectMessagePosition = () => {
         if (type == 'TRASH') {
@@ -168,7 +180,7 @@ export const useMessage = (messageData, type, messageRef, options, onClick) => {
                         unSelectMessage(id);
                         setSelected(false);
                     } else {
-                        selectMessage({ ...messageData });
+                        selectThisMessage();
                     }
                 } else {
                     options.setMessageOptions({
@@ -196,10 +208,10 @@ export const useMessage = (messageData, type, messageRef, options, onClick) => {
 
     const onHoldStarts = () => {
         let scrollLocalStorage = localStorage.getItem('scroll');
-        if (!selectedMessages?.length && type == 'CHAT') {
+        if (!selectedMessages?.length && type != 'EDIT_REPLY') {
             timer = setTimeout(() => {
                 if (scrollLocalStorage == localStorage.getItem('scroll')) {
-                    selectMessage({ ...messageData });
+                    selectThisMessage();
                     setHold(true);
                 }
             }, 300);

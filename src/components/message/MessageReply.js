@@ -58,7 +58,7 @@ const ReplyContainer = styled.div`
     border-radius: 50px;
     padding: .2rem .5rem .2rem 1.2rem;
     margin: 0 .4rem 0 0;
-    background-color: #ffffff06;
+    background-color: #1f1f1f;
     color: var(--pale-color);
     box-shadow: var(--normal-shadow);
     font-size: .6rem;

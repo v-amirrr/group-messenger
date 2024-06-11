@@ -24,7 +24,7 @@ const BackgroundContainer = styled.div`
     align-items: center;
 
     div {
-        background-color: #00000022;
+        background-color: #00000088;
         position: absolute;
         width: 100%;
         height: 100%;

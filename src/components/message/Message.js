@@ -2,7 +2,6 @@ import React, { memo, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { useMessage } from '../../hooks/useMessage';
 import MessageBox from './MessageBox';
-import MessageOptions from './MessageOptions';
 import MessageDate from './MessageDate';
 import MessageSelectCheck from './MessageSelectCheck';
 import MessageUsername from './MessageUsername';
@@ -57,24 +56,24 @@ const Message = ({ messageData, type, options, onClick, replyIconClick, newreply
                     type: type,
                     islocalmessage: isLocalMessage ? 1 : 0,
                     position: messagePosition,
-                    date: previousMessageDifferentDate && time.year && time.month ? 1 : 0,
+                    date: previousMessageDifferentDate && time?.year && time?.month ? 1 : 0,
                 }}
             >
                 <MessageDate
                     layout={type == 'EDIT_REPLY' ? 0 : 1}
                     layoutId={type == 'EDIT_REPLY' ? id : null}
-                    show={previousMessageDifferentDate && time.year}
+                    show={previousMessageDifferentDate && time?.year && type != 'TRASH'}
                     date={{
-                        year: time.year,
-                        month: time.month,
-                        day: time.day
+                        year: time?.year,
+                        month: time?.month,
+                        day: time?.day
                     }}
                 />
                 <MessageUsername
-                    show={!isLocalMessage && messagePosition < 2}
+                    show={!isLocalMessage && messagePosition < 2 && type != 'TRASH'}
                     username={username}
-                    dateShown={previousMessageDifferentDate && time.year && time.month && time.day}
-                    selectMode={selectedMessages.length ? 1 : 0}
+                    dateShown={previousMessageDifferentDate && time?.year && time?.month && time?.day}
+                    selectMode={selectedMessages?.length ? 1 : 0}
                 />
                 <MessageBox
                     functions={{
@@ -96,8 +95,8 @@ const Message = ({ messageData, type, options, onClick, replyIconClick, newreply
                         letters: textLetters,
                         position: messagePosition,
                         selected: selected ? 1 : 0,
-                        selectmode: selectedMessages.length ? 1 : 0,
-                        date: previousMessageDifferentDate && time.year && time.month ? 1 : 0,
+                        selectmode: selectedMessages?.length ? 1 : 0,
+                        date: previousMessageDifferentDate && time?.year && time?.month ? 1 : 0,
                         reply: replyTo != 'no_reply' ? 1 : 0,
                         replyeffect: replyEffect ? 1 : 0,
                         options: options?.messageOptions?.data?.id == id,
@@ -106,14 +105,14 @@ const Message = ({ messageData, type, options, onClick, replyIconClick, newreply
                 <MessageSelectCheck
                     type={type}
                     selected={selected}
-                    selectedMessagesLength={selectedMessages.length}
+                    selectedMessagesLength={selectedMessages?.length}
                     messageClickHandler={messageClickHandler}
                     isLocalMessage={isLocalMessage}
                 />
                 <MessageReplyIcon
                     editReply={newreply}
                     editReplyClick={replyIconClick}
-                    show={newreply}
+                    show={newreply && type != 'TRASH'}
                 />
                 <MessageLoader status={status} />
             </MessageContainer>

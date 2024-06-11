@@ -34,20 +34,24 @@ const TrashPage = () => {
 
     return (
         <>
-            <TrashPageContainer initial='hidden' animate='visible' exit='exit' variants={trashPageVariants}>
+            <Trash initial='hidden' animate='visible' exit='exit' variants={trashPageVariants}>
                 <motion.div className='deleted-messages' layout key="trash-messages" initial='hidden' animate='visible' exit='exit' variants={trashPageVariants}>
-                    <div className='back-button' onClick={() => navigate('/')}><TiArrowLeft /></div>
+                <div className='header'>
+                    <button className='header-back-button' onClick={() => navigate('/')}><TiArrowLeft /></button>
+                    <p className='header-text'>Trash</p>
+                    <p className='trash-count'>{messages?.length}</p>
+                </div>
                     <AnimatePresence>
                         {
                             messages?.map((messageData) => (
                             <Message
-                                key={messageData.id}
+                                key={messageData?.id}
                                 type="TRASH"
                                 messageData={{
                                     ...messageData,
                                     isLocalMessage: true,
-                                    isTextPersian : isPersian(messageData.plainText),
-                                    textLetters: messageData.plainText.length > 20 ? 20 : messageData.plainText.length,
+                                    isTextPersian : isPersian(messageData?.plainText),
+                                    textLetters: messageData?.plainText?.length > 20 ? 20 : messageData?.plainText?.length,
                                 }}
                                 options={{
                                     messageOptions: messageOptions,
@@ -85,19 +89,20 @@ const TrashPage = () => {
                         : ''
                     }
                 </AnimatePresence>
-            </TrashPageContainer>
+            </Trash>
         </>
     );
 };
 
-const TrashPageContainer = styled(motion.div)`
-    position: fixed;
+const Trash = styled(motion.div)`
+    position: absolute;
     width: 100vw;
     height: 100dvh;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    overflow: hidden;
 
     .deleted-messages {
         position: relative;
@@ -108,6 +113,55 @@ const TrashPageContainer = styled(motion.div)`
         padding: 5rem 8rem 9rem 8rem;
         scroll-behavior: smooth;
         overflow: hidden scroll;
+
+        .header {
+        position: fixed;
+        top: 1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 10rem;
+        height: 2.8rem;
+        border-radius: 50px;
+        z-index: 4;
+
+        .header-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .trash-count {
+            margin: .2rem;
+            border-radius: 50%;
+            background-color: #ff0000;
+            width: 1rem;
+            height: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-size: .6rem;
+            font-weight: 600;
+        }
+
+        .header-back-button {
+            position: absolute;
+            left: .5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            border-radius: 50%;
+            background-color: #ffffff10;
+            transition: background .2s;
+
+            @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
+                &:hover {
+                    background-color: #ffffff20;
+                }
+            }
+        }
+    }
 
         @media (max-width: 1400px) {
             width: 70%;
@@ -120,28 +174,6 @@ const TrashPageContainer = styled(motion.div)`
         @media (max-width: 800px) {
             width: 100%;
             padding: 5rem 1rem 10rem 1rem;
-        }
-
-        .back-button {
-            width: 2rem;
-            height: 2rem;
-            background-color: #ffffff10;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.7rem;
-            cursor: pointer;
-            position: absolute;
-            top: 1rem;
-            left: 5rem;
-            transition: background .2s;
-
-            @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
-                &:hover {
-                    background-color: #ffffff20;
-                }
-            }
         }
     }
 
@@ -272,6 +304,11 @@ const TrashPageContainer = styled(motion.div)`
                     background-color: #ffffff20;
                 }
             }
+        }
+    }
+
+    @media (max-width: 745px) {
+        .header {
         }
     }
 `;

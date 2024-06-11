@@ -101,7 +101,7 @@ button {
     -o-transition: color .2s, padding .2s;
     width: fit-content;
     display: block;
-    font-weight: 400;
+    font-weight: 300;
     word-break: break-all;
 }
 

@@ -39,7 +39,7 @@ const MessageOptions = ({ options, type }) => {
                     trashMessage(options?.messageOptions?.id);
                     break;
             }
-        }, 500);
+        }, 800);
     };
 
     return (

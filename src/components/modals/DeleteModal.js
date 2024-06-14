@@ -1,10 +1,9 @@
 import React from 'react';
 import { useModal } from '../../hooks/useModal';
 import { useSelect } from '../../hooks/useSelect';
-import Message from '../message/Message';
 import styled from 'styled-components';
 
-const DeletePopup = ({ popupMessages }) => {
+const DeleteModal = ({ modalMessages }) => {
     const { closeModal } = useModal();
     const { deleteSelectedMessages } = useSelect();
 
@@ -16,12 +15,12 @@ const DeletePopup = ({ popupMessages }) => {
 
     return (
         <>
-            <DeletePopupContainer onKeyDown={(e) => pressEnter(e)}>
+            <DeleteModalContainer onKeyDown={(e) => pressEnter(e)}>
                 <h4>
                     Are you sure you want to delete
                     {' '}
                     {
-                        popupMessages[0].length > 1 ?
+                        modalMessages[0].length > 1 ?
                         'these messages' :
                         'this message'
                     }
@@ -40,12 +39,12 @@ const DeletePopup = ({ popupMessages }) => {
                         Delete
                     </button>
                 </div>
-            </DeletePopupContainer>
+            </DeleteModalContainer>
         </>
     );
 };
 
-const DeletePopupContainer = styled.div`
+const DeleteModalContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -64,4 +63,4 @@ const DeletePopupContainer = styled.div`
     }
 `;
 
-export default DeletePopup;
+export default DeleteModal;

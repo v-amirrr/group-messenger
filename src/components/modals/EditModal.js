@@ -5,8 +5,8 @@ import { useModal } from '../../hooks/useModal';
 import { isPersian } from '../../functions/isPersian';
 import styled from 'styled-components';
 
-const EditPopup = ({ popupMessages, editReplyOpen, setEditReplyOpen }) => {
-    const { plainText, id, replyTo } = popupMessages[0];
+const EditModal = ({ modalMessages, editReplyOpen, setEditReplyOpen }) => {
+    const { plainText, id, replyTo } = modalMessages[0];
     const { editMessage } = useOptions();
     const { closeModal } = useModal();
     const inputRef = useRef();
@@ -25,7 +25,7 @@ const EditPopup = ({ popupMessages, editReplyOpen, setEditReplyOpen }) => {
 
     return (
         <>
-            <EditPopupContainer
+            <EditModalContainer
                 onKeyDown={(e) => pressEnter(e)}
                 editreplyopen={editReplyOpen}
                 ispersian={isPersian(editInput) ? 1 : 0}
@@ -45,7 +45,7 @@ const EditPopup = ({ popupMessages, editReplyOpen, setEditReplyOpen }) => {
                         Edit
                     </button>
                 </div>
-            </EditPopupContainer>
+            </EditModalContainer>
 
             <EditReply
                 replyTo={replyTo}
@@ -57,7 +57,7 @@ const EditPopup = ({ popupMessages, editReplyOpen, setEditReplyOpen }) => {
     );
 };
 
-const EditPopupContainer = styled.div`
+const EditModalContainer = styled.div`
     position: relative;
     padding: ${props => props.editreplyopen ? '7rem 2rem' : '1rem 1rem 0 1rem'};
     transform: ${props => props.editreplyopen ? 'scale(0.9)' : 'scale(1)'};
@@ -98,4 +98,4 @@ const EditPopupContainer = styled.div`
     }
 `;
 
-export default EditPopup;
+export default EditModal;

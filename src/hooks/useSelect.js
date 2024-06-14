@@ -8,7 +8,7 @@ import { useModal } from "./useModal";
 export const useSelect = () => {
     const dispatch = useDispatch();
     const { selectedMessages } = useSelector(store => store.appStore);
-    const { trashMessage, undeleteMessage, deleteMessage, closePopup } = useOptions();
+    const { trashMessage, undeleteMessage, deleteMessage } = useOptions();
     const { closeModal } = useModal();
     const { openNotification } = useNotification();
     const [nonLocalSelectedMessages, setNonLocalSelectedMessages] = useState(0);

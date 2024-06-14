@@ -12,9 +12,8 @@ export const useUser = () => {
     const { openNotification } = useNotification();
     const { closePopup } = useOptions();
 
-    const changeUsername = async (newUsername, setLoading, closeUserSettings) => {
+    const changeUsername = async (newUsername) => {
         closePopup();
-        // setLoading(true);
         await updateProfile(auth.currentUser, {
             displayName: newUsername,
         }).then(() => {
@@ -24,11 +23,8 @@ export const useUser = () => {
             dispatch(setUser({ ...user, displayName: newUsername }));
             localStorage.setItem("user", JSON.stringify(user));
             openNotification("Username changed.", false, "USERNAME");
-            // closeUserSettings();
         }).catch((err) => {
             openNotification(err.message, true, "ERROR");
-            // setLoading(false);
-            // closeUserSettings();
         });
     };
 

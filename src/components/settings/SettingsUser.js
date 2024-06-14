@@ -32,7 +32,7 @@ const SettingsUser = ({ open, setOpen, setHeight }) => {
 
     const changeUsernameHandler = () => {
         if (changeUsernameInput && changeUsernameInput != user?.displayName) {
-            openPopup('CHANGE_USERNAME_POPUP', changeUsernameInput);
+            openPopup('CHANGE_USERNAME_CONFIRMATION', null, changeUsernameInput);
         } else if (changeUsernameInput == user?.displayName) {
             openNotification("The old and the new usernames are the same", true, "ERROR");
         } else {

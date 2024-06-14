@@ -39,7 +39,7 @@ const MessageOptions = ({ options, type }) => {
                     copyMessage(options?.messageOptions?.plainText);
                     break;
                 case 'EDIT':
-                    openModal('EDIT_POPUP', [options?.messageOptions]);
+                    openModal('EDIT', [options?.messageOptions]);
                     break;
                 case 'DELETE':
                     trashMessage(options?.messageOptions?.id);

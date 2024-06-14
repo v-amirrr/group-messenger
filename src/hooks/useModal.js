@@ -1,17 +1,17 @@
 import { useDispatch } from "react-redux";
-import { setPopup } from '../redux/popupSlice';
+import { setModal } from '../redux/appSlice';
 
 export const useModal = () => {
 
     const dispatch = useDispatch();
 
-    const openModal = (type, messages) => {
-        if (type == 'CHANGE_USERNAME_POPUP') {
+    const openModal = (type, messages, editedUsername) => {
+        if (type == 'CHANGE_USERNAME_MODAL') {
             dispatch(
-                setPopup({
-                    popupShow: true,
-                    popupName: type,
-                    popupMessages: messages
+                setModal({
+                    show: true,
+                    type: type,
+                    editedUsername: editedUsername,
                 })
             );
         } else {
@@ -29,10 +29,10 @@ export const useModal = () => {
                 });
             };
             dispatch(
-                setPopup({
-                    popupShow: true,
-                    popupName: type,
-                    popupMessages: sortedPopupMessages,
+                setModal({
+                    show: true,
+                    type: type,
+                    messages: sortedPopupMessages,
                 })
             );
         }
@@ -40,11 +40,11 @@ export const useModal = () => {
 
     const closeModal = () => {
         dispatch(
-            setPopup({
-                popupShow: false,
-                popupName: null,
-                popupMessages: null,
-                popupMessagesSelected: null,
+            setModal({
+                show: false,
+                type: null,
+                messages: [],
+                editedReply: null,
             })
         );
     };

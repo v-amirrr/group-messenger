@@ -7,7 +7,7 @@ import SettingsPage from './components/settings/SettingsPage';
 import GuidancePage from './components/pages/GuidancePage';
 import TrashPage from './components/pages/TrashPage';
 import Background from './components/Background';
-import Popup from './components/popups/Popup';
+import Modal from './components/modals/Modal';
 import Notification from './components/Notification';
 import { useRedirection } from './hooks/useRedirection';
 import { useFirestore } from './hooks/useFirestore';
@@ -38,7 +38,7 @@ const App = () => {
         <>
             <Notification />
             <Background />
-            <Popup />
+            <Modal />
             <AnimatePresence exitBeforeEnter>
                 <Routes location={location} key={location.key}>
                     <Route path="/" element={<MessengerPage />} />

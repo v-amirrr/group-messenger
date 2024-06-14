@@ -2,14 +2,12 @@ import { db } from '../config/firebase';
 import { doc, deleteDoc, updateDoc } from 'firebase/firestore';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNotification } from './useNotification';
-import { setNewReply } from '../redux/popupSlice';
-import { setInputReply, setClearScrollMessageId, setMessagesScrollPosition, setScrollMessageId } from '../redux/appSlice';
+import { setModal, setInputReply, setClearScrollMessageId, setMessagesScrollPosition, setScrollMessageId } from '../redux/appSlice';
 import { useModal } from './useModal';
 
 export const useOptions = () => {
     const dispatch = useDispatch();
-    const { popupMessages } = useSelector(store => store.popupStore);
-    const { inputReply, selectedMessages } = useSelector(store => store.appStore);
+    const { inputReply, selectedMessages, modal } = useSelector(store => store.appStore);
     const { openNotification } = useNotification();
     const { closeModal } = useModal();
 
@@ -50,20 +48,20 @@ export const useOptions = () => {
         }
     };
 
-    const editMessageReply = (id, newReply) => {
+    const editMessageReply = (id, editedReply) => {
         const docRef = doc(db, 'messages', id);
-        if (id != newReply?.id) {
+        if (id != editedReply?.id) {
             updateDoc(docRef, {
                 replyTo:
-                    newReply == 'deleted' ?
+                    editedReply == 'deleted' ?
                     null :
-                    newReply?.id ?
-                    newReply?.id :
-                    popupMessages?.replyTo == 'no_reply' ?
+                    editedReply?.id ?
+                    editedReply?.id :
+                    modal.messages?.replyTo == 'no_reply' ?
                     null :
-                    popupMessages?.replyTo.id,
+                    modal.messages?.replyTo.id,
             });
-            dispatch(setNewReply(newReply));
+            dispatch(setModal(editedReply));
         }
     };
 

@@ -18,7 +18,13 @@ const initialState = {
     messagesScrollPosition: {},
     scrollMessageId: { id: null, type: null },
     inputReply: { id: null, message: null },
-    inputStoredText: {}
+    inputStoredText: {},
+    modal: {
+        show: false,
+        type: null,
+        messages: [],
+        editedReply: null,
+    },
 };
 
 const appSlice = createSlice({
@@ -143,6 +149,19 @@ const appSlice = createSlice({
                 },
             };
         },
+        setModal: (state, action) => {
+            return {
+                ...state,
+                modal: {
+                    ...state.modal,
+                    show: action.payload.show,
+                    type: action.payload.type,
+                    messages: action.payload.messages,
+                    editedReply: action.payload.editedReply,
+                    editedUsername: action.payload.editedUsername,
+                },
+            };
+        },
     },
 });
 
@@ -161,6 +180,7 @@ export const {
     setScrollMessageId,
     setClearScrollMessageId,
     setInputReply,
+    setModal,
 } = appSlice.actions;
 
 export default appSlice.reducer;

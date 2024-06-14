@@ -13,8 +13,7 @@ import InputBarEmojiPicker from './InputBarEmojiPicker';
 
 const InputBar = () => {
     const inputRef = useRef();
-    const { popupShow, popupName } = useSelector(store => store.popupStore);
-    const { inputReply, selectedMessages } = useSelector(store => store.appStore);
+    const { inputReply, selectedMessages, modal } = useSelector(store => store.appStore);
     const { sendMessage } = useSend();
     const { clearReplyMessage, applyScrollMessageId } = useOptions();
     const [multiline, setMultiline] = useState(false);
@@ -29,9 +28,9 @@ const InputBar = () => {
     };
 
     const blurHandler = () => {
-        if (document.documentElement.offsetWidth > 500 && !popupShow && !inputBarEmojiPicker) {
+        if (document.documentElement.offsetWidth > 500 && !modal.show && !inputBarEmojiPicker) {
             inputRef.current.focus();
-        } else if (popupShow) {
+        } else if (modal.show) {
             inputRef.current.blur();
         }
     };
@@ -43,7 +42,7 @@ const InputBar = () => {
 
     useEffect(() => {
         blurHandler();
-    }, [popupShow, popupName, inputBarEmojiPicker]);
+    }, [modal.show, modal.type, inputBarEmojiPicker]);
 
     useEffect(() => {
         if (multiline) {
@@ -90,7 +89,7 @@ const InputBar = () => {
                     onChange={(e) => setInputText(e.target.value)}
                     onKeyDown={(e) => inputKeyHandler(e)}
                     onBlur={blurHandler}
-                    autoFocus={document.documentElement.offsetWidth > 500 && !popupShow ? true : false}
+                    autoFocus={document.documentElement.offsetWidth > 500 && !modal.show ? true : false}
                 />
 
                 <p className='placeholder'>Send a message...</p>

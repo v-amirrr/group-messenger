@@ -1,15 +1,16 @@
 import React, { useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
-import DeletePopup from './DeletePopup';
-import EditPopup from './EditPopup';
-import ChangeUsernamePopup from './ChangeUsernamePopup';
+import DeleteModal from './DeleteModal';
+import EditModal from './EditModal';
+import ChangeUsernameModal from './ChangeUsernameModal';
 import { useModal } from '../../hooks/useModal';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 import { popupPageVariants, popupContainerVariants } from '../../config/varitans';
 
-const Popup = () => {
-    const { popupShow, popupName, popupMessages, popupMessagesSelected, popupMessageReplyTo } = useSelector(store => store.popupStore);
+const Modal = () => {
+    // const { popupShow, popupName, popupMessages, popupMessagesSelected, popupMessageReplyTo } = useSelector(store => store.popupStore);
+    const { modal } = useSelector(store => store.appStore);
     const { user } = useSelector(store => store.userStore);
     const popupPageRef = useRef();
     const { closeModal } = useModal();
@@ -29,8 +30,8 @@ const Popup = () => {
         <>
             <AnimatePresence>
                 {
-                    popupShow ?
-                    <PopupContainer
+                    modal.show ?
+                    <ModalContainer
                         initial='hidden'
                         animate='visible'
                         exit='exit'
@@ -39,28 +40,25 @@ const Popup = () => {
                     >
                         <motion.div className='popup' variants={popupContainerVariants} ref={popupPageRef}>
                             {
-                                popupName == 'DELETE_POPUP' ?
-                                <DeletePopup
-                                    popupMessages={popupMessages}
-                                /> :
-                                popupName == 'EDIT_POPUP' ?
-                                <EditPopup
-                                    popupMessages={popupMessages}
-                                    popupMessagesSelected={popupMessagesSelected}
-                                    popupMessageReplyTo={popupMessageReplyTo}
+                                modal.type == 'PERMENANT_DELETE_CONFIRMATION' ?
+                                <DeleteModal modalMessages={modal.messages} /> :
+                                modal.type == 'EDIT' ?
+                                <EditModal
+                                    modalMessages={modal.messages}
+                                    modalEditedReply={modal.editedReply}
                                     editReplyOpen={editReplyOpen}
                                     setEditReplyOpen={setEditReplyOpen}
                                 /> :
-                                popupName == 'CHANGE_USERNAME_POPUP' ?
-                                <ChangeUsernamePopup
+                                modal.type == 'CHANGE_USERNAME_CONFIRMATION' ?
+                                <ChangeUsernameModal
                                     closePopup={closeModal}
-                                    newUsername={popupMessages}
+                                    modalEditedUsername={modal.editedUsername}
                                     oldUsername={user?.displayName}
                                 />
                                 : ''
                             }
                         </motion.div>
-                    </PopupContainer>
+                    </ModalContainer>
                     : ''
                 }
             </AnimatePresence>
@@ -68,7 +66,7 @@ const Popup = () => {
     );
 };
 
-const PopupContainer = styled(motion.section)`
+const ModalContainer = styled(motion.section)`
     position: absolute;
     width: 100vw;
     height: 100dvh;
@@ -163,4 +161,4 @@ const PopupContainer = styled(motion.section)`
     }
 `;
 
-export default Popup;
+export default Modal;

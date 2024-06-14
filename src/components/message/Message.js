@@ -14,34 +14,8 @@ import { messageVariants } from '../../config/varitans';
 const Message = ({ messageData, type, options, onClick, replyIconClick, newreply }) => {
     const messageRef = useRef();
     const { selectedMessages } = useSelector(store => store.appStore);
-    const {
-        uid,
-        plainText,
-        time,
-        id,
-        replyTo,
-        deleted,
-        arrayText,
-        previousMessageUid,
-        nextMessageUid,
-        previousMessageDifferentDate,
-        nextMessageDifferentDate,
-        username,
-        isLocalMessage,
-        isTextPersian,
-        textLetters,
-     } = messageData;
-    const {
-        messagePosition,
-        messageClickHandler,
-        messageDoubleClickHandler,
-        onHoldStarts,
-        onHoldEnds,
-        selected,
-        replyEffect,
-        status,
-        messageStyles
-    } = useMessage(messageData, type, messageRef, options, onClick);
+    const { uid, plainText, time, id, replyTo, deleted, arrayText, previousMessageUid, nextMessageUid, previousMessageDifferentDate, nextMessageDifferentDate, username, isLocalMessage, isTextPersian, textLetters, } = messageData;
+    const { messagePosition, messageClickHandler, messageDoubleClickHandler, onHoldStarts, onHoldEnds, selected, replyEffect, status, messageStyles } = useMessage(messageData, type, messageRef, options, onClick);
     return (
         <>
             <MessageContainer
@@ -60,46 +34,45 @@ const Message = ({ messageData, type, options, onClick, replyIconClick, newreply
                 }}
             >
                 <MessageDate
-                    layout={type == 'EDIT_REPLY' ? 0 : 1}
-                    layoutId={type == 'EDIT_REPLY' ? id : null}
-                    show={previousMessageDifferentDate && time?.year && type != 'TRASH'}
-                    date={{
-                        year: time?.year,
-                        month: time?.month,
-                        day: time?.day
-                    }}
+                    layout
+                    layoutId={id}
+                    show={previousMessageDifferentDate && time?.year}
+                    data={time}
                 />
                 <MessageUsername
-                    show={!isLocalMessage && messagePosition < 2 && type != 'TRASH'}
-                    username={username}
-                    dateShown={previousMessageDifferentDate && time?.year && time?.month && time?.day}
-                    selectMode={selectedMessages?.length ? 1 : 0}
+                    show={!isLocalMessage && messagePosition < 2}
+                    data={{
+                        username,
+                        dateShown: previousMessageDifferentDate && time?.year,
+                        selectMode: selectedMessages?.length
+                    }}
                 />
                 <MessageBox
-                    functions={{
-                        messageClickHandler,
-                        messageDoubleClickHandler,
-                        onHoldStarts,
-                        onHoldEnds,
-                        onHoldStarts
-                    }}
-                    type={type}
-                    replyTo={replyTo}
-                    arrayText={arrayText}
-                    plainText={plainText}
-                    messageStyles={{
-                        ...messageStyles,
+                    data={{
+                        functions: {
+                            messageClickHandler,
+                            onHoldStarts,
+                            onHoldEnds,
+                            onHoldStarts,
+                        },
                         type: type,
-                        localmessage: isLocalMessage ? 1 : 0,
-                        persian: isTextPersian ? 1 : 0,
-                        letters: textLetters,
-                        position: messagePosition,
-                        selected: selected ? 1 : 0,
-                        selectmode: selectedMessages?.length ? 1 : 0,
-                        date: previousMessageDifferentDate && time?.year && time?.month ? 1 : 0,
-                        reply: replyTo != 'no_reply' ? 1 : 0,
-                        replyeffect: replyEffect ? 1 : 0,
-                        options: options?.messageOptions?.data?.id == id,
+                        replyTo: replyTo,
+                        arrayText: arrayText,
+                        plainText: plainText,
+                        messageStyles: {
+                            ...messageStyles,
+                            type: type,
+                            localmessage: isLocalMessage ? 1 : 0,
+                            persian: isTextPersian ? 1 : 0,
+                            letters: textLetters,
+                            position: messagePosition,
+                            selected: selected ? 1 : 0,
+                            selectmode: selectedMessages?.length ? 1 : 0,
+                            date: previousMessageDifferentDate && time?.year && time?.month ? 1 : 0,
+                            reply: replyTo != 'no_reply' ? 1 : 0,
+                            replyeffect: replyEffect ? 1 : 0,
+                            options: options?.messageOptions?.data?.id == id,
+                        }
                     }}
                 />
                 <MessageSelectCheck

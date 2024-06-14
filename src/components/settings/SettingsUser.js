@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useMessageOptions } from '../../hooks/useMessageOptions';
+import { useOptions } from '../../hooks/useOptions';
 import { useNotification } from '../../hooks/useNotification';
 import { FcBusinessman } from "react-icons/fc";
 import { FaUserEdit } from "react-icons/fa";
@@ -11,7 +11,7 @@ import { userSettingsVariants } from '../../config/varitans';
 
 const SettingsUser = ({ open, setOpen, setHeight }) => {
     const { user, enterAsAGuest } = useSelector(store => store.userStore);
-    const { openPopup } = useMessageOptions();
+    const { openPopup } = useOptions();
     const { openNotification } = useNotification();
     const [changeUsernameInput, setChangeUsernameInput] = useState(user?.displayName);
     const [inputEnabled, setInputEnabled] = useState(false);

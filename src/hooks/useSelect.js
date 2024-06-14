@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedMessages, setClearSelectedMessages, setUnselectMessages, setSelectOthersMessage } from '../redux/appSlice';
-import { useMessageOptions } from "./useMessageOptions";
+import { useOptions } from "./useOptions";
 import { useNotification } from "./useNotification";
+import { useModal } from "./useModal";
 
 export const useSelect = () => {
     const dispatch = useDispatch();
     const { selectedMessages } = useSelector(store => store.appStore);
-    const { trashMessage, undeleteMessage, deleteMessage, closePopup } = useMessageOptions();
+    const { trashMessage, undeleteMessage, deleteMessage, closePopup } = useOptions();
+    const { closeModal } = useModal();
     const { openNotification } = useNotification();
     const [nonLocalSelectedMessages, setNonLocalSelectedMessages] = useState(0);
 
@@ -109,7 +111,7 @@ export const useSelect = () => {
     };
 
     const deleteSelectedMessages = () => {
-        closePopup();
+        closeModal();
         setTimeout(() => {
             if (selectedMessages.length < 5) {
                 selectedMessages.map((message, index) => {

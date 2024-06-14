@@ -1,5 +1,5 @@
 import React from 'react';
-import { useMessageOptions } from '../../hooks/useMessageOptions';
+import { useOptions } from '../../hooks/useOptions';
 import { BsReplyFill } from 'react-icons/bs';
 import { IoClose } from 'react-icons/io5';
 import styled from 'styled-components';
@@ -7,7 +7,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { replyIconVariants } from '../../config/varitans';
 
 const MessageReplyIcon = ({ editReply, editReplyClick, show }) => {
-    const { clearReplyMessage } = useMessageOptions();
+    const { clearReplyMessage } = useOptions();
 
     const closeHandler = () => {
         if (editReply) {

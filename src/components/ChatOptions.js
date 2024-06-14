@@ -63,21 +63,23 @@ const ChatOptions = ({ messageOptions, setMessageOptions, type }) => {
                 >
                     <div className='message-box' ref={chatOptionsMessageRef}>
                         <MessageBox
-                            type={type}
-                            replyTo={messageOptions?.data?.replyTo}
-                            arrayText={messageOptions?.data?.arrayText}
-                            plainText={messageOptions?.data?.plainText}
-                            messageStyles={{
-                                ...messageOptions?.data?.messageStyles,
-                                width: messageOptions?.data?.ref?.current?.offsetWidth,
-                                height: messageOptions?.data?.ref?.current?.offsetHeight,
-                                type: 'OPTIONS',
-                                localmessage: messageOptions?.data?.isLocalMessage ? 1 : 0,
-                                persian: messageOptions?.data?.isTextPersian ? 1 : 0,
-                                letters: messageOptions?.data?.textLetters,
-                                position: messageOptions?.data?.messagePosition,
-                                reply: messageOptions?.data?.replyTo != 'no_reply' ? 1 : 0,
-                                chatOptionsStatus: messageOptions?.animationStatus,
+                            data={{
+                                type: type,
+                                replyTo: messageOptions?.data?.replyTo,
+                                arrayText: messageOptions?.data?.arrayText,
+                                plainText: messageOptions?.data?.plainText,
+                                messageStyles: {
+                                    ...messageOptions?.data?.messageStyles,
+                                    width: messageOptions?.data?.ref?.current?.offsetWidth,
+                                    height: messageOptions?.data?.ref?.current?.offsetHeight,
+                                    type: 'OPTIONS',
+                                    localmessage: messageOptions?.data?.isLocalMessage ? 1 : 0,
+                                    persian: messageOptions?.data?.isTextPersian ? 1 : 0,
+                                    letters: messageOptions?.data?.textLetters,
+                                    position: messageOptions?.data?.messagePosition,
+                                    reply: messageOptions?.data?.replyTo != 'no_reply' ? 1 : 0,
+                                    chatOptionsStatus: messageOptions?.animationStatus,
+                                }
                             }}
                         />
                         <AnimatePresence>
@@ -111,7 +113,7 @@ const ChatOptionsContainer = styled(motion.div)`
     align-items: center;
     backdrop-filter: ${props => props.styles.chatOptionsStatus == 2 ? 'var(--bold-glass)' : 'none'};
     background-color: ${props => props.styles.chatOptionsStatus == 2 ? '#00000088' : '#00000000'};
-    transition: ${props => props.styles.chatOptionsStatus == 3 ? 'backdrop-filter .2s .15s, background .3s' : 'backdrop-filter .4s, background .4s'};
+    transition: backdrop-filter .4s, background .4s;
     z-index: 5;
 
     .message-box {
@@ -126,7 +128,7 @@ const ChatOptionsContainer = styled(motion.div)`
         flex-direction: column;
         margin: ${props => props.styles.chatOptionsStatus == 2 && props.styles.isMocalMessage ? '0 0rem 0 -2rem' : props.styles.chatOptionsStatus == 2 && !props.styles.isMocalMessage ? '0 0 0 2rem' : ''};
         transform: ${props => props.styles.chatOptionsStatus != 2 ? 'translate(0%, 0%) scale(1)' : 'translate(0%, -50%) scale(1.1)'};
-        transition: top .3s cubic-bezier(0.53, 0, 0, 0.98), transform .3s cubic-bezier(0.53, 0, 0, 0.98), margin .3s cubic-bezier(0.53, 0, 0, 0.98);
+        transition: ${props => props.styles.chatOptionsStatus == 3 ? 'top .1s, transform .1s, margin .1s' : 'top .3s cubic-bezier(0.53, 0, 0, 0.98), transform .3s cubic-bezier(0.53, 0, 0, 0.98), margin .3s cubic-bezier(0.53, 0, 0, 0.98)'};
     }
 
     @media (max-width: 745px) {

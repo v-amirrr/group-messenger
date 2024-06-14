@@ -4,13 +4,13 @@ import { doc, updateDoc } from "firebase/firestore";
 import { updateProfile } from "firebase/auth";
 import { setUser } from '../redux/userSlice';
 import { useNotification } from "./useNotification";
-import { useMessageOptions } from "./useMessageOptions";
+import { useOptions } from "./useOptions";
 
 export const useUser = () => {
     const dispatch = useDispatch();
     const { user } = useSelector(store => store.userStore);
     const { openNotification } = useNotification();
-    const { closePopup } = useMessageOptions();
+    const { closePopup } = useOptions();
 
     const changeUsername = async (newUsername, setLoading, closeUserSettings) => {
         closePopup();

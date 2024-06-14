@@ -24,8 +24,8 @@ const App = () => {
 
     useEffect(() => {
         setDefaultNotification();
-        getMessages();
         getUsers();
+        getMessages();
     }, []);
 
     useEffect(() => {

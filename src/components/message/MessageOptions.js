@@ -1,7 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { useMessageOptions } from '../../hooks/useMessageOptions';
+import { useOptions } from '../../hooks/useOptions';
 import { useSelect } from '../../hooks/useSelect';
+import { useModal } from '../../hooks/useModal';
 import { AiFillDelete, AiFillCopy, AiFillEdit } from 'react-icons/ai';
 import { BsReplyFill } from 'react-icons/bs';
 import { BiSelectMultiple } from 'react-icons/bi';
@@ -12,7 +13,8 @@ import { optionsVariants, optionLocalVariants, optionNonLocalVariants } from '..
 const MessageOptions = ({ options, type }) => {
     const { enterAsAGuest } = useSelector(store => store.userStore);
     const { inputReply } = useSelector(store => store.appStore);
-    const { openPopup, copyMessage, replyMessage, trashMessage } = useMessageOptions();
+    const { copyMessage, replyMessage, trashMessage } = useOptions();
+    const { openModal } = useModal();
     const { selectMessage } = useSelect();
 
     const optionClick = (option) => {
@@ -37,13 +39,13 @@ const MessageOptions = ({ options, type }) => {
                     copyMessage(options?.messageOptions?.plainText);
                     break;
                 case 'EDIT':
-                    openPopup('EDIT_POPUP', [options?.messageOptions]);
+                    openModal('EDIT_POPUP', [options?.messageOptions]);
                     break;
                 case 'DELETE':
                     trashMessage(options?.messageOptions?.id);
                     break;
             }
-        }, 800);
+        }, 500);
     };
 
     return (

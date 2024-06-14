@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useMessageOptions } from "./useMessageOptions";
+import { useOptions } from "./useOptions";
 import { useSelect } from "./useSelect";
 import { useSelector } from "react-redux";
 
@@ -24,14 +24,15 @@ export const useMessage = (messageData, type, messageRef, options, onClick) => {
      } = messageData;
 
     const { selectedMessages, scrollMessageId } = useSelector(store => store.appStore);
-    const { replyMessage, addMessageScrollPosition, applyScrollMessageId } = useMessageOptions();
+    const { replyMessage, addMessageScrollPosition, applyScrollMessageId } = useOptions();
     const { selectMessage, unSelectMessage } = useSelect();
     const [messagePosition, setMessagePosition] = useState(null);
     const [hold, setHold] = useState(false);
     const [selected, setSelected] = useState(false);
     const [replyEffect, setReplyEffect] = useState(false);
     const [status, setStatus] = useState(time?.year == undefined ? 1 : 0);
-    let timer;
+
+    let selectByHoldingTimer;
     let messageStyles = {
         messageBoxMargin: type == 'TRASH' ?
             '.2rem' :
@@ -114,7 +115,7 @@ export const useMessage = (messageData, type, messageRef, options, onClick) => {
             setStatus(2);
             setTimeout(() => {
                 setStatus(0);
-            }, 1500);
+            }, 1000);
         }
     }, [time]);
 
@@ -199,17 +200,10 @@ export const useMessage = (messageData, type, messageRef, options, onClick) => {
         }
     };
 
-    const messageDoubleClickHandler = () => {
-        if (!selectedMessages?.length && type == 'CHAT' && status != 1 && status != 2) {
-            options.setMessageOptions(false);
-            replyMessage(id, plainText, username);
-        }
-    };
-
     const onHoldStarts = () => {
         let scrollLocalStorage = localStorage.getItem('scroll');
         if (!selectedMessages?.length && type != 'EDIT_REPLY') {
-            timer = setTimeout(() => {
+            selectByHoldingTimer = setTimeout(() => {
                 if (scrollLocalStorage == localStorage.getItem('scroll')) {
                     selectThisMessage();
                     setHold(true);
@@ -220,7 +214,7 @@ export const useMessage = (messageData, type, messageRef, options, onClick) => {
 
     const onHoldEnds = () => {
         if (!selectedMessages?.length) {
-            clearTimeout(timer);
+            clearTimeout(selectByHoldingTimer);
             setHold(false);
         }
     };
@@ -228,7 +222,6 @@ export const useMessage = (messageData, type, messageRef, options, onClick) => {
     return {
         messagePosition,
         messageClickHandler,
-        messageDoubleClickHandler,
         onHoldStarts,
         onHoldEnds,
         selected,

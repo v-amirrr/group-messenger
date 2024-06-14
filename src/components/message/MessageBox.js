@@ -3,37 +3,35 @@ import MessageReply from './MessageReply';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
-const MessageBox = ({ functions, type, replyTo, arrayText, plainText, messageStyles }) => {
+const MessageBox = ({ data }) => {
     const messageBoxRef = useRef();
-
     return (
         <>
             <MessageBoxContainer
                 ref={messageBoxRef}
-                onClick={(e) => functions?.messageClickHandler(e)}
-                onDoubleClick={functions?.messageDoubleClickHandler}
-                onMouseDown={functions?.onHoldStarts}
-                onMouseUp={functions?.onHoldEnds}
-                onTouchStart={functions?.onHoldStarts}
-                onTouchEnd={functions?.onHoldEnds}
+                onClick={(e) => data?.functions?.messageClickHandler(e)}
+                onMouseDown={data?.functions?.onHoldStarts}
+                onMouseUp={data?.functions?.onHoldEnds}
+                onTouchStart={data?.functions?.onHoldStarts}
+                onTouchEnd={data?.functions?.onHoldEnds}
                 data={{
                     width: messageBoxRef?.current?.offsetWidth,
                     height: messageBoxRef?.current?.offsetHeight,
-                    ...messageStyles,
+                    ...data?.messageStyles,
                 }}
             >
                 <div className='message-text' dir='auto'>
                     <MessageReply
-                        replyTo={replyTo}
-                        type={type}
+                        replyTo={data?.replyTo}
+                        type={data?.type}
                     />
                     {
-                        type != 'TRASH' ?
-                        arrayText?.map((item, index) =>
+                        data?.type != 'TRASH' ?
+                        data?.arrayText?.map((item, index) =>
                             item.link ?
                             <a
                                 key={index}
-                                className={type == 'EDIT_REPLY' ? 'disabled-link' : 'link'}
+                                className={data?.type == 'EDIT_REPLY' ? 'disabled-link' : 'link'}
                                 href={item.word}
                                 target='_blank'
                                 rel='noopener nereferrer'
@@ -41,11 +39,11 @@ const MessageBox = ({ functions, type, replyTo, arrayText, plainText, messageSty
                             >
                                 {item.word}
                             </a> :
-                            index == arrayText.length-1 ?
+                            index == data?.arrayText.length-1 ?
                             `${item.word}` :
                             `${item.word} `
                         ) :
-                        plainText
+                        data?.plainText
                     }
                 </div>
             </MessageBoxContainer>

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useMessageOptions } from '../hooks/useMessageOptions';
+import { useOptions } from '../hooks/useOptions';
 import { useScroll } from '../hooks/useScroll';
 import { isPersian } from '../functions/isPersian';
 import Message from './message/Message';
@@ -18,7 +18,7 @@ const Chat = () => {
     const { messages, usernames } = useSelector(store => store.firestoreStore);
     const { user, enterAsAGuest } = useSelector(store => store.userStore);
     const { scrollPosition, selectedMessages, messagesScrollPosition, scrollMessageId } = useSelector(store => store.appStore);
-    const { resetScrollMessageId } = useMessageOptions();
+    const { resetScrollMessageId } = useOptions();
     const { arrow, newMessage, scrollButtonClickHandler, onChatScrollHandler, scrollDown } = useScroll(chatRef);
     const [messageOptions, setMessageOptions] = useState({ data: null, animationStatus: 0 });
 

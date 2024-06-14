@@ -56,6 +56,11 @@ export const useFirestore = () => {
 
             // add extra data to the messages
             let modifiedMessages = messages?.map((item, index) => {
+                let dates = {
+                    previousMessageDate: `${messages[index-1]?.time?.year} ${messages[index-1]?.time?.monthNum} ${messages[index-1]?.time?.day}`,
+                    thisMessageDate: `${item?.time?.year} ${item?.time?.monthNum} ${item?.time?.day}`,
+                    nextMessageDate: `${messages[index+1]?.time?.year} ${messages[index+1]?.time?.monthNum} ${messages[index+1]?.time?.day}`,
+                };
                 return {
                     ...item,
                     arrayText: item.plainText.toString().split(" ").map((word) => {
@@ -64,15 +69,13 @@ export const useFirestore = () => {
                     }),
                     previousMessageUid: index != 0 ? messages[index-1].uid : false,
                     nextMessageUid: index != messages.length-1 ? messages[index+1].uid : false,
-                    previousMessageDifferentDate: index != 0 ?
-                        messages[index-1]?.time?.year != item?.time?.year ||
-                        messages[index-1]?.time?.month != item?.time?.month ||
-                        messages[index-1]?.time?.day != item?.time?.day ? true : false
+                    previousMessageDifferentDate:
+                    index != 0 ?
+                        dates.thisMessageDate != dates.previousMessageDate ? true : false
                     : true,
-                    nextMessageDifferentDate: index+1 != messages?.length ?
-                        messages[index+1]?.time?.year != item?.time?.year ||
-                        messages[index+1]?.time?.month != item?.time?.month ||
-                        messages[index+1]?.time?.day != item?.time?.day ? true : false
+                    nextMessageDifferentDate:
+                    index+1 != messages?.length ?
+                        dates.thisMessageDate != dates.nextMessageDate ? true : false
                     : false,
                     replyTo: item.replyTo ? messages.find((filteredMessage) => filteredMessage.id == item.replyTo) : "no_reply",
                 };

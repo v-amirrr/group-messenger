@@ -1,12 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useMessageOptions } from '../../hooks/useMessageOptions';
 import EditReply from './EditReply';
+import { useOptions } from '../../hooks/useOptions';
+import { useModal } from '../../hooks/useModal';
 import { isPersian } from '../../functions/isPersian';
 import styled from 'styled-components';
 
 const EditPopup = ({ popupMessages, editReplyOpen, setEditReplyOpen }) => {
     const { plainText, id, replyTo } = popupMessages[0];
-    const { editMessage, closePopup } = useMessageOptions();
+    const { editMessage } = useOptions();
+    const { closeModal } = useModal();
     const inputRef = useRef();
     const [editInput, setEditInput] = useState(plainText);
 
@@ -36,7 +38,7 @@ const EditPopup = ({ popupMessages, editReplyOpen, setEditReplyOpen }) => {
                     dir={isPersian(editInput) ? 'rtl' : 'ltr'}
                 />
                 <div className='buttons'>
-                    <button className='cancel' onClick={closePopup}>
+                    <button className='cancel' onClick={closeModal}>
                         Cancel
                     </button>
                     <button className='edit' onClick={() => editMessage(id, editInput)}>

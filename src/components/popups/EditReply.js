@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, memo } from 'react';
 import Message from '../message/Message';
 import { useSelector } from 'react-redux';
-import { useMessageOptions } from '../../hooks/useMessageOptions';
+import { useOptions } from '../../hooks/useOptions';
 import { isPersian } from '../../functions/isPersian';
 import { BsReplyFill } from 'react-icons/bs';
 import styled from 'styled-components';
@@ -11,7 +11,7 @@ import { replyAddSectionVariants, replyButtonVariants } from '../../config/varit
 const EditReply = ({ replyTo, id, editReplyOpen, setEditReplyOpen }) => {
     const { messages, usernames } = useSelector(store => store.firestoreStore);
     const { user } = useSelector(store => store.userStore);
-    const { editMessageReply } = useMessageOptions();
+    const { editMessageReply } = useOptions();
     const messagesRef = useRef();
     const [newReply, setNewReply] = useState(replyTo);
     const [messagesBefore, setMessagesBefore] = useState([]);

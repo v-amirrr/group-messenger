@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { useMessageOptions } from '../../hooks/useMessageOptions';
+import { useModal } from '../../hooks/useModal';
 import { useNotification } from '../../hooks/useNotification';
 import { useSelect } from '../../hooks/useSelect';
 import { isPersian } from '../../functions/isPersian';
@@ -22,7 +22,7 @@ const TrashPage = () => {
     const { deletedMessages } = useSelector(store => store.firestoreStore);
     const { selectedMessages, selectOthersMessage } = useSelector(store => store.appStore);
     const { user, enterAsAGuest } = useSelector(store => store.userStore);
-    const { openPopup } = useMessageOptions();
+    const { openModal } = useModal();
     const { openNotification } = useNotification();
     const { switchSelectAllTrash, restoreSelectedMessages, clearSelectedMessages } = useSelect();
     const [messages, setMessages] = useState(deletedMessages?.filter(item => item?.uid == user?.uid));
@@ -68,7 +68,7 @@ const TrashPage = () => {
                         selectedMessages?.length ?
                             <motion.div key='trash-select-bar' className='trash-select-bar' initial='hidden' animate='visible' exit='exit' variants={trashSelectBarVariants}>
                                 <div className='counter'><Counter num={selectedMessages?.length} /></div>
-                                <button className='delete-button' onClick={() => openPopup("DELETE_POPUP", [selectedMessages])}>
+                                <button className='delete-button' onClick={() => openModal("DELETE_POPUP", [selectedMessages])}>
                                     <i><TbTrashX /></i>
                                     <p>Delete</p>
                                 </button>

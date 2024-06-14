@@ -1,11 +1,11 @@
 import React from 'react';
-import { useMessageOptions } from '../../hooks/useMessageOptions';
+import { useModal } from '../../hooks/useModal';
 import { useSelect } from '../../hooks/useSelect';
 import Message from '../message/Message';
 import styled from 'styled-components';
 
 const DeletePopup = ({ popupMessages }) => {
-    const { deleteMessage, closePopup } = useMessageOptions();
+    const { closeModal } = useModal();
     const { deleteSelectedMessages } = useSelect();
 
     const pressEnter = (e) => {
@@ -29,7 +29,7 @@ const DeletePopup = ({ popupMessages }) => {
                     permanently?
                 </h4>
                 <div className='buttons'>
-                    <button className='cancel' onClick={closePopup}>
+                    <button className='cancel' onClick={closeModal}>
                         Cancel
                     </button>
                     <button

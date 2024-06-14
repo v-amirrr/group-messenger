@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import InputBarReplyTo from './InputBarReplyTo';
 import { useSelector } from 'react-redux';
 import { useSend } from '../hooks/useSend';
-import { useMessageOptions } from '../hooks/useMessageOptions';
+import { useOptions } from '../hooks/useOptions';
 import { isPersian } from '../functions/isPersian';
 import { GrEmoji } from 'react-icons/gr';
 import { IoSend, IoClose } from 'react-icons/io5';
@@ -16,7 +16,7 @@ const InputBar = () => {
     const { popupShow, popupName } = useSelector(store => store.popupStore);
     const { inputReply, selectedMessages } = useSelector(store => store.appStore);
     const { sendMessage } = useSend();
-    const { clearReplyMessage, applyScrollMessageId } = useMessageOptions();
+    const { clearReplyMessage, applyScrollMessageId } = useOptions();
     const [multiline, setMultiline] = useState(false);
     const [inputText, setInputText] = useState(localStorage.getItem('input-text') ? localStorage.getItem('input-text') : '');
     const [inputBarEmojiPicker, setInputBarEmojiPicker] = useState(false);

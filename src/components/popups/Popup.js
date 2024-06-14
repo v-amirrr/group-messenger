@@ -2,25 +2,25 @@ import React, { useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import DeletePopup from './DeletePopup';
 import EditPopup from './EditPopup';
-import { useMessageOptions } from '../../hooks/useMessageOptions';
+import ChangeUsernamePopup from './ChangeUsernamePopup';
+import { useModal } from '../../hooks/useModal';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 import { popupPageVariants, popupContainerVariants } from '../../config/varitans';
-import ChangeUsernamePopup from './ChangeUsernamePopup';
 
 const Popup = () => {
     const { popupShow, popupName, popupMessages, popupMessagesSelected, popupMessageReplyTo } = useSelector(store => store.popupStore);
     const { user } = useSelector(store => store.userStore);
-    const popupPage = useRef();
-    const { closePopup } = useMessageOptions();
+    const popupPageRef = useRef();
+    const { closeModal } = useModal();
     const [editReplyOpen, setEditReplyOpen] = useState(false);
 
     const closePopupByTap = (e) => {
-        if (!popupPage.current.contains(e.target)) {
+        if (!popupPageRef.current.contains(e.target)) {
             if (editReplyOpen) {
                 setEditReplyOpen(false);
             } else {
-                closePopup();
+                closeModal();
             }
         }
     };
@@ -37,7 +37,7 @@ const Popup = () => {
                         variants={popupPageVariants}
                         onClick={(e) => closePopupByTap(e)}
                     >
-                        <motion.div className='popup' variants={popupContainerVariants} ref={popupPage}>
+                        <motion.div className='popup' variants={popupContainerVariants} ref={popupPageRef}>
                             {
                                 popupName == 'DELETE_POPUP' ?
                                 <DeletePopup
@@ -53,7 +53,7 @@ const Popup = () => {
                                 /> :
                                 popupName == 'CHANGE_USERNAME_POPUP' ?
                                 <ChangeUsernamePopup
-                                    closePopup={closePopup}
+                                    closePopup={closeModal}
                                     newUsername={popupMessages}
                                     oldUsername={user?.displayName}
                                 />

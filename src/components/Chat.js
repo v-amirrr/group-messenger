@@ -59,6 +59,9 @@ const Chat = () => {
                 layout
                 ref={chatRef}
                 onScroll={onChatScrollHandler}
+                data={{
+                    messageOptionsAnimationStatus: messageOptions?.animationStatus
+                }}
             >
                 <AnimatePresence>
                     {
@@ -93,6 +96,8 @@ const ChatContainer = styled(motion.div)`
     padding: 5rem 8rem 9rem 8rem;
     scroll-behavior: smooth;
     overflow: hidden scroll;
+    transform: ${props => props.data.messageOptionsAnimationStatus == 2 ? 'scale(0.97)' : 'scale(1)'};
+    transition: transform .3s cubic-bezier(0.53, 0, 0, 0.98);
 
     @media (max-width: 768px) {
         width: 100vw;

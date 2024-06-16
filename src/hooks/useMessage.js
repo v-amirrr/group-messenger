@@ -187,7 +187,10 @@ export const useMessage = (messageData, type, messageRef, options, onClick) => {
                     options.setMessageOptions({
                         data: {
                             ...messageData,
-                            ref: messageRef,
+                            top: messageRef?.current?.getBoundingClientRect()?.top,
+                            left: messageRef?.current?.getBoundingClientRect()?.left,
+                            width: messageRef?.current?.offsetWidth,
+                            height: messageRef?.current?.offsetHeight,
                             messageStyles,
                             messagePosition: 0,
                         },

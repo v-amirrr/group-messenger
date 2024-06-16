@@ -19,33 +19,39 @@ const MessageOptions = ({ options, type }) => {
 
     const optionClick = (option) => {
         options?.closeOptions();
-        setTimeout(() => {
-            switch (option) {
-                case 'REPLY':
+        switch (option) {
+            case 'REPLY':
+                setTimeout(() => {
                     replyMessage(
                         options?.messageOptions?.id,
                         options?.messageOptions?.plainText,
                         options?.messageOptions?.username,
                     );
-                    break;
-                case 'SELECT':
+                }, 200);
+                break;
+            case 'SELECT':
+                setTimeout(() => {
                     selectMessage({
                         id: options?.messageOptions?.id,
                         plainText: options?.messageOptions?.plainText,
                         isLocalMessage: options?.messageOptions?.isLocalMessage
                     });
-                    break;
-                case 'COPY':
-                    copyMessage(options?.messageOptions?.plainText);
-                    break;
-                case 'EDIT':
+                }, 550);
+                break;
+            case 'COPY':
+                copyMessage(options?.messageOptions?.plainText);
+                break;
+            case 'EDIT':
+                setTimeout(() => {
                     openModal('EDIT', [options?.messageOptions]);
-                    break;
-                case 'DELETE':
+                }, 200);
+                break;
+            case 'DELETE':
+                setTimeout(() => {
                     trashMessage(options?.messageOptions?.id);
-                    break;
-            }
-        }, 500);
+                }, 550);
+                break;
+        }
     };
 
     return (
@@ -113,7 +119,7 @@ const MessageOptions = ({ options, type }) => {
                             }
                         >
                             <i><BsReplyFill /></i>
-                            <p>{inputReply?.id == options?.messageOptions.id ? 'Unreply' : 'Reply'}</p>
+                            <p>{inputReply?.id == options?.messageOptions?.id ? 'Unreply' : 'Reply'}</p>
                         </motion.div>
                         <motion.div
                             className='select'

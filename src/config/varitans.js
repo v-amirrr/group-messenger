@@ -181,7 +181,7 @@ export const optionsVariants = {
         opacity: 1,
         transition: {
             duration: 0.1,
-            staggerChildren: 0.01,
+            staggerChildren: 0.03,
             when: 'beforeChildren',
         },
     },
@@ -189,12 +189,14 @@ export const optionsVariants = {
         opacity: 0,
         transition: {
             duration: 0.1,
+            staggerChildren: 0.01,
+            when: 'afterChildren',
         },
     },
 };
 
 export const optionLocalVariants = {
-    hidden: { opacity: 0, x: 10 },
+    hidden: { opacity: 0, x: 15 },
     visible: {
         opacity: 1,
         x: 0,
@@ -202,13 +204,13 @@ export const optionLocalVariants = {
     },
     exit: {
         opacity: 0,
-        x: 10,
-        transition: { duration: 0.3 },
+        x: 15,
+        transition: { duration: 0.2 },
     },
 };
 
 export const optionNonLocalVariants = {
-    hidden: { opacity: 0, x: -10 },
+    hidden: { opacity: 0, x: -15 },
     visible: {
         opacity: 1,
         x: 0,
@@ -216,8 +218,8 @@ export const optionNonLocalVariants = {
     },
     exit: {
         opacity: 0,
-        x: -10,
-        transition: { duration: 0.3 },
+        x: -15,
+        transition: { duration: 0.2 },
     },
 };
 

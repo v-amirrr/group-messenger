@@ -51,10 +51,10 @@ const ChatOptions = ({ messageOptions, setMessageOptions, type }) => {
                 <ChatOptionsContainer
                     onClick={(e) => closeOptionsByTap(e)}
                     styles={{
-                        top: messageOptions?.data?.ref?.current?.getBoundingClientRect()?.top,
-                        left: messageOptions?.data?.ref?.current?.getBoundingClientRect()?.left,
-                        width: messageOptions?.data?.ref?.current?.getBoundingClientRect()?.width,
-                        height: messageOptions?.data?.ref?.current?.getBoundingClientRect()?.height,
+                        top: messageOptions?.data?.top,
+                        left: messageOptions?.data?.left,
+                        width: messageOptions?.data?.width,
+                        height: messageOptions?.data?.height,
                         isMocalMessage: messageOptions?.data?.isLocalMessage,
                         chatOptionsStatus: messageOptions?.animationStatus,
                         phoneHeightDifference: window.outerHeight - window.innerHeight,
@@ -70,8 +70,8 @@ const ChatOptions = ({ messageOptions, setMessageOptions, type }) => {
                                 plainText: messageOptions?.data?.plainText,
                                 messageStyles: {
                                     ...messageOptions?.data?.messageStyles,
-                                    width: messageOptions?.data?.ref?.current?.offsetWidth,
-                                    height: messageOptions?.data?.ref?.current?.offsetHeight,
+                                    width: messageOptions?.data?.width,
+                                    height: messageOptions?.data?.height,
                                     type: 'OPTIONS',
                                     localmessage: messageOptions?.data?.isLocalMessage ? 1 : 0,
                                     persian: messageOptions?.data?.isTextPersian ? 1 : 0,
@@ -118,7 +118,8 @@ const ChatOptionsContainer = styled(motion.div)`
 
     .message-box {
         position: absolute;
-        top: ${props => props.styles.chatOptionsStatus != 2 || props.styles.noTopPositionChange ? `${props.styles.top}px` : '45%'};
+        /* top: ${props => props.styles.chatOptionsStatus != 2 || props.styles.noTopPositionChange ? `${props.styles.top}px` : '45%'}; */
+        top: ${props => `${props.styles.top}px`};
         left: ${props => `${props.styles.left}px`};
         width: ${props => `${props.styles.width}px`};
         height: ${props => `${props.styles.height}px`};
@@ -126,15 +127,14 @@ const ChatOptionsContainer = styled(motion.div)`
         justify-content: flex-end;
         align-items: ${props => props.styles.isMocalMessage ? 'flex-end' : 'flex-start'};
         flex-direction: column;
-        margin: ${props => props.styles.chatOptionsStatus == 2 && props.styles.isMocalMessage ? '0 0rem 0 -2rem' : props.styles.chatOptionsStatus == 2 && !props.styles.isMocalMessage ? '0 0 0 2rem' : ''};
-        transform: ${props => props.styles.chatOptionsStatus != 2 ? 'translate(0%, 0%) scale(1)' : 'translate(0%, -50%) scale(1.1)'};
-        transition: ${props => props.styles.chatOptionsStatus == 3 ? 'top .1s, transform .1s, margin .1s' : 'top .3s cubic-bezier(0.53, 0, 0, 0.98), transform .3s cubic-bezier(0.53, 0, 0, 0.98), margin .3s cubic-bezier(0.53, 0, 0, 0.98)'};
+        transform: ${props => props.styles.chatOptionsStatus == 2 ? 'scale(1.05)' : 'scale(1)'};
+        /* margin: ${props => props.styles.chatOptionsStatus == 2 && props.styles.isMocalMessage ? '0 0rem 0 -2rem' : props.styles.chatOptionsStatus == 2 && !props.styles.isMocalMessage ? '0 0 0 2rem' : ''}; */
+        transition: transform .4s cubic-bezier(0.53, 0, 0, 0.98);
     }
 
     @media (max-width: 745px) {
         .message-box {
-            top: ${props => props.styles.chatOptionsStatus != 2 ? `${props.styles.top + 52.5}px` : '45%'};
-            margin: ${props => props.styles.chatOptionsStatus == 2 && props.styles.isMocalMessage ? '0 0rem 0 -1.5rem' : props.styles.chatOptionsStatus == 2 && !props.styles.isMocalMessage ? '0 0 0 1.5rem' : ''};
+            top: ${props => `${props.styles.top + 52.5}px`};
         }
     }
 `;

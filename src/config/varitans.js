@@ -103,22 +103,17 @@ export const loginItemVariants = {
 };
 
 export const loaderVariants = {
-    hidden: { opacity: 0, y: 40 },
+    hidden: { opacity: 0, scale: 0.9 },
     visible: {
         opacity: 1,
-        y: 0,
+        scale: 1,
         transition: {
-            duration: 0.7,
+            duration: 0.5,
             ease: [0.53, 0, 0, 0.98],
             time: [0.53, 0, 0, 0.98],
         },
     },
-    exit: {
-        opacity: 0,
-        transition: {
-            duration: 0.4,
-        },
-    },
+    exit: { opacity: 0, scale: 0.9, transition: { duration: 0.2 } },
 };
 
 export const messengerVariants = {
@@ -140,13 +135,13 @@ export const chatDateVariants = {
 };
 
 export const messageVariants = {
-    hidden: { opacity: 0, y: 40, scale: 0.9 },
+    hidden: { opacity: 0, y: 40, scale: 0.8 },
     visible: {
         opacity: 1,
         y: 0,
         scale: 1,
         transition: {
-            duration: 0.7,
+            duration: 0.5,
             ease: [0.53, 0, 0, 0.98],
             time: [0.53, 0, 0, 0.98],
         },

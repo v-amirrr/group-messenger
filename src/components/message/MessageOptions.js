@@ -228,7 +228,7 @@ const MessageOptionsContainer = styled(motion.div)`
         justify-content: center;
         align-items: center;
         border-radius: 50px;
-        height: 2.1rem;
+        height: 2.25rem;
         padding: 0 .6rem 0 .5rem;
         cursor: pointer;
         transition: background .2s;
@@ -238,12 +238,12 @@ const MessageOptionsContainer = styled(motion.div)`
             justify-content: center;
             align-items: center;
             flex-direction: row;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             margin-right: .2rem;
         }
 
         p {
-            font-size: .9rem;
+            font-size: 1rem;
             font-weight: 400;
         }
 

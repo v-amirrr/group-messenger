@@ -17,6 +17,9 @@ const ChatLoader = () => {
         { width: '10rem', height: '2rem', position: 2, local: false },
         { width: '7rem', height: '2rem', position: 3, local: false },
 
+        { width: '3rem', height: '1rem', position: 1, local: false },
+        { width: '8rem', height: '2rem', position: 3, local: false },
+
         { width: '8rem', height: '2rem', position: 1, local: true },
         { width: '6rem', height: '2rem', position: 3, local: true },
     ];
@@ -28,7 +31,6 @@ const ChatLoader = () => {
                 exit='exit'
                 variants={loaderVariants}
             >
-                <div className='profile'></div>
                 <div className='menu'></div>
                 <div className='scroll'></div>
                 <div className='input'></div>
@@ -69,7 +71,7 @@ const ChatLoaderContainer = styled(motion.div)`
         width: 2.3rem;
         height: 2.3rem;
         border-radius: 50px;
-        background-color: #ffffff0f;
+        background-color: #151515;
         background-image: linear-gradient(
             90deg,
             #ffffff00 0%,
@@ -81,19 +83,14 @@ const ChatLoaderContainer = styled(motion.div)`
         animation: skeleton-loading-button linear 1.5s infinite;
     }
 
-    .profile {
-        top: 1rem;
-        left: 8.2rem;
-    }
-
     .menu {
         top: 1rem;
         right: 8.2rem;
     }
 
     .scroll {
-        bottom: 1.1rem;
-        right: 8.2rem;
+        top: 1.1rem;
+        right: 11rem;
     }
 
     .input {
@@ -103,7 +100,7 @@ const ChatLoaderContainer = styled(motion.div)`
         width: 18rem;
         height: 2.4rem;
         border-radius: 50px;
-        background-color: #ffffff0f;
+        background-color: #151515;
         background-image: linear-gradient(
             90deg,
             #ffffff00 0%,
@@ -193,19 +190,19 @@ const MessageContainer = styled.div`
             props.position == 0 ?
             '25px' :
             props.position == 1 ?
-            '25px 25px 8px 25px' :
+            '25px 25px 12px 25px' :
             props.position == 2 ?
-            '25px 8px 8px 25px' :
-            props.position == 3 && '25px 8px 25px 25px' :
+            '25px 12px 12px 25px' :
+            props.position == 3 && '25px 12px 25px 25px' :
             props.position == 0 ?
             '25px' :
             props.position == 1 ?
-            '25px 25px 25px 15px' :
+            '25px 25px 25px 18px' :
             props.position == 2 ?
-            '8px 25px 25px 8px' :
-            props.position == 3 && '8px 25px 25px 25px'
+            '12px 25px 25px 12px' :
+            props.position == 3 && '12px 25px 25px 25px'
         };
-        background-color: ${props => props.position == 1 && !props.local ? '#ffffff0f' : '#ffffff0f'};
+        background-color: #151515;
         background-image: linear-gradient(
             90deg,
             #ffffff00 0%,

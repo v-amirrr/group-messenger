@@ -34,13 +34,21 @@ const TrashPage = () => {
 
     return (
         <>
-            <Trash initial='hidden' animate='visible' exit='exit' variants={trashPageVariants}>
-                <motion.div className='deleted-messages' layout key="trash-messages" initial='hidden' animate='visible' exit='exit' variants={trashPageVariants}>
+            <Trash
+                initial='hidden'
+                animate='visible'
+                exit='exit'
+                variants={trashPageVariants}
+                data={{
+                    messageOptionsAnimationStatus: messageOptions?.animationStatus
+                }}
+            >
                 <div className='header'>
                     <button className='header-back-button' onClick={() => navigate('/')}><TiArrowLeft /></button>
                     <p className='header-text'>Trash</p>
                     <p className='trash-count'>{messages?.length}</p>
                 </div>
+                <motion.div className='deleted-messages' layout key='trash-messages'>
                     <AnimatePresence>
                         {
                             messages?.map((messageData) => (
@@ -104,19 +112,10 @@ const Trash = styled(motion.div)`
     flex-direction: column;
     overflow: hidden;
 
-    .deleted-messages {
-        position: relative;
-        width: 62%;
-        height: 100%;
-        font-family: 'Outfit', sans-serif;
-        text-align: center;
-        padding: 5rem 8rem 9rem 8rem;
-        scroll-behavior: smooth;
-        overflow: hidden scroll;
-
-        .header {
+    .header {
         position: fixed;
         top: 1rem;
+        left: 25rem;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -162,6 +161,18 @@ const Trash = styled(motion.div)`
             }
         }
     }
+
+    .deleted-messages {
+        position: relative;
+        width: 62%;
+        height: 100%;
+        font-family: 'Outfit', sans-serif;
+        text-align: center;
+        padding: 5rem 8rem 9rem 8rem;
+        scroll-behavior: smooth;
+        overflow: hidden scroll;
+        transform: ${props => props.data.messageOptionsAnimationStatus == 2 ? 'scale(0.97)' : 'scale(1)'} !important;
+        transition: transform .3s cubic-bezier(0.53, 0, 0, 0.98);
 
         @media (max-width: 1400px) {
             width: 70%;
@@ -304,11 +315,6 @@ const Trash = styled(motion.div)`
                     background-color: #ffffff20;
                 }
             }
-        }
-    }
-
-    @media (max-width: 745px) {
-        .header {
         }
     }
 `;

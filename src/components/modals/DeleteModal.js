@@ -5,11 +5,11 @@ import styled from 'styled-components';
 
 const DeleteModal = ({ modalMessages }) => {
     const { closeModal } = useModal();
-    const { deleteSelectedMessages } = useSelect();
+    const { permanentDeleteSelectedMessages } = useSelect();
 
     const pressEnter = (e) => {
         if (e.key == 'Enter') {
-            deleteSelectedMessages(modalMessages);
+            permanentDeleteSelectedMessages(modalMessages);
         }
     };
 
@@ -31,7 +31,7 @@ const DeleteModal = ({ modalMessages }) => {
                     </button>
                     <button
                         className='delete'
-                        onClick={() => deleteSelectedMessages(modalMessages)}
+                        onClick={() => permanentDeleteSelectedMessages(modalMessages)}
                         autoFocus
                     >
                         Delete

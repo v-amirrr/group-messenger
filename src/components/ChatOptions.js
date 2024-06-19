@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 
 const ChatOptions = ({ messageOptions, setMessageOptions, type }) => {
-
     const chatOptionsMessageRef = useRef();
     const [noTopPositionChange, setNoTopPositionChange] = useState(false);
     const [zeroScale, setZeroScale] = useState(false);

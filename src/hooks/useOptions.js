@@ -11,29 +11,29 @@ export const useOptions = () => {
     const { openNotification } = useNotification();
     const { closeModal } = useModal();
 
-    const replyMessage = (id, message) => {
+    const reply = (id, message) => {
         if (inputReply.id && inputReply.id != id) {
-            clearReplyMessage();
+            unReply();
             setTimeout(() => {
                 dispatch(setInputReply({ id, message }));
             }, 300);
         } else if (inputReply.id == id) {
-            clearReplyMessage();
+            unReply();
         } else {
             dispatch(setInputReply({ id, message }));
         }
     };
 
-    const clearReplyMessage = () => {
+    const unReply = () => {
         dispatch(setInputReply({ id: null, message: null }));
     };
 
-    const copyMessage = (messagePlainText) => {
+    const copy = (messagePlainText) => {
         navigator.clipboard.writeText(messagePlainText);
         openNotification('Message copied.', false, 'COPY');
     };
 
-    const editMessage = (id, newMessageText) => {
+    const editText = (id, newMessageText) => {
         const docRef = doc(db, 'messages', id);
         if (newMessageText) {
             updateDoc(docRef, {
@@ -43,12 +43,12 @@ export const useOptions = () => {
             openNotification('Message was edited.', false, 'EDIT');
         } else {
             closeModal();
-            trashMessage(id);
+            moveToTrash(id);
             openNotification('Message was moved to trash.', false, 'TRASH');
         }
     };
 
-    const editMessageReply = (id, editedReply) => {
+    const editReply = (id, editedReply) => {
         const docRef = doc(db, 'messages', id);
         if (id != editedReply?.id) {
             updateDoc(docRef, {
@@ -65,7 +65,7 @@ export const useOptions = () => {
         }
     };
 
-    const trashMessage = (id) => {
+    const moveToTrash = (id) => {
         if (selectedMessages.length == 0) {
             const docRef = doc(db, 'messages', id);
             updateDoc(docRef, {
@@ -73,7 +73,7 @@ export const useOptions = () => {
             });
             openNotification('Message was moved to trash.', false, 'TRASH');
             if (id == inputReply?.id) {
-                clearReplyMessage();
+                unReply();
             }
         } else {
             const docRef = doc(db, 'messages', id);
@@ -83,13 +83,13 @@ export const useOptions = () => {
         }
     };
 
-    const deleteMessage = (id) => {
+    const permanentDelete = (id) => {
         const docRef = doc(db, 'messages', id);
         deleteDoc(docRef);
         closeModal();
     };
 
-    const undeleteMessage = (id) => {
+    const restore = (id) => {
         const docRef = doc(db, 'messages', id);
         updateDoc(docRef, {
             deleted: false,
@@ -109,14 +109,14 @@ export const useOptions = () => {
     };
 
     return {
-        copyMessage,
-        trashMessage,
-        deleteMessage,
-        undeleteMessage,
-        editMessage,
-        editMessageReply,
-        replyMessage,
-        clearReplyMessage,
+        reply,
+        unReply,
+        copy,
+        editText,
+        editReply,
+        moveToTrash,
+        permanentDelete,
+        restore,
         addMessageScrollPosition,
         applyScrollMessageId,
         resetScrollMessageId,

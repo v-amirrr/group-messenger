@@ -20,11 +20,10 @@ import { trashPageVariants, trashSelectBarVariants, trashSelectBarSwitchIconVari
 const TrashPage = () => {
     const navigate = useNavigate();
     const { deletedMessages } = useSelector(store => store.firestoreStore);
-    const { selectedMessages, selectOthersMessage } = useSelector(store => store.appStore);
-    const { user, enterAsAGuest } = useSelector(store => store.userStore);
+    const { selectedMessages } = useSelector(store => store.appStore);
+    const { user } = useSelector(store => store.userStore);
     const { openModal } = useModal();
-    const { openNotification } = useNotification();
-    const { switchSelectAllTrash, restoreSelectedMessages, clearSelectedMessages } = useSelect();
+    const { switchSelectAllTrash, restoreSelectedMessages, } = useSelect();
     const [messages, setMessages] = useState(deletedMessages?.filter(item => item?.uid == user?.uid));
     const [messageOptions, setMessageOptions] = useState({ data: null, animationStatus: 0 });
 

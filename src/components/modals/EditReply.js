@@ -11,13 +11,13 @@ import { replyAddSectionVariants, replyButtonVariants } from '../../config/varit
 const EditReply = ({ replyTo, id, editReplyOpen, setEditReplyOpen }) => {
     const { messages, usernames } = useSelector(store => store.firestoreStore);
     const { user } = useSelector(store => store.userStore);
-    const { editMessageReply } = useOptions();
+    const { editReply } = useOptions();
     const messagesRef = useRef();
     const [newReply, setNewReply] = useState(replyTo);
     const [messagesBefore, setMessagesBefore] = useState([]);
 
     const editHandler = () => {
-        editMessageReply(id, newReply);
+        editReply(id, newReply);
         setEditReplyOpen(!editReplyOpen);
     };
 

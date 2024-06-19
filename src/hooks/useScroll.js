@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 export const useScroll = (chatRef) => {
-
     const { messages } = useSelector(store => store.firestoreStore);
     const [arrow, setArrow] = useState(true);
     const [newMessage, setNewMessage] = useState(false);

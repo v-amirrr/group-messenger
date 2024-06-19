@@ -8,7 +8,7 @@ import { useModal } from "./useModal";
 export const useSelect = () => {
     const dispatch = useDispatch();
     const { selectedMessages } = useSelector(store => store.appStore);
-    const { trashMessage, undeleteMessage, deleteMessage } = useOptions();
+    const { moveToTrash, restore, permanentDelete } = useOptions();
     const { closeModal } = useModal();
     const { openNotification } = useNotification();
     const [nonLocalSelectedMessages, setNonLocalSelectedMessages] = useState(0);
@@ -19,7 +19,7 @@ export const useSelect = () => {
         }
     }, [nonLocalSelectedMessages]);
 
-    const selectMessage = (message) => {
+    const select = (message) => {
         dispatch(setSelectedMessages({ message }));
         if (!message.isLocalMessage) {
             setNonLocalSelectedMessages(nonLocalSelectedMessages + 1);
@@ -27,7 +27,7 @@ export const useSelect = () => {
         }
     };
 
-    const unSelectMessage = (id, isLocalMessage) => {
+    const unSelect = (id, isLocalMessage) => {
         let newSelectedMessages = selectedMessages.filter(item => item.id != id ? item : '');
         if (!isLocalMessage) {
             setNonLocalSelectedMessages(nonLocalSelectedMessages - 1);
@@ -61,22 +61,63 @@ export const useSelect = () => {
         }, 300);
     };
 
-    const trashSelectedMessages = () => {
+    const moveToTrashSelectedMessages = () => {
         if (selectedMessages.length < 3) {
             selectedMessages.map((message, index) => {
                 setTimeout(() => {
-                    trashMessage(message.id);
+                    moveToTrash(message.id);
                     openNotification('Message was moved to trash.', false, 'TRASH');
                 }, index * 600);
             });
         } else {
             selectedMessages.map((message) => {
-                trashMessage(message.id);
+                moveToTrash(message.id);
             });
             setTimeout(() => {
                 openNotification('Messages were moved to trash.', false, 'TRASH');
             }, 300);
         }
+        clearSelectedMessages();
+    };
+
+    const restoreSelectedMessages = () => {
+        if (selectedMessages.length < 3) {
+            selectedMessages.map((message, index) => {
+                setTimeout(() => {
+                    restore(message.id);
+                    openNotification('Message restored.', false, 'RESTORE');
+                }, index * 600);
+            });
+        } else {
+            selectedMessages.map((message) => {
+                restore(message.id);
+            });
+            setTimeout(() => {
+                openNotification('Messages restored.', false, 'RESTORE');
+            }, 300);
+        }
+        clearSelectedMessages();
+    };
+
+    const permanentDeleteSelectedMessages = (modalMessages) => {
+        closeModal();
+        setTimeout(() => {
+            if (modalMessages.length < 3) {
+                modalMessages.map((message, index) => {
+                    setTimeout(() => {
+                        permanentDelete(message.id);
+                        openNotification('Messages were permenately deleted.', false, 'RESTORE');
+                    }, index * 600);
+                });
+            } else {
+                modalMessages.map((message) => {
+                    permanentDelete(message.id);
+                });
+                setTimeout(() => {
+                    openNotification('Messages were permenately deleted.', false, 'RESTORE');
+                }, 300);
+            }
+        }, 400);
         clearSelectedMessages();
     };
 
@@ -91,55 +132,14 @@ export const useSelect = () => {
         }
     };
 
-    const restoreSelectedMessages = () => {
-        if (selectedMessages.length < 3) {
-            selectedMessages.map((message, index) => {
-                setTimeout(() => {
-                    undeleteMessage(message.id);
-                    openNotification('Message restored.', false, 'RESTORE');
-                }, index * 600);
-            });
-        } else {
-            selectedMessages.map((message) => {
-                undeleteMessage(message.id);
-            });
-            setTimeout(() => {
-                openNotification('Messages restored.', false, 'RESTORE');
-            }, 300);
-        }
-        clearSelectedMessages();
-    };
-
-    const deleteSelectedMessages = (modalMessages) => {
-        closeModal();
-        setTimeout(() => {
-            if (modalMessages.length < 3) {
-                modalMessages.map((message, index) => {
-                    setTimeout(() => {
-                        deleteMessage(message.id);
-                        openNotification('Messages were permenately deleted.', false, 'RESTORE');
-                    }, index * 600);
-                });
-            } else {
-                modalMessages.map((message) => {
-                    deleteMessage(message.id);
-                });
-                setTimeout(() => {
-                    openNotification('Messages were permenately deleted.', false, 'RESTORE');
-                }, 300);
-            }
-        }, 400);
-        clearSelectedMessages();
-    };
-
     return {
-        selectMessage,
+        select,
+        unSelect,
         clearSelectedMessages,
-        unSelectMessage,
-        trashSelectedMessages,
-        switchSelectAllTrash,
+        copySelectedMessages,
+        moveToTrashSelectedMessages,
         restoreSelectedMessages,
-        deleteSelectedMessages,
-        copySelectedMessages
+        permanentDeleteSelectedMessages,
+        switchSelectAllTrash,
     };
 };

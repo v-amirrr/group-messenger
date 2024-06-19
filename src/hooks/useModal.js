@@ -2,11 +2,10 @@ import { useDispatch } from "react-redux";
 import { setModal } from '../redux/appSlice';
 
 export const useModal = () => {
-
     const dispatch = useDispatch();
 
     const openModal = (type, messages, editedUsername) => {
-        if (type == 'CHANGE_USERNAME_MODAL') {
+        if (type == 'CHANGE_USERNAME_CONFIRMATION') {
             dispatch(
                 setModal({
                     show: true,

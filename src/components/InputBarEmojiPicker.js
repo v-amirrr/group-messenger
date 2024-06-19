@@ -6,11 +6,9 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { inputBarEmojiPickerVariatns } from '../config/varitans';
 
 const InputBarEmojiPicker = ({ setInputText, inputBarEmojiPicker }) => {
-
     const emojiHandler = (e) => {
         setInputText(pre => `${pre}${e.native}`);
     };
-
     return (
         <>
             <InputBarEmojiPickerContainer inputbaremojipicker={inputBarEmojiPicker ? 1 : 0}>

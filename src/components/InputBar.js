@@ -15,7 +15,7 @@ const InputBar = () => {
     const inputRef = useRef();
     const { inputReply, selectedMessages, modal } = useSelector(store => store.appStore);
     const { sendMessage } = useSend();
-    const { clearReplyMessage, applyScrollMessageId } = useOptions();
+    const { unReply, applyScrollMessageId } = useOptions();
     const [multiline, setMultiline] = useState(false);
     const [inputText, setInputText] = useState(localStorage.getItem('input-text') ? localStorage.getItem('input-text') : '');
     const [inputBarEmojiPicker, setInputBarEmojiPicker] = useState(false);
@@ -37,7 +37,7 @@ const InputBar = () => {
 
     const clearInputReply = (e) => {
         e.stopPropagation();
-        clearReplyMessage();
+        unReply();
     };
 
     useEffect(() => {

@@ -16,7 +16,7 @@ import { optionsVariants, optionLocalVariants, optionNonLocalVariants } from '..
 const MessageOptions = ({ options, type }) => {
     const { enterAsAGuest } = useSelector(store => store.userStore);
     const { inputReply } = useSelector(store => store.appStore);
-    const { copyMessage, replyMessage, trashMessage, undeleteMessage } = useOptions();
+    const { copy, reply, moveToTrash, restore } = useOptions();
     const { openModal } = useModal();
     const { selectMessage } = useSelect();
     const { openNotification } = useNotification();
@@ -25,7 +25,7 @@ const MessageOptions = ({ options, type }) => {
         switch (option) {
             case 'REPLY':
                 setTimeout(() => {
-                    replyMessage(
+                    reply(
                         options?.messageOptions?.id,
                         options?.messageOptions?.plainText,
                         options?.messageOptions?.username,
@@ -42,7 +42,7 @@ const MessageOptions = ({ options, type }) => {
                 }, 550);
                 break;
             case 'COPY':
-                copyMessage(options?.messageOptions?.plainText);
+                copy(options?.messageOptions?.plainText);
                 break;
             case 'EDIT':
                 setTimeout(() => {
@@ -50,7 +50,7 @@ const MessageOptions = ({ options, type }) => {
                 }, 200);
                 break;
             case 'TRASH':
-                trashMessage(options?.messageOptions?.id);
+                moveToTrash(options?.messageOptions?.id);
                 options?.closeOptions({ type: 'TRASH' });
                 break;
             case 'DELETE':
@@ -59,7 +59,7 @@ const MessageOptions = ({ options, type }) => {
                 }, 550);
                 break;
             case 'RESTORE':
-                undeleteMessage(options?.messageOptions?.id);
+                restore(options?.messageOptions?.id);
                 openNotification('Message restored.', false, 'RESTORE');
                 options?.closeOptions({ type: 'RESTORE' });
                 break;

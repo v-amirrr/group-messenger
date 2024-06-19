@@ -10,7 +10,7 @@ import { selectBarVariants } from '../config/varitans';
 
 const SelectBar = () => {
     const { selectedMessages, selectOthersMessage } = useSelector(store => store.appStore);
-    const { clearSelectedMessages, copySelectedMessages, trashSelectedMessages } = useSelect();
+    const { clearSelectedMessages, copySelectedMessages, moveToTrashSelectedMessages } = useSelect();
     return (
         <>
             <SelectBarContainer
@@ -30,7 +30,7 @@ const SelectBar = () => {
                         <i><AiFillCopy /></i>
                         <p>Copy</p>
                     </button>
-                    <button className='delete' disabled={selectOthersMessage} onClick={trashSelectedMessages}>
+                    <button className='delete' disabled={selectOthersMessage} onClick={moveToTrashSelectedMessages}>
                         <i><AiFillDelete /></i>
                         <p>Delete</p>
                     </button>

@@ -16,7 +16,7 @@ const Modal = () => {
     const [editReplyOpen, setEditReplyOpen] = useState(false);
 
     const closePopupByTap = (e) => {
-        if (!popupPageRef.current.contains(e.target)) {
+        if (!popupPageRef?.current?.contains(e.target)) {
             if (editReplyOpen) {
                 setEditReplyOpen(false);
             } else {
@@ -29,7 +29,7 @@ const Modal = () => {
         <>
             <AnimatePresence>
                 {
-                    modal.show ?
+                    modal?.show ?
                     <ModalContainer
                         initial='hidden'
                         animate='visible'
@@ -37,21 +37,21 @@ const Modal = () => {
                         variants={popupPageVariants}
                         onClick={(e) => closePopupByTap(e)}
                     >
-                        <motion.div className='popup' variants={popupContainerVariants} ref={popupPageRef}>
+                        <motion.div className='modal' variants={popupContainerVariants} ref={popupPageRef}>
                             {
-                                modal.type == 'PERMENANT_DELETE_CONFIRMATION' ?
-                                <DeleteModal modalMessages={modal.messages} /> :
-                                modal.type == 'EDIT' ?
+                                modal?.type == 'PERMENANT_DELETE_CONFIRMATION' ?
+                                <DeleteModal modalMessages={modal?.messages} /> :
+                                modal?.type == 'EDIT' ?
                                 <EditModal
-                                    modalMessages={modal.messages}
-                                    modalEditedReply={modal.editedReply}
+                                    modalMessages={modal?.messages}
+                                    modalEditedReply={modal?.editedReply}
                                     editReplyOpen={editReplyOpen}
                                     setEditReplyOpen={setEditReplyOpen}
                                 /> :
-                                modal.type == 'CHANGE_USERNAME_CONFIRMATION' ?
+                                modal?.type == 'CHANGE_USERNAME_CONFIRMATION' ?
                                 <ChangeUsernameModal
                                     closePopup={closeModal}
-                                    modalEditedUsername={modal.editedUsername}
+                                    newUsername={modal?.editedUsername}
                                     oldUsername={user?.displayName}
                                 />
                                 : ''
@@ -76,7 +76,7 @@ const ModalContainer = styled(motion.section)`
     z-index: 3;
     color: var(--normal-color);
 
-    .popup {
+    .modal {
         z-index: 4;
         position: relative;
         padding: 1.2rem 1.5rem;
@@ -139,7 +139,7 @@ const ModalContainer = styled(motion.section)`
     }
 
     @media (max-width: 768px) {
-        .popup {
+        .modal {
             padding: 1rem;
             max-width: 20rem;
             border-radius: 20px;

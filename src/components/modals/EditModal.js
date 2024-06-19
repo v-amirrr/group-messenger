@@ -7,7 +7,7 @@ import styled from 'styled-components';
 
 const EditModal = ({ modalMessages, editReplyOpen, setEditReplyOpen }) => {
     const { plainText, id, replyTo } = modalMessages[0];
-    const { editMessage } = useOptions();
+    const { editText } = useOptions();
     const { closeModal } = useModal();
     const inputRef = useRef();
     const [editInput, setEditInput] = useState(plainText);
@@ -15,7 +15,7 @@ const EditModal = ({ modalMessages, editReplyOpen, setEditReplyOpen }) => {
     const pressEnter = (e) => {
         if (e.key == 'Enter' && !e.shiftKey) {
             e.preventDefault();
-            editMessage(id, editInput);
+            editText(id, editInput);
         }
     };
 
@@ -41,7 +41,7 @@ const EditModal = ({ modalMessages, editReplyOpen, setEditReplyOpen }) => {
                     <button className='cancel' onClick={closeModal}>
                         Cancel
                     </button>
-                    <button className='edit' onClick={() => editMessage(id, editInput)}>
+                    <button className='edit' onClick={() => editText(id, editInput)}>
                         Edit
                     </button>
                 </div>

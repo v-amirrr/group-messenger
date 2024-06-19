@@ -8,25 +8,36 @@ const ChatOptions = ({ messageOptions, setMessageOptions, type }) => {
 
     const chatOptionsMessageRef = useRef();
     const [noTopPositionChange, setNoTopPositionChange] = useState(false);
+    const [zeroScale, setZeroScale] = useState(false);
 
-    const closeOptionsByTap = (e) => {
-        if (!chatOptionsMessageRef?.current?.contains(e?.target)) {
-            closeOptions();
-        }
-    };
-
-    const closeOptions = () => {
-        setMessageOptions(prevState => ({
-            ...prevState,
-            animationStatus: 3,
-        }));
-        setTimeout(() => {
+    const closeOptions = (data) => {
+        if (data?.type == 'TRASH' || data?.type == 'RESTORE') {
+            setZeroScale(true);
             setMessageOptions(prevState => ({
                 ...prevState,
-                data: null,
-                animationStatus: 0,
+                animationStatus: 3,
             }));
-        }, 500);
+            setTimeout(() => {
+                setMessageOptions(prevState => ({
+                    ...prevState,
+                    data: null,
+                    animationStatus: 0,
+                }));
+                setZeroScale(false);
+            }, 400);
+        } else {
+            setMessageOptions(prevState => ({
+                ...prevState,
+                animationStatus: 3,
+            }));
+            setTimeout(() => {
+                setMessageOptions(prevState => ({
+                    ...prevState,
+                    data: null,
+                    animationStatus: 0,
+                }));
+            }, 500);
+        }
     };
 
     useEffect(() => {
@@ -49,7 +60,7 @@ const ChatOptions = ({ messageOptions, setMessageOptions, type }) => {
             {
                 messageOptions?.animationStatus ?
                 <ChatOptionsContainer
-                    onClick={(e) => closeOptionsByTap(e)}
+                    onClick={closeOptions}
                     styles={{
                         top: messageOptions?.data?.top,
                         left: messageOptions?.data?.left,
@@ -59,6 +70,7 @@ const ChatOptions = ({ messageOptions, setMessageOptions, type }) => {
                         chatOptionsStatus: messageOptions?.animationStatus,
                         phoneHeightDifference: window.outerHeight - window.innerHeight,
                         noTopPositionChange: noTopPositionChange,
+                        zeroScale: zeroScale,
                     }}
                 >
                     <div className='message-box' ref={chatOptionsMessageRef}>
@@ -84,7 +96,7 @@ const ChatOptions = ({ messageOptions, setMessageOptions, type }) => {
                         />
                         <AnimatePresence>
                         {
-                            messageOptions?.animationStatus == 2 ?
+                            messageOptions?.animationStatus == 2 && !zeroScale ?
                             <MessageOptions
                                 type={type}
                                 options={{
@@ -127,7 +139,7 @@ const ChatOptionsContainer = styled(motion.div)`
         justify-content: flex-end;
         align-items: ${props => props.styles.isMocalMessage ? 'flex-end' : 'flex-start'};
         flex-direction: column;
-        transform: ${props => props.styles.chatOptionsStatus == 2 ? 'scale(1.05)' : 'scale(1)'};
+        transform: ${props => props.styles.zeroScale ? 'scale(0)' : props.styles.chatOptionsStatus == 2 ? 'scale(1.05)' : 'scale(1)'};
         /* margin: ${props => props.styles.chatOptionsStatus == 2 && props.styles.isMocalMessage ? '0 0rem 0 -2rem' : props.styles.chatOptionsStatus == 2 && !props.styles.isMocalMessage ? '0 0 0 2rem' : ''}; */
         transition: transform .4s cubic-bezier(0.53, 0, 0, 0.98);
     }

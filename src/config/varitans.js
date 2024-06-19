@@ -183,7 +183,7 @@ export const optionsVariants = {
     exit: {
         opacity: 0,
         transition: {
-            duration: 0.1,
+            duration: 0.00001,
             staggerChildren: 0.01,
             when: 'afterChildren',
         },

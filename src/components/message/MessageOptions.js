@@ -22,7 +22,6 @@ const MessageOptions = ({ options, type }) => {
     const { openNotification } = useNotification();
 
     const optionClick = (option) => {
-        options?.closeOptions();
         switch (option) {
             case 'REPLY':
                 setTimeout(() => {
@@ -51,9 +50,8 @@ const MessageOptions = ({ options, type }) => {
                 }, 200);
                 break;
             case 'TRASH':
-                setTimeout(() => {
-                    trashMessage(options?.messageOptions?.id);
-                }, 550);
+                trashMessage(options?.messageOptions?.id);
+                options?.closeOptions({ type: 'TRASH' });
                 break;
             case 'DELETE':
                 setTimeout(() => {
@@ -61,10 +59,9 @@ const MessageOptions = ({ options, type }) => {
                 }, 550);
                 break;
             case 'RESTORE':
-                setTimeout(() => {
-                    undeleteMessage(options?.messageOptions?.id);
-                    openNotification('Message restored.', false, 'RESTORE');
-                }, 550);
+                undeleteMessage(options?.messageOptions?.id);
+                openNotification('Message restored.', false, 'RESTORE');
+                options?.closeOptions({ type: 'RESTORE' });
                 break;
         }
     };

@@ -20,10 +20,10 @@ export const useModal = () => {
                 sortedPopupMessages?.sort((a, b) => {
                     return (
                         new Date(
-                            `${a.time.month} ${a.time.day} ${a.time.year} ${a.time.hour}:${a.time.minute}:${a.time.second}`
+                            `${a?.time?.month} ${a?.time?.day} ${a?.time?.year} ${a?.time?.hour}:${a?.time?.minute}:${a?.time?.second}`
                         ).getTime() -
                         new Date(
-                            `${b.time.month} ${b.time.day} ${b.time.year} ${b.time.hour}:${b.time.minute}:${b.time.second}`
+                            `${b?.time?.month} ${b?.time?.day} ${b?.time?.year} ${b?.time?.hour}:${b?.time?.minute}:${b?.time?.second}`
                         ).getTime()
                     );
                 });

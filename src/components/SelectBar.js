@@ -70,7 +70,7 @@ const SelectBarContainer = styled(motion.div)`
         font-size: 1.4rem;
         cursor: pointer;
         z-index: 3;
-        transition: background 0.2s;
+        transition: background .2s;
     }
 
     .counter {

@@ -9,7 +9,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { popupPageVariants, popupContainerVariants } from '../../config/varitans';
 
 const Modal = () => {
-    // const { popupShow, popupName, popupMessages, popupMessagesSelected, popupMessageReplyTo } = useSelector(store => store.popupStore);
     const { modal } = useSelector(store => store.appStore);
     const { user } = useSelector(store => store.userStore);
     const popupPageRef = useRef();

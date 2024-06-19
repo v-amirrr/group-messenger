@@ -9,7 +9,7 @@ const DeleteModal = ({ modalMessages }) => {
 
     const pressEnter = (e) => {
         if (e.key == 'Enter') {
-            deleteSelectedMessages();
+            deleteSelectedMessages(modalMessages);
         }
     };
 
@@ -18,13 +18,11 @@ const DeleteModal = ({ modalMessages }) => {
             <DeleteModalContainer onKeyDown={(e) => pressEnter(e)}>
                 <h4>
                     Are you sure you want to delete
-                    {' '}
                     {
                         modalMessages[0].length > 1 ?
-                        'these messages' :
-                        'this message'
+                        ' these messages ' :
+                        ' this message '
                     }
-                    {' '}
                     permanently?
                 </h4>
                 <div className='buttons'>
@@ -33,7 +31,7 @@ const DeleteModal = ({ modalMessages }) => {
                     </button>
                     <button
                         className='delete'
-                        onClick={deleteSelectedMessages}
+                        onClick={() => deleteSelectedMessages(modalMessages)}
                         autoFocus
                     >
                         Delete

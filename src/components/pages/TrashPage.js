@@ -76,7 +76,7 @@ const TrashPage = () => {
                         selectedMessages?.length ?
                             <motion.div key='trash-select-bar' className='trash-select-bar' initial='hidden' animate='visible' exit='exit' variants={trashSelectBarVariants}>
                                 <div className='counter'><Counter num={selectedMessages?.length} /></div>
-                                <button className='delete-button' onClick={() => openModal("PERMENANT_DELETE_CONFIRMATION", [selectedMessages])}>
+                                <button className='delete-button' onClick={() => openModal("PERMENANT_DELETE_CONFIRMATION", selectedMessages)}>
                                     <i><TbTrashX /></i>
                                     <p>Delete</p>
                                 </button>

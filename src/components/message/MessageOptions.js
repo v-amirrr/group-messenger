@@ -3,9 +3,12 @@ import { useSelector } from 'react-redux';
 import { useOptions } from '../../hooks/useOptions';
 import { useSelect } from '../../hooks/useSelect';
 import { useModal } from '../../hooks/useModal';
+import { useNotification } from '../../hooks/useNotification';
 import { AiFillDelete, AiFillCopy, AiFillEdit } from 'react-icons/ai';
 import { BsReplyFill } from 'react-icons/bs';
 import { BiSelectMultiple } from 'react-icons/bi';
+import { TbTrashX } from 'react-icons/tb';
+import { FaTrashRestore } from "react-icons/fa";
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { optionsVariants, optionLocalVariants, optionNonLocalVariants } from '../../config/varitans';
@@ -13,9 +16,10 @@ import { optionsVariants, optionLocalVariants, optionNonLocalVariants } from '..
 const MessageOptions = ({ options, type }) => {
     const { enterAsAGuest } = useSelector(store => store.userStore);
     const { inputReply } = useSelector(store => store.appStore);
-    const { copyMessage, replyMessage, trashMessage } = useOptions();
+    const { copyMessage, replyMessage, trashMessage, undeleteMessage } = useOptions();
     const { openModal } = useModal();
     const { selectMessage } = useSelect();
+    const { openNotification } = useNotification();
 
     const optionClick = (option) => {
         options?.closeOptions();
@@ -46,9 +50,20 @@ const MessageOptions = ({ options, type }) => {
                     openModal('EDIT', [options?.messageOptions]);
                 }, 200);
                 break;
-            case 'DELETE':
+            case 'TRASH':
                 setTimeout(() => {
                     trashMessage(options?.messageOptions?.id);
+                }, 550);
+                break;
+            case 'DELETE':
+                setTimeout(() => {
+                    openModal("PERMENANT_DELETE_CONFIRMATION", [options?.messageOptions])
+                }, 550);
+                break;
+            case 'RESTORE':
+                setTimeout(() => {
+                    undeleteMessage(options?.messageOptions?.id);
+                    openNotification('Message restored.', false, 'RESTORE');
                 }, 550);
                 break;
         }
@@ -91,22 +106,22 @@ const MessageOptions = ({ options, type }) => {
                             <i><BiSelectMultiple /></i>
                             <p>Select</p>
                         </motion.div>
-                        {/* <motion.div
+                        <motion.div
                             className='restore'
-                            // onClick={() => optionClick('RESTORE')}
+                            onClick={() => optionClick('RESTORE')}
                             variants={optionLocalVariants}
                         >
-                            <i><BsReplyFill /></i>
+                            <i><FaTrashRestore /></i>
                             <p>Restore</p>
                         </motion.div>
                         <motion.div
                             className='delete'
-                            // onClick={() => optionClick('DELETE')}
+                            onClick={() => optionClick('DELETE')}
                             variants={optionLocalVariants}
                         >
-                            <i><BsReplyFill /></i>
+                            <i><TbTrashX /></i>
                             <p>Delete</p>
-                        </motion.div> */}
+                        </motion.div>
                     </> :
                     <>
                         <motion.div
@@ -161,8 +176,8 @@ const MessageOptions = ({ options, type }) => {
                                     <p>Edit</p>
                                 </motion.div>
                                 <motion.div
-                                    className='delete'
-                                    onClick={() => optionClick('DELETE')}
+                                    className='trash'
+                                    onClick={() => optionClick('TRASH')}
                                     variants={
                                         options?.messageOptions?.isLocalMessage ?
                                         optionLocalVariants :
@@ -219,7 +234,7 @@ const MessageOptionsContainer = styled(motion.div)`
     align-items: center;
     flex-direction: ${props => props.localmessage ? 'row-reverse' : 'row'};
 
-    .reply, .copy, .edit, .delete, .select, .time, .restore {
+    .reply, .copy, .edit, .trash, .select, .time, .delete, .restore {
         position: relative;
         top: 2.5rem;
         background-color: var(--normal-bg);
@@ -296,6 +311,36 @@ const MessageOptionsContainer = styled(motion.div)`
             transform: scale(1);
             opacity: 1;
             letter-spacing: 0px;
+        }
+    }
+
+    .restore {
+        background-color: #00ff0030;
+        color: #00ff00;
+
+        i {
+            font-size: 1rem;
+        }
+
+        @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
+            &:hover {
+                background-color: #00ff0050;
+            }
+        }
+    }
+
+    .delete {
+        background-color: #ff000030;
+        color: #ff0000;
+
+        i {
+            font-size: 1.3rem;
+        }
+
+        @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
+            &:hover {
+                background-color: #ff000050;
+            }
         }
     }
 

@@ -110,18 +110,18 @@ export const useSelect = () => {
         clearSelectedMessages();
     };
 
-    const deleteSelectedMessages = () => {
+    const deleteSelectedMessages = (modalMessages) => {
         closeModal();
         setTimeout(() => {
-            if (selectedMessages.length < 5) {
-                selectedMessages.map((message, index) => {
+            if (modalMessages.length < 5) {
+                modalMessages.map((message, index) => {
                     setTimeout(() => {
                         deleteMessage(message.id);
                         openNotification('Messages were permenately deleted.', false, 'RESTORE');
                     }, index * 600);
                 });
             } else {
-                selectedMessages.map((message) => {
+                modalMessages.map((message) => {
                     deleteMessage(message.id);
                 });
                 setTimeout(() => {

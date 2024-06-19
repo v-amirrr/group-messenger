@@ -132,7 +132,8 @@ export const useMessage = (messageData, type, messageRef, options, onClick) => {
         selectMessage({
             id: messageData.id,
             plainText: messageData.plainText,
-            isLocalMessage: messageData.isLocalMessage
+            isLocalMessage: messageData.isLocalMessage,
+            time: messageData.time,
         });
     };
 

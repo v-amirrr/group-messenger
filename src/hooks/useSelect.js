@@ -62,7 +62,7 @@ export const useSelect = () => {
     };
 
     const trashSelectedMessages = () => {
-        if (selectedMessages.length < 5) {
+        if (selectedMessages.length < 3) {
             selectedMessages.map((message, index) => {
                 setTimeout(() => {
                     trashMessage(message.id);
@@ -92,7 +92,7 @@ export const useSelect = () => {
     };
 
     const restoreSelectedMessages = () => {
-        if (selectedMessages.length < 5) {
+        if (selectedMessages.length < 3) {
             selectedMessages.map((message, index) => {
                 setTimeout(() => {
                     undeleteMessage(message.id);
@@ -113,7 +113,7 @@ export const useSelect = () => {
     const deleteSelectedMessages = (modalMessages) => {
         closeModal();
         setTimeout(() => {
-            if (modalMessages.length < 5) {
+            if (modalMessages.length < 3) {
                 modalMessages.map((message, index) => {
                     setTimeout(() => {
                         deleteMessage(message.id);

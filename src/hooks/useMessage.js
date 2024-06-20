@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useOptions } from "./useOptions";
 import { useSelect } from "./useSelect";
 import { useSelector } from "react-redux";
 import { useSkeletonEffect } from "./useSkeletonEffect";
@@ -36,7 +35,8 @@ export const useMessage = (messageData, type, messageRef, options, onClick) => {
 
     let selectByHoldingTimer;
     let messageStyles = {
-        messageBoxMargin: type == 'TRASH' ?
+        messageBoxMargin:
+            type == 'TRASH' ?
             '.2rem' :
             messagePosition == 0 ?
             '.1rem 0 .1rem 0' :
@@ -46,10 +46,10 @@ export const useMessage = (messageData, type, messageRef, options, onClick) => {
             '.06rem 0 .06rem 0' :
             messagePosition == 3 &&
             '.06rem 0 .1rem 0',
-        messageBoxMarginRight: selectedMessages.length && isLocalMessage ?
-            '3rem' : '',
+        messageBoxMarginRight: selectedMessages.length && isLocalMessage ? '3rem' : '',
         messageBoxMarginLeft: selectedMessages?.length && !isLocalMessage ? '3rem' : '',
-        messageBoxRoundBorderRadius: isLocalMessage ?
+        messageBoxRoundBorderRadius:
+            isLocalMessage ?
             messagePosition == 0 ?
             '25px' : messagePosition == 1 ?
             '25px 25px 12px 25px' :
@@ -65,7 +65,8 @@ export const useMessage = (messageData, type, messageRef, options, onClick) => {
             '12px 25px 25px 12px' :
             messagePosition == 3 &&
             '12px 25px 25px 25px',
-        messageBoxNotRoundBorderRadius: isLocalMessage ?
+        messageBoxNotRoundBorderRadius:
+            isLocalMessage ?
             messagePosition == 0 ?
             '20px' :
             messagePosition == 1 ?
@@ -82,11 +83,8 @@ export const useMessage = (messageData, type, messageRef, options, onClick) => {
             '12px 20px 20px 12px' :
             messagePosition == 3 &&
             '12px 20px 20px 20px',
-        messageBoxPadding: type == 'TRASH' && textLetters > 2 ?
-            '.45rem .6rem' :
-            type == 'TRASH' && textLetters <= 2 ?
-            '.45rem .9rem' :
-            replyTo != 'no_reply' ?
+        messageBoxPadding:
+            replyTo != 'no_reply' && type != 'TRASH' ?
             '.45rem .6rem .45rem .45rem' :
             textLetters <= 2 ?
             '.45rem 1rem' :

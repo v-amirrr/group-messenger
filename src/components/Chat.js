@@ -39,7 +39,7 @@ const Chat = () => {
                 {!selectedMessages.length ? <InputBar key='input' /> : <SelectBar key='select' />}
             </AnimatePresence>
 
-            <ChatOptions messageOptions={messageOptions} setMessageOptions={setMessageOptions} />
+            <ChatOptions messageOptions={messageOptions} setMessageOptions={setMessageOptions} type='CHAT' />
 
             <ChatContainer
                 layout

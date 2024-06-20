@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useOptions } from '../hooks/useOptions';
 import { useScroll } from '../hooks/useScroll';
 import { isPersian } from '../functions/isPersian';
 import Message from './message/Message';
@@ -17,21 +16,9 @@ const Chat = () => {
     const chatRef = useRef();
     const { messages } = useSelector(store => store.firestoreStore);
     const { user, enterAsAGuest } = useSelector(store => store.userStore);
-    const { selectedMessages, messagesScrollPosition, scrollMessageId } = useSelector(store => store.appStore);
-    const { resetScrollMessageId } = useOptions();
+    const { selectedMessages } = useSelector(store => store.appStore);
     const { arrow, newMessage, scrollButtonClickHandler, onChatScrollHandler, scrollDown } = useScroll(chatRef);
     const [messageOptions, setMessageOptions] = useState({ data: null, animationStatus: 0 });
-
-    useEffect(() => {
-        if (scrollMessageId.id) {
-            if (scrollMessageId.type == 'CLICK') {
-                chatRef?.current?.scrollTo(0, ~~messagesScrollPosition[scrollMessageId.id] - 200);
-            }
-            setTimeout(() => {
-                resetScrollMessageId();
-            }, 2000);
-        }
-    }, [scrollMessageId]);
 
     return (
         <>
@@ -52,7 +39,7 @@ const Chat = () => {
                 {!selectedMessages.length ? <InputBar key='input' /> : <SelectBar key='select' />}
             </AnimatePresence>
 
-            <ChatOptions messageOptions={messageOptions} setMessageOptions={setMessageOptions} type='CHAT' />
+            <ChatOptions messageOptions={messageOptions} setMessageOptions={setMessageOptions} />
 
             <ChatContainer
                 layout

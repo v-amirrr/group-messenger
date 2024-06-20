@@ -2,16 +2,20 @@ import React from 'react';
 import { useOptions } from '../../hooks/useOptions';
 import { BsReplyFill } from 'react-icons/bs';
 import styled from 'styled-components';
+import { useSkeletonEffect } from '../../hooks/useSkeletonEffect';
 
 const MessageReply = ({ replyTo, type }) => {
 
-    const { applyScrollMessageId } = useOptions();
+    const { addSkeletonEffect, scrollToMessage } = useSkeletonEffect();
     let mouseSituation = 'OUT';
 
     const clickHandler = (e) => {
         if (type == 'CHAT' && replyTo) {
             e.stopPropagation();
-            applyScrollMessageId(replyTo?.id, 'CLICK');
+            scrollToMessage(replyTo?.id);
+            setTimeout(() => {
+                addSkeletonEffect(replyTo?.id);
+            }, 500);
         }
     };
 
@@ -19,7 +23,7 @@ const MessageReply = ({ replyTo, type }) => {
         mouseSituation = 'IN';
         setTimeout(() => {
             if (type == 'CHAT' && replyTo && mouseSituation == 'IN') {
-                applyScrollMessageId(replyTo?.id, 'HOVER');
+                addSkeletonEffect(replyTo?.id);
             }
         }, 300);
     };

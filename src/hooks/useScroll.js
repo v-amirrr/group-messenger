@@ -3,15 +3,19 @@ import { useSelector } from "react-redux";
 
 export const useScroll = (chatRef) => {
     const { messages } = useSelector(store => store.firestoreStore);
+    const { messagesScrollPosition, scrollToMessage } = useSelector(store => store.appStore);
+
     const [arrow, setArrow] = useState(true);
     const [newMessage, setNewMessage] = useState(false);
     const [scrollLastPosition, setScrollLastPosition] = useState(chatRef?.current?.scrollTop);
     const [lastMessageTime, setLastMessageTime] = useState(messages[messages?.length - 1]?.time);
 
+    // scrolling to the last sorted position in local storage
     useEffect(() => {
         scrollToLastPosition();
     }, []);
 
+    // handling newMessage state in case of a new sent message
     useEffect(() => {
         let newMessageTime = new Date(
             messages[messages?.length - 1]?.time?.year,
@@ -47,6 +51,13 @@ export const useScroll = (chatRef) => {
             }, 500);
         }
     }, [messages[messages?.length - 1]?.time]);
+
+    // scroll to a certain message (when user clicks on reply section)
+    useEffect(() => {
+        if (scrollToMessage != null) {
+            chatRef?.current?.scrollTo(0, ~~messagesScrollPosition[scrollToMessage] - 200);
+        }
+    }, [scrollToMessage]);
 
     const scrollUp = () => {
         chatRef?.current?.scrollTo(0, 0);
@@ -111,7 +122,8 @@ export const useScroll = (chatRef) => {
         newMessage,
         onChatScrollHandler,
         scrollButtonClickHandler,
-        scrollDown
+        scrollDown,
+        scrollToMessage
     };
 
 };

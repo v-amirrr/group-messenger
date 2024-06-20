@@ -16,7 +16,8 @@ const initialState = {
         username: true,
     },
     messagesScrollPosition: {},
-    scrollMessageId: { id: null, type: null },
+    skeletonEffect: null,
+    scrollToMessage: null,
     inputReply: { id: null, message: null },
     inputStoredText: {},
     modal: {
@@ -128,16 +129,16 @@ const appSlice = createSlice({
                 }
             };
         },
-        setScrollMessageId: (state, action) => {
+        setSkeletonEffect: (state, action) => {
             return {
                 ...state,
-                scrollMessageId: { id: action.payload.id, type: action.payload.type }
+                skeletonEffect: action.payload
             };
         },
-        setClearScrollMessageId: (state) => {
+        setScrollToMessage: (state, action) => {
             return {
                 ...state,
-                scrollMessageId: { id: null, type: null }
+                scrollToMessage: action.payload
             };
         },
         setInputReply: (state, action) => {
@@ -177,8 +178,8 @@ export const {
     setClearNotifications,
     setNotificationSettings,
     setMessagesScrollPosition,
-    setScrollMessageId,
-    setClearScrollMessageId,
+    setSkeletonEffect,
+    setScrollToMessage,
     setInputReply,
     setModal,
 } = appSlice.actions;

@@ -78,7 +78,7 @@ const MessageBoxContainer = styled(motion.div)`
     visibility: ${props => props.data.options ? 'hidden' : 'visible'};
     background-position: ${props => `left ${-props.data.width}px top 0`};
     background-repeat: no-repeat;
-    animation: ${props => props.data.replyeffect || props.data.selected ? 'message-skeleton-animation linear .8s' : ''};
+    animation: ${props => props.data.skeletonEffect || props.data.selected ? 'message-skeleton-animation linear .8s' : ''};
     transition: border-radius .2s, margin .4s;
 
     .message-text {

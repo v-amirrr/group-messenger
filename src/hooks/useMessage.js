@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useOptions } from "./useOptions";
 import { useSelect } from "./useSelect";
 import { useSelector } from "react-redux";
+import { useSkeletonEffect } from "./useSkeletonEffect";
 
 export const useMessage = (messageData, type, messageRef, options, onClick) => {
 
@@ -23,14 +24,14 @@ export const useMessage = (messageData, type, messageRef, options, onClick) => {
         textLetters,
      } = messageData;
 
-    const { selectedMessages, scrollMessageId } = useSelector(store => store.appStore);
-    const { addMessageScrollPosition } = useOptions();
+    const { selectedMessages, skeletonEffect } = useSelector(store => store.appStore);
+    const { storeMessageScrollPosition } = useSkeletonEffect();
     const { select, unSelect } = useSelect();
 
     const [messagePosition, setMessagePosition] = useState(null);
     const [hold, setHold] = useState(false);
     const [selected, setSelected] = useState(false);
-    const [skeletonEffect, setSkeletonEffect] = useState(false);
+    const [messageSkeletonEffect, setMessageSkeletonEffect] = useState(false);
     const [status, setStatus] = useState(time?.year == undefined ? 1 : 0);
 
     let selectByHoldingTimer;
@@ -97,7 +98,7 @@ export const useMessage = (messageData, type, messageRef, options, onClick) => {
     useEffect(() => {
         detectMessagePosition();
         if (type == 'CHAT') {
-            addMessageScrollPosition(id, messageRef?.current?.getBoundingClientRect()?.top);
+            storeMessageScrollPosition(id, messageRef?.current?.getBoundingClientRect()?.top);
         }
     }, [nextMessageUid, previousMessageUid, previousMessageDifferentDate, nextMessageDifferentDate]);
 
@@ -123,15 +124,19 @@ export const useMessage = (messageData, type, messageRef, options, onClick) => {
         }
     }, [time]);
 
-    // applying skeleton effect (used for selecting and reply hovering)
+    // applying skeleton effect (used for selecting and hovering over reply section)
     useEffect(() => {
-        if (scrollMessageId.id == id) {
-            setSkeletonEffect(true);
-            setTimeout(() => {
-                setSkeletonEffect(false);
-            }, 1000);
+        if (skeletonEffect == id) {
+            applyMessageSkeletonEffect();
         }
-    }, [scrollMessageId]);
+    }, [skeletonEffect]);
+
+    const applyMessageSkeletonEffect = () => {
+        setMessageSkeletonEffect(true);
+        setTimeout(() => {
+            setMessageSkeletonEffect(false);
+        }, 800);
+    };
 
     const selectThisMessage = () => {
         select({
@@ -234,7 +239,7 @@ export const useMessage = (messageData, type, messageRef, options, onClick) => {
         onHoldStarts,
         onHoldEnds,
         selected,
-        skeletonEffect,
+        messageSkeletonEffect,
         status,
         messageStyles,
     };

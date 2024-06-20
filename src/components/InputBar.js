@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import InputBarReplyTo from './InputBarReplyTo';
 import { useSelector } from 'react-redux';
 import { useSend } from '../hooks/useSend';
+import { useSkeletonEffect } from '../hooks/useSkeletonEffect';
 import { useOptions } from '../hooks/useOptions';
 import { isPersian } from '../functions/isPersian';
 import { GrEmoji } from 'react-icons/gr';
@@ -15,7 +16,7 @@ const InputBar = () => {
     const inputRef = useRef();
     const { inputReply, selectedMessages, modal } = useSelector(store => store.appStore);
     const { sendMessage } = useSend();
-    const { unReply, applyScrollMessageId } = useOptions();
+    const { unReply } = useOptions();
     const [multiline, setMultiline] = useState(false);
     const [inputText, setInputText] = useState(localStorage.getItem('input-text') ? localStorage.getItem('input-text') : '');
     const [inputBarEmojiPicker, setInputBarEmojiPicker] = useState(false);
@@ -66,7 +67,6 @@ const InputBar = () => {
         <>
             <InputBarReplyTo
                 inputReply={selectedMessages.length ? null : inputReply}
-                applyScrollMessageId={applyScrollMessageId}
                 clearInputReply={clearInputReply}
                 inputBarEmojiPicker={inputBarEmojiPicker}
             />

@@ -4,7 +4,7 @@ import MessageOptions from './message/MessageOptions';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 
-const ChatOptions = ({ messageOptions, setMessageOptions, type }) => {
+const ChatOptions = ({ messageOptions, setMessageOptions }) => {
     const chatOptionsMessageRef = useRef();
     const [noTopPositionChange, setNoTopPositionChange] = useState(false);
     const [zeroScale, setZeroScale] = useState(false);
@@ -75,7 +75,7 @@ const ChatOptions = ({ messageOptions, setMessageOptions, type }) => {
                     <div className='message-box' ref={chatOptionsMessageRef}>
                         <MessageBox
                             data={{
-                                type: type,
+                                type: 'CHAT',
                                 replyTo: messageOptions?.data?.replyTo,
                                 arrayText: messageOptions?.data?.arrayText,
                                 plainText: messageOptions?.data?.plainText,
@@ -97,7 +97,7 @@ const ChatOptions = ({ messageOptions, setMessageOptions, type }) => {
                         {
                             messageOptions?.animationStatus == 2 && !zeroScale ?
                             <MessageOptions
-                                type={type}
+                                type='CHAT'
                                 options={{
                                     messageOptions: messageOptions?.data,
                                     closeOptions: closeOptions,

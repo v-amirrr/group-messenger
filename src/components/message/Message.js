@@ -15,7 +15,7 @@ const Message = ({ messageData, type, options, onClick, replyIconClick, newreply
     const messageRef = useRef();
     const { selectedMessages } = useSelector(store => store.appStore);
     const { uid, plainText, time, id, replyTo, arrayText, previousMessageUid, nextMessageUid, previousMessageDifferentDate, nextMessageDifferentDate, isLocalMessage, isTextPersian, textLetters, } = messageData;
-    const { messagePosition, messageClickHandler, messageDoubleClickHandler, onHoldStarts, onHoldEnds, selected, skeletonEffect, status, messageStyles } = useMessage(messageData, type, messageRef, options, onClick);
+    const { messagePosition, messageClickHandler, onHoldStarts, onHoldEnds, selected, messageSkeletonEffect, status, messageStyles } = useMessage(messageData, type, messageRef, options, onClick);
     return (
         <>
             <MessageContainer
@@ -70,7 +70,7 @@ const Message = ({ messageData, type, options, onClick, replyIconClick, newreply
                             selectmode: selectedMessages?.length ? 1 : 0,
                             date: previousMessageDifferentDate && time?.year && time?.month ? 1 : 0,
                             reply: replyTo != 'no_reply' ? 1 : 0,
-                            replyeffect: skeletonEffect ? 1 : 0,
+                            skeletonEffect: messageSkeletonEffect ? 1 : 0,
                             options: options?.messageOptions?.data?.id == id,
                         }
                     }}

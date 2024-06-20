@@ -2,7 +2,7 @@ import { db } from '../config/firebase';
 import { doc, deleteDoc, updateDoc } from 'firebase/firestore';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNotification } from './useNotification';
-import { setModal, setInputReply, setClearScrollMessageId, setMessagesScrollPosition, setScrollMessageId } from '../redux/appSlice';
+import { setModal, setInputReply} from '../redux/appSlice';
 import { useModal } from './useModal';
 
 export const useOptions = () => {
@@ -96,18 +96,6 @@ export const useOptions = () => {
         });
     };
 
-    const addMessageScrollPosition = (id, position) => {
-        dispatch(setMessagesScrollPosition({ id, position }));
-    };
-
-    const applyScrollMessageId = (id, type) => {
-        dispatch(setScrollMessageId({ id, type }));
-    };
-
-    const resetScrollMessageId = () => {
-        dispatch(setClearScrollMessageId());
-    };
-
     return {
         reply,
         unReply,
@@ -117,8 +105,5 @@ export const useOptions = () => {
         moveToTrash,
         permanentDelete,
         restore,
-        addMessageScrollPosition,
-        applyScrollMessageId,
-        resetScrollMessageId,
     };
 };

@@ -1,11 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useSkeletonEffect } from '../hooks/useSkeletonEffect';
 import { IoClose } from 'react-icons/io5';
 import { BsReplyFill } from 'react-icons/bs';
 import { AnimatePresence, motion } from 'framer-motion';
 import { inputBarReplyToVariants } from '../config/varitans';
 
-const InputBarReplyTo = ({ inputReply, applyScrollMessageId, clearInputReply, inputBarEmojiPicker }) => {
+const InputBarReplyTo = ({ inputReply, clearInputReply, inputBarEmojiPicker }) => {
+
+    const { addSkeletonEffect, scrollToMessage } = useSkeletonEffect();
 
     let mouseSituation = 'OUT';
 
@@ -13,9 +16,16 @@ const InputBarReplyTo = ({ inputReply, applyScrollMessageId, clearInputReply, in
         mouseSituation = 'IN';
         setTimeout(() => {
             if (mouseSituation == 'IN') {
-                applyScrollMessageId(inputReply?.id, 'HOVER');
+                addSkeletonEffect(inputReply?.id);
             }
         }, 300);
+    };
+
+    const clickHandler = () => {
+        scrollToMessage(inputReply?.id);
+        setTimeout(() => {
+            addSkeletonEffect(inputReply.id);
+        }, 500);
     };
 
     return (
@@ -33,7 +43,7 @@ const InputBarReplyTo = ({ inputReply, applyScrollMessageId, clearInputReply, in
                     >
                         <div
                             className='message'
-                            onClick={() => applyScrollMessageId(inputReply.id, 'CLICK')}
+                            onClick={clickHandler}
                             onMouseEnter={hoverHandler}
                             onMouseLeave={() => mouseSituation = 'OUT'}
                         >

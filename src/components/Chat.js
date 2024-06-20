@@ -15,9 +15,9 @@ import ChatOptions from './ChatOptions';
 
 const Chat = () => {
     const chatRef = useRef();
-    const { messages, usernames } = useSelector(store => store.firestoreStore);
+    const { messages } = useSelector(store => store.firestoreStore);
     const { user, enterAsAGuest } = useSelector(store => store.userStore);
-    const { scrollPosition, selectedMessages, messagesScrollPosition, scrollMessageId } = useSelector(store => store.appStore);
+    const { selectedMessages, messagesScrollPosition, scrollMessageId } = useSelector(store => store.appStore);
     const { resetScrollMessageId } = useOptions();
     const { arrow, newMessage, scrollButtonClickHandler, onChatScrollHandler, scrollDown } = useScroll(chatRef);
     const [messageOptions, setMessageOptions] = useState({ data: null, animationStatus: 0 });
@@ -35,14 +35,13 @@ const Chat = () => {
 
     return (
         <>
-            <Menu key='menu' />
+            <Menu />
 
             <AnimatePresence>
                 {!selectedMessages.length && enterAsAGuest ? <Profile key='profile' /> : ''}
             </AnimatePresence>
 
             <ScrollButton
-                key='scroll'
                 click={scrollButtonClickHandler}
                 arrow={arrow}
                 newMessage={newMessage}
@@ -66,21 +65,20 @@ const Chat = () => {
                 <AnimatePresence>
                     {
                         messages?.map((messageData) => (
-                        <Message
-                            key={messageData.id}
-                            type='CHAT'
-                            messageData={{
-                                ...messageData,
-                                username: usernames[messageData.uid],
-                                isLocalMessage: user?.uid == messageData.uid,
-                                isTextPersian : isPersian(messageData.plainText),
-                                textLetters: messageData.plainText.length > 20 ? 20 : messageData.plainText.length,
-                            }}
-                            options={{
-                                messageOptions: messageOptions,
-                                setMessageOptions: setMessageOptions,
-                            }}
-                        />
+                            <Message
+                                key={messageData.id}
+                                type='CHAT'
+                                messageData={{
+                                    ...messageData,
+                                    isLocalMessage: user?.uid == messageData.uid,
+                                    isTextPersian : isPersian(messageData.plainText),
+                                    textLetters: messageData.plainText.length > 20 ? 20 : messageData.plainText.length,
+                                }}
+                                options={{
+                                    messageOptions: messageOptions,
+                                    setMessageOptions: setMessageOptions,
+                                }}
+                            />
                         ))
                     }
                 </AnimatePresence>

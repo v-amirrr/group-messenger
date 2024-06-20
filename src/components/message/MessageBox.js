@@ -64,7 +64,6 @@ const MessageBoxContainer = styled(motion.div)`
     padding: ${props => props.data.messageBoxPadding};
     width: fit-content;
     max-width: ${props => props.data.type == 'EDIT_REPLY' ? '70%' : '65%'};
-    min-width: 5%;
     word-break: break-all;
     cursor: pointer;
     box-shadow: var(--normal-shadow);

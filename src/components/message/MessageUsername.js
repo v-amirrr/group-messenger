@@ -1,15 +1,17 @@
 import React from 'react';
 import { TiUser } from 'react-icons/ti';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 const MessageUsername = ({ show, data }) => {
+    const { usernames } = useSelector(store => store.firestoreStore);
     return (
         <>
             {
                 show ?
                 <MessageUsernameContainer data={data}>
                     <i><TiUser /></i>
-                    {data.username}
+                    {usernames[data.uid]}
                 </MessageUsernameContainer>
                 : ''
             }

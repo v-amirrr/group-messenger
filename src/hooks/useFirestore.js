@@ -54,14 +54,14 @@ export const useFirestore = () => {
             // remove the deleted messages
             messages = messages?.filter(item => !item.deleted);
 
-            // add extra data to the messages
+            // add extra data and remove useless data
             let modifiedMessages = messages?.map((item, index) => {
                 let dates = {
                     previousMessageDate: `${messages[index-1]?.time?.year} ${messages[index-1]?.time?.monthNum} ${messages[index-1]?.time?.day}`,
                     thisMessageDate: `${item?.time?.year} ${item?.time?.monthNum} ${item?.time?.day}`,
                     nextMessageDate: `${messages[index+1]?.time?.year} ${messages[index+1]?.time?.monthNum} ${messages[index+1]?.time?.day}`,
                 };
-                return {
+                let newItem = {
                     ...item,
                     arrayText: item.plainText.toString().split(" ").map((word) => {
                         let checkLink = isURL(word);
@@ -79,9 +79,11 @@ export const useFirestore = () => {
                     : false,
                     replyTo: item.replyTo ? messages.find((filteredMessage) => filteredMessage.id == item.replyTo) : "no_reply",
                 };
+                delete newItem.deleted;
+                return newItem;
             });
 
-            // store the messages, or storing undefined for errors
+            // store the messages or store undefined which means error
             if (modifiedMessages) {
                 dispatch(setMessages(modifiedMessages));
             } else {

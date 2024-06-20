@@ -14,8 +14,8 @@ import { messageVariants } from '../../config/varitans';
 const Message = ({ messageData, type, options, onClick, replyIconClick, newreply }) => {
     const messageRef = useRef();
     const { selectedMessages } = useSelector(store => store.appStore);
-    const { uid, plainText, time, id, replyTo, deleted, arrayText, previousMessageUid, nextMessageUid, previousMessageDifferentDate, nextMessageDifferentDate, username, isLocalMessage, isTextPersian, textLetters, } = messageData;
-    const { messagePosition, messageClickHandler, messageDoubleClickHandler, onHoldStarts, onHoldEnds, selected, replyEffect, status, messageStyles } = useMessage(messageData, type, messageRef, options, onClick);
+    const { uid, plainText, time, id, replyTo, arrayText, previousMessageUid, nextMessageUid, previousMessageDifferentDate, nextMessageDifferentDate, isLocalMessage, isTextPersian, textLetters, } = messageData;
+    const { messagePosition, messageClickHandler, messageDoubleClickHandler, onHoldStarts, onHoldEnds, selected, skeletonEffect, status, messageStyles } = useMessage(messageData, type, messageRef, options, onClick);
     return (
         <>
             <MessageContainer
@@ -42,7 +42,7 @@ const Message = ({ messageData, type, options, onClick, replyIconClick, newreply
                 <MessageUsername
                     show={!isLocalMessage && messagePosition < 2}
                     data={{
-                        username,
+                        uid,
                         dateShown: previousMessageDifferentDate && time?.year,
                         selectMode: selectedMessages?.length
                     }}
@@ -70,7 +70,7 @@ const Message = ({ messageData, type, options, onClick, replyIconClick, newreply
                             selectmode: selectedMessages?.length ? 1 : 0,
                             date: previousMessageDifferentDate && time?.year && time?.month ? 1 : 0,
                             reply: replyTo != 'no_reply' ? 1 : 0,
-                            replyeffect: replyEffect ? 1 : 0,
+                            replyeffect: skeletonEffect ? 1 : 0,
                             options: options?.messageOptions?.data?.id == id,
                         }
                     }}

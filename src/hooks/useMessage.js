@@ -5,31 +5,32 @@ import { useSelector } from "react-redux";
 
 export const useMessage = (messageData, type, messageRef, options, onClick) => {
 
+    // types: chat, options, trash, edit reply modal
+
     const {
         uid,
         plainText,
         time,
         id,
         replyTo,
-        deleted,
         arrayText,
         previousMessageUid,
         nextMessageUid,
         previousMessageDifferentDate,
         nextMessageDifferentDate,
-        username,
         isLocalMessage,
         isTextPersian,
         textLetters,
      } = messageData;
 
     const { selectedMessages, scrollMessageId } = useSelector(store => store.appStore);
-    const { replyMessage, addMessageScrollPosition, applyScrollMessageId } = useOptions();
+    const { addMessageScrollPosition } = useOptions();
     const { select, unSelect } = useSelect();
+
     const [messagePosition, setMessagePosition] = useState(null);
     const [hold, setHold] = useState(false);
     const [selected, setSelected] = useState(false);
-    const [replyEffect, setReplyEffect] = useState(false);
+    const [skeletonEffect, setSkeletonEffect] = useState(false);
     const [status, setStatus] = useState(time?.year == undefined ? 1 : 0);
 
     let selectByHoldingTimer;
@@ -92,6 +93,7 @@ export const useMessage = (messageData, type, messageRef, options, onClick) => {
             '.45rem .6rem' : '',
     };
 
+    // setting message position, storing message scroll position
     useEffect(() => {
         detectMessagePosition();
         if (type == 'CHAT') {
@@ -99,6 +101,7 @@ export const useMessage = (messageData, type, messageRef, options, onClick) => {
         }
     }, [nextMessageUid, previousMessageUid, previousMessageDifferentDate, nextMessageDifferentDate]);
 
+    // handling selected state (used to change message styles when message gets selected)
     useEffect(() => {
         if (!selectedMessages?.length) {
             setHold(false);
@@ -110,8 +113,9 @@ export const useMessage = (messageData, type, messageRef, options, onClick) => {
         }
     }, [selectedMessages]);
 
+    // handling loading status when a new message gets sent
     useEffect(() => {
-        if (status == 1 && time.year) {
+        if (status == 1 && time?.year) {
             setStatus(2);
             setTimeout(() => {
                 setStatus(0);
@@ -119,11 +123,12 @@ export const useMessage = (messageData, type, messageRef, options, onClick) => {
         }
     }, [time]);
 
+    // applying skeleton effect (used for selecting and reply hovering)
     useEffect(() => {
         if (scrollMessageId.id == id) {
-            setReplyEffect(true);
+            setSkeletonEffect(true);
             setTimeout(() => {
-                setReplyEffect(false);
+                setSkeletonEffect(false);
             }, 1000);
         }
     }, [scrollMessageId]);
@@ -229,7 +234,7 @@ export const useMessage = (messageData, type, messageRef, options, onClick) => {
         onHoldStarts,
         onHoldEnds,
         selected,
-        replyEffect,
+        skeletonEffect,
         status,
         messageStyles,
     };

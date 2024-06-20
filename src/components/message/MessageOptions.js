@@ -18,7 +18,7 @@ const MessageOptions = ({ options, type }) => {
     const { inputReply } = useSelector(store => store.appStore);
     const { copy, reply, moveToTrash, restore } = useOptions();
     const { openModal } = useModal();
-    const { selectMessage } = useSelect();
+    const { select } = useSelect();
     const { openNotification } = useNotification();
 
     const optionClick = (option) => {
@@ -30,11 +30,11 @@ const MessageOptions = ({ options, type }) => {
                         options?.messageOptions?.plainText,
                         options?.messageOptions?.username,
                     );
-                }, 200);
+                }, 300);
                 break;
             case 'SELECT':
                 setTimeout(() => {
-                    selectMessage({
+                    select({
                         id: options?.messageOptions?.id,
                         plainText: options?.messageOptions?.plainText,
                         isLocalMessage: options?.messageOptions?.isLocalMessage

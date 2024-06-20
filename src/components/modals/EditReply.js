@@ -9,7 +9,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { replyAddSectionVariants, replyButtonVariants } from '../../config/varitans';
 
 const EditReply = ({ replyTo, id, editReplyOpen, setEditReplyOpen }) => {
-    const { messages, usernames } = useSelector(store => store.firestoreStore);
+    const { messages } = useSelector(store => store.firestoreStore);
     const { user } = useSelector(store => store.userStore);
     const { editReply } = useOptions();
     const messagesRef = useRef();
@@ -84,7 +84,6 @@ const EditReply = ({ replyTo, id, editReplyOpen, setEditReplyOpen }) => {
                                             newreply={newReply.id == messageData.id}
                                             messageData={{
                                                 ...messageData,
-                                                username: usernames[messageData.uid],
                                                 isLocalMessage: user?.uid == messageData.uid,
                                                 localUid: user?.uid,
                                                 isTextPersian : isPersian(messageData.plainText),

@@ -2,12 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useModal } from '../../hooks/useModal';
-import { useNotification } from '../../hooks/useNotification';
 import { useSelect } from '../../hooks/useSelect';
 import { isPersian } from '../../functions/isPersian';
 import Message from '../message/Message';
 import Counter from '../common/Counter';
-import ChatOptions from '../ChatOptions';
+import Options from '../Options';
 import { TiArrowLeft } from 'react-icons/ti';
 import { TbTrashX } from 'react-icons/tb';
 import { FaTrashRestore } from "react-icons/fa";
@@ -69,7 +68,7 @@ const TrashPage = () => {
                         }
                     </AnimatePresence>
                 </motion.div>
-                <ChatOptions messageOptions={messageOptions} setMessageOptions={setMessageOptions} type='TRASH' />
+                <Options messageOptions={messageOptions} setMessageOptions={setMessageOptions} type='TRASH' />
                 <AnimatePresence>
                     {
                         selectedMessages?.length ?

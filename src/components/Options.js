@@ -35,7 +35,7 @@ const ChatOptions = ({ messageOptions, setMessageOptions, type }) => {
                     data: null,
                     animationStatus: 0,
                 }));
-            }, 500);
+            }, 600);
         }
     };
 
@@ -124,7 +124,7 @@ const ChatOptionsContainer = styled(motion.div)`
     align-items: center;
     backdrop-filter: ${props => props.styles.chatOptionsStatus == 2 ? 'var(--bold-glass)' : 'none'};
     background-color: ${props => props.styles.chatOptionsStatus == 2 ? '#00000088' : '#00000000'};
-    transition: backdrop-filter .4s, background .4s;
+    transition: backdrop-filter .3s, background .4s;
     z-index: 5;
 
     .message-box {

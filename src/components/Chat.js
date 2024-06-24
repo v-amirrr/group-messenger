@@ -8,9 +8,9 @@ import Profile from './Profile';
 import ScrollButton from './ScrollButton';
 import InputBar from './InputBar';
 import SelectBar from './SelectBar';
+import Options from './Options';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
-import ChatOptions from './ChatOptions';
 
 const Chat = () => {
     const chatRef = useRef();
@@ -39,7 +39,7 @@ const Chat = () => {
                 {!selectedMessages.length ? <InputBar key='input' /> : <SelectBar key='select' />}
             </AnimatePresence>
 
-            <ChatOptions messageOptions={messageOptions} setMessageOptions={setMessageOptions} type='CHAT' />
+            <Options messageOptions={messageOptions} setMessageOptions={setMessageOptions} type='CHAT' />
 
             <ChatContainer
                 layout

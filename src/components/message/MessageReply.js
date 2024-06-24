@@ -1,8 +1,7 @@
 import React from 'react';
-import { useOptions } from '../../hooks/useOptions';
+import { useSkeletonEffect } from '../../hooks/useSkeletonEffect';
 import { BsReplyFill } from 'react-icons/bs';
 import styled from 'styled-components';
-import { useSkeletonEffect } from '../../hooks/useSkeletonEffect';
 
 const MessageReply = ({ replyTo, type }) => {
 
@@ -15,7 +14,7 @@ const MessageReply = ({ replyTo, type }) => {
             scrollToMessage(replyTo?.id);
             setTimeout(() => {
                 addSkeletonEffect(replyTo?.id);
-            }, 500);
+            }, 1000);
         }
     };
 

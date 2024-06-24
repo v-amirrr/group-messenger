@@ -92,11 +92,14 @@ export const useMessage = (messageData, type, messageRef, options, onClick) => {
             '.45rem .6rem' : '',
     };
 
-    // setting message position, storing message scroll position
+    // setting message position, storing message scroll position 1694
     useEffect(() => {
         detectMessagePosition();
         if (type == 'CHAT') {
-            storeMessageScrollPosition(id, messageRef?.current?.getBoundingClientRect()?.top);
+            storeMessageScrollPosition(id, {
+                top: ~~messageRef?.current?.offsetTop,
+                height: ~~messageRef?.current?.getBoundingClientRect()?.height,
+            });
         }
     }, [nextMessageUid, previousMessageUid, previousMessageDifferentDate, nextMessageDifferentDate]);
 
@@ -142,6 +145,21 @@ export const useMessage = (messageData, type, messageRef, options, onClick) => {
             plainText: messageData.plainText,
             isLocalMessage: messageData.isLocalMessage,
             time: messageData.time,
+        });
+    };
+
+    const openOptions = () => {
+        options.setMessageOptions({
+            data: {
+                ...messageData,
+                top: messageRef?.current?.getBoundingClientRect()?.top,
+                left: messageRef?.current?.getBoundingClientRect()?.left,
+                width: messageRef?.current?.getBoundingClientRect()?.width,
+                height: messageRef?.current?.getBoundingClientRect()?.height,
+                messageStyles,
+                messagePosition: 0,
+            },
+            animationStatus: 1
         });
     };
 
@@ -193,18 +211,7 @@ export const useMessage = (messageData, type, messageRef, options, onClick) => {
                         selectThisMessage();
                     }
                 } else {
-                    options.setMessageOptions({
-                        data: {
-                            ...messageData,
-                            top: messageRef?.current?.getBoundingClientRect()?.top,
-                            left: messageRef?.current?.getBoundingClientRect()?.left,
-                            width: messageRef?.current?.getBoundingClientRect()?.width,
-                            height: messageRef?.current?.getBoundingClientRect()?.height,
-                            messageStyles,
-                            messagePosition: 0,
-                        },
-                        animationStatus: 1
-                    });
+                    openOptions();
                 }
             } else {
                 onClick();

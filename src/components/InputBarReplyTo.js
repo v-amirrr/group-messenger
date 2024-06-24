@@ -25,7 +25,7 @@ const InputBarReplyTo = ({ inputReply, clearInputReply, inputBarEmojiPicker }) =
         scrollToMessage(inputReply?.id);
         setTimeout(() => {
             addSkeletonEffect(inputReply.id);
-        }, 500);
+        }, 1000);
     };
 
     return (

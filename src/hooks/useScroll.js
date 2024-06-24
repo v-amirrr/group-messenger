@@ -7,7 +7,7 @@ export const useScroll = (chatRef) => {
 
     const [arrow, setArrow] = useState(true);
     const [newMessage, setNewMessage] = useState(false);
-    const [scrollLastPosition, setScrollLastPosition] = useState(chatRef?.current?.scrollTop);
+    const [scrollLastPosition, setScrollLastPosition] = useState(~~chatRef?.current?.scrollTop);
     const [lastMessageTime, setLastMessageTime] = useState(messages[messages?.length - 1]?.time);
 
     // scrolling to the last sorted position in local storage
@@ -55,7 +55,7 @@ export const useScroll = (chatRef) => {
     // scroll to a certain message (when user clicks on reply section)
     useEffect(() => {
         if (scrollToMessage != null) {
-            chatRef?.current?.scrollTo(0, ~~messagesScrollPosition[scrollToMessage] - 200);
+            chatRef.current.scrollTop = messagesScrollPosition[scrollToMessage]?.top;
         }
     }, [scrollToMessage]);
 

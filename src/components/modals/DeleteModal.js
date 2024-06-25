@@ -16,15 +16,15 @@ const DeleteModal = ({ modalMessages }) => {
     return (
         <>
             <DeleteModalContainer onKeyDown={(e) => pressEnter(e)}>
-                <h4>
+                <p>
                     Are you sure you want to delete
                     {
                         modalMessages[0].length > 1 ?
                         ' these messages ' :
                         ' this message '
                     }
-                    permanently?
-                </h4>
+                    <b>permanently</b>?
+                </p>
                 <div className='buttons'>
                     <button className='cancel' onClick={closeModal}>
                         Cancel
@@ -49,8 +49,10 @@ const DeleteModalContainer = styled.div`
     flex-direction: column;
     padding: .5rem 0;
 
-    h4 {
+    p {
         white-space: nowrap;
+        font-size: 1rem;
+        font-weight: 400;
     }
 
     @media (max-width: 768px) {

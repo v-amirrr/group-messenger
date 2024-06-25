@@ -9,34 +9,42 @@ const ChatOptions = ({ messageOptions, setMessageOptions, type }) => {
     const [noTopPositionChange, setNoTopPositionChange] = useState(false);
     const [zeroScale, setZeroScale] = useState(false);
 
-    const closeOptions = (data) => {
+    const optionsClickHandler = (data) => {
         if (data?.type == 'TRASH' || data?.type == 'RESTORE') {
-            setZeroScale(true);
-            setMessageOptions(prevState => ({
-                ...prevState,
-                animationStatus: 3,
-            }));
-            setTimeout(() => {
-                setMessageOptions(prevState => ({
-                    ...prevState,
-                    data: null,
-                    animationStatus: 0,
-                }));
-                setZeroScale(false);
-            }, 400);
+            deleteOptions();
         } else {
+            closeOptions();
+        }
+    };
+
+    const deleteOptions = () => {
+        setZeroScale(true);
+        setMessageOptions(prevState => ({
+            ...prevState,
+            animationStatus: 3,
+        }));
+        setTimeout(() => {
             setMessageOptions(prevState => ({
                 ...prevState,
-                animationStatus: 3,
+                data: null,
+                animationStatus: 0,
             }));
-            setTimeout(() => {
-                setMessageOptions(prevState => ({
-                    ...prevState,
-                    data: null,
-                    animationStatus: 0,
-                }));
-            }, 600);
-        }
+            setZeroScale(false);
+        }, 400);
+    };
+
+    const closeOptions = () => {
+        setMessageOptions(prevState => ({
+            ...prevState,
+            animationStatus: 3,
+        }));
+        setTimeout(() => {
+            setMessageOptions(prevState => ({
+                ...prevState,
+                data: null,
+                animationStatus: 0,
+            }));
+        }, 400);
     };
 
     useEffect(() => {
@@ -59,7 +67,7 @@ const ChatOptions = ({ messageOptions, setMessageOptions, type }) => {
             {
                 messageOptions?.animationStatus ?
                 <ChatOptionsContainer
-                    onClick={closeOptions}
+                    onClick={optionsClickHandler}
                     styles={{
                         top: messageOptions?.data?.top,
                         left: messageOptions?.data?.left,
@@ -100,7 +108,7 @@ const ChatOptions = ({ messageOptions, setMessageOptions, type }) => {
                                 type={type}
                                 options={{
                                     messageOptions: messageOptions?.data,
-                                    closeOptions: closeOptions,
+                                    closeOptions: optionsClickHandler,
                                 }}
                             />
                             : ''
@@ -129,7 +137,6 @@ const ChatOptionsContainer = styled(motion.div)`
 
     .message-box {
         position: absolute;
-        /* top: ${props => props.styles.chatOptionsStatus != 2 || props.styles.noTopPositionChange ? `${props.styles.top}px` : '45%'}; */
         top: ${props => `${props.styles.top}px`};
         left: ${props => `${props.styles.left}px`};
         width: ${props => `${props.styles.width}px`};
@@ -139,7 +146,6 @@ const ChatOptionsContainer = styled(motion.div)`
         align-items: ${props => props.styles.isMocalMessage ? 'flex-end' : 'flex-start'};
         flex-direction: column;
         transform: ${props => props.styles.zeroScale ? 'scale(0)' : props.styles.chatOptionsStatus == 2 ? 'scale(1.05)' : 'scale(1)'};
-        /* margin: ${props => props.styles.chatOptionsStatus == 2 && props.styles.isMocalMessage ? '0 0rem 0 -2rem' : props.styles.chatOptionsStatus == 2 && !props.styles.isMocalMessage ? '0 0 0 2rem' : ''}; */
         transition: transform .4s cubic-bezier(0.53, 0, 0, 0.98);
     }
 

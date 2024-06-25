@@ -12,6 +12,7 @@ import { FaTrashRestore } from "react-icons/fa";
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { optionsVariants, optionLocalVariants, optionNonLocalVariants } from '../../config/varitans';
+import AnalogClock from '../common/AnalogClock';
 
 const MessageOptions = ({ options, type }) => {
     const { enterAsAGuest } = useSelector(store => store.userStore);
@@ -75,12 +76,6 @@ const MessageOptions = ({ options, type }) => {
                 variants={optionsVariants}
                 localmessage={options?.messageOptions?.isLocalMessage ? 1 : 0}
                 guest={enterAsAGuest ? 1 : 0}
-                hour={
-                    options?.messageOptions?.time?.hour > 12 ?
-                    ((options?.messageOptions?.time?.hour - 12) / 12) * 360 + 90 :
-                    (options?.messageOptions?.time?.hour / 12) * 360 + 90
-                }
-                minute={(options?.messageOptions?.time?.minute / 60) * 360 + 90}
                 unreply={inputReply?.id == options?.messageOptions?.id ? 1 : 0}
                 type={type}
             >
@@ -197,10 +192,7 @@ const MessageOptions = ({ options, type }) => {
                         optionNonLocalVariants
                     }
                 >
-                    <div>
-                        <span className='hour'></span>
-                        <span className='minute'></span>
-                    </div>
+                    <AnalogClock time={options?.messageOptions?.time} scale={1.4} />
                     <p>
                         <span>
                             {
@@ -270,59 +262,17 @@ const MessageOptionsContainer = styled(motion.div)`
         cursor: auto;
         border: none;
 
-        div {
-            margin-right: .2rem;
-            background-color: #fff;
-            width: 1.1rem;
-            height: 1.1rem;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-
-            .hour,
-            .minute {
-                position: absolute;
-                top: 50%;
-                right: 50%;
-                height: 2.2px;
-                border-radius: 100px;
-                background-color: #000;
-                transform-origin: 100%;
-                transform: ${(props) => `rotate(${props.hour}deg)`};
-            }
-
-            .hour {
-                width: 30%;
-                transform: ${(props) => `rotate(${props.hour}deg)`};
-            }
-
-            .minute {
-                width: 40%;
-                transform: ${(props) => `rotate(${props.minute}deg)`};
-            }
-        }
-
         p {
             transform: scale(1);
             opacity: 1;
             letter-spacing: 0px;
+            margin-left: .5rem;
         }
     }
 
     .restore {
-        background-color: #00ff0030;
-        color: #00ff00;
-
         i {
             font-size: 1rem;
-        }
-
-        @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
-            &:hover {
-                background-color: #00ff0050;
-            }
         }
     }
 

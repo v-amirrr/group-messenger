@@ -6,6 +6,7 @@ import { useSkeletonEffect } from "./useSkeletonEffect";
 export const useMessage = (messageData, type, messageRef, options, onClick) => {
 
     // types: chat, options, trash, edit reply modal
+    // status: 1 means loading, 2 means check animation, 0 means fully sent
 
     const {
         uid,
@@ -37,9 +38,9 @@ export const useMessage = (messageData, type, messageRef, options, onClick) => {
     let messageStyles = {
         messageBoxMargin:
             type == 'TRASH' ?
-            '.2rem' :
-            messagePosition == 0 ?
-            '.1rem 0 .1rem 0' :
+            '.06rem' :
+            messagePosition == 0 || type == 'TRASH' ?
+            '.1rem 0' :
             messagePosition == 1 ?
             '.1rem 0 .06rem 0' :
             messagePosition == 2 ?
@@ -132,6 +133,14 @@ export const useMessage = (messageData, type, messageRef, options, onClick) => {
         }
     }, [skeletonEffect]);
 
+    const isMessageLoading = () => {
+        return status > 0;
+    };
+
+    const isUserSelecting = () => {
+        return selectedMessages?.length ? true : false;
+    };
+
     const applyMessageSkeletonEffect = () => {
         setMessageSkeletonEffect(true);
         setTimeout(() => {
@@ -199,9 +208,11 @@ export const useMessage = (messageData, type, messageRef, options, onClick) => {
     };
 
     const messageClickHandler = () => {
-        if (status != 1 && status != 2) {
-            if (type == 'CHAT' || type == 'TRASH') {
-                if (selectedMessages?.length) {
+        if (!isMessageLoading()) {
+            if (type == 'EDIT_REPLY') {
+                onClick();
+            } else {
+                if (isUserSelecting()) {
                     if (hold) {
                         setHold(false);
                     } else if (selected && !hold) {
@@ -213,8 +224,6 @@ export const useMessage = (messageData, type, messageRef, options, onClick) => {
                 } else {
                     openOptions();
                 }
-            } else {
-                onClick();
             }
         }
     };

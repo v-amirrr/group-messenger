@@ -6,8 +6,8 @@ const Background = () => {
     return (
         <>
             <BackgroundContainer>
-                <div></div>
-                <img src={backgroundImageSRC} />
+                <div className='layer'></div>
+                <img className='image' src={backgroundImageSRC} />
             </BackgroundContainer>
         </>
     );
@@ -18,19 +18,19 @@ const BackgroundContainer = styled.div`
     width: 100vw;
     height: 100vh;
     z-index: -2;
-    filter: blur(30px);
+    filter: blur(40px);
     display: flex;
     justify-content: center;
     align-items: center;
 
-    div {
+    .layer {
         background-color: #00000088;
         position: absolute;
         width: 100%;
         height: 100%;
     }
 
-    img {
+    .image {
         object-fit: cover;
         width: 100vw;
         height: 100vh;
@@ -38,11 +38,11 @@ const BackgroundContainer = styled.div`
     }
 
     @media (max-width: 768px) {
-        div {
+        .layer {
             background-color: #00000000;
         }
 
-        img {
+        .image {
             position: absolute;
             width: 100vh !important;
             height: 100vw !important;

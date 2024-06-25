@@ -18,7 +18,6 @@ const MessageDate = ({ show, data }) => {
                             :
                             {data.minute < 10 ? `0${data.minute}` : data.minute}
                         </p>
-                        <p className='am-pm'>{data.hour < 13 ? 'AM' : 'PM'}</p>
                     </div>
                 </MessageDateContainer>
                 : ''

@@ -74,7 +74,6 @@ const ModalContainer = styled(motion.section)`
     align-items: center;
     background-color: #00000088;
     z-index: 3;
-    color: var(--normal-color);
 
     .modal {
         z-index: 4;
@@ -109,7 +108,7 @@ const ModalContainer = styled(motion.section)`
 
                 @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
                     &:hover {
-                        background-color: #ffffff18;
+                        background-color: #ffffff20;
                     }
                 }
             }

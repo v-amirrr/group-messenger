@@ -87,7 +87,8 @@ const ChatContainer = styled(motion.div)`
     @media (max-width: 768px) {
         width: 100vw;
         padding: 5rem 1rem 10rem 1rem;
-    }
+        transform: ${props => props.data.messageOptionsAnimationStatus == 2 ? 'scale(0.94)' : 'scale(1)'};
+}
 `;
 
 export default Chat;

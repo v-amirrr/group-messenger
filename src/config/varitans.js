@@ -183,7 +183,6 @@ export const optionsVariants = {
     exit: {
         opacity: 0,
         transition: {
-            duration: 0.00001,
             staggerChildren: 0.01,
             when: 'afterChildren',
         },
@@ -200,7 +199,7 @@ export const optionLocalVariants = {
     exit: {
         opacity: 0,
         x: 15,
-        transition: { duration: 0.2 },
+        transition: { duration: 0.15 },
     },
 };
 
@@ -214,7 +213,7 @@ export const optionNonLocalVariants = {
     exit: {
         opacity: 0,
         x: -15,
-        transition: { duration: 0.2 },
+        transition: { duration: 0.15 },
     },
 };
 

@@ -120,7 +120,7 @@ const Trash = styled(motion.div)`
         width: 10rem;
         height: 2.8rem;
         border-radius: 50px;
-        z-index: 4;
+        z-index: 2;
 
         .header-text {
             font-size: 1.2rem;

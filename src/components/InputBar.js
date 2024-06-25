@@ -41,6 +41,13 @@ const InputBar = () => {
         unReply();
     };
 
+    const sendClickHandler = () => {
+        sendMessage(inputText, setInputText);
+        if (navigator.userAgentData.mobile) {
+            inputRef.current.focus();
+        }
+    };
+
     useEffect(() => {
         blurHandler();
     }, [modal.show, modal.type, inputBarEmojiPicker]);
@@ -114,7 +121,7 @@ const InputBar = () => {
                                 animate='visible'
                                 exit='exit'
                                 variants={sendInputIconVariants}
-                                onClick={() => sendMessage(inputText, setInputText)}
+                                onClick={sendClickHandler}
                             >
                                 <IoSend />
                             </motion.button>

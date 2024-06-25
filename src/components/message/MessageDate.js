@@ -4,17 +4,16 @@ import { motion } from 'framer-motion';
 import { chatDateVariants } from '../../config/varitans';
 
 const MessageDate = ({ show, data }) => {
-    console.log(data);
     return (
         <>
             {
                 show ?
                 <MessageDateContainer initial='hidden' animate='visible' exit='exit' variants={chatDateVariants}>
                     <div className='date'>
-                        <p className='year'>{data.year}</p>
-                        <p className='month'>{data.month}</p>
-                        <p className='day'>{data.day}</p>
-                        <p className='time'>{data.hour} : {data.minute} {data.format}</p>
+                        <p className='year'>{data?.year}</p>
+                        <p className='month'>{data?.month}</p>
+                        <p className='day'>{data?.day}</p>
+                        <p className='time'>{data?.hour} : {data?.minute} {data?.format}</p>
                     </div>
                 </MessageDateContainer>
                 : ''

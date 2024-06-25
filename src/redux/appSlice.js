@@ -64,8 +64,7 @@ const appSlice = createSlice({
                     {
                         show: action.payload.show,
                         message: action.payload.message,
-                        isError: action.payload.isError,
-                        isGuest: action.payload.isGuest,
+                        type: action.payload.type,
                         time: action.payload.time,
                     },
                 ],

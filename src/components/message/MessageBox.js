@@ -9,15 +9,10 @@ const MessageBox = ({ data }) => {
         <>
             <MessageBoxContainer
                 ref={messageBoxRef}
-                onClick={(e) => data?.functions?.messageClickHandler(e)}
-                onMouseDown={data?.functions?.onHoldStarts}
-                onMouseUp={data?.functions?.onHoldEnds}
-                onTouchStart={data?.functions?.onHoldStarts}
-                onTouchEnd={data?.functions?.onHoldEnds}
                 data={{
                     width: messageBoxRef?.current?.offsetWidth,
                     height: messageBoxRef?.current?.offsetHeight,
-                    ...data?.messageStyles,
+                    ...data?.styles,
                 }}
             >
                 <div className='message-text' dir='auto'>
@@ -52,33 +47,30 @@ const MessageBox = ({ data }) => {
 };
 
 const MessageBoxContainer = styled(motion.div)`
-    z-index: 1;
     display: flex;
-    justify-content: ${props => props.data.localmessage ? 'flex-start' : 'flex-end'};
+    justify-content: ${props => props.data.boxJustify};
     align-items: center;
-    margin: ${props => props.data.messageBoxMargin};
-    margin-right: ${props => props.data.messageBoxMarginRight};
-    margin-left: ${props => props.data.messageBoxMarginLeft};
-    border-radius: 25px;
-    border-radius: ${props => props.data.messageBoxRoundBorderRadius};
-    padding: ${props => props.data.messageBoxPadding};
+    max-width: 65%;
     width: fit-content;
-    max-width: ${props => props.data.type == 'EDIT_REPLY' ? '70%' : '65%'};
-    word-break: break-all;
-    cursor: pointer;
-    box-shadow: var(--normal-shadow);
-    color: var(--normal-color);
+    border-radius: 25px;
+    border-radius: ${props => props.data.boxRoundRadius};
+    margin: ${props => props.data.boxMargin};
+    margin-right: ${props => props.data.boxMarginRight};
+    margin-left: ${props => props.data.boxMarginLeft};
+    padding: ${props => props.data.boxPadding};
     background-color: #151515;
     background-image: linear-gradient(
         90deg,
         #ffffff00 20%,
         #ffffff20 50%,
         #ffffff00 80%
-    );
-    visibility: ${props => props.data.options ? 'hidden' : 'visible'};
+        );
     background-position: ${props => `left ${-props.data.width}px top 0`};
     background-repeat: no-repeat;
-    animation: ${props => props.data.skeletonEffect || props.data.selected ? 'message-skeleton-animation linear .8s' : ''};
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    visibility: ${props => props.data.options ? 'hidden' : 'visible'};
+    animation: ${props => props.data.skeletonEffect ? 'skeleton-effect linear .8s' : ''};
     transition: border-radius .2s, margin .4s;
 
     .message-text {
@@ -92,7 +84,7 @@ const MessageBoxContainer = styled(motion.div)`
         font-weight: 200;
     }
 
-    @keyframes message-skeleton-animation {
+    @keyframes skeleton-effect {
         to {
             background-position: ${props => `left ${props.data.width}px top 0`};
         }
@@ -100,7 +92,7 @@ const MessageBoxContainer = styled(motion.div)`
 
     @media (max-width: 768px) {
         max-width: 75%;
-        border-radius: ${props => props.data.height > 50 ? props.data.messageBoxNotRoundBorderRadius : props.data.messageBoxRoundBorderRadius};
+        border-radius: ${props => props.data.height > 50 ? props.data.boxNotRoundRadius : props.data.boxRoundRadius};
     }
 `;
 

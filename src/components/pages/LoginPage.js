@@ -122,7 +122,6 @@ const Login = styled(motion.section)`
     flex-direction: column;
     position: absolute;
     inset: 0 0 0 0;
-    color: var(--normal-color);
 
     header {
         border-radius: 50px;
@@ -133,10 +132,9 @@ const Login = styled(motion.section)`
         margin: ${props => props.toggle ? "1.5rem" : "4rem"};
         padding: .1rem;
         position: relative;
-        border: solid 2.5px #ffffff10;
-        box-shadow: var(--normal-shadow);
-        backdrop-filter: var(--bold-glass);
-        -webkit-backdrop-filter: var(--bold-glass);
+        border: var(--border);
+        box-shadow: var(--shadow);
+        backdrop-filter: var(--glass);
         transition: margin .4s;
 
         button {
@@ -148,7 +146,7 @@ const Login = styled(motion.section)`
             justify-content: center;
             align-items: center;
             cursor: pointer;
-            color: var(--pale-color);
+            color: var(--grey);
             z-index: 2;
             transition: color .4s .1s;
 
@@ -174,12 +172,12 @@ const Login = styled(motion.section)`
             border-radius: 50px;
             background-color: #ffffff20;
             transition: left .4s cubic-bezier(0.53, 0, 0, 0.98), transform .4s cubic-bezier(0.53, 0, 0, 0.98);
-            box-shadow: var(--normal-shadow);
+            box-shadow: var(--shadow);
         }
     }
 
     .username, .email, .password {
-        background-color: var(--normal-bg);
+        background-color: var(--bg);
         border-radius: 50px;
         padding: .6rem .8rem;
         width: 12rem;
@@ -190,9 +188,8 @@ const Login = styled(motion.section)`
         display: flex;
         justify-content: center;
         align-items: center;
-        box-shadow: var(--normal-shadow);
-        backdrop-filter: var(--bold-glass);
-        -webkit-backdrop-filter: var(--bold-glass);
+        box-shadow: var(--shadow);
+        backdrop-filter: var(--glass);
 
         input {
             all: unset;
@@ -202,7 +199,7 @@ const Login = styled(motion.section)`
             }
 
             &:-webkit-autofill{
-                background-color: var(--normal-bg);
+                background-color: var(--bg);
                 transition: background-color 1s ease-in 2000s;
             }
 
@@ -267,22 +264,21 @@ const Login = styled(motion.section)`
             font-size: .8rem;
             font-weight: 400;
             cursor: pointer;
-            background-color: var(--normal-bg);
+            background-color: var(--bg);
             display: flex;
             justify-content: center;
             align-items: center;
             font-size: 1rem;
             font-weight: 400;
             letter-spacing: -1px;
-            box-shadow: var(--normal-shadow);
-            backdrop-filter: var(--bold-glass);
-            -webkit-backdrop-filter: var(--bold-glass);
+            box-shadow: var(--shadow);
+            backdrop-filter: var(--glass);
             white-space: nowrap;
             transition: background .2s, ${props => props.loading ? "margin .4s, border-radius .4s" : "margin .6s, border-radius .4s"};
 
             @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
                 &:hover {
-                    background-color: ${props => props.loading ? "" : "var(--normal-bg-hover)"};
+                    background-color: ${props => props.loading ? "" : "var(--bg-hover)"};
                 }
             }
 
@@ -329,19 +325,18 @@ const Login = styled(motion.section)`
         font-size: .9rem;
         font-weight: 400;
         cursor: pointer;
-        background-color: var(--normal-bg);
+        background-color: var(--bg);
         display: flex;
         justify-content: center;
         align-items: center;
         white-space: nowrap;
         transition: background .2s;
-        box-shadow: var(--normal-shadow);
-        backdrop-filter: var(--bold-glass);
-        -webkit-backdrop-filter: var(--bold-glass);
+        box-shadow: var(--shadow);
+        backdrop-filter: var(--glass);
 
         @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
             &:hover {
-                background-color: ${props => props.loading ? "" : "var(--normal-bg-hover)"};
+                background-color: ${props => props.loading ? "" : "var(--bg-hover)"};
             }
         }
 
@@ -392,7 +387,7 @@ const Login = styled(motion.section)`
             width: .5rem;
             height: .5rem;
             border-radius: 50%;
-            background-color: var(--normal-color);
+            background-color: var(--bg);
 
             &:nth-child(1) {
                 animation: loader .6s infinite alternate;

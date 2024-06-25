@@ -30,7 +30,7 @@ export const useOptions = () => {
 
     const copy = (messagePlainText) => {
         navigator.clipboard.writeText(messagePlainText);
-        openNotification('Message copied.', false, 'COPY');
+        openNotification('Message copied', 'GENERAL');
     };
 
     const editText = (id, newMessageText) => {
@@ -40,11 +40,11 @@ export const useOptions = () => {
                 message: newMessageText,
             });
             closeModal();
-            openNotification('Message was edited.', false, 'EDIT');
+            openNotification('Message was edited', 'GENERAL');
         } else {
             closeModal();
             moveToTrash(id);
-            openNotification('Message was moved to trash.', false, 'TRASH');
+            openNotification('Message was moved to trash', 'GENERAL');
         }
     };
 
@@ -71,7 +71,7 @@ export const useOptions = () => {
             updateDoc(docRef, {
                 deleted: true,
             });
-            openNotification('Message was moved to trash.', false, 'TRASH');
+            openNotification('Message was moved to trash', 'GENERAL');
             if (id == inputReply?.id) {
                 unReply();
             }

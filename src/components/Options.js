@@ -87,8 +87,8 @@ const ChatOptions = ({ messageOptions, setMessageOptions, type }) => {
                                 replyTo: messageOptions?.data?.replyTo,
                                 arrayText: messageOptions?.data?.arrayText,
                                 plainText: messageOptions?.data?.plainText,
-                                messageStyles: {
-                                    ...messageOptions?.data?.messageStyles,
+                                styles: {
+                                    ...messageOptions?.data?.styles,
                                     width: messageOptions?.data?.width,
                                     height: messageOptions?.data?.height,
                                     type: 'OPTIONS',
@@ -130,7 +130,7 @@ const ChatOptionsContainer = styled(motion.div)`
     display: flex;
     justify-content: center;
     align-items: center;
-    backdrop-filter: ${props => props.styles.chatOptionsStatus == 2 ? 'var(--bold-glass)' : 'none'};
+    backdrop-filter: ${props => props.styles.chatOptionsStatus == 2 ? 'var(--glass)' : 'none'};
     background-color: ${props => props.styles.chatOptionsStatus == 2 ? '#00000088' : '#00000000'};
     transition: backdrop-filter .3s, background .4s;
     z-index: 5;
@@ -146,7 +146,7 @@ const ChatOptionsContainer = styled(motion.div)`
         align-items: ${props => props.styles.isMocalMessage ? 'flex-end' : 'flex-start'};
         flex-direction: column;
         transform: ${props => props.styles.zeroScale ? 'scale(0)' : props.styles.chatOptionsStatus == 2 ? 'scale(1.05)' : 'scale(1)'};
-        transition: transform .4s cubic-bezier(0.53, 0, 0, 0.98);
+        transition: ${props => props.styles.chatOptionsStatus == 2 ? 'transform .4s cubic-bezier(0.53, 0, 0, 0.98)' : 'transform .3s cubic-bezier(0.53, 0, 0, 0.98)'};
     }
 
     @media (max-width: 745px) {

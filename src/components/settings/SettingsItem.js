@@ -22,11 +22,11 @@ const SettingsItemContainer = styled.div`
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    border: solid 2.5px #ffffff10;
+    border: var(--border);
     border-radius: ${props => props.open ? "20px" : "50px"};
     margin: .18rem;
     background-color: #00000044;
-    box-shadow: var(--normal-shadow);
+    box-shadow: var(--shadow);
     opacity: ${props => props.hide ? '0' : '1'};
     overflow: hidden;
     transition: ${props => props.hide ?
@@ -72,19 +72,6 @@ const SettingsItemContainer = styled.div`
             right: .4rem;
             transform: ${props => props.open ? "rotate(90deg)" : ""};
             transition: transform .4s;
-        }
-
-        .deleted-messages-counter {
-            width: 1rem;
-            height: 1rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 0 .3rem;
-            font-size: .55rem;
-            font-weight: 400;
-            border-radius: 50%;
-            background-color: #ff0000aa;
         }
     }
 

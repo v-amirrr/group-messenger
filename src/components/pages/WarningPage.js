@@ -74,14 +74,13 @@ const Warning = styled(motion.section)`
             margin-bottom: 1.2rem;
             word-spacing: 5px;
             white-space: nowrap;
-            color: var(--normal-color);
         }
 
         .warning {
             font-size: 0.8rem;
             font-weight: 400;
             margin-bottom: 0.8rem;
-            color: var(--red-color);
+            color: var(--red);
         }
 
         .guide {
@@ -90,7 +89,7 @@ const Warning = styled(motion.section)`
             font-weight: 400;
             line-height: 1.4;
             margin-bottom: 0.8rem;
-            color: var(--pale-color);
+            color: var(--grey);
         }
 
         .show-again {
@@ -100,7 +99,7 @@ const Warning = styled(motion.section)`
             font-size: 0.6rem;
             font-weight: 400;
             margin-bottom: 1.2rem;
-            color: var(--pale-color);
+            color: var(--grey);
             cursor: pointer;
         }
 
@@ -110,9 +109,8 @@ const Warning = styled(motion.section)`
             align-items: center;
             width: 25%;
             height: 2.3rem;
-            background-color: var(--normal-bg);
-            box-shadow: var(--normal-shadow);
-            color: var(--normal-color);
+            background-color: var(--bg);
+            box-shadow: var(--shadow);
             border-radius: 50px;
             font-size: 1rem;
             font-weight: 600;
@@ -123,7 +121,7 @@ const Warning = styled(motion.section)`
 
             @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
                 &:hover {
-                    background-color: var(--normal-bg-hover);
+                    background-color: var(--bg-hover);
                 }
             }
         }

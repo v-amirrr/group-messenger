@@ -31,7 +31,6 @@ const App = () => {
     useEffect(() => {
         autoRedirection(location.pathname);
         clearSelectedMessages();
-        clearNotifications();
     }, [location.pathname]);
 
     return (

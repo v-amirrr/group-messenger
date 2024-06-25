@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { auth, db, googleProvider } from '../config/firebase';
-import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
+import { doc, setDoc } from 'firebase/firestore';
 import { createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { setUser, setLogin, setSignup, setEnterAsAGuest, setGoogleLogin } from '../redux/userSlice';
 import { useNotification } from './useNotification';
@@ -23,11 +23,11 @@ export const useAuth = () => {
                 })
                 .catch(err => {
                     dispatch(setLogin({ loading: false }));
-                    openNotification(err.message, true, "ERROR");
+                    openNotification(err.message, "ERROR");
                 });
         } else {
             dispatch(setLogin({ loading: false }));
-            openNotification("Please fill all the inputs.", true, "ERROR");
+            openNotification("Please fill all the inputs", "ERROR");
         }
     };
 
@@ -51,11 +51,11 @@ export const useAuth = () => {
                 })
                 .catch((err) => {
                     dispatch(setSignup({ loading: false }));
-                    openNotification(err.message, true, 'ERROR');
+                    openNotification(err.message, 'ERROR');
                 });
         } else {
             dispatch(setSignup({ loading: false }));
-            openNotification('Please fill all the inputs.', true, 'ERROR');
+            openNotification('Please fill all the inputs', 'ERROR');
         }
     };
 
@@ -69,11 +69,10 @@ export const useAuth = () => {
         localStorage.removeItem('user');
         localStorage.removeItem('notification');
         localStorage.setItem('guest-login', 'false');
-        setTimeout(() => {
-            dispatch(setUser(null));
-            dispatch(setEnterAsAGuest(false));
-            navigate('/login');
-        }, 150);
+        navigate('/login');
+        dispatch(setUser(null));
+        dispatch(setEnterAsAGuest(false));
+        openNotification("You've logged out successfully", 'GENERAL');
     };
 
     const googleLogin = () => {
@@ -90,7 +89,7 @@ export const useAuth = () => {
             })
             .catch((err) => {
                 dispatch(setGoogleLogin({ loading: false }));
-                openNotification(err.message, true, 'ERROR');
+                openNotification(err.message, 'ERROR');
             });
     };
 
@@ -100,7 +99,7 @@ export const useAuth = () => {
         dispatch(setGoogleLogin({ loading: false }));;
         localStorage.removeItem('user');
         dispatch(setUser(null));
-        openNotification("Authentication got canceled.", true, "ERROR");
+        openNotification("Authentication got canceled", "GENERAL");
     };
 
     return {

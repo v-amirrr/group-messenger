@@ -24,15 +24,15 @@ const MessageUsernameContainer = styled.div`
     top: ${props => props.data.dateShown ? "1.83rem" : ".64rem"};
     max-width: 8rem;
     margin-left: ${props => props.data.selectMode ? '3rem' : ''};
-    padding: 0.2rem 0.5rem 0.2rem 1.1rem;
+    padding: 0.2rem 0.5rem 0.2rem 1rem;
     background-color: #151515;
     border-radius: 50px 50px 50px 30px;
     margin-right: .2rem;
     font-size: .6rem;
     font-weight: 400;
     white-space: nowrap;
-    color: #ffffff20;
-    box-shadow: var(--normal-shadow);
+    color: var(--grey);
+    box-shadow: var(--shadow);
     text-overflow: ellipsis;
     overflow: hidden;
     transition: margin .4s;
@@ -44,7 +44,7 @@ const MessageUsernameContainer = styled.div`
         font-size: 0.8rem;
         position: absolute;
         left: 0.2rem;
-        color: #ffffff10;
+        color: #ffffff20;
     }
 `;
 

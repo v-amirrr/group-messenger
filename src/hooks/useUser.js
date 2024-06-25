@@ -22,9 +22,9 @@ export const useUser = () => {
             });
             dispatch(setUser({ ...user, displayName: newUsername }));
             localStorage.setItem("user", JSON.stringify(user));
-            openNotification("Username changed.", false, "USERNAME");
+            openNotification("Username changed", "GENERAL");
         }).catch((err) => {
-            openNotification(err.message, true, "ERROR");
+            openNotification(err.message, "ERROR");
         });
     };
 

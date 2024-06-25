@@ -30,7 +30,7 @@ const SettingsPage = () => {
                         <p className='header-text'>Settings</p>
                         <button className='header-button' onClick={backClickHandler}><TiArrowLeft /></button>
                     </header>
-                    <SettingsItem
+                    {/* <SettingsItem
                         open={open == 'SETTINGS_NOTIFICATION'}
                         hide={open != 'SETTINGS_NOTIFICATION' && open}
                         component={
@@ -41,7 +41,7 @@ const SettingsPage = () => {
                             />
                         }
                         height={height}
-                    />
+                    /> */}
                     <SettingsItem
                         openValue='SETTINGS_USER'
                         open={open == 'SETTINGS_USER'}
@@ -78,7 +78,7 @@ const Settings = styled.section`
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        border: solid 2.5px #ffffff10;
+        border: var(--border);
         border-radius: 25px;
         background-color: #00000044;
         padding-top: 4rem;

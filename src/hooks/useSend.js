@@ -14,7 +14,7 @@ export const useSend = () => {
     const sendMessage = (inputText, setInputText) => {
         let storedInputText = localStorage.getItem('input-text');
         if (enterAsAGuest) {
-            openNotification("In order to use this feature you need to login.", false, "GUEST");
+            openNotification("To use this feature you need to login", "GUEST");
         } else {
             if (inputText && inputText.charCodeAt(0) != 8204) {
                 if (navigator.onLine) {
@@ -27,15 +27,12 @@ export const useSend = () => {
                         time: serverTimestamp(),
                         replyTo: inputReply.id,
                     })
-                    .then(() => {
-                        openNotification("Message was sent.", false, "SEND");
-                    })
                     .catch(() => {
-                        openNotification("Unable to send the message.", true, "COPY");
+                        openNotification("Unable to send the message", "ERROR");
                         setInputText(storedInputText);
                     });
                 } else {
-                    openNotification("Unable to send the message.", true, "COPY");
+                    openNotification("Unable to send the message", "ERROR");
                     setInputText(storedInputText);
                 }
             }

@@ -60,7 +60,7 @@ const MessageLoaderContainer = styled.div`
         }
 
         .checkmark {
-            background-color: #00b7ff;
+            background-color: var(--blue);
             border-radius: 50px;
             position: absolute;
             right: 0;

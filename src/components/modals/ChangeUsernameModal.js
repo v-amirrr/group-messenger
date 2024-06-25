@@ -61,7 +61,7 @@ const ChangeUsernamePopupContainer = styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: #ffffff10;
+        background-color: var(--bg);
         margin-top: 1.5rem;
         min-width: 16rem;
         padding: .7rem 0;
@@ -74,7 +74,7 @@ const ChangeUsernamePopupContainer = styled.div`
             div {
                 white-space: nowrap;
                 font-size: .5rem;
-                color: var(--pale-color);
+                color: var(--grey);
             }
 
             p {

@@ -47,15 +47,16 @@ const MessengerPage = () => {
 };
 
 const MessengerPageContainer = styled(motion.main)`
+    position: fixed;
     width: 100vw;
     height: 100dvh;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    position: fixed;
 
     .chat {
+        position: relative;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -63,8 +64,6 @@ const MessengerPageContainer = styled(motion.main)`
         text-align: center;
         width: 62%;
         height: 100%;
-        font-family: 'Outfit', sans-serif;
-        position: relative;
 
         .error-message {
             padding: 0 2rem;

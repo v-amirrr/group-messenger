@@ -50,14 +50,10 @@ export const useSelect = () => {
             }
         });
         navigator.clipboard.writeText(text);
-        if (selectedMessages.length == 1) {
-            notificationText = 'Message copied.';
-        } else {
-            notificationText = 'Messages copied.';
-        }
+        notificationText = selectedMessages.length == 1 ? 'Message copied' : 'Messages copied';
         clearSelectedMessages();
         setTimeout(() => {
-            openNotification(notificationText, false, 'COPY');
+            openNotification(notificationText, 'GENERAL');
         }, 300);
     };
 
@@ -66,7 +62,7 @@ export const useSelect = () => {
             selectedMessages.map((message, index) => {
                 setTimeout(() => {
                     moveToTrash(message.id);
-                    openNotification('Message was moved to trash.', false, 'TRASH');
+                    openNotification('Message was moved to trash', 'GENERAL');
                 }, index * 600);
             });
         } else {
@@ -74,7 +70,7 @@ export const useSelect = () => {
                 moveToTrash(message.id);
             });
             setTimeout(() => {
-                openNotification('Messages were moved to trash.', false, 'TRASH');
+                openNotification('Messages were moved to trash', 'GENERAL');
             }, 300);
         }
         clearSelectedMessages();
@@ -85,7 +81,7 @@ export const useSelect = () => {
             selectedMessages.map((message, index) => {
                 setTimeout(() => {
                     restore(message.id);
-                    openNotification('Message restored.', false, 'RESTORE');
+                    openNotification('Message restored', 'GENERAL');
                 }, index * 600);
             });
         } else {
@@ -93,7 +89,7 @@ export const useSelect = () => {
                 restore(message.id);
             });
             setTimeout(() => {
-                openNotification('Messages restored.', false, 'RESTORE');
+                openNotification('Messages restored', 'GENERAL');
             }, 300);
         }
         clearSelectedMessages();
@@ -106,7 +102,7 @@ export const useSelect = () => {
                 modalMessages.map((message, index) => {
                     setTimeout(() => {
                         permanentDelete(message.id);
-                        openNotification('Messages were permenately deleted.', false, 'RESTORE');
+                        openNotification('Messages were permenately deleted', 'GENERAL');
                     }, index * 600);
                 });
             } else {
@@ -114,7 +110,7 @@ export const useSelect = () => {
                     permanentDelete(message.id);
                 });
                 setTimeout(() => {
-                    openNotification('Messages were permenately deleted.', false, 'RESTORE');
+                    openNotification('Messages were permenately deleted', 'GENERAL');
                 }, 300);
             }
         }, 400);

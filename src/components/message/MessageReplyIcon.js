@@ -49,7 +49,7 @@ const MessageReplyIconContainer = styled(motion.div)`
     align-items: center;
     font-size: 1.2rem;
     background-color: #151515;
-    box-shadow: var(--normal-shadow);
+    box-shadow: var(--shadow);
     padding: 1rem;
     border-radius: 50%;
     cursor: pointer;
@@ -80,7 +80,7 @@ const MessageReplyIconContainer = styled(motion.div)`
     }
 
     &:hover {
-        background-color: #ff0000;
+        background-color: var(--red);
 
         .reply {
             transform: scale(0);
@@ -93,7 +93,7 @@ const MessageReplyIconContainer = styled(motion.div)`
 
     @media (max-width: 768px) {
         &:active {
-            background-color: #ff0000;
+            background-color: var(--red);
 
             .reply {
                 transform: scale(0);

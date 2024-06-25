@@ -130,7 +130,7 @@ const Trash = styled(motion.div)`
         .trash-count {
             margin: .2rem;
             border-radius: 50%;
-            background-color: #ff0000;
+            background-color: var(--red);
             width: 1rem;
             height: 1rem;
             display: flex;
@@ -149,12 +149,12 @@ const Trash = styled(motion.div)`
             align-items: center;
             font-size: 2rem;
             border-radius: 50%;
-            background-color: #ffffff10;
+            background-color: var(--bg);
             transition: background .2s;
 
             @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
                 &:hover {
-                    background-color: #ffffff20;
+                    background-color: var(--bg-hover);
                 }
             }
         }
@@ -164,7 +164,6 @@ const Trash = styled(motion.div)`
         position: relative;
         width: 62%;
         height: 100%;
-        font-family: 'Outfit', sans-serif;
         text-align: center;
         padding: 5rem 8rem 9rem 8rem;
         scroll-behavior: smooth;
@@ -195,7 +194,6 @@ const Trash = styled(motion.div)`
         display: flex;
         justify-content: center;
         align-items: center;
-        color: var(--normal-color);
         z-index: 3;
         overflow: hidden;
 
@@ -205,10 +203,9 @@ const Trash = styled(motion.div)`
             width: 1.7rem;
             height: 1.7rem;
             border-radius: 50%;
-            background-color: #ffffff10;
+            background-color: var(--bg);
             overflow: hidden;
-            backdrop-filter: var(--bold-glass);
-            -webkit-backdrop-filter: var(--bold-glass);
+            backdrop-filter: var(--glass);
         }
 
         .delete-button, .restore-button {
@@ -220,12 +217,11 @@ const Trash = styled(motion.div)`
             width: 5.8rem;
             height: 2.2rem;
             cursor: pointer;
-            backdrop-filter: var(--bold-glass);
-            -webkit-backdrop-filter: var(--bold-glass);
+            backdrop-filter: var(--glass);
             transition: background .2s, color .2s;
 
             &:disabled {
-                color: var(--pale-color);
+                color: var(--grey);
                 cursor: not-allowed;
             }
 
@@ -244,7 +240,7 @@ const Trash = styled(motion.div)`
 
         .delete-button {
             background-color: #ff000030;
-            color: #ff0000;
+            color: var(--red);
 
             i {
                 font-size: 1.2rem;
@@ -260,7 +256,7 @@ const Trash = styled(motion.div)`
 
         .restore-button {
             background-color: #00ff0030;
-            color: #00ff00;
+            color: var(--green);
 
             i {
                 font-size: .9rem;
@@ -283,9 +279,8 @@ const Trash = styled(motion.div)`
             justify-content: center;
             align-items: center;
             border-radius: 50%;
-            background-color: #ffffff10;
-            backdrop-filter: var(--bold-glass);
-            -webkit-backdrop-filter: var(--bold-glass);
+            background-color: var(--bg);
+            backdrop-filter: var(--glass);
             cursor: pointer;
             transition: background .2s;
 
@@ -310,7 +305,7 @@ const Trash = styled(motion.div)`
 
             @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
                 &:hover {
-                    background-color: #ffffff20;
+                    background-color: var(--bg-hover);
                 }
             }
         }

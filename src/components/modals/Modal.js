@@ -84,11 +84,10 @@ const ModalContainer = styled(motion.section)`
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        border: solid 2.5px #ffffff10;
+        border: var(--border);
         border-radius: 25px;
-        box-shadow: var(--bold-shadow);
-        backdrop-filter: var(--bold-glass);
-        -webkit-backdrop-filter: var(--bold-glass);
+        box-shadow: var(--shadow);
+        backdrop-filter: var(--glass);
 
         .buttons {
             margin-top: 1.5rem;
@@ -96,8 +95,8 @@ const ModalContainer = styled(motion.section)`
             .edit, .delete, .cancel, .change {
                 border: none;
                 border-radius: 50px;
-                background-color: #ffffff10;
-                box-shadow: var(--normal-shadow);
+                background-color: var(--bg);
+                box-shadow: var(--shadow);
                 margin: 0 0.3rem;
                 width: 5rem;
                 height: 2.3rem;
@@ -108,13 +107,13 @@ const ModalContainer = styled(motion.section)`
 
                 @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
                     &:hover {
-                        background-color: #ffffff20;
+                        background-color: var(--bg-hover);
                     }
                 }
             }
 
             .delete {
-                color: #ff0000;
+                color: var(--red);
                 background-color: #ff000030;
 
                 @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
@@ -125,7 +124,7 @@ const ModalContainer = styled(motion.section)`
             }
 
             .edit, .change {
-                color: #00ff00;
+                color: var(--gren);
                 background-color: #00ff0030;
 
                 @media (hover: hover) and (pointer: fine) and (min-width: 745px) {

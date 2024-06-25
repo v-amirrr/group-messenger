@@ -49,12 +49,10 @@ const SelectBarContainer = styled(motion.div)`
     display: flex;
     justify-content: center;
     align-items: center;
-    color: var(--normal-color);
-    border: solid 2.5px #ffffff10;
+    border: var(--border);
     border-radius: 50px;
-    box-shadow: var(--normal-shadow);
-    backdrop-filter: var(--bold-glass);
-    -webkit-backdrop-filter: var(--bold-glass);
+    box-shadow: var(--shadow);
+    backdrop-filter: var(--glass);
     z-index: 3;
     overflow: hidden;
 
@@ -95,7 +93,7 @@ const SelectBarContainer = styled(motion.div)`
             transition: color .2s;
 
             &:disabled {
-                color: var(--pale-color);
+                color: var(--grey);
                 cursor: not-allowed;
             }
 

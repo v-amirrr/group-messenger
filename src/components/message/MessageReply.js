@@ -35,7 +35,10 @@ const MessageReply = ({ replyTo, type }) => {
                     onClick={(e) => clickHandler(e)}
                     onMouseEnter={hoverHandler}
                     onMouseLeave={() => mouseSituation = 'OUT'}
-                    deletedreplyto={!replyTo ? 1 : 0}
+                    data={{
+                        chatType: type == 'CHAT',
+                        deletedReplyTo: !replyTo ? 1 : 0
+                    }}
                 >
                     <i><BsReplyFill /></i>
                     {
@@ -62,18 +65,18 @@ const ReplyContainer = styled.div`
     padding: .2rem .5rem .2rem 1.2rem;
     margin: 0 .4rem 0 0;
     background-color: #1f1f1f;
-    color: var(--pale-color);
-    box-shadow: var(--normal-shadow);
+    color: var(--grey);
+    box-shadow: var(--shadow);
     font-size: .6rem;
     font-weight: 300;
     white-space: nowrap;
     overflow: hidden;
-    cursor: ${props => !props.deletedreplyto && 'pointer'};
+    cursor: ${props => !props.data.deletedReplyTo && 'pointer'};
     transition: background .2s;
 
     @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
         &:hover {
-            background-color: ${props => !props.deletedreplyto && '#ffffff15'};
+            background-color: ${props => !props.data.deletedReplyTo && props.data.chatType ? '#ffffff15' : ''};
         }
     }
 

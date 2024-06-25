@@ -14,21 +14,26 @@ export const useNotification = () => {
         }
     }, [notifications]);
 
-    const openNotification = (message, isError, type) => {
+    const openNotification = (message, type) => {
         let time = new Date().getTime();
-        if (type == "SEND" && notificationSettings.send
-        || type == "TRASH" && notificationSettings.trash
-        || type == "EDIT" && notificationSettings.edit
-        || type == "COPY" && notificationSettings.copy
-        || type == "RESTORE" && notificationSettings.restore
-        || type == "DELETE" && notificationSettings.delete
-        || type == "USERNAME" && notificationSettings.username
-        || type == "GUEST" && enterAsAGuest || type == "ERROR" || type == "ENTER") {
-            dispatch(setNotifications({ show: true, message: message, isError: isError, isGuest: type == "GUEST", time: time }));
+        // if (type == "SEND" && notificationSettings.send
+        // || type == "TRASH" && notificationSettings.trash
+        // || type == "EDIT" && notificationSettings.edit
+        // || type == "COPY" && notificationSettings.copy
+        // || type == "RESTORE" && notificationSettings.restore
+        // || type == "DELETE" && notificationSettings.delete
+        // || type == "USERNAME" && notificationSettings.username
+        // || type == "GUEST" && enterAsAGuest || type == "ERROR" || type == "ENTER") {
+            dispatch(setNotifications({
+                show: true,
+                message,
+                type,
+                time,
+            }));
             setTimeout(() => {
                 closeNotification(time);
             }, 3000);
-        }
+        // }
     };
 
     const closeNotification = (time) => {
@@ -41,7 +46,7 @@ export const useNotification = () => {
 
     const changeNotificationSettings = (notificationName, notificationValue) => {
         if (enterAsAGuest) {
-            openNotification("In order to use this feature you need to login.", false, "GUEST");
+            openNotification("To use this feature you need to login.", "GUEST");
         } else {
             dispatch(setNotificationSettings({ [notificationName]: notificationValue }));
         }

@@ -19,43 +19,29 @@ const Notification = () => {
                     {
                         notifications?.map((notification) => (
                         <NotificationContainer
-                            key={notification.time}
+                            key={notification?.time}
                             initial='hidden'
                             animate='visible'
                             exit='exit'
-                            variants={notifications.length > 1 ? notificationSlowVariants : notificationFastVariants}
-                            error={notification.isError ? 1 : 0}
-                            letters={notification?.message?.length}
+                            variants={notifications?.length > 1 ? notificationSlowVariants : notificationFastVariants}
+                            data={{
+                                errorType: notification.type == 'ERROR',
+                                letters: notification?.message?.length,
+                            }}
                         >
                             <button className='close-button' onClick={() => closeNotification(notification.time)}>
                                 <IoClose />
                             </button>
                             {
-                                notification?.isError ?
-                                <i className='error-icon'>
-                                    <FcHighPriority />
-                                </i> :
-                                notification.isGuest ?
-                                <i className='guest-icon'>
-                                    <FcKey />
-                                </i> :
-                                <i className='notification-icon'>
-                                    <FcAdvertising />
-                                </i>
+                                notification?.type === 'ERROR' ?
+                                <i className='error-icon'><FcHighPriority /></i> :
+                                notification?.type === 'GUEST' ?
+                                <i className='guest-icon'><FcKey /></i> :
+                                <i className='notification-icon'><FcAdvertising /></i>
                             }
                             <p className='notification-message'>
-                            {
-                                notification.isGuest ?
-                                    <>
-                                        In order to use this feature you need to{' '}
-                                        <a className='link' onClick={logout}>
-                                            Login
-                                        </a>
-                                    </> :
-                                    <>
-                                        {notification?.message}
-                                    </>
-                            }
+                                {notification?.message}
+                                {notification?.type == 'GUEST' ? <a className='link' onClick={logout}>Login</a> : ''}
                             </p>
                         </NotificationContainer>
                         ))
@@ -88,12 +74,10 @@ const NotificationContainer = styled(motion.div)`
     justify-content: center;
     align-items: center;
     text-align: center;
-    background-color: var(--normal-bg);
+    background-color: var(--bg);
     border-radius: ${props => props.letters > 50 ? "25px" : "50px"};
-    box-shadow: var(--bold-shadow);
-    backdrop-filter: var(--bold-glass);
-    -webkit-backdrop-filter: var(--bold-glass);
-    color: var(--normal-color);
+    box-shadow: var(--shadow);
+    backdrop-filter: var(--glass);
     padding: ${props => props.letters > 50 ? "1rem 3rem 1rem 0.5rem" : "0 3rem 0 0.5rem"};
     z-index: 3;
 
@@ -126,7 +110,7 @@ const NotificationContainer = styled(motion.div)`
     .close-button {
         all: unset;
         position: absolute;
-        right: 0.25rem;
+        right: .25rem;
         width: 2rem;
         height: 2rem;
         display: flex;
@@ -139,7 +123,7 @@ const NotificationContainer = styled(motion.div)`
 
         @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
             &:hover {
-                background-color: var(--normal-bg-hover);
+                background-color: var(--bg-hover);
             }
         }
     }

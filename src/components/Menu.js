@@ -67,12 +67,10 @@ const MenuContainer = styled(motion.div)`
     display: flex;
     justify-content: center;
     align-items: center;
-    color: var(--normal-color);
-    border: solid 2.5px #ffffff10;
+    border: var(--border);
     border-radius: 50px;
-    box-shadow: var(--normal-shadow);
-    backdrop-filter: var(--bold-glass);
-    -webkit-backdrop-filter: var(--bold-glass);
+    box-shadow: var(--shadow);
+    backdrop-filter: var(--glass);
     overflow: hidden;
     z-index: 4;
     transition: width .25s cubic-bezier(0.53, 0, 0, 0.98),
@@ -119,8 +117,8 @@ const MenuContainer = styled(motion.div)`
             justify-content: center;
             align-items: center;
             margin: 0.1rem 0;
-            background-color: var(--normal-bg);
-            box-shadow: var(--normal-shadow);
+            background-color: var(--bg);
+            box-shadow: var(--shadow);
             border-radius: 50px;
             white-space: nowrap;
             cursor: pointer;
@@ -153,7 +151,7 @@ const MenuContainer = styled(motion.div)`
 
             @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
                 &:hover {
-                    background-color: var(--normal-bg-hover);
+                    background-color: var(--bg-hover);
                 }
             }
         }

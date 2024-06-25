@@ -68,12 +68,10 @@ const InputBarReplyToContainer = styled(motion.div)`
     justify-content: center;
     align-items: center;
     padding: 0 0.2rem;
-    color: var(--normal-color);
-    border: solid 2.5px #ffffff10;
+    border: var(--border);
     border-radius: 50px;
-    box-shadow: var(--normal-shadow);
-    backdrop-filter: var(--bold-glass);
-    -webkit-backdrop-filter: var(--bold-glass);
+    box-shadow: var(--shadow);
+    backdrop-filter: var(--glass);
     cursor: pointer;
     z-index: 2;
     transition: ${props => props.emoji ?
@@ -89,8 +87,8 @@ const InputBarReplyToContainer = styled(motion.div)`
         height: 100%;
         margin: 0 0.2rem;
         overflow: hidden;
-        font-family: ${(props) => (props.isrlt ? 'Vazirmatn' : 'Outfit')}, 'Vazirmatn', sans-serif;
-        color: var(--pale-color);
+        font-family: ${props => (props.isrlt ? 'Vazirmatn' : 'Outfit')}, 'Vazirmatn', sans-serif;
+        color: var(--grey);
         font-weight: 400;
 
         .icon {
@@ -114,7 +112,7 @@ const InputBarReplyToContainer = styled(motion.div)`
         justify-content: center;
         align-items: center;
         font-size: 1.3rem;
-        color: var(--red-color);
+        color: var(--red);
         border-radius: 50%;
         cursor: pointer;
         padding: .1rem;
@@ -122,7 +120,7 @@ const InputBarReplyToContainer = styled(motion.div)`
 
         @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
             &:hover {
-                background-color: var(--normal-bg-hover);
+                background-color: var(--bg-hover);
             }
         }
     }

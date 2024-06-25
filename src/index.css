@@ -1,20 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 :root {
-    --normal-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-    --bold-shadow: rgba(0, 0, 0, 0.4) 0px 4px 12px;
+    --shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 
-    --normal-color: #eee;
-    --pale-color: #ffffff40;
-    --red-color: #cc0000;
-    --green-color: #00cc00;
-    --blue-color: #00b7ff;
+    --text: #ffffffe0;
+    --grey: #ffffff40;
+    --red: #cc0000;
+    --green: #00cc00;
+    --blue: #00b7ff;
 
-    --normal-glass: blur(5px) saturate(150%);
-    --bold-glass: blur(20px) saturate(150%);
+    --border: solid 2.5px #ffffff10;
 
-    --normal-bg: #ffffff10;
-    --normal-bg-hover: #ffffff20;
+    --glass: blur(20px) saturate(150%);
+
+    --bg: #ffffff10;
+    --bg-hover: #ffffff20;
 }
 
 /* width */
@@ -54,13 +54,13 @@ html {
     overflow: hidden;
     background-color: #ffffff00;
     user-select: none;
+    font-family: 'Outfit', sans-serif;
+    color: var(--text);
 }
 
 body {
-    font-family: 'Outfit', sans-serif;
     background-color: #ffffff00;
     overflow: hidden;
-    color: var(--normal-color);
 }
 
 button {
@@ -92,7 +92,7 @@ button {
     position: relative;
     padding: .04rem .1rem;
     margin: .1rem;
-    color: #00b7ff;
+    color: var(--blue);
     z-index: 1;
     transition: color .2s, padding .2s;
     -webkit-transition: color .2s, padding .2s;
@@ -110,7 +110,7 @@ button {
     z-index: -1;
     position: absolute;
     inset: 96% 1% 0 1%;
-    background-color: #00b7ff;
+    background-color: var(--blue);
     transition: inset .2s;
     -webkit-transition: inset .2s;
     -moz-transition: inset .2s;

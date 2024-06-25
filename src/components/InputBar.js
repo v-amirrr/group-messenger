@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import InputBarReplyTo from './InputBarReplyTo';
 import { useSelector } from 'react-redux';
 import { useSend } from '../hooks/useSend';
-import { useSkeletonEffect } from '../hooks/useSkeletonEffect';
 import { useOptions } from '../hooks/useOptions';
 import { isPersian } from '../functions/isPersian';
 import { GrEmoji } from 'react-icons/gr';
@@ -154,12 +153,10 @@ const InputBarContainer = styled(motion.div)`
     justify-content: center;
     align-items: center;
     padding-bottom: ${props => props.emoji ? '12rem' : '0'};
-    color: var(--normal-color);
-    border: solid 2.5px #ffffff10;
+    border: var(--border);
     border-radius: ${props => props.emoji ? '25px' : '50px'};
-    box-shadow: var(--normal-shadow);
-    backdrop-filter: var(--bold-glass);
-    -webkit-backdrop-filter: var(--bold-glass);
+    box-shadow: var(--shadow);
+    backdrop-filter: var(--glass);
     z-index: 3;
     overflow: hidden;
     transition: ${props => props.emoji ?
@@ -189,13 +186,11 @@ const InputBarContainer = styled(motion.div)`
             width: 0.1rem;
         }
 
-        /* Track */
         ::-webkit-scrollbar-track {
             border-radius: 50px;
             background: #ffffff00;
         }
 
-        /* Handle */
         ::-webkit-scrollbar-thumb {
             background: ${(props) => props.multiline ? '#ffffff20' : '#ffffff00'};
             border-radius: 50px;
@@ -203,7 +198,7 @@ const InputBarContainer = styled(motion.div)`
     }
 
     .placeholder {
-        color: #ffffff20;
+        color: var(--grey);
         font-weight: 200;
         white-space: nowrap;
         font-size: 1rem;
@@ -216,11 +211,11 @@ const InputBarContainer = styled(motion.div)`
     }
 
     .clear-button {
+        color: #ffffff10;
         font-size: 1.8rem;
         display: flex;
         justify-content: center;
         align-items: center;
-        color: #ffffff10;
         cursor: pointer;
         position: absolute;
         right: 4.2rem;
@@ -228,6 +223,7 @@ const InputBarContainer = styled(motion.div)`
     }
 
     .send-button {
+        color: #ffffff10;
         position: absolute;
         right: .2rem;
         width: 2.5rem;
@@ -237,7 +233,6 @@ const InputBarContainer = styled(motion.div)`
         align-items: center;
         border: none;
         font-size: 1.4rem;
-        color: #ffffff10;
         cursor: pointer;
 
         &:disabled {

@@ -47,12 +47,10 @@ const ProfileContainer = styled(motion.div)`
     display: flex;
     justify-content: center;
     align-items: center;
-    border: solid 2.5px #ffffff10;
+    border: var(--border);
     border-radius: 50px;
-    color: var(--normal-color);
-    box-shadow: var(--normal-shadow);
-    backdrop-filter: var(--bold-glass);
-    -webkit-backdrop-filter: var(--bold-glass);
+    box-shadow: var(--shadow);
+    backdrop-filter: var(--glass);
     overflow: hidden;
     z-index: 3;
     transition: width .3s cubic-bezier(0.53, 0, 0, 0.98),

@@ -3,8 +3,7 @@ import { useSelect } from "./useSelect";
 import { useSelector } from "react-redux";
 import { useSkeletonEffect } from "./useSkeletonEffect";
 
-export const useMessage = (messageData, type, messageRef, options, onClick) => {
-
+export const useMessage = (messageData, type, messageRef, options, editReplyClickHandler) => {
     // types: chat, options, trash, edit reply modal
     // status: 1 means loading, 2 means check animation, 0 means fully sent
 
@@ -27,7 +26,6 @@ export const useMessage = (messageData, type, messageRef, options, onClick) => {
     const { selectedMessages, skeletonEffect } = useSelector(store => store.appStore);
     const { storeMessageScrollPosition } = useSkeletonEffect();
     const { select, unSelect } = useSelect();
-
     const [messagePosition, setMessagePosition] = useState(null);
     const [hold, setHold] = useState(false);
     const [selected, setSelected] = useState(false);
@@ -35,65 +33,53 @@ export const useMessage = (messageData, type, messageRef, options, onClick) => {
     const [status, setStatus] = useState(time?.year == undefined ? 1 : 0);
 
     let selectByHoldingTimer;
-    let messageStyles = {
-        messageBoxMargin:
-            type == 'TRASH' ?
-            '.06rem' :
-            messagePosition == 0 || type == 'TRASH' ?
-            '.1rem 0' :
-            messagePosition == 1 ?
-            '.1rem 0 .06rem 0' :
-            messagePosition == 2 ?
-            '.06rem 0 .06rem 0' :
-            messagePosition == 3 &&
-            '.06rem 0 .1rem 0',
-        messageBoxMarginRight: selectedMessages.length && isLocalMessage ? '3rem' : '',
-        messageBoxMarginLeft: selectedMessages?.length && !isLocalMessage ? '3rem' : '',
-        messageBoxRoundBorderRadius:
-            isLocalMessage ?
-            messagePosition == 0 ?
-            '25px' : messagePosition == 1 ?
-            '25px 25px 12px 25px' :
-            messagePosition == 2 ?
-            '25px 12px 12px 25px' :
-            messagePosition == 3 &&
-            '25px 12px 25px 25px' :
-            messagePosition == 0 ?
-            '12px 25px 25px 25px' :
-            messagePosition == 1 ?
-            '12px 25px 25px 12px' :
-            messagePosition == 2 ?
-            '12px 25px 25px 12px' :
-            messagePosition == 3 &&
-            '12px 25px 25px 25px',
-        messageBoxNotRoundBorderRadius:
-            isLocalMessage ?
-            messagePosition == 0 ?
-            '20px' :
-            messagePosition == 1 ?
-            '20px 20px 12px 20px' :
-            messagePosition == 2 ?
-            '20px 12px 12px 20px' :
-            messagePosition == 3 &&
-            '20px 12px 20px 20px' :
-            messagePosition == 0 ?
-            '12px 20px 20px 20px' :
-            messagePosition == 1 ?
-            '12px 20px 20px 12px' :
-            messagePosition == 2 ?
-            '12px 20px 20px 12px' :
-            messagePosition == 3 &&
-            '12px 20px 20px 20px',
-        messageBoxPadding:
+    let styles = {
+        boxMargin:
+            type == 'TRASH' ? '.06rem' :
+            messagePosition == 0 ? '.1rem 0' :
+            messagePosition == 1 ? '.1rem 0 .06rem 0' :
+            messagePosition == 2 ? '.06rem 0 .06rem 0' :
+            messagePosition == 3 && '.06rem 0 .1rem 0',
+        boxMarginRight:
+            selectedMessages.length && isLocalMessage ? '3rem' : '',
+        boxMarginLeft:
+            selectedMessages?.length && !isLocalMessage ? '3rem' : '',
+        boxRoundRadius:
+            isLocalMessage && messagePosition == 0 ? '25px' :
+            isLocalMessage && messagePosition == 1 ? '25px 25px 12px 25px' :
+            isLocalMessage && messagePosition == 2 ? '25px 12px 12px 25px' :
+            isLocalMessage && messagePosition == 3 ? '25px 12px 25px 25px' :
+            !isLocalMessage && messagePosition == 0 ? '12px 25px 25px 25px' :
+            !isLocalMessage && messagePosition == 1 ? '12px 25px 25px 12px' :
+            !isLocalMessage && messagePosition == 2 ? '12px 25px 25px 12px' :
+            !isLocalMessage && messagePosition == 3 && '12px 25px 25px 25px',
+        boxNotRoundRadius:
+            isLocalMessage && messagePosition == 0 ? '20px' :
+            isLocalMessage && messagePosition == 1 ? '20px 20px 12px 20px' :
+            isLocalMessage && messagePosition == 2 ? '20px 12px 12px 20px' :
+            isLocalMessage && messagePosition == 3 ? '20px 12px 20px 20px' :
+            !isLocalMessage && messagePosition == 0 ? '12px 20px 20px 20px' :
+            !isLocalMessage && messagePosition == 1 ? '12px 20px 20px 12px' :
+            !isLocalMessage && messagePosition == 2 ? '12px 20px 20px 12px' :
+            !isLocalMessage && messagePosition == 3 && '12px 20px 20px 20px',
+        boxPadding:
             replyTo != 'no_reply' && type != 'TRASH' ?
             '.45rem .6rem .45rem .45rem' :
             textLetters <= 2 ?
             '.45rem 1rem' :
             textLetters > 2 ?
             '.45rem .6rem' : '',
+        boxJustify:
+            isLocalMessage ? 'flex-start' : 'flex-end',
+        messageFlexDirection:
+            isLocalMessage ? 'row-reverse' : 'row',
+        messagePaddingTop:
+        time?.year && messagePosition < 2 && !isLocalMessage && !previousMessageDifferentDate ? '1.8rem' :
+        time?.year && messagePosition < 2 && !isLocalMessage && previousMessageDifferentDate ? '3rem' :
+        time?.year && previousMessageDifferentDate ? '1.8rem' : ''
     };
 
-    // setting message position, storing message scroll position 1694
+    // setting message position, storing message scroll position
     useEffect(() => {
         detectMessagePosition();
         if (type == 'CHAT') {
@@ -112,6 +98,7 @@ export const useMessage = (messageData, type, messageRef, options, onClick) => {
         } else {
             if (selectedMessages[selectedMessages.length-1].id == messageData.id) {
                 setSelected(true);
+                applyMessageSkeletonEffect();
             }
         }
     }, [selectedMessages]);
@@ -165,7 +152,7 @@ export const useMessage = (messageData, type, messageRef, options, onClick) => {
                 left: messageRef?.current?.getBoundingClientRect()?.left,
                 width: messageRef?.current?.getBoundingClientRect()?.width,
                 height: messageRef?.current?.getBoundingClientRect()?.height,
-                messageStyles,
+                styles,
                 messagePosition: 0,
             },
             animationStatus: 1
@@ -208,9 +195,13 @@ export const useMessage = (messageData, type, messageRef, options, onClick) => {
     };
 
     const messageClickHandler = () => {
+        // message won't be clickable while loading
+        // if select mode is off then the options will be opened
+        // if select mode is on then message gets selected ro unselected whether it's been selected before or not
+
         if (!isMessageLoading()) {
             if (type == 'EDIT_REPLY') {
-                onClick();
+                editReplyClickHandler();
             } else {
                 if (isUserSelecting()) {
                     if (hold) {
@@ -255,6 +246,6 @@ export const useMessage = (messageData, type, messageRef, options, onClick) => {
         selected,
         messageSkeletonEffect,
         status,
-        messageStyles,
+        styles,
     };
 };

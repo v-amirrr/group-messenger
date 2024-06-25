@@ -26,7 +26,7 @@ const ChatErrorContainer = styled(motion.div)`
 
     h1 {
         margin: 1rem;
-        color: #cc0000;
+        color: var(--red);
         letter-spacing: -1px;
         white-space: nowrap;
     }
@@ -36,7 +36,6 @@ const ChatErrorContainer = styled(motion.div)`
         font-size: 1em;
         font-weight: 400;
         line-height: 1.5;
-        color: #ddd;
     }
 
     button {
@@ -45,9 +44,8 @@ const ChatErrorContainer = styled(motion.div)`
         align-items: center;
         width: 55%;
         height: 2.3rem;
-        background-color: var(--normal-bg);
-        box-shadow: var(--normal-shadow);
-        color: var(--normal-color);
+        background-color: var(--bg);
+        box-shadow: var(--shadow);
         border-radius: 50px;
         font-size: 1rem;
         font-weight: 600;
@@ -57,7 +55,7 @@ const ChatErrorContainer = styled(motion.div)`
 
         @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
             &:hover {
-                background-color: var(--normal-bg-hover);
+                background-color: var(--bg-hover);
             }
         }
     }

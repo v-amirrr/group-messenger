@@ -24,9 +24,9 @@ const ToggleContainer = styled.div`
     border-radius: 50px;
     width: 2rem;
     height: 1.25rem;
-    background-color: ${props => props.toggle ? 'var(--blue-color)' : '#ffffff20'};
+    background-color: ${props => props.toggle ? 'var(--blue)' : '#ffffff20'};
     cursor: pointer;
-    transition: background 0.2s;
+    transition: background .2s;
     transform: ${props => `scale(${props.scale})`};
 
     span {
@@ -36,8 +36,8 @@ const ToggleContainer = styled.div`
         border-radius: 50%;
         width: .9rem;
         height: .9rem;
-        background-color: ${props => props.toggle ? 'var(--normal-color)' : '#ffffff20'};
-        box-shadow: var(--bold-shadow);
+        background-color: ${props => props.toggle ? 'var(--bg)' : 'var(--bg-hover)'};
+        box-shadow: var(--shadow);
         display: flex;
         justify-content: center;
         align-items: center;

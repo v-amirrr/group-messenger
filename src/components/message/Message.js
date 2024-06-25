@@ -11,11 +11,38 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { messageVariants } from '../../config/varitans';
 
-const Message = ({ messageData, type, options, onClick, replyIconClick, newreply }) => {
+const Message = ({ messageData, type, options, editReplyClickHandler, replyIconClick, newreply }) => {
+
     const messageRef = useRef();
     const { selectedMessages } = useSelector(store => store.appStore);
-    const { uid, plainText, time, id, replyTo, arrayText, previousMessageUid, nextMessageUid, previousMessageDifferentDate, nextMessageDifferentDate, isLocalMessage, isTextPersian, textLetters, } = messageData;
-    const { messagePosition, messageClickHandler, onHoldStarts, onHoldEnds, selected, messageSkeletonEffect, status, messageStyles } = useMessage(messageData, type, messageRef, options, onClick);
+
+    const {
+        uid,
+        plainText,
+        time,
+        id,
+        replyTo,
+        arrayText,
+        previousMessageUid,
+        nextMessageUid,
+        previousMessageDifferentDate,
+        nextMessageDifferentDate,
+        isLocalMessage,
+        isTextPersian,
+        textLetters,
+    } = messageData;
+
+    const {
+        messagePosition,
+        messageClickHandler,
+        onHoldStarts,
+        onHoldEnds,
+        selected,
+        messageSkeletonEffect,
+        status,
+        styles
+    } = useMessage(messageData, type, messageRef, options, editReplyClickHandler);
+
     return (
         <>
             <MessageContainer
@@ -26,12 +53,12 @@ const Message = ({ messageData, type, options, onClick, replyIconClick, newreply
                 ref={messageRef}
                 layout={type == 'EDIT_REPLY' ? 0 : 1}
                 layoutId={type == 'EDIT_REPLY' ? id : null}
-                data={{
-                    type: type,
-                    islocalmessage: isLocalMessage ? 1 : 0,
-                    position: messagePosition,
-                    date: previousMessageDifferentDate && time?.year && time?.month ? 1 : 0,
-                }}
+                onClick={messageClickHandler}
+                onMouseDown={onHoldStarts}
+                onMouseUp={onHoldEnds}
+                onTouchStart={onHoldStarts}
+                onTouchEnd={onHoldEnds}
+                data={{ ...styles }}
             >
                 <MessageDate
                     layout
@@ -49,18 +76,12 @@ const Message = ({ messageData, type, options, onClick, replyIconClick, newreply
                 />
                 <MessageBox
                     data={{
-                        functions: {
-                            messageClickHandler,
-                            onHoldStarts,
-                            onHoldEnds,
-                            onHoldStarts,
-                        },
                         type: type,
                         replyTo: replyTo,
                         arrayText: arrayText,
                         plainText: plainText,
-                        messageStyles: {
-                            ...messageStyles,
+                        styles: {
+                            ...styles,
                             type: type,
                             localmessage: isLocalMessage ? 1 : 0,
                             persian: isTextPersian ? 1 : 0,
@@ -95,31 +116,13 @@ const Message = ({ messageData, type, options, onClick, replyIconClick, newreply
 
 const MessageContainer = styled(motion.div)`
     position: relative;
+    width: 100%;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    flex-direction: ${props => props.data.islocalmessage ? 'row-reverse' : 'row'};
-    padding-top: ${props =>
-        props.data.position < 2 && !props.data.islocalmessage && !props.data.date ?
-        '1.8rem' :
-        props.data.position < 2 && !props.data.islocalmessage && props.data.date ?
-        '3rem' :
-        props.data.date && '1.8rem'
-    };
+    flex-direction: ${props => props.data.messageFlexDirection};
+    padding-top: ${props => props.data.messagePaddingTop};
     transition: padding .4s;
-    width: 100%;
-
-    .options {
-        display: flex;
-        justify-content: ${props => props.data.islocalmessage ? 'flex-end' : 'flex-start'};
-        align-items: center;
-    }
-
-    @media (max-width: 768px) {
-        .options {
-            position: absolute;
-        }
-    }
 `;
 
 export default memo(Message);

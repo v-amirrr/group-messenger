@@ -73,7 +73,7 @@ const EditReply = ({ replyTo, id, editReplyOpen, setEditReplyOpen }) => {
                                 {
                                     messagesBefore?.map((messageData) => (
                                         <Message
-                                            onClick={() =>
+                                            editReplyClickHandler={() =>
                                                 newReply.id == messageData.id ?
                                                 setNewReply('deleted') :
                                                 setNewReply(messageData)
@@ -146,7 +146,7 @@ const ReplyConatiner = styled(motion.div)`
     border-radius: 25px;
     background-color: ${props => props.editreplyopen ? '#00000088' : '#00000044'};
     border: ${props => props.editreplyopen ? 'solid 2.5px #ffffff00' : 'solid 2.5px #ffffff10'};
-    box-shadow: var(--shadow-second);
+    box-shadow: var(--shadow);
     overflow: hidden;
     transition: ${props =>
         props.editreplyopen ?
@@ -163,7 +163,7 @@ const ReplyConatiner = styled(motion.div)`
         align-items: center;
         width: 100%;
         height: 100%;
-        color: var(--pale-color);
+        color: var(--grey);
         font-weight: 400;
         white-space: nowrap;
 

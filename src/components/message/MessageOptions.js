@@ -61,7 +61,7 @@ const MessageOptions = ({ options, type }) => {
                 break;
             case 'RESTORE':
                 restore(options?.messageOptions?.id);
-                openNotification('Message restored.', false, 'RESTORE');
+                openNotification('Message restored', 'GENERAL');
                 options?.closeOptions({ type: 'RESTORE' });
                 break;
         }
@@ -215,7 +215,7 @@ const MessageOptionsContainer = styled(motion.div)`
     .reply, .copy, .edit, .trash, .select, .time, .delete, .restore {
         position: relative;
         top: 2.5rem;
-        background-color: var(--normal-bg);
+        background-color: var(--bg);
         margin: .2rem 0 0 .2rem;
         display: flex;
         justify-content: center;
@@ -238,11 +238,12 @@ const MessageOptionsContainer = styled(motion.div)`
         p {
             font-size: 1rem;
             font-weight: 400;
+            white-space: nowrap;
         }
 
         @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
             &:hover {
-                background-color: var(--normal-bg-hover);
+                background-color: var(--bg-hover);
             }
         }
     }
@@ -271,7 +272,7 @@ const MessageOptionsContainer = styled(motion.div)`
 
     .delete {
         background-color: #ff000030;
-        color: #ff0000;
+        color: var(--red);
 
         i {
             font-size: 1.3rem;

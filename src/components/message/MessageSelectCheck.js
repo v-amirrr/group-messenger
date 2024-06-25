@@ -54,7 +54,7 @@ const MessageSelectCheckContainer = styled(motion.div)`
     border-radius: 50%;
     background: ${props => props.selected ? '#151515' : '#ffffff00'};
     overflow: hidden;
-    box-shadow: var(--normal-shadow);
+    box-shadow: var(--shadow);
     cursor: pointer;
     transition: background .2s, border .2s;
 

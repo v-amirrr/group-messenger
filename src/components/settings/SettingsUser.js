@@ -19,7 +19,7 @@ const SettingsUser = ({ open, setOpen, setHeight }) => {
     const itemSwitch = () => {
         cancelHandler();
         if (enterAsAGuest) {
-            openNotification("In order to use this feature you need to login.", false, "GUEST");
+            openNotification("To use this feature you need to login", "GUEST");
         } else {
             if (open == "SETTINGS_USER") {
                 setOpen(false);
@@ -34,9 +34,9 @@ const SettingsUser = ({ open, setOpen, setHeight }) => {
         if (changeUsernameInput && changeUsernameInput != user?.displayName) {
             openModal('CHANGE_USERNAME_CONFIRMATION', null, changeUsernameInput);
         } else if (changeUsernameInput == user?.displayName) {
-            openNotification("The old and the new usernames are the same", true, "ERROR");
+            openNotification("The old and the new usernames are the same", "ERROR");
         } else {
-            openNotification("Type a new username", true, "ERROR");
+            openNotification("Type a new username", "ERROR");
         }
     };
 
@@ -125,7 +125,7 @@ const UserContainer = styled(motion.div)`
                 padding: 0 .5rem;
                 border: none;
                 border-radius: 50px;
-                background-color: var(--normal-bg);
+                background-color: var(--bg);
                 font-size: .7rem;
                 font-weight: 400;
             }
@@ -157,7 +157,7 @@ const UserContainer = styled(motion.div)`
                 width: 4.3rem;
                 height: 1.8rem;
                 border-radius: 50px;
-                background-color: var(--normal-bg);
+                background-color: var(--bg);
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -169,13 +169,13 @@ const UserContainer = styled(motion.div)`
 
                 @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
                     &:hover {
-                        background-color: var(--normal-bg-hover);
+                        background-color: var(--bg-hover);
                     }
                 }
             }
 
             .submit-button {
-                color: #00ff00;
+                color: var(--green);
                 background-color: #00ff0030;
 
                 @media (hover: hover) and (pointer: fine) and (min-width: 745px) {

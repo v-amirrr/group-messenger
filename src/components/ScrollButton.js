@@ -36,12 +36,10 @@ const ScrollButtonContainer = styled(motion.button)`
     display: flex;
     justify-content: center;
     align-items: center;
-    border: solid 2.5px #ffffff10;
+    border: var(--border);
     border-radius: 50px;
-    box-shadow: var(--normal-shadow);
-    backdrop-filter: var(--bold-glass);
-    -webkit-backdrop-filter: var(--bold-glass);
-    color: var(--normal-color);
+    box-shadow: var(--shadow);
+    backdrop-filter: var(--glass);
     cursor: ${props => props.newmessage ? 'auto' : 'pointer'};
     overflow: hidden;
     z-index: 3;
@@ -63,9 +61,9 @@ const ScrollButtonContainer = styled(motion.button)`
             font-size: 1rem;
             width: 2.3rem;
             height: 2.3rem;
-            transform: ${props => props.arrow ? "rotateX(180deg)" : "rotateX(0deg)"};
-            transition: transform .5s .3s;
             cursor: pointer;
+            transform: ${props => props.arrow ? "rotateX(180deg)" : "rotateX(0deg)"};
+            transition: transform .5s;
         }
 
         .new-message {
@@ -85,7 +83,7 @@ const ScrollButtonContainer = styled(motion.button)`
             p {
                 font-size: .6rem;
                 padding: .1rem .2rem;
-                background-color: var(--red-color);
+                background-color: var(--red);
                 border-radius: 50px;
             }
         }

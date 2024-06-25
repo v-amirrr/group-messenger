@@ -382,7 +382,7 @@ const Guidance = styled(motion.div)`
         display: flex;
         justify-content: center;
         align-items: center;
-        border: solid 2.5px #ffffff20;
+        border: var(--border);
         border-radius: 25px;
         background-color: #000000aa;
         overflow: hidden;
@@ -395,18 +395,17 @@ const Guidance = styled(motion.div)`
             top: 1rem;
             left: 1rem;
             display: none;
-            backdrop-filter: var(--normal-glass);
-            -webkit-backdrop-filter: var(--normal-glass);
+            backdrop-filter: var(--glass);
             display: flex;
             justify-content: center;
             align-items: center;
             font-size: 1.4rem;
-            background-color: #ffffff10;
+            background-color: var(--bg);
             width: 2.5rem;
             height: 2.5rem;
             border-radius: 50%;
             z-index: 99;
-            box-shadow: var(--normal-shadow);
+            box-shadow: var(--shadow);
 
             i {
                 display: flex;
@@ -436,14 +435,13 @@ const Guidance = styled(motion.div)`
             top: 1rem;
             left: 1rem;
             padding: 0 .5rem 0 .2rem;
-            backdrop-filter: var(--normal-glass);
-            -webkit-backdrop-filter: var(--normal-glass);
-            box-shadow: var(--normal-shadow);
+            backdrop-filter: var(--glass);
+            box-shadow: var(--shadow);
             display: flex;
             justify-content: center;
             align-items: center;
             cursor: pointer;
-            background-color: #ffffff10;
+            background-color: var(--bg);
             border-radius: 25px;
             font-size: 1.2rem;
             z-index: 10;
@@ -461,7 +459,7 @@ const Guidance = styled(motion.div)`
             }
 
             &:hover {
-                background-color: #ffffff20;
+                background-color: var(--bg-hover);
             }
         }
 
@@ -485,7 +483,7 @@ const Guidance = styled(motion.div)`
                 }
 
                 li {
-                    background-color: #ffffff10;
+                    background-color: var(--bg);
                     font-weight: 400;
                     border-radius: 50px;
                     width: 90%;
@@ -501,71 +499,71 @@ const Guidance = styled(motion.div)`
                     text-overflow: ellipsis;
                     white-space: nowrap;
                     letter-spacing: 0;
-                    box-shadow: var(--normal-shadow);
+                    box-shadow: var(--shadow);
                     transition: color .2s;
 
                     &:nth-child(1) {
-                        color: ${props => props.content == 1 ? "var(--normal-color)" : "var(--pale-color)"};
+                        color: ${props => props.content == 1 ? "var(--text)" : "var(--grey)"};
                     }
 
                     &:nth-child(2) {
-                        color: ${props => props.content == 2 ? "var(--normal-color)" : "var(--pale-color)"};
+                        color: ${props => props.content == 2 ? "var(--text)" : "var(--grey)"};
                     }
 
                     &:nth-child(3) {
-                        color: ${props => props.content == 3 ? "var(--normal-color)" : "var(--pale-color)"};
+                        color: ${props => props.content == 3 ? "var(--text)" : "var(--grey)"};
                     }
 
                     &:nth-child(4) {
-                        color: ${props => props.content == 4 ? "var(--normal-color)" : "var(--pale-color)"};
+                        color: ${props => props.content == 4 ? "var(--text)" : "var(--grey)"};
                     }
 
                     &:nth-child(5) {
-                        color: ${props => props.content == 5 ? "var(--normal-color)" : "var(--pale-color)"};
+                        color: ${props => props.content == 5 ? "var(--text)" : "var(--grey)"};
                     }
 
                     &:nth-child(6) {
-                        color: ${props => props.content == 6 ? "var(--normal-color)" : "var(--pale-color)"};
+                        color: ${props => props.content == 6 ? "var(--text)" : "var(--grey)"};
                     }
 
                     &:nth-child(7) {
-                        color: ${props => props.content == 7 ? "var(--normal-color)" : "var(--pale-color)"};
+                        color: ${props => props.content == 7 ? "var(--text)" : "var(--grey)"};
                     }
 
                     &:nth-child(8) {
-                        color: ${props => props.content == 8 ? "var(--normal-color)" : "var(--pale-color)"};
+                        color: ${props => props.content == 8 ? "var(--text)" : "var(--grey)"};
                     }
 
                     &:nth-child(9) {
-                        color: ${props => props.content == 9 ? "var(--normal-color)" : "var(--pale-color)"};
+                        color: ${props => props.content == 9 ? "var(--text)" : "var(--grey)"};
                     }
 
                     &:nth-child(10) {
-                        color: ${props => props.content == 10 ? "var(--normal-color)" : "var(--pale-color)"};
+                        color: ${props => props.content == 10 ? "var(--text)" : "var(--grey)"};
                     }
 
                     &:nth-child(11) {
-                        color: ${props => props.content == 11 ? "var(--normal-color)" : "var(--pale-color)"};
+                        color: ${props => props.content == 11 ? "var(--text)" : "var(--grey)"};
                     }
 
                     &:nth-child(12) {
-                        color: ${props => props.content == 12 ? "var(--normal-color)" : "var(--pale-color)"};
+                        color: ${props => props.content == 12 ? "var(--text)" : "var(--grey)"};
                     }
 
                     &:nth-child(13) {
-                        color: ${props => props.content == 13 ? "var(--normal-color)" : "var(--pale-color)"};
+                        color: ${props => props.content == 13 ? "var(--text)" : "var(--grey)"};
                     }
 
                     &:nth-child(14) {
-                        color: ${props => props.content == 14 ? "var(--normal-color)" : "var(--pale-color)"};
+                        color: ${props => props.content == 14 ? "var(--text)" : "var(--grey)"};
                     }
 
                     &:nth-child(15) {
-                        color: ${props => props.content == 15 ? "var(--normal-color)" : "var(--pale-color)"};
+                        color: ${props => props.content == 15 ? "var(--text)" : "var(--grey)"};
                     }
 
                     &:nth-child(16) {
-                        color: ${props => props.content == 16 ? "var(--normal-color)" : "var(--pale-color)"};
+                        color: ${props => props.content == 16 ? "var(--text)" : "var(--grey)"};
                     }
                 }
 
@@ -585,7 +583,7 @@ const Guidance = styled(motion.div)`
                 font-weight: 400;
                 font-size: .8rem;
                 line-height: 1.5;
-                color: var(--pale-color);
+                color: var(--grey);
                 word-spacing: 1px;
 
                 ::-webkit-scrollbar {
@@ -603,7 +601,7 @@ const Guidance = styled(motion.div)`
                         margin: 0 .2rem;
                         cursor: pointer;
                         font-size: .9rem;
-                        background-color: #ffffff10;
+                        background-color: var(--bg);
                         display: flex;
                         justify-content: center;
                         align-items: center;
@@ -612,7 +610,7 @@ const Guidance = styled(motion.div)`
                         transition: background .2s;
 
                         &:not(:disabled):hover {
-                            background-color: #ffffff20;
+                            background-color: var(--bg-hover);
                         }
                     }
                 }
@@ -621,20 +619,18 @@ const Guidance = styled(motion.div)`
                     white-space: nowrap;
                     width: 100%;
                     margin: 2rem 0;
-                    color: var(--normal-color);
                     font-size: 2rem;
                 }
 
                 strong {
-                    color: var(--normal-color);
                     font-weight: 300;
                 }
 
                 .important {
-                    border: solid 2.5px #ffffff20;
+                    border: var(--border);
                     border-radius: 20px;
                     background-color: #ffffff04;
-                    box-shadow: var(--shadow-second);
+                    box-shadow: var(--shadow);
                     width: 100%;
                     display: block;
                     padding: 1.5rem;

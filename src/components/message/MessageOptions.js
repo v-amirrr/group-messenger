@@ -194,21 +194,10 @@ const MessageOptions = ({ options, type }) => {
                 >
                     <AnalogClock time={options?.messageOptions?.time} scale={1.4} />
                     <p>
-                        <span>
-                            {
-                                options?.messageOptions?.time?.hour < 10 ?
-                                `0${options?.messageOptions?.time?.hour}` :
-                                options?.messageOptions?.time?.hour
-                            }
-                        </span>
+                        <span className='hour'>{options?.messageOptions?.time?.hour}</span>
                         :
-                        <span>
-                            {
-                                options?.messageOptions?.time?.minute < 10 ?
-                                `0${options?.messageOptions?.time?.minute}` :
-                                options?.messageOptions?.time?.minute
-                            }
-                        </span>
+                        <span className='minute'>{options?.messageOptions?.time?.minute}</span>
+                        <span className='format'>{options?.messageOptions?.time?.format}</span>
                     </p>
                 </motion.div>
             </MessageOptionsContainer>
@@ -267,6 +256,10 @@ const MessageOptionsContainer = styled(motion.div)`
             opacity: 1;
             letter-spacing: 0px;
             margin-left: .5rem;
+
+            .format {
+                margin-left: .2rem;
+            }
         }
     }
 

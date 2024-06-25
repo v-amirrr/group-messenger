@@ -3,6 +3,10 @@ import { db } from "../config/firebase";
 import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
 import { setMessages, setDeletedMessages, setUsernames } from "../redux/firestoreSlice";
 import { isURL } from "../functions/isURL";
+import { deviceHourFormat } from "../functions/deviceHourFormat";
+import { setAmPm } from "../functions/SetAmPm";
+import { setHour } from "../functions/setHour";
+import { setMinute } from "../functions/setMinute";
 
 export const useFirestore = () => {
     const dispatch = useDispatch();
@@ -38,9 +42,9 @@ export const useFirestore = () => {
                         month: monthNames[doc.data().time?.toDate()?.getMonth()],
                         monthNum: doc.data().time?.toDate()?.getMonth(),
                         day: doc.data().time?.toDate()?.getDate(),
-                        hour: doc.data().time?.toDate()?.getHours(),
-                        minute: doc.data().time?.toDate()?.getMinutes(),
-                        second: doc.data().time?.toDate()?.getSeconds(),
+                        hour: setHour(doc.data().time?.toDate()?.getHours()),
+                        minute: setMinute(doc.data().time?.toDate()?.getMinutes()),
+                        format: deviceHourFormat() == 12 ? setAmPm(doc.data().time?.toDate()?.getHours()) : deviceHourFormat(),
                     },
                     id: doc.id,
                     replyTo: doc.data().replyTo ? doc.data().replyTo : null,

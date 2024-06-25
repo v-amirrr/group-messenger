@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { chatDateVariants } from '../../config/varitans';
 
 const MessageDate = ({ show, data }) => {
+    console.log(data);
     return (
         <>
             {
@@ -13,11 +14,7 @@ const MessageDate = ({ show, data }) => {
                         <p className='year'>{data.year}</p>
                         <p className='month'>{data.month}</p>
                         <p className='day'>{data.day}</p>
-                        <p className='time'>
-                            {data.hour < 10 ? `0${data.hour}` : data.hour}
-                            :
-                            {data.minute < 10 ? `0${data.minute}` : data.minute}
-                        </p>
+                        <p className='time'>{data.hour} : {data.minute} {data.format}</p>
                     </div>
                 </MessageDateContainer>
                 : ''

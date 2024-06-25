@@ -24,7 +24,7 @@ const InputBar = () => {
     const inputKeyHandler = (e) => {
         if (e.keyCode == 13 && !e.shiftKey && !navigator.userAgentData.mobile) {
             e.preventDefault();
-            sendMessage(inputText, setInputText);
+            sendMessage(inputText.trim(), setInputText);
         }
     };
 
@@ -42,7 +42,7 @@ const InputBar = () => {
     };
 
     const sendClickHandler = () => {
-        sendMessage(inputText, setInputText);
+        sendMessage(inputText.trim(), setInputText);
         if (navigator.userAgentData.mobile) {
             inputRef.current.focus();
         }

@@ -16,7 +16,7 @@ export const useSend = () => {
         if (enterAsAGuest) {
             openNotification("In order to use this feature you need to login.", false, "GUEST");
         } else {
-            if (inputText != '' && inputText.charCodeAt(0) != 8204) {
+            if (inputText && inputText.charCodeAt(0) != 8204) {
                 if (navigator.onLine) {
                     setInputText('');
                     dispatch(setInputReply({ id: null, message: null }));

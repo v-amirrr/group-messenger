@@ -170,6 +170,22 @@ export const messageLoaderVariants = {
     },
 };
 
+export const optionsGlassVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            duration: 0.2,
+        },
+    },
+    exit: {
+        opacity: 0,
+        transition: {
+            duration: 0.2,
+        },
+    },
+};
+
 export const optionsVariants = {
     hidden: { opacity: 0 },
     visible: {

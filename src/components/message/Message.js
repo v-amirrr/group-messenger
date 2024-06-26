@@ -53,11 +53,6 @@ const Message = ({ messageData, type, options, editReplyClickHandler, replyIconC
                 ref={messageRef}
                 layout={type == 'EDIT_REPLY' ? 0 : 1}
                 layoutId={type == 'EDIT_REPLY' ? id : null}
-                onClick={messageClickHandler}
-                onMouseDown={onHoldStarts}
-                onMouseUp={onHoldEnds}
-                onTouchStart={onHoldStarts}
-                onTouchEnd={onHoldEnds}
                 data={{ ...styles }}
             >
                 <MessageDate
@@ -75,6 +70,11 @@ const Message = ({ messageData, type, options, editReplyClickHandler, replyIconC
                     }}
                 />
                 <MessageBox
+                    functions={{
+                        messageClickHandler,
+                        onHoldStarts,
+                        onHoldEnds,
+                    }}
                     data={{
                         type: type,
                         replyTo: replyTo,

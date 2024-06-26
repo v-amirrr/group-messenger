@@ -63,7 +63,7 @@ export const useMessage = (messageData, type, messageRef, options, editReplyClic
             !isLocalMessage && messagePosition == 2 ? '12px 20px 20px 12px' :
             !isLocalMessage && messagePosition == 3 && '12px 20px 20px 20px',
         boxPadding:
-            replyTo != 'no_reply' && type != 'TRASH' ?
+            replyTo != 'NO_REPLY' && type != 'TRASH' ?
             '.45rem .6rem .45rem .45rem' :
             textLetters <= 2 ?
             '.45rem 1rem' :
@@ -74,9 +74,9 @@ export const useMessage = (messageData, type, messageRef, options, editReplyClic
         messageFlexDirection:
             isLocalMessage ? 'row-reverse' : 'row',
         messagePaddingTop:
-        time?.year && messagePosition < 2 && !isLocalMessage && !previousMessageDifferentDate ? '1.8rem' :
-        time?.year && messagePosition < 2 && !isLocalMessage && previousMessageDifferentDate ? '3rem' :
-        time?.year && previousMessageDifferentDate ? '1.8rem' : ''
+            time?.year && messagePosition < 2 && !isLocalMessage && !previousMessageDifferentDate ? '1.8rem' :
+            time?.year && messagePosition < 2 && !isLocalMessage && previousMessageDifferentDate ? '3rem' :
+            time?.year && previousMessageDifferentDate ? '1.8rem' : ''
     };
 
     // setting message position, storing message scroll position
@@ -227,7 +227,7 @@ export const useMessage = (messageData, type, messageRef, options, editReplyClic
                     selectThisMessage();
                     setHold(true);
                 }
-            }, 300);
+            }, 200);
         }
     };
 

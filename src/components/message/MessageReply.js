@@ -30,19 +30,19 @@ const MessageReply = ({ replyTo, type }) => {
     return (
         <>
             {
-                replyTo != 'no_reply' && type != 'TRASH' ?
+                replyTo != 'NO_REPLY' && type != 'TRASH' ?
                 <ReplyContainer
-                    onClick={(e) => clickHandler(e)}
+                    onClick={(e) => replyTo != 'DELETED_REPLY' ? clickHandler(e) : ''}
                     onMouseEnter={hoverHandler}
                     onMouseLeave={() => mouseSituation = 'OUT'}
                     data={{
                         chatType: type == 'CHAT',
-                        deletedReplyTo: !replyTo ? 1 : 0
+                        deletedReply: replyTo == 'DELETED_REPLY'
                     }}
                 >
                     <i><BsReplyFill /></i>
                     {
-                        replyTo ?
+                        replyTo != 'DELETED_REPLY' ?
                         <p className='reply-message'>{replyTo?.plainText}</p> :
                         <p className='reply-username'>Deleted Message</p>
                     }
@@ -71,12 +71,12 @@ const ReplyContainer = styled.div`
     font-weight: 300;
     white-space: nowrap;
     overflow: hidden;
-    cursor: ${props => !props.data.deletedReplyTo && 'pointer'};
+    cursor: ${props => !props.data.deletedReply && 'pointer'};
     transition: background .2s;
 
     @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
         &:hover {
-            background-color: ${props => !props.data.deletedReplyTo && props.data.chatType ? '#ffffff15' : ''};
+            background-color: ${props => !props.data.deletedReply && props.data.chatType ? '#ffffff15' : ''};
         }
     }
 

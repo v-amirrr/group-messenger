@@ -9,35 +9,35 @@ import { messengerVariants } from '../../config/varitans';
 
 const MessengerPage = () => {
     const { messages } = useSelector(store => store.firestoreStore);
-    const [chatLoading, setChatLoading] = useState(true);
-    const [chatError, setChatError] = useState(false);
+    const [status, setStatus] = useState('LOADER');
+
     useEffect(() => {
         if (messages?.length) {
-            setChatLoading(false);
-            setChatError(false);
+            setStatus('CHAT');
         } else if (messages === undefined) {
-            setChatError(true);
-            setChatLoading(false);
+            setStatus('ERROR');
         }
     }, [messages]);
+
     return (
         <>
-            <MessengerPageContainer
-                initial='hidden'
-                animate='visible'
-                exit='exit'
-                variants={messengerVariants}
-            >
+            <MessengerPageContainer initial='hidden' animate='visible' exit='exit' variants={messengerVariants}>
                 <div className='chat'>
                     <AnimatePresence exitBeforeEnter>
                         {
-                            chatLoading && !chatError ?
+                            status == 'LOADER'
+                            ?
                             <ChatLoader key='loader' />
-                            : chatError && !chatLoading ?
-                            <ChatError key='error-box' />
-                            : !chatLoading && !chatError ?
+                            :
+                            status == 'ERROR'
+                            ?
+                            <ChatError key='error' />
+                            :
+                            status == 'CHAT'
+                            ?
                             <Chat />
-                            : ''
+                            :
+                            ''
                         }
                     </AnimatePresence>
                 </div>
@@ -46,7 +46,7 @@ const MessengerPage = () => {
     );
 };
 
-const MessengerPageContainer = styled(motion.main)`
+const MessengerPageContainer = styled(motion.div)`
     position: fixed;
     width: 100vw;
     height: 100dvh;

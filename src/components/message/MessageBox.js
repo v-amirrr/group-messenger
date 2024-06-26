@@ -3,12 +3,17 @@ import MessageReply from './MessageReply';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
-const MessageBox = ({ data }) => {
+const MessageBox = ({ functions, data }) => {
     const messageBoxRef = useRef();
     return (
         <>
             <MessageBoxContainer
                 ref={messageBoxRef}
+                onClick={functions?.messageClickHandler}
+                onMouseDown={functions?.onHoldStarts}
+                onMouseUp={functions?.onHoldEnds}
+                onTouchStart={functions?.onHoldStarts}
+                onTouchEnd={functions?.onHoldEnds}
                 data={{
                     width: messageBoxRef?.current?.offsetWidth,
                     height: messageBoxRef?.current?.offsetHeight,

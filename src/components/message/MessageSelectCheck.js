@@ -4,7 +4,7 @@ import { FcCheckmark } from 'react-icons/fc';
 import { motion, AnimatePresence } from 'framer-motion';
 import { selectCheckLocalVariants, selectCheckNonLocalVariants, checkButtonVariants } from '../../config/varitans';
 
-const MessageSelectCheck = ({ selected, selectedMessagesLength, messageClickHandler, localMessage }) => {
+const MessageSelectCheck = ({ selected, selectedMessagesLength, messageClickHandler, isLocalMessage }) => {
     return (
         <>
             <AnimatePresence>
@@ -16,7 +16,7 @@ const MessageSelectCheck = ({ selected, selectedMessagesLength, messageClickHand
                         initial='hidden'
                         animate='visible'
                         exit='exit'
-                        variants={localMessage ? selectCheckLocalVariants : selectCheckNonLocalVariants}
+                        variants={isLocalMessage ? selectCheckLocalVariants : selectCheckNonLocalVariants}
                         onClick={messageClickHandler}
                         selected={selected ? 1 : 0}
                     >

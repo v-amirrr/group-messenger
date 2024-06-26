@@ -18,7 +18,7 @@ import { AnimatePresence } from 'framer-motion';
 const App = () => {
     const location = useLocation();
     const { getMessages, getUsers } = useFirestore();
-    const { setDefaultNotification, clearNotifications } = useNotification();
+    const { setDefaultNotification } = useNotification();
     const { clearSelectedMessages } = useSelect();
     const { autoRedirection } = useRedirection();
 

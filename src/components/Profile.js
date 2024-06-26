@@ -3,18 +3,12 @@ import { useSelector } from 'react-redux';
 import { FaUserLock } from 'react-icons/fa';
 import { TiUser } from 'react-icons/ti';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
-import { profileVariants } from '../config/varitans';
 
 const Profile = () => {
     const { user, enterAsAGuest } = useSelector(store => store.userStore);
     return (
         <>
             <ProfileContainer
-                initial='hidden'
-                animate='visible'
-                exit='exit'
-                variants={profileVariants}
                 letters={
                     user?.displayName.length < 15 ?
                     user?.displayName.length :
@@ -37,7 +31,7 @@ const Profile = () => {
     );
 };
 
-const ProfileContainer = styled(motion.div)`
+const ProfileContainer = styled.div`
     box-sizing: content-box;
     position: absolute;
     top: 1rem;

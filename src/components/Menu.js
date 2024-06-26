@@ -4,8 +4,6 @@ import { useAuth } from '../hooks/useAuth';
 import { HiDotsVertical } from 'react-icons/hi';
 import { FcSettings, FcRedo, FcInfo, FcEmptyTrash, FcFullTrash } from 'react-icons/fc';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
-import { menuVariants } from '../config/varitans';
 
 const Menu = () => {
     const navigate = useNavigate();
@@ -32,7 +30,7 @@ const Menu = () => {
 
     return (
         <>
-            <MenuContainer initial='hidden' animate='visible' exit='exit' variants={menuVariants}>
+            <MenuContainer>
                 <div className='buttons'>
                     <button onClick={() => clickHandler('GUIDANCE')}>
                         <i className='features-icon'><FcInfo /></i>
@@ -57,7 +55,7 @@ const Menu = () => {
     );
 };
 
-const MenuContainer = styled(motion.div)`
+const MenuContainer = styled.div`
     box-sizing: content-box;
     position: absolute;
     top: 1rem;

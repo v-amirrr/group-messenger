@@ -118,7 +118,7 @@ const EditReply = ({ replyTo, id, editReplyOpen, setEditReplyOpen }) => {
                                 <i><BsReplyFill /></i>
                                 <p>
                                     {
-                                        replyTo != 'no_reply' && replyTo != 'deleted' ?
+                                        replyTo != 'NO_REPLY' && replyTo != 'deleted' ?
                                         replyTo?.plainText :
                                         'Add Reply'
                                     }

@@ -1,17 +1,11 @@
 import React from 'react';
 import { FaArrowDown } from "react-icons/fa";
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
-import { scrollButtonVariants } from '../config/varitans';
 
 const ScrollButton = ({ click, arrow, newMessage, scrollDown }) => {
     return (
         <>
             <ScrollButtonContainer
-                initial='hidden'
-                animate='visible'
-                exit='exit'
-                variants={scrollButtonVariants}
                 arrow={arrow == 'UP' ? 1 : 0}
                 newmessage={newMessage ? 1 : 0}
             >
@@ -26,7 +20,7 @@ const ScrollButton = ({ click, arrow, newMessage, scrollDown }) => {
     );
 };
 
-const ScrollButtonContainer = styled(motion.button)`
+const ScrollButtonContainer = styled.button`
     box-sizing: content-box;
     position: absolute;
     top: 1rem;

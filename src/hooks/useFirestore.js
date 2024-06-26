@@ -7,6 +7,7 @@ import { deviceHourFormat } from "../functions/deviceHourFormat";
 import { setAmPm } from "../functions/SetAmPm";
 import { setHour } from "../functions/setHour";
 import { setMinute } from "../functions/setMinute";
+import { findReplyId } from "../functions/findReplyId";
 
 export const useFirestore = () => {
     const dispatch = useDispatch();
@@ -81,7 +82,7 @@ export const useFirestore = () => {
                     index+1 != messages?.length ?
                         dates.thisMessageDate != dates.nextMessageDate ? true : false
                     : false,
-                    replyTo: item.replyTo ? messages.find((filteredMessage) => filteredMessage.id == item.replyTo) : "no_reply",
+                    replyTo: item.replyTo ? findReplyId(messages, item.replyTo, index) : 'NO_REPLY',
                 };
                 delete newItem.deleted;
                 return newItem;

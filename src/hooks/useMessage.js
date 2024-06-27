@@ -96,9 +96,8 @@ export const useMessage = (messageData, type, messageRef, options, editReplyClic
             setHold(false);
             setSelected(false);
         } else {
-            if (selectedMessages[selectedMessages.length-1].id == messageData.id) {
+            if (selectedMessages[selectedMessages.length-1].id == messageData.id && !selected) {
                 setSelected(true);
-                applyMessageSkeletonEffect();
             }
         }
     }, [selectedMessages]);

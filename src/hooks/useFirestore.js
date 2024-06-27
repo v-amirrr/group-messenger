@@ -4,7 +4,7 @@ import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
 import { setMessages, setDeletedMessages, setUsernames } from "../redux/firestoreSlice";
 import { isURL } from "../functions/isURL";
 import { deviceHourFormat } from "../functions/deviceHourFormat";
-import { setAmPm } from "../functions/SetAmPm";
+import { setAmPm } from "../functions/setAmPm";
 import { setHour } from "../functions/setHour";
 import { setMinute } from "../functions/setMinute";
 import { findReplyId } from "../functions/findReplyId";

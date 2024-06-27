@@ -9,7 +9,7 @@ import { motion } from 'framer-motion';
 import { selectBarVariants } from '../config/varitans';
 
 const SelectBar = () => {
-    const { selectedMessages, selectOthersMessage } = useSelector(store => store.appStore);
+    const { selectedMessages, nonLocalSelected } = useSelector(store => store.appStore);
     const { clearSelectedMessages, copySelectedMessages, moveToTrashSelectedMessages } = useSelect();
     return (
         <>
@@ -30,7 +30,7 @@ const SelectBar = () => {
                         <i><AiFillCopy /></i>
                         <p>Copy</p>
                     </button>
-                    <button className='delete' disabled={selectOthersMessage} onClick={moveToTrashSelectedMessages}>
+                    <button className='delete' disabled={nonLocalSelected} onClick={moveToTrashSelectedMessages}>
                         <i><AiFillDelete /></i>
                         <p>Delete</p>
                     </button>

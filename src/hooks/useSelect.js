@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setSelectedMessages, setClearSelectedMessages, setUnselectMessages, setSelectOthersMessage } from '../redux/appSlice';
+import { setSelectedMessages, setClearSelectedMessages, setUnselectMessages, setPlusNonLocalSelected, setMinusNonLocalSelected, setClearNonLocalSelected } from '../redux/appSlice';
 import { useOptions } from "./useOptions";
 import { useNotification } from "./useNotification";
 import { useModal } from "./useModal";
+import { useSkeletonEffect } from "./useSkeletonEffect";
 
 export const useSelect = () => {
     const dispatch = useDispatch();
@@ -11,32 +11,26 @@ export const useSelect = () => {
     const { moveToTrash, restore, permanentDelete } = useOptions();
     const { closeModal } = useModal();
     const { openNotification } = useNotification();
-    const [nonLocalSelectedMessages, setNonLocalSelectedMessages] = useState(0);
-
-    useEffect(() => {
-        if (!nonLocalSelectedMessages) {
-            dispatch(setSelectOthersMessage(false));
-        }
-    }, [nonLocalSelectedMessages]);
+    const { addSkeletonEffect } = useSkeletonEffect();
 
     const select = (message) => {
         dispatch(setSelectedMessages({ message }));
-        if (!message.isLocalMessage) {
-            setNonLocalSelectedMessages(nonLocalSelectedMessages + 1);
-            dispatch(setSelectOthersMessage(true));
+        if (!message?.isLocalMessage) {
+            dispatch(setPlusNonLocalSelected());
         }
+        addSkeletonEffect(message.id);
     };
 
     const unSelect = (id, isLocalMessage) => {
         let newSelectedMessages = selectedMessages.filter(item => item.id != id ? item : '');
         if (!isLocalMessage) {
-            setNonLocalSelectedMessages(nonLocalSelectedMessages - 1);
+            dispatch(setMinusNonLocalSelected());
         }
         dispatch(setUnselectMessages(newSelectedMessages));
     };
 
     const clearSelectedMessages = () => {
-        setNonLocalSelectedMessages(0);
+        dispatch(setClearNonLocalSelected());
         dispatch(setClearSelectedMessages());
     };
 

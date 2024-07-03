@@ -78,7 +78,7 @@ const ModalContainer = styled(motion.section)`
     .modal {
         z-index: 4;
         position: relative;
-        padding: 1.2rem 1.5rem;
+        padding: 1.2rem;
         text-align: center;
         display: flex;
         justify-content: center;
@@ -89,7 +89,12 @@ const ModalContainer = styled(motion.section)`
         box-shadow: var(--shadow);
         backdrop-filter: var(--glass);
 
-        .buttons {
+        .modal-message {
+            font-size: 1rem;
+            font-weight: 400;
+        }
+
+        .modal-buttons {
             margin-top: 1.5rem;
 
             .edit, .delete, .cancel, .change {
@@ -124,7 +129,7 @@ const ModalContainer = styled(motion.section)`
             }
 
             .edit, .change {
-                color: var(--gren);
+                color: var(--green);
                 background-color: #00ff0030;
 
                 @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
@@ -147,7 +152,7 @@ const ModalContainer = styled(motion.section)`
                 width: 16rem;
             }
 
-            .buttons {
+            .modal-buttons {
                 margin-top: 1.5rem;
 
                 button {

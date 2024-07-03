@@ -62,6 +62,7 @@ const ChatLoaderContainer = styled(motion.div)`
     width: 62vw;
     height: 100vh;
     padding: 5rem 2rem 9rem 2rem;
+    background-color: #00000088;
 
     .profile,
     .menu,
@@ -140,22 +141,16 @@ const ChatLoaderContainer = styled(motion.div)`
         width: 100vw;
         padding: 5rem 1rem 10rem 1rem;
 
-        .profile {
-            left: 0;
-        }
-
         .menu {
             right: 0;
         }
 
         .scroll {
-            right: 0;
-            bottom: 1rem;
+            right: 3rem;
         }
 
         .input {
             width: 15rem;
-            margin-right: 4rem;
             bottom: .9rem;
         }
 

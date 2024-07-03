@@ -45,7 +45,7 @@ const ChatOptions = ({ messageOptions, setMessageOptions, type }) => {
                 data: null,
                 animationStatus: 0,
             }));
-        }, 400);
+        }, 500);
     };
 
     useEffect(() => {
@@ -74,7 +74,7 @@ const ChatOptions = ({ messageOptions, setMessageOptions, type }) => {
                             left: messageOptions?.data?.left,
                             width: messageOptions?.data?.width,
                             height: messageOptions?.data?.height,
-                            isMocalMessage: messageOptions?.data?.isLocalMessage,
+                            isLocalMessage: messageOptions?.data?.isLocalMessage,
                             chatOptionsStatus: messageOptions?.animationStatus,
                             phoneHeightDifference: window.outerHeight - window.innerHeight,
                             noTopPositionChange: noTopPositionChange,
@@ -140,7 +140,6 @@ const OptionsContainer = styled.div`
     align-items: center;
 
     .message-box {
-        z-index: 5;
         position: absolute;
         top: ${props => `${props.styles.top}px`};
         left: ${props => `${props.styles.left}px`};
@@ -148,16 +147,16 @@ const OptionsContainer = styled.div`
         height: ${props => `${props.styles.height}px`};
         display: flex;
         justify-content: flex-end;
-        align-items: ${props => props.styles.isMocalMessage ? 'flex-end' : 'flex-start'};
+        align-items: ${props => props.styles.isLocalMessage ? 'flex-end' : 'flex-start'};
         flex-direction: column;
-        transform: ${props => props.styles.zeroScale ? 'scale(0)' : props.styles.chatOptionsStatus == 2 ? 'scale(1.05)' : 'scale(1)'};
-        transition: ${props => props.styles.chatOptionsStatus == 2 ? 'transform .4s cubic-bezier(0.53, 0, 0, 0.98)' : 'transform .3s cubic-bezier(0.53, 0, 0, 0.98)'};
+        z-index: 5;
+        transform: ${props => props.styles.zeroScale ? 'scale(0)' : props.styles.chatOptionsStatus == 2 ? 'scale(1.06)' : 'scale(1)'};
         transition: ${props => props.styles.chatOptionsStatus == 2 ? 'transform .4s cubic-bezier(0.53, 0, 0, 0.98)' : 'transform .3s cubic-bezier(0.53, 0, 0, 0.98)'};
     }
 
     @media (max-width: 745px) {
         .message-box {
-            top: ${props => `${props.styles.top + 52.5}px`};
+            /* top: ${props => `${props.styles.top + 52.5}px`}; */
         }
     }
 `;

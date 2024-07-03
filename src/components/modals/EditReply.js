@@ -93,7 +93,7 @@ const EditReply = ({ replyTo, id, editReplyOpen, setEditReplyOpen }) => {
                                     ))
                                 }
                             </div>
-                            <div className='buttons'>
+                            <div className='modal-buttons'>
                                 <button className='cancel' onClick={() => setEditReplyOpen(!editReplyOpen)}>
                                     Cancel
                                 </button>

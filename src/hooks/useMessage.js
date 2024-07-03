@@ -65,9 +65,9 @@ export const useMessage = (messageData, type, messageRef, options, editReplyClic
         boxPadding:
             replyTo != 'NO_REPLY' && type != 'TRASH' ?
             '.45rem .6rem .45rem .45rem' :
-            textLetters <= 2 ?
+            textLetters <= 3 ?
             '.45rem 1rem' :
-            textLetters > 2 ?
+            textLetters > 3 ?
             '.45rem .6rem' : '',
         boxJustify:
             isLocalMessage ? 'flex-start' : 'flex-end',
@@ -84,8 +84,7 @@ export const useMessage = (messageData, type, messageRef, options, editReplyClic
         detectMessagePosition();
         if (type == 'CHAT') {
             storeMessageScrollPosition(id, {
-                top: ~~messageRef?.current?.offsetTop,
-                height: ~~messageRef?.current?.getBoundingClientRect()?.height,
+                top: messageRef?.current?.offsetTop-200,
             });
         }
     }, [nextMessageUid, previousMessageUid, previousMessageDifferentDate, nextMessageDifferentDate]);

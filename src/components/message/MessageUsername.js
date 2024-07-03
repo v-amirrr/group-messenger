@@ -21,18 +21,18 @@ const MessageUsername = ({ show, data }) => {
 
 const MessageUsernameContainer = styled.div`
     position: absolute;
-    top: ${props => props.data.dateShown ? "1.83rem" : ".64rem"};
+    top: ${props => props.data.dateShown ? "1.83rem" : ".62rem"};
     max-width: 8rem;
-    margin-left: ${props => props.data.selectMode ? '3rem' : ''};
-    padding: 0.2rem 0.5rem 0.2rem 1rem;
     background-color: #151515;
-    border-radius: 50px 50px 50px 30px;
+    color: var(--grey);
+    box-shadow: var(--shadow);
+    border-radius: 50px 50px 50px 35px;
+    margin-left: ${props => props.data.selectMode ? '3rem' : ''};
     margin-right: .2rem;
+    padding: 0.2rem 0.5rem 0.2rem 1rem;
     font-size: .6rem;
     font-weight: 400;
     white-space: nowrap;
-    color: var(--grey);
-    box-shadow: var(--shadow);
     text-overflow: ellipsis;
     overflow: hidden;
     transition: margin .4s;

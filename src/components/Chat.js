@@ -17,9 +17,8 @@ const Chat = () => {
     const { messages } = useSelector(store => store.firestoreStore);
     const { user, enterAsAGuest } = useSelector(store => store.userStore);
     const { selectedMessages } = useSelector(store => store.appStore);
-    const { arrow, newMessage, scrollButtonClickHandler, onChatScrollHandler, scrollDown } = useScroll(chatRef);
+    const { arrow, scrollButtonClickHandler, onChatScrollHandler } = useScroll(chatRef);
     const [messageOptions, setMessageOptions] = useState({ data: null, animationStatus: 0 });
-
     return (
         <>
             <Menu />
@@ -31,8 +30,6 @@ const Chat = () => {
             <ScrollButton
                 click={scrollButtonClickHandler}
                 arrow={arrow}
-                newMessage={newMessage}
-                scrollDown={scrollDown}
             />
 
             <AnimatePresence>

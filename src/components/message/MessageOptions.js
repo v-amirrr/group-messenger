@@ -31,7 +31,7 @@ const MessageOptions = ({ options, type }) => {
                         options?.messageOptions?.plainText,
                         options?.messageOptions?.username,
                     );
-                }, 300);
+                }, 200);
                 break;
             case 'SELECT':
                 setTimeout(() => {
@@ -40,7 +40,7 @@ const MessageOptions = ({ options, type }) => {
                         plainText: options?.messageOptions?.plainText,
                         isLocalMessage: options?.messageOptions?.isLocalMessage
                     });
-                }, 550);
+                }, 450);
                 break;
             case 'COPY':
                 copy(options?.messageOptions?.plainText);
@@ -48,7 +48,7 @@ const MessageOptions = ({ options, type }) => {
             case 'EDIT':
                 setTimeout(() => {
                     openModal('EDIT', [options?.messageOptions]);
-                }, 200);
+                }, 400);
                 break;
             case 'TRASH':
                 moveToTrash(options?.messageOptions?.id);
@@ -57,7 +57,7 @@ const MessageOptions = ({ options, type }) => {
             case 'DELETE':
                 setTimeout(() => {
                     openModal("PERMENANT_DELETE_CONFIRMATION", [options?.messageOptions])
-                }, 550);
+                }, 400);
                 break;
             case 'RESTORE':
                 restore(options?.messageOptions?.id);
@@ -289,8 +289,8 @@ const MessageOptionsContainer = styled(motion.div)`
         flex-wrap: wrap;
         justify-content: flex-start;
 
-        .reply, .copy, .edit, .delete, .select, .time {
-            top: ${props => props.type != 'TRASH' ? props.localmessage ? '4.5rem' : '2.5rem' : ''};
+        .reply, .copy, .edit, .trash, .select, .time, .delete, .restore {
+            top: 4.9rem;
         }
     }
 `;

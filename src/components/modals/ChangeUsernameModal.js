@@ -15,9 +15,7 @@ const ChangeUsernamePopup = ({ closePopup, newUsername, oldUsername }) => {
     return (
         <>
             <ChangeUsernamePopupContainer onKeyDown={(e) => pressEnter(e)}>
-                <h4>
-                    Are you sure you want to change your username?
-                </h4>
+                <p className='modal-message'>Are you sure you want to change your username?</p>
                 <div className='usernames'>
                     <div className='old-username'>
                         <div><b>CURRENT</b> USERNAME</div>
@@ -29,15 +27,11 @@ const ChangeUsernamePopup = ({ closePopup, newUsername, oldUsername }) => {
                         <p>{newUsername}</p>
                     </div>
                 </div>
-                <div className='buttons'>
+                <div className='modal-buttons'>
                     <button className='cancel' onClick={closePopup}>
                         Cancel
                     </button>
-                    <button
-                        className='change'
-                        onClick={() => changeUsername(newUsername)}
-                        autoFocus
-                    >
+                    <button className='change' onClick={() => changeUsername(newUsername)} autoFocus>
                         Change
                     </button>
                 </div>
@@ -52,10 +46,6 @@ const ChangeUsernamePopupContainer = styled.div`
     align-items: center;
     flex-direction: column;
     padding: .5rem 0;
-
-    h4 {
-        white-space: nowrap;
-    }
 
     .usernames {
         display: flex;
@@ -87,12 +77,6 @@ const ChangeUsernamePopupContainer = styled.div`
             justify-content: center;
             align-items: center;
             font-size: 1.2rem;
-        }
-    }
-
-    @media (max-width: 768px) {
-        h4 {
-            font-size: 0.8rem;
         }
     }
 `;

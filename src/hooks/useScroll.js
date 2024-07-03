@@ -1,80 +1,59 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 export const useScroll = (chatRef) => {
     const { messages } = useSelector(store => store.firestoreStore);
     const { messagesScrollPosition, scrollToMessage } = useSelector(store => store.appStore);
-
     const [arrow, setArrow] = useState(true);
-    const [newMessage, setNewMessage] = useState(false);
-    const [scrollLastPosition, setScrollLastPosition] = useState(~~chatRef?.current?.scrollTop);
-    const [lastMessageTime, setLastMessageTime] = useState(messages[messages?.length - 1]?.time);
+    let scrollLastPosition = chatRef?.current?.scrollTop;
 
     // scrolling to the last sorted position in local storage
-    useEffect(() => {
-        scrollToLastPosition();
+    // storing the last scroll position before component gets unmounted or tap gets refreshed/closed
+    // with useEffect in clean-up function the chatRef would return null that's why I used useLayoutEffect
+    useLayoutEffect(() => {
+        scrollToStoredPosition();
+        window.addEventListener('beforeunload', storeScrollPosition);
+        return () => {
+            storeScrollPosition();
+        };
     }, []);
 
-    // handling newMessage state in case of a new sent message
+    // scrolling down if user is at bottom of page and a new message gets snet
     useEffect(() => {
-        let newMessageTime = new Date(
-            messages[messages?.length - 1]?.time?.year,
-            messages[messages?.length - 1]?.time?.monthNum,
-            messages[messages?.length - 1]?.time?.day,
-            messages[messages?.length - 1]?.time?.hour,
-            messages[messages?.length - 1]?.time?.minute,
-            messages[messages?.length - 1]?.time?.second,
-        );
-        let previousLastMessageTime = new Date(
-            lastMessageTime?.year,
-            lastMessageTime?.monthNum,
-            lastMessageTime?.day,
-            lastMessageTime?.hour,
-            lastMessageTime?.minute,
-            lastMessageTime?.second,
-        );
-        if (
-            messages[messages?.length - 1]?.time != lastMessageTime &&
-            newMessageTime.getTime() > previousLastMessageTime.getTime() &&
-            ~~chatRef?.current?.scrollTop + 200 <= chatRef?.current?.scrollHeight - chatRef?.current?.clientHeight
-        ) {
-            setNewMessage(true);
-            setLastMessageTime(messages[messages?.length - 1]?.time);
-        } else if (
-            messages[messages?.length - 1]?.time != lastMessageTime &&
-            newMessageTime.getTime() > previousLastMessageTime.getTime() &&
-            ~~chatRef?.current?.scrollTop + 200 >= chatRef?.current?.scrollHeight - chatRef?.current?.clientHeight
-        ) {
-            setLastMessageTime(messages[messages?.length - 1]?.time);
-            setTimeout(() => {
-                scrollDown();
-            }, 500);
+        const scrollBarHeight = chatRef?.current?.scrollHeight-chatRef?.current?.clientHeight;
+        const currentPosition = chatRef?.current?.scrollTop;
+        if (messages[messages?.length - 1]?.time?.year && scrollBarHeight-currentPosition < 400) {
+            scrollDown();
         }
     }, [messages[messages?.length - 1]?.time]);
 
     // scroll to a certain message (when user clicks on reply section)
     useEffect(() => {
         if (scrollToMessage != null) {
-            chatRef.current.scrollTop = messagesScrollPosition[scrollToMessage]?.top;
+            scrollTo(messagesScrollPosition[scrollToMessage]?.top, 'smooth');
         }
     }, [scrollToMessage]);
 
-    const scrollUp = () => {
-        chatRef?.current?.scrollTo(0, 0);
+    const scrollUp = (mode) => {
+        chatRef.current.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: mode,
+        });
     };
 
     const scrollDown = (mode) => {
-        chatRef?.current?.scrollBy({
+        chatRef.current.scrollTo({
             top: chatRef?.current?.scrollHeight - chatRef?.current?.clientHeight,
+            left: 0,
             behavior: mode,
         });
-        setNewMessage(false);
-        setLastMessageTime(messages[messages?.length - 1]?.time);
     };
 
     const scrollTo = (position, mode) => {
-        chatRef?.current?.scrollBy({
+        chatRef.current.scrollTo({
             top: position,
+            left: 0,
             behavior: mode,
         });
     };
@@ -89,41 +68,37 @@ export const useScroll = (chatRef) => {
             setArrow('DOWN');
         } else if (~~chatRef?.current?.scrollTop + 200 >= chatRef?.current?.scrollHeight - chatRef?.current?.clientHeight) {
             setArrow('UP');
-            setNewMessage(false);
         }
-        setScrollLastPosition(chatRef?.current?.scrollTop);
+        scrollLastPosition = chatRef?.current?.scrollTop;
     };
 
     const scrollButtonClickHandler = () => {
         if (arrow == 'UP') {
-            scrollUp();
+            scrollUp('smooth');
         } else {
             scrollDown('smooth');
         }
     };
 
-    const storeChatScrollPosition = () => {
-        if (scrollLastPosition != undefined) {
-            localStorage.setItem('scroll', scrollLastPosition);
-        }
+    const storeScrollPosition = () => {
+        localStorage.setItem('scroll', chatRef?.current?.scrollTop);
     };
 
     const onChatScrollHandler = () => {
         detectScrollDirection();
-        storeChatScrollPosition();
     };
 
-    const scrollToLastPosition = () => {
+    const scrollToStoredPosition = () => {
         scrollTo(localStorage.getItem('scroll'), 'instant');
+        setTimeout(() => {
+            detectScrollDirection();
+        }, 1000);
     };
 
     return {
         arrow,
-        newMessage,
         onChatScrollHandler,
         scrollButtonClickHandler,
-        scrollDown,
         scrollToMessage
     };
-
 };

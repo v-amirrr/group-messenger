@@ -37,7 +37,7 @@ const EditModal = ({ modalMessages, editReplyOpen, setEditReplyOpen }) => {
                     autoFocus={document.documentElement.offsetWidth > 500}
                     dir={isPersian(editInput) ? 'rtl' : 'ltr'}
                 />
-                <div className='buttons'>
+                <div className='modal-buttons'>
                     <button className='cancel' onClick={closeModal}>
                         Cancel
                     </button>

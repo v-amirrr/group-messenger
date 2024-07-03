@@ -87,8 +87,7 @@ button {
     pointer-events: none;
 }
 
-.link,
-.disabled-link {
+.link, .disabled-link {
     position: relative;
     padding: .04rem .1rem;
     margin: .1rem;
@@ -111,17 +110,17 @@ button {
     position: absolute;
     inset: 96% 1% 0 1%;
     background-color: var(--blue);
-    transition: inset .2s;
-    -webkit-transition: inset .2s;
-    -moz-transition: inset .2s;
-    -ms-transition: inset .2s;
-    -o-transition: inset .2s;
     border: none;
     border-radius: 8px;
     -webkit-border-radius: 8px;
     -moz-border-radius: 8px;
     -ms-border-radius: 8px;
     -o-border-radius: 8px;
+    transition: inset .15s;
+    -webkit-transition: inset .15s;
+    -moz-transition: inset .15s;
+    -ms-transition: inset .15s;
+    -o-transition: inset .15s;
 }
 
 .link:hover {

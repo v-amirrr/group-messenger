@@ -247,7 +247,10 @@ export const replyIconVariants = {
 };
 
 export const selectCheckLocalVariants = {
-    hidden: { opacity: 0, x: 50 },
+    hidden: {
+        opacity: 0,
+        x: 50
+    },
     visible: {
         opacity: 1,
         x: 0,
@@ -255,11 +258,20 @@ export const selectCheckLocalVariants = {
             duration: 0.4,
         },
     },
-    exit: { opacity: 0, x: 50, transition: { duration: 0.2 } },
+    exit: {
+        opacity: 0,
+        x: 50,
+        transition: {
+            duration: 0.2
+        }
+    },
 };
 
 export const selectCheckNonLocalVariants = {
-    hidden: { opacity: 0, x: -50 },
+    hidden: {
+        opacity: 0,
+        x: -50
+    },
     visible: {
         opacity: 1,
         x: 0,
@@ -267,7 +279,13 @@ export const selectCheckNonLocalVariants = {
             duration: 0.4,
         },
     },
-    exit: { opacity: 0, x: -50, transition: { duration: 0.2 } },
+    exit: {
+        opacity: 0,
+        x: -50,
+        transition: {
+            duration: 0.2
+        }
+    },
 };
 
 // --------------------------------------
@@ -283,6 +301,7 @@ export const optionsGlassVariants = {
     exit: {
         opacity: 0,
         transition: {
+            delay: 0.08,
             duration: 0.2,
         },
     },
@@ -301,8 +320,8 @@ export const optionsVariants = {
     exit: {
         opacity: 0,
         transition: {
-            staggerChildren: 0.01,
-            when: 'afterChildren',
+            duration: 0.2,
+            when: 'beforeChildren',
         },
     },
 };
@@ -577,7 +596,7 @@ export const selectBarVariants = {
     visible: {
         y: 0,
         transition: {
-            duration: 0.7,
+            duration: 0.6,
             ease: [0.53, 0, 0, 0.98],
             time: [0.53, 0, 0, 0.98],
         },
@@ -587,7 +606,7 @@ export const selectBarVariants = {
         scale: 0.2,
         y: -15,
         transition: {
-            duration: 0.8,
+            duration: 0.6,
         },
     },
 };
@@ -597,7 +616,7 @@ export const inputBarVariants = {
     visible: {
         y: 0,
         transition: {
-            duration: 0.7,
+            duration: 0.6,
             ease: [0.53, 0, 0, 0.98],
             time: [0.53, 0, 0, 0.98],
         },
@@ -607,7 +626,7 @@ export const inputBarVariants = {
         scale: 0.2,
         y: -15,
         transition: {
-            duration: 0.8,
+            duration: 0.6,
         },
     },
 };
@@ -683,7 +702,7 @@ export const trashSelectBarVariants = {
     visible: {
         y: 0,
         transition: {
-            duration: 0.7,
+            duration: 0.6,
             ease: [0.53, 0, 0, 0.98],
             time: [0.53, 0, 0, 0.98],
         },
@@ -691,7 +710,7 @@ export const trashSelectBarVariants = {
     exit: {
         y: 80,
         transition: {
-            duration: 0.7,
+            duration: 0.6,
             ease: [0.53, 0, 0, 0.98],
             time: [0.53, 0, 0, 0.98],
         },

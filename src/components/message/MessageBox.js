@@ -76,7 +76,7 @@ const MessageBoxContainer = styled(motion.div)`
     cursor: pointer;
     visibility: ${props => props.data.options ? 'hidden' : 'visible'};
     animation: ${props => props.data.skeletonEffect ? 'skeleton-effect linear .8s' : ''};
-    transition: border-radius .2s, margin .4s;
+    transition: border-radius .4s, margin .4s;
 
     .message-text {
         display: inline-block;

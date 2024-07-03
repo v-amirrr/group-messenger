@@ -387,7 +387,7 @@ const Login = styled(motion.section)`
             width: .5rem;
             height: .5rem;
             border-radius: 50%;
-            background-color: var(--bg);
+            background-color: var(--text);
 
             &:nth-child(1) {
                 animation: loader .6s infinite alternate;

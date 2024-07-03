@@ -404,12 +404,6 @@ export const replyButtonVariants = {
     exit: { opacity: 0, transition: { duration: 0.2 } },
 };
 
-export const checkButtonVariants = {
-    hidden: { opacity: 0, scale: 0 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.2 } },
-    exit: { opacity: 0, scale: 0, transition: { duration: 0.2 } },
-};
-
 // --------------------------------------
 
 export const settingsContainerVariants = {
@@ -731,4 +725,12 @@ export const trashSelectBarSwitchIconVariants = {
             duration: 0.3,
         },
     },
+};
+
+// --------------------------------------
+
+export const checkVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.2 } },
+    exit: { opacity: 0, scale: 0.8, transition: { duration: 0.2 } },
 };

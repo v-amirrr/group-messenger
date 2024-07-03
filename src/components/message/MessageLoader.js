@@ -1,4 +1,5 @@
 import React, { memo } from 'react';
+import Check from '../common/Check';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { messageLoaderVariants } from '../../config/varitans';
@@ -16,10 +17,7 @@ const MessageLoader = ({ status }) => {
                             <span className='dot'></span>
                         </motion.div> :
                     status == 2 ?
-                        <motion.div key='checkmark' initial='hidden' animate='visible' exit='exit' variants={messageLoaderVariants}>
-                            <span className='checkmark'></span>
-                            <span className='checkmark'></span>
-                        </motion.div>
+                        <Check scale={1.2} />
                     : ''
                 }
                 </AnimatePresence>
@@ -58,25 +56,6 @@ const MessageLoaderContainer = styled.div`
                 animation-delay: .5s;
             }
         }
-
-        .checkmark {
-            background-color: var(--blue);
-            border-radius: 50px;
-            position: absolute;
-            right: 0;
-
-            &:nth-child(1) {
-                margin: .16rem .55rem 0 0;
-                transform: rotate(45deg);
-                animation: checkmark-one .2s forwards;
-            }
-
-            &:nth-child(2) {
-                margin: .4rem .85rem 0 0;
-                transform: rotate(-40deg);
-                animation: checkmark-two .2s .2s forwards;
-            }
-        }
     }
 
     @keyframes loader {
@@ -85,28 +64,6 @@ const MessageLoaderContainer = styled.div`
         }
         100% {
             transform: scale(0.7);
-        }
-    }
-
-    @keyframes checkmark-one {
-        0% {
-            width: 0;
-            height: 0;
-        }
-        100% {
-            width: .12rem;
-            height: .7rem;
-        }
-    }
-
-    @keyframes checkmark-two {
-        0% {
-            width: 0;
-            height: 0;
-        }
-        100% {
-            width: .12rem;
-            height: .35rem;
         }
     }
 `;

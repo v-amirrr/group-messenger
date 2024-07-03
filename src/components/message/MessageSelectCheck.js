@@ -1,8 +1,8 @@
 import React from 'react';
+import Check from '../common/Check';
 import styled from 'styled-components';
-import { FcCheckmark } from 'react-icons/fc';
 import { motion, AnimatePresence } from 'framer-motion';
-import { selectCheckLocalVariants, selectCheckNonLocalVariants, checkButtonVariants } from '../../config/varitans';
+import { selectCheckLocalVariants, selectCheckNonLocalVariants } from '../../config/varitans';
 
 const MessageSelectCheck = ({ selected, selectedMessagesLength, messageClickHandler, isLocalMessage }) => {
     return (
@@ -21,19 +21,7 @@ const MessageSelectCheck = ({ selected, selectedMessagesLength, messageClickHand
                         selected={selected ? 1 : 0}
                     >
                         <AnimatePresence>
-                            {
-                                selected ?
-                                <motion.i
-                                    key='selected'
-                                    initial='hidden'
-                                    animate='visible'
-                                    exit='exit'
-                                    variants={checkButtonVariants}
-                                >
-                                    <FcCheckmark />
-                                </motion.i>
-                                : ''
-                            }
+                            {selected ? <Check scale={1.1} /> : ''}
                         </AnimatePresence>
                     </MessageSelectCheckContainer>
                     : ''

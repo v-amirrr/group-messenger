@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import ChatLoader from '../ChatLoader';
 import ChatError from '../ChatError';
-import Chat from '../Chat';
+import ChatMessages from '../ChatMessages';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 import { messengerVariants } from '../../config/varitans';
@@ -35,7 +35,7 @@ const MessengerPage = () => {
                             :
                             status == 'CHAT'
                             ?
-                            <Chat />
+                            <ChatMessages />
                             :
                             ''
                         }

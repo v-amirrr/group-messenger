@@ -52,61 +52,34 @@ export const useSelect = () => {
     };
 
     const moveToTrashSelectedMessages = () => {
-        if (selectedMessages.length < 3) {
-            selectedMessages.map((message, index) => {
-                setTimeout(() => {
-                    moveToTrash(message.id);
-                    openNotification('Message was moved to trash', 'GENERAL');
-                }, index * 600);
-            });
-        } else {
-            selectedMessages.map((message) => {
-                moveToTrash(message.id);
-            });
-            setTimeout(() => {
-                openNotification('Messages were moved to trash', 'GENERAL');
-            }, 300);
-        }
+        selectedMessages.map((message) => {
+            moveToTrash(message.id);
+        });
+        setTimeout(() => {
+            openNotification('Messages were moved to trash', 'GENERAL');
+        }, 300);
         clearSelectedMessages();
     };
 
     const restoreSelectedMessages = () => {
-        if (selectedMessages.length < 3) {
-            selectedMessages.map((message, index) => {
-                setTimeout(() => {
-                    restore(message.id);
-                    openNotification('Message restored', 'GENERAL');
-                }, index * 600);
-            });
-        } else {
-            selectedMessages.map((message) => {
-                restore(message.id);
-            });
-            setTimeout(() => {
-                openNotification('Messages restored', 'GENERAL');
-            }, 300);
-        }
+        selectedMessages.map((message) => {
+            restore(message.id);
+        });
+        setTimeout(() => {
+            openNotification('Messages were restored', 'GENERAL');
+        }, 300);
         clearSelectedMessages();
     };
 
     const permanentDeleteSelectedMessages = (modalMessages) => {
         closeModal();
         setTimeout(() => {
-            if (modalMessages.length < 3) {
-                modalMessages.map((message, index) => {
-                    setTimeout(() => {
-                        permanentDelete(message.id);
-                        openNotification('Messages were permenately deleted', 'GENERAL');
-                    }, index * 600);
-                });
-            } else {
-                modalMessages.map((message) => {
-                    permanentDelete(message.id);
-                });
-                setTimeout(() => {
-                    openNotification('Messages were permenately deleted', 'GENERAL');
-                }, 300);
-            }
+            modalMessages.map((message) => {
+                permanentDelete(message.id);
+            });
+            setTimeout(() => {
+                openNotification('Messages were permenately deleted', 'GENERAL');
+            }, 300);
         }, 400);
         clearSelectedMessages();
     };

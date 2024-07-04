@@ -33,6 +33,7 @@ const SettingsUser = ({ open, setOpen, setHeight }) => {
     const changeUsernameHandler = () => {
         if (changeUsernameInput && changeUsernameInput != user?.displayName) {
             openModal('CHANGE_USERNAME_CONFIRMATION', null, changeUsernameInput);
+            setInputEnabled(false);
         } else if (changeUsernameInput == user?.displayName) {
             openNotification("The old and the new usernames are the same", "ERROR");
         } else {
@@ -107,7 +108,7 @@ const UserContainer = styled(motion.div)`
             width: 100%;
             padding: 0 .3rem;
             margin: .2rem 0 .4rem 0;
-            font-size: .8rem;
+            font-size: .9rem;
             font-weight: 600;
             text-align: left;
         }
@@ -121,31 +122,31 @@ const UserContainer = styled(motion.div)`
 
             input {
                 width: 100%;
-                height: 1.8rem;
+                height: 2rem;
                 padding: 0 .5rem;
                 border: none;
                 border-radius: 50px;
                 background-color: var(--bg);
-                font-size: .7rem;
+                font-size: .8rem;
                 font-weight: 400;
             }
 
             .username-input-icon {
                 position: absolute;
                 right: ${props => props.inputenabled ? '-.4rem' : '.1rem'};
-                font-size: .9rem;
+                font-size: 1rem;
                 padding: .3rem;
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 opacity: ${props => props.inputenabled ? 0 : 1};
-                transition: opacity .2s, right .4s;
+                transition: opacity .2s, right .2s;
             }
         }
 
         .buttons {
             position: absolute;
-            bottom: ${props => props.inputenabled ? '.7rem' : '-1rem'};
+            bottom: ${props => props.inputenabled ? '.4rem' : '-1rem'};
             width: 100%;
             display: flex;
             justify-content: space-between;
@@ -155,7 +156,7 @@ const UserContainer = styled(motion.div)`
 
             .submit-button, .cancel-button {
                 width: 4.3rem;
-                height: 1.8rem;
+                height: 2rem;
                 border-radius: 50px;
                 background-color: var(--bg);
                 display: flex;

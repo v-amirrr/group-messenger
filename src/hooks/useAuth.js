@@ -66,13 +66,15 @@ export const useAuth = () => {
     };
 
     const logout = () => {
-        localStorage.removeItem('user');
-        localStorage.removeItem('notification');
-        localStorage.setItem('guest-login', 'false');
         navigate('/login');
         dispatch(setUser(null));
         dispatch(setEnterAsAGuest(false));
-        openNotification("You've logged out successfully", 'GENERAL');
+        localStorage.removeItem('user');
+        localStorage.removeItem('notification');
+        localStorage.setItem('guest-login', 'false');
+        setTimeout(() => {
+            openNotification("You've logged out successfully", 'GENERAL');
+        }, 200);
     };
 
     const googleLogin = () => {

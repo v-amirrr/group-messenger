@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
-import { auth, db } from "../config/firebase";
+import { db } from "../config/firebase";
 import { doc, updateDoc } from "firebase/firestore";
-import { updateProfile } from "firebase/auth";
 import { setUser } from '../redux/userSlice';
 import { useNotification } from "./useNotification";
 import { useModal } from "./useModal";
@@ -12,17 +11,14 @@ export const useUser = () => {
     const { openNotification } = useNotification();
     const { closeModal } = useModal();
 
-    const changeUsername = async (newUsername) => {
+    const changeUsername = (newUsername) => {
         closeModal();
-        await updateProfile(auth.currentUser, {
-            displayName: newUsername,
+        updateDoc(doc(db, "users", user.uid), {
+            username: newUsername
         }).then(() => {
-            updateDoc(doc(db, "users", auth.currentUser.uid), {
-                username: newUsername
-            });
             dispatch(setUser({ ...user, displayName: newUsername }));
             localStorage.setItem("user", JSON.stringify(user));
-            openNotification("Username changed", "GENERAL");
+            openNotification("Username was changed", "GENERAL");
         }).catch((err) => {
             openNotification(err.message, "ERROR");
         });

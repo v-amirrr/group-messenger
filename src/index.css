@@ -29,7 +29,7 @@
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #ffffff15;
+    background: #ffffff08;
     box-shadow: var(--shadow-first);
     border-radius: 50px;
     -webkit-border-radius: 50px;

@@ -2,16 +2,23 @@ import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { errorBoxVariants } from '../config/varitans';
+import { useSelector } from 'react-redux';
 
 const ChatError = () => {
+    const { error } = useSelector(store => store.firestoreStore);
     return (
         <>
             <ChatErrorContainer initial='hidden' animate='visible' exit='exit' variants={errorBoxVariants}>
                 <h1>Looks like there's a problem</h1>
                 <p>
-                There's a problem with your connection. If you're in sanctioned countries like Iran, you have to turn on your VPN for using this app and if you're already using a VPN you need to change it. (You can use checan.ir)
+                    There's a problem with your connection.
+                    If you're in sanctioned countries like Iran,
+                    you have to turn on your VPN for using this
+                    app and if you're already using a VPN you
+                    need to change it. <br />(You can use  shecan.ir  for sanctions)
+                    {error}
                 </p>
-                <button onClick={() => window.location.reload(false)}>Refresh</button>
+                <button onClick={() => window.location.reload(false)}>REFRESH</button>
             </ChatErrorContainer>
         </>
     );
@@ -34,7 +41,7 @@ const ChatErrorContainer = styled(motion.div)`
     p {
         max-width: 30rem;
         font-size: 1em;
-        font-weight: 400;
+        font-weight: 300;
         line-height: 1.5;
     }
 
@@ -48,7 +55,7 @@ const ChatErrorContainer = styled(motion.div)`
         box-shadow: var(--shadow);
         border-radius: 50px;
         font-size: 1rem;
-        font-weight: 600;
+        font-weight: 400;
         margin: 1rem;
         cursor: pointer;
         transition: background .2s;

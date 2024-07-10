@@ -199,7 +199,7 @@ const ReplyConatiner = styled(motion.div)`
             scroll-behavior: smooth;
         }
 
-        .buttons {
+        .modal-buttons {
             position: absolute;
             bottom: 1rem;
             left: 0;

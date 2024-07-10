@@ -40,11 +40,11 @@ const MessageReply = ({ replyTo, type }) => {
                         deletedReply: replyTo == 'DELETED_REPLY'
                     }}
                 >
-                    <i><BsReplyFill /></i>
+                    <i className='reply-icon'><BsReplyFill /></i>
                     {
                         replyTo != 'DELETED_REPLY' ?
                         <p className='reply-message'>{replyTo?.plainText}</p> :
-                        <p className='reply-username'>Deleted Message</p>
+                        <p className='reply-message'>Deleted Message</p>
                     }
                 </ReplyContainer>
                 : ''
@@ -55,14 +55,14 @@ const MessageReply = ({ replyTo, type }) => {
 
 const ReplyContainer = styled.div`
     position: relative;
-    bottom: .095rem;
+    bottom: .03rem;
     max-width: 6.5rem;
     height: 100%;
     display: inline-flex;
     justify-content: center;
     align-items: center;
     border-radius: 50px;
-    padding: .2rem .5rem .2rem 1.2rem;
+    padding: .25rem .4rem .25rem 1rem;
     margin: 0 .4rem 0 0;
     background-color: #1f1f1f;
     color: var(--grey);
@@ -80,14 +80,14 @@ const ReplyContainer = styled.div`
         }
     }
 
-    i {
+    .reply-icon {
         position: absolute;
-        left: .3rem;
+        left: .25rem;
         display: flex;
         justify-content: center;
         align-items: center;
         margin-right: .2rem;
-        font-size: .8rem;
+        font-size: .7rem;
         color: #ffffff22;
     }
 

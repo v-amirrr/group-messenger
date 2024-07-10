@@ -8,13 +8,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { messengerVariants } from '../../config/varitans';
 
 const MessengerPage = () => {
-    const { messages } = useSelector(store => store.firestoreStore);
+    const { messages, error } = useSelector(store => store.firestoreStore);
     const [status, setStatus] = useState('LOADER');
 
     useEffect(() => {
         if (messages?.length) {
             setStatus('CHAT');
-        } else if (messages === undefined) {
+        } else if (messages === undefined || error) {
             setStatus('ERROR');
         }
     }, [messages]);
@@ -22,25 +22,16 @@ const MessengerPage = () => {
     return (
         <>
             <MessengerPageContainer initial='hidden' animate='visible' exit='exit' variants={messengerVariants}>
-                <div className='chat'>
-                    <AnimatePresence exitBeforeEnter>
-                        {
-                            status == 'LOADER'
-                            ?
-                            <ChatLoader key='loader' />
-                            :
-                            status == 'ERROR'
-                            ?
-                            <ChatError key='error' />
-                            :
-                            status == 'CHAT'
-                            ?
-                            <ChatMessages />
-                            :
-                            ''
-                        }
-                    </AnimatePresence>
-                </div>
+                <AnimatePresence exitBeforeEnter>
+                    {
+                        status == 'LOADER' ?
+                        <ChatLoader key='loader' /> :
+                        status == 'ERROR' ?
+                        <ChatError key='error' /> :
+                        status == 'CHAT' ?
+                        <ChatMessages key='chat' /> : ''
+                    }
+                </AnimatePresence>
             </MessengerPageContainer>
         </>
     );

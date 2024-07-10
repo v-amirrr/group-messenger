@@ -21,7 +21,7 @@ export const useSelect = () => {
         addSkeletonEffect(message.id);
     };
 
-    const unSelect = (id, isLocalMessage) => {
+    const disselect = (id, isLocalMessage) => {
         let newSelectedMessages = selectedMessages.filter(item => item.id != id ? item : '');
         if (!isLocalMessage) {
             dispatch(setMinusNonLocalSelected());
@@ -55,8 +55,9 @@ export const useSelect = () => {
         selectedMessages.map((message) => {
             moveToTrash(message.id);
         });
+        let notificationText = selectedMessages.length == 1 ? 'Message was moved to trash' : 'Messages were moved to trash';
         setTimeout(() => {
-            openNotification('Messages were moved to trash', 'GENERAL');
+            openNotification(notificationText, 'GENERAL');
         }, 300);
         clearSelectedMessages();
     };
@@ -65,8 +66,9 @@ export const useSelect = () => {
         selectedMessages.map((message) => {
             restore(message.id);
         });
+        let notificationText = selectedMessages.length == 1 ? 'Message was restored' : 'Messages were restored';
         setTimeout(() => {
-            openNotification('Messages were restored', 'GENERAL');
+            openNotification(notificationText, 'GENERAL');
         }, 300);
         clearSelectedMessages();
     };
@@ -77,32 +79,21 @@ export const useSelect = () => {
             modalMessages.map((message) => {
                 permanentDelete(message.id);
             });
+            let notificationText = selectedMessages.length == 1 ? 'Message was permenately deleted' : 'Messages were permenately deleted';
             setTimeout(() => {
-                openNotification('Messages were permenately deleted', 'GENERAL');
+                openNotification(notificationText, 'GENERAL');
             }, 300);
         }, 400);
         clearSelectedMessages();
     };
 
-    const switchSelectAllTrash = (messages) => {
-        if (messages.length == selectedMessages.length) {
-            clearSelectedMessages();
-        } else {
-            clearSelectedMessages();
-            messages.map(message => {
-                dispatch(setSelectedMessages({ message }));
-            });
-        }
-    };
-
     return {
         select,
-        unSelect,
+        disselect,
         clearSelectedMessages,
         copySelectedMessages,
         moveToTrashSelectedMessages,
         restoreSelectedMessages,
         permanentDeleteSelectedMessages,
-        switchSelectAllTrash,
     };
 };

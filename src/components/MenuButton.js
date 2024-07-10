@@ -4,8 +4,10 @@ import { useAuth } from '../hooks/useAuth';
 import { HiDotsVertical } from 'react-icons/hi';
 import { FcSettings, FcRedo, FcInfo, FcEmptyTrash, FcFullTrash } from 'react-icons/fc';
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
+import { menuButtonVariants } from '../config/varitans';
 
-const Menu = () => {
+const MenuButton = () => {
     const navigate = useNavigate();
     const { logout } = useAuth();
 
@@ -30,7 +32,7 @@ const Menu = () => {
 
     return (
         <>
-            <MenuContainer>
+            <MenuButtonContainer initial='hidden' animate='visible' exit='exit' variants={menuButtonVariants}>
                 <div className='buttons'>
                     <button onClick={() => clickHandler('GUIDANCE')}>
                         <i className='features-icon'><FcInfo /></i>
@@ -50,16 +52,16 @@ const Menu = () => {
                     </button>
                 </div>
                 <i className='icon'><HiDotsVertical /></i>
-            </MenuContainer>
+            </MenuButtonContainer>
         </>
     );
 };
 
-const MenuContainer = styled.div`
+const MenuButtonContainer = styled(motion.button)`
     box-sizing: content-box;
     position: absolute;
     top: 1rem;
-    right: 8.2rem;
+    right: 29.4%;
     width: 2.3rem;
     height: 2.3rem;
     display: flex;
@@ -190,4 +192,4 @@ const MenuContainer = styled.div`
     }
 `;
 
-export default Menu;
+export default MenuButton;

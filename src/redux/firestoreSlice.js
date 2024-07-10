@@ -4,6 +4,7 @@ const initialState = {
     messages: null,
     usernames: null,
     deletedMessages: null,
+    error: null,
 };
 
 const firestoreSlice = createSlice({
@@ -19,6 +20,9 @@ const firestoreSlice = createSlice({
         setUsernames: (state, action) => {
             return { ...state, usernames: action.payload };
         },
+        setError: (state, action) => {
+            return { ...state, error: action.payload };
+        },
     },
 });
 
@@ -26,6 +30,7 @@ export const {
     setMessages,
     setDeletedMessages,
     setUsernames,
+    setError,
 } = firestoreSlice.actions;
 
 export default firestoreSlice.reducer;

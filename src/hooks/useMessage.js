@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { useSkeletonEffect } from "./useSkeletonEffect";
 
 export const useMessage = (messageData, type, messageRef, options, editReplyClickHandler) => {
-    // types: chat, options, trash, edit reply modal
+    // types (places that message component is used): chat, options, trash, edit reply modal
     // status: 1 means loading, 2 means check animation, 0 means fully sent
 
     const {
@@ -25,14 +25,13 @@ export const useMessage = (messageData, type, messageRef, options, editReplyClic
 
     const { selectedMessages, skeletonEffect } = useSelector(store => store.appStore);
     const { storeMessageScrollPosition } = useSkeletonEffect();
-    const { select, unSelect } = useSelect();
+    const { select, disselect } = useSelect();
     const [messagePosition, setMessagePosition] = useState(null);
-    const [hold, setHold] = useState(false);
     const [selected, setSelected] = useState(false);
     const [messageSkeletonEffect, setMessageSkeletonEffect] = useState(false);
     const [status, setStatus] = useState(time?.year == undefined ? 1 : 0);
 
-    let selectByHoldingTimer;
+    // let selectByHoldingTimer;
     let styles = {
         boxMargin:
             type == 'TRASH' ? '.06rem' :
@@ -92,7 +91,6 @@ export const useMessage = (messageData, type, messageRef, options, editReplyClic
     // handling selected state (used to change message styles when message gets selected)
     useEffect(() => {
         if (!selectedMessages?.length) {
-            setHold(false);
             setSelected(false);
         } else {
             if (selectedMessages[selectedMessages.length-1].id == messageData.id && !selected) {
@@ -118,13 +116,9 @@ export const useMessage = (messageData, type, messageRef, options, editReplyClic
         }
     }, [skeletonEffect]);
 
-    const isMessageLoading = () => {
-        return status > 0;
-    };
+    const isMessageLoading = () => status > 0;
 
-    const isUserSelecting = () => {
-        return selectedMessages?.length ? true : false;
-    };
+    const isUserSelecting = () => selectedMessages?.length ? true : false;
 
     const applyMessageSkeletonEffect = () => {
         setMessageSkeletonEffect(true);
@@ -133,13 +127,18 @@ export const useMessage = (messageData, type, messageRef, options, editReplyClic
         }, 800);
     };
 
-    const selectThisMessage = () => {
-        select({
-            id: messageData.id,
-            plainText: messageData.plainText,
-            isLocalMessage: messageData.isLocalMessage,
-            time: messageData.time,
-        });
+    const selectHandler = () => {
+        if (selected) {
+            disselect(id, messageData.isLocalMessage);
+            setSelected(false);
+        } else {
+            select({
+                id: messageData.id,
+                plainText: messageData.plainText,
+                isLocalMessage: messageData.isLocalMessage,
+                time: messageData.time,
+            });
+        }
     };
 
     const openOptions = () => {
@@ -193,23 +192,12 @@ export const useMessage = (messageData, type, messageRef, options, editReplyClic
     };
 
     const messageClickHandler = () => {
-        // message won't be clickable while loading
-        // if select mode is off then the options will be opened
-        // if select mode is on then message gets selected ro unselected whether it's been selected before or not
-
         if (!isMessageLoading()) {
             if (type == 'EDIT_REPLY') {
                 editReplyClickHandler();
             } else {
                 if (isUserSelecting()) {
-                    if (hold) {
-                        setHold(false);
-                    } else if (selected && !hold) {
-                        unSelect(id, messageData.isLocalMessage);
-                        setSelected(false);
-                    } else {
-                        selectThisMessage();
-                    }
+                    selectHandler();
                 } else {
                     openOptions();
                 }
@@ -217,30 +205,9 @@ export const useMessage = (messageData, type, messageRef, options, editReplyClic
         }
     };
 
-    const onHoldStarts = () => {
-        let scrollLocalStorage = localStorage.getItem('scroll');
-        if (!selectedMessages?.length && type != 'EDIT_REPLY') {
-            selectByHoldingTimer = setTimeout(() => {
-                if (scrollLocalStorage == localStorage.getItem('scroll')) {
-                    selectThisMessage();
-                    setHold(true);
-                }
-            }, 200);
-        }
-    };
-
-    const onHoldEnds = () => {
-        if (!selectedMessages?.length) {
-            clearTimeout(selectByHoldingTimer);
-            setHold(false);
-        }
-    };
-
     return {
         messagePosition,
         messageClickHandler,
-        onHoldStarts,
-        onHoldEnds,
         selected,
         messageSkeletonEffect,
         status,

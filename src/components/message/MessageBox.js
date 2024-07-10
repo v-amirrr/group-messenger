@@ -10,10 +10,6 @@ const MessageBox = ({ functions, data }) => {
             <MessageBoxContainer
                 ref={messageBoxRef}
                 onClick={functions?.messageClickHandler}
-                onMouseDown={functions?.onHoldStarts}
-                onMouseUp={functions?.onHoldEnds}
-                onTouchStart={functions?.onHoldStarts}
-                onTouchEnd={functions?.onHoldEnds}
                 data={{
                     width: messageBoxRef?.current?.offsetWidth,
                     height: messageBoxRef?.current?.offsetHeight,

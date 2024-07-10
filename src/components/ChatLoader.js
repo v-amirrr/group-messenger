@@ -59,8 +59,8 @@ const ChatLoaderContainer = styled(motion.div)`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 62vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     padding: 5rem 2rem 9rem 2rem;
     background-color: #00000088;
 
@@ -86,12 +86,12 @@ const ChatLoaderContainer = styled(motion.div)`
 
     .menu {
         top: 1rem;
-        right: 8.2rem;
+        right: 29.4%;
     }
 
     .scroll {
         top: 1.1rem;
-        right: 11rem;
+        right: 33%;
     }
 
     .input {
@@ -130,11 +130,9 @@ const ChatLoaderContainer = styled(motion.div)`
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        width: 100%;
-        height: 100vh;
-        position: absolute;
-        top: 0;
-        padding: 8rem 8rem 9rem 8rem;
+        width: 47%;
+        height: 100%;
+        padding: 10rem 2rem 9rem 2rem;
     }
 
     @media (max-width: 768px) {

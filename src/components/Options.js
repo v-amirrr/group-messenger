@@ -45,7 +45,7 @@ const ChatOptions = ({ messageOptions, setMessageOptions, type }) => {
                 data: null,
                 animationStatus: 0,
             }));
-        }, 500);
+        }, 400);
     };
 
     useEffect(() => {
@@ -150,8 +150,8 @@ const OptionsContainer = styled.div`
         align-items: ${props => props.styles.isLocalMessage ? 'flex-end' : 'flex-start'};
         flex-direction: column;
         z-index: 5;
-        transform: ${props => props.styles.zeroScale ? 'scale(0)' : props.styles.chatOptionsStatus == 2 ? 'scale(1.06)' : 'scale(1)'};
-        transition: ${props => props.styles.chatOptionsStatus == 2 ? 'transform .4s cubic-bezier(0.53, 0, 0, 0.98)' : 'transform .3s cubic-bezier(0.53, 0, 0, 0.98)'};
+        transform: ${props => props.styles.zeroScale ? 'scale(0)' : props.styles.chatOptionsStatus == 2 ? 'scale(1.05)' : 'scale(1)'};
+        transition: ${props => props.styles.chatOptionsStatus == 2 ? 'transform .4s cubic-bezier(0.53, 0, 0, 0.98)' : 'transform .25s cubic-bezier(0.53, 0, 0, 0.98)'};
     }
 
     @media (max-width: 745px) {

@@ -140,15 +140,11 @@ export const loginItemVariants = {
 export const loaderVariants = {
     hidden: {
         opacity: 0,
-        scale: 0.9
     },
     visible: {
         opacity: 1,
-        scale: 1,
         transition: {
-            duration: 0.5,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
+            duration: 0.4,
         },
     },
     exit: {
@@ -162,6 +158,54 @@ export const loaderVariants = {
 // --------------------------------------
 
 export const messengerVariants = {
+    hidden: {
+        opacity: 0,
+        scale: 0.95
+    },
+    visible: {
+        opacity: 1,
+        scale: 1,
+        transition: {
+            duration: 0.2,
+            when: 'beforeChildren'
+        },
+    },
+    exit: {
+        opacity: 0,
+        scale: 0.95,
+        transition: {
+            duration: 0.2,
+            when: 'beforeChildren'
+        }
+    },
+};
+
+// --------------------------------------
+
+export const chatMessagesVariants = {
+    hidden: {
+        opacity: 0,
+        scale: 0.95
+    },
+    visible: {
+        opacity: 1,
+        scale: 1,
+        transition: {
+            duration: 0.2,
+            when: 'beforeChildren'
+        },
+    },
+    exit: {
+        opacity: 0,
+        scale: 0.95,
+        transition: {
+            duration: 0.2,
+            when: 'beforeChildren'
+        }
+    },
+};
+
+export const messagesVariants = {
     hidden: {
         opacity: 0,
         scale: 0.95
@@ -590,7 +634,7 @@ export const selectBarVariants = {
     visible: {
         y: 0,
         transition: {
-            duration: 0.6,
+            duration: 0.55,
             ease: [0.53, 0, 0, 0.98],
             time: [0.53, 0, 0, 0.98],
         },
@@ -600,7 +644,7 @@ export const selectBarVariants = {
         scale: 0.2,
         y: -15,
         transition: {
-            duration: 0.6,
+            duration: 0.55,
         },
     },
 };
@@ -610,7 +654,7 @@ export const inputBarVariants = {
     visible: {
         y: 0,
         transition: {
-            duration: 0.6,
+            duration: 0.55,
             ease: [0.53, 0, 0, 0.98],
             time: [0.53, 0, 0, 0.98],
         },
@@ -620,7 +664,7 @@ export const inputBarVariants = {
         scale: 0.2,
         y: -15,
         transition: {
-            duration: 0.6,
+            duration: 0.55,
         },
     },
 };
@@ -739,4 +783,48 @@ export const dotsLoaderVariants = {
     hidden: { opacity: 0, scale: 0.8 },
     visible: { opacity: 1, scale: 1, transition: { duration: 0.2 } },
     exit: { opacity: 0, scale: 0.8, transition: { duration: 0.2 } },
+};
+
+// --------------------------------------
+
+export const scrollButtonVariants = {
+    hidden: {
+        opacity: 0,
+        x: 20,
+    },
+    visible: {
+        opacity: 1,
+        x: 0,
+        transition: {
+            delay: 0.6,
+            duration: 0.2,
+        },
+    },
+    exit: {
+        opacity: 0,
+        transition: {
+            duration: 0.2,
+        }
+    },
+};
+
+export const menuButtonVariants = {
+    hidden: {
+        opacity: 0,
+        x: 20,
+    },
+    visible: {
+        opacity: 1,
+        x: 0,
+        transition: {
+            delay: 0.5,
+            duration: 0.2,
+        },
+    },
+    exit: {
+        opacity: 0,
+        transition: {
+            duration: 0.2,
+        }
+    },
 };

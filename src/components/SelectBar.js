@@ -19,9 +19,7 @@ const SelectBar = () => {
                 exit='exit'
                 variants={selectBarVariants}
             >
-                <motion.button className='close' onClick={clearSelectedMessages}>
-                    <IoClose />
-                </motion.button>
+                <button className='close' onClick={clearSelectedMessages}><IoClose /></button>
 
                 <div className='counter'><Counter num={selectedMessages?.length} /></div>
 

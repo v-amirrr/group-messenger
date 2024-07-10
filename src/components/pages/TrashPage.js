@@ -10,11 +10,10 @@ import Options from '../Options';
 import { TiArrowLeft } from 'react-icons/ti';
 import { TbTrashX } from 'react-icons/tb';
 import { FaTrashRestore } from "react-icons/fa";
-import { AiOutlineClear } from "react-icons/ai";
+import { IoClose } from 'react-icons/io5';
 import { motion, AnimatePresence } from 'framer-motion';
-import { BsCheckAll } from 'react-icons/bs';
 import styled from 'styled-components';
-import { trashPageVariants, trashSelectBarVariants, trashSelectBarSwitchIconVariants } from '../../config/varitans';
+import { trashPageVariants, trashSelectBarVariants } from '../../config/varitans';
 
 const TrashPage = () => {
     const navigate = useNavigate();
@@ -22,7 +21,7 @@ const TrashPage = () => {
     const { selectedMessages } = useSelector(store => store.appStore);
     const { user } = useSelector(store => store.userStore);
     const { openModal } = useModal();
-    const { switchSelectAllTrash, restoreSelectedMessages, } = useSelect();
+    const { restoreSelectedMessages, clearSelectedMessages } = useSelect();
     const [messages, setMessages] = useState(deletedMessages?.filter(item => item?.uid == user?.uid));
     const [messageOptions, setMessageOptions] = useState({ data: null, animationStatus: 0 });
 
@@ -82,15 +81,7 @@ const TrashPage = () => {
                                     <i><FaTrashRestore /></i>
                                     <p>Restore</p>
                                 </button>
-                                <div className='switch' onClick={() => switchSelectAllTrash(messages)}>
-                                    <AnimatePresence>
-                                        {
-                                            selectedMessages?.length == messages?.length ?
-                                            <motion.i className='clear-icon' key='clear-icon' initial='hidden' animate='visible' exit='exit' variants={trashSelectBarSwitchIconVariants}><AiOutlineClear  /></motion.i> :
-                                            <motion.i className='select-icon' key='select-icon' initial='hidden' animate='visible' exit='exit' variants={trashSelectBarSwitchIconVariants}><BsCheckAll /></motion.i>
-                                        }
-                                    </AnimatePresence>
-                                </div>
+                                <button className='close' onClick={clearSelectedMessages}><IoClose /></button>
                             </motion.div>
                         : ''
                     }
@@ -199,7 +190,7 @@ const Trash = styled(motion.div)`
 
         .counter {
             position: absolute;
-            left: 0.25rem;
+            left: 0.6rem;
             width: 1.7rem;
             height: 1.7rem;
             border-radius: 50%;
@@ -270,11 +261,12 @@ const Trash = styled(motion.div)`
             }
         }
 
-        .switch {
+        .close {
             position: absolute;
-            right: 0.25rem;
+            right: 0.6rem;
             width: 1.7rem;
             height: 1.7rem;
+            font-size: 1.2rem;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -283,25 +275,6 @@ const Trash = styled(motion.div)`
             backdrop-filter: var(--glass);
             cursor: pointer;
             transition: background .2s;
-
-            i {
-                position: absolute;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-
-            .clear-icon {
-                i {
-                    font-size: 1rem;
-                }
-            }
-
-            .select-icon {
-                i {
-                    font-size: 1.2rem;
-                }
-            }
 
             @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
                 &:hover {

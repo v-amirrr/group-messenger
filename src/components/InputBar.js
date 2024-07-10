@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import InputBarReplyTo from './InputBarReplyTo';
+import InputBarEmojiPicker from './InputBarEmojiPicker';
 import { useSelector } from 'react-redux';
 import { useSend } from '../hooks/useSend';
 import { useOptions } from '../hooks/useOptions';
@@ -9,7 +10,6 @@ import { IoSend, IoClose } from 'react-icons/io5';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { inputBarVariants, sendInputIconVariants } from '../config/varitans';
-import InputBarEmojiPicker from './InputBarEmojiPicker';
 
 const InputBar = () => {
     const inputRef = useRef();

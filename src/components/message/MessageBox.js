@@ -3,17 +3,17 @@ import MessageReply from './MessageReply';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
-const MessageBox = ({ functions, data }) => {
+const MessageBox = ({ messageClickHandler, styles, data }) => {
     const messageBoxRef = useRef();
     return (
         <>
             <MessageBoxContainer
                 ref={messageBoxRef}
-                onClick={functions?.messageClickHandler}
+                onClick={messageClickHandler}
                 data={{
                     width: messageBoxRef?.current?.offsetWidth,
                     height: messageBoxRef?.current?.offsetHeight,
-                    ...data?.styles,
+                    ...styles,
                 }}
             >
                 <div className='message-text' dir='auto'>
@@ -59,7 +59,7 @@ const MessageBoxContainer = styled(motion.div)`
     margin-right: ${props => props.data.boxMarginRight};
     margin-left: ${props => props.data.boxMarginLeft};
     padding: ${props => props.data.boxPadding};
-    background-color: #151515;
+    background-color: var(--bg);
     background-image: linear-gradient(
         90deg,
         #ffffff00 20%,
@@ -70,7 +70,7 @@ const MessageBoxContainer = styled(motion.div)`
     background-repeat: no-repeat;
     box-shadow: var(--shadow);
     cursor: pointer;
-    visibility: ${props => props.data.options ? 'hidden' : 'visible'};
+    visibility: ${props => props.data.boxVisibility};
     animation: ${props => props.data.skeletonEffect ? 'skeleton-effect linear .8s' : ''};
     transition: border-radius .4s, margin .4s;
 
@@ -78,11 +78,10 @@ const MessageBoxContainer = styled(motion.div)`
         display: inline-block;
         text-align: ${props => props.data.persian ? 'right' : 'left'};
         word-spacing: 1px;
-        white-space: pre-wrap;
-        word-break: keep-all;
+        overflow-wrap: anywhere;
         font-family: ${props => props.data.persian ? 'Vazirmatn' : 'Outfit'}, 'Vazirmatn', sans-serif;
         font-size: ${props => props.data.persian ? '.9rem' : '1rem'};
-        font-weight: 200;
+        font-weight: 300;
     }
 
     @keyframes skeleton-effect {

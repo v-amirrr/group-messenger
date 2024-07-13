@@ -18,7 +18,8 @@ import { trashPageVariants, trashSelectBarVariants } from '../../config/varitans
 const TrashPage = () => {
     const navigate = useNavigate();
     const { deletedMessages } = useSelector(store => store.firestoreStore);
-    const { selectedMessages } = useSelector(store => store.appStore);
+    const { selectedMessages } = useSelector(store => store.selectStore);
+    const { optionsAnimationStatus } = useSelector(store => store.optionsStore);
     const { user } = useSelector(store => store.userStore);
     const { openModal } = useModal();
     const { restoreSelectedMessages, clearSelectedMessages } = useSelect();
@@ -36,9 +37,7 @@ const TrashPage = () => {
                 animate='visible'
                 exit='exit'
                 variants={trashPageVariants}
-                data={{
-                    messageOptionsAnimationStatus: messageOptions?.animationStatus
-                }}
+                data={{ optionsAnimationStatus }}
             >
                 <div className='header'>
                     <button className='header-back-button' onClick={() => navigate('/')}><TiArrowLeft /></button>
@@ -141,6 +140,7 @@ const Trash = styled(motion.div)`
             font-size: 2rem;
             border-radius: 50%;
             background-color: var(--bg);
+            color: var(--text);
             transition: background .2s;
 
             @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
@@ -159,8 +159,8 @@ const Trash = styled(motion.div)`
         padding: 5rem 8rem 9rem 8rem;
         scroll-behavior: smooth;
         overflow: hidden scroll;
-        transform: ${props => props.data.messageOptionsAnimationStatus == 2 ? 'scale(0.94)' : 'scale(1)'} !important;
-        transition: transform .4s;
+        transform: ${props => props.data.optionsAnimationStatus == 2 ? 'scale(0.95)' : 'scale(1)'} !important;
+        transition: ${props => props.data.optionsAnimationStatus == 2 ? 'transform .4s' : 'transform .3s'};
 
         @media (max-width: 1400px) {
             width: 70%;

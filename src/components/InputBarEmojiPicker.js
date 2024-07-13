@@ -25,8 +25,7 @@ const InputBarEmojiPicker = ({ setInputText, inputBarEmojiPicker }) => {
                                 onEmojiSelect={(e) => emojiHandler(e)}
                                 previewPosition='none'
                             />
-                        </motion.div>
-                        : ''
+                        </motion.div> : ''
                     }
                 </AnimatePresence>
             </InputBarEmojiPickerContainer>
@@ -38,7 +37,7 @@ const InputBarEmojiPickerContainer = styled.div`
     position: absolute;
     top: 2.6rem;
     z-index: 3;
-    height: 11.2rem;
+    height: 9.2rem;
     overflow: hidden;
     border-radius: 15px;
 

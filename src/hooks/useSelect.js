@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { setSelectedMessages, setClearSelectedMessages, setUnselectMessages, setPlusNonLocalSelected, setMinusNonLocalSelected, setClearNonLocalSelected } from '../redux/appSlice';
+import { addSelectedMessages, setSelectedMessages, plusNonLocalSelected, minusNonLocalSelected, clearNonLocalSelected } from '../redux/selectSlice';
 import { useOptions } from "./useOptions";
 import { useNotification } from "./useNotification";
 import { useModal } from "./useModal";
@@ -7,16 +7,16 @@ import { useSkeletonEffect } from "./useSkeletonEffect";
 
 export const useSelect = () => {
     const dispatch = useDispatch();
-    const { selectedMessages } = useSelector(store => store.appStore);
+    const { selectedMessages } = useSelector(store => store.selectStore);
     const { moveToTrash, restore, permanentDelete } = useOptions();
     const { closeModal } = useModal();
     const { openNotification } = useNotification();
     const { addSkeletonEffect } = useSkeletonEffect();
 
     const select = (message) => {
-        dispatch(setSelectedMessages({ message }));
+        dispatch(addSelectedMessages({ message }));
         if (!message?.isLocalMessage) {
-            dispatch(setPlusNonLocalSelected());
+            dispatch(plusNonLocalSelected());
         }
         addSkeletonEffect(message.id);
     };
@@ -24,14 +24,14 @@ export const useSelect = () => {
     const disselect = (id, isLocalMessage) => {
         let newSelectedMessages = selectedMessages.filter(item => item.id != id ? item : '');
         if (!isLocalMessage) {
-            dispatch(setMinusNonLocalSelected());
+            dispatch(minusNonLocalSelected());
         }
-        dispatch(setUnselectMessages(newSelectedMessages));
+        dispatch(setSelectedMessages(newSelectedMessages));
     };
 
     const clearSelectedMessages = () => {
-        dispatch(setClearNonLocalSelected());
-        dispatch(setClearSelectedMessages());
+        dispatch(clearNonLocalSelected());
+        dispatch(setSelectedMessages([]));
     };
 
     const copySelectedMessages = () => {

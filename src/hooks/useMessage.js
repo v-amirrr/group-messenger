@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { useSelect } from "./useSelect";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
+import { setOptionsMessage, setOptionsAnimationStatus } from '../redux/optionsSlice';
 import { useSkeletonEffect } from "./useSkeletonEffect";
 
-export const useMessage = (messageData, type, messageRef, options, editReplyClickHandler) => {
+export const useMessage = (messageData, type, messageRef, editReplyClickHandler) => {
     // types (places that message component is used): chat, options, trash, edit reply modal
     // status: 1 means loading, 2 means check animation, 0 means fully sent
 
@@ -21,9 +22,12 @@ export const useMessage = (messageData, type, messageRef, options, editReplyClic
         isLocalMessage,
         isTextPersian,
         textLetters,
-     } = messageData;
+    } = messageData;
 
-    const { selectedMessages, skeletonEffect } = useSelector(store => store.appStore);
+    const dispatch = useDispatch();
+    const { selectedMessages } = useSelector(store => store.selectStore);
+    const { skeletonEffect } = useSelector(store => store.appStore);
+    const { optionsMessage } = useSelector(store => store.optionsStore);
     const { storeMessageScrollPosition } = useSkeletonEffect();
     const { select, disselect } = useSelect();
     const [messagePosition, setMessagePosition] = useState(null);
@@ -39,28 +43,26 @@ export const useMessage = (messageData, type, messageRef, options, editReplyClic
             messagePosition == 1 ? '.1rem 0 .06rem 0' :
             messagePosition == 2 ? '.06rem 0 .06rem 0' :
             messagePosition == 3 && '.06rem 0 .1rem 0',
-        boxMarginRight:
-            selectedMessages.length && isLocalMessage ? '3rem' : '',
-        boxMarginLeft:
-            selectedMessages?.length && !isLocalMessage ? '3rem' : '',
+        boxMarginRight: selectedMessages.length && isLocalMessage ? '2rem' : '',
+        boxMarginLeft: selectedMessages?.length && !isLocalMessage ? '2rem' : '',
         boxRoundRadius:
             isLocalMessage && messagePosition == 0 ? '25px' :
-            isLocalMessage && messagePosition == 1 ? '25px 25px 12px 25px' :
-            isLocalMessage && messagePosition == 2 ? '25px 12px 12px 25px' :
-            isLocalMessage && messagePosition == 3 ? '25px 12px 25px 25px' :
-            !isLocalMessage && messagePosition == 0 ? '12px 25px 25px 25px' :
-            !isLocalMessage && messagePosition == 1 ? '12px 25px 25px 12px' :
-            !isLocalMessage && messagePosition == 2 ? '12px 25px 25px 12px' :
-            !isLocalMessage && messagePosition == 3 && '12px 25px 25px 25px',
+            isLocalMessage && messagePosition == 1 ? '25px 25px 15px 25px' :
+            isLocalMessage && messagePosition == 2 ? '25px 15px 15px 25px' :
+            isLocalMessage && messagePosition == 3 ? '25px 15px 25px 25px' :
+            !isLocalMessage && messagePosition == 0 ? '15px 25px 25px 25px' :
+            !isLocalMessage && messagePosition == 1 ? '15px 25px 25px 15px' :
+            !isLocalMessage && messagePosition == 2 ? '15px 25px 25px 15px' :
+            !isLocalMessage && messagePosition == 3 && '15px 25px 25px 25px',
         boxNotRoundRadius:
             isLocalMessage && messagePosition == 0 ? '20px' :
-            isLocalMessage && messagePosition == 1 ? '20px 20px 12px 20px' :
-            isLocalMessage && messagePosition == 2 ? '20px 12px 12px 20px' :
-            isLocalMessage && messagePosition == 3 ? '20px 12px 20px 20px' :
-            !isLocalMessage && messagePosition == 0 ? '12px 20px 20px 20px' :
-            !isLocalMessage && messagePosition == 1 ? '12px 20px 20px 12px' :
-            !isLocalMessage && messagePosition == 2 ? '12px 20px 20px 12px' :
-            !isLocalMessage && messagePosition == 3 && '12px 20px 20px 20px',
+            isLocalMessage && messagePosition == 1 ? '20px 20px 15px 20px' :
+            isLocalMessage && messagePosition == 2 ? '20px 15px 15px 20px' :
+            isLocalMessage && messagePosition == 3 ? '20px 15px 20px 20px' :
+            !isLocalMessage && messagePosition == 0 ? '15px 20px 20px 20px' :
+            !isLocalMessage && messagePosition == 1 ? '15px 20px 20px 15px' :
+            !isLocalMessage && messagePosition == 2 ? '15px 20px 20px 15px' :
+            !isLocalMessage && messagePosition == 3 && '15px 20px 20px 20px',
         boxPadding:
             replyTo != 'NO_REPLY' && type != 'TRASH' ?
             '.45rem .6rem .45rem .45rem' :
@@ -68,10 +70,9 @@ export const useMessage = (messageData, type, messageRef, options, editReplyClic
             '.45rem 1rem' :
             textLetters > 3 ?
             '.45rem .6rem' : '',
-        boxJustify:
-            isLocalMessage ? 'flex-start' : 'flex-end',
-        messageFlexDirection:
-            isLocalMessage ? 'row-reverse' : 'row',
+        boxJustify: isLocalMessage ? 'flex-start' : 'flex-end',
+        boxVisibility: optionsMessage?.id == id ? 'hidden' : 'visible',
+        messageFlexDirection: isLocalMessage ? 'row-reverse' : 'row',
         messagePaddingTop:
             time?.year && messagePosition < 2 && !isLocalMessage && !previousMessageDifferentDate ? '1.8rem' :
             time?.year && messagePosition < 2 && !isLocalMessage && previousMessageDifferentDate ? '3rem' :
@@ -142,18 +143,16 @@ export const useMessage = (messageData, type, messageRef, options, editReplyClic
     };
 
     const openOptions = () => {
-        options.setMessageOptions({
-            data: {
-                ...messageData,
-                top: messageRef?.current?.getBoundingClientRect()?.top,
-                left: messageRef?.current?.getBoundingClientRect()?.left,
-                width: messageRef?.current?.getBoundingClientRect()?.width,
-                height: messageRef?.current?.getBoundingClientRect()?.height,
-                styles,
-                messagePosition: 0,
-            },
-            animationStatus: 1
-        });
+        dispatch(setOptionsMessage({
+            ...messageData,
+            top: messageRef?.current?.getBoundingClientRect()?.top,
+            left: messageRef?.current?.getBoundingClientRect()?.left,
+            width: messageRef?.current?.getBoundingClientRect()?.width,
+            height: messageRef?.current?.getBoundingClientRect()?.height,
+            styles,
+            messagePosition: 0,
+        }));
+        dispatch(setOptionsAnimationStatus(1));
     };
 
     const detectMessagePosition = () => {

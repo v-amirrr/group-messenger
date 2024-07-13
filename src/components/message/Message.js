@@ -8,13 +8,13 @@ import MessageUsername from './MessageUsername';
 import MessageLoader from './MessageLoader';
 import MessageReplyIcon from './MessageReplyIcon';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { messageVariants } from '../../config/varitans';
 
-const Message = ({ messageData, type, options, editReplyClickHandler, replyIconClick, newreply }) => {
+const Message = ({ messageData, type, editReplyClickHandler, replyIconClick, newreply }) => {
 
     const messageRef = useRef();
-    const { selectedMessages } = useSelector(store => store.appStore);
+    const { selectedMessages } = useSelector(store => store.selectStore);
 
     const {
         uid,
@@ -32,16 +32,20 @@ const Message = ({ messageData, type, options, editReplyClickHandler, replyIconC
         textLetters,
     } = messageData;
 
+    const showMessageDate = () => previousMessageDifferentDate && time?.year;
+
+    const showMessageUsername = () => !isLocalMessage && messagePosition < 2;
+
+    const showMessageSelectCheck = () => selectedMessages?.length ? true : false;
+
     const {
         messagePosition,
         messageClickHandler,
-        onHoldStarts,
-        onHoldEnds,
         selected,
         messageSkeletonEffect,
         status,
         styles
-    } = useMessage(messageData, type, messageRef, options, editReplyClickHandler);
+    } = useMessage(messageData, type, messageRef, editReplyClickHandler);
 
     return (
         <>
@@ -53,61 +57,36 @@ const Message = ({ messageData, type, options, editReplyClickHandler, replyIconC
                 ref={messageRef}
                 layout={type == 'EDIT_REPLY' ? 0 : 1}
                 layoutId={type == 'EDIT_REPLY' ? id : null}
-                data={{ ...styles }}
+                styles={{ ...styles }}
             >
-                <MessageDate
-                    layout
-                    layoutId={id}
-                    show={previousMessageDifferentDate && time?.year}
-                    data={time}
-                />
-                <MessageUsername
-                    show={!isLocalMessage && messagePosition < 2}
-                    data={{
-                        uid,
-                        dateShown: previousMessageDifferentDate && time?.year,
-                        selectMode: selectedMessages?.length
-                    }}
-                />
+                {showMessageDate() && <MessageDate layout layoutId={id} data={time} />}
+                {showMessageUsername() && <MessageUsername uid={uid} isUserSelecting={selectedMessages?.length} showMessageDate={showMessageDate()} />}
+                <AnimatePresence>
+                    {showMessageSelectCheck() && <MessageSelectCheck selected={selected} messageClickHandler={messageClickHandler} isLocalMessage={isLocalMessage} />}
+                </AnimatePresence>
                 <MessageBox
-                    functions={{
-                        messageClickHandler,
-                        onHoldStarts,
-                        onHoldEnds,
-                    }}
+                    messageClickHandler={messageClickHandler}
                     data={{
                         type: type,
                         replyTo: replyTo,
                         arrayText: arrayText,
                         plainText: plainText,
-                        styles: {
-                            ...styles,
-                            type: type,
-                            localmessage: isLocalMessage ? 1 : 0,
-                            persian: isTextPersian ? 1 : 0,
-                            letters: textLetters,
-                            position: messagePosition,
-                            selected: selected ? 1 : 0,
-                            selectmode: selectedMessages?.length ? 1 : 0,
-                            date: previousMessageDifferentDate && time?.year && time?.month ? 1 : 0,
-                            reply: replyTo != 'no_reply' ? 1 : 0,
-                            skeletonEffect: messageSkeletonEffect ? 1 : 0,
-                            options: options?.messageOptions?.data?.id == id,
-                        }
+                    }}
+                    styles={{
+                        ...styles,
+                        type: type,
+                        localmessage: isLocalMessage ? 1 : 0,
+                        persian: isTextPersian ? 1 : 0,
+                        letters: textLetters,
+                        position: messagePosition,
+                        selected: selected ? 1 : 0,
+                        selectmode: selectedMessages?.length ? 1 : 0,
+                        date: previousMessageDifferentDate && time?.year && time?.month ? 1 : 0,
+                        reply: replyTo != 'no_reply' ? 1 : 0,
+                        skeletonEffect: messageSkeletonEffect ? 1 : 0,
                     }}
                 />
-                <MessageSelectCheck
-                    type={type}
-                    selected={selected}
-                    selectedMessagesLength={selectedMessages?.length}
-                    messageClickHandler={messageClickHandler}
-                    isLocalMessage={isLocalMessage}
-                />
-                <MessageReplyIcon
-                    editReply={newreply}
-                    editReplyClick={replyIconClick}
-                    show={newreply && type != 'TRASH'}
-                />
+                <MessageReplyIcon editReply={newreply} editReplyClick={replyIconClick} show={newreply && type != 'TRASH'} />
                 <MessageLoader status={status} />
             </MessageContainer>
         </>
@@ -120,8 +99,8 @@ const MessageContainer = styled(motion.div)`
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    flex-direction: ${props => props.data.messageFlexDirection};
-    padding-top: ${props => props.data.messagePaddingTop};
+    flex-direction: ${props => props.styles.messageFlexDirection};
+    padding-top: ${props => props.styles.messagePaddingTop};
     transition: padding .4s;
 `;
 

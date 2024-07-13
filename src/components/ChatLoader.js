@@ -7,7 +7,7 @@ const ChatLoader = () => {
     const messages = [
         { width: '4rem', height: '1rem', position: 1, local: false },
         { width: '7rem', height: '2rem', position: 2, local: false },
-        { width: '10rem', height: '2rem', position: 3, local: false },
+        { width: '14rem', height: '3rem', position: 3, local: false },
 
         { width: '7rem', height: '2rem', position: 1, local: true },
         { width: '12rem', height: '2rem', position: 2, local: true },
@@ -21,7 +21,7 @@ const ChatLoader = () => {
         { width: '8rem', height: '2rem', position: 3, local: false },
 
         { width: '8rem', height: '2rem', position: 1, local: true },
-        { width: '6rem', height: '2rem', position: 3, local: true },
+        { width: '10rem', height: '3rem', position: 3, local: true },
     ];
     return (
         <>
@@ -72,7 +72,7 @@ const ChatLoaderContainer = styled(motion.div)`
         width: 2.3rem;
         height: 2.3rem;
         border-radius: 50px;
-        background-color: #151515;
+        background-color: var(--bg);
         background-image: linear-gradient(
             90deg,
             #ffffff00 0%,
@@ -90,7 +90,7 @@ const ChatLoaderContainer = styled(motion.div)`
     }
 
     .scroll {
-        top: 1.1rem;
+        top: 1rem;
         right: 33%;
     }
 
@@ -101,7 +101,7 @@ const ChatLoaderContainer = styled(motion.div)`
         width: 18rem;
         height: 2.4rem;
         border-radius: 50px;
-        background-color: #151515;
+        background-color: var(--bg);
         background-image: linear-gradient(
             90deg,
             #ffffff00 0%,
@@ -183,19 +183,19 @@ const MessageContainer = styled.div`
             props.position == 0 ?
             '25px' :
             props.position == 1 ?
-            '25px 25px 12px 25px' :
+            '25px 25px 15px 25px' :
             props.position == 2 ?
-            '25px 12px 12px 25px' :
-            props.position == 3 && '25px 12px 25px 25px' :
+            '25px 15px 15px 25px' :
+            props.position == 3 && '25px 15px 25px 25px' :
             props.position == 0 ?
             '25px' :
             props.position == 1 ?
-            '25px 25px 25px 18px' :
+            '25px 25px 25px 20px' :
             props.position == 2 ?
-            '12px 25px 25px 12px' :
+            '15px 25px 25px 15px' :
             props.position == 3 && '12px 25px 25px 25px'
         };
-        background-color: #151515;
+        background-color: var(--bg);
         background-image: linear-gradient(
             90deg,
             #ffffff00 0%,

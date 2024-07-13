@@ -9,7 +9,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { popupPageVariants, popupContainerVariants } from '../../config/varitans';
 
 const Modal = () => {
-    const { modal } = useSelector(store => store.appStore);
+    const { modalShow, modalName, modalMessages, modalEditedReply, modalEditedUsername } = useSelector(store => store.modalStore);
     const { user } = useSelector(store => store.userStore);
     const popupPageRef = useRef();
     const { closeModal } = useModal();
@@ -29,7 +29,7 @@ const Modal = () => {
         <>
             <AnimatePresence>
                 {
-                    modal?.show ?
+                    modalShow ?
                     <ModalContainer
                         initial='hidden'
                         animate='visible'
@@ -39,26 +39,24 @@ const Modal = () => {
                     >
                         <motion.div className='modal' variants={popupContainerVariants} ref={popupPageRef}>
                             {
-                                modal?.type == 'PERMENANT_DELETE_CONFIRMATION' ?
-                                <DeleteModal modalMessages={modal?.messages} /> :
-                                modal?.type == 'EDIT' ?
+                                modalName == 'PERMENANT_DELETE_CONFIRMATION' ?
+                                <DeleteModal modalMessages={modalMessages} /> :
+                                modalName == 'EDIT' ?
                                 <EditModal
-                                    modalMessages={modal?.messages}
-                                    modalEditedReply={modal?.editedReply}
+                                    modalMessages={modalMessages}
+                                    modalEditedReply={modalEditedReply}
                                     editReplyOpen={editReplyOpen}
                                     setEditReplyOpen={setEditReplyOpen}
                                 /> :
-                                modal?.type == 'CHANGE_USERNAME_CONFIRMATION' ?
+                                modalName == 'CHANGE_USERNAME_CONFIRMATION' ?
                                 <ChangeUsernameModal
                                     closePopup={closeModal}
-                                    newUsername={modal?.editedUsername}
+                                    newUsername={modalEditedUsername}
                                     oldUsername={user?.displayName}
-                                />
-                                : ''
+                                /> : ''
                             }
                         </motion.div>
-                    </ModalContainer>
-                    : ''
+                    </ModalContainer> : ''
                 }
             </AnimatePresence>
         </>

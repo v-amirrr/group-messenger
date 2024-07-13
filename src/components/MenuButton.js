@@ -91,6 +91,7 @@ const MenuButtonContainer = styled(motion.button)`
         display: flex;
         justify-content: center;
         align-items: center;
+        color: var(--text);
         transition: transform .1s, opacity .5s .2s;
     }
 
@@ -105,13 +106,10 @@ const MenuButtonContainer = styled(motion.button)`
         flex-direction: column;
         opacity: 0;
         transform: scale(0.5);
-        transition: opacity .2s,
-                    transform .5s cubic-bezier(0.53, 0, 0, 0.98),
-                    bottom .5s cubic-bezier(0.53, 0, 0, 0.98),
-                    left .5s cubic-bezier(0.53, 0, 0, 0.98);
+        transition: opacity .2s, transform .4s, bottom .4s, left .4s;
 
         button {
-            width: 90%;
+            width: 92%;
             height: 2.1rem;
             display: flex;
             justify-content: center;
@@ -123,6 +121,7 @@ const MenuButtonContainer = styled(motion.button)`
             white-space: nowrap;
             cursor: pointer;
             transition: background .2s;
+            color: var(--text);
 
             p {
                 font-size: .9rem;
@@ -168,7 +167,7 @@ const MenuButtonContainer = styled(motion.button)`
         .icon {
             transform: scale(0.5);
             opacity: 0;
-            transition: transform .3s, opacity .3s;
+            transition: transform .3s, opacity .2s;
         }
 
         .buttons {
@@ -176,10 +175,7 @@ const MenuButtonContainer = styled(motion.button)`
             bottom: 0;
             transform: scale(1);
             opacity: 1;
-            transition: opacity .5s,
-                        transform .5s cubic-bezier(0.53, 0, 0, 0.98),
-                        bottom .5s cubic-bezier(0.53, 0, 0, 0.98),
-                        left .5s cubic-bezier(0.53, 0, 0, 0.98);
+            transition: opacity .2s, transform .4s, bottom .4s, left .4s;
         }
     }
 

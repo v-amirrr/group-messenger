@@ -46,8 +46,7 @@ const MessageReply = ({ replyTo, type }) => {
                         <p className='reply-message'>{replyTo?.plainText}</p> :
                         <p className='reply-message'>Deleted Message</p>
                     }
-                </ReplyContainer>
-                : ''
+                </ReplyContainer> : ''
             }
         </>
     );
@@ -55,7 +54,7 @@ const MessageReply = ({ replyTo, type }) => {
 
 const ReplyContainer = styled.div`
     position: relative;
-    bottom: .03rem;
+    bottom: .05rem;
     max-width: 6.5rem;
     height: 100%;
     display: inline-flex;
@@ -64,7 +63,7 @@ const ReplyContainer = styled.div`
     border-radius: 50px;
     padding: .25rem .4rem .25rem 1rem;
     margin: 0 .4rem 0 0;
-    background-color: #1f1f1f;
+    background-color: var(--bg);
     color: var(--grey);
     box-shadow: var(--shadow);
     font-size: .6rem;
@@ -76,7 +75,7 @@ const ReplyContainer = styled.div`
 
     @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
         &:hover {
-            background-color: ${props => !props.data.deletedReply && props.data.chatType ? '#ffffff15' : ''};
+            background-color: ${props => !props.data.deletedReply && props.data.chatType ? 'var(--bg-hover)' : ''};
         }
     }
 

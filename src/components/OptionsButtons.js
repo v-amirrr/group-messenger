@@ -1,9 +1,10 @@
 import React from 'react';
+import AnalogClock from './common/AnalogClock';
 import { useSelector } from 'react-redux';
-import { useOptions } from '../../hooks/useOptions';
-import { useSelect } from '../../hooks/useSelect';
-import { useModal } from '../../hooks/useModal';
-import { useNotification } from '../../hooks/useNotification';
+import { useOptions } from '../hooks/useOptions';
+import { useSelect } from '../hooks/useSelect';
+import { useModal } from '../hooks/useModal';
+import { useNotification } from '../hooks/useNotification';
 import { AiFillDelete, AiFillCopy, AiFillEdit } from 'react-icons/ai';
 import { BsReplyFill } from 'react-icons/bs';
 import { BiSelectMultiple } from 'react-icons/bi';
@@ -11,10 +12,9 @@ import { TbTrashX } from 'react-icons/tb';
 import { FaTrashRestore } from "react-icons/fa";
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { optionsVariants, optionLocalVariants, optionNonLocalVariants } from '../../config/varitans';
-import AnalogClock from '../common/AnalogClock';
+import { optionsVariants, optionLocalVariants, optionNonLocalVariants } from '../config/varitans';
 
-const MessageOptions = ({ options, type }) => {
+const OptionsButtons = ({ type, optionsMessage, closeOptions }) => {
     const { enterAsAGuest } = useSelector(store => store.userStore);
     const { inputReply } = useSelector(store => store.appStore);
     const { copy, reply, moveToTrash, restore } = useOptions();
@@ -22,61 +22,63 @@ const MessageOptions = ({ options, type }) => {
     const { select } = useSelect();
     const { openNotification } = useNotification();
 
+    const setVariants = () => optionsMessage?.isLocalMessage ? optionLocalVariants : optionNonLocalVariants;
+
     const optionClick = (option) => {
         switch (option) {
             case 'REPLY':
                 setTimeout(() => {
                     reply(
-                        options?.messageOptions?.id,
-                        options?.messageOptions?.plainText,
-                        options?.messageOptions?.username,
+                        optionsMessage?.id,
+                        optionsMessage?.plainText,
+                        optionsMessage?.username,
                     );
                 }, 200);
                 break;
             case 'SELECT':
                 setTimeout(() => {
                     select({
-                        id: options?.messageOptions?.id,
-                        plainText: options?.messageOptions?.plainText,
-                        isLocalMessage: options?.messageOptions?.isLocalMessage
+                        id: optionsMessage?.id,
+                        plainText: optionsMessage?.plainText,
+                        isLocalMessage: optionsMessage?.isLocalMessage
                     });
                 }, 450);
                 break;
             case 'COPY':
-                copy(options?.messageOptions?.plainText);
+                copy(optionsMessage?.plainText);
                 break;
             case 'EDIT':
                 setTimeout(() => {
-                    openModal('EDIT', [options?.messageOptions]);
+                    openModal('EDIT', [optionsMessage]);
                 }, 400);
                 break;
             case 'TRASH':
-                moveToTrash(options?.messageOptions?.id);
-                options?.closeOptions({ type: 'TRASH' });
+                moveToTrash(optionsMessage?.id);
+                closeOptions({ type: 'TRASH' });
                 break;
             case 'DELETE':
                 setTimeout(() => {
-                    openModal("PERMENANT_DELETE_CONFIRMATION", [options?.messageOptions])
+                    openModal("PERMENANT_DELETE_CONFIRMATION", [optionsMessage])
                 }, 400);
                 break;
             case 'RESTORE':
-                restore(options?.messageOptions?.id);
+                restore(optionsMessage?.id);
                 openNotification('Message restored', 'GENERAL');
-                options?.closeOptions({ type: 'RESTORE' });
+                closeOptions({ type: 'RESTORE' });
                 break;
         }
     };
 
     return (
         <>
-            <MessageOptionsContainer
+            <OptionsButtonsContainer
                 initial='hidden'
                 animate='visible'
                 exit='exit'
                 variants={optionsVariants}
-                localmessage={options?.messageOptions?.isLocalMessage ? 1 : 0}
+                localmessage={optionsMessage?.isLocalMessage ? 1 : 0}
                 guest={enterAsAGuest ? 1 : 0}
-                unreply={inputReply?.id == options?.messageOptions?.id ? 1 : 0}
+                unreply={inputReply?.id == optionsMessage?.id ? 1 : 0}
                 type={type}
             >
                 {
@@ -85,7 +87,7 @@ const MessageOptions = ({ options, type }) => {
                         <motion.div
                             className='copy'
                             onClick={() => optionClick('COPY')}
-                            variants={optionLocalVariants}
+                            variants={setVariants()}
                         >
                             <i><AiFillCopy /></i>
                             <p>Copy</p>
@@ -93,7 +95,7 @@ const MessageOptions = ({ options, type }) => {
                         <motion.div
                             className='select'
                             onClick={() => optionClick('SELECT')}
-                            variants={optionLocalVariants}
+                            variants={setVariants()}
                         >
                             <i><BiSelectMultiple /></i>
                             <p>Select</p>
@@ -101,7 +103,7 @@ const MessageOptions = ({ options, type }) => {
                         <motion.div
                             className='restore'
                             onClick={() => optionClick('RESTORE')}
-                            variants={optionLocalVariants}
+                            variants={setVariants()}
                         >
                             <i><FaTrashRestore /></i>
                             <p>Restore</p>
@@ -109,7 +111,7 @@ const MessageOptions = ({ options, type }) => {
                         <motion.div
                             className='delete'
                             onClick={() => optionClick('DELETE')}
-                            variants={optionLocalVariants}
+                            variants={setVariants()}
                         >
                             <i><TbTrashX /></i>
                             <p>Delete</p>
@@ -119,23 +121,15 @@ const MessageOptions = ({ options, type }) => {
                         <motion.div
                             className='reply'
                             onClick={() => optionClick('REPLY')}
-                            variants={
-                                options?.messageOptions?.isLocalMessage ?
-                                optionLocalVariants :
-                                optionNonLocalVariants
-                            }
+                            variants={setVariants()}
                         >
                             <i><BsReplyFill /></i>
-                            <p>{inputReply?.id == options?.messageOptions?.id ? 'Unreply' : 'Reply'}</p>
+                            <p>{inputReply?.id == optionsMessage?.id ? 'Unreply' : 'Reply'}</p>
                         </motion.div>
                         <motion.div
                             className='select'
                             onClick={() => optionClick('SELECT')}
-                            variants={
-                                options?.messageOptions?.isLocalMessage ?
-                                optionLocalVariants :
-                                optionNonLocalVariants
-                            }
+                            variants={setVariants()}
                         >
                             <i><BiSelectMultiple /></i>
                             <p>Select</p>
@@ -143,26 +137,18 @@ const MessageOptions = ({ options, type }) => {
                         <motion.div
                             className='copy'
                             onClick={() => optionClick('COPY')}
-                            variants={
-                                options?.messageOptions?.isLocalMessage ?
-                                optionLocalVariants :
-                                optionNonLocalVariants
-                            }
+                            variants={setVariants()}
                         >
                             <i><AiFillCopy /></i>
                             <p>Copy</p>
                         </motion.div>
                         {
-                            options?.messageOptions?.isLocalMessage ?
+                            optionsMessage?.isLocalMessage ?
                             <>
                                 <motion.div
                                     className='edit'
                                     onClick={() => optionClick('EDIT')}
-                                    variants={
-                                        options?.messageOptions?.isLocalMessage ?
-                                        optionLocalVariants :
-                                        optionNonLocalVariants
-                                    }
+                                    variants={setVariants()}
                                 >
                                     <i><AiFillEdit /></i>
                                     <p>Edit</p>
@@ -170,42 +156,31 @@ const MessageOptions = ({ options, type }) => {
                                 <motion.div
                                     className='trash'
                                     onClick={() => optionClick('TRASH')}
-                                    variants={
-                                        options?.messageOptions?.isLocalMessage ?
-                                        optionLocalVariants :
-                                        optionNonLocalVariants
-                                    }
+                                    variants={setVariants()}
                                 >
                                     <i><AiFillDelete /></i>
                                     <p>Delete</p>
                                 </motion.div>
-                            </>
-                            : ''
+                            </> : ''
                         }
                     </>
                 }
                 <motion.div
                     className='time'
-                    variants={
-                        options?.messageOptions?.isLocalMessage ?
-                        optionLocalVariants :
-                        optionNonLocalVariants
-                    }
+                    variants={setVariants()}
                 >
-                    <AnalogClock time={options?.messageOptions?.time} scale={1.4} />
+                    <AnalogClock time={optionsMessage?.time} scale={1.3} />
                     <p>
-                        <span className='hour'>{options?.messageOptions?.time?.hour}</span>
-                        :
-                        <span className='minute'>{options?.messageOptions?.time?.minute}</span>
-                        <span className='format'>{options?.messageOptions?.time?.format}</span>
+                        <span>{optionsMessage?.time?.hour}:{optionsMessage?.time?.minute}</span>
+                        <span className='format'>{optionsMessage?.time?.format}</span>
                     </p>
                 </motion.div>
-            </MessageOptionsContainer>
+            </OptionsButtonsContainer>
         </>
     );
 };
 
-const MessageOptionsContainer = styled(motion.div)`
+const OptionsButtonsContainer = styled(motion.div)`
     position: absolute;
     display: flex;
     justify-content: center;
@@ -256,10 +231,16 @@ const MessageOptionsContainer = styled(motion.div)`
             transform: scale(1);
             opacity: 1;
             letter-spacing: 0px;
-            margin-left: .5rem;
+            margin-left: .3rem;
 
             .format {
                 margin-left: .2rem;
+            }
+        }
+
+        @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
+            &:hover {
+                background-color: var(--bg);
             }
         }
     }
@@ -295,4 +276,4 @@ const MessageOptionsContainer = styled(motion.div)`
     }
 `;
 
-export default MessageOptions;
+export default OptionsButtons;

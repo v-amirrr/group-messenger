@@ -3,31 +3,27 @@ import { TiUser } from 'react-icons/ti';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-const MessageUsername = ({ show, data }) => {
+const MessageUsername = ({ uid, isUserSelecting, showMessageDate }) => {
     const { usernames } = useSelector(store => store.firestoreStore);
     return (
         <>
-            {
-                show ?
-                <MessageUsernameContainer data={data}>
-                    <i><TiUser /></i>
-                    {usernames[data.uid]}
-                </MessageUsernameContainer>
-                : ''
-            }
+            <MessageUsernameContainer data={{ isUserSelecting, showMessageDate }}>
+                <i><TiUser /></i>
+                {usernames[uid]}
+            </MessageUsernameContainer>
         </>
     );
 };
 
 const MessageUsernameContainer = styled.div`
     position: absolute;
-    top: ${props => props.data.dateShown ? "1.83rem" : ".62rem"};
+    top: ${props => props.data.showMessageDate ? "1.83rem" : ".62rem"};
     max-width: 8rem;
-    background-color: #151515;
+    background-color: var(--bg);
     color: var(--grey);
     box-shadow: var(--shadow);
-    border-radius: 50px 50px 50px 35px;
-    margin-left: ${props => props.data.selectMode ? '3rem' : ''};
+    border-radius: 50px 50px 50px 40px;
+    margin-left: ${props => props.data.isUserSelecting ? '2rem' : ''};
     margin-right: .2rem;
     padding: 0.2rem 0.5rem 0.2rem 1rem;
     font-size: .6rem;

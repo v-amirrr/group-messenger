@@ -30,6 +30,7 @@ const ScrollButtonContainer = styled(motion.button)`
     border-radius: 50px;
     box-shadow: var(--shadow);
     backdrop-filter: var(--glass);
+    color: var(--text);
     cursor: pointer;
     overflow: hidden;
     z-index: 3;

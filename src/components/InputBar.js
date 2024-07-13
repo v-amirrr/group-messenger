@@ -13,7 +13,9 @@ import { inputBarVariants, sendInputIconVariants } from '../config/varitans';
 
 const InputBar = () => {
     const inputRef = useRef();
-    const { inputReply, selectedMessages, modal } = useSelector(store => store.appStore);
+    const { inputReply } = useSelector(store => store.appStore);
+    const { modalShow, modalName } = useSelector(store => store.modalStore);
+    const { selectedMessages } = useSelector(store => store.selectStore);
     const { sendMessage } = useSend();
     const { unReply } = useOptions();
     const [multiline, setMultiline] = useState(false);
@@ -28,9 +30,9 @@ const InputBar = () => {
     };
 
     const blurHandler = () => {
-        if (document.documentElement.offsetWidth > 500 && !modal.show && !inputBarEmojiPicker) {
+        if (document.documentElement.offsetWidth > 500 && !modalShow && !inputBarEmojiPicker) {
             inputRef.current.focus();
-        } else if (modal.show) {
+        } else if (modalShow) {
             inputRef.current.blur();
         }
     };
@@ -49,7 +51,7 @@ const InputBar = () => {
 
     useEffect(() => {
         blurHandler();
-    }, [modal.show, modal.type, inputBarEmojiPicker]);
+    }, [modalShow, modalName, inputBarEmojiPicker]);
 
     useEffect(() => {
         if (multiline) {
@@ -95,7 +97,7 @@ const InputBar = () => {
                     onChange={(e) => setInputText(e.target.value)}
                     onKeyDown={(e) => inputKeyHandler(e)}
                     onBlur={blurHandler}
-                    autoFocus={document.documentElement.offsetWidth > 500 && !modal.show ? true : false}
+                    autoFocus={document.documentElement.offsetWidth > 500 && !modalShow ? true : false}
                 />
 
                 <p className='placeholder'>Send a message...</p>
@@ -152,7 +154,7 @@ const InputBarContainer = styled(motion.div)`
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-bottom: ${props => props.emoji ? '12rem' : '0'};
+    padding-bottom: ${props => props.emoji ? '10rem' : '0'};
     border: var(--border);
     border-radius: ${props => props.emoji ? '25px' : '50px'};
     box-shadow: var(--shadow);
@@ -160,7 +162,7 @@ const InputBarContainer = styled(motion.div)`
     z-index: 3;
     overflow: hidden;
     transition: ${props => props.emoji ?
-        'padding .5s cubic-bezier(.53,0,0,.98)' :
+        'padding .3s cubic-bezier(.53,0,0,.98)' :
         'padding .3s cubic-bezier(.53,0,0,.98), border-radius 2s .2s'
     };
 
@@ -177,7 +179,7 @@ const InputBarContainer = styled(motion.div)`
         background-color: #ffffff00;
         font-family: ${props => props.ispersian ? 'Vazirmatn' : 'Outfit'}, 'Vazirmatn', sans-serif;
         font-size: 1rem;
-        font-weight: 200;
+        font-weight: 300;
         resize: none;
         vertical-align: middle;
         overflow: ${props => props.inputtext ? 'hidden scroll' : ''};
@@ -199,15 +201,15 @@ const InputBarContainer = styled(motion.div)`
 
     .placeholder {
         color: var(--grey);
-        font-weight: 200;
+        font-weight: 300;
         white-space: nowrap;
         font-size: 1rem;
         position: absolute;
         opacity: ${props => props.inputtext ? "0" : "1"};
         left: ${props => props.inputtext ? "2rem" : "1rem"};
-        letter-spacing: ${props => props.inputtext ? "2px" : "0"};
+        letter-spacing: ${props => props.inputtext ? "1px" : "0"};
         z-index: -1;
-        transition: left .4s, opacity .4s, letter-spacing .6s;
+        transition: left .3s, opacity .3s, letter-spacing .5s;
     }
 
     .clear-button {
@@ -242,7 +244,7 @@ const InputBarContainer = styled(motion.div)`
 
     .emoji-button {
         position: absolute;
-        right: ${props => props.inputtext ? '2.2rem' : '.2rem'};
+        right: ${props => props.inputtext ? '2.2rem' : '0'};
         width: 2.5rem;
         height: 2.4rem;
         display: flex;

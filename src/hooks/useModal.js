@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { setModal } from '../redux/appSlice';
+import { setModal } from '../redux/modalSlice';
 
 export const useModal = () => {
     const dispatch = useDispatch();
@@ -8,9 +8,9 @@ export const useModal = () => {
         if (type == 'CHANGE_USERNAME_CONFIRMATION') {
             dispatch(
                 setModal({
-                    show: true,
-                    type: type,
-                    editedUsername: editedUsername,
+                    modalShow: true,
+                    modalName: type,
+                    modalEditedUsername: editedUsername,
                 })
             );
         } else {
@@ -29,9 +29,9 @@ export const useModal = () => {
             };
             dispatch(
                 setModal({
-                    show: true,
-                    type: type,
-                    messages: sortedPopupMessages,
+                    modalShow: true,
+                    modalName: type,
+                    modalMessages: sortedPopupMessages,
                 })
             );
         }
@@ -40,10 +40,11 @@ export const useModal = () => {
     const closeModal = () => {
         dispatch(
             setModal({
-                show: false,
-                type: null,
-                messages: [],
-                editedReply: null,
+                modalShow: false,
+                modalName: null,
+                modalMessages: [],
+                modalEditedReply: null,
+                modalEditedUsername: null,
             })
         );
     };

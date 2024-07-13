@@ -4,29 +4,21 @@ import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 import { selectCheckLocalVariants, selectCheckNonLocalVariants } from '../../config/varitans';
 
-const MessageSelectCheck = ({ selected, selectedMessagesLength, messageClickHandler, isLocalMessage }) => {
+const MessageSelectCheck = ({ selected, messageClickHandler, isLocalMessage }) => {
     return (
         <>
-            <AnimatePresence>
-                {
-                    selectedMessagesLength ?
-                    <MessageSelectCheckContainer
-                        className='select-section'
-                        key='select-section'
-                        initial='hidden'
-                        animate='visible'
-                        exit='exit'
-                        variants={isLocalMessage ? selectCheckLocalVariants : selectCheckNonLocalVariants}
-                        onClick={messageClickHandler}
-                        selected={selected ? 1 : 0}
-                    >
-                        <AnimatePresence>
-                            {selected ? <Check scale={1.1} /> : ''}
-                        </AnimatePresence>
-                    </MessageSelectCheckContainer>
-                    : ''
-                }
-            </AnimatePresence>
+            <MessageSelectCheckContainer
+                initial='hidden'
+                animate='visible'
+                exit='exit'
+                variants={isLocalMessage ? selectCheckLocalVariants : selectCheckNonLocalVariants}
+                onClick={messageClickHandler}
+                selected={selected ? 1 : 0}
+            >
+                <AnimatePresence>
+                    {selected ? <Check scale={1.2} /> : ''}
+                </AnimatePresence>
+            </MessageSelectCheckContainer>
         </>
     );
 };
@@ -40,7 +32,7 @@ const MessageSelectCheckContainer = styled(motion.div)`
     height: 1.8rem;
     border: ${props => props.selected ? 'solid 2.5px #ffffff00' : 'solid 2.5px #ffffff10'};
     border-radius: 50%;
-    background: ${props => props.selected ? '#151515' : '#ffffff00'};
+    background: ${props => props.selected ? 'var(--bg)' : '#ffffff00'};
     overflow: hidden;
     box-shadow: var(--shadow);
     cursor: pointer;

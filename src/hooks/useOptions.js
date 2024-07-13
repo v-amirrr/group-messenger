@@ -2,12 +2,15 @@ import { db } from '../config/firebase';
 import { doc, deleteDoc, updateDoc } from 'firebase/firestore';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNotification } from './useNotification';
-import { setModal, setInputReply} from '../redux/appSlice';
+import { setInputReply} from '../redux/appSlice';
+import { setModal } from '../redux/modalSlice';
 import { useModal } from './useModal';
 
 export const useOptions = () => {
     const dispatch = useDispatch();
-    const { inputReply, selectedMessages, modal } = useSelector(store => store.appStore);
+    const { inputReply } = useSelector(store => store.appStore);
+    const { selectedMessages } = useSelector(store => store.selectStore);
+    const { modalMessages } = useSelector(store => store.modalStore);
     const { openNotification } = useNotification();
     const { closeModal } = useModal();
 
@@ -57,9 +60,9 @@ export const useOptions = () => {
                     null :
                     editedReply?.id ?
                     editedReply?.id :
-                    modal.messages?.replyTo == 'no_reply' ?
+                    modalMessages?.replyTo == 'no_reply' ?
                     null :
-                    modal.messages?.replyTo.id,
+                    modalMessages?.replyTo.id,
             });
             dispatch(setModal(editedReply));
         }

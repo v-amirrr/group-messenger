@@ -9,7 +9,7 @@ import { motion } from 'framer-motion';
 import { selectBarVariants } from '../config/varitans';
 
 const SelectBar = () => {
-    const { selectedMessages, nonLocalSelected } = useSelector(store => store.appStore);
+    const { selectedMessages, nonLocalSelected } = useSelector(store => store.selectStore);
     const { clearSelectedMessages, copySelectedMessages, moveToTrashSelectedMessages } = useSelect();
     return (
         <>
@@ -66,7 +66,7 @@ const SelectBarContainer = styled(motion.div)`
         font-size: 1.4rem;
         cursor: pointer;
         z-index: 3;
-        transition: background .2s;
+        color: var(--text);
     }
 
     .counter {
@@ -89,6 +89,7 @@ const SelectBarContainer = styled(motion.div)`
             margin: 0 .5rem;
             cursor: pointer;
             transition: color .2s;
+            color: var(--text);
 
             &:disabled {
                 color: var(--grey);

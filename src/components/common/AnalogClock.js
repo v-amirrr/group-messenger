@@ -59,13 +59,13 @@ const AnalogClockContainer = styled.div`
         position: absolute;
         width: 2%;
         height: 100%;
-        background: #888;
+        background: #555;
         z-index: 0;
         left: 49%;
     }
 
     .outer-clock-face .marking {
-        width: 2%;
+        width: 3%;
     }
 
     .outer-clock-face .marking.marking-one {

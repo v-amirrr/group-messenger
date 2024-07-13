@@ -9,10 +9,10 @@ const MessageLoader = ({ status }) => {
         <>
             <MessageLoaderContainer>
                 <AnimatePresence exitBeforeEnter>
-                {
-                    status == 1 ? <DotsLoader key='loader' scale={1.1} /> :
-                    status == 2 ? <Check key='check' scale={1.2} /> : ''
-                }
+                    {
+                        status == 1 ? <DotsLoader key='loader' scale={1.1} /> :
+                        status == 2 ? <Check key='check' scale={1.2} /> : ''
+                    }
                 </AnimatePresence>
             </MessageLoaderContainer>
         </>

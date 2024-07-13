@@ -39,10 +39,9 @@ const InputBarReplyTo = ({ inputReply, clearInputReply, inputBarEmojiPicker }) =
                         exit='exit'
                         variants={inputBarReplyToVariants}
                         emoji={inputBarEmojiPicker ? 1 : 0}
-                        messageletters={inputReply?.username?.length + inputReply?.message?.length}
                     >
                         <div
-                            className='message'
+                            className='reply-message'
                             onClick={clickHandler}
                             onMouseEnter={hoverHandler}
                             onMouseLeave={() => mouseSituation = 'OUT'}
@@ -51,8 +50,7 @@ const InputBarReplyTo = ({ inputReply, clearInputReply, inputBarEmojiPicker }) =
                             <p className='text'>{inputReply.message}</p>
                         </div>
                         <button className='close-button' onClick={(e) => clearInputReply(e)}><IoClose /></button>
-                    </InputBarReplyToContainer>
-                    : ''
+                    </InputBarReplyToContainer> : ''
                 }
             </AnimatePresence>
         </>
@@ -61,31 +59,28 @@ const InputBarReplyTo = ({ inputReply, clearInputReply, inputBarEmojiPicker }) =
 
 const InputBarReplyToContainer = styled(motion.div)`
     position: absolute;
-    bottom: ${props => props.emoji ? '16rem' : '4rem'};
+    bottom: ${props => props.emoji ? '14rem' : '4rem'};
     max-width: 18rem;
     height: 2rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0 0.2rem;
+    padding: 0 0.1rem;
     border: var(--border);
     border-radius: 50px;
     box-shadow: var(--shadow);
     backdrop-filter: var(--glass);
     cursor: pointer;
     z-index: 2;
-    transition: ${props => props.emoji ?
-        'bottom .5s cubic-bezier(.53,0,0,.98)' :
-        'bottom .3s cubic-bezier(.53,0,0,.98)'
-    };
+    transition: bottom .3s cubic-bezier(.53,0,0,.98);
 
-    .message {
+    .reply-message {
         display: flex;
         justify-content: flex-start;
         align-items: center;
         width: 100%;
         height: 100%;
-        margin: 0 0.2rem;
+        margin: 0 .4rem;
         overflow: hidden;
         font-family: ${props => (props.isrlt ? 'Vazirmatn' : 'Outfit')}, 'Vazirmatn', sans-serif;
         color: var(--grey);
@@ -96,11 +91,11 @@ const InputBarReplyToContainer = styled(motion.div)`
             justify-content: center;
             align-items: center;
             font-size: 1rem;
-            margin-right: 0.2rem;
+            margin-right: .1rem;
         }
 
         .text {
-            font-size: 0.8rem;
+            font-size: .8rem;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -111,11 +106,13 @@ const InputBarReplyToContainer = styled(motion.div)`
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: 1.3rem;
-        color: var(--red);
+        font-size: 1.2rem;
+        color: var(--grey);
+        background-color: var(--bg);
         border-radius: 50%;
         cursor: pointer;
-        padding: .1rem;
+        padding: .14rem;
+        margin-right: .1rem;
         transition: background .2s;
 
         @media (hover: hover) and (pointer: fine) and (min-width: 745px) {

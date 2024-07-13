@@ -1,17 +1,21 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setOptionsMessage, setOptionsAnimationStatus } from '../redux/optionsSlice';
 import MessageBox from './message/MessageBox';
-import MessageOptions from './message/MessageOptions';
+import OptionsButtons from './OptionsButtons';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { optionsGlassVariants } from '../config/varitans';
 
-const ChatOptions = ({ messageOptions, setMessageOptions, type }) => {
+const ChatOptions = ({ type }) => {
     const chatOptionsMessageRef = useRef();
+    const dispatch = useDispatch();
+    const { optionsMessage, optionsAnimationStatus } = useSelector(store => store.optionsStore);
     const [noTopPositionChange, setNoTopPositionChange] = useState(false);
     const [zeroScale, setZeroScale] = useState(false);
 
     const optionsClickHandler = (data) => {
-        if (data?.type == 'TRASH' || data?.type == 'RESTORE') {
+        if(data?.type == 'TRASH' |data?.type == 'RESTORE') {
             deleteOptions();
         } else {
             closeOptions();
@@ -20,62 +24,47 @@ const ChatOptions = ({ messageOptions, setMessageOptions, type }) => {
 
     const deleteOptions = () => {
         setZeroScale(true);
-        setMessageOptions(prevState => ({
-            ...prevState,
-            animationStatus: 3,
-        }));
+        dispatch(setOptionsAnimationStatus(3));
         setTimeout(() => {
-            setMessageOptions(prevState => ({
-                ...prevState,
-                data: null,
-                animationStatus: 0,
-            }));
+            dispatch(setOptionsMessage(null));
+            dispatch(setOptionsAnimationStatus(0));
             setZeroScale(false);
         }, 400);
     };
 
     const closeOptions = () => {
-        setMessageOptions(prevState => ({
-            ...prevState,
-            animationStatus: 3,
-        }));
+        dispatch(setOptionsAnimationStatus(3));
         setTimeout(() => {
-            setMessageOptions(prevState => ({
-                ...prevState,
-                data: null,
-                animationStatus: 0,
-            }));
-        }, 400);
+            dispatch(setOptionsAnimationStatus(0));
+            dispatch(setOptionsMessage(null));
+        }, 350);
     };
 
     useEffect(() => {
-        if (messageOptions?.data?.id) {
-            setMessageOptions(prevState => ({
-                ...prevState,
-                animationStatus: 2,
-            }));
+        if (optionsMessage?.id) {
+            dispatch(setOptionsAnimationStatus(2));
         }
-        if (messageOptions?.data?.ref?.current?.getBoundingClientRect()?.top > 250 && messageOptions?.data?.ref?.current?.getBoundingClientRect()?.top < 350) {
+        if (optionsMessage?.ref?.current?.getBoundingClientRect()?.top > 250 && optionsMessage?.ref?.current?.getBoundingClientRect()?.top < 350) {
             setNoTopPositionChange(true);
         } else {
             setNoTopPositionChange(false);
         }
-    }, [messageOptions?.data]);
+    }, [optionsMessage]);
 
     return (
         <>
             {
-                messageOptions?.animationStatus ?
+                optionsAnimationStatus ?
                 <>
                     <OptionsContainer
                         onClick={optionsClickHandler}
                         styles={{
-                            top: messageOptions?.data?.top,
-                            left: messageOptions?.data?.left,
-                            width: messageOptions?.data?.width,
-                            height: messageOptions?.data?.height,
-                            isLocalMessage: messageOptions?.data?.isLocalMessage,
-                            chatOptionsStatus: messageOptions?.animationStatus,
+                            top: optionsMessage?.top,
+                            left: optionsMessage?.left,
+                            width: optionsMessage?.width,
+                            height: optionsMessage?.height,
+                            isLocalMessage: optionsMessage?.isLocalMessage,
+                            animationStatus: optionsAnimationStatus,
                             phoneHeightDifference: window.outerHeight - window.innerHeight,
                             noTopPositionChange: noTopPositionChange,
                             zeroScale: zeroScale,
@@ -85,47 +74,43 @@ const ChatOptions = ({ messageOptions, setMessageOptions, type }) => {
                             <MessageBox
                                 data={{
                                     type: type,
-                                    replyTo: messageOptions?.data?.replyTo,
-                                    arrayText: messageOptions?.data?.arrayText,
-                                    plainText: messageOptions?.data?.plainText,
-                                    styles: {
-                                        ...messageOptions?.data?.styles,
-                                        width: messageOptions?.data?.width,
-                                        height: messageOptions?.data?.height,
-                                        type: 'OPTIONS',
-                                        localmessage: messageOptions?.data?.isLocalMessage ? 1 : 0,
-                                        persian: messageOptions?.data?.isTextPersian ? 1 : 0,
-                                        letters: messageOptions?.data?.textLetters,
-                                        position: messageOptions?.data?.messagePosition,
-                                        reply: messageOptions?.data?.replyTo != 'no_reply' ? 1 : 0,
-                                        chatOptionsStatus: messageOptions?.animationStatus,
-                                    }
+                                    replyTo: optionsMessage?.replyTo,
+                                    arrayText: optionsMessage?.arrayText,
+                                    plainText: optionsMessage?.plainText,
+                                }}
+                                styles={{
+                                    ...optionsMessage?.styles,
+                                    width: optionsMessage?.width,
+                                    height: optionsMessage?.height,
+                                    type: 'OPTIONS',
+                                    localmessage: optionsMessage?.isLocalMessage ? 1 : 0,
+                                    persian: optionsMessage?.isTextPersian ? 1 : 0,
+                                    letters: optionsMessage?.textLetters,
+                                    position: optionsMessage?.messagePosition,
+                                    reply: optionsMessage?.replyTo != 'no_reply' ? 1 : 0,
+                                    chatOptionsStatus: optionsMessage?.optionsAnimationStatus,
                                 }}
                             />
                             <AnimatePresence>
                             {
-                                messageOptions?.animationStatus == 2 && !zeroScale ?
-                                <MessageOptions
+                                optionsAnimationStatus == 2 && !zeroScale ?
+                                <OptionsButtons
                                     type={type}
-                                    options={{
-                                        messageOptions: messageOptions?.data,
-                                        closeOptions: optionsClickHandler,
-                                    }}
-                                />
-                                : ''
+                                    optionsMessage={optionsMessage}
+                                    closeOptions={optionsClickHandler}
+                                /> : ''
                             }
                             </AnimatePresence>
                         </div>
                         <AnimatePresence exitBeforeEnter>
                             {
-                                messageOptions?.animationStatus == 2 && !zeroScale ?
+                                optionsAnimationStatus == 2 && !zeroScale ?
                                 <OptionsGlass initial='hidden' animate='visible' exit='exit' variants={optionsGlassVariants} />
                                 : ''
                             }
                         </AnimatePresence>
                     </OptionsContainer>
-                </>
-                : ''
+                </> : ''
             }
         </>
     );
@@ -150,8 +135,9 @@ const OptionsContainer = styled.div`
         align-items: ${props => props.styles.isLocalMessage ? 'flex-end' : 'flex-start'};
         flex-direction: column;
         z-index: 5;
-        transform: ${props => props.styles.zeroScale ? 'scale(0)' : props.styles.chatOptionsStatus == 2 ? 'scale(1.05)' : 'scale(1)'};
-        transition: ${props => props.styles.chatOptionsStatus == 2 ? 'transform .4s cubic-bezier(0.53, 0, 0, 0.98)' : 'transform .25s cubic-bezier(0.53, 0, 0, 0.98)'};
+        opacity: ${props => props.styles.zeroScale ? 0 : 1};
+        transform: ${props => props.styles.zeroScale ? 'scale(0.5)' : props.styles.animationStatus == 2 ? 'scale(1.05)' : 'scale(1)'};
+        transition: ${props => props.styles.animationStatusnimationStatus == 2 ? 'transform .3s' : 'transform .2s'}, opacity .3s;
     }
 
     @media (max-width: 745px) {

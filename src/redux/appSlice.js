@@ -3,8 +3,6 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
     warningPageShowed: JSON.parse(sessionStorage.getItem("warning")),
     warningPageNeverShow: JSON.parse(localStorage.getItem('warning-check')),
-    selectedMessages: [],
-    nonLocalSelected: 0,
     notifications: [],
     notificationSettings: {
         send: false,
@@ -20,12 +18,6 @@ const initialState = {
     scrollToMessage: null,
     inputReply: { id: null, message: null },
     inputStoredText: {},
-    modal: {
-        show: false,
-        type: null,
-        messages: [],
-        editedReply: null,
-    },
 };
 
 const appSlice = createSlice({
@@ -37,30 +29,6 @@ const appSlice = createSlice({
         },
         setWarningPageNeverShow: (state, action) => {
             return { ...state, warningPageNeverShow: action.payload };
-        },
-        setSelectedMessages: (state, action) => {
-            return {
-                ...state,
-                selectedMessages: [
-                    ...state.selectedMessages,
-                    action.payload.message,
-                ],
-            };
-        },
-        setClearSelectedMessages: (state) => {
-            return { ...state, selectedMessages: [] };
-        },
-        setUnselectMessages: (state, action) => {
-            return { ...state, selectedMessages: action.payload };
-        },
-        setPlusNonLocalSelected: (state) => {
-            return { ...state, nonLocalSelected: state.nonLocalSelected+1 };
-        },
-        setMinusNonLocalSelected: (state) => {
-            return { ...state, nonLocalSelected: state.nonLocalSelected-1 };
-        },
-        setClearNonLocalSelected: (state) => {
-            return { ...state, nonLocalSelected: 0 };
         },
         setNotifications: (state, action) => {
             return {
@@ -155,31 +123,12 @@ const appSlice = createSlice({
                 },
             };
         },
-        setModal: (state, action) => {
-            return {
-                ...state,
-                modal: {
-                    ...state.modal,
-                    show: action.payload.show,
-                    type: action.payload.type,
-                    messages: action.payload.messages,
-                    editedReply: action.payload.editedReply,
-                    editedUsername: action.payload.editedUsername,
-                },
-            };
-        },
     },
 });
 
 export const {
     setWarningShowed,
     setWarningPageNeverShow,
-    setSelectedMessages,
-    setClearSelectedMessages,
-    setUnselectMessages,
-    setPlusNonLocalSelected,
-    setMinusNonLocalSelected,
-    setClearNonLocalSelected,
     setNotifications,
     setCloseNotification,
     setClearNotifications,
@@ -188,7 +137,6 @@ export const {
     setSkeletonEffect,
     setScrollToMessage,
     setInputReply,
-    setModal,
 } = appSlice.actions;
 
 export default appSlice.reducer;

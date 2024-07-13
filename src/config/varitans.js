@@ -297,7 +297,7 @@ export const selectCheckLocalVariants = {
     },
     visible: {
         opacity: 1,
-        x: 0,
+        x: 10,
         transition: {
             duration: 0.4,
         },
@@ -318,7 +318,7 @@ export const selectCheckNonLocalVariants = {
     },
     visible: {
         opacity: 1,
-        x: 0,
+        x: -10,
         transition: {
             duration: 0.4,
         },
@@ -345,7 +345,7 @@ export const optionsGlassVariants = {
     exit: {
         opacity: 0,
         transition: {
-            delay: 0.08,
+            delay: 0.04,
             duration: 0.2,
         },
     },
@@ -356,8 +356,8 @@ export const optionsVariants = {
     visible: {
         opacity: 1,
         transition: {
-            duration: 0.1,
-            staggerChildren: 0.03,
+            duration: 0.01,
+            staggerChildren: 0.02,
             when: 'beforeChildren',
         },
     },
@@ -375,12 +375,7 @@ export const optionLocalVariants = {
     visible: {
         opacity: 1,
         x: 0,
-        transition: { duration: 0.2, type: 'spring', stiffness: 100 },
-    },
-    exit: {
-        opacity: 0,
-        x: 15,
-        transition: { duration: 0.15 },
+        transition: { duration: 0.3 },
     },
 };
 
@@ -389,12 +384,7 @@ export const optionNonLocalVariants = {
     visible: {
         opacity: 1,
         x: 0,
-        transition: { duration: 0.2, type: 'spring', stiffness: 100 },
-    },
-    exit: {
-        opacity: 0,
-        x: -15,
-        transition: { duration: 0.15 },
+        transition: { duration: 0.3 },
     },
 };
 
@@ -676,21 +666,23 @@ export const sendInputIconVariants = {
 };
 
 export const inputBarReplyToVariants = {
-    hidden: { opacity: 0, y: 50 },
+    hidden: {
+        opacity: 0,
+        y: 50,
+    },
     visible: {
         opacity: 1,
         y: 0,
         transition: {
             type: 'spring',
-            stiffness: 100,
-            duration: 0.8,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
+            stiffness: 80,
+            duration: 0.5,
         },
     },
     exit: {
         opacity: 0,
-        y: 70,
+        y: 50,
+        scale: 0.9,
         transition: {
             duration: 0.6,
             ease: [0.53, 0, 0, 0.98],
@@ -700,14 +692,21 @@ export const inputBarReplyToVariants = {
 };
 
 export const inputBarEmojiPickerVariatns = {
-    hidden: { opacity: 0 },
+    hidden: {
+        opacity: 0,
+    },
     visible: {
         opacity: 1,
         transition: {
-            duration: 0.5,
+            duration: 0.3,
         },
     },
-    exit: { opacity: 0, transition: { duration: 0.3 } },
+    exit: {
+        opacity: 0,
+        transition: {
+            duration: 0.3
+        }
+    },
 };
 
 // --------------------------------------

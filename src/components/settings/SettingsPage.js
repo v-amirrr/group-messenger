@@ -112,7 +112,6 @@ const Settings = styled.section`
             height: 100%;
             border: none;
             border-radius: none;
-            background-color: #00000000;
         }
     }
 `;

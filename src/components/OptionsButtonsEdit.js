@@ -1,9 +1,9 @@
 import React from 'react';
 import Check from './common/Check';
 import { useSelector } from 'react-redux';
-import { LuTextSelect } from "react-icons/lu";
 import { BsReplyFill } from 'react-icons/bs';
 import { IoIosClose } from "react-icons/io";
+import { TbTextScan2 } from "react-icons/tb";
 import { motion } from 'framer-motion';
 
 const OptionsButtonsEdit = ({ optionClick, setVariants }) => {
@@ -41,7 +41,7 @@ const OptionsButtonsEdit = ({ optionClick, setVariants }) => {
                 onClick={() => optionClick('EDIT_TEXT')}
                 key='edit-text' initial='hidden' animate='visible' exit='exit' variants={setVariants()}
             >
-                <i><LuTextSelect /></i>
+                <i><TbTextScan2 /></i>
                 <p>Edit Text</p>
             </motion.div>
 

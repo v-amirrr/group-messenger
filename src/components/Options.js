@@ -27,7 +27,8 @@ const ChatOptions = ({ type }) => {
         dispatch(setOptionsAnimationStatus(3));
         setTimeout(() => {
             dispatch(reset());
-        }, 400);
+            setZeroScale(false);
+    }, 400);
     };
 
     const closeOptions = () => {
@@ -136,7 +137,7 @@ const OptionsContainer = styled.div`
         z-index: 5;
         opacity: ${props => props.styles.zeroScale ? 0 : 1};
         transform: ${props => props.styles.zeroScale ? 'scale(0.5)' : props.styles.animationStatus == 2 ? 'scale(1.05)' : 'scale(1)'};
-        transition: ${props => props.styles.animationStatusnimationStatus == 2 ? 'transform .3s' : 'transform .2s'}, opacity .3s;
+        transition: transform .2s, opacity .3s;
     }
 
     @media (max-width: 745px) {

@@ -1,15 +1,18 @@
 import React, { useEffect, useRef } from 'react';
 import MessageReply from './MessageReply';
+import { useOptions } from '../../hooks/useOptions';
 import styled from 'styled-components';
 
 const MessageBox = ({ messageClickHandler, editable, styles, data }) => {
     const messageBoxRef = useRef();
     const messageTextRef = useRef();
+    const { storeEditedText } = useOptions();
+
     const showReply = () => data?.replyTo != 'NO_REPLY' && data?.type != 'TRASH' && !editable;
 
     useEffect(() => {
         if (editable) {
-            messageTextRef.current.focus();
+            messageTextRef?.current?.focus();
         }
     }, [editable]);
 
@@ -24,7 +27,7 @@ const MessageBox = ({ messageClickHandler, editable, styles, data }) => {
                     ...styles,
                 }}
             >
-                <div ref={messageTextRef} className='message-text' dir='auto' contentEditable={editable} autoFocus={editable}>
+                <div ref={messageTextRef} className='message-text' dir='auto' onInput={(e) => storeEditedText(e.currentTarget.textContent)} contentEditable={editable} autoFocus={editable}>
                     {showReply() ? <MessageReply replyTo={data?.replyTo} type={data?.type} /> : ''}
                     {
                         data?.type != 'TRASH' ?

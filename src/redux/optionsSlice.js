@@ -6,6 +6,7 @@ const initialState = {
     showOptionsButtons: true,
     showEditButtons: false,
     editText: false,
+    editedText: null,
 };
 
 const optionsSlice = createSlice({
@@ -30,6 +31,9 @@ const optionsSlice = createSlice({
         setEditText: (state, action) => {
             return { ...state, editText: action.payload }
         },
+        setEditedText: (state, action) => {
+            return { ...state, editedText: action.payload }
+        },
         reset: () => {
             return {
                 optionsMessage: null,
@@ -37,6 +41,7 @@ const optionsSlice = createSlice({
                 showOptionsButtons: true,
                 showEditButtons: false,
                 editText: false,
+                editedText: null,
             }
         },
     },
@@ -49,6 +54,7 @@ export const {
     setShowOptionsButtons,
     setShowEditButtons,
     setEditText,
+    setEditedText,
     reset,
 } = optionsSlice.actions;
 

@@ -5,10 +5,11 @@ import { useModal } from './useModal';
 import { useNotification } from './useNotification';
 import { setInputReply} from '../redux/appSlice';
 import { setModal } from '../redux/modalSlice';
-import { setShowEditButtons, setShowOptionsButtons, setEditText } from '../redux/optionsSlice';
+import { setShowEditButtons, setShowOptionsButtons, setEditText, setEditedText } from '../redux/optionsSlice';
 
 export const useOptions = () => {
     const dispatch = useDispatch();
+    const { editedText } = useSelector(store => store.optionsStore);
     const { inputReply } = useSelector(store => store.appStore);
     const { selectedMessages } = useSelector(store => store.selectStore);
     const { modalMessages } = useSelector(store => store.modalStore);
@@ -37,18 +38,17 @@ export const useOptions = () => {
         openNotification('Message copied', 'GENERAL');
     };
 
-    const editText = (id, newMessageText) => {
+    const editText = (id) => {
         const docRef = doc(db, 'messages', id);
-        if (newMessageText) {
+        if (editedText && editedText.charCodeAt(0) != 8204 && editedText.charCodeAt(0) != 160) {
             updateDoc(docRef, {
-                message: newMessageText,
+                message: editedText,
             });
-            closeModal();
             openNotification('Message was edited', 'GENERAL');
+            deactivateEditText();
+            deactivateOptionsButtons();
         } else {
-            closeModal();
-            moveToTrash(id);
-            openNotification('Message was moved to trash', 'GENERAL');
+            openNotification("Can't change your message into nothing", 'ERROR');
         }
     };
 
@@ -124,6 +124,10 @@ export const useOptions = () => {
         dispatch(setEditText(false));
     };
 
+    const storeEditedText = (text) => {
+        dispatch(setEditedText(text));
+    };
+
     return {
         reply,
         unReply,
@@ -139,5 +143,6 @@ export const useOptions = () => {
         deactivateOptionsButtons,
         activateEditText,
         deactivateEditText,
+        storeEditedText,
     };
 };

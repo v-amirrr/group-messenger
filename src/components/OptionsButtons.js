@@ -18,6 +18,7 @@ const OptionsButtons = ({ type, optionsClickHandler, closeOptions }) => {
     const {
         copy,
         reply,
+        editText,
         moveToTrash,
         restore,
         activeEditButtons,
@@ -72,6 +73,9 @@ const OptionsButtons = ({ type, optionsClickHandler, closeOptions }) => {
                 break;
             case 'EDIT_CANCEL':
                 deactivateEditText();
+                break;
+            case 'EDIT_OK':
+                editText(optionsMessage?.id);
                 break;
             case 'TRASH':
                 moveToTrash(optionsMessage?.id);
@@ -219,6 +223,12 @@ const OptionsButtonsContainer = styled(motion.div)`
             &:hover {
                 background-color: #ff000050;
             }
+        }
+    }
+
+    .edit-text {
+        i {
+            font-size: 1.4rem;
         }
     }
 

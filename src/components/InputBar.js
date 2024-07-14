@@ -16,6 +16,7 @@ const InputBar = () => {
     const { inputReply } = useSelector(store => store.appStore);
     const { modalShow, modalName } = useSelector(store => store.modalStore);
     const { selectedMessages } = useSelector(store => store.selectStore);
+    const { editText } = useSelector(store => store.optionsStore);
     const { sendMessage } = useSend();
     const { unReply } = useOptions();
     const [multiline, setMultiline] = useState(false);
@@ -30,7 +31,7 @@ const InputBar = () => {
     };
 
     const blurHandler = () => {
-        if (document.documentElement.offsetWidth > 500 && !modalShow && !inputBarEmojiPicker) {
+        if (document.documentElement.offsetWidth > 500 && !modalShow && !inputBarEmojiPicker && !editText) {
             inputRef.current.focus();
         } else if (modalShow) {
             inputRef.current.blur();

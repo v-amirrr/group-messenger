@@ -12,9 +12,21 @@ import { optionsVariants, optionLocalVariants, optionNonLocalVariants } from '..
 import OptionsButtonsTrash from './OptionsButtonsTrash';
 import OptionsButtonsChat from './OptionsButtonsChat';
 
-const OptionsButtons = ({ type, optionsMessage, optionsClickHandler, closeOptions, editButtons }) => {
+const OptionsButtons = ({ type, optionsClickHandler, closeOptions }) => {
     const { inputReply } = useSelector(store => store.appStore);
-    const { copy, reply, moveToTrash, restore, showEditButtons, hideEditButtons } = useOptions();
+    const { optionsMessage, showEditButtons, showOptionsButtons } = useSelector(store => store.optionsStore);
+    const {
+        copy,
+        reply,
+        moveToTrash,
+        restore,
+        activeEditButtons,
+        deactivateEditButtons,
+        activateEditText,
+        deactivateEditText,
+        activateOptionsButtons,
+        deactivateOptionsButtons,
+    } = useOptions();
     const { openModal } = useModal();
     const { select } = useSelect();
     const { openNotification } = useNotification();
@@ -48,13 +60,18 @@ const OptionsButtons = ({ type, optionsMessage, optionsClickHandler, closeOption
                 copy(optionsMessage?.plainText);
                 break;
             case 'EDIT':
-                // setTimeout(() => {
-                //     openModal('EDIT', [optionsMessage]);
-                // }, 400);
-                showEditButtons();
+                activeEditButtons();
+                deactivateOptionsButtons();
                 break;
             case 'EDIT_BACK':
-                hideEditButtons();
+                deactivateEditButtons();
+                activateOptionsButtons();
+                break;
+            case 'EDIT_TEXT':
+                activateEditText();
+                break;
+            case 'EDIT_CANCEL':
+                deactivateEditText();
                 break;
             case 'TRASH':
                 moveToTrash(optionsMessage?.id);
@@ -82,23 +99,21 @@ const OptionsButtons = ({ type, optionsMessage, optionsClickHandler, closeOption
             >
                 <AnimatePresence exitBeforeEnter>
                     {
-                        editButtons ?
+                        showEditButtons ?
                         <OptionsButtonsEdit
                             key='OptionsButtonsEdit'
                             optionClick={optionClick}
                             setVariants={setVariants}
-                        />
-                        :
+                        /> :
+                        showOptionsButtons ?
                         <>
                             {
-                                type == 'TRASH'
-                                ?
+                                type == 'TRASH' ?
                                 <OptionsButtonsTrash
                                     key='OptionsButtonsTrash'
                                     optionClick={optionClick}
                                     setVariants={setVariants}
-                                />
-                                :
+                                /> :
                                 <OptionsButtonsChat
                                     key='OptionsButtonsChat'
                                     optionClick={optionClick}
@@ -114,7 +129,7 @@ const OptionsButtons = ({ type, optionsMessage, optionsClickHandler, closeOption
                                     <span className='format'>{optionsMessage?.time?.format}</span>
                                 </p>
                             </motion.div>
-                        </>
+                        </> : ''
                     }
                 </AnimatePresence>
             </OptionsButtonsContainer>
@@ -129,17 +144,17 @@ const OptionsButtonsContainer = styled(motion.div)`
     align-items: center;
     flex-direction: ${props => props.styles.isLocalMessage ? 'row-reverse' : 'row'};
 
-    .reply, .copy, .edit, .trash, .select, .time, .delete, .restore, .edit-text, .edit-reply, .edit-back {
+    .reply, .copy, .edit, .trash, .select, .time, .delete, .restore, .edit-text, .edit-reply, .edit-back, .edit-ok {
         position: relative;
         top: 2.5rem;
-        background-color: var(--bg);
-        margin: .2rem 0 0 .2rem;
+        height: 2.25rem;
         display: flex;
         justify-content: center;
         align-items: center;
         border-radius: 50px;
-        height: 2.25rem;
+        margin: .2rem 0 0 .2rem;
         padding: 0 .6rem 0 .5rem;
+        background-color: var(--bg);
         cursor: pointer;
         transition: background .2s;
 
@@ -214,6 +229,15 @@ const OptionsButtonsContainer = styled(motion.div)`
         i {
             margin: 0;
             font-size: 2.2rem;
+        }
+    }
+
+    .edit-ok {
+        padding: .3rem;
+        width: 2.25rem;
+
+        i {
+            margin: 0;
         }
     }
 

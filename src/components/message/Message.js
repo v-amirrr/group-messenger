@@ -74,15 +74,7 @@ const Message = ({ messageData, type, editReplyClickHandler, replyIconClick, new
                     }}
                     styles={{
                         ...styles,
-                        type: type,
-                        localmessage: isLocalMessage ? 1 : 0,
                         persian: isTextPersian ? 1 : 0,
-                        letters: textLetters,
-                        position: messagePosition,
-                        selected: selected ? 1 : 0,
-                        selectmode: selectedMessages?.length ? 1 : 0,
-                        date: previousMessageDifferentDate && time?.year && time?.month ? 1 : 0,
-                        reply: replyTo != 'no_reply' ? 1 : 0,
                         skeletonEffect: messageSkeletonEffect ? 1 : 0,
                     }}
                 />

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setOptionsMessage, setOptionsAnimationStatus, setShowEditButtons } from '../redux/optionsSlice';
+import { reset, setOptionsAnimationStatus } from '../redux/optionsSlice';
 import MessageBox from './message/MessageBox';
 import OptionsButtons from './OptionsButtons';
 import styled from 'styled-components';
@@ -10,7 +10,7 @@ import { optionsGlassVariants } from '../config/varitans';
 const ChatOptions = ({ type }) => {
     const chatOptionsMessageRef = useRef();
     const dispatch = useDispatch();
-    const { optionsMessage, optionsAnimationStatus, showEditButtons } = useSelector(store => store.optionsStore);
+    const { optionsMessage, optionsAnimationStatus, editText } = useSelector(store => store.optionsStore);
     const [noTopPositionChange, setNoTopPositionChange] = useState(false);
     const [zeroScale, setZeroScale] = useState(false);
 
@@ -26,18 +26,14 @@ const ChatOptions = ({ type }) => {
         setZeroScale(true);
         dispatch(setOptionsAnimationStatus(3));
         setTimeout(() => {
-            dispatch(setOptionsMessage(null));
-            dispatch(setOptionsAnimationStatus(0));
-            setZeroScale(false);
+            dispatch(reset());
         }, 400);
     };
 
     const closeOptions = () => {
         dispatch(setOptionsAnimationStatus(3));
         setTimeout(() => {
-            dispatch(setOptionsAnimationStatus(0));
-            dispatch(setOptionsMessage(null));
-            dispatch(setShowEditButtons(false));
+            dispatch(reset());
         }, 350);
     };
 
@@ -73,6 +69,8 @@ const ChatOptions = ({ type }) => {
                     >
                         <div className='message-box' ref={chatOptionsMessageRef}>
                             <MessageBox
+                                key={optionsMessage?.id}
+                                editable={editText}
                                 data={{
                                     type: type,
                                     replyTo: optionsMessage?.replyTo,
@@ -83,13 +81,14 @@ const ChatOptions = ({ type }) => {
                                     ...optionsMessage?.styles,
                                     width: optionsMessage?.width,
                                     height: optionsMessage?.height,
-                                    type: 'OPTIONS',
+                                    type: type,
                                     localmessage: optionsMessage?.isLocalMessage ? 1 : 0,
                                     persian: optionsMessage?.isTextPersian ? 1 : 0,
                                     letters: optionsMessage?.textLetters,
                                     position: optionsMessage?.messagePosition,
                                     reply: optionsMessage?.replyTo != 'no_reply' ? 1 : 0,
                                     chatOptionsStatus: optionsMessage?.optionsAnimationStatus,
+                                    editable: editText,
                                 }}
                             />
                             <AnimatePresence>
@@ -97,10 +96,8 @@ const ChatOptions = ({ type }) => {
                                 optionsAnimationStatus == 2 && !zeroScale ?
                                 <OptionsButtons
                                     type={type}
-                                    optionsMessage={optionsMessage}
                                     optionsClickHandler={optionsClickHandler}
                                     closeOptions={closeOptions}
-                                    editButtons={showEditButtons}
                                 /> : ''
                             }
                             </AnimatePresence>
@@ -108,8 +105,7 @@ const ChatOptions = ({ type }) => {
                         <AnimatePresence exitBeforeEnter>
                             {
                                 optionsAnimationStatus == 2 && !zeroScale ?
-                                <OptionsGlass initial='hidden' animate='visible' exit='exit' variants={optionsGlassVariants} />
-                                : ''
+                                <OptionsGlass initial='hidden' animate='visible' exit='exit' variants={optionsGlassVariants} /> : ''
                             }
                         </AnimatePresence>
                     </OptionsContainer>

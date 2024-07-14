@@ -29,25 +29,22 @@ const MessageReply = ({ replyTo, type }) => {
 
     return (
         <>
-            {
-                replyTo != 'NO_REPLY' && type != 'TRASH' ?
-                <ReplyContainer
-                    onClick={(e) => replyTo != 'DELETED_REPLY' ? clickHandler(e) : ''}
-                    onMouseEnter={hoverHandler}
-                    onMouseLeave={() => mouseSituation = 'OUT'}
-                    data={{
-                        chatType: type == 'CHAT',
-                        deletedReply: replyTo == 'DELETED_REPLY'
-                    }}
-                >
-                    <i className='reply-icon'><BsReplyFill /></i>
-                    {
-                        replyTo != 'DELETED_REPLY' ?
-                        <p className='reply-message'>{replyTo?.plainText}</p> :
-                        <p className='reply-message'>Deleted Message</p>
-                    }
-                </ReplyContainer> : ''
-            }
+            <ReplyContainer
+                onClick={(e) => replyTo != 'DELETED_REPLY' ? clickHandler(e) : ''}
+                onMouseEnter={hoverHandler}
+                onMouseLeave={() => mouseSituation = 'OUT'}
+                data={{
+                    chatType: type == 'CHAT',
+                    deletedReply: replyTo == 'DELETED_REPLY'
+                }}
+            >
+                <i className='reply-icon'><BsReplyFill /></i>
+                {
+                    replyTo != 'DELETED_REPLY' ?
+                    <p className='reply-message'>{replyTo?.plainText}</p> :
+                    <p className='reply-message'>Deleted Message</p>
+                }
+            </ReplyContainer>
         </>
     );
 };

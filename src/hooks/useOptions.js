@@ -5,7 +5,7 @@ import { useModal } from './useModal';
 import { useNotification } from './useNotification';
 import { setInputReply} from '../redux/appSlice';
 import { setModal } from '../redux/modalSlice';
-import { setShowEditButtons } from '../redux/optionsSlice';
+import { setShowEditButtons, setShowOptionsButtons, setEditText } from '../redux/optionsSlice';
 
 export const useOptions = () => {
     const dispatch = useDispatch();
@@ -100,12 +100,28 @@ export const useOptions = () => {
         });
     };
 
-    const showEditButtons = () => {
+    const activeEditButtons = () => {
         dispatch(setShowEditButtons(true));
     };
 
-    const hideEditButtons = () => {
+    const deactivateEditButtons = () => {
         dispatch(setShowEditButtons(false));
+    };
+
+    const activateOptionsButtons = () => {
+        dispatch(setShowOptionsButtons(true));
+    };
+
+    const deactivateOptionsButtons = () => {
+        dispatch(setShowOptionsButtons(false));
+    };
+
+    const activateEditText = () => {
+        dispatch(setEditText(true));
+    };
+
+    const deactivateEditText = () => {
+        dispatch(setEditText(false));
     };
 
     return {
@@ -117,7 +133,11 @@ export const useOptions = () => {
         moveToTrash,
         permanentDelete,
         restore,
-        showEditButtons,
-        hideEditButtons,
+        activeEditButtons,
+        deactivateEditButtons,
+        activateOptionsButtons,
+        deactivateOptionsButtons,
+        activateEditText,
+        deactivateEditText,
     };
 };

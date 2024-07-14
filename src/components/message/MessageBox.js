@@ -1,10 +1,18 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import MessageReply from './MessageReply';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
 
-const MessageBox = ({ messageClickHandler, styles, data }) => {
+const MessageBox = ({ messageClickHandler, editable, styles, data }) => {
     const messageBoxRef = useRef();
+    const messageTextRef = useRef();
+    const showReply = () => data?.replyTo != 'NO_REPLY' && data?.type != 'TRASH' && !editable;
+
+    useEffect(() => {
+        if (editable) {
+            messageTextRef.current.focus();
+        }
+    }, [editable]);
+
     return (
         <>
             <MessageBoxContainer
@@ -16,11 +24,8 @@ const MessageBox = ({ messageClickHandler, styles, data }) => {
                     ...styles,
                 }}
             >
-                <div className='message-text' dir='auto'>
-                    <MessageReply
-                        replyTo={data?.replyTo}
-                        type={data?.type}
-                    />
+                <div ref={messageTextRef} className='message-text' dir='auto' contentEditable={editable} autoFocus={editable}>
+                    {showReply() ? <MessageReply replyTo={data?.replyTo} type={data?.type} /> : ''}
                     {
                         data?.type != 'TRASH' ?
                         data?.arrayText?.map((item, index) =>
@@ -47,7 +52,7 @@ const MessageBox = ({ messageClickHandler, styles, data }) => {
     );
 };
 
-const MessageBoxContainer = styled(motion.div)`
+const MessageBoxContainer = styled.div`
     display: flex;
     justify-content: ${props => props.data.boxJustify};
     align-items: center;
@@ -69,7 +74,7 @@ const MessageBoxContainer = styled(motion.div)`
     background-position: ${props => `left ${-props.data.width}px top 0`};
     background-repeat: no-repeat;
     box-shadow: var(--shadow);
-    cursor: pointer;
+    cursor: ${props => props.data.editable ? 'auto' : 'pointer'};
     visibility: ${props => props.data.boxVisibility};
     animation: ${props => props.data.skeletonEffect ? 'skeleton-effect linear .8s' : ''};
     transition: border-radius .4s, margin .4s;
@@ -91,7 +96,7 @@ const MessageBoxContainer = styled(motion.div)`
     }
 
     @media (max-width: 768px) {
-        max-width: 75%;
+        max-width: 77%;
         border-radius: ${props => props.data.height > 50 ? props.data.boxNotRoundRadius : props.data.boxRoundRadius};
     }
 `;

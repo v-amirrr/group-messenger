@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
     optionsMessage: null,
     optionsAnimationStatus: 0,
+    showEditButtons: false,
 };
 
 const optionsSlice = createSlice({
@@ -18,6 +19,9 @@ const optionsSlice = createSlice({
         clearSlice: () => {
             return { optionsMessage: null, optionsAnimationStatus: 0 }
         },
+        setShowEditButtons: (state, action) => {
+            return { ...state, showEditButtons: action.payload }
+        },
     },
 });
 
@@ -25,6 +29,7 @@ export const {
     setOptionsMessage,
     setOptionsAnimationStatus,
     clearSlice,
+    setShowEditButtons,
 } = optionsSlice.actions;
 
 export default optionsSlice.reducer;

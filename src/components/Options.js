@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setOptionsMessage, setOptionsAnimationStatus } from '../redux/optionsSlice';
+import { setOptionsMessage, setOptionsAnimationStatus, setShowEditButtons } from '../redux/optionsSlice';
 import MessageBox from './message/MessageBox';
 import OptionsButtons from './OptionsButtons';
 import styled from 'styled-components';
@@ -10,14 +10,14 @@ import { optionsGlassVariants } from '../config/varitans';
 const ChatOptions = ({ type }) => {
     const chatOptionsMessageRef = useRef();
     const dispatch = useDispatch();
-    const { optionsMessage, optionsAnimationStatus } = useSelector(store => store.optionsStore);
+    const { optionsMessage, optionsAnimationStatus, showEditButtons } = useSelector(store => store.optionsStore);
     const [noTopPositionChange, setNoTopPositionChange] = useState(false);
     const [zeroScale, setZeroScale] = useState(false);
 
-    const optionsClickHandler = (data) => {
-        if(data?.type == 'TRASH' |data?.type == 'RESTORE') {
+    const optionsClickHandler = (e, type) => {
+        if(type == 'TRASH' || type == 'RESTORE') {
             deleteOptions();
-        } else {
+        } else if (!chatOptionsMessageRef?.current?.contains(e.target)) {
             closeOptions();
         }
     };
@@ -37,6 +37,7 @@ const ChatOptions = ({ type }) => {
         setTimeout(() => {
             dispatch(setOptionsAnimationStatus(0));
             dispatch(setOptionsMessage(null));
+            dispatch(setShowEditButtons(false));
         }, 350);
     };
 
@@ -57,7 +58,7 @@ const ChatOptions = ({ type }) => {
                 optionsAnimationStatus ?
                 <>
                     <OptionsContainer
-                        onClick={optionsClickHandler}
+                        onClick={(e) => optionsClickHandler(e, null)}
                         styles={{
                             top: optionsMessage?.top,
                             left: optionsMessage?.left,
@@ -97,7 +98,9 @@ const ChatOptions = ({ type }) => {
                                 <OptionsButtons
                                     type={type}
                                     optionsMessage={optionsMessage}
-                                    closeOptions={optionsClickHandler}
+                                    optionsClickHandler={optionsClickHandler}
+                                    closeOptions={closeOptions}
+                                    editButtons={showEditButtons}
                                 /> : ''
                             }
                             </AnimatePresence>

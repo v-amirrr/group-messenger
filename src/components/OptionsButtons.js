@@ -1,23 +1,20 @@
 import React from 'react';
 import AnalogClock from './common/AnalogClock';
+import OptionsButtonsEdit from './OptionsButtonsEdit';
 import { useSelector } from 'react-redux';
 import { useOptions } from '../hooks/useOptions';
 import { useSelect } from '../hooks/useSelect';
 import { useModal } from '../hooks/useModal';
 import { useNotification } from '../hooks/useNotification';
-import { AiFillDelete, AiFillCopy, AiFillEdit } from 'react-icons/ai';
-import { BsReplyFill } from 'react-icons/bs';
-import { BiSelectMultiple } from 'react-icons/bi';
-import { TbTrashX } from 'react-icons/tb';
-import { FaTrashRestore } from "react-icons/fa";
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { optionsVariants, optionLocalVariants, optionNonLocalVariants } from '../config/varitans';
+import OptionsButtonsTrash from './OptionsButtonsTrash';
+import OptionsButtonsChat from './OptionsButtonsChat';
 
-const OptionsButtons = ({ type, optionsMessage, closeOptions }) => {
-    const { enterAsAGuest } = useSelector(store => store.userStore);
+const OptionsButtons = ({ type, optionsMessage, optionsClickHandler, closeOptions, editButtons }) => {
     const { inputReply } = useSelector(store => store.appStore);
-    const { copy, reply, moveToTrash, restore } = useOptions();
+    const { copy, reply, moveToTrash, restore, showEditButtons, hideEditButtons } = useOptions();
     const { openModal } = useModal();
     const { select } = useSelect();
     const { openNotification } = useNotification();
@@ -27,6 +24,7 @@ const OptionsButtons = ({ type, optionsMessage, closeOptions }) => {
     const optionClick = (option) => {
         switch (option) {
             case 'REPLY':
+                closeOptions();
                 setTimeout(() => {
                     reply(
                         optionsMessage?.id,
@@ -36,6 +34,7 @@ const OptionsButtons = ({ type, optionsMessage, closeOptions }) => {
                 }, 200);
                 break;
             case 'SELECT':
+                closeOptions();
                 setTimeout(() => {
                     select({
                         id: optionsMessage?.id,
@@ -45,18 +44,24 @@ const OptionsButtons = ({ type, optionsMessage, closeOptions }) => {
                 }, 450);
                 break;
             case 'COPY':
+                closeOptions();
                 copy(optionsMessage?.plainText);
                 break;
             case 'EDIT':
-                setTimeout(() => {
-                    openModal('EDIT', [optionsMessage]);
-                }, 400);
+                // setTimeout(() => {
+                //     openModal('EDIT', [optionsMessage]);
+                // }, 400);
+                showEditButtons();
+                break;
+            case 'EDIT_BACK':
+                hideEditButtons();
                 break;
             case 'TRASH':
                 moveToTrash(optionsMessage?.id);
-                closeOptions({ type: 'TRASH' });
+                optionsClickHandler(null, 'TRASH');
                 break;
             case 'DELETE':
+                closeOptions();
                 setTimeout(() => {
                     openModal("PERMENANT_DELETE_CONFIRMATION", [optionsMessage])
                 }, 400);
@@ -64,7 +69,7 @@ const OptionsButtons = ({ type, optionsMessage, closeOptions }) => {
             case 'RESTORE':
                 restore(optionsMessage?.id);
                 openNotification('Message restored', 'GENERAL');
-                closeOptions({ type: 'RESTORE' });
+                optionsClickHandler(null, 'RESTORE');
                 break;
         }
     };
@@ -72,109 +77,46 @@ const OptionsButtons = ({ type, optionsMessage, closeOptions }) => {
     return (
         <>
             <OptionsButtonsContainer
-                initial='hidden'
-                animate='visible'
-                exit='exit'
-                variants={optionsVariants}
-                localmessage={optionsMessage?.isLocalMessage ? 1 : 0}
-                guest={enterAsAGuest ? 1 : 0}
-                unreply={inputReply?.id == optionsMessage?.id ? 1 : 0}
-                type={type}
+                initial='hidden' animate='visible' exit='exit' variants={optionsVariants}
+                styles={{ isLocalMessage: optionsMessage?.isLocalMessage }}
             >
-                {
-                    type == 'TRASH' ?
-                    <>
-                        <motion.div
-                            className='copy'
-                            onClick={() => optionClick('COPY')}
-                            variants={setVariants()}
-                        >
-                            <i><AiFillCopy /></i>
-                            <p>Copy</p>
-                        </motion.div>
-                        <motion.div
-                            className='select'
-                            onClick={() => optionClick('SELECT')}
-                            variants={setVariants()}
-                        >
-                            <i><BiSelectMultiple /></i>
-                            <p>Select</p>
-                        </motion.div>
-                        <motion.div
-                            className='restore'
-                            onClick={() => optionClick('RESTORE')}
-                            variants={setVariants()}
-                        >
-                            <i><FaTrashRestore /></i>
-                            <p>Restore</p>
-                        </motion.div>
-                        <motion.div
-                            className='delete'
-                            onClick={() => optionClick('DELETE')}
-                            variants={setVariants()}
-                        >
-                            <i><TbTrashX /></i>
-                            <p>Delete</p>
-                        </motion.div>
-                    </> :
-                    <>
-                        <motion.div
-                            className='reply'
-                            onClick={() => optionClick('REPLY')}
-                            variants={setVariants()}
-                        >
-                            <i><BsReplyFill /></i>
-                            <p>{inputReply?.id == optionsMessage?.id ? 'Unreply' : 'Reply'}</p>
-                        </motion.div>
-                        <motion.div
-                            className='select'
-                            onClick={() => optionClick('SELECT')}
-                            variants={setVariants()}
-                        >
-                            <i><BiSelectMultiple /></i>
-                            <p>Select</p>
-                        </motion.div>
-                        <motion.div
-                            className='copy'
-                            onClick={() => optionClick('COPY')}
-                            variants={setVariants()}
-                        >
-                            <i><AiFillCopy /></i>
-                            <p>Copy</p>
-                        </motion.div>
-                        {
-                            optionsMessage?.isLocalMessage ?
-                            <>
-                                <motion.div
-                                    className='edit'
-                                    onClick={() => optionClick('EDIT')}
-                                    variants={setVariants()}
-                                >
-                                    <i><AiFillEdit /></i>
-                                    <p>Edit</p>
-                                </motion.div>
-                                <motion.div
-                                    className='trash'
-                                    onClick={() => optionClick('TRASH')}
-                                    variants={setVariants()}
-                                >
-                                    <i><AiFillDelete /></i>
-                                    <p>Delete</p>
-                                </motion.div>
-                            </> : ''
-                        }
-                    </>
-                }
-                <motion.div
-                    className='time'
-                    variants={setVariants()}
-                >
-                    <AnalogClock time={optionsMessage?.time} scale={1.3} />
-                    <p>
-                        <span>{optionsMessage?.time?.hour}:{optionsMessage?.time?.minute}</span>
-                        <span className='format'>{optionsMessage?.time?.format}</span>
-                    </p>
-                </motion.div>
+                <AnimatePresence exitBeforeEnter>
+                    {
+                        editButtons ?
+                        <OptionsButtonsEdit
+                            key='OptionsButtonsEdit'
+                            optionClick={optionClick}
+                            setVariants={setVariants}
+                        />
+                        :
+                        <>
+                            {
+                                type == 'TRASH'
+                                ?
+                                <OptionsButtonsTrash
+                                    key='OptionsButtonsTrash'
+                                    optionClick={optionClick}
+                                    setVariants={setVariants}
+                                />
+                                :
+                                <OptionsButtonsChat
+                                    key='OptionsButtonsChat'
+                                    optionClick={optionClick}
+                                    setVariants={setVariants}
+                                    replyAlreadyClicked={inputReply?.id == optionsMessage?.id}
+                                    isMessageLocal={optionsMessage?.isLocalMessage}
+                                />
+                            }
+                            <motion.div className='time' key='time' initial='hidden' animate='visible' exit='exit' variants={setVariants()}>
+                                <AnalogClock time={optionsMessage?.time} scale={1.3} />
+                                <p>
+                                    <span>{optionsMessage?.time?.hour}:{optionsMessage?.time?.minute}</span>
+                                    <span className='format'>{optionsMessage?.time?.format}</span>
+                                </p>
+                            </motion.div>
+                        </>
+                    }
+                </AnimatePresence>
             </OptionsButtonsContainer>
         </>
     );
@@ -185,9 +127,9 @@ const OptionsButtonsContainer = styled(motion.div)`
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: ${props => props.localmessage ? 'row-reverse' : 'row'};
+    flex-direction: ${props => props.styles.isLocalMessage ? 'row-reverse' : 'row'};
 
-    .reply, .copy, .edit, .trash, .select, .time, .delete, .restore {
+    .reply, .copy, .edit, .trash, .select, .time, .delete, .restore, .edit-text, .edit-reply, .edit-back {
         position: relative;
         top: 2.5rem;
         background-color: var(--bg);
@@ -205,7 +147,6 @@ const OptionsButtonsContainer = styled(motion.div)`
             display: flex;
             justify-content: center;
             align-items: center;
-            flex-direction: row;
             font-size: 1.2rem;
             margin-right: .2rem;
         }
@@ -263,6 +204,16 @@ const OptionsButtonsContainer = styled(motion.div)`
             &:hover {
                 background-color: #ff000050;
             }
+        }
+    }
+
+    .edit-back {
+        padding: 0;
+        width: 2.25rem;
+
+        i {
+            margin: 0;
+            font-size: 2.2rem;
         }
     }
 

@@ -356,9 +356,7 @@ export const optionsVariants = {
     visible: {
         opacity: 1,
         transition: {
-            duration: 0.01,
-            staggerChildren: 0.02,
-            when: 'beforeChildren',
+            delay: 0.1,
         },
     },
     exit: {
@@ -375,7 +373,17 @@ export const optionLocalVariants = {
     visible: {
         opacity: 1,
         x: 0,
-        transition: { duration: 0.3 },
+        transition: {
+            type: 'spring',
+            stiffness: 100
+        },
+    },
+    exit: {
+        opacity: 0,
+        x: -15,
+        transition: {
+            duration: 0.2,
+        },
     },
 };
 
@@ -384,7 +392,17 @@ export const optionNonLocalVariants = {
     visible: {
         opacity: 1,
         x: 0,
-        transition: { duration: 0.3 },
+        transition: {
+            type: 'spring',
+            stiffness: 100
+        },
+    },
+    exit: {
+        opacity: 0,
+        x: 15,
+        transition: {
+            duration: 0.2,
+        },
     },
 };
 

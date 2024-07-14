@@ -1,10 +1,11 @@
 import { db } from '../config/firebase';
 import { doc, deleteDoc, updateDoc } from 'firebase/firestore';
 import { useDispatch, useSelector } from 'react-redux';
+import { useModal } from './useModal';
 import { useNotification } from './useNotification';
 import { setInputReply} from '../redux/appSlice';
 import { setModal } from '../redux/modalSlice';
-import { useModal } from './useModal';
+import { setShowEditButtons } from '../redux/optionsSlice';
 
 export const useOptions = () => {
     const dispatch = useDispatch();
@@ -99,6 +100,14 @@ export const useOptions = () => {
         });
     };
 
+    const showEditButtons = () => {
+        dispatch(setShowEditButtons(true));
+    };
+
+    const hideEditButtons = () => {
+        dispatch(setShowEditButtons(false));
+    };
+
     return {
         reply,
         unReply,
@@ -108,5 +117,7 @@ export const useOptions = () => {
         moveToTrash,
         permanentDelete,
         restore,
+        showEditButtons,
+        hideEditButtons,
     };
 };

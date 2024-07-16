@@ -345,7 +345,7 @@ export const optionsGlassVariants = {
     exit: {
         opacity: 0,
         transition: {
-            delay: 0.04,
+            delay: 0.05,
             duration: 0.2,
         },
     },
@@ -727,6 +727,26 @@ export const inputBarEmojiPickerVariatns = {
     },
 };
 
+export const editReplyBarVariatns = {
+    hidden: { y: 80 },
+    visible: {
+        y: 0,
+        transition: {
+            duration: 0.6,
+            ease: [0.53, 0, 0, 0.98],
+            time: [0.53, 0, 0, 0.98],
+        },
+    },
+    exit: {
+        y: 80,
+        transition: {
+            duration: 0.6,
+            ease: [0.53, 0, 0, 0.98],
+            time: [0.53, 0, 0, 0.98],
+        },
+    },
+};
+
 // --------------------------------------
 
 export const trashPageVariants = {
@@ -819,6 +839,7 @@ export const scrollButtonVariants = {
     },
     exit: {
         opacity: 0,
+        x: 20,
         transition: {
             duration: 0.2,
         }
@@ -840,7 +861,9 @@ export const menuButtonVariants = {
     },
     exit: {
         opacity: 0,
+        x: 20,
         transition: {
+            delay: 0.2,
             duration: 0.2,
         }
     },

@@ -18,6 +18,12 @@ const initialState = {
     scrollToMessage: null,
     inputReply: { id: null, message: null },
     inputStoredText: {},
+    editReply: {
+        show: false,
+        editedMessageId: null,
+        messages: null,
+        replyId: null,
+    },
 };
 
 const appSlice = createSlice({
@@ -123,6 +129,26 @@ const appSlice = createSlice({
                 },
             };
         },
+        setEditReply: (state, action) => {
+            return {
+                ...state,
+                editReply: {
+                    show: action.payload.show,
+                    editedMessageId: action.payload.editedMessageId,
+                    messages: action.payload.messages,
+                    replyId: action.payload.replyId,
+                },
+            };
+        },
+        setNewReplyId: (state, action) => {
+            return {
+                ...state,
+                editReply: {
+                    ...state.editReply,
+                    replyId: action.payload,
+                },
+            };
+        },
     },
 });
 
@@ -137,6 +163,8 @@ export const {
     setSkeletonEffect,
     setScrollToMessage,
     setInputReply,
+    setEditReply,
+    setNewReplyId,
 } = appSlice.actions;
 
 export default appSlice.reducer;

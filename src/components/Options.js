@@ -17,7 +17,7 @@ const ChatOptions = ({ type }) => {
     const optionsClickHandler = (e, type) => {
         if(type == 'TRASH' || type == 'RESTORE') {
             deleteOptions();
-        } else if (!chatOptionsMessageRef?.current?.contains(e.target)) {
+        } else if (!chatOptionsMessageRef?.current?.contains(e?.target)) {
             closeOptions();
         }
     };

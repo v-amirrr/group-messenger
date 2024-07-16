@@ -3,16 +3,15 @@ import { doc, deleteDoc, updateDoc } from 'firebase/firestore';
 import { useDispatch, useSelector } from 'react-redux';
 import { useModal } from './useModal';
 import { useNotification } from './useNotification';
-import { setInputReply} from '../redux/appSlice';
-import { setModal } from '../redux/modalSlice';
+import { setInputReply, setEditReply, setNewReplyId } from '../redux/appSlice';
 import { setShowEditButtons, setShowOptionsButtons, setEditText, setEditedText } from '../redux/optionsSlice';
 
 export const useOptions = () => {
     const dispatch = useDispatch();
     const { editedText } = useSelector(store => store.optionsStore);
-    const { inputReply } = useSelector(store => store.appStore);
+    const { messages } = useSelector(store => store.firestoreStore);
+    const { inputReply, editReply: editReplyData } = useSelector(store => store.appStore);
     const { selectedMessages } = useSelector(store => store.selectStore);
-    const { modalMessages } = useSelector(store => store.modalStore);
     const { openNotification } = useNotification();
     const { closeModal } = useModal();
 
@@ -52,21 +51,20 @@ export const useOptions = () => {
         }
     };
 
-    const editReply = (id, editedReply) => {
-        const docRef = doc(db, 'messages', id);
-        if (id != editedReply?.id) {
-            updateDoc(docRef, {
-                replyTo:
-                    editedReply == 'deleted' ?
-                    null :
-                    editedReply?.id ?
-                    editedReply?.id :
-                    modalMessages?.replyTo == 'no_reply' ?
-                    null :
-                    modalMessages?.replyTo.id,
-            });
-            dispatch(setModal(editedReply));
-        }
+    const editReply = () => {
+        const docRef = doc(db, 'messages', editReplyData?.editedMessageId);
+        updateDoc(docRef, {
+            replyTo: editReplyData?.replyId
+                // editedReply == 'deleted' ?
+                // null :
+                // editedReply?.id ?
+                // editedReply?.id :
+                // modalMessages?.replyTo == 'no_reply' ?
+                // null :
+                // modalMessages?.replyTo.id,
+        });
+        deactivateEditReply();
+        openNotification('Reply changed', 'GENERAL');
     };
 
     const moveToTrash = (id) => {
@@ -128,6 +126,37 @@ export const useOptions = () => {
         dispatch(setEditedText(text));
     };
 
+    const activateEditReply = (id, replyToId) => {
+        let messagesBeforeEditingMessage = [];
+        for (let i = 0; i < messages.length; i++) {
+            if (messages[i].id == id) {
+                break;
+            } else {
+                messagesBeforeEditingMessage.push(messages[i]);
+            }
+        }
+        dispatch(setEditReply({
+            show: true,
+            editedMessageId: id,
+            messages: messagesBeforeEditingMessage,
+            replyId: replyToId,
+        }));
+        openNotification('Tap on the message you want to reply', 'GENERAL');
+    };
+
+    const deactivateEditReply = () => {
+        dispatch(setEditReply({
+            show: false,
+            editedMessageId: null,
+            messages: null,
+            replyId: null
+        }));
+    };
+
+    const addNewReplyId = (id) => {
+        dispatch(setNewReplyId(id));
+    };
+
     return {
         reply,
         unReply,
@@ -144,5 +173,8 @@ export const useOptions = () => {
         activateEditText,
         deactivateEditText,
         storeEditedText,
+        activateEditReply,
+        deactivateEditReply,
+        addNewReplyId,
     };
 };

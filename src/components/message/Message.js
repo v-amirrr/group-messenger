@@ -11,10 +11,11 @@ import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { messageVariants } from '../../config/varitans';
 
-const Message = ({ messageData, type, editReplyClickHandler, replyIconClick, newreply }) => {
+const Message = ({ messageData, type }) => {
 
     const messageRef = useRef();
     const { selectedMessages } = useSelector(store => store.selectStore);
+    const { editReply } = useSelector(store => store.appStore);
 
     const {
         uid,
@@ -38,6 +39,8 @@ const Message = ({ messageData, type, editReplyClickHandler, replyIconClick, new
 
     const showMessageSelectCheck = () => selectedMessages?.length ? true : false;
 
+    const showReplyIcon = () => editReply?.replyId == id;
+
     const {
         messagePosition,
         messageClickHandler,
@@ -45,7 +48,7 @@ const Message = ({ messageData, type, editReplyClickHandler, replyIconClick, new
         messageSkeletonEffect,
         status,
         styles
-    } = useMessage(messageData, type, messageRef, editReplyClickHandler);
+    } = useMessage(messageData, type, messageRef);
 
     return (
         <>
@@ -54,9 +57,9 @@ const Message = ({ messageData, type, editReplyClickHandler, replyIconClick, new
                 animate='visible'
                 exit='exit'
                 variants={messageVariants}
+                layout
+                layoutId={id}
                 ref={messageRef}
-                layout={type == 'EDIT_REPLY' ? 0 : 1}
-                layoutId={type == 'EDIT_REPLY' ? id : null}
                 styles={{ ...styles }}
             >
                 {showMessageDate() && <MessageDate layout layoutId={id} data={time} />}
@@ -78,7 +81,9 @@ const Message = ({ messageData, type, editReplyClickHandler, replyIconClick, new
                         skeletonEffect: messageSkeletonEffect ? 1 : 0,
                     }}
                 />
-                <MessageReplyIcon editReply={newreply} editReplyClick={replyIconClick} show={newreply && type != 'TRASH'} />
+                <AnimatePresence>
+                    {showReplyIcon() ? <MessageReplyIcon key='MessageReplyIcon' /> : ''}
+                </AnimatePresence>
                 <MessageLoader status={status} />
             </MessageContainer>
         </>

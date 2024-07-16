@@ -3,42 +3,17 @@ import { useOptions } from '../../hooks/useOptions';
 import { BsReplyFill } from 'react-icons/bs';
 import { IoClose } from 'react-icons/io5';
 import styled from 'styled-components';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { replyIconVariants } from '../../config/varitans';
 
-const MessageReplyIcon = ({ editReply, editReplyClick, show }) => {
-    const { clearReplyMessage } = useOptions();
-
-    const closeHandler = () => {
-        if (editReply) {
-            editReplyClick();
-        } else {
-            clearReplyMessage();
-        }
-    };
-
+const MessageReplyIcon = () => {
+    const { addNewReplyId } = useOptions();
     return (
         <>
-            <AnimatePresence>
-                {
-                    show ?
-                    <MessageReplyIconContainer
-                        key='reply-icon'
-                        initial='hidden'
-                        animate='visible'
-                        exit='exit'
-                        variants={replyIconVariants}
-                    >
-                        <i className='reply'>
-                            <BsReplyFill />
-                        </i>
-                        <i className='close' onClick={closeHandler}>
-                            <IoClose />
-                        </i>
-                    </MessageReplyIconContainer>
-                    : ''
-                }
-            </AnimatePresence>
+            <MessageReplyIconContainer initial='hidden' animate='visible' exit='exit' variants={replyIconVariants} onClick={() => addNewReplyId(null)}>
+                <i className='reply'><BsReplyFill /></i>
+                <i className='close'><IoClose /></i>
+            </MessageReplyIconContainer>
         </>
     );
 };
@@ -48,13 +23,13 @@ const MessageReplyIconContainer = styled(motion.div)`
     justify-content: center;
     align-items: center;
     font-size: 1.2rem;
-    background-color: #151515;
+    background-color: var(--bg);
     box-shadow: var(--shadow);
     padding: 1rem;
     border-radius: 50%;
     cursor: pointer;
     margin: 0 .5rem;
-    transition: background .5s;
+    transition: background .2s;
 
     .reply {
         width: 100%;
@@ -64,7 +39,7 @@ const MessageReplyIconContainer = styled(motion.div)`
         justify-content: center;
         align-items: center;
         transform: scale(1);
-        transition: transform .3s;
+        transition: transform .2s;
     }
 
     .close {
@@ -75,7 +50,7 @@ const MessageReplyIconContainer = styled(motion.div)`
         justify-content: center;
         align-items: center;
         transform: scale(0);
-        transition: transform .3s;
+        transition: transform .2s;
         font-size: 1.6rem;
     }
 

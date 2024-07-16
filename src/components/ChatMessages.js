@@ -11,6 +11,7 @@ import Options from './Options';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { chatMessagesVariants, messagesVariants } from '../config/varitans';
+import EditReplyBar from './EditReplyBar';
 
 const ChatMessages = () => {
     const chatRef = useRef();
@@ -18,6 +19,7 @@ const ChatMessages = () => {
     const { optionsAnimationStatus } = useSelector(store => store.optionsStore);
     const { user } = useSelector(store => store.userStore);
     const { selectedMessages } = useSelector(store => store.selectStore);
+    const { editReply } = useSelector(store => store.appStore);
     const { arrow, scrollButtonClickHandler, onChatScrollHandler } = useScroll(chatRef);
     return (
         <>
@@ -27,12 +29,25 @@ const ChatMessages = () => {
                 initial='hidden' animate='visible' exit='exit' variants={chatMessagesVariants}
                 data={{ optionsAnimationStatus }}
             >
-                <MenuButton />
-
-                <ScrollButton click={scrollButtonClickHandler} arrow={arrow} />
+                <AnimatePresence exitBeforeEnter>
+                {
+                    !editReply?.show ?
+                    <>
+                        <MenuButton key='MenuButton' />
+                        <ScrollButton key='ScrollButton' click={scrollButtonClickHandler} arrow={arrow} />
+                    </>
+                    : ''
+                }
+                </AnimatePresence>
 
                 <AnimatePresence>
-                    {!selectedMessages.length ? <InputBar key='input' /> : <SelectBar key='select' />}
+                    {
+                        editReply?.show ?
+                        <EditReplyBar key='edit-reply' /> :
+                        selectedMessages.length ?
+                        <SelectBar key='select' /> :
+                        <InputBar key='input' />
+                    }
                 </AnimatePresence>
 
                 <motion.div
@@ -44,6 +59,19 @@ const ChatMessages = () => {
                 >
                     <AnimatePresence>
                         {
+                            editReply.show ?
+                            editReply?.messages?.map((messageData) => (
+                                <Message
+                                    key={messageData.id}
+                                    type='EDIT_REPLY'
+                                    messageData={{
+                                        ...messageData,
+                                        isLocalMessage: user?.uid == messageData.uid,
+                                        isTextPersian : isPersian(messageData.plainText),
+                                        textLetters: messageData.plainText.length > 20 ? 20 : messageData.plainText.length,
+                                    }}
+                                />
+                            )) :
                             messages?.map((messageData) => (
                                 <Message
                                     key={messageData.id}
@@ -70,8 +98,8 @@ const ChatMessagesContainer = styled(motion.div)`
     display: flex;
     justify-content: center;
     align-items: center;
-    transform: ${props => props.data.optionsAnimationStatus == 2 ? 'scale(0.955)' : 'scale(1)'} !important;
-    transition: ${props => props.data.optionsAnimationStatus == 2 ? 'transform .4s' : 'transform .3s'};
+    transform: ${props => props.data.optionsAnimationStatus == 2 ? 'scale(0.95)' : 'scale(1)'} !important;
+    transition: transform .3s;
 
     .messages {
         position: relative;

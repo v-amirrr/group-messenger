@@ -1,6 +1,8 @@
 import React from 'react';
 import AnalogClock from './common/AnalogClock';
 import OptionsButtonsEdit from './OptionsButtonsEdit';
+import OptionsButtonsTrash from './OptionsButtonsTrash';
+import OptionsButtonsChat from './OptionsButtonsChat';
 import { useSelector } from 'react-redux';
 import { useOptions } from '../hooks/useOptions';
 import { useSelect } from '../hooks/useSelect';
@@ -9,8 +11,6 @@ import { useNotification } from '../hooks/useNotification';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { optionsVariants, optionLocalVariants, optionNonLocalVariants } from '../config/varitans';
-import OptionsButtonsTrash from './OptionsButtonsTrash';
-import OptionsButtonsChat from './OptionsButtonsChat';
 
 const OptionsButtons = ({ type, optionsClickHandler, closeOptions }) => {
     const { inputReply } = useSelector(store => store.appStore);
@@ -27,6 +27,7 @@ const OptionsButtons = ({ type, optionsClickHandler, closeOptions }) => {
         deactivateEditText,
         activateOptionsButtons,
         deactivateOptionsButtons,
+        activateEditReply,
     } = useOptions();
     const { openModal } = useModal();
     const { select } = useSelect();
@@ -77,6 +78,12 @@ const OptionsButtons = ({ type, optionsClickHandler, closeOptions }) => {
             case 'EDIT_OK':
                 editText(optionsMessage?.id);
                 break;
+            case 'EDIT_REPLY':
+                optionsClickHandler(null, 'CHAT');
+                setTimeout(() => {
+                    activateEditReply(optionsMessage?.id, optionsMessage?.replyTo?.id);
+                }, 350);
+                break;
             case 'TRASH':
                 moveToTrash(optionsMessage?.id);
                 optionsClickHandler(null, 'TRASH');
@@ -108,6 +115,7 @@ const OptionsButtons = ({ type, optionsClickHandler, closeOptions }) => {
                             key='OptionsButtonsEdit'
                             optionClick={optionClick}
                             setVariants={setVariants}
+                            optionsMessageReplyTo={optionsMessage?.replyTo?.id}
                         /> :
                         showOptionsButtons ?
                         <>
@@ -255,7 +263,7 @@ const OptionsButtonsContainer = styled(motion.div)`
         flex-wrap: wrap;
         justify-content: flex-start;
 
-        .reply, .copy, .edit, .trash, .select, .time, .delete, .restore {
+        .reply, .copy, .edit, .trash, .select, .time, .delete, .restore, .edit-text, .edit-reply, .edit-back, .edit-ok {
             top: 4.9rem;
         }
     }

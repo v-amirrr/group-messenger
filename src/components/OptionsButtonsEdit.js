@@ -1,12 +1,12 @@
 import React from 'react';
 import Check from './common/Check';
 import { useSelector } from 'react-redux';
-import { BsReplyFill } from 'react-icons/bs';
+import { MdRebaseEdit } from "react-icons/md";
 import { IoIosClose } from "react-icons/io";
 import { TbTextScan2 } from "react-icons/tb";
 import { motion } from 'framer-motion';
 
-const OptionsButtonsEdit = ({ optionClick, setVariants }) => {
+const OptionsButtonsEdit = ({ optionClick, setVariants, optionsMessageReplyTo }) => {
     const { editText } = useSelector(store => store.optionsStore);
     return (
         editText ?
@@ -50,8 +50,8 @@ const OptionsButtonsEdit = ({ optionClick, setVariants }) => {
                 onClick={() => optionClick('EDIT_REPLY')}
                 key='edit-reply' initial='hidden' animate='visible' exit='exit' variants={setVariants()}
             >
-                <i><BsReplyFill /></i>
-                <p>Edit Reply</p>
+                <i><MdRebaseEdit /></i>
+                <p>{optionsMessageReplyTo ? 'Edit' : 'Add'} Reply</p>
             </motion.div>
         </>
     );

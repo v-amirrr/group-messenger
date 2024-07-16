@@ -3,9 +3,10 @@ import { useSelect } from "./useSelect";
 import { useDispatch, useSelector } from 'react-redux';
 import { setOptionsMessage, setOptionsAnimationStatus } from '../redux/optionsSlice';
 import { useSkeletonEffect } from "./useSkeletonEffect";
+import { useOptions } from "./useOptions";
 
-export const useMessage = (messageData, type, messageRef, editReplyClickHandler) => {
-    // types (places that message component is used): chat, options, trash, edit reply modal
+export const useMessage = (messageData, type, messageRef) => {
+    // types (places that message component is used): chat, options, trash, edit reply
     // status: 1 means loading, 2 means check animation, 0 means fully sent
 
     const {
@@ -30,12 +31,12 @@ export const useMessage = (messageData, type, messageRef, editReplyClickHandler)
     const { optionsMessage } = useSelector(store => store.optionsStore);
     const { storeMessageScrollPosition } = useSkeletonEffect();
     const { select, disselect } = useSelect();
+    const { addNewReplyId } = useOptions();
     const [messagePosition, setMessagePosition] = useState(null);
     const [selected, setSelected] = useState(false);
     const [messageSkeletonEffect, setMessageSkeletonEffect] = useState(false);
     const [status, setStatus] = useState(time?.year == undefined ? 1 : 0);
 
-    // let selectByHoldingTimer;
     let styles = {
         boxMargin:
             type == 'TRASH' ? '.06rem' :
@@ -193,7 +194,7 @@ export const useMessage = (messageData, type, messageRef, editReplyClickHandler)
     const messageClickHandler = () => {
         if (!isMessageLoading()) {
             if (type == 'EDIT_REPLY') {
-                editReplyClickHandler();
+                addNewReplyId(id);
             } else {
                 if (isUserSelecting()) {
                     selectHandler();

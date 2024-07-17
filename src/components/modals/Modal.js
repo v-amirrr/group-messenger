@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import DeleteModal from './DeleteModal';
-import EditModal from './EditModal';
 import ChangeUsernameModal from './ChangeUsernameModal';
 import { useModal } from '../../hooks/useModal';
 import styled from 'styled-components';
@@ -9,19 +8,14 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { popupPageVariants, popupContainerVariants } from '../../config/varitans';
 
 const Modal = () => {
-    const { modalShow, modalName, modalMessages, modalEditedReply, modalEditedUsername } = useSelector(store => store.modalStore);
+    const { modalShow, modalName, modalMessages, modalEditedUsername } = useSelector(store => store.modalStore);
     const { user } = useSelector(store => store.userStore);
     const popupPageRef = useRef();
     const { closeModal } = useModal();
-    const [editReplyOpen, setEditReplyOpen] = useState(false);
 
     const closePopupByTap = (e) => {
         if (!popupPageRef?.current?.contains(e.target)) {
-            if (editReplyOpen) {
-                setEditReplyOpen(false);
-            } else {
-                closeModal();
-            }
+            closeModal();
         }
     };
 
@@ -41,13 +35,6 @@ const Modal = () => {
                             {
                                 modalName == 'PERMENANT_DELETE_CONFIRMATION' ?
                                 <DeleteModal modalMessages={modalMessages} /> :
-                                modalName == 'EDIT' ?
-                                <EditModal
-                                    modalMessages={modalMessages}
-                                    modalEditedReply={modalEditedReply}
-                                    editReplyOpen={editReplyOpen}
-                                    setEditReplyOpen={setEditReplyOpen}
-                                /> :
                                 modalName == 'CHANGE_USERNAME_CONFIRMATION' ?
                                 <ChangeUsernameModal
                                     closePopup={closeModal}
@@ -71,6 +58,7 @@ const ModalContainer = styled(motion.section)`
     justify-content: center;
     align-items: center;
     background-color: #00000088;
+    backdrop-filter: var(--glass);
     z-index: 3;
 
     .modal {
@@ -85,7 +73,6 @@ const ModalContainer = styled(motion.section)`
         border: var(--border);
         border-radius: 25px;
         box-shadow: var(--shadow);
-        backdrop-filter: var(--glass);
 
         .modal-message {
             font-size: 1rem;
@@ -95,7 +82,7 @@ const ModalContainer = styled(motion.section)`
         .modal-buttons {
             margin-top: 1.5rem;
 
-            .edit, .delete, .cancel, .change {
+            .delete, .cancel, .change {
                 border: none;
                 border-radius: 50px;
                 background-color: var(--bg);
@@ -126,7 +113,7 @@ const ModalContainer = styled(motion.section)`
                 }
             }
 
-            .edit, .change {
+            .change {
                 color: var(--green);
                 background-color: #00ff0030;
 

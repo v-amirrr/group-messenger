@@ -43,7 +43,6 @@ export const useModal = () => {
                 modalShow: false,
                 modalName: null,
                 modalMessages: [],
-                modalEditedReply: null,
                 modalEditedUsername: null,
             })
         );

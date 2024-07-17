@@ -4,7 +4,6 @@ const initialState = {
     modalShow: false,
     modalName: null,
     modalMessages: [],
-    modalEditedReply: null,
     modalEditedUsername: null,
 };
 
@@ -18,7 +17,6 @@ const modalSlice = createSlice({
                 modalShow: action.payload.modalShow,
                 modalName: action.payload.modalName,
                 modalMessages: action.payload.modalMessages,
-                modalEditedReply: action.payload.modalEditedReply,
                 modalEditedUsername: action.payload.modalEditedUsername,
             };
         },

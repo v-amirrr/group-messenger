@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import SettingsUser from './SettingsUser';
 import SettingsItem from './SettingsItem';
 import SettingsNotification from './SettingsNotification';
-import { TiArrowLeft } from 'react-icons/ti';
+import { IoIosArrowBack } from "react-icons/io";
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { settingsContainerVariants } from '../../config/varitans';
@@ -28,7 +28,7 @@ const SettingsPage = () => {
                 <motion.div className='settings-container' initial='hidden' animate='visible' exit='exit' variants={settingsContainerVariants}>
                     <header className='settings-header'>
                         <p className='header-text'>Settings</p>
-                        <button className='header-button' onClick={backClickHandler}><TiArrowLeft /></button>
+                        <button className='header-button' onClick={backClickHandler}><IoIosArrowBack /></button>
                     </header>
                     {/* <SettingsItem
                         open={open == 'SETTINGS_NOTIFICATION'}
@@ -93,17 +93,17 @@ const Settings = styled.section`
             padding: 1rem 0;
 
             .header-text {
-                font-size: 1.2rem;
+                font-size: 1.4rem;
                 font-weight: 600;
             }
 
             .header-button {
                 position: absolute;
-                left: .7rem;
+                left: .8rem;
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                font-size: 2rem;
+                font-size: 1.5rem;
             }
         }
 

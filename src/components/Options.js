@@ -134,7 +134,7 @@ const OptionsContainer = styled.div`
         justify-content: flex-end;
         align-items: ${props => props.styles.isLocalMessage ? 'flex-end' : 'flex-start'};
         flex-direction: column;
-        z-index: 5;
+        z-index: 6;
         opacity: ${props => props.styles.zeroScale ? 0 : 1};
         transform: ${props => props.styles.zeroScale ? 'scale(0.5)' : props.styles.animationStatus == 2 ? 'scale(1.05)' : 'scale(1)'};
         transition: transform .2s, opacity .3s;
@@ -142,7 +142,9 @@ const OptionsContainer = styled.div`
 
     @media (max-width: 745px) {
         .message-box {
-            /* top: ${props => `${props.styles.top + 52.5}px`}; */
+            top: ${props => `${props.styles.top + 52}px`};
+            transform: ${props => props.styles.zeroScale ? 'scale(0.5)' : props.styles.animationStatus == 2 ? 'scale(1.09)' : 'scale(1)'};
+            transition: transform .3s, opacity .3s;
         }
     }
 `;
@@ -153,7 +155,7 @@ const OptionsGlass = styled(motion.div)`
     height: 100vh;
     background-color: #00000088;
     backdrop-filter: var(--glass);
-    z-index: 4;
+    z-index: 5;
 `;
 
 export default ChatOptions;

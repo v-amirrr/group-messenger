@@ -261,7 +261,7 @@ const InputBarContainer = styled(motion.div)`
     @media (max-width: 768px) {
         width: 15rem;
         bottom: .9rem;
-        padding-bottom: ${props => props.emoji ? '8.5rem' : '0'};
+        padding-bottom: ${props => props.emoji ? '6.9rem' : '0'};
         border-radius: ${props => props.emoji ? '20px' : '50px'};
     }
 `;

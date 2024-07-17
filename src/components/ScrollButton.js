@@ -34,7 +34,6 @@ const ScrollButtonContainer = styled(motion.button)`
     cursor: pointer;
     overflow: hidden;
     z-index: 3;
-    transition: width .3s cubic-bezier(0.53, 0, 0, 0.98);
 
     .icons {
         width: 2.3rem;
@@ -59,7 +58,7 @@ const ScrollButtonContainer = styled(motion.button)`
     }
 
     @media (max-width: 768px) {
-        right: 3rem;
+        right: 4rem;
     }
 `;
 

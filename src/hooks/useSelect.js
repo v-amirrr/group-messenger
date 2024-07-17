@@ -79,7 +79,7 @@ export const useSelect = () => {
             modalMessages.map((message) => {
                 permanentDelete(message.id);
             });
-            let notificationText = selectedMessages.length == 1 ? 'Message was permenately deleted' : 'Messages were permenately deleted';
+            let notificationText = modalMessages.length == 1 ? 'Message was permenately deleted' : 'Messages were permenately deleted';
             setTimeout(() => {
                 openNotification(notificationText, 'GENERAL');
             }, 300);

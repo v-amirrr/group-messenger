@@ -65,7 +65,7 @@ const InputBarReplyToContainer = styled(motion.div)`
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0 0.1rem;
+    padding: 0 0.09rem;
     border: var(--border);
     border-radius: 50px;
     box-shadow: var(--shadow);
@@ -111,7 +111,7 @@ const InputBarReplyToContainer = styled(motion.div)`
         background-color: var(--bg);
         border-radius: 50%;
         cursor: pointer;
-        padding: .14rem;
+        padding: .1rem;
         margin-right: .1rem;
         transition: background .2s;
 
@@ -124,7 +124,7 @@ const InputBarReplyToContainer = styled(motion.div)`
 
     @media (max-width: 768px) {
         max-width: 15rem;
-        bottom: ${props => props.emoji ? '12.4rem' : '4rem'};
+        bottom: ${props => props.emoji ? '10.7rem' : '3.8rem'};
     }
 `;
 

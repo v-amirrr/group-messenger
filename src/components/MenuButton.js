@@ -135,9 +135,9 @@ const MenuButtonContainer = styled(motion.button)`
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                font-size: 1.2rem;
+                font-size: 1.3rem;
                 position: absolute;
-                left: .85rem;
+                left: .75rem;
             }
 
             .logout-icon {
@@ -145,7 +145,7 @@ const MenuButtonContainer = styled(motion.button)`
             }
 
             .features-icon {
-                font-size: 1.1rem;
+                font-size: 1.2rem;
             }
 
             @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
@@ -180,10 +180,20 @@ const MenuButtonContainer = styled(motion.button)`
     }
 
     @media (max-width: 768px) {
-        right: 0;
+        right: 1.2rem;
+        transition: width .3s, height .3s, border-radius .2s .6s;
+
+        .buttons {
+            transition: opacity .2s, transform .25s, bottom .25s, left .25s;
+        }
 
         &:hover, &:active {
             border-radius: 22px;
+            transition: width .3s, height .3s, border-radius .1s;
+
+            .buttons {
+                transition: opacity .2s, transform .35s, bottom .35s, left .35s;
+            }
         }
     }
 `;

@@ -140,11 +140,11 @@ const ChatLoaderContainer = styled(motion.div)`
         padding: 5rem 1rem 10rem 1rem;
 
         .menu {
-            right: 0;
+            right: 1.2rem;
         }
 
         .scroll {
-            right: 3rem;
+            right: 4rem;
         }
 
         .input {
@@ -153,7 +153,8 @@ const ChatLoaderContainer = styled(motion.div)`
         }
 
         .messages {
-            padding: 1rem;
+            width: 100%;
+            padding: 4rem .5rem 0 .5rem;
         }
     }
 `;

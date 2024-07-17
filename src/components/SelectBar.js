@@ -21,7 +21,7 @@ const SelectBar = () => {
             >
                 <button className='close' onClick={clearSelectedMessages}><IoClose /></button>
 
-                <div className='counter'><Counter num={selectedMessages?.length} /></div>
+                <div className='counter'><Counter num={selectedMessages?.length} size={1} /></div>
 
                 <div className='options'>
                     <button className='copy' onClick={copySelectedMessages}>

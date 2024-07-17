@@ -108,11 +108,12 @@ const ChatMessagesContainer = styled(motion.div)`
         padding: 5rem 2rem 9rem 2rem;
         scroll-behavior: smooth;
         overflow: hidden scroll;
+    }
 
-        @media (max-width: 768px) {
-            width: 100vw;
+    @media (max-width: 768px) {
+        .messages {
             padding: 5rem 1rem 10rem 1rem;
-            transform: ${props => props.data.messageOptionsAnimationStatus == 2 ? 'scale(0.94)' : 'scale(1)'};
+            width: 100%;
         }
     }
 `;

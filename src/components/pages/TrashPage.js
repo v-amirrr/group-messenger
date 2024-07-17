@@ -7,9 +7,9 @@ import { isPersian } from '../../functions/isPersian';
 import Message from '../message/Message';
 import Counter from '../common/Counter';
 import Options from '../Options';
-import { TiArrowLeft } from 'react-icons/ti';
 import { TbTrashX } from 'react-icons/tb';
 import { FaTrashRestore } from "react-icons/fa";
+import { IoIosArrowBack } from "react-icons/io";
 import { IoClose } from 'react-icons/io5';
 import { motion, AnimatePresence } from 'framer-motion';
 import styled from 'styled-components';
@@ -41,9 +41,9 @@ const TrashPage = () => {
             >
                 <div className='trash-container'>
                     <div className='header'>
-                        <button className='header-back-button' onClick={() => navigate('/')}><TiArrowLeft /></button>
+                        <button className='header-back-button' onClick={() => navigate('/')}><IoIosArrowBack /></button>
                         <p className='header-text'>Trash</p>
-                        <p className='trash-count'>{messages?.length}</p>
+                        <div className='trash-count'><Counter num={messages?.length} size={0.7} /></div>
                     </div>
                     <motion.div className='deleted-messages' layout key='trash-messages'>
                         <AnimatePresence>
@@ -71,7 +71,7 @@ const TrashPage = () => {
                         {
                             selectedMessages?.length ?
                             <motion.div key='trash-select-bar' className='trash-select-bar' initial='hidden' animate='visible' exit='exit' variants={trashSelectBarVariants}>
-                                <div className='counter'><Counter num={selectedMessages?.length} /></div>
+                                <div className='counter'><Counter num={selectedMessages?.length} size={1} /></div>
                                 <button className='delete-button' onClick={() => openModal("PERMENANT_DELETE_CONFIRMATION", selectedMessages)}>
                                     <i><TbTrashX /></i>
                                     <p>Delete</p>
@@ -123,12 +123,12 @@ const Trash = styled(motion.div)`
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 1rem 0;
+            padding: .8rem 0;
             backdrop-filter: var(--glass);
             z-index: 2;
 
             .header-text {
-                font-size: 1.2rem;
+                font-size: 1.4rem;
                 font-weight: 600;
             }
 
@@ -142,8 +142,8 @@ const Trash = styled(motion.div)`
                 justify-content: center;
                 align-items: center;
                 text-align: center;
-                font-size: .6rem;
                 font-weight: 600;
+                overflow: hidden;
             }
 
             .header-back-button {
@@ -152,7 +152,7 @@ const Trash = styled(motion.div)`
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                font-size: 2rem;
+                font-size: 1.5rem;
                 border-radius: 50%;
                 color: var(--text);
             }

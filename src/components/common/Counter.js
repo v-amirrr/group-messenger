@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-const Counter = ({ num }) => {
+const Counter = ({ num, size }) => {
     const [counterOne, setCounterOne] = useState(num);
     const [counterTwo, setCounterTwo] = useState(num);
     const [changeCounter, setChangeCounter] = useState(false);
@@ -22,7 +22,7 @@ const Counter = ({ num }) => {
 
     return (
         <>
-            <CounterContainer changecounter={changeCounter ? 1 : 0}>
+            <CounterContainer changecounter={changeCounter ? 1 : 0} size={size}>
                 <p className='counter-one'>{counterOne}</p>
                 <p className='counter-two'>{counterTwo}</p>
             </CounterContainer>
@@ -34,7 +34,7 @@ const CounterContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1rem;
+    font-size: ${props => `${props.size}rem`};
     font-weight: 400;
 
     .counter-one {

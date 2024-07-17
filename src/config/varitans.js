@@ -1,4 +1,4 @@
-let onMobile = document.documentElement.offsetWidth < 600;
+let phone = document.documentElement.offsetWidth < 600;
 
 export const warningPageVariants = {
     hidden: { opacity: 0 },

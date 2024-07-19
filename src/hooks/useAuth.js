@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { auth, db, googleProvider } from '../config/firebase';
 import { doc, setDoc } from 'firebase/firestore';
 import { createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
-import { setUser, setLogin, setSignup, setEnterAsAGuest, setGoogleLogin } from '../redux/userSlice';
+import { setUser, setEnterAsAGuest } from '../redux/userSlice';
+import { setLoader } from '../redux/appSlice';
 import { useNotification } from './useNotification';
 
 export const useAuth = () => {
@@ -12,27 +13,27 @@ export const useAuth = () => {
     const { openNotification } = useNotification();
 
     const login = (email, password) => {
-        dispatch(setLogin({ loading: true }));
+        dispatch(setLoader(true));
         if (email && password) {
             signInWithEmailAndPassword(auth, email, password)
                 .then(res => {
-                    dispatch(setLogin({ loading: false }));
+                    dispatch(setLoader(false));
                     localStorage.setItem("user", JSON.stringify(res.user));
                     dispatch(setUser(res.user));
                     navigate("/");
                 })
                 .catch(err => {
-                    dispatch(setLogin({ loading: false }));
+                    dispatch(setLoader(false));
                     openNotification(err.message, "ERROR");
                 });
         } else {
-            dispatch(setLogin({ loading: false }));
+            dispatch(setLoader(false));
             openNotification("Please fill all the inputs", "ERROR");
         }
     };
 
     const signup = (username, email, password) => {
-        dispatch(setSignup({ loading: true }));
+        dispatch(setLoader(true));
         if (username && email && password) {
             createUserWithEmailAndPassword(auth, email, password)
                 .then((res) => {
@@ -43,18 +44,18 @@ export const useAuth = () => {
                             setDoc(doc(db, 'users', res.user.uid), {
                                 username: username
                             });
-                            dispatch(setSignup({ loading: false }));
+                            dispatch(setLoader(false));
                             localStorage.setItem('user', JSON.stringify(res.user));
                             dispatch(setUser(res.user));
                             navigate('/');
                         })
                 })
                 .catch((err) => {
-                    dispatch(setSignup({ loading: false }));
+                    dispatch(setLoader(false));
                     openNotification(err.message, 'ERROR');
                 });
         } else {
-            dispatch(setSignup({ loading: false }));
+            dispatch(setLoader(false));
             openNotification('Please fill all the inputs', 'ERROR');
         }
     };
@@ -78,31 +79,31 @@ export const useAuth = () => {
     };
 
     const googleLogin = () => {
-        dispatch(setGoogleLogin({ loading: true }));
+        dispatch(setLoader(true));
         signInWithPopup(auth, googleProvider)
             .then((res) => {
                 setDoc(doc(db, 'users', res.user.uid), {
                     username: res.user.displayName
                 });
-                dispatch(setGoogleLogin({ loading: false }));
+                dispatch(setLoader(false));
                 localStorage.setItem('user', JSON.stringify(res.user));
                 dispatch(setUser(res.user));
                 navigate('/');
             })
             .catch((err) => {
-                dispatch(setGoogleLogin({ loading: false }));
+                dispatch(setLoader(false));
                 openNotification(err.message, 'ERROR');
             });
     };
 
-    const cancelAuth = () => {
-        dispatch(setLogin({ loading: false }));
-        dispatch(setSignup({ loading: false }))
-        dispatch(setGoogleLogin({ loading: false }));;
-        localStorage.removeItem('user');
-        dispatch(setUser(null));
-        openNotification("Authentication got canceled", "GENERAL");
-    };
+    // const cancelAuth = () => {
+    //     dispatch(setLogin({ loading: false }));
+    //     dispatch(setSignup({ loading: false }));
+    //     dispatch(setGoogleLogin({ loading: false }));
+    //     localStorage.removeItem('user');
+    //     dispatch(setUser(null));
+    //     openNotification("Authentication got canceled", "GENERAL");
+    // };
 
     return {
         login,
@@ -110,6 +111,6 @@ export const useAuth = () => {
         enterAsAGuest,
         logout,
         googleLogin,
-        cancelAuth
+        // cancelAuth
     };
 };

@@ -57,7 +57,7 @@ const MenuButton = () => {
     );
 };
 
-const MenuButtonContainer = styled(motion.button)`
+const MenuButtonContainer = styled(motion.div)`
     box-sizing: content-box;
     position: absolute;
     top: 1rem;
@@ -181,20 +181,6 @@ const MenuButtonContainer = styled(motion.button)`
 
     @media (max-width: 768px) {
         right: 1.2rem;
-        transition: width .3s, height .3s, border-radius .2s .6s;
-
-        .buttons {
-            transition: opacity .2s, transform .25s, bottom .25s, left .25s;
-        }
-
-        &:hover, &:active {
-            border-radius: 22px;
-            transition: width .3s, height .3s, border-radius .1s;
-
-            .buttons {
-                transition: opacity .2s, transform .35s, bottom .35s, left .35s;
-            }
-        }
     }
 `;
 

@@ -9,7 +9,7 @@ import MessageLoader from './MessageLoader';
 import MessageReplyIcon from './MessageReplyIcon';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
-import { messageVariants } from '../../config/varitans';
+import { localMessageVariants, nonLocalMessageVariants } from '../../config/varitans';
 
 const Message = ({ messageData, type }) => {
 
@@ -56,7 +56,7 @@ const Message = ({ messageData, type }) => {
                 initial='hidden'
                 animate='visible'
                 exit='exit'
-                variants={messageVariants}
+                variants={isLocalMessage ? localMessageVariants : nonLocalMessageVariants}
                 layout
                 layoutId={id}
                 ref={messageRef}

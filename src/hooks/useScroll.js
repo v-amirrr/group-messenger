@@ -22,7 +22,7 @@ export const useScroll = (chatRef) => {
     useEffect(() => {
         const scrollBarHeight = chatRef?.current?.scrollHeight-chatRef?.current?.clientHeight;
         const currentPosition = chatRef?.current?.scrollTop;
-        if (messages[messages?.length - 1]?.time?.year && scrollBarHeight-currentPosition < 400) {
+        if (messages[messages?.length - 1]?.time?.year && scrollBarHeight-currentPosition < 500) {
             scrollDown();
         }
     }, [messages[messages?.length - 1]?.time]);

@@ -135,9 +135,43 @@ export const loginItemVariants = {
     },
 };
 
+export const loginPasswordIconVariants = {
+    hidden: {
+        opacity: 0,
+        scale: 0.8,
+    },
+    visible: {
+        opacity: 1,
+        scale: 1,
+        transition: { duration: 0.2 },
+    },
+    exit: {
+        opacity: 0,
+        scale: 0.8,
+        transition: { duration: 0.2 },
+    },
+};
+
+export const loginPasswordInputVariants = {
+    hidden: {
+        opacity: 0,
+        x: -5,
+    },
+    visible: {
+        opacity: 1,
+        x: 0,
+        transition: { duration: 0.2 },
+    },
+    exit: {
+        opacity: 0,
+        x: 5,
+        transition: { duration: 0.2 },
+    },
+};
+
 // --------------------------------------
 
-export const loaderVariants = {
+export const dotsloaderVariants = {
     hidden: {
         opacity: 0,
     },
@@ -236,7 +270,7 @@ export const chatDateVariants = {
     exit: { opacity: 0, scale: 0.8, transition: { duration: 0.4 } },
 };
 
-export const messageVariants = {
+export const localMessageVariants = {
     hidden: { opacity: 0, y: 40, scale: 0.8 },
     visible: {
         opacity: 1,
@@ -252,6 +286,28 @@ export const messageVariants = {
         opacity: 0,
         scale: 0,
         x: 120,
+        transition: {
+            duration: 0.3,
+        },
+    },
+}
+
+export const nonLocalMessageVariants = {
+    hidden: { opacity: 0, y: 40, scale: 0.8 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        transition: {
+            duration: 0.5,
+            ease: [0.53, 0, 0, 0.98],
+            time: [0.53, 0, 0, 0.98],
+        },
+    },
+    exit: {
+        opacity: 0,
+        scale: 0,
+        x: -120,
         transition: {
             duration: 0.3,
         },
@@ -363,7 +419,6 @@ export const optionsVariants = {
         opacity: 0,
         transition: {
             duration: 0.2,
-            when: 'beforeChildren',
         },
     },
 };
@@ -865,6 +920,27 @@ export const menuButtonVariants = {
         transition: {
             delay: 0.2,
             duration: 0.2,
+        }
+    },
+};
+
+// --------------------------------------
+
+export const loaderVariants = {
+    hidden: {
+        opacity: 0,
+    },
+    visible: {
+        opacity: 1,
+        transition: {
+            duration: 0.2,
+        },
+    },
+    exit: {
+        opacity: 0,
+        transition: {
+            duration: 0.2,
+            delay: 0.2,
         }
     },
 };

@@ -24,6 +24,7 @@ const initialState = {
         messages: null,
         replyId: null,
     },
+    loader: false,
 };
 
 const appSlice = createSlice({
@@ -149,6 +150,12 @@ const appSlice = createSlice({
                 },
             };
         },
+        setLoader: (state, action) => {
+            return {
+                ...state,
+                loader: action.payload
+            };
+        },
     },
 });
 
@@ -165,6 +172,7 @@ export const {
     setInputReply,
     setEditReply,
     setNewReplyId,
+    setLoader,
 } = appSlice.actions;
 
 export default appSlice.reducer;

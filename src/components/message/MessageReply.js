@@ -51,22 +51,15 @@ const MessageReply = ({ replyTo, type }) => {
 
 const ReplyContainer = styled.div`
     position: relative;
-    bottom: .05rem;
     max-width: 6.5rem;
-    height: 100%;
+    height: 1.4rem;
     display: inline-flex;
     justify-content: center;
     align-items: center;
     border-radius: 50px;
-    padding: .25rem .4rem .25rem 1rem;
-    margin: 0 .4rem 0 0;
+    padding: 0 .4rem 0 1.1rem;
     background-color: var(--bg);
     color: var(--grey);
-    box-shadow: var(--shadow);
-    font-size: .6rem;
-    font-weight: 300;
-    white-space: nowrap;
-    overflow: hidden;
     cursor: ${props => !props.data.deletedReply && 'pointer'};
     transition: background .2s;
 
@@ -83,7 +76,7 @@ const ReplyContainer = styled.div`
         justify-content: center;
         align-items: center;
         margin-right: .2rem;
-        font-size: .7rem;
+        font-size: .8rem;
         color: #ffffff22;
     }
 
@@ -92,6 +85,8 @@ const ReplyContainer = styled.div`
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
+        font-size: .6rem;
+        font-weight: 300;
     }
 `;
 

@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from 'react';
-import MessageReply from './MessageReply';
 import { useOptions } from '../../hooks/useOptions';
 import styled from 'styled-components';
 
@@ -7,8 +6,6 @@ const MessageBox = ({ messageClickHandler, editable, styles, data }) => {
     const messageBoxRef = useRef();
     const messageTextRef = useRef();
     const { storeEditedText } = useOptions();
-
-    const showReply = () => data?.replyTo != 'NO_REPLY' && data?.type != 'TRASH' && !editable;
 
     useEffect(() => {
         if (editable) {
@@ -28,7 +25,6 @@ const MessageBox = ({ messageClickHandler, editable, styles, data }) => {
                 }}
             >
                 <div ref={messageTextRef} className='message-text' dir='auto' onInput={(e) => storeEditedText(e.currentTarget.textContent)} contentEditable={editable} autoFocus={editable}>
-                    {showReply() ? <MessageReply replyTo={data?.replyTo} type={data?.type} /> : ''}
                     {
                         data?.type != 'TRASH' ?
                         data?.arrayText?.map((item, index) =>
@@ -73,7 +69,7 @@ const MessageBoxContainer = styled.div`
         #ffffff00 20%,
         #ffffff20 50%,
         #ffffff00 80%
-        );
+    );
     background-position: ${props => `left ${-props.data.width}px top 0`};
     background-repeat: no-repeat;
     box-shadow: var(--shadow);

@@ -749,7 +749,7 @@ export const inputBarReplyToVariants = {
         transition: {
             type: 'spring',
             stiffness: 80,
-            duration: 0.5,
+            duration: 0.6,
         },
     },
     exit: {
@@ -757,7 +757,7 @@ export const inputBarReplyToVariants = {
         y: 50,
         scale: 0.9,
         transition: {
-            duration: 0.6,
+            duration: 0.8,
             ease: [0.53, 0, 0, 0.98],
             time: [0.53, 0, 0, 0.98],
         },

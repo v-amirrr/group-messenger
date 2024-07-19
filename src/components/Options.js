@@ -119,7 +119,7 @@ const ChatOptions = ({ type }) => {
 const OptionsContainer = styled.div`
     position: absolute;
     width: 100vw;
-    height: 100vh;
+    height: 100dvh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -142,7 +142,7 @@ const OptionsContainer = styled.div`
 
     @media (max-width: 745px) {
         .message-box {
-            top: ${props => `${props.styles.top + 52}px`};
+            /* top: ${props => `${props.styles.top + 52}px`}; */
             transform: ${props => props.styles.zeroScale ? 'scale(0.5)' : props.styles.animationStatus == 2 ? 'scale(1.09)' : 'scale(1)'};
             transition: transform .3s, opacity .3s;
         }

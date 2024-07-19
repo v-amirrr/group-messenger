@@ -7,6 +7,7 @@ import MessageSelectCheck from './MessageSelectCheck';
 import MessageUsername from './MessageUsername';
 import MessageLoader from './MessageLoader';
 import MessageReplyIcon from './MessageReplyIcon';
+import MessageReply from './MessageReply';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { localMessageVariants, nonLocalMessageVariants } from '../../config/varitans';
@@ -40,6 +41,8 @@ const Message = ({ messageData, type }) => {
     const showMessageSelectCheck = () => selectedMessages?.length ? true : false;
 
     const showReplyIcon = () => editReply?.replyId == id;
+
+    const showReply = () => replyTo != 'NO_REPLY' && type != 'TRASH';
 
     const {
         messagePosition,
@@ -81,10 +84,13 @@ const Message = ({ messageData, type }) => {
                         skeletonEffect: messageSkeletonEffect ? 1 : 0,
                     }}
                 />
-                <AnimatePresence>
-                    {showReplyIcon() ? <MessageReplyIcon key='MessageReplyIcon' /> : ''}
-                </AnimatePresence>
-                <MessageLoader status={status} />
+                <div className='next-to-message'>
+                    <AnimatePresence>
+                        {showReplyIcon() ? <MessageReplyIcon key='MessageReplyIcon' /> : ''}
+                    </AnimatePresence>
+                    <MessageLoader status={status} />
+                    {showReply() ? <MessageReply replyTo={replyTo} type={type} /> : ''}
+                </div>
             </MessageContainer>
         </>
     );
@@ -99,6 +105,14 @@ const MessageContainer = styled(motion.div)`
     flex-direction: ${props => props.styles.messageFlexDirection};
     padding-top: ${props => props.styles.messagePaddingTop};
     transition: padding .4s;
+
+    .next-to-message {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: ${props => props.styles.nextToMessageFlexDirection};
+        margin: 0 .4rem;
+    }
 `;
 
 export default memo(Message);

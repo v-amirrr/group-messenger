@@ -65,8 +65,6 @@ export const useMessage = (messageData, type, messageRef) => {
             !isLocalMessage && messagePosition == 2 ? '15px 20px 20px 15px' :
             !isLocalMessage && messagePosition == 3 && '15px 20px 20px 20px',
         boxPadding:
-            replyTo != 'NO_REPLY' && type != 'TRASH' ?
-            '.45rem .6rem .45rem .45rem' :
             textLetters <= 3 ?
             '.45rem 1rem' :
             textLetters > 3 ?
@@ -77,7 +75,8 @@ export const useMessage = (messageData, type, messageRef) => {
         messagePaddingTop:
             time?.year && messagePosition < 2 && !isLocalMessage && !previousMessageDifferentDate ? '1.8rem' :
             time?.year && messagePosition < 2 && !isLocalMessage && previousMessageDifferentDate ? '3rem' :
-            time?.year && previousMessageDifferentDate ? '1.8rem' : ''
+            time?.year && previousMessageDifferentDate ? '1.8rem' : '',
+        nextToMessageFlexDirection: isLocalMessage ? 'row' : 'row-reverse',
     };
 
     // setting message position, storing message scroll position

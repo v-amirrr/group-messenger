@@ -28,7 +28,6 @@ const MessageReplyIconContainer = styled(motion.div)`
     padding: 1rem;
     border-radius: 50%;
     cursor: pointer;
-    margin: 0 .5rem;
     transition: background .2s;
 
     .reply {

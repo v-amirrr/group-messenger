@@ -5,7 +5,7 @@ import { TbTrashX } from 'react-icons/tb';
 import { FaTrashRestore } from "react-icons/fa";
 import { motion } from 'framer-motion';
 
-const OptionsButtonsTrash = ({ optionClick, setVariants }) => {
+const TrashButtons = ({ optionClick, setVariants }) => {
     return (
         <>
             <motion.div
@@ -44,4 +44,4 @@ const OptionsButtonsTrash = ({ optionClick, setVariants }) => {
     );
 };
 
-export default OptionsButtonsTrash;
+export default TrashButtons;

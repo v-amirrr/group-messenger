@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { reset, setOptionsAnimationStatus } from '../../../redux/optionsSlice';
 import MessageBox from '../message/MessageBox';
-import OptionsButtons from '../options/OptionsButtons';
+import OptionsButtonHandler from './OptionsButtonHandler';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { optionsGlassVariants } from '../../../config/varitans';
@@ -95,7 +95,7 @@ const ChatOptions = ({ type }) => {
                             <AnimatePresence>
                             {
                                 optionsAnimationStatus == 2 && !zeroScale ?
-                                <OptionsButtons
+                                <OptionsButtonHandler
                                     type={type}
                                     optionsClickHandler={optionsClickHandler}
                                     closeOptions={closeOptions}

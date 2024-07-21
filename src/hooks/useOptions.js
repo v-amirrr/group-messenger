@@ -45,7 +45,8 @@ export const useOptions = () => {
             });
             openNotification('Message was edited', 'GENERAL');
             deactivateEditText();
-            deactivateOptionsButtons();
+            deactivateEditButtons();
+            activateOptionsButtons();
         } else {
             openNotification("Can't change your message into nothing", 'ERROR');
         }

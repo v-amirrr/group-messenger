@@ -4,7 +4,7 @@ import { BsReplyFill } from 'react-icons/bs';
 import { BiSelectMultiple } from 'react-icons/bi';
 import { motion } from 'framer-motion';
 
-const OptionsButtonsChat = ({ optionClick, setVariants, replyAlreadyClicked, isMessageLocal }) => {
+const ChatButtons = ({ optionClick, setVariants, replyAlreadyClicked, isMessageLocal }) => {
     return (
         <>
             <motion.div
@@ -56,4 +56,4 @@ const OptionsButtonsChat = ({ optionClick, setVariants, replyAlreadyClicked, isM
     );
 };
 
-export default OptionsButtonsChat;
+export default ChatButtons;

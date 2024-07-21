@@ -1,8 +1,9 @@
 import React from 'react';
 import AnalogClock from '../../../common/AnalogClock';
-import OptionsButtonsEdit from './OptionsButtonsEdit';
-import OptionsButtonsTrash from './OptionsButtonsTrash';
-import OptionsButtonsChat from './OptionsButtonsChat';
+import ChatButtons from './ChatButtons';
+import TrashButtons from './TrashButtons';
+import OptionsEditMenu from './OptionsEditMenu';
+import OptionsEditConfirmation from './OptionsEditConfirmation';
 import { useSelector } from 'react-redux';
 import { useOptions } from '../../../hooks/useOptions';
 import { useSelect } from '../../../hooks/useSelect';
@@ -12,9 +13,9 @@ import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { optionsVariants, optionLocalVariants, optionNonLocalVariants } from '../../../config/varitans';
 
-const OptionsButtons = ({ type, optionsClickHandler, closeOptions }) => {
+const OptionsButtonHandler = ({ type, optionsClickHandler, closeOptions }) => {
     const { inputReply } = useSelector(store => store.appStore);
-    const { optionsMessage, showEditButtons, showOptionsButtons } = useSelector(store => store.optionsStore);
+    const { editText: editTextRedux, optionsMessage, showEditButtons, showOptionsButtons } = useSelector(store => store.optionsStore);
     const {
         copy,
         reply,
@@ -104,29 +105,35 @@ const OptionsButtons = ({ type, optionsClickHandler, closeOptions }) => {
 
     return (
         <>
-            <OptionsButtonsContainer
+            <OptionsButtonHandlerContainer
                 initial='hidden' animate='visible' exit='exit' variants={optionsVariants}
                 styles={{ isLocalMessage: optionsMessage?.isLocalMessage }}
             >
                 <AnimatePresence exitBeforeEnter>
                     {
-                        showEditButtons ?
-                        <OptionsButtonsEdit
+                        showEditButtons && !editTextRedux ?
+                        <OptionsEditMenu
                             key='OptionsButtonsEdit'
                             optionClick={optionClick}
                             setVariants={setVariants}
                             optionsMessageReplyTo={optionsMessage?.replyTo?.id}
                         /> :
+                        showEditButtons && editTextRedux ?
+                        <OptionsEditConfirmation
+                            key='OptionsButtonsEditing'
+                            optionClick={optionClick}
+                            setVariants={setVariants}
+                        /> :
                         showOptionsButtons ?
                         <>
                             {
                                 type == 'TRASH' ?
-                                <OptionsButtonsTrash
+                                <TrashButtons
                                     key='OptionsButtonsTrash'
                                     optionClick={optionClick}
                                     setVariants={setVariants}
                                 /> :
-                                <OptionsButtonsChat
+                                <ChatButtons
                                     key='OptionsButtonsChat'
                                     optionClick={optionClick}
                                     setVariants={setVariants}
@@ -144,12 +151,12 @@ const OptionsButtons = ({ type, optionsClickHandler, closeOptions }) => {
                         </> : ''
                     }
                 </AnimatePresence>
-            </OptionsButtonsContainer>
+            </OptionsButtonHandlerContainer>
         </>
     );
 };
 
-const OptionsButtonsContainer = styled(motion.div)`
+const OptionsButtonHandlerContainer = styled(motion.div)`
     position: absolute;
     display: flex;
     justify-content: center;
@@ -269,4 +276,4 @@ const OptionsButtonsContainer = styled(motion.div)`
     }
 `;
 
-export default OptionsButtons;
+export default OptionsButtonHandler;

@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import MessengerPage from './components/pages/MessengerPage';
-import WarningPage from './components/pages/WarningPage';
-import LoginPage from './components/pages/LoginPage';
-import SettingsPage from './components/settings/SettingsPage';
-import GuidancePage from './components/pages/GuidancePage';
-import TrashPage from './components/pages/TrashPage';
+import MessengerPage from './pages/messenger/MessengerPage';
+import AuthPage from './pages/auth/AuthPage';
+import WarningPage from './pages/warning/WarningPage';
+import SettingsPage from './pages/settings/SettingsPage';
+import GuidancePage from './pages/guidance/GuidancePage';
+import TrashPage from './pages/trash/TrashPage';
 import Background from './components/Background';
-import Modal from './components/modals/Modal';
+import Modal from './components/Modal';
 import Notification from './components/Notification';
 import Loader from './components/Loader';
 import { useRedirection } from './hooks/useRedirection';
@@ -44,7 +44,7 @@ const App = () => {
                 <Routes location={location} key={location.key}>
                     <Route path="/" element={<MessengerPage />} />
                     <Route path="/warning" element={<WarningPage />} />
-                    <Route path="/login" element={<LoginPage />} />
+                    <Route path="/auth" element={<AuthPage />} />
                     <Route path='/settings' element={<SettingsPage />} />
                     <Route path='/guidance' element={<GuidancePage />} />
                     <Route path='/trash' element={<TrashPage />} />

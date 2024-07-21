@@ -67,7 +67,7 @@ export const useAuth = () => {
     };
 
     const logout = () => {
-        navigate('/login');
+        navigate('/auth');
         dispatch(setUser(null));
         dispatch(setEnterAsAGuest(false));
         localStorage.removeItem('user');

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import DotsLoader from './common/DotsLoader';
+import DotsLoader from '../common/DotsLoader';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { loaderVariants } from '../config/varitans';

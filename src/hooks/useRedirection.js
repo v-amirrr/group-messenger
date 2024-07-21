@@ -12,7 +12,7 @@ export const useRedirection = () => {
     const messengerRedirection = () => {
         if (warningPageShowed || warningPageNeverShowCheck) {
             if (!user && !enterAsAGuest) {
-                navigate("/login", { replace: true });
+                navigate("/auth", { replace: true });
             }
         } else {
             navigate("/warning", { replace: true });
@@ -38,7 +38,7 @@ export const useRedirection = () => {
     const settingsRedirection = () => {
         if (warningPageShowed || warningPageNeverShowCheck) {
             if (!user && !enterAsAGuest) {
-                navigate("/login", { replace: true });
+                navigate("/auth", { replace: true });
             }
         } else {
             navigate("/warning", { replace: true });
@@ -65,7 +65,7 @@ export const useRedirection = () => {
                 warningRedirection();
                 break;
 
-            case '/login':
+            case '/auth':
                 loginRedirection();
                 break;
 

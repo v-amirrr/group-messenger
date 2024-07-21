@@ -35,7 +35,7 @@ export const useMessage = (messageData, type, messageRef) => {
     const [messagePosition, setMessagePosition] = useState(null);
     const [selected, setSelected] = useState(false);
     const [messageSkeletonEffect, setMessageSkeletonEffect] = useState(false);
-    const [status, setStatus] = useState(time?.year == undefined ? 1 : 0);
+    const [status, setStatus] = useState(0);
 
     let styles = {
         boxMargin:
@@ -103,12 +103,9 @@ export const useMessage = (messageData, type, messageRef) => {
     // handling loading status when a new message gets sent
     useEffect(() => {
         if (status == 1 && time?.year) {
-            setStatus(2);
-            setTimeout(() => {
-                setStatus(0);
-            }, 1000);
+            showCheck();
         }
-    }, [time]);
+    }, [time, status]);
 
     // applying skeleton effect (used for selecting and hovering over reply section)
     useEffect(() => {
@@ -117,9 +114,29 @@ export const useMessage = (messageData, type, messageRef) => {
         }
     }, [skeletonEffect]);
 
+    // handling status state when message gets sent (so that user can see the message loader)
+    useEffect(() => {
+        if (!time?.year) {
+            setTimeout(() => {
+                if (time?.year) {
+                    showCheck();
+                } else {
+                    setStatus(1);
+                }
+            }, 600);
+        }
+    }, []);
+
     const isMessageLoading = () => status > 0;
 
     const isUserSelecting = () => selectedMessages?.length ? true : false;
+
+    const showCheck = () => {
+        setStatus(2);
+        setTimeout(() => {
+            setStatus(0);
+        }, 1000);
+    };
 
     const applyMessageSkeletonEffect = () => {
         setMessageSkeletonEffect(true);

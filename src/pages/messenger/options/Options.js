@@ -28,7 +28,7 @@ const ChatOptions = ({ type }) => {
         setTimeout(() => {
             dispatch(reset());
             setZeroScale(false);
-    }, 400);
+        }, 400);
     };
 
     const closeOptions = () => {

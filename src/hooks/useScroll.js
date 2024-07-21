@@ -1,10 +1,11 @@
 import { useEffect, useLayoutEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-export const useScroll = (chatRef) => {
+export const useScroll = (chatRef, chatEndRef) => {
     const { messages } = useSelector(store => store.firestoreStore);
     const { messagesScrollPosition, scrollToMessage } = useSelector(store => store.appStore);
     const [arrow, setArrow] = useState(true);
+    const [lastMessageTime, setLastMessageTime] = useState(messages[messages?.length - 1]?.time);
     let scrollLastPosition = chatRef?.current?.scrollTop;
 
     // scrolling to the last sorted position in local storage
@@ -18,12 +19,19 @@ export const useScroll = (chatRef) => {
         };
     }, []);
 
-    // scrolling down if user is at bottom of page and a new message gets snet
+    // scrolling down seamlessly only if user is at bottom of page and somebody sent a new message
     useEffect(() => {
         const scrollBarHeight = chatRef?.current?.scrollHeight-chatRef?.current?.clientHeight;
-        const currentPosition = chatRef?.current?.scrollTop;
-        if (messages[messages?.length - 1]?.time?.year && scrollBarHeight-currentPosition < 500) {
-            scrollDown();
+        const currentScrollPosition = chatRef?.current?.scrollTop;
+        const { time } = messages[messages?.length - 1];
+
+        const isUserAtTheBottom = scrollBarHeight-currentScrollPosition < 500;
+        const newMessage = lastMessageTime?.year != time?.year && lastMessageTime?.monthNum != time?.monthNum && lastMessageTime?.day != time?.day && lastMessageTime?.hour != time?.hour && lastMessageTime?.minute != time?.minute;
+
+        if (isUserAtTheBottom && newMessage) {
+            chatEndRef?.current?.scrollIntoView({ behavior: 'smooth' });
+        } else if (newMessage) {
+            setLastMessageTime(messages[messages?.length - 1]?.time);
         }
     }, [messages[messages?.length - 1]?.time]);
 

@@ -15,12 +15,13 @@ import { chatMessagesVariants, messagesVariants } from '../../config/varitans';
 
 const ChatMessages = () => {
     const chatRef = useRef();
+    const chatEndRef = useRef();
     const { messages } = useSelector(store => store.firestoreStore);
     const { optionsAnimationStatus } = useSelector(store => store.optionsStore);
     const { user } = useSelector(store => store.userStore);
     const { selectedMessages } = useSelector(store => store.selectStore);
     const { editReply } = useSelector(store => store.appStore);
-    const { arrow, scrollButtonClickHandler, onChatScrollHandler } = useScroll(chatRef);
+    const { arrow, scrollButtonClickHandler, onChatScrollHandler } = useScroll(chatRef, chatEndRef);
     return (
         <>
             <Options type='CHAT' />
@@ -86,6 +87,7 @@ const ChatMessages = () => {
                             ))
                         }
                     </AnimatePresence>
+                    <div ref={chatEndRef} />
                 </motion.div>
             </ChatMessagesContainer>
         </>

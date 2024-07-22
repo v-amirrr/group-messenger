@@ -6,19 +6,19 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { replyIconVariants } from '../../../config/varitans';
 
-const MessageReplyIcon = () => {
+const MessageEditReplyIndicator = () => {
     const { addNewReplyId } = useOptions();
     return (
         <>
-            <MessageReplyIconContainer initial='hidden' animate='visible' exit='exit' variants={replyIconVariants} onClick={() => addNewReplyId(null)}>
+            <MessageEditReplyIndicatorContainer initial='hidden' animate='visible' exit='exit' variants={replyIconVariants} onClick={() => addNewReplyId(null)}>
                 <i className='reply'><BsReplyFill /></i>
                 <i className='close'><IoClose /></i>
-            </MessageReplyIconContainer>
+            </MessageEditReplyIndicatorContainer>
         </>
     );
 };
 
-const MessageReplyIconContainer = styled(motion.div)`
+const MessageEditReplyIndicatorContainer = styled(motion.div)`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -80,4 +80,4 @@ const MessageReplyIconContainer = styled(motion.div)`
     }
 `;
 
-export default MessageReplyIcon;
+export default MessageEditReplyIndicator;

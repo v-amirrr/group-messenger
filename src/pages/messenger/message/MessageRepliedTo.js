@@ -3,7 +3,7 @@ import { useSkeletonEffect } from '../../../hooks/useSkeletonEffect';
 import { BsReplyFill } from 'react-icons/bs';
 import styled from 'styled-components';
 
-const MessageReply = ({ replyTo, type }) => {
+const MessageRepliedTo = ({ replyTo, type }) => {
 
     const { addSkeletonEffect, scrollToMessage } = useSkeletonEffect();
     let mouseSituation = 'OUT';
@@ -29,7 +29,7 @@ const MessageReply = ({ replyTo, type }) => {
 
     return (
         <>
-            <ReplyContainer
+            <MessageRepliedToContainer
                 onClick={(e) => replyTo != 'DELETED_REPLY' ? clickHandler(e) : ''}
                 onMouseEnter={hoverHandler}
                 onMouseLeave={() => mouseSituation = 'OUT'}
@@ -44,12 +44,12 @@ const MessageReply = ({ replyTo, type }) => {
                     <p className='reply-message'>{replyTo?.plainText}</p> :
                     <p className='reply-message'>Deleted Message</p>
                 }
-            </ReplyContainer>
+            </MessageRepliedToContainer>
         </>
     );
 };
 
-const ReplyContainer = styled.div`
+const MessageRepliedToContainer = styled.div`
     position: relative;
     max-width: 6.5rem;
     height: 1.4rem;
@@ -90,4 +90,4 @@ const ReplyContainer = styled.div`
     }
 `;
 
-export default MessageReply;
+export default MessageRepliedTo;

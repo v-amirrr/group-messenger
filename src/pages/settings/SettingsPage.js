@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SettingsUser from './SettingsUser';
 import SettingsItem from './SettingsItem';
-import SettingsNotification from './SettingsNotification';
 import { IoIosArrowBack } from "react-icons/io";
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
@@ -30,18 +29,6 @@ const SettingsPage = () => {
                         <p className='header-text'>Settings</p>
                         <button className='header-button' onClick={backClickHandler}><IoIosArrowBack /></button>
                     </header>
-                    {/* <SettingsItem
-                        open={open == 'SETTINGS_NOTIFICATION'}
-                        hide={open != 'SETTINGS_NOTIFICATION' && open}
-                        component={
-                            <SettingsNotification
-                                open={open}
-                                setOpen={setOpen}
-                                setHeight={setHeight}
-                            />
-                        }
-                        height={height}
-                    /> */}
                     <SettingsItem
                         openValue='SETTINGS_USER'
                         open={open == 'SETTINGS_USER'}

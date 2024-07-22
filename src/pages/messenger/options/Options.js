@@ -80,15 +80,7 @@ const ChatOptions = ({ type }) => {
                                 }}
                                 styles={{
                                     ...optionsMessage?.styles,
-                                    width: optionsMessage?.width,
-                                    height: optionsMessage?.height,
-                                    type: type,
-                                    localmessage: optionsMessage?.isLocalMessage ? 1 : 0,
                                     persian: optionsMessage?.isTextPersian ? 1 : 0,
-                                    letters: optionsMessage?.textLetters,
-                                    position: optionsMessage?.messagePosition,
-                                    reply: optionsMessage?.replyTo != 'no_reply' ? 1 : 0,
-                                    chatOptionsStatus: optionsMessage?.optionsAnimationStatus,
                                     editable: editText,
                                 }}
                             />

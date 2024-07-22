@@ -3,11 +3,11 @@ import { useSelector } from 'react-redux';
 import { useMessage } from '../../../hooks/useMessage';
 import MessageBox from './MessageBox';
 import MessageDate from './MessageDate';
-import MessageSelectCheck from './MessageSelectCheck';
+import MessageSelectCheckbox from './MessageSelectCheckbox';
 import MessageUsername from './MessageUsername';
-import MessageLoader from './MessageLoader';
-import MessageReplyIcon from './MessageReplyIcon';
-import MessageReply from './MessageReply';
+import MessageSendStatus from './MessageSendStatus';
+import MessageEditReplyIndicator from './MessageEditReplyIndicator';
+import MessageRepliedTo from './MessageRepliedTo';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { localMessageVariants, nonLocalMessageVariants } from '../../../config/varitans';
@@ -38,11 +38,11 @@ const Message = ({ messageData, type }) => {
 
     const showMessageUsername = () => !isLocalMessage && messagePosition < 2;
 
-    const showMessageSelectCheck = () => selectedMessages?.length ? true : false;
+    const showMessageSelectCheckbox = () => selectedMessages?.length ? true : false;
 
-    const showReplyIcon = () => editReply?.replyId == id;
+    const showEditReplyIndicator = () => editReply?.replyId == id;
 
-    const showReply = () => replyTo != 'NO_REPLY' && type != 'TRASH';
+    const showRepliedTo = () => replyTo != 'NO_REPLY' && type != 'TRASH';
 
     const {
         messagePosition,
@@ -68,7 +68,7 @@ const Message = ({ messageData, type }) => {
                 {showMessageDate() && <MessageDate layout layoutId={id} data={time} />}
                 {showMessageUsername() && <MessageUsername uid={uid} isUserSelecting={selectedMessages?.length} showMessageDate={showMessageDate()} />}
                 <AnimatePresence>
-                    {showMessageSelectCheck() && <MessageSelectCheck selected={selected} messageClickHandler={messageClickHandler} isLocalMessage={isLocalMessage} />}
+                    {showMessageSelectCheckbox() && <MessageSelectCheckbox selected={selected} messageClickHandler={messageClickHandler} isLocalMessage={isLocalMessage} />}
                 </AnimatePresence>
                 <MessageBox
                     messageClickHandler={messageClickHandler}
@@ -86,10 +86,10 @@ const Message = ({ messageData, type }) => {
                 />
                 <div className='next-to-message'>
                     <AnimatePresence>
-                        {showReplyIcon() ? <MessageReplyIcon key='MessageReplyIcon' /> : ''}
+                        {showEditReplyIndicator() ? <MessageEditReplyIndicator key='MessageEditReplyIndicator' /> : ''}
                     </AnimatePresence>
-                    <MessageLoader status={status} />
-                    {showReply() ? <MessageReply replyTo={replyTo} type={type} /> : ''}
+                    <MessageSendStatus status={status} />
+                    {showRepliedTo() ? <MessageRepliedTo replyTo={replyTo} type={type} /> : ''}
                 </div>
             </MessageContainer>
         </>

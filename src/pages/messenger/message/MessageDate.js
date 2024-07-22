@@ -11,7 +11,7 @@ const MessageDate = ({ data }) => {
                     <p className='year'>{data?.year}</p>
                     <p className='month'>{data?.month}</p>
                     <p className='day'>{data?.day}</p>
-                    <p className='time'>{data?.hour} : {data?.minute} {data?.format}</p>
+                    <p className='time'>{data?.hour}:{data?.minute} {data?.format}</p>
                 </div>
             </MessageDateContainer>
         </>
@@ -35,10 +35,8 @@ const MessageDateContainer = styled(motion.div)`
         padding: .3rem .4rem;
         margin-bottom: 1rem;
         color: var(--grey);
-        border-radius: 50px;
         font-size: .55rem;
-        font-weight: 500;
-        letter-spacing: -.5px;
+        font-weight: 400;
 
         .month {
             margin: 0 .15rem 0 .15rem;
@@ -46,11 +44,7 @@ const MessageDateContainer = styled(motion.div)`
         }
 
         .time {
-            margin-left: .4rem;
-        }
-
-        .am-pm {
-            margin-left: .15rem;
+            margin-left: .3rem;
         }
     }
 `;

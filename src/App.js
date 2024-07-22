@@ -12,19 +12,16 @@ import Notification from './components/Notification';
 import Loader from './components/Loader';
 import { useRedirection } from './hooks/useRedirection';
 import { useFirestore } from './hooks/useFirestore';
-import { useNotification } from './hooks/useNotification';
 import { useSelect } from './hooks/useSelect';
 import { AnimatePresence } from 'framer-motion';
 
 const App = () => {
     const location = useLocation();
     const { getMessages, getUsers } = useFirestore();
-    const { setDefaultNotification } = useNotification();
     const { clearSelectedMessages } = useSelect();
     const { autoRedirection } = useRedirection();
 
     useEffect(() => {
-        setDefaultNotification();
         getUsers();
         getMessages();
     }, []);

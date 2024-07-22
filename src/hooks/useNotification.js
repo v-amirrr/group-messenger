@@ -1,11 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
-import { setNotifications, setCloseNotification, setClearNotifications, setNotificationSettings } from "../redux/appSlice";
+import { setNotifications, setCloseNotification, setClearNotifications } from "../redux/appSlice";
 import { useEffect } from "react";
 
 export const useNotification = () => {
     const dispatch = useDispatch();
     const { notifications, notificationSettings } = useSelector(store => store.appStore);
-    const { enterAsAGuest } = useSelector(store => store.userStore);
 
     useEffect(() => {
         let firstItem = notifications[0]?.time;
@@ -44,37 +43,10 @@ export const useNotification = () => {
         dispatch(setClearNotifications());
     };
 
-    const changeNotificationSettings = (notificationName, notificationValue) => {
-        if (enterAsAGuest) {
-            openNotification("To use this feature you need to login.", "GUEST");
-        } else {
-            dispatch(setNotificationSettings({ [notificationName]: notificationValue }));
-        }
-    };
-
-    const setDefaultNotification = () => {
-        const notificationSettingsLocalStorage = JSON.parse(localStorage.getItem('notification'));
-        if (notificationSettingsLocalStorage) {
-            dispatch(setNotificationSettings({
-                send: notificationSettingsLocalStorage.send,
-                trash: notificationSettingsLocalStorage.trash,
-                edit: notificationSettingsLocalStorage.edit,
-                copy: notificationSettingsLocalStorage.copy,
-                restore: notificationSettingsLocalStorage.restore,
-                delete: notificationSettingsLocalStorage.delete,
-                username: notificationSettingsLocalStorage.username,
-            }));
-        } else {
-            localStorage.setItem('notification', notificationSettingsLocalStorage);
-        }
-    };
-
     return {
         openNotification,
         closeNotification,
         clearNotifications,
-        changeNotificationSettings,
         notificationSettings,
-        setDefaultNotification,
     };
 };

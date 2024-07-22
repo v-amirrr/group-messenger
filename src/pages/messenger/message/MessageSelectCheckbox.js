@@ -4,10 +4,10 @@ import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 import { selectCheckLocalVariants, selectCheckNonLocalVariants } from '../../../config/varitans';
 
-const MessageSelectCheck = ({ selected, messageClickHandler, isLocalMessage }) => {
+const MessageSelectCheckbox = ({ selected, messageClickHandler, isLocalMessage }) => {
     return (
         <>
-            <MessageSelectCheckContainer
+            <MessageSelectCheckboxContainer
                 initial='hidden'
                 animate='visible'
                 exit='exit'
@@ -18,12 +18,12 @@ const MessageSelectCheck = ({ selected, messageClickHandler, isLocalMessage }) =
                 <AnimatePresence>
                     {selected ? <Check scale={1.2} /> : ''}
                 </AnimatePresence>
-            </MessageSelectCheckContainer>
+            </MessageSelectCheckboxContainer>
         </>
     );
 };
 
-const MessageSelectCheckContainer = styled(motion.div)`
+const MessageSelectCheckboxContainer = styled(motion.div)`
     position: absolute;
     display: flex;
     justify-content: center;
@@ -46,4 +46,4 @@ const MessageSelectCheckContainer = styled(motion.div)`
     }
 `;
 
-export default MessageSelectCheck;
+export default MessageSelectCheckbox;

@@ -56,14 +56,14 @@ export const useMessage = (messageData, type, messageRef) => {
             !isLocalMessage && messagePosition == 2 ? '15px 25px 25px 15px' :
             !isLocalMessage && messagePosition == 3 && '15px 25px 25px 25px',
         boxNotRoundRadius:
-            isLocalMessage && messagePosition == 0 ? '20px' :
-            isLocalMessage && messagePosition == 1 ? '20px 20px 15px 20px' :
-            isLocalMessage && messagePosition == 2 ? '20px 15px 15px 20px' :
-            isLocalMessage && messagePosition == 3 ? '20px 15px 20px 20px' :
-            !isLocalMessage && messagePosition == 0 ? '15px 20px 20px 20px' :
-            !isLocalMessage && messagePosition == 1 ? '15px 20px 20px 15px' :
-            !isLocalMessage && messagePosition == 2 ? '15px 20px 20px 15px' :
-            !isLocalMessage && messagePosition == 3 && '15px 20px 20px 20px',
+            isLocalMessage && messagePosition == 0 ? '18px' :
+            isLocalMessage && messagePosition == 1 ? '18px 18px 13px 18px' :
+            isLocalMessage && messagePosition == 2 ? '18px 13px 13px 18px' :
+            isLocalMessage && messagePosition == 3 ? '18px 13px 18px 18px' :
+            !isLocalMessage && messagePosition == 0 ? '13px 18px 18px 18px' :
+            !isLocalMessage && messagePosition == 1 ? '13px 18px 18px 13px' :
+            !isLocalMessage && messagePosition == 2 ? '13px 18px 18px 13px' :
+            !isLocalMessage && messagePosition == 3 && '13px 18px 18px 18px',
         boxPadding:
             textLetters <= 3 ?
             '.45rem 1rem' :

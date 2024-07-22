@@ -6,42 +6,23 @@ export const useRedirection = () => {
     const navigate = useNavigate();
     const { user, enterAsAGuest } = useSelector(store => store.userStore);
     const { deletedMessages } = useSelector(store => store.firestoreStore);
-    const { warningPageShowed, warningPageNeverShowCheck } = useSelector(store => store.appStore);
     const { openNotification } = useNotification();
 
     const messengerRedirection = () => {
-        if (warningPageShowed || warningPageNeverShowCheck) {
-            if (!user && !enterAsAGuest) {
-                navigate("/auth", { replace: true });
-            }
-        } else {
-            navigate("/warning", { replace: true });
-        }
-    };
-
-    const warningRedirection = () => {
-        if (warningPageShowed || warningPageNeverShowCheck) {
-            navigate("/", { replace: true });
+        if (!user && !enterAsAGuest) {
+            navigate("/auth", { replace: true });
         }
     };
 
     const loginRedirection = () => {
-        if (warningPageShowed || warningPageNeverShowCheck) {
-            if (user || enterAsAGuest) {
-                navigate("/", { replace: true });
-            }
-        } else {
-            navigate("/warning", { replace: true });
+        if (user || enterAsAGuest) {
+            navigate("/", { replace: true });
         }
     };
 
     const settingsRedirection = () => {
-        if (warningPageShowed || warningPageNeverShowCheck) {
-            if (!user && !enterAsAGuest) {
-                navigate("/auth", { replace: true });
-            }
-        } else {
-            navigate("/warning", { replace: true });
+        if (!user && !enterAsAGuest) {
+            navigate("/auth", { replace: true });
         }
     };
 
@@ -59,10 +40,6 @@ export const useRedirection = () => {
         switch (path) {
             case '/':
                 messengerRedirection();
-                break;
-
-            case '/warning':
-                warningRedirection();
                 break;
 
             case '/auth':

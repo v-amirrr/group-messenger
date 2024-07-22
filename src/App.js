@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import MessengerPage from './pages/messenger/MessengerPage';
 import AuthPage from './pages/auth/AuthPage';
-import WarningPage from './pages/warning/WarningPage';
 import SettingsPage from './pages/settings/SettingsPage';
 import GuidancePage from './pages/guidance/GuidancePage';
 import TrashPage from './pages/trash/TrashPage';
@@ -40,7 +39,6 @@ const App = () => {
             <AnimatePresence exitBeforeEnter>
                 <Routes location={location} key={location.key}>
                     <Route path="/" element={<MessengerPage />} />
-                    <Route path="/warning" element={<WarningPage />} />
                     <Route path="/auth" element={<AuthPage />} />
                     <Route path='/settings' element={<SettingsPage />} />
                     <Route path='/guidance' element={<GuidancePage />} />

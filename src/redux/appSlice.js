@@ -1,8 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    warningPageShowed: JSON.parse(sessionStorage.getItem("warning")),
-    warningPageNeverShow: JSON.parse(localStorage.getItem('warning-check')),
     notifications: [],
     messagesScrollPosition: {},
     skeletonEffect: null,
@@ -22,12 +20,6 @@ const appSlice = createSlice({
     name: 'app',
     initialState,
     reducers: {
-        setWarningShowed: (state, action) => {
-            return { ...state, warningPageShowed: action.payload };
-        },
-        setWarningPageNeverShow: (state, action) => {
-            return { ...state, warningPageNeverShow: action.payload };
-        },
         setNotifications: (state, action) => {
             return {
                 ...state,

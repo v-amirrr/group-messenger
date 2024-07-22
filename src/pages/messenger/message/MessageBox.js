@@ -82,7 +82,7 @@ const MessageBoxContainer = styled.div`
         display: inline-block;
         text-align: ${props => props.data.persian ? 'right' : 'left'};
         word-spacing: 1px;
-        overflow-wrap: anywhere;
+        white-space: pre-line;
         font-family: ${props => props.data.persian ? 'Vazirmatn' : 'Outfit'}, 'Vazirmatn', sans-serif;
         font-size: ${props => props.data.persian ? '.9rem' : '1rem'};
         font-weight: 300;

@@ -81,17 +81,19 @@ const ChatLoaderContainer = styled(motion.div)`
         );
         background-position: left -2.3rem top 0;
         background-repeat: no-repeat;
+        backdrop-filter: var(--glass);
         animation: skeleton-loading-button linear 1.5s infinite;
     }
 
     .menu {
         top: 1rem;
         right: 29.4%;
+        z-index: 2;
     }
 
     .scroll {
         top: 1rem;
-        right: 33%;
+        right: 32%;
     }
 
     .input {
@@ -101,6 +103,7 @@ const ChatLoaderContainer = styled(motion.div)`
         width: 18rem;
         height: 2.4rem;
         border-radius: 50px;
+        backdrop-filter: var(--glass);
         background-color: var(--bg);
         background-image: linear-gradient(
             90deg,
@@ -196,6 +199,7 @@ const MessageContainer = styled.div`
             '15px 25px 25px 15px' :
             props.position == 3 && '12px 25px 25px 25px'
         };
+        backdrop-filter: var(--glass);
         background-color: var(--bg);
         background-image: linear-gradient(
             90deg,

@@ -1,36 +1,5 @@
 let phone = document.documentElement.offsetWidth < 600;
 
-export const warningPageVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 0.2 } },
-    exit: { opacity: 0, transition: { duration: 0.2, when: 'afterChildren' } },
-};
-
-export const warningContainerVariants = {
-    hidden: {
-        opacity: 0,
-        scale: 0.9
-    },
-    visible: {
-        opacity: 1,
-        scale: 1,
-        transition: {
-            duration: 0.5,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
-        },
-    },
-    exit: {
-        opacity: 0,
-        scale: 0.9,
-        transition: {
-            duration: 0.2
-        }
-    },
-};
-
-// --------------------------------------
-
 export const errorBoxVariants = {
     hidden: {
         opacity: 0,
@@ -67,11 +36,9 @@ export const notificationSlowVariants = {
         },
     },
     exit: {
-        opacity: 0,
         scale: 0.2,
-        y: 15,
         transition: {
-            duration: 0.8,
+            duration: 0.6,
         },
     },
 };
@@ -697,7 +664,7 @@ export const selectBarVariants = {
     visible: {
         y: 0,
         transition: {
-            duration: 0.55,
+            duration: 0.5,
             ease: [0.53, 0, 0, 0.98],
             time: [0.53, 0, 0, 0.98],
         },
@@ -707,7 +674,7 @@ export const selectBarVariants = {
         scale: 0.2,
         y: -15,
         transition: {
-            duration: 0.55,
+            duration: 0.5,
         },
     },
 };
@@ -717,7 +684,7 @@ export const inputBarVariants = {
     visible: {
         y: 0,
         transition: {
-            duration: 0.55,
+            duration: 0.5,
             ease: [0.53, 0, 0, 0.98],
             time: [0.53, 0, 0, 0.98],
         },
@@ -727,7 +694,7 @@ export const inputBarVariants = {
         scale: 0.2,
         y: -15,
         transition: {
-            duration: 0.55,
+            duration: 0.5,
         },
     },
 };
@@ -749,15 +716,14 @@ export const inputBarReplyToVariants = {
         transition: {
             type: 'spring',
             stiffness: 80,
-            duration: 0.6,
         },
     },
     exit: {
         opacity: 0,
         y: 50,
-        scale: 0.9,
+        scale: 0.8,
         transition: {
-            duration: 0.8,
+            duration: 0.6,
             ease: [0.53, 0, 0, 0.98],
             time: [0.53, 0, 0, 0.98],
         },
@@ -771,13 +737,14 @@ export const inputBarEmojiPickerVariatns = {
     visible: {
         opacity: 1,
         transition: {
-            duration: 0.3,
+            duration: 0.1,
         },
     },
     exit: {
         opacity: 0,
         transition: {
-            duration: 0.3
+            delay: 0.3,
+            duration: 0.1
         }
     },
 };
@@ -929,18 +896,20 @@ export const menuButtonVariants = {
 export const loaderVariants = {
     hidden: {
         opacity: 0,
+        scale: 1.05,
     },
     visible: {
         opacity: 1,
+        scale: 1,
         transition: {
             duration: 0.4,
         },
     },
     exit: {
         opacity: 0,
+        scale: 1.05,
         transition: {
             duration: 0.4,
-            delay: 0.2,
         }
     },
 };

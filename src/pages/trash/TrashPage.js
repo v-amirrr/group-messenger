@@ -98,12 +98,10 @@ const Trash = styled(motion.div)`
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-    overflow: hidden;
 
     .trash-container {
         position: relative;
-        width: 36rem;
+        width: 28rem;
         height: 35rem;
         display: flex;
         justify-content: center;
@@ -136,8 +134,7 @@ const Trash = styled(motion.div)`
                 margin: .2rem;
                 border-radius: 50%;
                 background-color: var(--red);
-                width: 1rem;
-                height: 1rem;
+                padding: .55rem;
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -148,7 +145,7 @@ const Trash = styled(motion.div)`
 
             .header-back-button {
                 position: absolute;
-                left: .7rem;
+                left: .8rem;
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -293,7 +290,7 @@ const Trash = styled(motion.div)`
             width: 100%;
             height: 100%;
             border: none;
-            border-radius: none;
+            border-radius: 0;
         }
     }
 `;

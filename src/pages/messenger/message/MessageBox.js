@@ -55,7 +55,7 @@ const MessageBoxContainer = styled.div`
     display: flex;
     justify-content: ${props => props.data.boxJustify};
     align-items: center;
-    max-width: 65%;
+    max-width: ${props => props.data.boxWidth};
     width: fit-content;
     border-radius: 25px;
     border-radius: ${props => props.data.boxRoundRadius};

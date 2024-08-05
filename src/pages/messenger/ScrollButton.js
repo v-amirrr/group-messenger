@@ -20,7 +20,7 @@ const ScrollButtonContainer = styled(motion.button)`
     box-sizing: content-box;
     position: absolute;
     top: 1rem;
-    right: 33%;
+    right: 32%;
     width: 2.3rem;
     height: 2.3rem;
     display: flex;
@@ -58,7 +58,7 @@ const ScrollButtonContainer = styled(motion.button)`
     }
 
     @media (max-width: 768px) {
-        right: 4rem;
+        right: 3.2rem;
     }
 `;
 

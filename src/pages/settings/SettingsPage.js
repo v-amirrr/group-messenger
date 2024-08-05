@@ -50,7 +50,6 @@ const SettingsPage = () => {
 
 const Settings = styled.section`
     position: absolute;
-    inset: 0 0 0 0;
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -91,6 +90,7 @@ const Settings = styled.section`
                 justify-content: center;
                 align-items: center;
                 font-size: 1.5rem;
+                color: var(--text);
             }
         }
 
@@ -98,7 +98,7 @@ const Settings = styled.section`
             width: 100%;
             height: 100%;
             border: none;
-            border-radius: none;
+            border-radius: 0;
         }
     }
 `;

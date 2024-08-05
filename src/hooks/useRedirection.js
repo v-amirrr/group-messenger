@@ -5,7 +5,6 @@ import { useNotification } from './useNotification';
 export const useRedirection = () => {
     const navigate = useNavigate();
     const { user, enterAsAGuest } = useSelector(store => store.userStore);
-    const { deletedMessages } = useSelector(store => store.firestoreStore);
     const { openNotification } = useNotification();
 
     const messengerRedirection = () => {
@@ -14,7 +13,7 @@ export const useRedirection = () => {
         }
     };
 
-    const loginRedirection = () => {
+    const authRedirection = () => {
         if (user || enterAsAGuest) {
             navigate("/", { replace: true });
         }
@@ -28,11 +27,8 @@ export const useRedirection = () => {
 
     const trashRedirection = () => {
         if (enterAsAGuest) {
-            openNotification("In order to use this feature you need to login.", false, "GUEST");
+            openNotification("To use this feature you need to login.", false, "GUEST");
             navigate("/", { replace: true });
-        } else if (!deletedMessages?.length) {
-            navigate("/", { replace: true });
-            openNotification("Trash is empty.", true, "ERROR");
         }
     };
 
@@ -43,7 +39,7 @@ export const useRedirection = () => {
                 break;
 
             case '/auth':
-                loginRedirection();
+                authRedirection();
                 break;
 
             case '/settings':

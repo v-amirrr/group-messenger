@@ -71,6 +71,7 @@ export const useMessage = (messageData, type, messageRef) => {
             '.45rem .6rem' : '',
         boxJustify: isLocalMessage ? 'flex-start' : 'flex-end',
         boxVisibility: optionsMessage?.id == id ? 'hidden' : 'visible',
+        boxWidth: type == 'TRASH' ? '86%' : '65%',
         messageFlexDirection: isLocalMessage ? 'row-reverse' : 'row',
         messagePaddingTop:
             time?.year && messagePosition < 2 && !isLocalMessage && !previousMessageDifferentDate ? '1.8rem' :

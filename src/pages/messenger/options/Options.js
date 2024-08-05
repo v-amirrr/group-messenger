@@ -70,7 +70,6 @@ const ChatOptions = ({ type }) => {
                     >
                         <div className='message-box' ref={chatOptionsMessageRef}>
                             <MessageBox
-                                key={optionsMessage?.id}
                                 editable={editText}
                                 data={{
                                     type: type,

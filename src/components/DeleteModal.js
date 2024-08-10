@@ -19,7 +19,7 @@ const DeleteModal = ({ modalMessages }) => {
                 <p className='modal-message'>
                     Are you sure you want to delete
                     {
-                        modalMessages[0].length > 1 ?
+                        modalMessages.length > 1 ?
                         ' these messages ' :
                         ' this message '
                     }

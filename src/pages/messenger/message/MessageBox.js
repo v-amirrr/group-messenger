@@ -48,7 +48,7 @@ const MessageBox = ({ messageClickHandler, editingMode, styles, data }) => {
                             item.link ?
                             <a
                                 key={index}
-                                className='link'
+                                className={editingMode ? 'disabled-link' : 'link'}
                                 href={item.word}
                                 target='_blank'
                                 rel='noopener nereferrer'

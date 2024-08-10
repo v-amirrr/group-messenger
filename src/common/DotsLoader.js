@@ -32,26 +32,23 @@ const DotsLoaderContainer = styled(motion.div)`
 
         &:nth-child(1) {
             animation: dots-animation .5s infinite alternate;
-            animation-delay: 0s;
         }
 
         &:nth-child(2) {
-            animation: dots-animation .5s infinite alternate;
-            animation-delay: .25s;
+            animation: dots-animation .5s infinite .25s alternate;
         }
 
         &:nth-child(3) {
-            animation: dots-animation .5s infinite alternate;
-            animation-delay: .5s;
+            animation: dots-animation .5s infinite .5s alternate;
         }
     }
 
     @keyframes dots-animation {
         0% {
-            transform: scale(1.2);
+            transform: scale(1);
         }
         100% {
-            transform: scale(0.8);
+            transform: scale(0.7);
         }
     }
 `;

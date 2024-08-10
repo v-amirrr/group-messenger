@@ -13,7 +13,7 @@ const Loader = () => {
             {
                 loader ?
                 <LoaderContainer key='loader' initial='hidden' animate='visible' exit='exit' variants={loaderVariants}>
-                    <DotsLoader scale={1.5} />
+                    <DotsLoader scale={1.8} />
                 </LoaderContainer>
                 : ''
             }

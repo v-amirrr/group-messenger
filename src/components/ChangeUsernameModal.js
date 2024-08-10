@@ -1,6 +1,6 @@
 import React from 'react';
 import { useUser } from '../hooks/useUser';
-import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
+import { MdKeyboardArrowRight  } from "react-icons/md";
 import styled from 'styled-components';
 
 const ChangeUsernamePopup = ({ closePopup, newUsername, oldUsername }) => {
@@ -21,7 +21,10 @@ const ChangeUsernamePopup = ({ closePopup, newUsername, oldUsername }) => {
                         <div><b>CURRENT</b> USERNAME</div>
                         <p>{oldUsername}</p>
                     </div>
-                    <i><MdOutlineKeyboardDoubleArrowRight  /></i>
+                    <div className='icons'>
+                        <i><MdKeyboardArrowRight /></i>
+                        <i><MdKeyboardArrowRight /></i>
+                    </div>
                     <div className='new-username'>
                         <div><b>NEW</b> USERNAME</div>
                         <p>{newUsername}</p>
@@ -72,11 +75,52 @@ const ChangeUsernamePopupContainer = styled.div`
             }
         }
 
-        i {
+        .icons {
+            position: absolute;
+            width: 1rem;
+            height: 1rem;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 1.2rem;
+
+            i {
+                position: absolute;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 1.5rem;
+                margin-left: -.4rem;
+                opacity: 0;
+
+                &:nth-child(1) {
+                    animation: icons-animation 1.2s ease-in-out infinite;
+                }
+
+                &:nth-child(2) {
+                    animation: icons-animation 1.2s ease-in-out .65s infinite;
+                }
+            }
+        }
+    }
+
+    @keyframes icons-animation {
+        0% {
+            margin-left: -.4rem;
+            opacity: 0;
+            transform: scale(0.9);
+        }
+        30% {
+            opacity: 1;
+            transform: scale(1);
+        }
+        70% {
+            opacity: 0.8;
+            transform: scale(1);
+        }
+        100% {
+            margin-left: .7rem;
+            opacity: 0;
+            transform: scale(0.9);
         }
     }
 `;

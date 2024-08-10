@@ -96,7 +96,7 @@ const AnalogClockContainer = styled.div`
         position: absolute;
         width: 80%;
         height: 80%;
-        background: #ffff;
+        background: #fff;
         border-radius: 50%;
         z-index: 1;
     }

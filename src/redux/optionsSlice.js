@@ -3,11 +3,11 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
     optionsMessage: null,
     optionsAnimationStatus: 0,
-    showOptionsButtons: true,
-    showEditButtons: false,
-    editText: false,
+    optionsButtonsStage: 1,
     editedText: null,
 };
+
+// options buttons stages: 1 is chat/trash buttons, 2 is edit menu, 3 is edit confirmation
 
 const optionsSlice = createSlice({
     name: 'options',
@@ -19,30 +19,20 @@ const optionsSlice = createSlice({
         setOptionsAnimationStatus: (state, action) => {
             return { ...state, optionsAnimationStatus: action.payload }
         },
+
+        setOptionsButtonsStage: (state, action) => {
+            return { ...state, optionsButtonsStage: action.payload }
+        },
         clearSlice: () => {
-            return { optionsMessage: null, optionsAnimationStatus: 0 }
-        },
-        setShowOptionsButtons: (state, action) => {
-            return { ...state, showOptionsButtons: action.payload }
-        },
-        setShowEditButtons: (state, action) => {
-            return { ...state, showEditButtons: action.payload }
-        },
-        setEditText: (state, action) => {
-            return { ...state, editText: action.payload }
-        },
-        setEditedText: (state, action) => {
-            return { ...state, editedText: action.payload }
-        },
-        reset: () => {
             return {
                 optionsMessage: null,
                 optionsAnimationStatus: 0,
-                showOptionsButtons: true,
-                showEditButtons: false,
-                editText: false,
+                optionsButtonsStage: 1,
                 editedText: null,
             }
+        },
+        setEditedText: (state, action) => {
+            return { ...state, editedText: action.payload }
         },
     },
 });
@@ -50,12 +40,9 @@ const optionsSlice = createSlice({
 export const {
     setOptionsMessage,
     setOptionsAnimationStatus,
+    setOptionsButtonsStage,
     clearSlice,
-    setShowOptionsButtons,
-    setShowEditButtons,
-    setEditText,
     setEditedText,
-    reset,
 } = optionsSlice.actions;
 
 export default optionsSlice.reducer;

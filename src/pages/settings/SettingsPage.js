@@ -25,9 +25,9 @@ const SettingsPage = () => {
         <>
             <Settings>
                 <motion.div className='settings-container' initial='hidden' animate='visible' exit='exit' variants={settingsContainerVariants}>
-                    <header className='settings-header'>
+                    <header className='header'>
                         <p className='header-text'>Settings</p>
-                        <button className='header-button' onClick={backClickHandler}><IoIosArrowBack /></button>
+                        <button className='header-back-button' onClick={backClickHandler}><IoIosArrowBack /></button>
                     </header>
                     <SettingsItem
                         openValue='SETTINGS_USER'
@@ -69,7 +69,7 @@ const Settings = styled.section`
         background-color: #00000044;
         padding-top: 4rem;
 
-        .settings-header {
+        .header {
             position: absolute;
             top: 0;
             width: 100%;
@@ -81,16 +81,17 @@ const Settings = styled.section`
             .header-text {
                 font-size: 1.4rem;
                 font-weight: 600;
+                color: var(--grey);
             }
 
-            .header-button {
+            .header-back-button {
                 position: absolute;
                 left: .8rem;
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 font-size: 1.5rem;
-                color: var(--text);
+                color: var(--grey);
             }
         }
 

@@ -22,8 +22,8 @@ const MessageUsernameContainer = styled.div`
     background-color: var(--bg);
     color: var(--grey);
     box-shadow: var(--shadow);
-    border-radius: 50px 50px 50px 30px;
-    margin-left: ${props => props.data.isUserSelecting ? '2rem' : ''};
+    border-radius: 50px 50px 50px 35px;
+    margin-left: ${props => props.data.isUserSelecting ? '1.8rem' : ''};
     margin-right: .2rem;
     padding: .2rem .5rem .2rem 1rem;
     font-size: .6rem;

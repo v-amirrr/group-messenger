@@ -15,21 +15,8 @@ import { optionsVariants, optionLocalVariants, optionNonLocalVariants } from '..
 
 const OptionsButtonHandler = ({ type, optionsClickHandler, closeOptions }) => {
     const { inputReply } = useSelector(store => store.appStore);
-    const { editText: editTextRedux, optionsMessage, showEditButtons, showOptionsButtons } = useSelector(store => store.optionsStore);
-    const {
-        copy,
-        reply,
-        editText,
-        moveToTrash,
-        restore,
-        activeEditButtons,
-        deactivateEditButtons,
-        activateEditText,
-        deactivateEditText,
-        activateOptionsButtons,
-        deactivateOptionsButtons,
-        activateEditReply,
-    } = useOptions();
+    const { optionsMessage, optionsButtonsStage } = useSelector(store => store.optionsStore);
+    const { copy, reply, editText, moveToTrash, restore, changeButtonsStage, activateEditReply } = useOptions();
     const { openModal } = useModal();
     const { select } = useSelect();
     const { openNotification } = useNotification();
@@ -63,18 +50,16 @@ const OptionsButtonHandler = ({ type, optionsClickHandler, closeOptions }) => {
                 copy(optionsMessage?.plainText);
                 break;
             case 'EDIT':
-                activeEditButtons();
-                deactivateOptionsButtons();
+                changeButtonsStage(2);
                 break;
             case 'EDIT_BACK':
-                deactivateEditButtons();
-                activateOptionsButtons();
+                changeButtonsStage(1);
                 break;
             case 'EDIT_TEXT':
-                activateEditText();
+                changeButtonsStage(3);
                 break;
             case 'EDIT_CANCEL':
-                deactivateEditText();
+                changeButtonsStage(2);
                 break;
             case 'EDIT_OK':
                 editText(optionsMessage?.id);
@@ -93,7 +78,7 @@ const OptionsButtonHandler = ({ type, optionsClickHandler, closeOptions }) => {
                 closeOptions();
                 setTimeout(() => {
                     openModal("PERMENANT_DELETE_CONFIRMATION", [optionsMessage])
-                }, 400);
+                }, 300);
                 break;
             case 'RESTORE':
                 restore(optionsMessage?.id);
@@ -111,20 +96,20 @@ const OptionsButtonHandler = ({ type, optionsClickHandler, closeOptions }) => {
             >
                 <AnimatePresence exitBeforeEnter>
                     {
-                        showEditButtons && !editTextRedux ?
+                        optionsButtonsStage == 2 ?
                         <OptionsEditMenu
                             key='OptionsButtonsEdit'
                             optionClick={optionClick}
                             setVariants={setVariants}
                             optionsMessageReplyTo={optionsMessage?.replyTo?.id}
                         /> :
-                        showEditButtons && editTextRedux ?
+                        optionsButtonsStage == 3 ?
                         <OptionsEditConfirmation
                             key='OptionsButtonsEditing'
                             optionClick={optionClick}
                             setVariants={setVariants}
                         /> :
-                        showOptionsButtons ?
+                        optionsButtonsStage == 1 ?
                         <>
                             {
                                 type == 'TRASH' ?
@@ -162,8 +147,9 @@ const OptionsButtonHandlerContainer = styled(motion.div)`
     justify-content: center;
     align-items: center;
     flex-direction: ${props => props.styles.isLocalMessage ? 'row-reverse' : 'row'};
+    z-index: -1;
 
-    .reply, .copy, .edit, .trash, .select, .time, .delete, .restore, .edit-text, .edit-reply, .edit-back, .edit-ok {
+    .reply, .copy, .edit, .trash, .select, .time, .delete, .restore, .edit-text, .edit-reply, .edit-back, .edit-ok, .edit-close {
         position: relative;
         top: 2.5rem;
         height: 2.25rem;
@@ -207,6 +193,7 @@ const OptionsButtonHandlerContainer = styled(motion.div)`
             opacity: 1;
             letter-spacing: 0px;
             margin-left: .3rem;
+            font-size: .8rem;
 
             .format {
                 margin-left: .2rem;
@@ -248,6 +235,16 @@ const OptionsButtonHandlerContainer = styled(motion.div)`
     }
 
     .edit-back {
+        padding: 0;
+        width: 2.25rem;
+
+        i {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+    }
+
+    .edit-close {
         padding: 0;
         width: 2.25rem;
 

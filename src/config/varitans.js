@@ -36,9 +36,9 @@ export const notificationSlowVariants = {
         },
     },
     exit: {
-        scale: 0.2,
+        scale: 0,
         transition: {
-            duration: 0.6,
+            duration: 1,
         },
     },
 };
@@ -671,8 +671,7 @@ export const selectBarVariants = {
     },
     exit: {
         opacity: 0,
-        scale: 0.2,
-        y: -15,
+        scale: 0,
         transition: {
             duration: 0.5,
         },
@@ -691,8 +690,7 @@ export const inputBarVariants = {
     },
     exit: {
         opacity: 0,
-        scale: 0.2,
-        y: -15,
+        scale: 0,
         transition: {
             duration: 0.5,
         },
@@ -774,22 +772,22 @@ export const editReplyBarVariatns = {
 export const trashPageVariants = {
     hidden: {
         opacity: 0,
-        scale: 0.95
+        scale: 0.9
     },
     visible: {
         opacity: 1,
         scale: 1,
         transition: {
-            duration: 0.2,
-            when: 'beforeChildren'
+            duration: 0.5,
+            ease: [0.53, 0, 0, 0.98],
+            time: [0.53, 0, 0, 0.98],
         },
     },
     exit: {
         opacity: 0,
-        scale: 0.95,
+        scale: 0.9,
         transition: {
-            duration: 0.2,
-            when: 'beforeChildren'
+            duration: 0.2
         }
     },
 };

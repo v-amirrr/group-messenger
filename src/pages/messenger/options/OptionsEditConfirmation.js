@@ -7,7 +7,7 @@ const OptionsEditConfirmation = ({ optionClick, setVariants }) => {
     return (
         <>
             <motion.div
-                className='edit-back'
+                className='edit-close'
                 onClick={() => optionClick('EDIT_CANCEL')}
                 key='edit-cancel1' initial='hidden' animate='visible' exit='exit' variants={setVariants()}
             >

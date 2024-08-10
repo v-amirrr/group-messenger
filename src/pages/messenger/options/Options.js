@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { reset, setOptionsAnimationStatus } from '../../../redux/optionsSlice';
+import { clearSlice, setOptionsAnimationStatus, setOptionsButtonsStage } from '../../../redux/optionsSlice';
 import MessageBox from '../message/MessageBox';
 import OptionsButtonHandler from './OptionsButtonHandler';
 import styled from 'styled-components';
@@ -10,7 +10,7 @@ import { optionsGlassVariants } from '../../../config/varitans';
 const ChatOptions = ({ type }) => {
     const chatOptionsMessageRef = useRef();
     const dispatch = useDispatch();
-    const { optionsMessage, optionsAnimationStatus, editText } = useSelector(store => store.optionsStore);
+    const { optionsMessage, optionsAnimationStatus, optionsButtonsStage } = useSelector(store => store.optionsStore);
     const [noTopPositionChange, setNoTopPositionChange] = useState(false);
     const [zeroScale, setZeroScale] = useState(false);
 
@@ -26,16 +26,17 @@ const ChatOptions = ({ type }) => {
         setZeroScale(true);
         dispatch(setOptionsAnimationStatus(3));
         setTimeout(() => {
-            dispatch(reset());
+            dispatch(clearSlice());
             setZeroScale(false);
         }, 400);
     };
 
     const closeOptions = () => {
+        dispatch(setOptionsButtonsStage(4));
         dispatch(setOptionsAnimationStatus(3));
         setTimeout(() => {
-            dispatch(reset());
-        }, 350);
+            dispatch(clearSlice());
+        }, 300);
     };
 
     useEffect(() => {
@@ -70,7 +71,7 @@ const ChatOptions = ({ type }) => {
                     >
                         <div className='message-box' ref={chatOptionsMessageRef}>
                             <MessageBox
-                                editable={editText}
+                                editingMode={optionsButtonsStage == 3}
                                 data={{
                                     type: type,
                                     replyTo: optionsMessage?.replyTo,
@@ -80,7 +81,7 @@ const ChatOptions = ({ type }) => {
                                 styles={{
                                     ...optionsMessage?.styles,
                                     persian: optionsMessage?.isTextPersian ? 1 : 0,
-                                    editable: editText,
+                                    editingMode: optionsButtonsStage == 3,
                                 }}
                             />
                             <AnimatePresence>

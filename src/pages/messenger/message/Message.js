@@ -104,7 +104,7 @@ const MessageContainer = styled(motion.div)`
     align-items: center;
     flex-direction: ${props => props.styles.messageFlexDirection};
     padding-top: ${props => props.styles.messagePaddingTop};
-    transition: padding .4s;
+    transition: padding .2s;
 
     .next-to-message {
         display: flex;

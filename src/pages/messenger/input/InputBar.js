@@ -16,7 +16,7 @@ const InputBar = () => {
     const { inputReply } = useSelector(store => store.appStore);
     const { modalShow, modalName } = useSelector(store => store.modalStore);
     const { selectedMessages } = useSelector(store => store.selectStore);
-    const { editText } = useSelector(store => store.optionsStore);
+    const { optionsButtonsStage } = useSelector(store => store.optionsStore);
     const { sendMessage } = useSend();
     const { unReply } = useOptions();
     const [multiline, setMultiline] = useState(false);
@@ -31,7 +31,7 @@ const InputBar = () => {
     };
 
     const blurHandler = () => {
-        if (document.documentElement.offsetWidth > 500 && !modalShow && !inputBarEmojiPicker && !editText) {
+        if (document.documentElement.offsetWidth > 500 && !modalShow && !inputBarEmojiPicker && optionsButtonsStage != 3) {
             inputRef.current.focus();
         } else if (modalShow) {
             inputRef.current.blur();
@@ -170,7 +170,7 @@ const InputBarContainer = styled(motion.div)`
     .input {
         position: absolute;
         left: 0;
-        width: 13rem;
+        width: 13.9rem;
         height: 2.4rem;
         display: flex;
         justify-content: center;
@@ -221,14 +221,14 @@ const InputBarContainer = styled(motion.div)`
         align-items: center;
         cursor: pointer;
         position: absolute;
-        right: 4.2rem;
+        right: 3.65rem;
         height: 2.6rem;
     }
 
     .send-button {
         color: #ffffff10;
         position: absolute;
-        right: .2rem;
+        right: 0;
         width: 2.5rem;
         height: 2.6rem;
         display: flex;
@@ -245,7 +245,7 @@ const InputBarContainer = styled(motion.div)`
 
     .emoji-button {
         position: absolute;
-        right: ${props => props.inputtext ? '2.2rem' : '0'};
+        right: ${props => props.inputtext ? '1.8rem' : '0'};
         width: 2.5rem;
         height: 2.4rem;
         display: flex;

@@ -2,16 +2,25 @@ import React, { useEffect, useRef } from 'react';
 import { useOptions } from '../../../hooks/useOptions';
 import styled from 'styled-components';
 
-const MessageBox = ({ messageClickHandler, editable, styles, data }) => {
+const MessageBox = ({ messageClickHandler, editingMode, styles, data }) => {
     const messageBoxRef = useRef();
     const messageTextRef = useRef();
     const { storeEditedText } = useOptions();
 
+    // Store the original text when editing mode is enabled
+    const originalContentRef = useRef(null);
+
     useEffect(() => {
-        if (editable) {
+        if (editingMode) {
+            // Focus on the message
             messageTextRef?.current?.focus();
+            // Save the current content as the original content when entering edit mode
+            originalContentRef.current = messageTextRef.current.innerHTML;
+        } else if (originalContentRef.current) {
+            // Revert to original content when exiting edit mode
+            messageTextRef.current.innerHTML = originalContentRef.current;
         }
-    }, [editable]);
+    }, [editingMode]);
 
     return (
         <>
@@ -24,14 +33,20 @@ const MessageBox = ({ messageClickHandler, editable, styles, data }) => {
                     ...styles,
                 }}
             >
-                <div ref={messageTextRef} className='message-text' dir='auto' onInput={(e) => storeEditedText(e.currentTarget.textContent)} contentEditable={editable} autoFocus={editable}>
+                <div
+                    ref={messageTextRef}
+                    className='message-text'
+                    onInput={(e) => storeEditedText(e.currentTarget.textContent)}
+                    contentEditable={editingMode}
+                    autoFocus={editingMode}
+                >
                     {
                         data?.type != 'TRASH' ?
                         data?.arrayText?.map((item, index) =>
                             item.link ?
                             <a
                                 key={index}
-                                className={data?.type == 'EDIT_REPLY' ? 'disabled-link' : 'link'}
+                                className='link'
                                 href={item.word}
                                 target='_blank'
                                 rel='noopener nereferrer'
@@ -57,13 +72,14 @@ const MessageBoxContainer = styled.div`
     align-items: center;
     max-width: ${props => props.data.boxWidth};
     width: fit-content;
+    border: ${props => props.data.editingMode ? 'solid 2.5px #ffffff15' : 'solid 0px #ffffff00'};
     border-radius: 25px;
     border-radius: ${props => props.data.boxRoundRadius};
     margin: ${props => props.data.boxMargin};
     margin-right: ${props => props.data.boxMarginRight};
     margin-left: ${props => props.data.boxMarginLeft};
     padding: ${props => props.data.boxPadding};
-    background-color: var(--bg);
+    background-color: ${props => props.data.editingMode ? '#ffffff00' : 'var(--bg)'};
     background-image: linear-gradient(
         90deg,
         #ffffff00 20%,
@@ -73,16 +89,14 @@ const MessageBoxContainer = styled.div`
     background-position: ${props => `left ${-props.data.width}px top 0`};
     background-repeat: no-repeat;
     box-shadow: var(--shadow);
-    cursor: ${props => props.data.editable ? 'auto' : 'pointer'};
+    cursor: ${props => props.data.editingMode ? 'auto' : 'pointer'};
     visibility: ${props => props.data.boxVisibility};
     animation: ${props => props.data.skeletonEffect ? 'skeleton-effect linear .8s' : ''};
-    transition: border-radius .4s, margin .4s;
+    transition: border-radius .4s, margin .4s, background-color .4s, border .2s;
 
     .message-text {
-        display: inline-block;
         text-align: ${props => props.data.persian ? 'right' : 'left'};
         word-spacing: 1px;
-        white-space: pre-line;
         font-family: ${props => props.data.persian ? 'Vazirmatn' : 'Outfit'}, 'Vazirmatn', sans-serif;
         font-size: ${props => props.data.persian ? '.9rem' : '1rem'};
         font-weight: 300;

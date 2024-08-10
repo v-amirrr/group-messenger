@@ -108,8 +108,6 @@ const appSlice = createSlice({
 });
 
 export const {
-    setWarningShowed,
-    setWarningPageNeverShow,
     setNotifications,
     setCloseNotification,
     setClearNotifications,

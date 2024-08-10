@@ -147,7 +147,7 @@ const ChatLoaderContainer = styled(motion.div)`
         }
 
         .scroll {
-            right: 4rem;
+            right: 3.2rem;
         }
 
         .input {

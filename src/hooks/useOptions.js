@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useModal } from './useModal';
 import { useNotification } from './useNotification';
 import { setInputReply, setEditReply, setNewReplyId } from '../redux/appSlice';
-import { setShowEditButtons, setShowOptionsButtons, setEditText, setEditedText } from '../redux/optionsSlice';
+import { setOptionsButtonsStage, setEditedText } from '../redux/optionsSlice';
 
 export const useOptions = () => {
     const dispatch = useDispatch();
@@ -44,9 +44,7 @@ export const useOptions = () => {
                 message: editedText,
             });
             openNotification('Message was edited', 'GENERAL');
-            deactivateEditText();
-            deactivateEditButtons();
-            activateOptionsButtons();
+            changeButtonsStage(1);
         } else {
             openNotification("Can't change your message into nothing", 'ERROR');
         }
@@ -99,28 +97,9 @@ export const useOptions = () => {
         });
     };
 
-    const activeEditButtons = () => {
-        dispatch(setShowEditButtons(true));
-    };
-
-    const deactivateEditButtons = () => {
-        dispatch(setShowEditButtons(false));
-    };
-
-    const activateOptionsButtons = () => {
-        dispatch(setShowOptionsButtons(true));
-    };
-
-    const deactivateOptionsButtons = () => {
-        dispatch(setShowOptionsButtons(false));
-    };
-
-    const activateEditText = () => {
-        dispatch(setEditText(true));
-    };
-
-    const deactivateEditText = () => {
-        dispatch(setEditText(false));
+    const changeButtonsStage = (stage) => {
+        dispatch(setOptionsButtonsStage(stage));
+        // stage 1 is chat/trash buttons, stage 2 is edit menu, stage 3 is edit confirmation
     };
 
     const storeEditedText = (text) => {
@@ -167,12 +146,7 @@ export const useOptions = () => {
         moveToTrash,
         permanentDelete,
         restore,
-        activeEditButtons,
-        deactivateEditButtons,
-        activateOptionsButtons,
-        deactivateOptionsButtons,
-        activateEditText,
-        deactivateEditText,
+        changeButtonsStage,
         storeEditedText,
         activateEditReply,
         deactivateEditReply,

@@ -8,7 +8,7 @@ const OptionsEditMenu = ({ optionClick, setVariants, optionsMessageReplyTo }) =>
     return (
         <>
             <motion.div
-                className='edit-back'
+                className='edit-close'
                 onClick={() => optionClick('EDIT_BACK')}
                 key='edit-back2' initial='hidden' animate='visible' exit='exit' variants={setVariants()}
             >

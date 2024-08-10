@@ -43,7 +43,7 @@ const TrashPage = () => {
                     <div className='header'>
                         <button className='header-back-button' onClick={() => navigate('/')}><IoIosArrowBack /></button>
                         <p className='header-text'>Trash</p>
-                        <div className='trash-count'><Counter num={messages?.length} size={0.7} /></div>
+                        <div className='trash-count'><Counter num={messages?.length} size={1} /></div>
                     </div>
                     <motion.div className='deleted-messages' layout key='trash-messages'>
                         <AnimatePresence>
@@ -111,8 +111,9 @@ const Trash = styled(motion.div)`
         background-color: #00000044;
         box-shadow: var(--shadow);
         overflow: hidden;
-        transform: ${props => props.data.optionsAnimationStatus == 2 ? 'scale(0.95)' : 'scale(1)'} !important;
-        transition: ${props => props.data.optionsAnimationStatus == 2 ? 'transform .4s' : 'transform .3s'};
+        opacity: ${props => props.data.optionsAnimationStatus == 2 ? 0.5 : 1};
+        transform: ${props => props.data.optionsAnimationStatus == 2 ? 'scale(0.95)' : 'scale(1)'};
+        transition: transform .3s, opacity .3s;
 
         .header {
             position: absolute;
@@ -128,19 +129,23 @@ const Trash = styled(motion.div)`
             .header-text {
                 font-size: 1.4rem;
                 font-weight: 600;
+                color: var(--grey);
             }
 
             .trash-count {
+                position: absolute;
+                right: .8rem;
                 margin: .2rem;
                 border-radius: 50%;
-                background-color: var(--red);
-                padding: .55rem;
+                background-color: var(--bg);
+                color: var(--grey);
+                padding: .8rem;
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 text-align: center;
                 font-weight: 600;
-                overflow: hidden;
+                overflow: hidden !important;
             }
 
             .header-back-button {
@@ -151,7 +156,7 @@ const Trash = styled(motion.div)`
                 align-items: center;
                 font-size: 1.5rem;
                 border-radius: 50%;
-                color: var(--text);
+                color: var(--grey);
             }
         }
 

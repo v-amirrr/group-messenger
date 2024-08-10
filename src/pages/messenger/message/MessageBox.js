@@ -18,7 +18,9 @@ const MessageBox = ({ messageClickHandler, editingMode, styles, data }) => {
             originalContentRef.current = messageTextRef.current.innerHTML;
         } else if (originalContentRef.current) {
             // Revert to original content when exiting edit mode
-            messageTextRef.current.innerHTML = originalContentRef.current;
+            setTimeout(() => {
+                messageTextRef.current.innerHTML = originalContentRef.current;
+            }, 400);
         }
     }, [editingMode]);
 

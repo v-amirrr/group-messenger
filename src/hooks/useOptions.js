@@ -37,14 +37,14 @@ export const useOptions = () => {
         openNotification('Message copied', 'GENERAL');
     };
 
-    const editText = (id) => {
+    const editText = (id, closeOptions) => {
         const docRef = doc(db, 'messages', id);
         if (editedText && editedText.charCodeAt(0) != 8204 && editedText.charCodeAt(0) != 160) {
             updateDoc(docRef, {
                 message: editedText,
             });
             openNotification('Message was edited', 'GENERAL');
-            changeButtonsStage(1);
+            closeOptions();
         } else {
             openNotification("Can't change your message into nothing", 'ERROR');
         }

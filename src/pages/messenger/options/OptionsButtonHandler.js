@@ -62,7 +62,7 @@ const OptionsButtonHandler = ({ type, optionsClickHandler, closeOptions }) => {
                 changeButtonsStage(2);
                 break;
             case 'EDIT_OK':
-                editText(optionsMessage?.id);
+                editText(optionsMessage?.id, closeOptions);
                 break;
             case 'EDIT_REPLY':
                 optionsClickHandler(null, 'CHAT');

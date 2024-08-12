@@ -3,7 +3,6 @@ import InputBarReplyTo from './InputBarReplyTo';
 import InputBarEmojiPicker from './InputBarEmojiPicker';
 import { useSelector } from 'react-redux';
 import { useSend } from '../../../hooks/useSend';
-import { useOptions } from '../../../hooks/useOptions';
 import { isPersian } from '../../../functions/isPersian';
 import { GrEmoji } from 'react-icons/gr';
 import { IoSend, IoClose } from 'react-icons/io5';
@@ -14,11 +13,10 @@ import { inputBarVariants, sendInputIconVariants } from '../../../config/varitan
 const InputBar = () => {
     const inputRef = useRef();
     const { inputReply } = useSelector(store => store.appStore);
-    const { modalShow, modalName } = useSelector(store => store.modalStore);
+    const { modalShow } = useSelector(store => store.modalStore);
     const { selectedMessages } = useSelector(store => store.selectStore);
-    const { optionsButtonsStage } = useSelector(store => store.optionsStore);
+    const { optionsAnimationStatus } = useSelector(store => store.optionsStore);
     const { sendMessage } = useSend();
-    const { unReply } = useOptions();
     const [multiline, setMultiline] = useState(false);
     const [inputText, setInputText] = useState(localStorage.getItem('input-text') ? localStorage.getItem('input-text') : '');
     const [inputBarEmojiPicker, setInputBarEmojiPicker] = useState(false);
@@ -31,16 +29,11 @@ const InputBar = () => {
     };
 
     const blurHandler = () => {
-        if (document.documentElement.offsetWidth > 500 && !modalShow && !inputBarEmojiPicker && optionsButtonsStage != 3) {
+        if (document.documentElement.offsetWidth > 500 && !modalShow && !inputBarEmojiPicker && !optionsAnimationStatus) {
             inputRef.current.focus();
-        } else if (modalShow) {
+        } else if (modalShow || optionsAnimationStatus) {
             inputRef.current.blur();
         }
-    };
-
-    const clearInputReply = (e) => {
-        e.stopPropagation();
-        unReply();
     };
 
     const sendClickHandler = () => {
@@ -50,9 +43,23 @@ const InputBar = () => {
         }
     };
 
+    const openEmojiPicker = () => {
+        setInputBarEmojiPicker(!inputBarEmojiPicker);
+        if (document.documentElement.offsetWidth < 500 && document.activeElement === inputRef.current) {
+            inputRef.current.focus();
+        }
+    };
+
+    const clearInput = () => {
+        setInputText('');
+        if (document.documentElement.offsetWidth < 500 && document.activeElement === inputRef.current) {
+            inputRef.current.focus();
+        }
+    };
+
     useEffect(() => {
         blurHandler();
-    }, [modalShow, modalName, inputBarEmojiPicker]);
+    }, [modalShow, inputBarEmojiPicker, optionsAnimationStatus]);
 
     useEffect(() => {
         if (multiline) {
@@ -76,7 +83,6 @@ const InputBar = () => {
         <>
             <InputBarReplyTo
                 inputReply={selectedMessages.length ? null : inputReply}
-                clearInputReply={clearInputReply}
                 inputBarEmojiPicker={inputBarEmojiPicker}
             />
 
@@ -113,7 +119,7 @@ const InputBar = () => {
                                 animate='visible'
                                 exit='exit'
                                 variants={sendInputIconVariants}
-                                onClick={() => setInputText('')}
+                                onClick={clearInput}
                             >
                                 <IoClose />
                             </motion.button>
@@ -132,7 +138,7 @@ const InputBar = () => {
                     }
                 </AnimatePresence>
 
-                <button className='emoji-button' onClick={() => setInputBarEmojiPicker(!inputBarEmojiPicker)}>
+                <button className='emoji-button' onClick={openEmojiPicker}>
                     <GrEmoji />
                 </button>
 

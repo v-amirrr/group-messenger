@@ -27,7 +27,7 @@ export const useRedirection = () => {
 
     const trashRedirection = () => {
         if (enterAsAGuest) {
-            openNotification("To use this feature you need to login.", false, "GUEST");
+            openNotification("To use this feature you need to ", "GUEST");
             navigate("/", { replace: true });
         }
     };

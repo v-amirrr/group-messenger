@@ -89,9 +89,10 @@ const NotificationContainer = styled(motion.div)`
 
         .link {
             display: inline;
-            font-size: 1rem;
+            font-size: .9rem;
             font-weight: 400;
             cursor: pointer;
+            padding: .02rem .05rem;
         }
     }
 

@@ -19,7 +19,7 @@ const SettingsUser = ({ open, setOpen, setHeight }) => {
     const itemSwitch = () => {
         cancelHandler();
         if (enterAsAGuest) {
-            openNotification("To use this feature you need to login", "GUEST");
+            openNotification("To use this feature you need to ", "GUEST");
         } else {
             if (open == "SETTINGS_USER") {
                 setOpen(false);

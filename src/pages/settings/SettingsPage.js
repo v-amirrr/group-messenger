@@ -12,22 +12,13 @@ const SettingsPage = () => {
     const [open, setOpen] = useState(false);
     const [height, setHeight] = useState(false);
 
-    const backClickHandler = () => {
-        if (open) {
-            setOpen(false);
-            setHeight(false);
-        } else {
-            navigate('/');
-        }
-    };
-
     return (
         <>
             <Settings>
                 <motion.div className='settings-container' initial='hidden' animate='visible' exit='exit' variants={settingsContainerVariants}>
                     <header className='header'>
                         <p className='header-text'>Settings</p>
-                        <button className='header-back-button' onClick={backClickHandler}><IoIosArrowBack /></button>
+                        <button className='header-back-button' onClick={() => navigate('/')}><IoIosArrowBack /></button>
                     </header>
                     <SettingsItem
                         openValue='SETTINGS_USER'

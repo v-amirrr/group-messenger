@@ -40,7 +40,7 @@ const MessageBox = ({ messageClickHandler, editingMode, styles, data }) => {
                     className='message-text'
                     onInput={(e) => storeEditedText(e.currentTarget.textContent)}
                     contentEditable={editingMode}
-                    autoFocus={editingMode}
+                    autoFocus={editingMode && document.documentElement.offsetWidth > 500}
                 >
                     {
                         data?.type != 'TRASH' ?

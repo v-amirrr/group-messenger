@@ -15,24 +15,15 @@ export const useNotification = () => {
 
     const openNotification = (message, type) => {
         let time = new Date().getTime();
-        // if (type == "SEND" && notificationSettings.send
-        // || type == "TRASH" && notificationSettings.trash
-        // || type == "EDIT" && notificationSettings.edit
-        // || type == "COPY" && notificationSettings.copy
-        // || type == "RESTORE" && notificationSettings.restore
-        // || type == "DELETE" && notificationSettings.delete
-        // || type == "USERNAME" && notificationSettings.username
-        // || type == "GUEST" && enterAsAGuest || type == "ERROR" || type == "ENTER") {
-            dispatch(setNotifications({
-                show: true,
-                message,
-                type,
-                time,
-            }));
-            setTimeout(() => {
-                closeNotification(time);
-            }, 3000);
-        // }
+        dispatch(setNotifications({
+            show: true,
+            message,
+            type,
+            time,
+        }));
+        setTimeout(() => {
+            closeNotification(time);
+        }, 3000);
     };
 
     const closeNotification = (time) => {

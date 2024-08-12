@@ -10,8 +10,8 @@ const MessageSendStatus = ({ status }) => {
             <MessageSendStatusContainer>
                 <AnimatePresence exitBeforeEnter>
                     {
-                        status == 1 ? <DotsLoader key='loader' scale={1.1} /> :
-                        status == 2 ? <Check key='check' scale={1.2} /> : ''
+                        status == 1 ? <DotsLoader key='loader' scale={1.4} /> :
+                        status == 2 ? <Check key='check' scale={1.4} /> : ''
                     }
                 </AnimatePresence>
             </MessageSendStatusContainer>

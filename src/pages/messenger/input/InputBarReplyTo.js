@@ -5,10 +5,12 @@ import { IoClose } from 'react-icons/io5';
 import { BsReplyFill } from 'react-icons/bs';
 import { AnimatePresence, motion } from 'framer-motion';
 import { inputBarReplyToVariants } from '../../../config/varitans';
+import { useOptions } from '../../../hooks/useOptions';
 
-const InputBarReplyTo = ({ inputReply, clearInputReply, inputBarEmojiPicker }) => {
+const InputBarReplyTo = ({ inputReply, inputBarEmojiPicker }) => {
 
     const { addSkeletonEffect, scrollToMessage } = useSkeletonEffect();
+    const { unReply } = useOptions();
 
     let mouseSituation = 'OUT';
 
@@ -26,6 +28,11 @@ const InputBarReplyTo = ({ inputReply, clearInputReply, inputBarEmojiPicker }) =
         setTimeout(() => {
             addSkeletonEffect(inputReply.id);
         }, 1000);
+    };
+
+    const clearInputReply = (e) => {
+        e.stopPropagation();
+        unReply();
     };
 
     return (

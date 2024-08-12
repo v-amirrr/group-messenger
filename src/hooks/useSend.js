@@ -14,7 +14,7 @@ export const useSend = () => {
     const sendMessage = (inputText, setInputText) => {
         let storedInputText = localStorage.getItem('input-text');
         if (enterAsAGuest) {
-            openNotification("To use this feature you need to login", "GUEST");
+            openNotification("To use this feature you need to ", "GUEST");
         } else {
             if (inputText && inputText.charCodeAt(0) != 8204) {
                 if (navigator.onLine) {

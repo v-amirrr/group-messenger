@@ -26,6 +26,7 @@ const MessageDateContainer = styled(motion.div)`
     justify-content: center;
     align-items: center;
     margin: .3rem auto;
+    z-index: -1;
 
     .date {
         width: fit-content;

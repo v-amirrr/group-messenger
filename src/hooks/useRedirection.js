@@ -14,7 +14,8 @@ export const useRedirection = () => {
     };
 
     const authRedirection = () => {
-        if (user || enterAsAGuest) {
+        if (localStorage.getItem('guest-login') || localStorage.getItem('user')) {
+            console.log(localStorage.getItem('user'), localStorage.getItem('guest-login'));
             navigate("/", { replace: true });
         }
     };

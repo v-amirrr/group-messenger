@@ -47,6 +47,7 @@ export const useOptions = () => {
             closeOptions();
         } else {
             openNotification("Can't change your message into nothing", 'ERROR');
+            closeOptions();
         }
     };
 

@@ -26,7 +26,9 @@ export const errorBoxVariants = {
 // --------------------------------------
 
 export const notificationSlowVariants = {
-    hidden: { y: -80 },
+    hidden: {
+        y: -80,
+    },
     visible: {
         y: 0,
         transition: {
@@ -38,13 +40,15 @@ export const notificationSlowVariants = {
     exit: {
         scale: 0,
         transition: {
-            duration: 1,
+            duration: 0.8,
         },
     },
 };
 
 export const notificationFastVariants = {
-    hidden: { y: -80 },
+    hidden: {
+        y: -80
+    },
     visible: {
         y: 0,
         transition: {

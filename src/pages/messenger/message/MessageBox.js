@@ -56,6 +56,7 @@ const MessageBox = ({ messageClickHandler, editingMode, styles, data }) => {
                             >
                                 {item.word}
                             </a> :
+                            item.word == '\n' ? <br /> :
                             index == data?.arrayText.length-1 ?
                             `${item.word}` :
                             `${item.word} `
@@ -94,7 +95,7 @@ const MessageBoxContainer = styled.div`
     cursor: ${props => props.data.editingMode ? 'auto' : 'pointer'};
     visibility: ${props => props.data.boxVisibility};
     animation: ${props => props.data.skeletonEffect ? 'skeleton-effect linear .8s' : ''};
-    transition: border-radius .4s, margin .4s, background-color .4s, border .2s;
+    transition: border-radius .4s, margin .4s;
 
     .message-text {
         text-align: ${props => props.data.persian ? 'right' : 'left'};

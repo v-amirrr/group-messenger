@@ -67,14 +67,15 @@ export const useAuth = () => {
     };
 
     const logout = () => {
-        navigate('/auth');
-        dispatch(setUser(null));
-        dispatch(setEnterAsAGuest(false));
         localStorage.removeItem('user');
-        localStorage.removeItem('notification');
-        localStorage.setItem('guest-login', 'false');
+        localStorage.removeItem('guest-login');
+        navigate('/auth');
         setTimeout(() => {
-            openNotification("You've logged out successfully", 'GENERAL');
+            dispatch(setUser(null));
+            dispatch(setEnterAsAGuest(false));
+            setTimeout(() => {
+                openNotification("You've logged out successfully", 'GENERAL');
+            }, 200);
         }, 200);
     };
 

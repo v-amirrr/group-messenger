@@ -77,10 +77,17 @@ export const useFirestore = () => {
                     };
                     let newItem = {
                         ...item,
-                        arrayText: item.plainText.toString().split(" ").map((word) => {
+                        // Split text by spaces or newline characters, preserving the delimiters
+                        arrayText: item.plainText.toString().split(/(\s|\n)/).map((word) => {
+                            if (word === '\n') {
+                                return { word: '\n', link: false };
+                            }
+                            if (word.trim() === '') {
+                                return null; // Ignore empty spaces created by splitting
+                            }
                             let checkLink = isURL(word);
                             return { word: checkLink.newWord, link: checkLink.isLink };
-                        }),
+                        }).filter(Boolean), // Remove null values
                         previousMessageUid: index != 0 ? messages[index-1].uid : false,
                         nextMessageUid: index != messages.length-1 ? messages[index+1].uid : false,
                         previousMessageDifferentDate:

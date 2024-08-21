@@ -66,15 +66,15 @@ const InputBarReplyTo = ({ inputReply, inputBarEmojiPicker }) => {
 
 const InputBarReplyToContainer = styled(motion.div)`
     position: absolute;
-    bottom: ${props => props.emoji ? '14rem' : '4rem'};
-    max-width: 18rem;
+    bottom: ${props => props.emoji ? '13.5rem' : '3.5rem'};
+    max-width: 17rem;
     height: 2rem;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 0 0.09rem;
-    border: var(--border);
     border-radius: 50px;
+    background-color: var(--bg);
     box-shadow: var(--shadow);
     backdrop-filter: var(--glass);
     cursor: pointer;
@@ -118,8 +118,8 @@ const InputBarReplyToContainer = styled(motion.div)`
         background-color: var(--bg);
         border-radius: 50%;
         cursor: pointer;
-        padding: .1rem;
-        margin-right: .1rem;
+        padding: .15rem;
+        margin-right: .15rem;
         transition: background .2s;
 
         @media (hover: hover) and (pointer: fine) and (min-width: 745px) {

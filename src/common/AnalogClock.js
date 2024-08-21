@@ -28,7 +28,7 @@ const AnalogClock = ({ time, scale }) => {
 };
 
 const AnalogClockContainer = styled.div`
-    background-color: #fff;
+    background-color: #333;
     border-radius: 50%;
     width: 1rem;
     height: 1rem;
@@ -54,12 +54,12 @@ const AnalogClockContainer = styled.div`
 
     .outer-clock-face::after,
     .outer-clock-face::before,
-    .outer-clock-face .marking{
+    .outer-clock-face .marking {
         content: '';
         position: absolute;
         width: 2%;
         height: 100%;
-        background: #555;
+        background-color: #555;
         z-index: 0;
         left: 49%;
     }
@@ -96,7 +96,7 @@ const AnalogClockContainer = styled.div`
         position: absolute;
         width: 80%;
         height: 80%;
-        background: #fff;
+        background-color: #333;
         border-radius: 50%;
         z-index: 1;
     }
@@ -107,7 +107,7 @@ const AnalogClockContainer = styled.div`
         top: 50%;
         right: 50%;
         height: 50px;
-        background: #000;
+        background: #aaa;
         border-radius: 50px;
         transform-origin: 100%;
     }

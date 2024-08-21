@@ -127,7 +127,7 @@ const OptionsButtonHandler = ({ type, optionsClickHandler, closeOptions }) => {
                                 />
                             }
                             <motion.div className='time' key='time' initial='hidden' animate='visible' exit='exit' variants={setVariants()}>
-                                <AnalogClock time={optionsMessage?.time} scale={1.3} />
+                                <AnalogClock time={optionsMessage?.time} scale={1.2} />
                                 <p>
                                     <span>{optionsMessage?.time?.hour}:{optionsMessage?.time?.minute}</span>
                                     <span className='format'>{optionsMessage?.time?.format}</span>
@@ -186,14 +186,13 @@ const OptionsButtonHandlerContainer = styled(motion.div)`
 
     .time {
         cursor: auto;
-        border: none;
 
         p {
-            transform: scale(1);
-            opacity: 1;
             letter-spacing: 0px;
             margin-left: .3rem;
             font-size: .8rem;
+            font-weight: 200;
+            color: var(--grey);
 
             .format {
                 margin-left: .2rem;

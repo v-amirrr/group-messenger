@@ -716,14 +716,14 @@ export const inputBarReplyToVariants = {
         opacity: 1,
         y: 0,
         transition: {
-            type: 'spring',
-            stiffness: 80,
+            duration: 0.6,
+            ease: [0.53, 0, 0, 0.98],
+            time: [0.53, 0, 0, 0.98],
         },
     },
     exit: {
         opacity: 0,
         y: 50,
-        scale: 0.8,
         transition: {
             duration: 0.6,
             ease: [0.53, 0, 0, 0.98],

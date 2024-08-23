@@ -21,7 +21,7 @@ export const useSelect = () => {
         addSkeletonEffect(message.id);
     };
 
-    const disselect = (id, isLocalMessage) => {
+    const deselect = (id, isLocalMessage) => {
         let newSelectedMessages = selectedMessages.filter(item => item.id != id ? item : '');
         if (!isLocalMessage) {
             dispatch(minusNonLocalSelected());
@@ -89,7 +89,7 @@ export const useSelect = () => {
 
     return {
         select,
-        disselect,
+        deselect,
         clearSelectedMessages,
         copySelectedMessages,
         moveToTrashSelectedMessages,

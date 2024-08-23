@@ -51,7 +51,7 @@ const MessageRepliedTo = ({ replyTo, type }) => {
 
 const MessageRepliedToContainer = styled.div`
     position: relative;
-    max-width: 6.5rem;
+    max-width: 8rem;
     height: 1.4rem;
     display: inline-flex;
     justify-content: center;

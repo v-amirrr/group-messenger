@@ -30,7 +30,7 @@ export const useMessage = (messageData, type, messageRef) => {
     const { skeletonEffect } = useSelector(store => store.appStore);
     const { optionsMessage } = useSelector(store => store.optionsStore);
     const { storeMessageScrollPosition } = useSkeletonEffect();
-    const { select, disselect } = useSelect();
+    const { select, deselect } = useSelect();
     const { addNewReplyId } = useOptions();
     const [messagePosition, setMessagePosition] = useState(null);
     const [selected, setSelected] = useState(false);
@@ -148,7 +148,7 @@ export const useMessage = (messageData, type, messageRef) => {
 
     const selectHandler = () => {
         if (selected) {
-            disselect(id, messageData.isLocalMessage);
+            deselect(id, messageData.isLocalMessage);
             setSelected(false);
         } else {
             select({

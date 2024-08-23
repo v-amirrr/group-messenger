@@ -1,9 +1,9 @@
 import React from 'react';
-import AnalogClock from '../../../common/AnalogClock';
 import ChatButtons from './ChatButtons';
 import TrashButtons from './TrashButtons';
 import OptionsEditMenu from './OptionsEditMenu';
 import OptionsEditConfirmation from './OptionsEditConfirmation';
+import DetailsButtons from './DetailsButtons';
 import { useSelector } from 'react-redux';
 import { useOptions } from '../../../hooks/useOptions';
 import { useSelect } from '../../../hooks/useSelect';
@@ -33,7 +33,7 @@ const OptionsButtonHandler = ({ type, optionsClickHandler, closeOptions }) => {
                         optionsMessage?.plainText,
                         optionsMessage?.username,
                     );
-                }, 200);
+                }, 250);
                 break;
             case 'SELECT':
                 closeOptions();
@@ -126,13 +126,11 @@ const OptionsButtonHandler = ({ type, optionsClickHandler, closeOptions }) => {
                                     isMessageLocal={optionsMessage?.isLocalMessage}
                                 />
                             }
-                            <motion.div className='time' key='time' initial='hidden' animate='visible' exit='exit' variants={setVariants()}>
-                                <AnalogClock time={optionsMessage?.time} scale={1.2} />
-                                <p>
-                                    <span>{optionsMessage?.time?.hour}:{optionsMessage?.time?.minute}</span>
-                                    <span className='format'>{optionsMessage?.time?.format}</span>
-                                </p>
-                            </motion.div>
+                            <DetailsButtons
+                                key='OptionsButtonsDetail'
+                                time={optionsMessage?.time}
+                                setVariants={setVariants}
+                            />
                         </> : ''
                     }
                 </AnimatePresence>
@@ -149,7 +147,7 @@ const OptionsButtonHandlerContainer = styled(motion.div)`
     flex-direction: ${props => props.styles.isLocalMessage ? 'row-reverse' : 'row'};
     z-index: -1;
 
-    .reply, .copy, .edit, .trash, .select, .time, .delete, .restore, .edit-text, .edit-reply, .edit-back, .edit-ok, .edit-close {
+    .reply, .copy, .edit, .trash, .select, .details, .delete, .restore, .edit-text, .edit-reply, .edit-back, .edit-ok, .edit-close {
         position: relative;
         top: 2.5rem;
         height: 2.25rem;
@@ -184,24 +182,42 @@ const OptionsButtonHandlerContainer = styled(motion.div)`
         }
     }
 
-    .time {
+    .details {
         cursor: auto;
+        background-color: #ffffff00;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .clock, .calendar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 .3rem;
+        }
+
+        .calendar {
+            i {
+                font-size: .9rem;
+                color: var(--grey);
+                margin-right: .15rem;
+            }
+        }
 
         p {
             letter-spacing: 0px;
-            margin-left: .3rem;
-            font-size: .8rem;
+            font-size: .5rem;
             font-weight: 200;
             color: var(--grey);
 
             .format {
-                margin-left: .2rem;
+                margin-left: .1rem;
             }
         }
 
         @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
             &:hover {
-                background-color: var(--bg);
+                background-color: #00000000;
             }
         }
     }

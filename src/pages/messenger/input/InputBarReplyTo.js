@@ -66,7 +66,7 @@ const InputBarReplyTo = ({ inputReply, inputBarEmojiPicker }) => {
 
 const InputBarReplyToContainer = styled(motion.div)`
     position: absolute;
-    bottom: ${props => props.emoji ? '13.5rem' : '3.5rem'};
+    bottom: ${props => props.emoji ? '13.4rem' : '3.4rem'};
     max-width: 17rem;
     height: 2rem;
     display: flex;
@@ -130,8 +130,8 @@ const InputBarReplyToContainer = styled(motion.div)`
     }
 
     @media (max-width: 768px) {
-        max-width: 15rem;
-        bottom: ${props => props.emoji ? '10.7rem' : '3.8rem'};
+        max-width: 16rem;
+        bottom: ${props => props.emoji ? '10.3rem' : '3.4rem'};
     }
 `;
 

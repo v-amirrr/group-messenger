@@ -60,7 +60,7 @@ const ChatMessages = () => {
                 >
                     <AnimatePresence>
                         {
-                            editReply.show ?
+                            editReply?.show ?
                             editReply?.messages?.map((messageData) => (
                                 <Message
                                     key={messageData.id}

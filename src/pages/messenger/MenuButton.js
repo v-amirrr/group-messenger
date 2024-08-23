@@ -87,12 +87,11 @@ const MenuButtonContainer = styled(motion.div)`
         height: 2.3rem;
         font-size: 1.5rem;
         opacity: 1;
-        transform: scale(1);
         display: flex;
         justify-content: center;
         align-items: center;
         color: var(--text);
-        transition: transform .1s, opacity .5s .2s;
+        transition: top .3s .05s, right .3s .05s, opacity .4s .15s;
     }
 
     .buttons {
@@ -165,9 +164,10 @@ const MenuButtonContainer = styled(motion.div)`
                     border-radius .1s;
 
         .icon {
-            transform: scale(0.5);
+            top: 50%;
+            right: 50%;
             opacity: 0;
-            transition: transform .3s, opacity .2s;
+            transition: top .3s, right .3s, opacity .1s;
         }
 
         .buttons {

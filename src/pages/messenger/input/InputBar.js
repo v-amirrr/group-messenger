@@ -164,7 +164,7 @@ const InputBarContainer = styled(motion.div)`
     padding-bottom: ${props => props.emoji ? '10rem' : '0'};
     border: var(--border);
     border-radius: ${props => props.emoji ? '25px' : '50px'};
-    box-shadow: var(--shadow-bold);
+    box-shadow: rgba(0, 0, 0, 1) 0px 4px 12px;
     backdrop-filter: var(--glass);
     z-index: 3;
     overflow: hidden;
@@ -265,7 +265,7 @@ const InputBarContainer = styled(motion.div)`
     }
 
     @media (max-width: 768px) {
-        width: 15rem;
+        width: 17rem;
         bottom: .9rem;
         padding-bottom: ${props => props.emoji ? '6.9rem' : '0'};
         border-radius: ${props => props.emoji ? '20px' : '50px'};

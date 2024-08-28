@@ -56,7 +56,7 @@ const SettingsUser = ({ open, setOpen, setHeight }) => {
 
             <AnimatePresence>
                 {
-                    open == "SETTINGS_USER" ?
+                    open == 'SETTINGS_USER' ?
                         <UserContainer initial='hidden' animate='visible' exit='exit' variants={userSettingsVariants} inputenabled={inputEnabled ? 1 : 0}>
                             <div className='username'>
                                 <p className='username-header'>Username</p>
@@ -74,7 +74,7 @@ const SettingsUser = ({ open, setOpen, setHeight }) => {
                                 </div>
                             </div>
                         </UserContainer>
-                    : ""
+                    : ''
                 }
             </AnimatePresence>
         </>
@@ -127,15 +127,22 @@ const UserContainer = styled(motion.div)`
                 border: none;
                 border-radius: 50px;
                 background-color: var(--bg);
-                font-size: .8rem;
+                font-size: .7rem;
                 font-weight: 400;
+
+                &:disabled {
+                    color: var(--grey);
+                }
             }
 
             .username-input-icon {
                 position: absolute;
                 right: ${props => props.inputenabled ? '-.4rem' : '.1rem'};
-                font-size: 1rem;
-                padding: .3rem;
+                border-radius: 50%;
+                font-size: 1.1rem;
+                color: var(--text);
+                width: 1.5rem;
+                height: 1.5rem;
                 display: flex;
                 justify-content: center;
                 align-items: center;

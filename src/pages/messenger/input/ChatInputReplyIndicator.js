@@ -1,13 +1,13 @@
 import React from 'react';
-import styled from 'styled-components';
+import { useOptions } from '../../../hooks/useOptions';
 import { useSkeletonEffect } from '../../../hooks/useSkeletonEffect';
 import { IoClose } from 'react-icons/io5';
 import { BsReplyFill } from 'react-icons/bs';
+import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
-import { inputBarReplyToVariants } from '../../../config/varitans';
-import { useOptions } from '../../../hooks/useOptions';
+import { inputReplyIndicator } from '../../../config/varitans';
 
-const InputBarReplyTo = ({ inputReply, inputBarEmojiPicker }) => {
+const ChatInputReplyIndicator = ({ inputReply, emojiPicker }) => {
 
     const { addSkeletonEffect, scrollToMessage } = useSkeletonEffect();
     const { unReply } = useOptions();
@@ -40,12 +40,12 @@ const InputBarReplyTo = ({ inputReply, inputBarEmojiPicker }) => {
             <AnimatePresence>
                 {
                     inputReply?.id ?
-                    <InputBarReplyToContainer
+                    <ChatInputReplyIndicatorContainer
                         initial='hidden'
                         animate='visible'
                         exit='exit'
-                        variants={inputBarReplyToVariants}
-                        emoji={inputBarEmojiPicker ? 1 : 0}
+                        variants={inputReplyIndicator}
+                        emoji={emojiPicker ? 1 : 0}
                     >
                         <div
                             className='reply-message'
@@ -57,16 +57,16 @@ const InputBarReplyTo = ({ inputReply, inputBarEmojiPicker }) => {
                             <p className='text'>{inputReply.message}</p>
                         </div>
                         <button className='close-button' onClick={(e) => clearInputReply(e)}><IoClose /></button>
-                    </InputBarReplyToContainer> : ''
+                    </ChatInputReplyIndicatorContainer> : ''
                 }
             </AnimatePresence>
         </>
     );
 };
 
-const InputBarReplyToContainer = styled(motion.div)`
+const ChatInputReplyIndicatorContainer = styled(motion.div)`
     position: absolute;
-    bottom: ${props => props.emoji ? '13.4rem' : '3.4rem'};
+    bottom: ${props => props.emoji ? '13.3rem' : '3.3rem'};
     max-width: 17rem;
     height: 2rem;
     display: flex;
@@ -78,7 +78,7 @@ const InputBarReplyToContainer = styled(motion.div)`
     box-shadow: var(--shadow);
     backdrop-filter: var(--glass);
     cursor: pointer;
-    z-index: 2;
+    z-index: 3;
     transition: bottom .3s cubic-bezier(.53,0,0,.98);
 
     .reply-message {
@@ -135,4 +135,4 @@ const InputBarReplyToContainer = styled(motion.div)`
     }
 `;
 
-export default InputBarReplyTo;
+export default ChatInputReplyIndicator;

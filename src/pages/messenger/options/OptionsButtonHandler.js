@@ -282,7 +282,7 @@ const OptionsButtonHandlerContainer = styled(motion.div)`
         flex-wrap: wrap;
         justify-content: flex-start;
 
-        .reply, .copy, .edit, .trash, .select, .time, .delete, .restore {
+        .reply, .copy, .edit, .trash, .select, .details, .delete, .restore {
             top: 4.9rem;
         }
     }

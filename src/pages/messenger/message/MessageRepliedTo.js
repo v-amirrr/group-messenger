@@ -3,7 +3,7 @@ import { useSkeletonEffect } from '../../../hooks/useSkeletonEffect';
 import { BsReplyFill } from 'react-icons/bs';
 import styled from 'styled-components';
 
-const MessageRepliedTo = ({ replyTo, type }) => {
+const MessageRepliedTo = ({ replyTo, type, isLocalMessage }) => {
 
     const { addSkeletonEffect, scrollToMessage } = useSkeletonEffect();
     let mouseSituation = 'OUT';
@@ -35,7 +35,8 @@ const MessageRepliedTo = ({ replyTo, type }) => {
                 onMouseLeave={() => mouseSituation = 'OUT'}
                 data={{
                     chatType: type == 'CHAT',
-                    deletedReply: replyTo == 'DELETED_REPLY'
+                    deletedReply: replyTo == 'DELETED_REPLY',
+                    isLocalMessage,
                 }}
             >
                 <i className='reply-icon'><BsReplyFill /></i>
@@ -57,7 +58,9 @@ const MessageRepliedToContainer = styled.div`
     justify-content: center;
     align-items: center;
     border-radius: 50px;
-    padding: 0 .4rem 0 1.1rem;
+    padding: ${props => props.data.isLocalMessage ? '0 .8rem 0 1.15rem' : '0 1.25rem 0 .8rem'};
+    left: ${props => props.data.isLocalMessage ? '.75rem' : '-.75rem'};
+    z-index: 1;
     background-color: var(--bg);
     color: var(--grey);
     cursor: ${props => !props.data.deletedReply && 'pointer'};
@@ -71,11 +74,11 @@ const MessageRepliedToContainer = styled.div`
 
     .reply-icon {
         position: absolute;
-        left: .25rem;
+        left: ${props => props.data.isLocalMessage ? '.25rem' : ''};
+        right: ${props => props.data.isLocalMessage ? '' : '.25rem'};
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-right: .2rem;
         font-size: .8rem;
         color: #ffffff22;
     }

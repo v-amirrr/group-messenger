@@ -28,7 +28,7 @@ const EditReplyContainer = styled(motion.div)`
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 3;
+    z-index: 4;
 
     button {
         display: flex;

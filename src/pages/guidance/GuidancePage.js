@@ -35,7 +35,7 @@ const GuidancePage = () => {
                     {
                         onPhone ?
                         <div className='menu-icon' onClick={() => setMenu(!menu)}>
-                            <AnimatePresence>
+                            <AnimatePresence exitBeforeEnter>
                                 {
                                     menu ?
                                     <motion.i key="back" className='back' initial='hidden' animate='visible' exit='exit' variants={featuresIconVariants}><TiArrowLeft /></motion.i> :
@@ -43,7 +43,7 @@ const GuidancePage = () => {
                                 }
                             </AnimatePresence>
                         </div>
-                        : ""
+                        : ''
                     }
                     <a href='https://github.com/v-amirrr' target='_blank' rel='noopener nereferrer'>
                         <i className='github'><BsGithub /></i>
@@ -384,10 +384,10 @@ const Guidance = styled(motion.div)`
         align-items: center;
         border: var(--border);
         border-radius: 25px;
-        background-color: #000000aa;
+        background-color: #00000044;
         overflow: hidden;
         position: relative;
-        color: var(--normal-color);
+        color: var(--text);
 
         .menu-icon {
             cursor: pointer;
@@ -411,6 +411,7 @@ const Guidance = styled(motion.div)`
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                color: var(--text);
             }
 
             .back {
@@ -428,6 +429,7 @@ const Guidance = styled(motion.div)`
             cursor: pointer;
             font-size: 1.2rem;
             z-index: 10;
+            color: var(--text);
         }
 
         .home {
@@ -452,10 +454,12 @@ const Guidance = styled(motion.div)`
                 justify-content: center;
                 align-items: center;
                 font-size: 1.5rem;
+                color: var(--text);
             }
 
             p {
                 font-size: .6rem;
+                color: var(--text);
             }
 
             &:hover {
@@ -699,7 +703,10 @@ const Guidance = styled(motion.div)`
 
     @media (max-width: 1100px) {
         .container {
-            width: 95%;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 0px;
 
             .home {
                 top: 1.5rem;

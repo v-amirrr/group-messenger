@@ -3,7 +3,6 @@ import { db } from "../config/firebase";
 import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
 import { setMessages, setDeletedMessages, setUsernames, setError } from "../redux/firestoreSlice";
 import { isURL } from "../functions/isURL";
-import { deviceHourFormat } from "../functions/deviceHourFormat";
 import { detectHours } from "../functions/detectHours";
 import { setHour } from "../functions/setHour";
 import { setMinute } from "../functions/setMinute";
@@ -54,7 +53,7 @@ export const useFirestore = () => {
                             day: doc.data().time?.toDate()?.getDate(),
                             hour: setHour(doc.data().time?.toDate()?.getHours()),
                             minute: setMinute(doc.data().time?.toDate()?.getMinutes()),
-                            format: deviceHourFormat() == 12 ? detectHours(doc.data().time?.toDate()?.getHours()) : deviceHourFormat(),
+                            format: detectHours(doc.data().time?.toDate()?.getHours()),
                         },
                         id: doc.id,
                         replyTo: doc.data().replyTo ? doc.data().replyTo : null,

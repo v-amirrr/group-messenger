@@ -84,12 +84,12 @@ const Message = ({ messageData, type }) => {
                         skeletonEffect: messageSkeletonEffect ? 1 : 0,
                     }}
                 />
+                {showRepliedTo() ? <MessageRepliedTo replyTo={replyTo} type={type} isLocalMessage={isLocalMessage} /> : ''}
                 <div className='next-to-message'>
                     <AnimatePresence>
                         {showEditReplyIndicator() ? <MessageEditReplyIndicator key='MessageEditReplyIndicator' /> : ''}
                     </AnimatePresence>
                     <MessageSendStatus status={status} />
-                    {showRepliedTo() ? <MessageRepliedTo replyTo={replyTo} type={type} /> : ''}
                 </div>
             </MessageContainer>
         </>

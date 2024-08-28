@@ -32,15 +32,16 @@ export const notificationSlowVariants = {
     visible: {
         y: 0,
         transition: {
-            duration: 0.7,
+            duration: 1,
             ease: [0.53, 0, 0, 0.98],
             time: [0.53, 0, 0, 0.98],
         },
     },
     exit: {
         scale: 0,
+        opacity: 0,
         transition: {
-            duration: 0.8,
+            duration: 1.5,
         },
     },
 };
@@ -320,11 +321,13 @@ export const replyIconVariants = {
 export const selectCheckLocalVariants = {
     hidden: {
         opacity: 0,
-        x: 50
+        x: 50,
+        scale: 0,
     },
     visible: {
         opacity: 1,
         x: 10,
+        scale: 1,
         transition: {
             duration: 0.4,
         },
@@ -332,6 +335,7 @@ export const selectCheckLocalVariants = {
     exit: {
         opacity: 0,
         x: 50,
+        scale: 0,
         transition: {
             duration: 0.2
         }
@@ -341,11 +345,13 @@ export const selectCheckLocalVariants = {
 export const selectCheckNonLocalVariants = {
     hidden: {
         opacity: 0,
-        x: -50
+        x: -50,
+        scale: 0,
     },
     visible: {
         opacity: 1,
         x: -10,
+        scale: 1,
         transition: {
             duration: 0.4,
         },
@@ -353,6 +359,7 @@ export const selectCheckNonLocalVariants = {
     exit: {
         opacity: 0,
         x: -50,
+        scale: 0,
         transition: {
             duration: 0.2
         }
@@ -568,7 +575,7 @@ export const featuresPageVariants = {
     exit: { opacity: 0, transition: { duration: 0.1, when: 'afterChildren' } },
 };
 
-export const featuresContainerVariants = {
+export const featuresContainerVariants = !phone ? {
     hidden: {
         opacity: 0,
         scale: 0.9
@@ -585,6 +592,27 @@ export const featuresContainerVariants = {
     exit: {
         opacity: 0,
         scale: 0.9,
+        transition: {
+            duration: 0.2
+        }
+    },
+} : {
+    hidden: {
+        opacity: 0,
+        y: 20
+    },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            duration: 0.5,
+            ease: [0.53, 0, 0, 0.98],
+            time: [0.53, 0, 0, 0.98],
+        },
+    },
+    exit: {
+        opacity: 0,
+        y: 20,
         transition: {
             duration: 0.2
         }
@@ -682,7 +710,7 @@ export const selectBarVariants = {
     },
 };
 
-export const inputBarVariants = {
+export const chatInputVariants = {
     hidden: { y: 80 },
     visible: {
         y: 0,
@@ -701,13 +729,13 @@ export const inputBarVariants = {
     },
 };
 
-export const sendInputIconVariants = {
+export const inputButtonVariants = {
     hidden: { opacity: 0, scale: 0.8, x: 40 },
     visible: { opacity: 1, scale: 1, x: 0, transition: { duration: 0.25 } },
     exit: { opacity: 0, scale: 0.8, x: 40, transition: { duration: 0.25 } },
 };
 
-export const inputBarReplyToVariants = {
+export const inputReplyIndicator = {
     hidden: {
         opacity: 0,
         y: 50,
@@ -732,7 +760,7 @@ export const inputBarReplyToVariants = {
     },
 };
 
-export const inputBarEmojiPickerVariatns = {
+export const emojiPickerVariatns = {
     hidden: {
         opacity: 0,
     },
@@ -773,7 +801,7 @@ export const editReplyBarVariatns = {
 
 // --------------------------------------
 
-export const trashPageVariants = {
+export const trashPageVariants = !phone ? {
     hidden: {
         opacity: 0,
         scale: 0.9
@@ -790,6 +818,27 @@ export const trashPageVariants = {
     exit: {
         opacity: 0,
         scale: 0.9,
+        transition: {
+            duration: 0.2
+        }
+    },
+} : {
+    hidden: {
+        opacity: 0,
+        y: 20
+    },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            duration: 0.5,
+            ease: [0.53, 0, 0, 0.98],
+            time: [0.53, 0, 0, 0.98],
+        },
+    },
+    exit: {
+        opacity: 0,
+        y: 20,
         transition: {
             duration: 0.2
         }

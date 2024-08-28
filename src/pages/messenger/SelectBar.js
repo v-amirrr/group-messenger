@@ -51,7 +51,7 @@ const SelectBarContainer = styled(motion.div)`
     border-radius: 50px;
     box-shadow: var(--shadow);
     backdrop-filter: var(--glass);
-    z-index: 3;
+    z-index: 4;
     overflow: hidden;
 
     .close {

@@ -5,7 +5,7 @@ import { isPersian } from '../../functions/isPersian';
 import Message from './message/Message';
 import MenuButton from './MenuButton';
 import ScrollButton from './ScrollButton';
-import InputBar from './input/InputBar';
+import ChatInput from './input/ChatInput';
 import SelectBar from './SelectBar';
 import Options from './options/Options';
 import EditReplyBar from './EditReplyBar';
@@ -47,7 +47,7 @@ const ChatMessages = () => {
                         <EditReplyBar key='edit-reply' /> :
                         selectedMessages.length ?
                         <SelectBar key='select' /> :
-                        <InputBar key='input' />
+                        <ChatInput key='input' />
                     }
                 </AnimatePresence>
 
@@ -101,7 +101,7 @@ const ChatMessagesContainer = styled(motion.div)`
     justify-content: center;
     align-items: center;
     transform: ${props => props.data.optionsAnimationStatus == 2 ? 'scale(0.95)' : 'scale(1)'} !important;
-    transition: transform .3s;
+    transition: transform .3s, opacity .3s;
 
     .messages {
         position: relative;

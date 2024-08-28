@@ -91,7 +91,9 @@ const MessageBoxContainer = styled.div`
     );
     background-position: ${props => `left ${-props.data.width}px top 0`};
     background-repeat: no-repeat;
-    box-shadow: var(--shadow);
+    backdrop-filter: ${props => props.data.boxBackdropFilter};
+    z-index: 2;
+    box-shadow: ${props => props.data.boxShadow};
     cursor: ${props => props.data.editingMode ? 'auto' : 'pointer'};
     visibility: ${props => props.data.boxVisibility};
     animation: ${props => props.data.skeletonEffect ? 'skeleton-effect linear .8s' : ''};

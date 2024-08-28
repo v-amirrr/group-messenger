@@ -3,19 +3,19 @@ import data from '@emoji-mart/data/sets/14/twitter.json';
 import Picker from '@emoji-mart/react';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
-import { inputBarEmojiPickerVariatns } from '../../../config/varitans';
+import { emojiPickerVariatns } from '../../../config/varitans';
 
-const InputBarEmojiPicker = ({ setInputText, inputBarEmojiPicker }) => {
+const ChatInputEmojiPicker = ({ setInputText, emojiPicker }) => {
     const emojiHandler = (e) => {
         setInputText(pre => `${pre}${e.native}`);
     };
     return (
         <>
-            <InputBarEmojiPickerContainer inputbaremojipicker={inputBarEmojiPicker ? 1 : 0}>
+            <ChatInputEmojiPickerContainer inputbaremojipicker={emojiPicker ? 1 : 0}>
                 <AnimatePresence>
                     {
-                        inputBarEmojiPicker ?
-                        <motion.div className='picker' initial='hidden' animate='visible' exit='exit' variants={inputBarEmojiPickerVariatns}>
+                        emojiPicker ?
+                        <motion.div className='picker' initial='hidden' animate='visible' exit='exit' variants={emojiPickerVariatns}>
                             <Picker
                                 set="apple"
                                 data={data}
@@ -28,12 +28,12 @@ const InputBarEmojiPicker = ({ setInputText, inputBarEmojiPicker }) => {
                         </motion.div> : ''
                     }
                 </AnimatePresence>
-            </InputBarEmojiPickerContainer>
+            </ChatInputEmojiPickerContainer>
         </>
     );
 };
 
-const InputBarEmojiPickerContainer = styled.div`
+const ChatInputEmojiPickerContainer = styled.div`
     position: absolute;
     top: 2.6rem;
     z-index: 3;
@@ -49,9 +49,10 @@ const InputBarEmojiPickerContainer = styled.div`
     }
 
     @media (max-width: 745px) {
-        transform: scale(0.7);
-        top: 1rem;
+        transform: scale(0.79);
+        top: 1.2rem;
+        height: 11.8rem;
     }
 `;
 
-export default InputBarEmojiPicker;
+export default ChatInputEmojiPicker;

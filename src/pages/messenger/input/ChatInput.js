@@ -29,7 +29,7 @@ const ChatInput = () => {
     };
 
     const blurHandler = () => {
-        if (navigator.userAgentData.mobile && !modalShow && !emojiPicker && !optionsAnimationStatus) {
+        if (!navigator.userAgentData.mobile && !modalShow && !emojiPicker && !optionsAnimationStatus) {
             inputRef.current.focus();
         } else if (modalShow || optionsAnimationStatus) {
             inputRef.current.blur();

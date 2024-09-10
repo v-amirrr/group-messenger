@@ -143,26 +143,6 @@ export const loginPasswordInputVariants = {
 
 // --------------------------------------
 
-export const dotsloaderVariants = {
-    hidden: {
-        opacity: 0,
-    },
-    visible: {
-        opacity: 1,
-        transition: {
-            duration: 0.4,
-        },
-    },
-    exit: {
-        opacity: 0,
-        transition: {
-            duration: 0.4
-        }
-    },
-};
-
-// --------------------------------------
-
 export const messengerVariants = {
     hidden: {
         opacity: 0,
@@ -855,15 +835,15 @@ export const trashSelectBarSwitchIconVariants = {
 // --------------------------------------
 
 export const checkVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
+    hidden: { opacity: 0, scale: 0 },
     visible: { opacity: 1, scale: 1, transition: { duration: 0.2 } },
-    exit: { opacity: 0, scale: 0.8, transition: { duration: 0.2 } },
+    exit: { opacity: 0, scale: 0, transition: { duration: 0.2 } },
 };
 
 export const dotsLoaderVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
+    hidden: { opacity: 0, scale: 0 },
     visible: { opacity: 1, scale: 1, transition: { duration: 0.2 } },
-    exit: { opacity: 0, scale: 0.8, transition: { duration: 0.2 } },
+    exit: { opacity: 0, scale: 0, transition: { duration: 0.2 } },
 };
 
 // --------------------------------------

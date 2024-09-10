@@ -7,6 +7,7 @@ export const useScroll = (chatRef, chatEndRef) => {
     const [arrow, setArrow] = useState(true);
     const [lastMessageTime, setLastMessageTime] = useState(messages[messages?.length - 1]?.time);
     let scrollLastPosition = chatRef?.current?.scrollTop;
+    let scrollBarHeight = chatRef?.current?.scrollHeight-chatRef?.current?.clientHeight;
 
     // scrolling to the last sorted position in local storage
     // storing the last scroll position before component gets unmounted or tap gets refreshed/closed
@@ -21,7 +22,6 @@ export const useScroll = (chatRef, chatEndRef) => {
 
     // scrolling down seamlessly only if user is at bottom of page and somebody sent a new message
     useEffect(() => {
-        const scrollBarHeight = chatRef?.current?.scrollHeight-chatRef?.current?.clientHeight;
         const currentScrollPosition = chatRef?.current?.scrollTop;
         const { time } = messages[messages?.length - 1];
 
@@ -34,6 +34,11 @@ export const useScroll = (chatRef, chatEndRef) => {
             setLastMessageTime(messages[messages?.length - 1]?.time);
         }
     }, [messages[messages?.length - 1]?.time]);
+
+    // storing scrollBarHeight
+    useEffect(() => {
+        scrollBarHeight = chatRef?.current?.scrollHeight-chatRef?.current?.clientHeight;
+    }, [chatRef?.current?.scrollTop]);
 
     // scroll to a certain message (when user clicks on reply section)
     useEffect(() => {

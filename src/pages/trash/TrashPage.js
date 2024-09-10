@@ -33,10 +33,7 @@ const TrashPage = () => {
     return (
         <>
             <Trash
-                initial='hidden'
-                animate='visible'
-                exit='exit'
-                variants={trashPageVariants}
+                initial='hidden' animate='visible' exit='exit' variants={trashPageVariants}
                 data={{ optionsAnimationStatus }}
             >
                 <div className='trash-container'>
@@ -102,7 +99,6 @@ const Trash = styled(motion.div)`
     .trash-container {
         position: relative;
         width: 28rem;
-        height: 35rem;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -124,7 +120,7 @@ const Trash = styled(motion.div)`
             align-items: center;
             padding: .8rem 0;
             backdrop-filter: var(--glass);
-            z-index: 2;
+            z-index: 3;
 
             .header-text {
                 font-size: 1.4rem;
@@ -163,7 +159,7 @@ const Trash = styled(motion.div)`
         .deleted-messages {
             position: relative;
             width: 95%;
-            height: 100%;
+            max-height: 35rem;
             text-align: center;
             padding: 5rem 1rem 9rem 1rem;
             scroll-behavior: smooth;
@@ -296,6 +292,10 @@ const Trash = styled(motion.div)`
             height: 100%;
             border: none;
             border-radius: 0;
+
+            .deleted-messages {
+                height: 100%;
+            }
         }
     }
 `;

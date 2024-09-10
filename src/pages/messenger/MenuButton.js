@@ -11,42 +11,23 @@ const MenuButton = () => {
     const navigate = useNavigate();
     const { logout } = useAuth();
 
-    const clickHandler = type => {
-        switch (type) {
-            case 'LOGOUT':
-                logout();
-                break;
-            case 'SETTINGS':
-                navigate('/settings');
-                break;
-            case 'GUIDANCE':
-                navigate('/guidance');
-                break;
-            case 'TRASH':
-                navigate('/trash');
-                break;
-            default:
-                break;
-        }
-    };
-
     return (
         <>
             <MenuButtonContainer initial='hidden' animate='visible' exit='exit' variants={menuButtonVariants}>
                 <div className='buttons'>
-                    <button onClick={() => clickHandler('GUIDANCE')}>
+                    <button onClick={() => navigate('/guidance')}>
                         <i className='features-icon'><FcInfo /></i>
                         <p>Guidance</p>
                     </button>
-                    <button onClick={() => clickHandler('TRASH')}>
+                    <button onClick={() => navigate('/trash')}>
                         <i className='trash-icon'><FcFullTrash /></i>
                         <p>Trash</p>
                     </button>
-                    <button onClick={() => clickHandler('LOGOUT')}>
+                    <button onClick={() => logout()}>
                         <i className='logout-icon'><FcRedo /></i>
                         <p>Logout</p>
                     </button>
-                    <button onClick={() => clickHandler('SETTINGS')}>
+                    <button onClick={() => navigate('/settings')}>
                         <i className='settings-icon'><FcSettings /></i>
                         <p>Settings</p>
                     </button>
@@ -75,7 +56,7 @@ const MenuButtonContainer = styled(motion.div)`
     z-index: 4;
     transition: width .25s cubic-bezier(0.53, 0, 0, 0.98),
                 height .25s cubic-bezier(0.53, 0, 0, 0.98),
-                border-radius .2s .6s;
+                border-radius .2s .4s;
 
     .icon {
         position: absolute;
@@ -105,6 +86,7 @@ const MenuButtonContainer = styled(motion.div)`
         flex-direction: column;
         opacity: 0;
         transform: scale(0.5);
+        z-index: 4;
         transition: opacity .2s, transform .4s, bottom .4s, left .4s;
 
         button {

@@ -206,7 +206,7 @@ const OptionsButtonHandlerContainer = styled(motion.div)`
 
         p {
             letter-spacing: 0px;
-            font-size: .5rem;
+            font-size: .52rem;
             font-weight: 200;
             color: var(--grey);
 

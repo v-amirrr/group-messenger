@@ -80,6 +80,7 @@ const ChatOptions = ({ type }) => {
                                 }}
                                 styles={{
                                     ...optionsMessage?.styles,
+                                    optionsMessage: true,
                                     persian: optionsMessage?.isTextPersian ? 1 : 0,
                                     editingMode: optionsButtonsStage == 3,
                                 }}
@@ -134,7 +135,6 @@ const OptionsContainer = styled.div`
 
     @media (max-width: 745px) {
         .message-box {
-            /* top: ${props => `${props.styles.top + 52}px`}; */
             transform: ${props => props.styles.zeroScale ? 'scale(0.5)' : props.styles.animationStatus == 2 ? 'scale(1.09)' : 'scale(1)'};
             transition: transform .3s, opacity .3s;
         }

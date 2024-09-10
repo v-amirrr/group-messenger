@@ -59,7 +59,7 @@ const ModalContainer = styled(motion.section)`
     align-items: center;
     background-color: #00000088;
     backdrop-filter: var(--glass);
-    z-index: 3;
+    z-index: 9;
 
     .modal {
         z-index: 4;

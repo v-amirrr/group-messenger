@@ -14,6 +14,8 @@ import { localMessageVariants, nonLocalMessageVariants } from '../../../config/v
 
 const Message = ({ messageData, type }) => {
 
+    // needed components: MessageBox, MessageDate, MessageUsername, MessageRepliedTo, MessageSendStatus, MessageEditReplyIndicator, MessageSelectCheckbox
+
     const messageRef = useRef();
     const { selectedMessages } = useSelector(store => store.selectStore);
     const { editReply } = useSelector(store => store.appStore);
@@ -44,6 +46,8 @@ const Message = ({ messageData, type }) => {
 
     const showRepliedTo = () => replyTo != 'NO_REPLY' && type != 'TRASH';
 
+    const setVariants = () => isLocalMessage ? localMessageVariants : nonLocalMessageVariants;
+
     const {
         messagePosition,
         messageClickHandler,
@@ -56,19 +60,16 @@ const Message = ({ messageData, type }) => {
     return (
         <>
             <MessageContainer
-                initial='hidden'
-                animate='visible'
-                exit='exit'
-                variants={isLocalMessage ? localMessageVariants : nonLocalMessageVariants}
+                initial='hidden' animate='visible' exit='exit' variants={setVariants()}
                 layout
                 layoutId={id}
                 ref={messageRef}
                 styles={{ ...styles }}
             >
-                {showMessageDate() && <MessageDate layout layoutId={id} data={time} />}
-                {showMessageUsername() && <MessageUsername uid={uid} isUserSelecting={selectedMessages?.length} showMessageDate={showMessageDate()} />}
+                {showMessageDate() && <MessageDate data={time} />}
+                {showMessageUsername() && <MessageUsername uid={uid} isUserSelecting={showMessageSelectCheckbox()} showMessageDate={showMessageDate()} />}
                 <AnimatePresence>
-                    {showMessageSelectCheckbox() && <MessageSelectCheckbox selected={selected} messageClickHandler={messageClickHandler} isLocalMessage={isLocalMessage} />}
+                    {showMessageSelectCheckbox() && <MessageSelectCheckbox selected={selected} messageClickHandler={messageClickHandler} />}
                 </AnimatePresence>
                 <MessageBox
                     messageClickHandler={messageClickHandler}

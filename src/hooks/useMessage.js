@@ -44,8 +44,8 @@ export const useMessage = (messageData, type, messageRef) => {
             messagePosition == 1 ? '.1rem 0 .06rem 0' :
             messagePosition == 2 ? '.06rem 0 .06rem 0' :
             messagePosition == 3 && '.06rem 0 .1rem 0',
-        boxMarginRight: selectedMessages?.length && isLocalMessage ? '1.8rem' : '',
-        boxMarginLeft: selectedMessages?.length && !isLocalMessage ? '1.8rem' : '',
+        boxMarginRight: selectedMessages?.length && isLocalMessage ? '2.4rem' : '',
+        boxMarginLeft: selectedMessages?.length && !isLocalMessage ? '2.4rem' : '',
         boxRoundRadius:
             isLocalMessage && messagePosition == 0 ? '25px' :
             isLocalMessage && messagePosition == 1 ? '25px 25px 17px 25px' :
@@ -71,9 +71,8 @@ export const useMessage = (messageData, type, messageRef) => {
             '.45rem .6rem' : '',
         boxJustify: isLocalMessage ? 'flex-start' : 'flex-end',
         boxVisibility: optionsMessage?.id == id ? 'hidden' : 'visible',
-        boxWidth: type == 'TRASH' ? '86%' : '65%',
+        boxWidth: type == 'TRASH' ? '84%' : '65%',
         boxShadow: replyTo != 'NO_REPLY' && type != 'TRASH' ? isLocalMessage ? 'rgba(0, 0, 0, 0.5) -8px 0px 10px' : 'rgba(0, 0, 0, 0.5) 8px 0px 10px' : '',
-        boxBackdropFilter: replyTo != 'NO_REPLY' && type != 'TRASH' ? 'var(--glass)' : '',
         messageFlexDirection: isLocalMessage ? 'row-reverse' : 'row',
         messagePaddingTop:
             time?.year && messagePosition < 2 && !isLocalMessage && !previousMessageDifferentDate ? '1.8rem' :

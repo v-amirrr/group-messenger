@@ -91,13 +91,13 @@ const MessageBoxContainer = styled.div`
     );
     background-position: ${props => `left ${-props.data.width}px top 0`};
     background-repeat: no-repeat;
-    backdrop-filter: ${props => props.data.boxBackdropFilter};
+    backdrop-filter: var(--glass);
     z-index: 2;
     box-shadow: ${props => props.data.boxShadow};
     cursor: ${props => props.data.editingMode ? 'auto' : 'pointer'};
     visibility: ${props => props.data.boxVisibility};
-    animation: ${props => props.data.skeletonEffect ? 'skeleton-effect linear .8s' : ''};
-    transition: border-radius .4s, margin .4s;
+    animation: ${props => props.data.skeletonEffect || props.data.editingMode ? 'skeleton-effect .8s 1 linear backwards' : ''};
+    transition: border-radius .4s, margin .4s .1s, border .2s, background-color .2s;
 
     .message-text {
         text-align: ${props => props.data.persian ? 'right' : 'left'};
@@ -105,6 +105,7 @@ const MessageBoxContainer = styled.div`
         font-family: ${props => props.data.persian ? 'Vazirmatn' : 'Outfit'}, 'Vazirmatn', sans-serif;
         font-size: ${props => props.data.persian ? '.9rem' : '1rem'};
         font-weight: 300;
+        white-space: pre-line;
     }
 
     @keyframes skeleton-effect {

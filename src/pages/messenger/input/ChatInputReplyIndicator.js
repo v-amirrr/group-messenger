@@ -11,16 +11,19 @@ const ChatInputReplyIndicator = ({ inputReply, emojiPicker }) => {
 
     const { addSkeletonEffect, scrollToMessage } = useSkeletonEffect();
     const { unReply } = useOptions();
-
-    let mouseSituation = 'OUT';
+    let mouseLocation = 'OUT';
 
     const hoverHandler = () => {
-        mouseSituation = 'IN';
+        mouseLocation = 'IN';
         setTimeout(() => {
-            if (mouseSituation == 'IN') {
+            if (mouseLocation == 'IN') {
                 addSkeletonEffect(inputReply?.id);
             }
         }, 300);
+    };
+
+    const unhoverHandler = () => {
+        mouseLocation = 'OUT';
     };
 
     const clickHandler = () => {
@@ -41,22 +44,19 @@ const ChatInputReplyIndicator = ({ inputReply, emojiPicker }) => {
                 {
                     inputReply?.id ?
                     <ChatInputReplyIndicatorContainer
-                        initial='hidden'
-                        animate='visible'
-                        exit='exit'
-                        variants={inputReplyIndicator}
+                        initial='hidden' animate='visible' exit='exit' variants={inputReplyIndicator}
                         emoji={emojiPicker ? 1 : 0}
                     >
                         <div
                             className='reply-message'
                             onClick={clickHandler}
                             onMouseEnter={hoverHandler}
-                            onMouseLeave={() => mouseSituation = 'OUT'}
+                            onMouseLeave={unhoverHandler}
                         >
                             <i className='icon'><BsReplyFill /></i>
                             <p className='text'>{inputReply.message}</p>
                         </div>
-                        <button className='close-button' onClick={(e) => clearInputReply(e)}><IoClose /></button>
+                        <button className='reply-close-button' onClick={(e) => clearInputReply(e)}><IoClose /></button>
                     </ChatInputReplyIndicatorContainer> : ''
                 }
             </AnimatePresence>
@@ -109,7 +109,7 @@ const ChatInputReplyIndicatorContainer = styled(motion.div)`
         }
     }
 
-    .close-button {
+    .reply-close-button {
         display: flex;
         justify-content: center;
         align-items: center;

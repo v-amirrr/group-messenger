@@ -14,15 +14,10 @@ const SelectBar = () => {
     return (
         <>
             <SelectBarContainer
-                initial='hidden'
-                animate='visible'
-                exit='exit'
-                variants={selectBarVariants}
+                initial='hidden' animate='visible' exit='exit' variants={selectBarVariants}
             >
                 <button className='close' onClick={clearSelectedMessages}><IoClose /></button>
-
                 <div className='counter'><Counter num={selectedMessages?.length} size={1} /></div>
-
                 <div className='options'>
                     <button className='copy' onClick={copySelectedMessages}>
                         <i><AiFillCopy /></i>

@@ -11,12 +11,12 @@ const EditReplyBar = () => {
     return (
         <>
             <EditReplyContainer initial='hidden' animate='visible' exit='exit' variants={editReplyBarVariatns}>
-                <motion.button className='ok' onClick={editReply}>
+                <button className='ok' onClick={editReply}>
                     <Check scale={1.4} />
-                </motion.button>
-                <motion.button className='cancel' onClick={deactivateEditReply}>
+                </button>
+                <button className='cancel' onClick={deactivateEditReply}>
                     <i><IoIosClose /></i>
-                </motion.button>
+                </button>
             </EditReplyContainer>
         </>
     );

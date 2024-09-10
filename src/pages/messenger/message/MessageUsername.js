@@ -2,12 +2,14 @@ import React from 'react';
 import { TiUser } from 'react-icons/ti';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
+import { chatDateVariants } from '../../../config/varitans';
 
 const MessageUsername = ({ uid, isUserSelecting, showMessageDate }) => {
     const { usernames } = useSelector(store => store.firestoreStore);
     return (
         <>
-            <MessageUsernameContainer data={{ isUserSelecting, showMessageDate }}>
+            <MessageUsernameContainer initial='hidden' animate='visible' exit='exit' variants={chatDateVariants} data={{ isUserSelecting, showMessageDate }}>
                 <i><TiUser /></i>
                 {usernames[uid]}
             </MessageUsernameContainer>
@@ -15,15 +17,16 @@ const MessageUsername = ({ uid, isUserSelecting, showMessageDate }) => {
     );
 };
 
-const MessageUsernameContainer = styled.div`
+const MessageUsernameContainer = styled(motion.div)`
     position: absolute;
     top: ${props => props.data.showMessageDate ? "1.83rem" : ".62rem"};
     max-width: 8rem;
     background-color: var(--bg);
     color: var(--grey);
     box-shadow: var(--shadow);
+    backdrop-filter: var(--glass);
     border-radius: 50px;
-    margin-left: ${props => props.data.isUserSelecting ? '1.8rem' : ''};
+    margin-left: ${props => props.data.isUserSelecting ? '2.4rem' : ''};
     margin-right: .2rem;
     padding: .2rem .5rem .2rem 1rem;
     font-size: .6rem;
@@ -31,7 +34,7 @@ const MessageUsernameContainer = styled.div`
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-    transition: margin .4s;
+    transition: margin .4s .1s;
 
     i {
         position: absolute;

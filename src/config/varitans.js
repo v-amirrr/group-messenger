@@ -191,7 +191,7 @@ export const messengerVariants = {
 export const chatMessagesVariants = {
     hidden: {
         opacity: 0,
-        scale: 0.95
+        // scale: 0.95
     },
     visible: {
         opacity: 1,
@@ -214,13 +214,13 @@ export const chatMessagesVariants = {
 export const messagesVariants = {
     hidden: {
         opacity: 0,
-        scale: 0.95
+        scale: 0.95,
     },
     visible: {
         opacity: 1,
         scale: 1,
         transition: {
-            duration: 0.2,
+            duration: 0.3,
             when: 'beforeChildren'
         },
     },
@@ -318,49 +318,20 @@ export const replyIconVariants = {
     },
 };
 
-export const selectCheckLocalVariants = {
+export const selectCheckVariants = {
     hidden: {
         opacity: 0,
-        x: 50,
-        scale: 0,
     },
     visible: {
         opacity: 1,
-        x: 10,
-        scale: 1,
         transition: {
-            duration: 0.4,
+            duration: 0.2,
         },
     },
     exit: {
         opacity: 0,
-        x: 50,
-        scale: 0,
         transition: {
-            duration: 0.2
-        }
-    },
-};
-
-export const selectCheckNonLocalVariants = {
-    hidden: {
-        opacity: 0,
-        x: -50,
-        scale: 0,
-    },
-    visible: {
-        opacity: 1,
-        x: -10,
-        scale: 1,
-        transition: {
-            duration: 0.4,
-        },
-    },
-    exit: {
-        opacity: 0,
-        x: -50,
-        scale: 0,
-        transition: {
+            delay: 0.4,
             duration: 0.2
         }
     },

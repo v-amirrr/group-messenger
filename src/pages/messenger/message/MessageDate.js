@@ -36,8 +36,8 @@ const MessageDateContainer = styled(motion.div)`
         padding: .3rem .4rem;
         margin-bottom: 1rem;
         color: var(--grey);
-        font-size: .55rem;
-        font-weight: 400;
+        font-size: .52rem;
+        font-weight: 200;
 
         .month {
             margin: 0 .15rem 0 .15rem;

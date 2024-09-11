@@ -286,8 +286,10 @@ const Trash = styled(motion.div)`
                 }
             }
         }
+    }
 
-        @media (max-width: 768px) {
+    @media (max-width: 768px) {
+        .trash-container {
             width: 100%;
             height: 100%;
             border: none;
@@ -295,6 +297,8 @@ const Trash = styled(motion.div)`
 
             .deleted-messages {
                 height: 100%;
+                max-height: 100%;
+                width: 100%;
             }
         }
     }

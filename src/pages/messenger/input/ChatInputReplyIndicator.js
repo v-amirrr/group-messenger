@@ -131,7 +131,6 @@ const ChatInputReplyIndicatorContainer = styled(motion.div)`
 
     @media (max-width: 768px) {
         max-width: 16rem;
-        bottom: ${props => props.emoji ? '10.3rem' : '3.4rem'};
     }
 `;
 

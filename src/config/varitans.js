@@ -143,7 +143,7 @@ export const loginPasswordInputVariants = {
 
 // --------------------------------------
 
-export const messengerVariants = {
+export const messengerVariants = !phone ? {
     hidden: {
         opacity: 0,
         scale: 0.95
@@ -159,6 +159,27 @@ export const messengerVariants = {
     exit: {
         opacity: 0,
         scale: 0.95,
+        transition: {
+            duration: 0.2,
+            when: 'beforeChildren'
+        }
+    },
+} : {
+    hidden: {
+        opacity: 0,
+        y: 50,
+    },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            duration: 0.2,
+            when: 'beforeChildren'
+        },
+    },
+    exit: {
+        opacity: 0,
+        y: 50,
         transition: {
             duration: 0.2,
             when: 'beforeChildren'
@@ -448,7 +469,7 @@ export const replyButtonVariants = {
 
 // --------------------------------------
 
-export const settingsContainerVariants = {
+export const settingsContainerVariants = !phone ? {
     hidden: {
         opacity: 0,
         scale: 0.9
@@ -465,6 +486,25 @@ export const settingsContainerVariants = {
     exit: {
         opacity: 0,
         scale: 0.9,
+        transition: {
+            duration: 0.2
+        }
+    },
+} : {
+    hidden: {
+        opacity: 0,
+        y: 50,
+    },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            duration: 0.2
+        },
+    },
+    exit: {
+        opacity: 0,
+        y: 50,
         transition: {
             duration: 0.2
         }
@@ -556,20 +596,18 @@ export const featuresContainerVariants = !phone ? {
 } : {
     hidden: {
         opacity: 0,
-        y: 20
+        y: 50,
     },
     visible: {
         opacity: 1,
         y: 0,
         transition: {
-            duration: 0.5,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
+            duration: 0.2
         },
     },
     exit: {
         opacity: 0,
-        y: 20,
+        y: 50,
         transition: {
             duration: 0.2
         }
@@ -782,20 +820,18 @@ export const trashPageVariants = !phone ? {
 } : {
     hidden: {
         opacity: 0,
-        y: 20
+        y: 50,
     },
     visible: {
         opacity: 1,
         y: 0,
         transition: {
-            duration: 0.5,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
+            duration: 0.2
         },
     },
     exit: {
         opacity: 0,
-        y: 20,
+        y: 50,
         transition: {
             duration: 0.2
         }

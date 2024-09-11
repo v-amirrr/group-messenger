@@ -3,13 +3,13 @@ import { TiUser } from 'react-icons/ti';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { chatDateVariants } from '../../../config/varitans';
+import { messageUsernameVariants } from '../../../config/varitans';
 
 const MessageUsername = ({ uid, isUserSelecting, showMessageDate }) => {
     const { usernames } = useSelector(store => store.firestoreStore);
     return (
         <>
-            <MessageUsernameContainer initial='hidden' animate='visible' exit='exit' variants={chatDateVariants} data={{ isUserSelecting, showMessageDate }}>
+            <MessageUsernameContainer initial='hidden' animate='visible' exit='exit' variants={messageUsernameVariants} data={{ isUserSelecting, showMessageDate }}>
                 <i><TiUser /></i>
                 {usernames[uid]}
             </MessageUsernameContainer>

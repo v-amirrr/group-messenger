@@ -5,7 +5,7 @@ export const useScroll = (chatRef, chatEndRef) => {
     const { messages } = useSelector(store => store.firestoreStore);
     const { messagesScrollPosition, scrollToMessage } = useSelector(store => store.appStore);
     const [arrow, setArrow] = useState(true);
-    const [lastMessageTime, setLastMessageTime] = useState(messages[messages?.length - 1]?.time);
+    const [lastMessageTime, setLastMessageTime] = useState(messages[messages?.length - 1]?.id);
     let scrollLastPosition = chatRef?.current?.scrollTop;
     let scrollBarHeight = chatRef?.current?.scrollHeight-chatRef?.current?.clientHeight;
 
@@ -23,10 +23,10 @@ export const useScroll = (chatRef, chatEndRef) => {
     // scrolling down seamlessly only if user is at bottom of page and somebody sent a new message
     useEffect(() => {
         const currentScrollPosition = chatRef?.current?.scrollTop;
-        const { time } = messages[messages?.length - 1];
+        const { id } = messages[messages?.length - 1];
 
         const isUserAtTheBottom = scrollBarHeight-currentScrollPosition < 500;
-        const newMessage = lastMessageTime?.year != time?.year && lastMessageTime?.monthNum != time?.monthNum && lastMessageTime?.day != time?.day && lastMessageTime?.hour != time?.hour && lastMessageTime?.minute != time?.minute;
+        const newMessage = lastMessageTime?.id != id;
 
         if (isUserAtTheBottom && newMessage) {
             chatEndRef?.current?.scrollIntoView({ behavior: 'smooth' });

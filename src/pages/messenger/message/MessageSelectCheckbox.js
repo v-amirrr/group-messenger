@@ -8,10 +8,7 @@ const MessageSelectCheckbox = ({ selected, messageClickHandler }) => {
     return (
         <>
             <MessageSelectCheckboxContainer
-                initial='hidden'
-                animate='visible'
-                exit='exit'
-                variants={selectCheckVariants}
+                initial='hidden' animate='visible' exit='exit' variants={selectCheckVariants}
                 onClick={messageClickHandler}
                 selected={selected ? 1 : 0}
             >

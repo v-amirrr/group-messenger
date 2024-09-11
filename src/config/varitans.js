@@ -214,12 +214,18 @@ export const messagesVariants = {
     },
 };
 
+export const messageUsernameVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.4 } },
+    exit: { opacity: 0, scale: 0.8, transition: { duration: 0.2 } },
+};
+
 // --------------------------------------
 
 export const chatDateVariants = {
     hidden: { opacity: 0, scale: 0.8 },
     visible: { opacity: 1, scale: 1, transition: { duration: 0.4 } },
-    exit: { opacity: 0, scale: 0.8, transition: { duration: 0.4 } },
+    exit: { opacity: 0, scale: 0.8, transition: { duration: 0.2 } },
 };
 
 export const localMessageVariants = {

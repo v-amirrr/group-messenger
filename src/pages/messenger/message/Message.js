@@ -67,7 +67,9 @@ const Message = ({ messageData, type }) => {
                 styles={{ ...styles }}
             >
                 {showMessageDate() && <MessageDate data={time} />}
-                {showMessageUsername() && <MessageUsername uid={uid} isUserSelecting={showMessageSelectCheckbox()} showMessageDate={showMessageDate()} />}
+                <AnimatePresence>
+                    {showMessageUsername() && <MessageUsername uid={uid} isUserSelecting={showMessageSelectCheckbox()} showMessageDate={showMessageDate()} />}
+                </AnimatePresence>
                 <AnimatePresence>
                     {showMessageSelectCheckbox() && <MessageSelectCheckbox selected={selected} messageClickHandler={messageClickHandler} />}
                 </AnimatePresence>

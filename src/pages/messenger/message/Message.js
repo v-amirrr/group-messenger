@@ -1,4 +1,4 @@
-import React, { memo, useRef } from 'react';
+import React, { memo, useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useMessage } from '../../../hooks/useMessage';
 import MessageBox from './MessageBox';
@@ -13,12 +13,6 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { localMessageVariants, nonLocalMessageVariants } from '../../../config/varitans';
 
 const Message = ({ messageData, type }) => {
-
-    // needed components: MessageBox, MessageDate, MessageUsername, MessageRepliedTo, MessageSendStatus, MessageEditReplyIndicator, MessageSelectCheckbox
-
-    const messageRef = useRef();
-    const { selectedMessages } = useSelector(store => store.selectStore);
-    const { editReply } = useSelector(store => store.appStore);
 
     const {
         uid,
@@ -36,17 +30,10 @@ const Message = ({ messageData, type }) => {
         textLetters,
     } = messageData;
 
-    const showMessageDate = () => previousMessageDifferentDate && time?.year;
-
-    const showMessageUsername = () => !isLocalMessage && messagePosition < 2;
-
-    const showMessageSelectCheckbox = () => selectedMessages?.length ? true : false;
-
-    const showEditReplyIndicator = () => editReply?.replyId == id;
-
-    const showRepliedTo = () => replyTo != 'NO_REPLY' && type != 'TRASH';
-
-    const setVariants = () => isLocalMessage ? localMessageVariants : nonLocalMessageVariants;
+    const messageRef = useRef();
+    const [isVisible, setIsVisible] = useState(false);
+    const { selectedMessages } = useSelector(store => store.selectStore);
+    const { editReply } = useSelector(store => store.appStore);
 
     const {
         messagePosition,
@@ -56,6 +43,43 @@ const Message = ({ messageData, type }) => {
         status,
         styles
     } = useMessage(messageData, type, messageRef);
+
+    const showMessageDate = () => previousMessageDifferentDate && time?.year;
+
+    const showMessageUsername = () => !isLocalMessage && messagePosition < 2;
+
+    const showMessageSelectCheckbox = () => selectedMessages?.length ? true : false;
+
+    const showEditReplyIndicator = () => editReply?.replyId == id;
+
+    const showRepliedTo = () => isVisible && replyTo != 'NO_REPLY' && type != 'TRASH';
+
+    const setVariants = () => isLocalMessage ? localMessageVariants : nonLocalMessageVariants;
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting && !isVisible) {
+                    setIsVisible(true);
+                    observer.unobserve(messageRef?.current);
+                }
+            },
+            {
+              root: null,
+              threshold: 0.1,
+            }
+        );
+
+        if (messageRef?.current) {
+            observer.observe(messageRef?.current);
+        }
+
+        return () => {
+            if (messageRef?.current) {
+              observer.unobserve(messageRef?.current);
+            }
+          };
+    }, [isVisible]);
 
     return (
         <>

@@ -2,6 +2,8 @@ import React from 'react';
 import { useSkeletonEffect } from '../../../hooks/useSkeletonEffect';
 import { BsReplyFill } from 'react-icons/bs';
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
+import { nonLocalMessageRepliedToVariants, localMessageRepliedToVariants } from '../../../config/varitans';
 
 const MessageRepliedTo = ({ replyTo, type, isLocalMessage }) => {
 
@@ -30,6 +32,7 @@ const MessageRepliedTo = ({ replyTo, type, isLocalMessage }) => {
     return (
         <>
             <MessageRepliedToContainer
+                initial='hidden' animate='visible' exit='exit' variants={isLocalMessage ? localMessageRepliedToVariants : nonLocalMessageRepliedToVariants}
                 onClick={(e) => replyTo != 'DELETED_REPLY' ? clickHandler(e) : ''}
                 onMouseEnter={hoverHandler}
                 onMouseLeave={() => mouseSituation = 'OUT'}
@@ -50,7 +53,7 @@ const MessageRepliedTo = ({ replyTo, type, isLocalMessage }) => {
     );
 };
 
-const MessageRepliedToContainer = styled.div`
+const MessageRepliedToContainer = styled(motion.div)`
     position: relative;
     max-width: 8rem;
     height: 1.4rem;

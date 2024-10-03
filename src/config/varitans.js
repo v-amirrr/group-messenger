@@ -192,11 +192,9 @@ export const messengerVariants = !phone ? {
 export const chatMessagesVariants = {
     hidden: {
         opacity: 0,
-        // scale: 0.95
     },
     visible: {
         opacity: 1,
-        scale: 1,
         transition: {
             duration: 0.2,
             when: 'beforeChildren'
@@ -204,7 +202,6 @@ export const chatMessagesVariants = {
     },
     exit: {
         opacity: 0,
-        scale: 0.95,
         transition: {
             duration: 0.2,
             when: 'beforeChildren'
@@ -239,6 +236,47 @@ export const messageUsernameVariants = {
     hidden: { opacity: 0, scale: 0.8 },
     visible: { opacity: 1, scale: 1, transition: { duration: 0.4 } },
     exit: { opacity: 0, scale: 0.8, transition: { duration: 0.2 } },
+};
+
+export const nonLocalMessageRepliedToVariants = {
+    hidden: {
+        opacity: 0,
+        x: -20
+    },
+    visible: {
+        opacity: 1,
+        x: 0,
+        transition: {
+            delay: 0.4,
+            duration: 0.4,
+            ease: [0.53, 0, 0, 0.98],
+            time: [0.53, 0, 0, 0.98],
+        },
+    },
+};
+
+export const localMessageRepliedToVariants = {
+    hidden: {
+        opacity: 0,
+        x: 20
+    },
+    visible: {
+        opacity: 1,
+        x: 0,
+        transition: {
+            delay: 0.4,
+            duration: 0.4,
+            ease: [0.53, 0, 0, 0.98],
+            time: [0.53, 0, 0, 0.98],
+        },
+    },
+    // exit: {
+    //     opacity: 0,
+    //     scale: 0,
+    //     transition: {
+    //         duration: 0.5,
+    //     },
+    // },
 };
 
 // --------------------------------------

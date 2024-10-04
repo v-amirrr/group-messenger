@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { inputReplyIndicator } from '../../../config/varitans';
 
-const ChatInputReplyIndicator = ({ inputReply, emojiPicker }) => {
+const ChatInputReplyIndicator = ({ inputReply, emojiPicker, emojiAnimation }) => {
 
     const { addSkeletonEffect, scrollToMessage } = useSkeletonEffect();
     const { unReply } = useOptions();
@@ -46,6 +46,7 @@ const ChatInputReplyIndicator = ({ inputReply, emojiPicker }) => {
                     <ChatInputReplyIndicatorContainer
                         initial='hidden' animate='visible' exit='exit' variants={inputReplyIndicator}
                         emoji={emojiPicker ? 1 : 0}
+                        emojiAnimation={emojiAnimation ? 1 : 0}
                     >
                         <div
                             className='reply-message'
@@ -78,8 +79,9 @@ const ChatInputReplyIndicatorContainer = styled(motion.div)`
     box-shadow: var(--shadow);
     backdrop-filter: var(--glass);
     cursor: pointer;
+    margin-bottom: ${props => props.emojiAnimation ? '.8rem' : '0'} !important;
     z-index: 3;
-    transition: bottom .3s cubic-bezier(.53,0,0,.98);
+    transition: bottom .3s cubic-bezier(.53,0,0,.98), margin .3s;
 
     .reply-message {
         display: flex;

@@ -21,16 +21,14 @@ const MessageUsernameContainer = styled(motion.div)`
     position: absolute;
     top: ${props => props.data.showMessageDate ? "1.83rem" : ".62rem"};
     max-width: 8rem;
-    background-color: var(--bg);
     color: var(--grey);
     box-shadow: var(--shadow);
     backdrop-filter: var(--glass);
-    border-radius: 50px;
     margin-left: ${props => props.data.isUserSelecting ? '2.4rem' : ''};
     margin-right: .2rem;
     padding: .2rem .5rem .2rem 1rem;
     font-size: .6rem;
-    font-weight: 400;
+    font-weight: 300;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;

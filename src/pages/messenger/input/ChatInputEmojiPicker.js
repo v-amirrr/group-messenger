@@ -12,22 +12,17 @@ const ChatInputEmojiPicker = ({ setInputText, emojiPicker }) => {
     return (
         <>
             <ChatInputEmojiPickerContainer inputbaremojipicker={emojiPicker ? 1 : 0}>
-                <AnimatePresence>
-                    {
-                        emojiPicker ?
-                        <motion.div className='picker' initial='hidden' animate='visible' exit='exit' variants={emojiPickerVariatns}>
-                            <Picker
-                                set="apple"
-                                data={data}
-                                emojiSize={30}
-                                showPreview={false}
-                                showSkinTones={false}
-                                onEmojiSelect={(e) => emojiHandler(e)}
-                                previewPosition='none'
-                            />
-                        </motion.div> : ''
-                    }
-                </AnimatePresence>
+                <div className='picker'>
+                    <Picker
+                        set="apple"
+                        data={data}
+                        emojiSize={30}
+                        showPreview={false}
+                        showSkinTones={false}
+                        onEmojiSelect={(e) => emojiHandler(e)}
+                        previewPosition='none'
+                    />
+                </div>
             </ChatInputEmojiPickerContainer>
         </>
     );

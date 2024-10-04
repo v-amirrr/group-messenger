@@ -51,8 +51,8 @@ export const useMessage = (messageData, type, messageRef) => {
             isLocalMessage && messagePosition == 1 ? '25px 25px 17px 25px' :
             isLocalMessage && messagePosition == 2 ? '25px 17px 17px 25px' :
             isLocalMessage && messagePosition == 3 ? '25px 17px 25px 25px' :
-            !isLocalMessage && messagePosition == 0 ? '17px 25px 25px 25px' :
-            !isLocalMessage && messagePosition == 1 ? '17px 25px 25px 17px' :
+            !isLocalMessage && messagePosition == 0 ? '25px 25px 25px 25px' :
+            !isLocalMessage && messagePosition == 1 ? '25px 25px 25px 17px' :
             !isLocalMessage && messagePosition == 2 ? '17px 25px 25px 17px' :
             !isLocalMessage && messagePosition == 3 && '17px 25px 25px 25px',
         boxNotRoundRadius:
@@ -60,8 +60,8 @@ export const useMessage = (messageData, type, messageRef) => {
             isLocalMessage && messagePosition == 1 ? '20px 20px 15px 20px' :
             isLocalMessage && messagePosition == 2 ? '20px 15px 15px 20px' :
             isLocalMessage && messagePosition == 3 ? '20px 15px 20px 18px' :
-            !isLocalMessage && messagePosition == 0 ? '15px 20px 20px 20px' :
-            !isLocalMessage && messagePosition == 1 ? '15px 20px 20px 15px' :
+            !isLocalMessage && messagePosition == 0 ? '20px 20px 20px 20px' :
+            !isLocalMessage && messagePosition == 1 ? '20px 20px 20px 15px' :
             !isLocalMessage && messagePosition == 2 ? '15px 20px 20px 15px' :
             !isLocalMessage && messagePosition == 3 && '15px 20px 20px 20px',
         boxPadding:
@@ -73,6 +73,7 @@ export const useMessage = (messageData, type, messageRef) => {
         boxVisibility: optionsMessage?.id == id ? 'hidden' : 'visible',
         boxWidth: type == 'TRASH' ? '84%' : '65%',
         boxShadow: replyTo != 'NO_REPLY' && type != 'TRASH' ? isLocalMessage ? 'rgba(0, 0, 0, 0.5) -8px 0px 10px' : 'rgba(0, 0, 0, 0.5) 8px 0px 10px' : '',
+        boxBackdropFilter: replyTo != 'NO_REPLY' && type != 'TRASH' ? 'var(--glass)' : '',
         messageFlexDirection: isLocalMessage ? 'row-reverse' : 'row',
         messagePaddingTop:
             time?.year && messagePosition < 2 && !isLocalMessage && !previousMessageDifferentDate ? '1.8rem' :

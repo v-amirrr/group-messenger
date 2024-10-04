@@ -17,6 +17,7 @@ const ChatInput = () => {
     const { selectedMessages } = useSelector(store => store.selectStore);
     const { optionsAnimationStatus } = useSelector(store => store.optionsStore);
     const { sendMessage } = useSend();
+    const [emojiAnimation, setEmojiAnimation] = useState(false);
     const [multiline, setMultiline] = useState(false);
     const [inputText, setInputText] = useState(localStorage.getItem('input-text') ? localStorage.getItem('input-text') : '');
     const [emojiPicker, setEmojiPicker] = useState(false);
@@ -82,9 +83,19 @@ const ChatInput = () => {
         }
     }, [selectedMessages]);
 
+    // playing animation for opening emoji picker
+    useEffect(() => {
+        if (emojiPicker) {
+            setEmojiAnimation(true);
+            setTimeout(() => {
+                setEmojiAnimation(false);
+            }, 250);
+        }
+    }, [emojiPicker]);
+
     return (
         <>
-            <ChatInputReplyIndicator inputReply={selectedMessages.length || editReply?.show ? null : inputReply} emojiPicker={emojiPicker} />
+            <ChatInputReplyIndicator inputReply={selectedMessages.length || editReply?.show ? null : inputReply} emojiPicker={emojiPicker} emojiAnimation={emojiAnimation} />
 
             <ChatInputContainer
                 initial='hidden' animate='visible' exit='exit' variants={chatInputVariants}
@@ -93,6 +104,7 @@ const ChatInput = () => {
                     isPerian: isPersian(inputText) ? 1 : 0,
                     inputText: inputText ? 1 : 0,
                     emoji: emojiPicker ? 1 : 0,
+                    emojiAnimation: emojiAnimation ? 1 : 0,
                 }}
             >
                 <textarea
@@ -141,7 +153,7 @@ const ChatInput = () => {
 const ChatInputContainer = styled(motion.div)`
     box-sizing: content-box;
     position: absolute;
-    bottom: 1rem;
+    bottom: ${props => props.stylesData.emojiAnimation ? '1.8rem' : '1rem'};
     width: 18rem;
     height: 2.4rem;
     display: flex;
@@ -156,8 +168,8 @@ const ChatInputContainer = styled(motion.div)`
     overflow: hidden;
     transition: ${props =>
         props.stylesData.emoji ?
-        'padding .3s cubic-bezier(.53,0,0,.98)' :
-        'padding .3s cubic-bezier(.53,0,0,.98), border-radius 2s .2s'
+        'padding .3s cubic-bezier(.53,0,0,.98), bottom .3s' :
+        'padding .3s cubic-bezier(.53,0,0,.98), bottom .3s, border-radius 2s .2s'
     };
 
     .input {

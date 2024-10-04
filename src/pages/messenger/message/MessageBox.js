@@ -91,7 +91,7 @@ const MessageBoxContainer = styled.div`
     );
     background-position: ${props => `left ${-props.data.width}px top 0`};
     background-repeat: no-repeat;
-    backdrop-filter: var(--glass);
+    backdrop-filter: ${props => props.data.boxBackdropFilter};
     z-index: 2;
     box-shadow: ${props => props.data.boxShadow};
     cursor: ${props => props.data.editingMode ? 'auto' : 'pointer'};

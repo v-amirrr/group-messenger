@@ -5,7 +5,6 @@ import { loaderVariants } from '../../config/varitans';
 
 const ChatLoader = () => {
     const messages = [
-        { width: '4rem', height: '1rem', position: 1, local: false },
         { width: '7rem', height: '2rem', position: 2, local: false },
         { width: '14rem', height: '3rem', position: 3, local: false },
 
@@ -13,15 +12,14 @@ const ChatLoader = () => {
         { width: '12rem', height: '2rem', position: 2, local: true },
         { width: '10rem', height: '2rem', position: 3, local: true },
 
-        { width: '4rem', height: '1rem', position: 1, local: false },
         { width: '10rem', height: '2rem', position: 2, local: false },
         { width: '7rem', height: '2rem', position: 3, local: false },
 
-        { width: '3rem', height: '1rem', position: 1, local: false },
-        { width: '8rem', height: '2rem', position: 3, local: false },
-
         { width: '8rem', height: '2rem', position: 1, local: true },
         { width: '10rem', height: '3rem', position: 3, local: true },
+
+        { width: '4rem', height: '2rem', position: 2, local: false },
+        { width: '7rem', height: '2rem', position: 3, local: false },
     ];
     return (
         <>
@@ -196,7 +194,7 @@ const MessageContainer = styled.div`
             props.position == 1 ?
             '25px 25px 25px 20px' :
             props.position == 2 ?
-            '15px 25px 25px 15px' :
+            '25px 25px 25px 15px' :
             props.position == 3 && '12px 25px 25px 25px'
         };
         backdrop-filter: var(--glass);

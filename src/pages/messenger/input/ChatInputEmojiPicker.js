@@ -2,8 +2,6 @@ import React from 'react';
 import data from '@emoji-mart/data/sets/14/twitter.json';
 import Picker from '@emoji-mart/react';
 import styled from 'styled-components';
-import { AnimatePresence, motion } from 'framer-motion';
-import { emojiPickerVariatns } from '../../../config/varitans';
 
 const ChatInputEmojiPicker = ({ setInputText, emojiPicker }) => {
     const emojiHandler = (e) => {

@@ -265,7 +265,7 @@ const ChatInputContainer = styled(motion.div)`
 
     @media (max-width: 768px) {
         width: 17rem;
-        bottom: .9rem;
+        bottom: ${props => props.stylesData.emojiAnimation ? '1.7rem' : '.9rem'};
         padding-bottom: ${props => props.stylesData.emoji ? '10rem' : '0'};
         border-radius: ${props => props.stylesData.emoji ? '20px' : '50px'};
     }

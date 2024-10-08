@@ -48,13 +48,13 @@ export const useMessage = (messageData, type, messageRef) => {
         boxMarginLeft: selectedMessages?.length && !isLocalMessage ? '2.4rem' : '',
         boxRoundRadius:
             isLocalMessage && messagePosition == 0 ? '25px' :
-            isLocalMessage && messagePosition == 1 ? '25px 25px 17px 25px' :
-            isLocalMessage && messagePosition == 2 ? '25px 17px 17px 25px' :
-            isLocalMessage && messagePosition == 3 ? '25px 17px 25px 25px' :
+            isLocalMessage && messagePosition == 1 ? '25px 25px 20px 25px' :
+            isLocalMessage && messagePosition == 2 ? '25px 20px 20px 25px' :
+            isLocalMessage && messagePosition == 3 ? '25px 20px 25px 25px' :
             !isLocalMessage && messagePosition == 0 ? '25px 25px 25px 25px' :
-            !isLocalMessage && messagePosition == 1 ? '25px 25px 25px 17px' :
-            !isLocalMessage && messagePosition == 2 ? '17px 25px 25px 17px' :
-            !isLocalMessage && messagePosition == 3 && '17px 25px 25px 25px',
+            !isLocalMessage && messagePosition == 1 ? '25px 25px 25px 20px' :
+            !isLocalMessage && messagePosition == 2 ? '20px 25px 25px 20px' :
+            !isLocalMessage && messagePosition == 3 && '20px 25px 25px 25px',
         boxNotRoundRadius:
             isLocalMessage && messagePosition == 0 ? '20px' :
             isLocalMessage && messagePosition == 1 ? '20px 20px 15px 20px' :

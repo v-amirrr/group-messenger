@@ -2,13 +2,13 @@ import React from 'react';
 import Check from '../../../common/Check';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
-import { selectCheckVariants } from '../../../config/varitans';
+import { nonLocalSelectCheckboxVariants, localSelectCheckboxVariants } from '../../../config/varitans';
 
-const MessageSelectCheckbox = ({ selected, messageClickHandler }) => {
+const MessageSelectCheckbox = ({ selected, messageClickHandler, isLocalMessage }) => {
     return (
         <>
             <MessageSelectCheckboxContainer
-                initial='hidden' animate='visible' exit='exit' variants={selectCheckVariants}
+                initial='hidden' animate='visible' exit='exit' variants={isLocalMessage ? localSelectCheckboxVariants : nonLocalSelectCheckboxVariants }
                 onClick={messageClickHandler}
                 selected={selected ? 1 : 0}
             >

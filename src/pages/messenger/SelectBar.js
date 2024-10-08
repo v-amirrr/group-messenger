@@ -105,15 +105,8 @@ const SelectBarContainer = styled(motion.div)`
         }
     }
 
-    @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
-        .close, .copy, .delete {
-            &:hover {
-            }
-        }
-    }
-
     @media (max-width: 745px) {
-        width: 15rem;
+        width: 17em;
         bottom: .9rem;
 
         .options {

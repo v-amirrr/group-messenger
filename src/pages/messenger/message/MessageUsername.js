@@ -22,8 +22,6 @@ const MessageUsernameContainer = styled(motion.div)`
     top: ${props => props.data.showMessageDate ? "1.83rem" : ".62rem"};
     max-width: 8rem;
     color: var(--grey);
-    box-shadow: var(--shadow);
-    backdrop-filter: var(--glass);
     margin-left: ${props => props.data.isUserSelecting ? '2.4rem' : ''};
     margin-right: .2rem;
     padding: .2rem .5rem .2rem 1rem;
@@ -32,7 +30,7 @@ const MessageUsernameContainer = styled(motion.div)`
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-    transition: margin .4s .1s;
+    transition: margin .4s;
 
     i {
         position: absolute;

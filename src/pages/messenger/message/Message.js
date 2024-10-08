@@ -95,7 +95,7 @@ const Message = ({ messageData, type }) => {
                     {showMessageUsername() && <MessageUsername uid={uid} isUserSelecting={showMessageSelectCheckbox()} showMessageDate={showMessageDate()} />}
                 </AnimatePresence>
                 <AnimatePresence>
-                    {showMessageSelectCheckbox() && <MessageSelectCheckbox selected={selected} messageClickHandler={messageClickHandler} />}
+                    {showMessageSelectCheckbox() && <MessageSelectCheckbox selected={selected} messageClickHandler={messageClickHandler} isLocalMessage={isLocalMessage} />}
                 </AnimatePresence>
                 <MessageBox
                     messageClickHandler={messageClickHandler}

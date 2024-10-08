@@ -1,3 +1,5 @@
+import { duration } from "@mui/material";
+
 let phone = document.documentElement.offsetWidth < 600;
 
 export const errorBoxVariants = {
@@ -248,9 +250,8 @@ export const nonLocalMessageRepliedToVariants = {
         x: 0,
         transition: {
             delay: 0.4,
-            duration: 0.4,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
+            type: 'spring',
+            stiffness: 120,
         },
     },
 };
@@ -265,9 +266,8 @@ export const localMessageRepliedToVariants = {
         x: 0,
         transition: {
             delay: 0.4,
-            duration: 0.4,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
+            type: 'spring',
+            stiffness: 120,
         },
     },
     // exit: {
@@ -277,6 +277,48 @@ export const localMessageRepliedToVariants = {
     //         duration: 0.5,
     //     },
     // },
+};
+
+export const nonLocalSelectCheckboxVariants = {
+    hidden: {
+        opacity: 0,
+        x: -40
+    },
+    visible: {
+        opacity: 1,
+        x: 0,
+        transition: {
+            duration: 0.33,
+        },
+    },
+    exit: {
+        opacity: 0,
+        x: -40,
+        transition: {
+            duration: 0.2,
+        },
+    }
+};
+
+export const localSelectCheckboxVariants = {
+    hidden: {
+        opacity: 0,
+        x: 40
+    },
+    visible: {
+        opacity: 1,
+        x: 0,
+        transition: {
+            duration: 0.33,
+        },
+    },
+    exit: {
+        opacity: 0,
+        x: 40,
+        transition: {
+            duration: 0.2,
+        },
+    },
 };
 
 // --------------------------------------
@@ -363,25 +405,6 @@ export const replyIconVariants = {
     },
 };
 
-export const selectCheckVariants = {
-    hidden: {
-        opacity: 0,
-    },
-    visible: {
-        opacity: 1,
-        transition: {
-            duration: 0.2,
-        },
-    },
-    exit: {
-        opacity: 0,
-        transition: {
-            delay: 0.4,
-            duration: 0.2
-        }
-    },
-};
-
 // --------------------------------------
 
 export const optionsGlassVariants = {
@@ -402,23 +425,31 @@ export const optionsGlassVariants = {
 };
 
 export const optionsVariants = {
-    hidden: { opacity: 0 },
+    hidden: {
+        opacity: 0
+    },
     visible: {
         opacity: 1,
         transition: {
             delay: 0.1,
+            when: 'beforeChildren'
         },
     },
     exit: {
         opacity: 0,
+        scale: 0.8,
         transition: {
             duration: 0.2,
+            when: 'beforeChildren'
         },
     },
 };
 
 export const optionLocalVariants = {
-    hidden: { opacity: 0, x: 15 },
+    hidden: {
+        opacity: 0,
+        x: 15
+    },
     visible: {
         opacity: 1,
         x: 0,
@@ -429,7 +460,7 @@ export const optionLocalVariants = {
     },
     exit: {
         opacity: 0,
-        x: -15,
+        x: -10,
         transition: {
             duration: 0.2,
         },
@@ -437,7 +468,10 @@ export const optionLocalVariants = {
 };
 
 export const optionNonLocalVariants = {
-    hidden: { opacity: 0, x: -15 },
+    hidden: {
+        opacity: 0,
+        x: -15
+    },
     visible: {
         opacity: 1,
         x: 0,
@@ -448,7 +482,7 @@ export const optionNonLocalVariants = {
     },
     exit: {
         opacity: 0,
-        x: 15,
+        x: 10,
         transition: {
             duration: 0.2,
         },
@@ -725,39 +759,43 @@ export const featuresSectionDownVariatns = {
 // --------------------------------------
 
 export const selectBarVariants = {
-    hidden: { y: 80 },
+    hidden: {
+        y: 80
+    },
     visible: {
         y: 0,
         transition: {
-            duration: 0.5,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
+            type: 'spring',
+            stiffness: 80,
         },
     },
     exit: {
         opacity: 0,
-        scale: 0,
+        y: -40,
+        scale: 0.9,
         transition: {
-            duration: 0.5,
+            duration: 0.3,
         },
     },
 };
 
 export const chatInputVariants = {
-    hidden: { y: 80 },
+    hidden: {
+        y: 80
+    },
     visible: {
         y: 0,
         transition: {
-            duration: 0.5,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
+            type: 'spring',
+            stiffness: 80,
         },
     },
     exit: {
         opacity: 0,
-        scale: 0,
+        y: -40,
+        scale: 0.9,
         transition: {
-            duration: 0.5,
+            duration: 0.3,
         },
     },
 };
@@ -789,25 +827,6 @@ export const inputReplyIndicator = {
             ease: [0.53, 0, 0, 0.98],
             time: [0.53, 0, 0, 0.98],
         },
-    },
-};
-
-export const emojiPickerVariatns = {
-    hidden: {
-        opacity: 0,
-    },
-    visible: {
-        opacity: 1,
-        transition: {
-            duration: 0.1,
-        },
-    },
-    exit: {
-        opacity: 0,
-        transition: {
-            delay: 0.3,
-            duration: 0.1
-        }
     },
 };
 

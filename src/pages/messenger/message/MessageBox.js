@@ -97,7 +97,7 @@ const MessageBoxContainer = styled.div`
     cursor: ${props => props.data.editingMode ? 'auto' : 'pointer'};
     visibility: ${props => props.data.boxVisibility};
     animation: ${props => props.data.skeletonEffect || props.data.editingMode ? 'skeleton-effect .8s 1 linear backwards' : ''};
-    transition: border-radius .4s, margin .4s .1s, border .2s, background-color .2s;
+    transition: border-radius .4s, margin .4s, border .2s, background-color .2s;
 
     .message-text {
         text-align: ${props => props.data.persian ? 'right' : 'left'};

@@ -79,9 +79,9 @@ const ChatInputReplyIndicatorContainer = styled(motion.div)`
     box-shadow: var(--shadow);
     backdrop-filter: var(--glass);
     cursor: pointer;
-    margin-bottom: ${props => props.emojiAnimation ? '.8rem' : '0'} !important;
+    margin-bottom: ${props => props.emojiAnimation ? '2rem' : '0'} !important;
     z-index: 3;
-    transition: bottom .3s cubic-bezier(.53,0,0,.98), margin .3s;
+    transition: bottom .3s cubic-bezier(.53,0,0,.98), margin .6s;
 
     .reply-message {
         display: flex;

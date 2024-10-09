@@ -5,7 +5,7 @@ export const useScroll = (chatRef, chatEndRef) => {
     const { messages } = useSelector(store => store.firestoreStore);
     const { messagesScrollPosition, scrollToMessage } = useSelector(store => store.appStore);
     const [arrow, setArrow] = useState(true);
-    const [lastMessageTime, setLastMessageTime] = useState(messages[messages?.length - 1]?.id);
+    const [lastMessageID, setLastMessageID] = useState(messages[messages?.length - 1]?.id);
     let scrollLastPosition = chatRef?.current?.scrollTop;
     let scrollBarHeight = chatRef?.current?.scrollHeight-chatRef?.current?.clientHeight;
 
@@ -26,12 +26,12 @@ export const useScroll = (chatRef, chatEndRef) => {
         const { id } = messages[messages?.length - 1];
 
         const isUserAtTheBottom = scrollBarHeight-currentScrollPosition < 500;
-        const newMessage = lastMessageTime?.id != id;
+        const newMessage = lastMessageID != id;
 
         if (isUserAtTheBottom && newMessage) {
             chatEndRef?.current?.scrollIntoView({ behavior: 'smooth' });
         } else if (newMessage) {
-            setLastMessageTime(messages[messages?.length - 1]?.time);
+            setLastMessageID(messages[messages?.length - 1]?.time);
         }
     }, [messages[messages?.length - 1]?.time]);
 

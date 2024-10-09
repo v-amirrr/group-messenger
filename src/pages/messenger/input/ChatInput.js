@@ -153,7 +153,7 @@ const ChatInput = () => {
 const ChatInputContainer = styled(motion.div)`
     box-sizing: content-box;
     position: absolute;
-    bottom: ${props => props.stylesData.emojiAnimation ? '1.8rem' : '1rem'};
+    bottom: ${props => props.stylesData.emojiAnimation ? '3rem' : '1rem'};
     width: 18rem;
     height: 2.4rem;
     display: flex;
@@ -168,8 +168,8 @@ const ChatInputContainer = styled(motion.div)`
     overflow: hidden;
     transition: ${props =>
         props.stylesData.emoji ?
-        'padding .3s cubic-bezier(.53,0,0,.98), bottom .3s' :
-        'padding .3s cubic-bezier(.53,0,0,.98), bottom .3s, border-radius 2s .2s'
+        'padding .3s cubic-bezier(.53,0,0,.98), bottom .6s' :
+        'padding .3s cubic-bezier(.53,0,0,.98), bottom .6s, border-radius 2s .2s'
     };
 
     .input {
@@ -265,7 +265,7 @@ const ChatInputContainer = styled(motion.div)`
 
     @media (max-width: 768px) {
         width: 17rem;
-        bottom: ${props => props.stylesData.emojiAnimation ? '1.7rem' : '.9rem'};
+        bottom: ${props => props.stylesData.emojiAnimation ? '2rem' : '.9rem'};
         padding-bottom: ${props => props.stylesData.emoji ? '10rem' : '0'};
         border-radius: ${props => props.stylesData.emoji ? '20px' : '50px'};
     }

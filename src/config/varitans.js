@@ -426,10 +426,11 @@ export const optionsGlassVariants = {
 
 export const optionsVariants = {
     hidden: {
-        opacity: 0
+        opacity: 0,
     },
     visible: {
         opacity: 1,
+        scale: 1,
         transition: {
             delay: 0.1,
             when: 'beforeChildren'
@@ -460,7 +461,7 @@ export const optionLocalVariants = {
     },
     exit: {
         opacity: 0,
-        x: -10,
+        x: -15,
         transition: {
             duration: 0.2,
         },
@@ -482,7 +483,7 @@ export const optionNonLocalVariants = {
     },
     exit: {
         opacity: 0,
-        x: 10,
+        x: 15,
         transition: {
             duration: 0.2,
         },
@@ -831,21 +832,22 @@ export const inputReplyIndicator = {
 };
 
 export const editReplyBarVariatns = {
-    hidden: { y: 80 },
+    hidden: {
+        y: 80
+    },
     visible: {
         y: 0,
         transition: {
-            duration: 0.6,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
+            type: 'spring',
+            stiffness: 80,
         },
     },
     exit: {
-        y: 80,
+        opacity: 0,
+        y: -40,
+        scale: 0.9,
         transition: {
-            duration: 0.6,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
+            duration: 0.3,
         },
     },
 };

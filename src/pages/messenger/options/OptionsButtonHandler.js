@@ -71,8 +71,10 @@ const OptionsButtonHandler = ({ type, optionsClickHandler, closeOptions }) => {
                 }, 350);
                 break;
             case 'TRASH':
-                moveToTrash(optionsMessage?.id);
-                optionsClickHandler(null, 'TRASH');
+                closeOptions();
+                setTimeout(() => {
+                    moveToTrash(optionsMessage?.id);
+                }, 300);
                 break;
             case 'DELETE':
                 closeOptions();
@@ -81,9 +83,11 @@ const OptionsButtonHandler = ({ type, optionsClickHandler, closeOptions }) => {
                 }, 300);
                 break;
             case 'RESTORE':
-                restore(optionsMessage?.id);
-                openNotification('Message restored', 'GENERAL');
-                optionsClickHandler(null, 'RESTORE');
+                closeOptions();
+                setTimeout(() => {
+                    restore(optionsMessage?.id);
+                    openNotification('Message restored', 'GENERAL');
+                }, 300);
                 break;
         }
     };

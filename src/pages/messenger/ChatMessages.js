@@ -101,7 +101,7 @@ const ChatMessagesContainer = styled(motion.div)`
     justify-content: center;
     align-items: center;
     transform: ${props => props.data.optionsAnimationStatus == 2 ? 'scale(0.95)' : 'scale(1)'} !important;
-    transition: transform .3s, opacity .3s;
+    transition: ${props => props.data.optionsAnimationStatus == 2 ? 'transform .3s' : 'transform .2s'};
 
     .messages {
         position: relative;

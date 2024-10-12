@@ -408,7 +408,9 @@ export const replyIconVariants = {
 // --------------------------------------
 
 export const optionsGlassVariants = {
-    hidden: { opacity: 0 },
+    hidden: {
+        opacity: 0
+    },
     visible: {
         opacity: 1,
         transition: {
@@ -418,7 +420,7 @@ export const optionsGlassVariants = {
     exit: {
         opacity: 0,
         transition: {
-            delay: 0.05,
+            // delay: 0.05,
             duration: 0.2,
         },
     },
@@ -427,18 +429,21 @@ export const optionsGlassVariants = {
 export const optionsVariants = {
     hidden: {
         opacity: 0,
+        scale: 0.98,
     },
     visible: {
         opacity: 1,
         scale: 1,
         transition: {
-            delay: 0.1,
+            duration: 0.5,
+            ease: [0.53, 0, 0, 0.98],
+            time: [0.53, 0, 0, 0.98],
             when: 'beforeChildren'
         },
     },
     exit: {
         opacity: 0,
-        scale: 0.8,
+        scale: 0.9,
         transition: {
             duration: 0.2,
             when: 'beforeChildren'
@@ -449,19 +454,15 @@ export const optionsVariants = {
 export const optionLocalVariants = {
     hidden: {
         opacity: 0,
-        x: 15
     },
     visible: {
         opacity: 1,
-        x: 0,
         transition: {
-            type: 'spring',
-            stiffness: 100
+            duration: 0.2,
         },
     },
     exit: {
         opacity: 0,
-        x: -15,
         transition: {
             duration: 0.2,
         },
@@ -471,19 +472,15 @@ export const optionLocalVariants = {
 export const optionNonLocalVariants = {
     hidden: {
         opacity: 0,
-        x: -15
     },
     visible: {
         opacity: 1,
-        x: 0,
         transition: {
-            type: 'spring',
-            stiffness: 100
+            duration: 0.2,
         },
     },
     exit: {
         opacity: 0,
-        x: 15,
         transition: {
             duration: 0.2,
         },
@@ -772,7 +769,7 @@ export const selectBarVariants = {
     },
     exit: {
         opacity: 0,
-        y: -40,
+        y: -50,
         scale: 0.9,
         transition: {
             duration: 0.3,
@@ -793,7 +790,7 @@ export const chatInputVariants = {
     },
     exit: {
         opacity: 0,
-        y: -40,
+        y: -50,
         scale: 0.9,
         transition: {
             duration: 0.3,

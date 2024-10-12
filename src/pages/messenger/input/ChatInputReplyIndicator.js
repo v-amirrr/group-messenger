@@ -67,14 +67,14 @@ const ChatInputReplyIndicator = ({ inputReply, emojiPicker, emojiAnimation }) =>
 
 const ChatInputReplyIndicatorContainer = styled(motion.div)`
     position: absolute;
-    bottom: ${props => props.emoji ? '13.3rem' : '3.3rem'};
+    bottom: ${props => props.emoji ? '13.4rem' : '3.4rem'};
     max-width: 17rem;
     height: 2rem;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 0 0.09rem;
-    border-radius: 50px;
+    border-radius: 20px 20px 0 0;
     background-color: var(--bg);
     box-shadow: var(--shadow);
     backdrop-filter: var(--glass);

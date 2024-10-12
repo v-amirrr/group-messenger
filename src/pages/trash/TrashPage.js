@@ -108,8 +108,8 @@ const Trash = styled(motion.div)`
         box-shadow: var(--shadow);
         overflow: hidden;
         opacity: ${props => props.data.optionsAnimationStatus == 2 ? 0.5 : 1};
-        transform: ${props => props.data.optionsAnimationStatus == 2 ? 'scale(0.9)' : 'scale(1)'};
-        transition: transform .3s, opacity .3s;
+        transform: ${props => props.data.optionsAnimationStatus == 2 ? 'scale(0.95)' : 'scale(1)'};
+        transition: ${props => props.data.optionsAnimationStatus == 2 ? 'transform .3s .05s' : 'transform .2s'}, opacity .3s;
 
         .header {
             position: absolute;

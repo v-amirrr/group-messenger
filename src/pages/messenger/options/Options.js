@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearSlice, setOptionsAnimationStatus, setOptionsButtonsStage } from '../../../redux/optionsSlice';
 import MessageBox from '../message/MessageBox';
@@ -11,24 +11,11 @@ const ChatOptions = ({ type }) => {
     const chatOptionsMessageRef = useRef();
     const dispatch = useDispatch();
     const { optionsMessage, optionsAnimationStatus, optionsButtonsStage } = useSelector(store => store.optionsStore);
-    const [noTopPositionChange, setNoTopPositionChange] = useState(false);
-    const [zeroScale, setZeroScale] = useState(false);
 
-    const optionsClickHandler = (e, type) => {
-        if(type == 'TRASH' || type == 'RESTORE') {
-            deleteOptions();
-        } else if (!chatOptionsMessageRef?.current?.contains(e?.target)) {
+    const optionsClickHandler = (e) => {
+        if (!chatOptionsMessageRef?.current?.contains(e?.target)) {
             closeOptions();
         }
-    };
-
-    const deleteOptions = () => {
-        setZeroScale(true);
-        dispatch(setOptionsAnimationStatus(3));
-        setTimeout(() => {
-            dispatch(clearSlice());
-            setZeroScale(false);
-        }, 400);
     };
 
     const closeOptions = () => {
@@ -42,11 +29,6 @@ const ChatOptions = ({ type }) => {
     useEffect(() => {
         if (optionsMessage?.id) {
             dispatch(setOptionsAnimationStatus(2));
-        }
-        if (optionsMessage?.ref?.current?.getBoundingClientRect()?.top > 250 && optionsMessage?.ref?.current?.getBoundingClientRect()?.top < 350) {
-            setNoTopPositionChange(true);
-        } else {
-            setNoTopPositionChange(false);
         }
     }, [optionsMessage]);
 
@@ -64,9 +46,6 @@ const ChatOptions = ({ type }) => {
                             height: optionsMessage?.height,
                             isLocalMessage: optionsMessage?.isLocalMessage,
                             animationStatus: optionsAnimationStatus,
-                            phoneHeightDifference: window.outerHeight - window.innerHeight,
-                            noTopPositionChange: noTopPositionChange,
-                            zeroScale: zeroScale,
                         }}
                     >
                         <div className='message-box' ref={chatOptionsMessageRef}>
@@ -87,7 +66,7 @@ const ChatOptions = ({ type }) => {
                             />
                             <AnimatePresence>
                             {
-                                optionsAnimationStatus == 2 && !zeroScale ?
+                                optionsAnimationStatus == 2 ?
                                 <OptionsButtonHandler
                                     type={type}
                                     optionsClickHandler={optionsClickHandler}
@@ -98,7 +77,7 @@ const ChatOptions = ({ type }) => {
                         </div>
                         <AnimatePresence exitBeforeEnter>
                             {
-                                optionsAnimationStatus == 2 && !zeroScale ?
+                                optionsAnimationStatus == 2 ?
                                 <OptionsGlass initial='hidden' animate='visible' exit='exit' variants={optionsGlassVariants} /> : ''
                             }
                         </AnimatePresence>
@@ -129,15 +108,8 @@ const OptionsContainer = styled.div`
         flex-direction: column;
         z-index: 6;
         opacity: ${props => props.styles.zeroScale ? 0 : 1};
-        transform: ${props => props.styles.zeroScale ? 'scale(0.5)' : props.styles.animationStatus == 2 ? 'scale(1.05)' : 'scale(1)'};
-        transition: transform .2s, opacity .3s;
-    }
-
-    @media (max-width: 745px) {
-        .message-box {
-            transform: ${props => props.styles.zeroScale ? 'scale(0.5)' : props.styles.animationStatus == 2 ? 'scale(1.09)' : 'scale(1)'};
-            transition: transform .3s, opacity .3s;
-        }
+        transform: ${props => props.styles.animationStatus == 2 ? 'scale(1.05)' : 'scale(1)'};
+        transition: ${props => props.styles.animationStatus == 2 ? 'transform .4s cubic-bezier(0.53, 0, 0, 0.98)' : 'transform .2s'}, opacity .3s;
     }
 `;
 
@@ -145,7 +117,7 @@ const OptionsGlass = styled(motion.div)`
     position: absolute;
     width: 100vw;
     height: 100vh;
-    background-color: #00000088;
+    background-color: #00000066;
     backdrop-filter: var(--glass);
     z-index: 5;
 `;

@@ -162,7 +162,7 @@ const ChatInputContainer = styled(motion.div)`
     padding-bottom: ${props => props.stylesData.emoji ? '10rem' : '0'};
     border: var(--border);
     border-radius: ${props => props.stylesData.emoji ? '25px' : '50px'};
-    box-shadow: rgba(0, 0, 0, 1) 0px 4px 12px;
+    box-shadow: rgba(0, 0, 0, 0.8) 0px 0px 20px;
     backdrop-filter: var(--glass);
     z-index: 4;
     overflow: hidden;

@@ -384,7 +384,7 @@ const Guidance = styled(motion.div)`
         align-items: center;
         border: var(--border);
         border-radius: 25px;
-        background-color: #00000044;
+        background-color: #ffffff05;
         overflow: hidden;
         position: relative;
         color: var(--text);

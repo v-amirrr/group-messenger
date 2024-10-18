@@ -39,7 +39,7 @@ export const useMessage = (messageData, type, messageRef) => {
 
     let styles = {
         boxMargin:
-            type == 'TRASH' ? '.06rem' :
+            type == 'TRASH' ? '.15rem' :
             messagePosition == 0 ? '.1rem 0' :
             messagePosition == 1 ? '.1rem 0 .06rem 0' :
             messagePosition == 2 ? '.06rem 0 .06rem 0' :

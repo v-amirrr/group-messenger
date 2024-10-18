@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { loaderVariants } from '../../config/varitans';
+import { chatLoaderVariants } from '../../config/varitans';
 
 const ChatLoader = () => {
     const messages = [
@@ -27,7 +27,7 @@ const ChatLoader = () => {
                 initial='hidden'
                 animate='visible'
                 exit='exit'
-                variants={loaderVariants}
+                variants={chatLoaderVariants}
             >
                 <div className='menu'></div>
                 <div className='scroll'></div>
@@ -60,7 +60,6 @@ const ChatLoaderContainer = styled(motion.div)`
     width: 100%;
     height: 100%;
     padding: 5rem 2rem 9rem 2rem;
-    background-color: #00000088;
 
     .profile,
     .menu,
@@ -185,17 +184,17 @@ const MessageContainer = styled.div`
             props.position == 0 ?
             '25px' :
             props.position == 1 ?
-            '25px 25px 15px 25px' :
+            '25px 25px 20px 25px' :
             props.position == 2 ?
-            '25px 15px 15px 25px' :
-            props.position == 3 && '25px 15px 25px 25px' :
+            '25px 20px 20px 25px' :
+            props.position == 3 && '25px 20px 25px 25px' :
             props.position == 0 ?
             '25px' :
             props.position == 1 ?
             '25px 25px 25px 20px' :
             props.position == 2 ?
-            '25px 25px 25px 15px' :
-            props.position == 3 && '12px 25px 25px 25px'
+            '25px 25px 25px 20px' :
+            props.position == 3 && '20px 25px 25px 25px'
         };
         backdrop-filter: var(--glass);
         background-color: var(--bg);

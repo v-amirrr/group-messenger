@@ -1,24 +1,22 @@
-import { duration } from "@mui/material";
-
 let phone = document.documentElement.offsetWidth < 600;
 
 export const errorBoxVariants = {
     hidden: {
         opacity: 0,
-        scale: 0.9
+        y: 40,
     },
     visible: {
         opacity: 1,
         scale: 1,
+        y: 0,
         transition: {
-            duration: 0.5,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
+            type: 'spring',
+            stiffness: 100,
         },
     },
     exit: {
         opacity: 0,
-        scale: 0.9,
+        y: 20,
         transition: {
             duration: 0.2
         }
@@ -55,7 +53,7 @@ export const notificationFastVariants = {
     visible: {
         y: 0,
         transition: {
-            duration: 0.7,
+            duration: 1,
             ease: [0.53, 0, 0, 0.98],
             time: [0.53, 0, 0, 0.98],
         },
@@ -63,7 +61,7 @@ export const notificationFastVariants = {
     exit: {
         y: -80,
         transition: {
-            duration: 0.7,
+            duration: 1,
             ease: [0.53, 0, 0, 0.98],
             time: [0.53, 0, 0, 0.98],
         },
@@ -75,20 +73,19 @@ export const notificationFastVariants = {
 export const loginVariants = {
     hidden: {
         opacity: 0,
-        scale: 0.9
+        y: 40,
     },
     visible: {
         opacity: 1,
-        scale: 1,
+        y: 0,
         transition: {
-            duration: 0.5,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
+            type: 'spring',
+            stiffness: 100,
         },
     },
     exit: {
         opacity: 0,
-        scale: 0.9,
+        y: 20,
         transition: {
             duration: 0.2
         }
@@ -145,68 +142,47 @@ export const loginPasswordInputVariants = {
 
 // --------------------------------------
 
-export const messengerVariants = !phone ? {
+export const messengerVariants = {
     hidden: {
         opacity: 0,
-        scale: 0.95
-    },
-    visible: {
-        opacity: 1,
-        scale: 1,
-        transition: {
-            duration: 0.2,
-            when: 'beforeChildren'
-        },
-    },
-    exit: {
-        opacity: 0,
-        scale: 0.95,
-        transition: {
-            duration: 0.2,
-            when: 'beforeChildren'
-        }
-    },
-} : {
-    hidden: {
-        opacity: 0,
-        y: 50,
+        y: 40,
     },
     visible: {
         opacity: 1,
         y: 0,
         transition: {
-            duration: 0.2,
-            when: 'beforeChildren'
+            type: 'spring',
+            stiffness: 100,
         },
     },
     exit: {
         opacity: 0,
-        y: 50,
+        y: 20,
         transition: {
-            duration: 0.2,
-            when: 'beforeChildren'
+            duration: 0.2
         }
     },
 };
 
-// --------------------------------------
-
 export const chatMessagesVariants = {
     hidden: {
         opacity: 0,
+        y: 40,
     },
     visible: {
         opacity: 1,
+        y: 0,
         transition: {
-            duration: 0.2,
+            type: 'spring',
+            stiffness: 100,
             when: 'beforeChildren'
         },
     },
     exit: {
         opacity: 0,
+        y: 20,
         transition: {
-            duration: 0.2,
-            when: 'beforeChildren'
+            duration: 0.2
         }
     },
 };
@@ -214,22 +190,22 @@ export const chatMessagesVariants = {
 export const messagesVariants = {
     hidden: {
         opacity: 0,
-        scale: 0.95,
+        y: 40,
     },
     visible: {
         opacity: 1,
-        scale: 1,
+        y: 0,
         transition: {
-            duration: 0.3,
+            type: 'spring',
+            stiffness: 100,
             when: 'beforeChildren'
         },
     },
     exit: {
         opacity: 0,
-        scale: 0.95,
+        y: 20,
         transition: {
-            duration: 0.2,
-            when: 'beforeChildren'
+            duration: 0.2
         }
     },
 };
@@ -243,13 +219,13 @@ export const messageUsernameVariants = {
 export const nonLocalMessageRepliedToVariants = {
     hidden: {
         opacity: 0,
-        x: -20
+        x: -10
     },
     visible: {
         opacity: 1,
         x: 0,
         transition: {
-            delay: 0.4,
+            delay: 0.8,
             type: 'spring',
             stiffness: 120,
         },
@@ -259,24 +235,17 @@ export const nonLocalMessageRepliedToVariants = {
 export const localMessageRepliedToVariants = {
     hidden: {
         opacity: 0,
-        x: 20
+        x: 10
     },
     visible: {
         opacity: 1,
         x: 0,
         transition: {
-            delay: 0.4,
+            delay: 0.8,
             type: 'spring',
             stiffness: 120,
         },
     },
-    // exit: {
-    //     opacity: 0,
-    //     scale: 0,
-    //     transition: {
-    //         duration: 0.5,
-    //     },
-    // },
 };
 
 export const nonLocalSelectCheckboxVariants = {
@@ -320,8 +289,6 @@ export const localSelectCheckboxVariants = {
         },
     },
 };
-
-// --------------------------------------
 
 export const chatDateVariants = {
     hidden: { opacity: 0, scale: 0.8 },
@@ -436,6 +403,7 @@ export const optionsVariants = {
         scale: 1,
         transition: {
             duration: 0.5,
+            staggerChildren: 0.5,
             ease: [0.53, 0, 0, 0.98],
             time: [0.53, 0, 0, 0.98],
             when: 'beforeChildren'
@@ -454,15 +422,18 @@ export const optionsVariants = {
 export const optionLocalVariants = {
     hidden: {
         opacity: 0,
+        // x: 5,
     },
     visible: {
         opacity: 1,
+        // x: 0,
         transition: {
             duration: 0.2,
         },
     },
     exit: {
         opacity: 0,
+        // x: -5,
         transition: {
             duration: 0.2,
         },
@@ -472,15 +443,18 @@ export const optionLocalVariants = {
 export const optionNonLocalVariants = {
     hidden: {
         opacity: 0,
+        // x: 5,
     },
     visible: {
         opacity: 1,
+        // x: 0,
         transition: {
             duration: 0.2,
         },
     },
     exit: {
         opacity: 0,
+        // x: -5,
         transition: {
             duration: 0.2,
         },
@@ -498,83 +472,43 @@ export const popupPageVariants = {
 export const popupContainerVariants = {
     hidden: {
         opacity: 0,
-        scale: 0.9
-    },
-    visible: {
-        opacity: 1,
-        scale: 1,
-        transition: {
-            duration: 0.5,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
-        },
-    },
-    exit: {
-        opacity: 0,
-        scale: 0.9,
-        transition: {
-            duration: 0.2
-        }
-    },
-};
-
-export const replyAddSectionVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-        opacity: 1,
-        transition: {
-            delay: 0.25,
-            duration: 0.4,
-            when: 'beforeChildren',
-        },
-    },
-    exit: { opacity: 0, scale: 0.9, transition: { duration: 0.2 } },
-};
-
-export const replyButtonVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 0.2 } },
-    exit: { opacity: 0, transition: { duration: 0.2 } },
-};
-
-// --------------------------------------
-
-export const settingsContainerVariants = !phone ? {
-    hidden: {
-        opacity: 0,
-        scale: 0.9
-    },
-    visible: {
-        opacity: 1,
-        scale: 1,
-        transition: {
-            duration: 0.5,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
-        },
-    },
-    exit: {
-        opacity: 0,
-        scale: 0.9,
-        transition: {
-            duration: 0.2
-        }
-    },
-} : {
-    hidden: {
-        opacity: 0,
-        y: 50,
+        y: 40,
     },
     visible: {
         opacity: 1,
         y: 0,
         transition: {
-            duration: 0.2
+            type: 'spring',
+            stiffness: 100,
         },
     },
     exit: {
         opacity: 0,
-        y: 50,
+        y: 20,
+        transition: {
+            duration: 0.2
+        }
+    },
+};
+
+// --------------------------------------
+
+export const settingsContainerVariants = {
+    hidden: {
+        opacity: 0,
+        y: 40,
+    },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            type: 'spring',
+            stiffness: 100,
+        },
+    },
+    exit: {
+        opacity: 0,
+        y: 20,
         transition: {
             duration: 0.2
         }
@@ -642,42 +576,22 @@ export const featuresPageVariants = {
     exit: { opacity: 0, transition: { duration: 0.1, when: 'afterChildren' } },
 };
 
-export const featuresContainerVariants = !phone ? {
+export const featuresContainerVariants = {
     hidden: {
         opacity: 0,
-        scale: 0.9
-    },
-    visible: {
-        opacity: 1,
-        scale: 1,
-        transition: {
-            duration: 0.5,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
-        },
-    },
-    exit: {
-        opacity: 0,
-        scale: 0.9,
-        transition: {
-            duration: 0.2
-        }
-    },
-} : {
-    hidden: {
-        opacity: 0,
-        y: 50,
+        y: 40,
     },
     visible: {
         opacity: 1,
         y: 0,
         transition: {
-            duration: 0.2
+            type: 'spring',
+            stiffness: 100,
         },
     },
     exit: {
         opacity: 0,
-        y: 50,
+        y: 20,
         transition: {
             duration: 0.2
         }
@@ -769,8 +683,7 @@ export const selectBarVariants = {
     },
     exit: {
         opacity: 0,
-        y: -50,
-        scale: 0.9,
+        y: -60,
         transition: {
             duration: 0.3,
         },
@@ -790,8 +703,7 @@ export const chatInputVariants = {
     },
     exit: {
         opacity: 0,
-        y: -50,
-        scale: 0.9,
+        y: -60,
         transition: {
             duration: 0.3,
         },
@@ -807,19 +719,22 @@ export const inputButtonVariants = {
 export const inputReplyIndicator = {
     hidden: {
         opacity: 0,
-        y: 10,
+        y: 20,
+        scale: 0.95
     },
     visible: {
         opacity: 1,
         y: 0,
+        scale: 1,
         transition: {
             type: 'spring',
-            stiffness: 150,
+            stiffness: 100,
         },
     },
     exit: {
         opacity: 0,
-        y: 50,
+        y: 40,
+        scaleY: 0,
         transition: {
             duration: 0.6,
             ease: [0.53, 0, 0, 0.98],
@@ -841,8 +756,7 @@ export const editReplyBarVariatns = {
     },
     exit: {
         opacity: 0,
-        y: -40,
-        scale: 0.9,
+        y: -60,
         transition: {
             duration: 0.3,
         },
@@ -851,42 +765,22 @@ export const editReplyBarVariatns = {
 
 // --------------------------------------
 
-export const trashPageVariants = !phone ? {
+export const trashPageVariants = {
     hidden: {
         opacity: 0,
-        scale: 0.9
-    },
-    visible: {
-        opacity: 1,
-        scale: 1,
-        transition: {
-            duration: 0.5,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
-        },
-    },
-    exit: {
-        opacity: 0,
-        scale: 0.9,
-        transition: {
-            duration: 0.2
-        }
-    },
-} : {
-    hidden: {
-        opacity: 0,
-        y: 50,
+        y: 40,
     },
     visible: {
         opacity: 1,
         y: 0,
         transition: {
-            duration: 0.2
+            type: 'spring',
+            stiffness: 100,
         },
     },
     exit: {
         opacity: 0,
-        y: 50,
+        y: 20,
         transition: {
             duration: 0.2
         }
@@ -894,13 +788,14 @@ export const trashPageVariants = !phone ? {
 };
 
 export const trashSelectBarVariants = {
-    hidden: { y: 80 },
+    hidden: {
+        y: 80
+    },
     visible: {
         y: 0,
         transition: {
-            duration: 0.6,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
+            type: 'spring',
+            stiffness: 80,
         },
     },
     exit: {
@@ -938,9 +833,24 @@ export const checkVariants = {
 };
 
 export const dotsLoaderVariants = {
-    hidden: { opacity: 0, scale: 0 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.2 } },
-    exit: { opacity: 0, scale: 0, transition: { duration: 0.2 } },
+    hidden: {
+        opacity: 0,
+        scale: 1.1
+    },
+    visible: {
+        opacity: 1,
+        scale: 1,
+        transition: {
+            duration: 0.4
+        }
+    },
+    exit: {
+        opacity: 0,
+        scale: 1.1,
+        transition: {
+            duration: 0.4
+        }
+    },
 };
 
 // --------------------------------------
@@ -992,23 +902,42 @@ export const menuButtonVariants = {
 
 // --------------------------------------
 
-export const loaderVariants = {
+export const chatLoaderVariants = {
     hidden: {
         opacity: 0,
-        scale: 1.05,
+        y: 40,
     },
     visible: {
         opacity: 1,
-        scale: 1,
+        y: 0,
         transition: {
-            duration: 0.4,
+            type: 'spring',
+            stiffness: 100,
         },
     },
     exit: {
         opacity: 0,
-        scale: 1.05,
+        y: 20,
         transition: {
-            duration: 0.4,
+            duration: 0.2
+        }
+    },
+};
+
+export const loaderVariants = {
+    hidden: {
+        opacity: 0,
+    },
+    visible: {
+        opacity: 1,
+        transition: {
+            duration: 0.4
+        },
+    },
+    exit: {
+        opacity: 0,
+        transition: {
+            duration: 0.4
         }
     },
 };

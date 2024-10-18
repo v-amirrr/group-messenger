@@ -93,7 +93,7 @@ const ChatInputReplyIndicatorContainer = styled(motion.div)`
         overflow: hidden;
         font-family: ${props => (props.isrlt ? 'Vazirmatn' : 'Outfit')}, 'Vazirmatn', sans-serif;
         color: var(--grey);
-        font-weight: 400;
+        font-weight: 300;
 
         .icon {
             display: flex;
@@ -133,6 +133,7 @@ const ChatInputReplyIndicatorContainer = styled(motion.div)`
 
     @media (max-width: 768px) {
         max-width: 16rem;
+        border-radius: 15px 15px 0 0;
     }
 `;
 

@@ -57,7 +57,7 @@ const Settings = styled.section`
         flex-direction: column;
         border: var(--border);
         border-radius: 25px;
-        background-color: #00000044;
+        background-color: #ffffff05;
         padding-top: 4rem;
 
         .header {

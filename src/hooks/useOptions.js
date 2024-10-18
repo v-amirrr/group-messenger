@@ -122,7 +122,9 @@ export const useOptions = () => {
             messages: messagesBeforeEditingMessage,
             replyId: replyToId,
         }));
-        openNotification('Tap on the message you want to reply', 'GENERAL');
+        setTimeout(() => {
+            openNotification('Tap on the message you want to reply', 'GENERAL');
+        }, 600);
     };
 
     const deactivateEditReply = () => {

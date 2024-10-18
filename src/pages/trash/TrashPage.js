@@ -104,11 +104,11 @@ const Trash = styled(motion.div)`
         align-items: center;
         border: var(--border);
         border-radius: 25px;
-        background-color: #00000044;
+        background-color: #ffffff05;
         box-shadow: var(--shadow);
         overflow: hidden;
         opacity: ${props => props.data.optionsAnimationStatus == 2 ? 0.5 : 1};
-        transform: ${props => props.data.optionsAnimationStatus == 2 ? 'scale(0.95)' : 'scale(1)'};
+        transform: ${props => props.data.optionsAnimationStatus == 2 ? 'scale(0.92)' : 'scale(1)'};
         transition: ${props => props.data.optionsAnimationStatus == 2 ? 'transform .3s .05s' : 'transform .2s'}, opacity .3s;
 
         .header {
@@ -294,6 +294,7 @@ const Trash = styled(motion.div)`
             height: 100%;
             border: none;
             border-radius: 0;
+            background-color: #ffffff00;
 
             .deleted-messages {
                 height: 100%;

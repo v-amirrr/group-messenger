@@ -170,7 +170,7 @@ const OptionsButtonHandlerContainer = styled(motion.div)`
             justify-content: center;
             align-items: center;
             font-size: 1.2rem;
-            margin-right: .2rem;
+            margin-right: .15rem;
         }
 
         p {
@@ -202,15 +202,15 @@ const OptionsButtonHandlerContainer = styled(motion.div)`
 
         .calendar {
             i {
-                font-size: .9rem;
-                color: var(--grey);
+                font-size: .95rem;
+                color: #333;
                 margin-right: .15rem;
             }
         }
 
         p {
             letter-spacing: 0px;
-            font-size: .52rem;
+            font-size: .5rem;
             font-weight: 200;
             color: var(--grey);
 

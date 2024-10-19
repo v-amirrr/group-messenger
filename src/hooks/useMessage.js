@@ -44,8 +44,6 @@ export const useMessage = (messageData, type, messageRef) => {
             messagePosition == 1 ? '.1rem 0 .06rem 0' :
             messagePosition == 2 ? '.06rem 0 .06rem 0' :
             messagePosition == 3 && '.06rem 0 .1rem 0',
-        boxMarginRight: selectedMessages?.length && isLocalMessage ? '2.4rem' : '',
-        boxMarginLeft: selectedMessages?.length && !isLocalMessage ? '2.4rem' : '',
         boxRoundRadius:
             isLocalMessage && messagePosition == 0 ? '25px' :
             isLocalMessage && messagePosition == 1 ? '25px 25px 20px 25px' :
@@ -65,10 +63,8 @@ export const useMessage = (messageData, type, messageRef) => {
             !isLocalMessage && messagePosition == 2 ? '15px 20px 20px 15px' :
             !isLocalMessage && messagePosition == 3 && '15px 20px 20px 20px',
         boxPadding:
-            textLetters <= 3 ?
-            '.45rem 1rem' :
-            textLetters > 3 ?
-            '.45rem .6rem' : '',
+            textLetters <= 3 ? '.45rem 1rem' :
+            textLetters > 3 ? '.45rem .6rem' : '',
         boxJustify: isLocalMessage ? 'flex-start' : 'flex-end',
         boxVisibility: optionsMessage?.id == id ? 'hidden' : 'visible',
         boxWidth: type == 'TRASH' ? '84%' : '65%',

@@ -248,48 +248,6 @@ export const localMessageRepliedToVariants = {
     },
 };
 
-export const nonLocalSelectCheckboxVariants = {
-    hidden: {
-        opacity: 0,
-        x: -40
-    },
-    visible: {
-        opacity: 1,
-        x: 0,
-        transition: {
-            duration: 0.33,
-        },
-    },
-    exit: {
-        opacity: 0,
-        x: -40,
-        transition: {
-            duration: 0.2,
-        },
-    }
-};
-
-export const localSelectCheckboxVariants = {
-    hidden: {
-        opacity: 0,
-        x: 40
-    },
-    visible: {
-        opacity: 1,
-        x: 0,
-        transition: {
-            duration: 0.33,
-        },
-    },
-    exit: {
-        opacity: 0,
-        x: 40,
-        transition: {
-            duration: 0.2,
-        },
-    },
-};
-
 export const chatDateVariants = {
     hidden: { opacity: 0, scale: 0.8 },
     visible: { opacity: 1, scale: 1, transition: { duration: 0.4 } },
@@ -683,7 +641,7 @@ export const selectBarVariants = {
     },
     exit: {
         opacity: 0,
-        y: -60,
+        y: -20,
         transition: {
             duration: 0.3,
         },
@@ -703,7 +661,7 @@ export const chatInputVariants = {
     },
     exit: {
         opacity: 0,
-        y: -60,
+        y: -20,
         transition: {
             duration: 0.3,
         },
@@ -756,7 +714,7 @@ export const editReplyBarVariatns = {
     },
     exit: {
         opacity: 0,
-        y: -60,
+        y: -20,
         transition: {
             duration: 0.3,
         },

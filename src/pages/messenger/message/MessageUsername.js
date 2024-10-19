@@ -5,11 +5,11 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { messageUsernameVariants } from '../../../config/varitans';
 
-const MessageUsername = ({ uid, isUserSelecting, showMessageDate }) => {
+const MessageUsername = ({ uid, showMessageDate }) => {
     const { usernames } = useSelector(store => store.firestoreStore);
     return (
         <>
-            <MessageUsernameContainer initial='hidden' animate='visible' exit='exit' variants={messageUsernameVariants} data={{ isUserSelecting, showMessageDate }}>
+            <MessageUsernameContainer initial='hidden' animate='visible' exit='exit' variants={messageUsernameVariants} data={{ showMessageDate }}>
                 <i><TiUser /></i>
                 {usernames[uid]}
             </MessageUsernameContainer>
@@ -22,7 +22,6 @@ const MessageUsernameContainer = styled(motion.div)`
     top: ${props => props.data.showMessageDate ? "1.83rem" : ".62rem"};
     max-width: 8rem;
     color: var(--grey);
-    margin-left: ${props => props.data.isUserSelecting ? '2.4rem' : ''};
     margin-right: .2rem;
     padding: .2rem .5rem .2rem 1rem;
     font-size: .6rem;
@@ -30,7 +29,6 @@ const MessageUsernameContainer = styled(motion.div)`
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-    transition: margin .4s;
 
     i {
         position: absolute;

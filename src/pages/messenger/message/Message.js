@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import { useMessage } from '../../../hooks/useMessage';
 import MessageBox from './MessageBox';
 import MessageDate from './MessageDate';
-import MessageSelectCheckbox from './MessageSelectCheckbox';
 import MessageUsername from './MessageUsername';
 import MessageSendStatus from './MessageSendStatus';
 import MessageEditReplyIndicator from './MessageEditReplyIndicator';
@@ -32,7 +31,6 @@ const Message = ({ messageData, type }) => {
 
     const messageRef = useRef();
     const [isVisible, setIsVisible] = useState(false);
-    const { selectedMessages } = useSelector(store => store.selectStore);
     const { editReply } = useSelector(store => store.appStore);
 
     const {
@@ -47,8 +45,6 @@ const Message = ({ messageData, type }) => {
     const showMessageDate = () => previousMessageDifferentDate && time?.year;
 
     const showMessageUsername = () => !isLocalMessage && messagePosition < 2;
-
-    const showMessageSelectCheckbox = () => selectedMessages?.length ? true : false;
 
     const showEditReplyIndicator = () => editReply?.replyId == id;
 
@@ -92,10 +88,7 @@ const Message = ({ messageData, type }) => {
             >
                 {showMessageDate() && <MessageDate data={time} />}
                 <AnimatePresence>
-                    {showMessageUsername() && <MessageUsername uid={uid} isUserSelecting={showMessageSelectCheckbox()} showMessageDate={showMessageDate()} />}
-                </AnimatePresence>
-                <AnimatePresence>
-                    {showMessageSelectCheckbox() && <MessageSelectCheckbox selected={selected} messageClickHandler={messageClickHandler} isLocalMessage={isLocalMessage} />}
+                    {showMessageUsername() && <MessageUsername uid={uid} showMessageDate={showMessageDate()} />}
                 </AnimatePresence>
                 <MessageBox
                     messageClickHandler={messageClickHandler}
@@ -107,6 +100,7 @@ const Message = ({ messageData, type }) => {
                     }}
                     styles={{
                         ...styles,
+                        selected: selected,
                         persian: isTextPersian ? 1 : 0,
                         skeletonEffect: messageSkeletonEffect ? 1 : 0,
                     }}

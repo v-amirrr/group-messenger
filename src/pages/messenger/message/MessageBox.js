@@ -79,10 +79,8 @@ const MessageBoxContainer = styled.div`
     border-radius: 25px;
     border-radius: ${props => props.data.boxRoundRadius};
     margin: ${props => props.data.boxMargin};
-    margin-right: ${props => props.data.boxMarginRight};
-    margin-left: ${props => props.data.boxMarginLeft};
     padding: ${props => props.data.boxPadding};
-    background-color: ${props => props.data.editingMode ? '#ffffff00' : 'var(--bg)'};
+    background-color: ${props => props.data.editingMode ? '#ffffff00' : props.data.selected ? 'var(--bg-hover)' : 'var(--bg)'};
     background-image: linear-gradient(
         90deg,
         #ffffff00 20%,
@@ -97,7 +95,7 @@ const MessageBoxContainer = styled.div`
     cursor: ${props => props.data.editingMode ? 'auto' : 'pointer'};
     visibility: ${props => props.data.boxVisibility};
     animation: ${props => props.data.skeletonEffect || props.data.editingMode ? 'skeleton-effect .8s 1 linear backwards' : ''};
-    transition: border-radius .2s, margin .4s, border .2s, background-color .2s;
+    transition: border-radius .2s, border .2s, background-color .2s;
 
     .message-text {
         text-align: ${props => props.data.persian ? 'right' : 'left'};

@@ -255,7 +255,10 @@ export const chatDateVariants = {
 };
 
 export const localMessageVariants = {
-    hidden: { opacity: 0, y: 40, scale: 0.8 },
+    hidden: {
+        opacity: 0,
+        y: 40,
+    },
     visible: {
         opacity: 1,
         y: 0,
@@ -269,7 +272,7 @@ export const localMessageVariants = {
     exit: {
         opacity: 0,
         scale: 0,
-        x: 120,
+        x: 200,
         transition: {
             duration: 0.3,
         },
@@ -277,7 +280,10 @@ export const localMessageVariants = {
 }
 
 export const nonLocalMessageVariants = {
-    hidden: { opacity: 0, y: 40, scale: 0.8 },
+    hidden: {
+        opacity: 0,
+        y: 40,
+    },
     visible: {
         opacity: 1,
         y: 0,
@@ -291,7 +297,7 @@ export const nonLocalMessageVariants = {
     exit: {
         opacity: 0,
         scale: 0,
-        x: -120,
+        x: -200,
         transition: {
             duration: 0.3,
         },
@@ -692,7 +698,7 @@ export const inputReplyIndicator = {
     exit: {
         opacity: 0,
         y: 40,
-        scaleY: 0,
+        scale: 0.9,
         transition: {
             duration: 0.6,
             ease: [0.53, 0, 0, 0.98],

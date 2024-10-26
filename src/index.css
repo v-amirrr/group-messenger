@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 :root {
-    --shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    --shadow: #00000088 0px 0px 10px;
 
     --text: #ffffffc4;
     --grey: #ffffff40;

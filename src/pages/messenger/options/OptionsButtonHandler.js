@@ -202,7 +202,7 @@ const OptionsButtonHandlerContainer = styled(motion.div)`
 
         .calendar {
             i {
-                font-size: .95rem;
+                font-size: 1.1rem;
                 color: #333;
                 margin-right: .15rem;
             }

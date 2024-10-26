@@ -1,6 +1,6 @@
 import React from 'react';
 import AnalogClock from '../../../common/AnalogClock';
-import { BsCalendar2DateFill } from "react-icons/bs";
+import { FcCalendar } from "react-icons/fc";
 import { motion } from 'framer-motion';
 
 const DetailsButtons = ({ time, setVariants }) => {
@@ -15,7 +15,7 @@ const DetailsButtons = ({ time, setVariants }) => {
                     </p>
                 </div>
                 <div className='calendar'>
-                    <i><BsCalendar2DateFill /></i>
+                    <i><FcCalendar /></i>
                     <p>
                         <span>{time?.year} {time?.month} {time?.day}</span>
                     </p>

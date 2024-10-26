@@ -99,8 +99,8 @@ const ChatInputReplyIndicatorContainer = styled(motion.div)`
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 1rem;
-            margin-right: .1rem;
+            font-size: .9rem;
+            margin-right: .05rem;
         }
 
         .text {

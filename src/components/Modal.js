@@ -70,9 +70,6 @@ const ModalContainer = styled(motion.section)`
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        border: var(--border);
-        border-radius: 25px;
-        box-shadow: var(--shadow);
 
         .modal-message {
             font-size: 1rem;
@@ -86,7 +83,6 @@ const ModalContainer = styled(motion.section)`
                 border: none;
                 border-radius: 50px;
                 background-color: var(--bg);
-                box-shadow: var(--shadow);
                 margin: 0 0.3rem;
                 width: 5rem;
                 height: 2.3rem;

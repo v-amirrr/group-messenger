@@ -3,20 +3,20 @@ let phone = document.documentElement.offsetWidth < 600;
 export const errorBoxVariants = {
     hidden: {
         opacity: 0,
-        y: 40,
+        scale: 0.9
     },
     visible: {
         opacity: 1,
         scale: 1,
-        y: 0,
         transition: {
-            type: 'spring',
-            stiffness: 100,
+            duration: 0.5,
+            ease: [0.53, 0, 0, 0.98],
+            time: [0.53, 0, 0, 0.98],
         },
     },
     exit: {
         opacity: 0,
-        y: 20,
+        scale: 0.9,
         transition: {
             duration: 0.2
         }
@@ -73,19 +73,20 @@ export const notificationFastVariants = {
 export const loginVariants = {
     hidden: {
         opacity: 0,
-        y: 40,
+        scale: 0.9
     },
     visible: {
         opacity: 1,
-        y: 0,
+        scale: 1,
         transition: {
-            type: 'spring',
-            stiffness: 100,
+            duration: 0.5,
+            ease: [0.53, 0, 0, 0.98],
+            time: [0.53, 0, 0, 0.98],
         },
     },
     exit: {
         opacity: 0,
-        y: 20,
+        scale: 0.9,
         transition: {
             duration: 0.2
         }
@@ -145,19 +146,19 @@ export const loginPasswordInputVariants = {
 export const messengerVariants = {
     hidden: {
         opacity: 0,
-        y: 40,
+        // scale: 0.9
     },
     visible: {
         opacity: 1,
-        y: 0,
+        // scale: 1,
         transition: {
-            type: 'spring',
-            stiffness: 100,
+            duration: 0.2,
+            when: "beforeChildren"
         },
     },
     exit: {
         opacity: 0,
-        y: 20,
+        scale: 0.9,
         transition: {
             duration: 0.2
         }
@@ -167,47 +168,46 @@ export const messengerVariants = {
 export const chatMessagesVariants = {
     hidden: {
         opacity: 0,
-        y: 40,
+        // scale: 0.9
     },
     visible: {
         opacity: 1,
-        y: 0,
+        // scale: 1,
         transition: {
-            type: 'spring',
-            stiffness: 100,
-            when: 'beforeChildren'
+            duration: 0.2,
+            when: "beforeChildren"
         },
     },
-    exit: {
-        opacity: 0,
-        y: 20,
-        transition: {
-            duration: 0.2
-        }
-    },
+    // exit: {
+    //     opacity: 0,
+    //     scale: 0.9,
+    //     transition: {
+    //         duration: 0.2
+    //     }
+    // },
 };
 
 export const messagesVariants = {
     hidden: {
         opacity: 0,
-        y: 40,
+        // scale: 0.9
     },
     visible: {
         opacity: 1,
-        y: 0,
+        // scale: 1,
         transition: {
-            type: 'spring',
-            stiffness: 100,
-            when: 'beforeChildren'
+            // delay: 0.5,
+            duration: 0.2,
+            when: "beforeChildren"
         },
     },
-    exit: {
-        opacity: 0,
-        y: 20,
-        transition: {
-            duration: 0.2
-        }
-    },
+    // exit: {
+    //     opacity: 0,
+    //     scale: 0.9,
+    //     transition: {
+    //         duration: 0.2
+    //     }
+    // },
 };
 
 export const messageUsernameVariants = {
@@ -225,7 +225,7 @@ export const nonLocalMessageRepliedToVariants = {
         opacity: 1,
         x: 0,
         transition: {
-            delay: 0.8,
+            delay: 2,
             type: 'spring',
             stiffness: 120,
         },
@@ -241,7 +241,7 @@ export const localMessageRepliedToVariants = {
         opacity: 1,
         x: 0,
         transition: {
-            delay: 0.8,
+            delay: 2,
             type: 'spring',
             stiffness: 120,
         },
@@ -367,7 +367,6 @@ export const optionsVariants = {
         scale: 1,
         transition: {
             duration: 0.5,
-            staggerChildren: 0.5,
             ease: [0.53, 0, 0, 0.98],
             time: [0.53, 0, 0, 0.98],
             when: 'beforeChildren'
@@ -377,7 +376,7 @@ export const optionsVariants = {
         opacity: 0,
         scale: 0.9,
         transition: {
-            duration: 0.2,
+            duration: 0.3,
             when: 'beforeChildren'
         },
     },
@@ -436,19 +435,20 @@ export const popupPageVariants = {
 export const popupContainerVariants = {
     hidden: {
         opacity: 0,
-        y: 40,
+        scale: 0.9
     },
     visible: {
         opacity: 1,
-        y: 0,
+        scale: 1,
         transition: {
-            type: 'spring',
-            stiffness: 100,
+            duration: 0.5,
+            ease: [0.53, 0, 0, 0.98],
+            time: [0.53, 0, 0, 0.98],
         },
     },
     exit: {
         opacity: 0,
-        y: 20,
+        scale: 0.9,
         transition: {
             duration: 0.2
         }
@@ -460,19 +460,20 @@ export const popupContainerVariants = {
 export const settingsContainerVariants = {
     hidden: {
         opacity: 0,
-        y: 40,
+        scale: 0.9
     },
     visible: {
         opacity: 1,
-        y: 0,
+        scale: 1,
         transition: {
-            type: 'spring',
-            stiffness: 100,
+            duration: 0.5,
+            ease: [0.53, 0, 0, 0.98],
+            time: [0.53, 0, 0, 0.98],
         },
     },
     exit: {
         opacity: 0,
-        y: 20,
+        scale: 0.9,
         transition: {
             duration: 0.2
         }
@@ -543,19 +544,20 @@ export const featuresPageVariants = {
 export const featuresContainerVariants = {
     hidden: {
         opacity: 0,
-        y: 40,
+        scale: 0.9
     },
     visible: {
         opacity: 1,
-        y: 0,
+        scale: 1,
         transition: {
-            type: 'spring',
-            stiffness: 100,
+            duration: 0.5,
+            ease: [0.53, 0, 0, 0.98],
+            time: [0.53, 0, 0, 0.98],
         },
     },
     exit: {
         opacity: 0,
-        y: 20,
+        scale: 0.9,
         transition: {
             duration: 0.2
         }
@@ -683,8 +685,7 @@ export const inputButtonVariants = {
 export const inputReplyIndicator = {
     hidden: {
         opacity: 0,
-        y: 20,
-        scale: 0.95
+        y: 10,
     },
     visible: {
         opacity: 1,
@@ -697,12 +698,9 @@ export const inputReplyIndicator = {
     },
     exit: {
         opacity: 0,
-        y: 40,
-        scale: 0.9,
+        y: 10,
         transition: {
-            duration: 0.6,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
+            duration: 0.2,
         },
     },
 };
@@ -732,19 +730,20 @@ export const editReplyBarVariatns = {
 export const trashPageVariants = {
     hidden: {
         opacity: 0,
-        y: 40,
+        scale: 0.95
     },
     visible: {
         opacity: 1,
-        y: 0,
+        scale: 1,
         transition: {
-            type: 'spring',
-            stiffness: 100,
+            duration: 0.5,
+            ease: [0.53, 0, 0, 0.98],
+            time: [0.53, 0, 0, 0.98],
         },
     },
     exit: {
         opacity: 0,
-        y: 20,
+        scale: 0.95,
         transition: {
             duration: 0.2
         }
@@ -869,19 +868,20 @@ export const menuButtonVariants = {
 export const chatLoaderVariants = {
     hidden: {
         opacity: 0,
-        y: 40,
+        scale: 0.9
     },
     visible: {
         opacity: 1,
-        y: 0,
+        scale: 1,
         transition: {
-            type: 'spring',
-            stiffness: 100,
+            duration: 0.5,
+            ease: [0.53, 0, 0, 0.98],
+            time: [0.53, 0, 0, 0.98],
         },
     },
     exit: {
         opacity: 0,
-        y: 20,
+        scale: 0.9,
         transition: {
             duration: 0.2
         }

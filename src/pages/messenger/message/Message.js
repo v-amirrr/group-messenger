@@ -30,7 +30,6 @@ const Message = ({ messageData, type }) => {
     } = messageData;
 
     const messageRef = useRef();
-    const [isVisible, setIsVisible] = useState(false);
     const { editReply } = useSelector(store => store.appStore);
 
     const {
@@ -48,34 +47,9 @@ const Message = ({ messageData, type }) => {
 
     const showEditReplyIndicator = () => editReply?.replyId == id;
 
-    const showRepliedTo = () => isVisible && replyTo != 'NO_REPLY' && type != 'TRASH';
+    const showRepliedTo = () =>  replyTo != 'NO_REPLY' && type != 'TRASH';
 
     const setVariants = () => isLocalMessage ? localMessageVariants : nonLocalMessageVariants;
-
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting && !isVisible) {
-                    setIsVisible(true);
-                    observer.unobserve(messageRef?.current);
-                }
-            },
-            {
-              root: null,
-              threshold: 0.1,
-            }
-        );
-
-        if (messageRef?.current) {
-            observer.observe(messageRef?.current);
-        }
-
-        return () => {
-            if (messageRef?.current) {
-              observer.unobserve(messageRef?.current);
-            }
-          };
-    }, [isVisible]);
 
     return (
         <>

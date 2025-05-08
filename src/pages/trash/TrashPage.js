@@ -99,27 +99,29 @@ const Trash = styled(motion.div)`
     .trash-container {
         position: relative;
         width: 28rem;
+        max-height: 35rem;
         display: flex;
         justify-content: center;
         align-items: center;
+        flex-direction: column;
         border: var(--border);
         border-radius: 25px;
         background-color: #ffffff05;
         box-shadow: var(--shadow);
         overflow: hidden;
-        opacity: ${props => props.data.optionsAnimationStatus == 2 ? 0.5 : 1};
-        transform: ${props => props.data.optionsAnimationStatus == 2 ? 'scale(0.92)' : 'scale(1)'};
+        opacity: ${props => props.data.optionsAnimationStatus == 2 ? 0.7 : 1};
+        transform: ${props => props.data.optionsAnimationStatus == 2 ? 'scale(0.95)' : 'scale(1)'};
         transition: ${props => props.data.optionsAnimationStatus == 2 ? 'transform .3s .05s' : 'transform .2s'}, opacity .3s;
 
         .header {
-            position: absolute;
+            /* position: absolute; */
             top: 0;
             width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: .8rem 0;
-            backdrop-filter: var(--glass);
+            /* backdrop-filter: var(--glass); */
             z-index: 3;
 
             .header-text {
@@ -159,9 +161,8 @@ const Trash = styled(motion.div)`
         .deleted-messages {
             position: relative;
             width: 95%;
-            max-height: 35rem;
             text-align: center;
-            padding: 5rem 1rem 9rem 1rem;
+            padding: 1rem;
             scroll-behavior: smooth;
             overflow: hidden scroll;
 
@@ -175,7 +176,6 @@ const Trash = styled(motion.div)`
 
             @media (max-width: 800px) {
                 width: 100%;
-                padding: 5rem 1rem 10rem 1rem;
             }
         }
 
@@ -292,6 +292,7 @@ const Trash = styled(motion.div)`
         .trash-container {
             width: 100%;
             height: 100%;
+            max-height: 100%;
             border: none;
             border-radius: 0;
             background-color: #ffffff00;

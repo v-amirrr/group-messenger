@@ -1,6 +1,5 @@
 import React from 'react';
 import AnalogClock from '../../../common/AnalogClock';
-import { FcCalendar } from "react-icons/fc";
 import { motion } from 'framer-motion';
 import { LuCalendarDays } from "react-icons/lu";
 

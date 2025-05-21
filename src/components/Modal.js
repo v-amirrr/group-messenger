@@ -10,6 +10,7 @@ import { popupPageVariants, popupContainerVariants } from '../config/varitans';
 const Modal = () => {
     const { modalShow, modalName, modalMessages, modalEditedUsername } = useSelector(store => store.modalStore);
     const { user } = useSelector(store => store.userStore);
+    const { usernames } = useSelector(store => store.firestoreStore);
     const popupPageRef = useRef();
     const { closeModal } = useModal();
 
@@ -39,7 +40,7 @@ const Modal = () => {
                                 <ChangeUsernameModal
                                     closePopup={closeModal}
                                     newUsername={modalEditedUsername}
-                                    oldUsername={user?.displayName}
+                                    oldUsername={usernames[user.uid]}
                                 /> : ''
                             }
                         </motion.div>
@@ -64,7 +65,6 @@ const ModalContainer = styled(motion.section)`
     .modal {
         z-index: 4;
         position: relative;
-        padding: 1.2rem;
         text-align: center;
         display: flex;
         justify-content: center;

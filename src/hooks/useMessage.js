@@ -68,7 +68,7 @@ export const useMessage = (messageData, type, messageRef) => {
         boxJustify: isLocalMessage ? 'flex-start' : 'flex-end',
         boxVisibility: optionsMessage?.id == id ? 'hidden' : 'visible',
         boxWidth: type == 'TRASH' ? '84%' : '65%',
-        boxShadow: replyTo != 'NO_REPLY' && type != 'TRASH' ? isLocalMessage ? 'rgba(0, 0, 0, 0.5) -8px 0px 10px' : 'rgba(0, 0, 0, 0.5) 8px 0px 10px' : '',
+        boxShadow: replyTo != 'NO_REPLY' && type != 'TRASH' ? isLocalMessage ? 'rgba(0, 0, 0, 0.4) -8px 0px 10px' : 'rgba(0, 0, 0, 0.5) 8px 0px 10px' : '',
         boxBackdropFilter: replyTo != 'NO_REPLY' && type != 'TRASH' ? 'var(--glass)' : '',
         messageFlexDirection: isLocalMessage ? 'row-reverse' : 'row',
         messagePaddingTop:

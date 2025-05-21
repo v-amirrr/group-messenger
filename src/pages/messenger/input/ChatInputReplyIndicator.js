@@ -69,6 +69,7 @@ const ChatInputReplyIndicatorContainer = styled(motion.div)`
     position: absolute;
     bottom: ${props => props.emoji ? '13.4rem' : '3.4rem'};
     max-width: 17rem;
+    min-width: 6rem;
     height: 2rem;
     display: flex;
     justify-content: center;

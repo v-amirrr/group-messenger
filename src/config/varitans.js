@@ -257,12 +257,13 @@ export const chatDateVariants = {
 export const localMessageVariants = {
     hidden: {
         opacity: 0,
-        y: 40,
+        y: 20,
+        x: -20,
     },
     visible: {
         opacity: 1,
         y: 0,
-        scale: 1,
+        x: 0,
         transition: {
             duration: 0.5,
             ease: [0.53, 0, 0, 0.98],
@@ -272,7 +273,7 @@ export const localMessageVariants = {
     exit: {
         opacity: 0,
         scale: 0,
-        x: 200,
+        x: 290,
         transition: {
             duration: 0.3,
         },
@@ -282,12 +283,13 @@ export const localMessageVariants = {
 export const nonLocalMessageVariants = {
     hidden: {
         opacity: 0,
-        y: 40,
+        y: 20,
+        x: 20,
     },
     visible: {
         opacity: 1,
         y: 0,
-        scale: 1,
+        x: 0,
         transition: {
             duration: 0.5,
             ease: [0.53, 0, 0, 0.98],
@@ -297,7 +299,7 @@ export const nonLocalMessageVariants = {
     exit: {
         opacity: 0,
         scale: 0,
-        x: -200,
+        x: -290,
         transition: {
             duration: 0.3,
         },
@@ -351,7 +353,6 @@ export const optionsGlassVariants = {
     exit: {
         opacity: 0,
         transition: {
-            // delay: 0.05,
             duration: 0.2,
         },
     },
@@ -360,23 +361,19 @@ export const optionsGlassVariants = {
 export const optionsVariants = {
     hidden: {
         opacity: 0,
-        scale: 0.98,
     },
     visible: {
         opacity: 1,
-        scale: 1,
         transition: {
-            duration: 0.5,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
+            delay: 0.1,
+            duration: 0.3,
             when: 'beforeChildren'
         },
     },
     exit: {
         opacity: 0,
-        scale: 0.9,
         transition: {
-            duration: 0.3,
+            duration: 0.2,
             when: 'beforeChildren'
         },
     },
@@ -385,18 +382,19 @@ export const optionsVariants = {
 export const optionLocalVariants = {
     hidden: {
         opacity: 0,
-        // x: 5,
+        x: 10,
     },
     visible: {
         opacity: 1,
-        // x: 0,
+        x: 0,
         transition: {
-            duration: 0.2,
+            type: 'spring',
+            stiffness: 80,
         },
     },
     exit: {
         opacity: 0,
-        // x: -5,
+        x: -10,
         transition: {
             duration: 0.2,
         },
@@ -406,18 +404,19 @@ export const optionLocalVariants = {
 export const optionNonLocalVariants = {
     hidden: {
         opacity: 0,
-        // x: 5,
+        x: -10,
     },
     visible: {
         opacity: 1,
-        // x: 0,
+        x: 0,
         transition: {
-            duration: 0.2,
+            type: 'spring',
+            stiffness: 80,
         },
     },
     exit: {
         opacity: 0,
-        // x: -5,
+        x: 10,
         transition: {
             duration: 0.2,
         },
@@ -690,10 +689,9 @@ export const inputReplyIndicator = {
     visible: {
         opacity: 1,
         y: 0,
-        scale: 1,
         transition: {
             type: 'spring',
-            stiffness: 100,
+            stiffness: 150,
         },
     },
     exit: {

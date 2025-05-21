@@ -28,7 +28,7 @@ const MessageEditReplyIndicatorContainer = styled(motion.div)`
     padding: 1rem;
     border-radius: 50%;
     cursor: pointer;
-    transition: background .2s;
+    transition: background .4s;
 
     .reply {
         width: 100%;
@@ -38,7 +38,7 @@ const MessageEditReplyIndicatorContainer = styled(motion.div)`
         justify-content: center;
         align-items: center;
         transform: scale(1);
-        transition: transform .2s;
+        transition: transform .4s;
     }
 
     .close {
@@ -49,7 +49,7 @@ const MessageEditReplyIndicatorContainer = styled(motion.div)`
         justify-content: center;
         align-items: center;
         transform: scale(0);
-        transition: transform .2s;
+        transition: transform .4s;
         font-size: 1.6rem;
     }
 

@@ -100,7 +100,7 @@ const ChatMessagesContainer = styled(motion.div)`
     display: flex;
     justify-content: center;
     align-items: center;
-    transform: ${props => props.data.optionsAnimationStatus == 2 ? 'scale(0.95)' : 'scale(1)'} !important;
+    transform: ${props => props.data.optionsAnimationStatus == 2 ? 'scale(0.96)' : 'scale(1)'} !important;
     transition: ${props => props.data.optionsAnimationStatus == 2 ? 'transform .3s' : 'transform .2s'};
 
     .messages {

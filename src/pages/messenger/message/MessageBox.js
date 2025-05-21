@@ -75,7 +75,7 @@ const MessageBoxContainer = styled.div`
     align-items: center;
     max-width: ${props => props.data.boxWidth};
     width: fit-content;
-    border: ${props => props.data.editingMode ? 'solid 2.5px #ffffff15' : 'solid 0px #ffffff00'};
+    border: ${props => props.data.editingMode ? 'solid 1.5px #ffffff20' : 'solid 1.5px #ffffff00'};
     border-radius: 25px;
     border-radius: ${props => props.data.boxRoundRadius};
     margin: ${props => props.data.boxMargin};
@@ -94,8 +94,8 @@ const MessageBoxContainer = styled.div`
     box-shadow: ${props => props.data.boxShadow};
     cursor: ${props => props.data.editingMode ? 'auto' : 'pointer'};
     visibility: ${props => props.data.boxVisibility};
-    animation: ${props => props.data.skeletonEffect || props.data.editingMode ? 'skeleton-effect .8s 1 linear backwards' : ''};
-    transition: border-radius .2s, margin .4s, border .2s, background-color .2s;
+    animation: ${props => props.data.skeletonEffect ? 'skeleton-effect .8s 1 linear backwards' : ''};
+    transition: border-radius .2s, margin .4s, border .2s, background-color .4s;
 
     .message-text {
         text-align: ${props => props.data.persian ? 'right' : 'left'};

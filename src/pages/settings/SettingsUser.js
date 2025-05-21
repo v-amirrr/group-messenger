@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useModal } from '../../hooks/useModal';
 import { useNotification } from '../../hooks/useNotification';
@@ -11,9 +11,11 @@ import { userSettingsVariants } from '../../config/varitans';
 
 const SettingsUser = ({ open, setOpen, setHeight }) => {
     const { user, enterAsAGuest } = useSelector(store => store.userStore);
+    const { usernames } = useSelector(store => store.firestoreStore);
+    const { modalShow } = useSelector(store => store.modalStore);
     const { openModal } = useModal();
     const { openNotification } = useNotification();
-    const [changeUsernameInput, setChangeUsernameInput] = useState(user?.displayName);
+    const [changeUsernameInput, setChangeUsernameInput] = useState(usernames[user?.uid]);
     const [inputEnabled, setInputEnabled] = useState(false);
 
     const itemSwitch = () => {
@@ -31,10 +33,9 @@ const SettingsUser = ({ open, setOpen, setHeight }) => {
     };
 
     const changeUsernameHandler = () => {
-        if (changeUsernameInput && changeUsernameInput != user?.displayName) {
+        if (changeUsernameInput && changeUsernameInput != usernames[user?.uid]) {
             openModal('CHANGE_USERNAME_CONFIRMATION', null, changeUsernameInput);
-            setInputEnabled(false);
-        } else if (changeUsernameInput == user?.displayName) {
+        } else if (changeUsernameInput == usernames[user?.uid]) {
             openNotification("The old and the new usernames are the same", "ERROR");
         } else {
             openNotification("Type a new username", "ERROR");
@@ -42,9 +43,18 @@ const SettingsUser = ({ open, setOpen, setHeight }) => {
     };
 
     const cancelHandler = () => {
-        setChangeUsernameInput(user?.displayName);
+        setChangeUsernameInput(usernames[user?.uid]);
         setInputEnabled(false);
     };
+
+    useEffect(() => {
+        console.log(changeUsernameInput, usernames[user?.uid]);
+        if (!modalShow && changeUsernameInput == usernames[user?.uid]) {
+            setTimeout(() => {
+                setInputEnabled(false);
+            }, 400);
+        }
+    }, [usernames[user?.uid]]);
 
     return (
         <>

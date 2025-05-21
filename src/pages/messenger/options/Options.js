@@ -108,8 +108,8 @@ const OptionsContainer = styled.div`
         flex-direction: column;
         z-index: 6;
         opacity: ${props => props.styles.zeroScale ? 0 : 1};
-        transform: ${props => props.styles.animationStatus == 2 ? 'scale(1.05)' : 'scale(1)'};
-        transition: ${props => props.styles.animationStatus == 2 ? 'transform .4s cubic-bezier(0.53, 0, 0, 0.98)' : 'transform .2s'}, opacity .3s;
+        transform: ${props => props.styles.animationStatus == 2 ? 'scale(1.08)' : 'scale(1)'};
+        transition: ${props => props.styles.animationStatus == 2 ? 'transform .6s cubic-bezier(0.3, 0, 0, 1.55)' : 'transform .2s'}, opacity .3s;
     }
 `;
 

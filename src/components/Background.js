@@ -1,5 +1,5 @@
 import React from 'react';
-import backgroundImageSRC from '../assets/images/r.jpg';
+import backgroundImageSRC from '../assets/images/c.jpg';
 import styled from 'styled-components';
 
 const Background = () => {
@@ -18,13 +18,13 @@ const BackgroundContainer = styled.div`
     width: 100vw;
     height: 100vh;
     z-index: -2;
-    filter: blur(40px);
+    filter: blur(20px);
     display: flex;
     justify-content: center;
     align-items: center;
 
     .layer {
-        background-color: #00000088;
+        background-color: #000000cc;
         position: absolute;
         width: 100%;
         height: 100%;

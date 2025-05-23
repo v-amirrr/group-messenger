@@ -1,5 +1,5 @@
 import React from 'react';
-import backgroundImageSRC from '../assets/images/c.jpg';
+import backgroundImageSRC from '../assets/images/bg.webp';
 import styled from 'styled-components';
 
 const Background = () => {

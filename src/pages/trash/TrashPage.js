@@ -55,10 +55,6 @@ const TrashPage = () => {
                                         isTextPersian : isPersian(messageData?.plainText),
                                         textLetters: messageData?.plainText?.length > 20 ? 20 : messageData?.plainText?.length,
                                     }}
-                                    options={{
-                                        messageOptions: messageOptions,
-                                        setMessageOptions: setMessageOptions,
-                                    }}
                                 />
                                 ))
                             }

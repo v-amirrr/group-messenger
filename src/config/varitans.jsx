@@ -73,20 +73,15 @@ export const notificationFastVariants = {
 export const loginVariants = {
     hidden: {
         opacity: 0,
-        scale: 0.9
     },
     visible: {
         opacity: 1,
-        scale: 1,
         transition: {
-            duration: 0.5,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
+            duration: 0.2,
         },
     },
     exit: {
         opacity: 0,
-        scale: 0.9,
         transition: {
             duration: 0.2
         }
@@ -98,12 +93,12 @@ export const loginItemVariants = {
     visible: {
         opacity: 1,
         y: 0,
-        transition: { duration: 0.2, type: 'spring', stiffness: 100 },
+        transition: { duration: 0.4, type: 'spring', stiffness: 80 },
     },
     exit: {
         opacity: 0,
-        y: 30,
-        transition: { duration: 0.3 },
+        y: 20,
+        transition: { duration: 0.2 },
     },
 };
 

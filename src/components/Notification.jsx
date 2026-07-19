@@ -68,16 +68,16 @@ const NotificationContainer = styled(motion.div)`
     top: .01rem;
     min-width: 7rem;
     max-width: 25rem;
-    min-height: 2.5rem;
+    height: 2.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
     background-color: var(--bg);
-    border-radius: ${props => props.data.letters > 42 ? "25px" : "50px"};
+    border-radius: 50px;
     box-shadow: var(--shadow);
     backdrop-filter: var(--glass);
-    padding: ${props => props.data.letters > 42 ? ".8rem 3rem .8rem .5rem" : "0 3rem 0 0.5rem"};
+    padding: 0 3rem 0 .5rem;
     z-index: 3;
 
     .notification-message {
@@ -129,7 +129,6 @@ const NotificationContainer = styled(motion.div)`
     }
 
     @media (max-width: 768px) {
-        border-radius: ${props => props.data.letters > 20 ? "25px" : "50px"};
         max-width: 20rem;
     }
 `;

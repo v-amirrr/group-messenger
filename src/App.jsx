@@ -38,7 +38,7 @@ const App = () => {
             <Loader />
             <AnimatePresence exitBeforeEnter>
                 <Routes location={location} key={location.key}>
-                    <Route path="/" element={<MessengerPage />} />
+                    {/* <Route path="/" element={<MessengerPage />} /> */}
                     <Route path="/auth" element={<AuthPage />} />
                     <Route path='/settings' element={<SettingsPage />} />
                     <Route path='/guidance' element={<GuidancePage />} />

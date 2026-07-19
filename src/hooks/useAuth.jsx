@@ -14,50 +14,40 @@ export const useAuth = () => {
 
     const login = (email, password) => {
         dispatch(setLoader(true));
-        if (email && password) {
-            signInWithEmailAndPassword(auth, email, password)
-                .then(res => {
-                    dispatch(setLoader(false));
-                    localStorage.setItem("user", JSON.stringify(res.user));
-                    dispatch(setUser(res.user));
-                    navigate("/");
-                })
-                .catch(err => {
-                    dispatch(setLoader(false));
-                    openNotification(err.message, "ERROR");
-                });
-        } else {
-            dispatch(setLoader(false));
-            openNotification("Please fill all the inputs", "ERROR");
-        }
+        signInWithEmailAndPassword(auth, email, password)
+            .then(res => {
+                dispatch(setLoader(false));
+                localStorage.setItem("user", JSON.stringify(res.user));
+                dispatch(setUser(res.user));
+                navigate("/");
+            })
+            .catch(err => {
+                dispatch(setLoader(false));
+                openNotification(err.message, "ERROR");
+            });
     };
 
     const signup = (username, email, password) => {
         dispatch(setLoader(true));
-        if (username && email && password) {
-            createUserWithEmailAndPassword(auth, email, password)
-                .then((res) => {
-                    updateProfile(auth.currentUser, {
-                        displayName: username,
-                    })
-                        .then(() => {
-                            setDoc(doc(db, 'users', res.user.uid), {
-                                username: username
-                            });
-                            dispatch(setLoader(false));
-                            localStorage.setItem('user', JSON.stringify(res.user));
-                            dispatch(setUser(res.user));
-                            navigate('/');
-                        })
+        createUserWithEmailAndPassword(auth, email, password)
+            .then((res) => {
+                updateProfile(auth.currentUser, {
+                    displayName: username,
                 })
-                .catch((err) => {
-                    dispatch(setLoader(false));
-                    openNotification(err.message, 'ERROR');
-                });
-        } else {
-            dispatch(setLoader(false));
-            openNotification('Please fill all the inputs', 'ERROR');
-        }
+                    .then(() => {
+                        setDoc(doc(db, 'users', res.user.uid), {
+                            username: username
+                        });
+                        dispatch(setLoader(false));
+                        localStorage.setItem('user', JSON.stringify(res.user));
+                        dispatch(setUser(res.user));
+                        navigate('/');
+                    })
+            })
+            .catch((err) => {
+                dispatch(setLoader(false));
+                openNotification(err.message, 'ERROR');
+            });
     };
 
     const enterAsAGuest = () => {

@@ -73,8 +73,9 @@ button {
 
 ::placeholder {
     user-select: none;
-    color: var(--pale-color);
-    font-weight: 200;
+    color: var(--grey);
+    font-weight: 400;
+    font-family: 'Outfit', sans-serif;
 }
 
 :any-link {

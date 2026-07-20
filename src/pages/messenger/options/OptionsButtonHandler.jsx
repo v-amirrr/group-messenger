@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 import { useOptions } from '../../../hooks/useOptions';
 import { useSelect } from '../../../hooks/useSelect';
 import { useModal } from '../../../hooks/useModal';
-import { useNotification } from '../../../hooks/useNotification';
+import { useToast } from '../../../hooks/useToast';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { optionsVariants, optionLocalVariants, optionNonLocalVariants } from '../../../config/varitans';
@@ -19,7 +19,7 @@ const OptionsButtonHandler = ({ type, optionsClickHandler, closeOptions }) => {
     const { copy, reply, editText, moveToTrash, restore, changeButtonsStage, activateEditReply } = useOptions();
     const { openModal } = useModal();
     const { select } = useSelect();
-    const { openNotification } = useNotification();
+    const { openToast } = useToast();
 
     const setVariants = () => optionsMessage?.isLocalMessage ? optionLocalVariants : optionNonLocalVariants;
 
@@ -86,7 +86,7 @@ const OptionsButtonHandler = ({ type, optionsClickHandler, closeOptions }) => {
                 closeOptions();
                 setTimeout(() => {
                     restore(optionsMessage?.id);
-                    openNotification('Message restored', 'GENERAL');
+                    openToast('Message restored', 'GENERAL');
                 }, 300);
                 break;
         }

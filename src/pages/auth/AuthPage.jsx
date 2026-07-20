@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../hooks/useAuth';
-import { useNotification } from '../../hooks/useNotification';
+import { useToast } from '../../hooks/useToast';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -23,7 +23,7 @@ const loginSchema = z.object({
 
 const AuthPage = () => {
     const { signup, login, enterAsAGuest, googleLogin } = useAuth();
-    const { openNotification } = useNotification();
+    const { openToast } = useToast();
 
     // mode 1 sign up, mode 2 login
     const [authMode, setAuthMode] = useState(1);
@@ -34,11 +34,11 @@ const AuthPage = () => {
         resolver: zodResolver(authMode === 1 ? signupSchema : loginSchema),
     });
 
-    const submitHandler = ({ username, email, password, errors }) => {
+    const submitHandler = ({ username, email, password }) => {
         if (authMode === 1) {
-            signup(username, email, password, errors);
+            signup(username, email, password);
         } else {
-            login(email, password, errors);
+            login(email, password);
         }
     };
 
@@ -48,9 +48,11 @@ const AuthPage = () => {
 
     useEffect(() => {
         const hasErrors = Object.keys(errors).length > 0;
-        hasErrors && openNotification(errors?.username?.message || errors?.password?.email || errors?.password?.message, "ERROR");
+        const errorMessage = errors?.username?.message || errors?.email?.message || errors?.password?.message;
+
+        hasErrors && openToast(errorMessage, 'ERROR');
     }, [errors]);
-    
+
     return (
         <Auth {...framerMotionAttributes(loginVariants)} onSubmit={handleSubmit(submitHandler)} authMode={authMode}>
             <AnimatePresence>

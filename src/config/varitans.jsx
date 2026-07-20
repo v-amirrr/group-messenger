@@ -25,7 +25,7 @@ export const errorBoxVariants = {
 
 // --------------------------------------
 
-export const notificationSlowVariants = {
+export const toastSlowVariants = {
     hidden: {
         y: -80,
     },
@@ -46,7 +46,7 @@ export const notificationSlowVariants = {
     },
 };
 
-export const notificationFastVariants = {
+export const toastFastVariants = {
     hidden: {
         y: -80
     },

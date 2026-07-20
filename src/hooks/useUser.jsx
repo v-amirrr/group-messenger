@@ -2,13 +2,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { db } from "../config/firebase";
 import { doc, updateDoc } from "firebase/firestore";
 import { setUser } from '../redux/userSlice';
-import { useNotification } from "./useNotification";
+import { useToast } from "./useToast";
 import { useModal } from "./useModal";
 
 export const useUser = () => {
     const dispatch = useDispatch();
     const { user } = useSelector(store => store.userStore);
-    const { openNotification } = useNotification();
+    const { openToast } = useToast();
     const { closeModal } = useModal();
 
     const changeUsername = (newUsername) => {
@@ -18,9 +18,9 @@ export const useUser = () => {
         }).then(() => {
             dispatch(setUser({ ...user, displayName: newUsername }));
             localStorage.setItem("user", JSON.stringify(user));
-            openNotification("Username was changed", "GENERAL");
+            openToast("Username was changed", "GENERAL");
         }).catch((err) => {
-            openNotification(err.message, "ERROR");
+            openToast(err.message, "ERROR");
         });
     };
 

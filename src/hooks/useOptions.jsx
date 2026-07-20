@@ -2,7 +2,7 @@ import { db } from '../config/firebase';
 import { doc, deleteDoc, updateDoc } from 'firebase/firestore';
 import { useDispatch, useSelector } from 'react-redux';
 import { useModal } from './useModal';
-import { useNotification } from './useNotification';
+import { useToast } from './useToast';
 import { setInputReply, setEditReply, setNewReplyId } from '../redux/appSlice';
 import { setOptionsButtonsStage, setEditedText } from '../redux/optionsSlice';
 
@@ -12,7 +12,7 @@ export const useOptions = () => {
     const { messages } = useSelector(store => store.firestoreStore);
     const { inputReply, editReply: editReplyData } = useSelector(store => store.appStore);
     const { selectedMessages } = useSelector(store => store.selectStore);
-    const { openNotification } = useNotification();
+    const { openToast } = useToast();
     const { closeModal } = useModal();
 
     const reply = (id, message) => {
@@ -34,7 +34,7 @@ export const useOptions = () => {
 
     const copy = (messagePlainText) => {
         navigator.clipboard.writeText(messagePlainText);
-        openNotification('Message copied', 'GENERAL');
+        openToast('Message copied', 'GENERAL');
     };
 
     const editText = (id, closeOptions) => {
@@ -43,10 +43,10 @@ export const useOptions = () => {
             updateDoc(docRef, {
                 message: editedText,
             });
-            openNotification('Message was edited', 'GENERAL');
+            openToast('Message was edited', 'GENERAL');
             closeOptions();
         } else {
-            openNotification("Can't change your message into nothing", 'ERROR');
+            openToast("Can't change your message into nothing", 'ERROR');
             closeOptions();
         }
     };
@@ -64,7 +64,7 @@ export const useOptions = () => {
                 // modalMessages?.replyTo.id,
         });
         deactivateEditReply();
-        openNotification('Reply changed', 'GENERAL');
+        openToast('Reply changed', 'GENERAL');
     };
 
     const moveToTrash = (id) => {
@@ -73,7 +73,7 @@ export const useOptions = () => {
             updateDoc(docRef, {
                 deleted: true,
             });
-            openNotification('Message was moved to trash', 'GENERAL');
+            openToast('Message was moved to trash', 'GENERAL');
             if (id == inputReply?.id) {
                 unReply();
             }
@@ -123,7 +123,7 @@ export const useOptions = () => {
             replyId: replyToId,
         }));
         setTimeout(() => {
-            openNotification('Tap on the message you want to reply', 'GENERAL');
+            openToast('Tap on the message you want to reply', 'GENERAL');
         }, 600);
     };
 

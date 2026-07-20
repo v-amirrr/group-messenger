@@ -1,11 +1,11 @@
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useNotification } from './useNotification';
+import { useToast } from './useToast';
 
 export const useRedirection = () => {
     const navigate = useNavigate();
     const { user, enterAsAGuest } = useSelector(store => store.userStore);
-    const { openNotification } = useNotification();
+    const { openToast, clearToasts } = useToast();
 
     const messengerRedirection = () => {
         if (!user && !enterAsAGuest) {
@@ -15,7 +15,6 @@ export const useRedirection = () => {
 
     const authRedirection = () => {
         if (localStorage.getItem('guest-login') || localStorage.getItem('user')) {
-            console.log(localStorage.getItem('user'), localStorage.getItem('guest-login'));
             navigate("/", { replace: true });
         }
     };
@@ -28,12 +27,13 @@ export const useRedirection = () => {
 
     const trashRedirection = () => {
         if (enterAsAGuest) {
-            openNotification("To use this feature you need to ", "GUEST");
+            openToast("To use this feature you need to ", "GUEST");
             navigate("/", { replace: true });
         }
     };
 
     const autoRedirection = (path) => {
+        clearToasts();
         switch (path) {
             case '/':
                 messengerRedirection();

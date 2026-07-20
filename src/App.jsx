@@ -7,7 +7,7 @@ import GuidancePage from './pages/guidance/GuidancePage';
 import TrashPage from './pages/trash/TrashPage';
 import Background from './components/Background';
 import Modal from './components/Modal';
-import Notification from './components/Notification';
+import Toast from './components/Toast';
 import Loader from './components/Loader';
 import { useRedirection } from './hooks/useRedirection';
 import { useFirestore } from './hooks/useFirestore';
@@ -32,7 +32,7 @@ const App = () => {
 
     return (
         <>
-            <Notification />
+            <Toast />
             <Background />
             <Modal />
             <Loader />

@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    notifications: [],
+    toasts: [],
     messagesScrollPosition: {},
     skeletonEffect: null,
     scrollToMessage: null,
@@ -20,11 +20,11 @@ const appSlice = createSlice({
     name: 'app',
     initialState,
     reducers: {
-        setNotifications: (state, action) => {
+        setToasts: (state, action) => {
             return {
                 ...state,
-                notifications: [
-                    ...state.notifications,
+                toasts: [
+                    ...state.toasts,
                     {
                         show: action.payload.show,
                         message: action.payload.message,
@@ -34,18 +34,18 @@ const appSlice = createSlice({
                 ],
             };
         },
-        setCloseNotification: (state, action) => {
+        setCloseToast: (state, action) => {
             return {
                 ...state,
-                notifications: [
-                    ...state.notifications.filter(notification => notification.time != action.payload),
+                toasts: [
+                    ...state.toasts.filter(toast => toast.time != action.payload),
                 ],
             };
         },
-        setClearNotifications: (state) => {
+        setClearToasts: (state) => {
             return {
                 ...state,
-                notifications: []
+                toasts: []
             };
         },
         setMessagesScrollPosition: (state, action) => {
@@ -108,9 +108,9 @@ const appSlice = createSlice({
 });
 
 export const {
-    setNotifications,
-    setCloseNotification,
-    setClearNotifications,
+    setToasts,
+    setCloseToast,
+    setClearToasts,
     setMessagesScrollPosition,
     setSkeletonEffect,
     setScrollToMessage,

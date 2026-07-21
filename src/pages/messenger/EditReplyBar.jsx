@@ -5,12 +5,13 @@ import { IoIosClose } from "react-icons/io";
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { editReplyBarVariatns } from '../../config/varitans';
+const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const EditReplyBar = () => {
     const { deactivateEditReply, editReply } = useOptions();
     return (
         <>
-            <EditReplyContainer initial='hidden' animate='visible' exit='exit' variants={editReplyBarVariatns}>
+            <EditReplyContainer {...framerMotionAttributes(editReplyBarVariatns)}>
                 <button className='ok' onClick={editReply}>
                     <Check scale={1.4} />
                 </button>

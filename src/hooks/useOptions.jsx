@@ -8,7 +8,7 @@ import { setOptionsButtonsStage, setEditedText } from '../redux/optionsSlice';
 
 export const useOptions = () => {
     const dispatch = useDispatch();
-    const { editedText } = useSelector(store => store.optionsStore);
+    const editedText = useSelector(store => store.optionsStore.editedText);
     const { messages } = useSelector(store => store.firestoreStore);
     const { inputReply, editReply: editReplyData } = useSelector(store => store.appStore);
     const { selectedMessages } = useSelector(store => store.selectStore);

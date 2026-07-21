@@ -6,19 +6,15 @@ import { FcSettings, FcRedo, FcInfo, FcEmptyTrash, FcFullTrash } from 'react-ico
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { menuButtonVariants } from '../../config/varitans';
+const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const MenuButton = () => {
     const navigate = useNavigate();
     const { logout } = useAuth();
-
     return (
         <>
-            <MenuButtonContainer initial='hidden' animate='visible' exit='exit' variants={menuButtonVariants}>
+            <MenuButtonContainer {...framerMotionAttributes(menuButtonVariants)}>
                 <div className='buttons'>
-                    <button onClick={() => navigate('/guidance')}>
-                        <i className='features-icon'><FcInfo /></i>
-                        <p>Guidance</p>
-                    </button>
                     <button onClick={() => navigate('/trash')}>
                         <i className='trash-icon'><FcFullTrash /></i>
                         <p>Trash</p>
@@ -56,7 +52,7 @@ const MenuButtonContainer = styled(motion.div)`
     z-index: 4;
     transition: width .25s cubic-bezier(0.53, 0, 0, 0.98),
                 height .25s cubic-bezier(0.53, 0, 0, 0.98),
-                border-radius .2s .4s;
+                border-radius .2s .2s;
 
     .icon {
         position: absolute;
@@ -85,9 +81,8 @@ const MenuButtonContainer = styled(motion.div)`
         align-items: center;
         flex-direction: column;
         opacity: 0;
-        transform: scale(0.5);
         z-index: 4;
-        transition: opacity .2s, transform .4s, bottom .4s, left .4s;
+        transition: opacity .25s, bottom .2s, left .2s;
 
         button {
             width: 92%;
@@ -99,6 +94,8 @@ const MenuButtonContainer = styled(motion.div)`
             background-color: var(--bg);
             box-shadow: var(--shadow);
             border-radius: 50px;
+            border-top: solid 0.1px #2c2c2c;
+            border-bottom: solid 0.1px #2c2c2c;
             white-space: nowrap;
             cursor: pointer;
             transition: background .2s;
@@ -116,9 +113,9 @@ const MenuButtonContainer = styled(motion.div)`
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                font-size: 1.3rem;
+                font-size: 1rem;
                 position: absolute;
-                left: .75rem;
+                left: 1rem;
             }
 
             .logout-icon {
@@ -138,18 +135,18 @@ const MenuButtonContainer = styled(motion.div)`
     }
 
     &:hover, &:active {
-        width: 7rem;
-        height: 9.7rem;
+        width: 6.6rem;
+        height: 7.35rem;
         border-radius: 25px;
-        transition: width .4s cubic-bezier(0.53, 0, 0, 0.98),
-                    height .4s cubic-bezier(0.53, 0, 0, 0.98),
+        transition: width .5s cubic-bezier(0.53, 0, 0, 0.98),
+                    height .5s cubic-bezier(0.53, 0, 0, 0.98),
                     border-radius .1s;
 
         .icon {
-            top: 50%;
-            right: 50%;
+            top: 25%;
+            right: 25%;
             opacity: 0;
-            transition: top .3s, right .3s, opacity .1s;
+            transition: top .3s, right .3s, opacity .15s;
         }
 
         .buttons {
@@ -157,7 +154,7 @@ const MenuButtonContainer = styled(motion.div)`
             bottom: 0;
             transform: scale(1);
             opacity: 1;
-            transition: opacity .2s, transform .4s, bottom .4s, left .4s;
+            transition: opacity .5s, bottom .3s, left .3s;
         }
     }
 

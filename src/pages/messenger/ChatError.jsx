@@ -3,12 +3,13 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { errorBoxVariants } from '../../config/varitans';
+const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const ChatError = () => {
     const { error } = useSelector(store => store.firestoreStore);
     return (
         <>
-            <ChatErrorContainer initial='hidden' animate='visible' exit='exit' variants={errorBoxVariants}>
+            <ChatErrorContainer {...framerMotionAttributes(errorBoxVariants)}>
                 <h1>Looks like there's a problem</h1>
                 <p>
                     There's a problem with your connection.

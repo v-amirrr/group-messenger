@@ -2,33 +2,30 @@ import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { chatLoaderVariants } from '../../config/varitans';
+const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
+
+const messages = [
+    { width: '7rem', height: '2rem', position: 2, local: false },
+    { width: '14rem', height: '3rem', position: 3, local: false },
+
+    { width: '7rem', height: '2rem', position: 1, local: true },
+    { width: '12rem', height: '2rem', position: 2, local: true },
+    { width: '10rem', height: '2rem', position: 3, local: true },
+
+    { width: '10rem', height: '2rem', position: 2, local: false },
+    { width: '7rem', height: '2rem', position: 3, local: false },
+
+    { width: '8rem', height: '2rem', position: 1, local: true },
+    { width: '10rem', height: '3rem', position: 3, local: true },
+
+    { width: '4rem', height: '2rem', position: 2, local: false },
+    { width: '7rem', height: '2rem', position: 3, local: false },
+];
 
 const ChatLoader = () => {
-    const messages = [
-        { width: '7rem', height: '2rem', position: 2, local: false },
-        { width: '14rem', height: '3rem', position: 3, local: false },
-
-        { width: '7rem', height: '2rem', position: 1, local: true },
-        { width: '12rem', height: '2rem', position: 2, local: true },
-        { width: '10rem', height: '2rem', position: 3, local: true },
-
-        { width: '10rem', height: '2rem', position: 2, local: false },
-        { width: '7rem', height: '2rem', position: 3, local: false },
-
-        { width: '8rem', height: '2rem', position: 1, local: true },
-        { width: '10rem', height: '3rem', position: 3, local: true },
-
-        { width: '4rem', height: '2rem', position: 2, local: false },
-        { width: '7rem', height: '2rem', position: 3, local: false },
-    ];
     return (
         <>
-            <ChatLoaderContainer
-                initial='hidden'
-                animate='visible'
-                exit='exit'
-                variants={chatLoaderVariants}
-            >
+            <ChatLoaderContainer {...framerMotionAttributes(chatLoaderVariants)}>
                 <div className='menu'></div>
                 <div className='scroll'></div>
                 <div className='input'></div>
@@ -100,7 +97,6 @@ const ChatLoaderContainer = styled(motion.div)`
         width: 18rem;
         height: 2.4rem;
         border-radius: 50px;
-        backdrop-filter: var(--glass);
         background-color: var(--bg);
         background-image: linear-gradient(
             90deg,
@@ -196,7 +192,6 @@ const MessageContainer = styled.div`
             '25px 25px 25px 20px' :
             props.position == 3 && '20px 25px 25px 25px'
         };
-        backdrop-filter: var(--glass);
         background-color: var(--bg);
         background-image: linear-gradient(
             90deg,

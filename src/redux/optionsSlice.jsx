@@ -5,6 +5,7 @@ const initialState = {
     optionsAnimationStatus: 0,
     optionsButtonsStage: 1,
     editedText: null,
+    activedMessageId: null,
 };
 
 // options buttons stages: 1 is chat/trash buttons, 2 is edit menu, 3 is edit confirmation
@@ -34,6 +35,9 @@ const optionsSlice = createSlice({
         setEditedText: (state, action) => {
             return { ...state, editedText: action.payload }
         },
+        setActivedMessageId: (state, action) => {
+            return { ...state, activedMessageId: action.payload }
+        },
     },
 });
 
@@ -43,6 +47,7 @@ export const {
     setOptionsButtonsStage,
     clearSlice,
     setEditedText,
+    setActivedMessageId,
 } = optionsSlice.actions;
 
 export default optionsSlice.reducer;

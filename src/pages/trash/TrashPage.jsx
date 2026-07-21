@@ -14,6 +14,7 @@ import { IoClose } from 'react-icons/io5';
 import { motion, AnimatePresence } from 'framer-motion';
 import styled from 'styled-components';
 import { trashPageVariants, trashSelectBarVariants } from '../../config/varitans';
+const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const TrashPage = () => {
     const navigate = useNavigate();
@@ -32,10 +33,7 @@ const TrashPage = () => {
 
     return (
         <>
-            <Trash
-                initial='hidden' animate='visible' exit='exit' variants={trashPageVariants}
-                data={{ optionsAnimationStatus }}
-            >
+            <TrasTrashPageContainer {...framerMotionAttributes(trashPageVariants)} data={{ optionsAnimationStatus }}>
                 <div className='trash-container'>
                     <div className='header'>
                         <button className='header-back-button' onClick={() => navigate('/')}><IoIosArrowBack /></button>
@@ -63,7 +61,7 @@ const TrashPage = () => {
                     <AnimatePresence>
                         {
                             selectedMessages?.length ?
-                            <motion.div key='trash-select-bar' className='trash-select-bar' initial='hidden' animate='visible' exit='exit' variants={trashSelectBarVariants}>
+                            <motion.div key='trash-select-bar' className='trash-select-bar' {...framerMotionAttributes(trashSelectBarVariants)}>
                                 <div className='counter'><Counter num={selectedMessages?.length} size={1} /></div>
                                 <button className='delete-button' onClick={() => openModal("PERMENANT_DELETE_CONFIRMATION", selectedMessages)}>
                                     <i><TbTrashX /></i>
@@ -79,12 +77,12 @@ const TrashPage = () => {
                     </AnimatePresence>
                 </div>
                 <Options messageOptions={messageOptions} setMessageOptions={setMessageOptions} type='TRASH' />
-            </Trash>
+            </TrasTrashPageContainer>
         </>
     );
 };
 
-const Trash = styled(motion.div)`
+const TrasTrashPageContainer = styled(motion.div)`
     position: absolute;
     width: 100vw;
     height: 100dvh;

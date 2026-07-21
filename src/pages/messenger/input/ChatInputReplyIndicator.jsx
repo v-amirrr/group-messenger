@@ -6,9 +6,9 @@ import { BsReplyFill } from 'react-icons/bs';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { inputReplyIndicator } from '../../../config/varitans';
+const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const ChatInputReplyIndicator = ({ inputReply, emojiPicker, emojiAnimation }) => {
-
     const { addSkeletonEffect, scrollToMessage } = useSkeletonEffect();
     const { unReply } = useOptions();
     let mouseLocation = 'OUT';
@@ -44,7 +44,7 @@ const ChatInputReplyIndicator = ({ inputReply, emojiPicker, emojiAnimation }) =>
                 {
                     inputReply?.id ?
                     <ChatInputReplyIndicatorContainer
-                        initial='hidden' animate='visible' exit='exit' variants={inputReplyIndicator}
+                        {...framerMotionAttributes(inputReplyIndicator)}
                         emoji={emojiPicker ? 1 : 0}
                         emojiAnimation={emojiAnimation ? 1 : 0}
                     >
@@ -79,6 +79,7 @@ const ChatInputReplyIndicatorContainer = styled(motion.div)`
     background-color: var(--bg);
     box-shadow: var(--shadow);
     backdrop-filter: var(--glass);
+    border-top: solid 0.1px #202020;
     cursor: pointer;
     margin-bottom: ${props => props.emojiAnimation ? '2rem' : '0'} !important;
     z-index: 3;

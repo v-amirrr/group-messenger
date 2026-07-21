@@ -6,6 +6,7 @@ import ChatMessages from './ChatMessages';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 import { messengerVariants } from '../../config/varitans';
+const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const MessengerPage = () => {
     const { messages, error } = useSelector(store => store.firestoreStore);
@@ -21,7 +22,7 @@ const MessengerPage = () => {
 
     return (
         <>
-            <MessengerPageContainer initial='hidden' animate='visible' exit='exit' variants={messengerVariants}>
+            <MessengerPageContainer {...framerMotionAttributes(messengerVariants)}>
                 <AnimatePresence exitBeforeEnter>
                     {
                         status == 'LOADER' ?

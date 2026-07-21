@@ -2,11 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { chatDateVariants } from '../../../config/varitans';
+const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const MessageDate = ({ data }) => {
     return (
         <>
-            <MessageDateContainer initial='hidden' animate='visible' exit='exit' variants={chatDateVariants}>
+            <MessageDateContainer {...framerMotionAttributes(chatDateVariants)}>
                 <div className='date'>
                     <p className='year'>{data?.year}</p>
                     <p className='month'>{data?.month}</p>

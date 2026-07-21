@@ -360,7 +360,7 @@ export const optionsVariants = {
     visible: {
         opacity: 1,
         transition: {
-            delay: 0.1,
+            delay: 0.05,
             duration: 0.3,
             when: 'beforeChildren'
         },
@@ -686,7 +686,7 @@ export const inputReplyIndicator = {
         y: 0,
         transition: {
             type: 'spring',
-            stiffness: 150,
+            stiffness: 100,
         },
     },
     exit: {

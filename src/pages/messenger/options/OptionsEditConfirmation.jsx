@@ -2,6 +2,7 @@ import React from 'react';
 import Check from '../../../common/Check';
 import { IoIosClose } from "react-icons/io";
 import { motion } from 'framer-motion';
+const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const OptionsEditConfirmation = ({ optionClick, setVariants }) => {
     return (
@@ -9,7 +10,7 @@ const OptionsEditConfirmation = ({ optionClick, setVariants }) => {
             <motion.div
                 className='edit-close'
                 onClick={() => optionClick('EDIT_CANCEL')}
-                key='edit-cancel1' initial='hidden' animate='visible' exit='exit' variants={setVariants()}
+                key='edit-cancel1' {...framerMotionAttributes(setVariants())}
             >
                 <i><IoIosClose /></i>
             </motion.div>
@@ -17,7 +18,7 @@ const OptionsEditConfirmation = ({ optionClick, setVariants }) => {
             <motion.div
                 className='edit-ok'
                 onClick={() => optionClick('EDIT_OK')}
-                key='edit-ok1' initial='hidden' animate='visible' exit='exit' variants={setVariants()}
+                key='edit-ok1' {...framerMotionAttributes(setVariants())}
             >
                 <Check scale={1.4} />
             </motion.div>

@@ -4,6 +4,7 @@ import { BiSelectMultiple } from 'react-icons/bi';
 import { TbTrashX } from 'react-icons/tb';
 import { FaTrashRestore } from "react-icons/fa";
 import { motion } from 'framer-motion';
+const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const TrashButtons = ({ optionClick, setVariants }) => {
     return (
@@ -11,7 +12,7 @@ const TrashButtons = ({ optionClick, setVariants }) => {
             <motion.div
                 className='copy'
                 onClick={() => optionClick('COPY')}
-                key='copy' initial='hidden' animate='visible' exit='exit' variants={setVariants()}
+                key='copy' {...framerMotionAttributes(setVariants())}
             >
                 <i><AiFillCopy /></i>
                 <p>Copy</p>
@@ -19,7 +20,7 @@ const TrashButtons = ({ optionClick, setVariants }) => {
             <motion.div
                 className='select'
                 onClick={() => optionClick('SELECT')}
-                key='select' initial='hidden' animate='visible' exit='exit' variants={setVariants()}
+                key='select' {...framerMotionAttributes(setVariants())}
             >
                 <i><BiSelectMultiple /></i>
                 <p>Select</p>
@@ -27,7 +28,7 @@ const TrashButtons = ({ optionClick, setVariants }) => {
             <motion.div
                 className='restore'
                 onClick={() => optionClick('RESTORE')}
-                key='restore' initial='hidden' animate='visible' exit='exit' variants={setVariants()}
+                key='restore' {...framerMotionAttributes(setVariants())}
             >
                 <i><FaTrashRestore /></i>
                 <p>Restore</p>
@@ -35,7 +36,7 @@ const TrashButtons = ({ optionClick, setVariants }) => {
             <motion.div
                 className='delete'
                 onClick={() => optionClick('DELETE')}
-                key='delete' initial='hidden' animate='visible' exit='exit' variants={setVariants()}
+                key='delete' {...framerMotionAttributes(setVariants())}
             >
                 <i><TbTrashX /></i>
                 <p>Delete</p>

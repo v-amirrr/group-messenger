@@ -3,6 +3,7 @@ import { AiFillDelete, AiFillCopy, AiFillEdit } from 'react-icons/ai';
 import { BsReplyFill } from 'react-icons/bs';
 import { BiSelectMultiple } from 'react-icons/bi';
 import { motion } from 'framer-motion';
+const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const ChatButtons = ({ optionClick, setVariants, replyAlreadyClicked, isMessageLocal }) => {
     return (
@@ -10,7 +11,7 @@ const ChatButtons = ({ optionClick, setVariants, replyAlreadyClicked, isMessageL
             <motion.div
                 className='reply'
                 onClick={() => optionClick('REPLY')}
-                key='reply' initial='hidden' animate='visible' exit='exit' variants={setVariants()}
+                key='reply' {...framerMotionAttributes(setVariants())}
             >
                 <i><BsReplyFill /></i>
                 <p>{replyAlreadyClicked ? 'Unreply' : 'Reply'}</p>
@@ -18,7 +19,7 @@ const ChatButtons = ({ optionClick, setVariants, replyAlreadyClicked, isMessageL
             <motion.div
                 className='select'
                 onClick={() => optionClick('SELECT')}
-                key='select' initial='hidden' animate='visible' exit='exit' variants={setVariants()}
+                key='select' {...framerMotionAttributes(setVariants())}
             >
                 <i><BiSelectMultiple /></i>
                 <p>Select</p>
@@ -26,7 +27,7 @@ const ChatButtons = ({ optionClick, setVariants, replyAlreadyClicked, isMessageL
             <motion.div
                 className='copy'
                 onClick={() => optionClick('COPY')}
-                key='copy' initial='hidden' animate='visible' exit='exit' variants={setVariants()}
+                key='copy' {...framerMotionAttributes(setVariants())}
             >
                 <i><AiFillCopy /></i>
                 <p>Copy</p>
@@ -37,7 +38,7 @@ const ChatButtons = ({ optionClick, setVariants, replyAlreadyClicked, isMessageL
                     <motion.div
                         className='edit'
                         onClick={() => optionClick('EDIT')}
-                        key='edit' initial='hidden' animate='visible' exit='exit' variants={setVariants()}
+                        key='edit' {...framerMotionAttributes(setVariants())}
                     >
                         <i><AiFillEdit /></i>
                         <p>Edit</p>
@@ -45,7 +46,7 @@ const ChatButtons = ({ optionClick, setVariants, replyAlreadyClicked, isMessageL
                     <motion.div
                         className='trash'
                             onClick={() => optionClick('TRASH')}
-                            key='trash' initial='hidden' animate='visible' exit='exit' variants={setVariants()}
+                            key='trash' {...framerMotionAttributes(setVariants())}
                         >
                         <i><AiFillDelete /></i>
                         <p>Delete</p>

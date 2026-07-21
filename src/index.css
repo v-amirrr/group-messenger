@@ -52,14 +52,13 @@ html {
     font-size: calc(90% + .8vmin);
     scroll-behavior: smooth;
     overflow: hidden;
-    background-color: #ffffff00;
+    background-color: #000000cc;
     user-select: none;
     font-family: 'Outfit', sans-serif;
     color: var(--text);
 }
 
 body {
-    background-color: #ffffff00;
     overflow: hidden;
 }
 

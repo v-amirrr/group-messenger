@@ -8,6 +8,7 @@ import { RiArrowRightSLine } from "react-icons/ri";
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { userSettingsVariants } from '../../config/varitans';
+const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const SettingsUser = ({ open, setOpen, setHeight }) => {
     const { user, enterAsAGuest } = useSelector(store => store.userStore);
@@ -67,7 +68,7 @@ const SettingsUser = ({ open, setOpen, setHeight }) => {
             <AnimatePresence>
                 {
                     open == 'SETTINGS_USER' ?
-                        <UserContainer initial='hidden' animate='visible' exit='exit' variants={userSettingsVariants} inputenabled={inputEnabled ? 1 : 0}>
+                        <UserContainer {...framerMotionAttributes(userSettingsVariants)} inputenabled={inputEnabled ? 1 : 0}>
                             <div className='username'>
                                 <p className='username-header'>Username</p>
                                 <div className='username-input'>

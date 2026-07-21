@@ -6,6 +6,7 @@ import { IoIosArrowBack } from "react-icons/io";
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { settingsContainerVariants } from '../../config/varitans';
+const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const SettingsPage = () => {
     const navigate = useNavigate();
@@ -15,7 +16,7 @@ const SettingsPage = () => {
     return (
         <>
             <Settings>
-                <motion.div className='settings-container' initial='hidden' animate='visible' exit='exit' variants={settingsContainerVariants}>
+                <motion.div className='settings-container' {...framerMotionAttributes(settingsContainerVariants)}>
                     <header className='header'>
                         <p className='header-text'>Settings</p>
                         <button className='header-back-button' onClick={() => navigate('/')}><IoIosArrowBack /></button>

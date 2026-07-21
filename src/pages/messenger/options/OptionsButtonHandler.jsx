@@ -12,6 +12,7 @@ import { useToast } from '../../../hooks/useToast';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { optionsVariants, optionLocalVariants, optionNonLocalVariants } from '../../../config/varitans';
+const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const OptionsButtonHandler = ({ type, optionsClickHandler, closeOptions }) => {
     const { inputReply } = useSelector(store => store.appStore);
@@ -95,7 +96,7 @@ const OptionsButtonHandler = ({ type, optionsClickHandler, closeOptions }) => {
     return (
         <>
             <OptionsButtonHandlerContainer
-                initial='hidden' animate='visible' exit='exit' variants={optionsVariants}
+                {...framerMotionAttributes(optionsVariants)}
                 styles={{ isLocalMessage: optionsMessage?.isLocalMessage }}
             >
                 <AnimatePresence exitBeforeEnter>
@@ -153,8 +154,8 @@ const OptionsButtonHandlerContainer = styled(motion.div)`
 
     .reply, .copy, .edit, .trash, .select, .details, .delete, .restore, .edit-text, .edit-reply, .edit-back, .edit-ok, .edit-close {
         position: relative;
-        top: 2.5rem;
-        height: 2.25rem;
+        top: 2.3rem;
+        height: 2.16rem;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -162,6 +163,7 @@ const OptionsButtonHandlerContainer = styled(motion.div)`
         margin: .2rem 0 0 .2rem;
         padding: 0 .6rem 0 .5rem;
         background-color: var(--bg);
+        border: solid 0.1px #202020;
         cursor: pointer;
         transition: background .2s;
 
@@ -169,13 +171,13 @@ const OptionsButtonHandlerContainer = styled(motion.div)`
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 1.2rem;
+            font-size: .9rem;
             margin-right: .15rem;
         }
 
         p {
-            font-size: 1rem;
-            font-weight: 400;
+            font-size: .9rem;
+            font-weight: 300;
             white-space: nowrap;
         }
 
@@ -191,7 +193,9 @@ const OptionsButtonHandlerContainer = styled(motion.div)`
         background-color: #ffffff00;
         display: flex;
         justify-content: center;
-        align-items: center;
+        align-items: flex-start;
+        flex-direction: column;
+        border: none;
 
         .clock, .calendar {
             display: flex;
@@ -210,7 +214,7 @@ const OptionsButtonHandlerContainer = styled(motion.div)`
 
         p {
             letter-spacing: 0px;
-            font-size: .6rem;
+            font-size: .5rem;
             font-weight: 200;
             color: var(--grey);
 
@@ -226,30 +230,15 @@ const OptionsButtonHandlerContainer = styled(motion.div)`
         }
     }
 
-    .restore {
-        i {
-            font-size: 1rem;
-        }
-    }
-
     .delete {
         background-color: #ff000030;
+        border: solid 0.1px #500000;
         color: var(--red);
-
-        i {
-            font-size: 1.3rem;
-        }
 
         @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
             &:hover {
                 background-color: #ff000050;
             }
-        }
-    }
-
-    .edit-text {
-        i {
-            font-size: 1.4rem;
         }
     }
 

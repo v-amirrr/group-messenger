@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useRef, useState } from 'react';
+import React, { memo, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { useMessage } from '../../../hooks/useMessage';
 import MessageBox from './MessageBox';
@@ -10,9 +10,9 @@ import MessageRepliedTo from './MessageRepliedTo';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { localMessageVariants, nonLocalMessageVariants } from '../../../config/varitans';
+const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const Message = ({ messageData, type }) => {
-
     const {
         uid,
         plainText,
@@ -30,8 +30,7 @@ const Message = ({ messageData, type }) => {
     } = messageData;
 
     const messageRef = useRef();
-    const { editReply } = useSelector(store => store.appStore);
-
+    const editReply = useSelector(store => store.appStore.editReply);
     const {
         messagePosition,
         messageClickHandler,
@@ -42,19 +41,15 @@ const Message = ({ messageData, type }) => {
     } = useMessage(messageData, type, messageRef);
 
     const showMessageDate = () => previousMessageDifferentDate && time?.year;
-
     const showMessageUsername = () => !isLocalMessage && messagePosition < 2;
-
     const showEditReplyIndicator = () => editReply?.replyId == id;
-
     const showRepliedTo = () =>  replyTo != 'NO_REPLY' && type != 'TRASH';
-
     const setVariants = () => isLocalMessage ? localMessageVariants : nonLocalMessageVariants;
 
     return (
         <>
             <MessageContainer
-                initial='hidden' animate='visible' exit='exit' variants={setVariants()}
+                {...framerMotionAttributes(setVariants())}
                 layout
                 layoutId={id}
                 ref={messageRef}

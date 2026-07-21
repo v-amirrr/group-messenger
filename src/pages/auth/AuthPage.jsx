@@ -251,6 +251,8 @@ const Auth = styled(motion.form)`
             font-weight: 400;
             cursor: pointer;
             background-color: var(--bg);
+            border-top: solid 0.1px #2c2c2c;
+            border-bottom: solid 0.1px #2c2c2c;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -288,6 +290,8 @@ const Auth = styled(motion.form)`
         font-weight: 400;
         cursor: pointer;
         background-color: var(--bg);
+        border-top: solid 0.1px #2c2c2c;
+        border-bottom: solid 0.1px #2c2c2c;
         display: flex;
         justify-content: center;
         align-items: center;

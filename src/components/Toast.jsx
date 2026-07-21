@@ -7,13 +7,14 @@ import { FcAdvertising, FcHighPriority, FcKey } from 'react-icons/fc';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { toastSlowVariants, toastFastVariants } from '../config/varitans';
+const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const Toast = () => {
     const { toasts } = useSelector(store => store.appStore);
     const { closeToast } = useToast();
     const { logout } = useAuth();
     return (
-        <ToastsContainer initial='hidden' animate='visible' exit='exit' variants={toastFastVariants}>
+        <ToastsContainer {...framerMotionAttributes(toastFastVariants)}>
             <AnimatePresence>
                 {
                     toasts?.map((toast) => (
@@ -72,6 +73,8 @@ const ToastContainer = styled(motion.div)`
     border-radius: 50px;
     box-shadow: var(--shadow);
     backdrop-filter: var(--glass);
+    border-top: solid 0.1px #2c2c2c;
+    border-bottom: solid 0.1px #2c2c2c;
     padding: 0 3rem 0 .5rem;
     z-index: 3;
 

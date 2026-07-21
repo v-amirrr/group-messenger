@@ -2,22 +2,23 @@ import React from 'react';
 import AnalogClock from '../../../common/AnalogClock';
 import { motion } from 'framer-motion';
 import { LuCalendarDays } from "react-icons/lu";
+const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const DetailsButtons = ({ time, setVariants }) => {
     return (
         <>
-            <motion.div className='details' key='time' initial='hidden' animate='visible' exit='exit' variants={setVariants()}>
-                <div className='calendar'>
-                    <i><LuCalendarDays /></i>
-                    <p>
-                        <span>{time?.year} {time?.month} {time?.day}</span>
-                    </p>
-                </div>
+            <motion.div className='details' key='time' {...framerMotionAttributes(setVariants())}>
                 <div className='clock'>
-                    <AnalogClock time={time} scale={1} />
+                    {/* <AnalogClock time={time} scale={1} /> */}
                     <p>
                         <span>{time?.hour}:{time?.minute}</span>
                         <span className='format'>{time?.format}</span>
+                    </p>
+                </div>
+                <div className='calendar'>
+                    {/* <i><LuCalendarDays /></i> */}
+                    <p>
+                        <span>{time?.year} {time?.month} {time?.day}</span>
                     </p>
                 </div>
             </motion.div>

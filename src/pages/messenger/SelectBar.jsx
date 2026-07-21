@@ -7,15 +7,14 @@ import { AiFillDelete, AiFillCopy } from 'react-icons/ai';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { selectBarVariants } from '../../config/varitans';
+const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const SelectBar = () => {
     const { selectedMessages, nonLocalSelected } = useSelector(store => store.selectStore);
     const { clearSelectedMessages, copySelectedMessages, moveToTrashSelectedMessages } = useSelect();
     return (
         <>
-            <SelectBarContainer
-                initial='hidden' animate='visible' exit='exit' variants={selectBarVariants}
-            >
+            <SelectBarContainer {...framerMotionAttributes(selectBarVariants)}>
                 <button className='close' onClick={clearSelectedMessages}><IoClose /></button>
                 <div className='counter'><Counter num={selectedMessages?.length} size={1} /></div>
                 <div className='options'>

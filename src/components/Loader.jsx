@@ -4,6 +4,7 @@ import DotsLoader from '../common/DotsLoader';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { loaderVariants } from '../config/varitans';
+const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const Loader = () => {
     const { loader } = useSelector(store => store.appStore);
@@ -12,7 +13,7 @@ const Loader = () => {
             <AnimatePresence exitBeforeEnter>
             {
                 loader ?
-                <LoaderContainer key='loader' initial='hidden' animate='visible' exit='exit' variants={loaderVariants}>
+                <LoaderContainer key='loader' {...framerMotionAttributes(loaderVariants)}>
                     <DotsLoader scale={1.8} />
                 </LoaderContainer>
                 : ''

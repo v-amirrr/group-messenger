@@ -2,11 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { dotsLoaderVariants } from '../config/varitans';
+const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const DotsLoader = ({ scale }) => {
     return (
         <>
-            <DotsLoaderContainer data={{ scale: scale }} initial='hidden' animate='visible' exit='exit' variants={dotsLoaderVariants}>
+            <DotsLoaderContainer data={{ scale: scale }} {...framerMotionAttributes(dotsLoaderVariants)}>
                 <span className='dot'></span>
                 <span className='dot'></span>
                 <span className='dot'></span>

@@ -2,11 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { checkVariants } from '../config/varitans';
+const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const Check = ({ scale }) => {
     return (
         <>
-            <CheckContainer data={{ scale: scale }} initial='hidden' animate='visible' exit='exit' variants={checkVariants}>
+            <CheckContainer data={{ scale: scale }} {...framerMotionAttributes(checkVariants)}>
                 <span className='checkmark'></span>
                 <span className='checkmark'></span>
             </CheckContainer>

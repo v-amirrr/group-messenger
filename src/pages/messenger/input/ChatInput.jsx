@@ -9,14 +9,18 @@ import { IoSend, IoClose } from 'react-icons/io5';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { chatInputVariants, inputButtonVariants } from '../../../config/varitans';
+const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const ChatInput = () => {
     const inputRef = useRef();
+
     const { inputReply, editReply } = useSelector(store => store.appStore);
     const { modalShow } = useSelector(store => store.modalStore);
     const { selectedMessages } = useSelector(store => store.selectStore);
     const { optionsAnimationStatus } = useSelector(store => store.optionsStore);
+
     const { sendMessage } = useSend();
+
     const [emojiAnimation, setEmojiAnimation] = useState(false);
     const [multiline, setMultiline] = useState(false);
     const [inputText, setInputText] = useState(localStorage.getItem('input-text') ? localStorage.getItem('input-text') : '');
@@ -98,7 +102,7 @@ const ChatInput = () => {
             <ChatInputReplyIndicator inputReply={selectedMessages.length || editReply?.show ? null : inputReply} emojiPicker={emojiPicker} emojiAnimation={emojiAnimation} />
 
             <ChatInputContainer
-                initial='hidden' animate='visible' exit='exit' variants={chatInputVariants}
+                {...framerMotionAttributes(chatInputVariants)}
                 stylesData={{
                     multiline: multiline ? 1 : 0,
                     isPerian: isPersian(inputText) ? 1 : 0,
@@ -125,14 +129,14 @@ const ChatInput = () => {
                         inputText ?
                         <>
                             <motion.button
-                                initial='hidden' animate='visible' exit='exit' variants={inputButtonVariants}
+                                {...framerMotionAttributes(inputButtonVariants)}
                                 className='clear-button'
                                 onClick={clearInput}
                             >
                                 <IoClose />
                             </motion.button>
                             <motion.button
-                                initial='hidden' animate='visible' exit='exit' variants={inputButtonVariants}
+                                {...framerMotionAttributes(inputButtonVariants)}
                                 className='send-button'
                                 onClick={sendClickHandler}
                             >

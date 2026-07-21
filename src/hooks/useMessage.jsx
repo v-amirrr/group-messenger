@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { useSelect } from "./useSelect";
 import { useDispatch, useSelector } from 'react-redux';
-import { setOptionsMessage, setOptionsAnimationStatus } from '../redux/optionsSlice';
+import { setOptionsMessage, setOptionsAnimationStatus, setActivedMessageId } from '../redux/optionsSlice';
+import { setNewReplyId } from '../redux/appSlice';
 import { useSkeletonEffect } from "./useSkeletonEffect";
 import { useOptions } from "./useOptions";
 
@@ -26,12 +27,14 @@ export const useMessage = (messageData, type, messageRef) => {
     } = messageData;
 
     const dispatch = useDispatch();
+
     const { selectedMessages } = useSelector(store => store.selectStore);
     const { skeletonEffect } = useSelector(store => store.appStore);
-    const { optionsMessage } = useSelector(store => store.optionsStore);
+    const isOptionsActive = useSelector(store => store.optionsStore.activedMessageId === id);
+
     const { storeMessageScrollPosition } = useSkeletonEffect();
     const { select, deselect } = useSelect();
-    const { addNewReplyId } = useOptions();
+
     const [messagePosition, setMessagePosition] = useState(null);
     const [selected, setSelected] = useState(false);
     const [messageSkeletonEffect, setMessageSkeletonEffect] = useState(false);
@@ -66,9 +69,9 @@ export const useMessage = (messageData, type, messageRef) => {
             textLetters <= 3 ? '.45rem 1rem' :
             textLetters > 3 ? '.45rem .6rem' : '',
         boxJustify: isLocalMessage ? 'flex-start' : 'flex-end',
-        boxVisibility: optionsMessage?.id == id ? 'hidden' : 'visible',
+        boxVisibility: isOptionsActive ? 'hidden' : 'visible',
         boxWidth: type == 'TRASH' ? '84%' : '65%',
-        boxShadow: replyTo != 'NO_REPLY' && type != 'TRASH' ? isLocalMessage ? 'rgba(0, 0, 0, 0.4) -8px 0px 10px' : 'rgba(0, 0, 0, 0.5) 8px 0px 10px' : '',
+        boxShadow: replyTo != 'NO_REPLY' && type != 'TRASH' ? isLocalMessage ? '#00000066 -8px 0px 10px' : '#00000080 8px 0px 10px' : '',
         boxBackdropFilter: replyTo != 'NO_REPLY' && type != 'TRASH' ? 'var(--glass)' : '',
         messageFlexDirection: isLocalMessage ? 'row-reverse' : 'row',
         messagePaddingTop:
@@ -168,6 +171,7 @@ export const useMessage = (messageData, type, messageRef) => {
             styles,
             messagePosition: 0,
         }));
+        dispatch(setActivedMessageId(id));
         dispatch(setOptionsAnimationStatus(1));
     };
 
@@ -209,7 +213,7 @@ export const useMessage = (messageData, type, messageRef) => {
     const messageClickHandler = () => {
         if (!isMessageLoading()) {
             if (type == 'EDIT_REPLY') {
-                addNewReplyId(id);
+                dispatch(setNewReplyId(id));
             } else {
                 if (isUserSelecting()) {
                     selectHandler();

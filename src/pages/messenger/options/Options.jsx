@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { memo, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearSlice, setOptionsAnimationStatus, setOptionsButtonsStage } from '../../../redux/optionsSlice';
 import MessageBox from '../message/MessageBox';
@@ -6,6 +6,7 @@ import OptionsButtonHandler from './OptionsButtonHandler';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { optionsGlassVariants } from '../../../config/varitans';
+const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const ChatOptions = ({ type }) => {
     const chatOptionsMessageRef = useRef();
@@ -66,20 +67,17 @@ const ChatOptions = ({ type }) => {
                             />
                             <AnimatePresence>
                             {
-                                optionsAnimationStatus == 2 ?
+                                optionsAnimationStatus == 2 &&
                                 <OptionsButtonHandler
                                     type={type}
                                     optionsClickHandler={optionsClickHandler}
                                     closeOptions={closeOptions}
-                                /> : ''
+                                />
                             }
                             </AnimatePresence>
                         </div>
                         <AnimatePresence exitBeforeEnter>
-                            {
-                                optionsAnimationStatus == 2 ?
-                                <OptionsGlass initial='hidden' animate='visible' exit='exit' variants={optionsGlassVariants} /> : ''
-                            }
+                            {optionsAnimationStatus == 2 && <OptionsGlass {...framerMotionAttributes(optionsGlassVariants)} />}
                         </AnimatePresence>
                     </OptionsContainer>
                 </> : ''
@@ -108,7 +106,7 @@ const OptionsContainer = styled.div`
         flex-direction: column;
         z-index: 6;
         opacity: ${props => props.styles.zeroScale ? 0 : 1};
-        transform: ${props => props.styles.animationStatus == 2 ? 'scale(1.08)' : 'scale(1)'};
+        transform: ${props => props.styles.animationStatus == 2 ? 'scale(1.1)' : 'scale(1)'};
         transition: ${props => props.styles.animationStatus == 2 ? 'transform .6s cubic-bezier(0.3, 0, 0, 1.55)' : 'transform .2s'}, opacity .3s;
     }
 `;
@@ -122,4 +120,4 @@ const OptionsGlass = styled(motion.div)`
     z-index: 5;
 `;
 
-export default ChatOptions;
+export default memo(ChatOptions);

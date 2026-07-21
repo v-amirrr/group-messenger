@@ -3,14 +3,12 @@ import { FaArrowDown } from "react-icons/fa";
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { scrollButtonVariants } from '../../config/varitans';
+const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const ScrollButton = ({ click, arrow }) => {
     return (
         <>
-            <ScrollButtonContainer
-                initial='hidden' animate='visible' exit='exit' variants={scrollButtonVariants}
-                arrow={arrow == 'UP' ? 1 : 0}
-            >
+            <ScrollButtonContainer {...framerMotionAttributes(scrollButtonVariants)} arrow={arrow == 'UP' ? 1 : 0}>
                 <i className='icon' onClick={click}><FaArrowDown /></i>
             </ScrollButtonContainer>
         </>

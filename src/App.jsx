@@ -1,11 +1,9 @@
 import React, { useEffect } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import MessengerPage from './pages/messenger/MessengerPage';
 import AuthPage from './pages/auth/AuthPage';
 import SettingsPage from './pages/settings/SettingsPage';
-import GuidancePage from './pages/guidance/GuidancePage';
 import TrashPage from './pages/trash/TrashPage';
-import Background from './components/Background';
 import Modal from './components/Modal';
 import Toast from './components/Toast';
 import Loader from './components/Loader';
@@ -33,17 +31,15 @@ const App = () => {
     return (
         <>
             <Toast />
-            <Background />
             <Modal />
             <Loader />
             <AnimatePresence exitBeforeEnter>
                 <Routes location={location} key={location.key}>
-                    {/* <Route path="/" element={<MessengerPage />} /> */}
+                    <Route index element={<MessengerPage />} />
                     <Route path="/auth" element={<AuthPage />} />
                     <Route path='/settings' element={<SettingsPage />} />
-                    <Route path='/guidance' element={<GuidancePage />} />
                     <Route path='/trash' element={<TrashPage />} />
-                    <Route path='*' element={<MessengerPage />} />
+                    <Route path='*' element={<Navigate to='/' replace />} />
                 </Routes>
             </AnimatePresence>
         </>

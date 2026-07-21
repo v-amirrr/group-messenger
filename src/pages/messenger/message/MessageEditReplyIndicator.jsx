@@ -5,12 +5,13 @@ import { IoClose } from 'react-icons/io5';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { replyIconVariants } from '../../../config/varitans';
+const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const MessageEditReplyIndicator = () => {
     const { addNewReplyId } = useOptions();
     return (
         <>
-            <MessageEditReplyIndicatorContainer initial='hidden' animate='visible' exit='exit' variants={replyIconVariants} onClick={() => addNewReplyId(null)}>
+            <MessageEditReplyIndicatorContainer {...framerMotionAttributes(replyIconVariants)} onClick={() => addNewReplyId(null)}>
                 <i className='reply'><BsReplyFill /></i>
                 <i className='close'><IoClose /></i>
             </MessageEditReplyIndicatorContainer>

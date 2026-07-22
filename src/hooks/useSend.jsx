@@ -13,7 +13,7 @@ export const useSend = () => {
     const sendMessage = (inputText, setInputText) => {
         let storedInputText = localStorage.getItem('input-text');
         if (enterAsAGuest) {
-            openToast("To use this feature you need to ", "GUEST");
+            openToast(dispatch, "To use this feature you need to ", "GUEST");
         } else {
             if (inputText && inputText.charCodeAt(0) != 8204) {
                 if (navigator.onLine) {

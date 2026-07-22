@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 const SettingsItem = ({ open, hide, component, height }) => {
     return (
-        <>
             <SettingsItemContainer
                 open={open}
                 hide={hide}
@@ -11,7 +10,6 @@ const SettingsItem = ({ open, hide, component, height }) => {
             >
                 {component}
             </SettingsItemContainer>
-        </>
     );
 };
 

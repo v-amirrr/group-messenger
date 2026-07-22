@@ -25,47 +25,45 @@ const MessageBox = ({ messageClickHandler, editingMode, styles, data }) => {
     }, [editingMode]);
 
     return (
-        <>
-            <MessageBoxContainer
-                ref={messageBoxRef}
-                onClick={messageClickHandler}
-                data={{
-                    width: messageBoxRef?.current?.offsetWidth,
-                    height: messageBoxRef?.current?.offsetHeight,
-                    ...styles,
-                }}
+        <MessageBoxContainer
+            ref={messageBoxRef}
+            onClick={messageClickHandler}
+            data={{
+                width: messageBoxRef?.current?.offsetWidth,
+                height: messageBoxRef?.current?.offsetHeight,
+                ...styles,
+            }}
+        >
+            <div
+                ref={messageTextRef}
+                className='message-text'
+                onInput={(e) => storeEditedText(e.currentTarget.textContent)}
+                contentEditable={editingMode}
+                autoFocus={editingMode && document.documentElement.offsetWidth > 500}
             >
-                <div
-                    ref={messageTextRef}
-                    className='message-text'
-                    onInput={(e) => storeEditedText(e.currentTarget.textContent)}
-                    contentEditable={editingMode}
-                    autoFocus={editingMode && document.documentElement.offsetWidth > 500}
-                >
-                    {
-                        data?.type != 'TRASH' ?
-                        data?.arrayText?.map((item, index) =>
-                            item.link ?
-                            <a
-                                key={index}
-                                className={editingMode ? 'disabled-link' : 'link'}
-                                href={item.word}
-                                target='_blank'
-                                rel='noopener nereferrer'
-                                onClick={(e) => e.stopPropagation()}
-                            >
-                                {item.word}
-                            </a> :
-                            item.word == '\n' ? <br /> :
-                            index == data?.arrayText.length-1 ?
-                            `${item.word}` :
-                            `${item.word} `
-                        ) :
-                        data?.plainText
-                    }
-                </div>
-            </MessageBoxContainer>
-        </>
+                {
+                    data?.type != 'TRASH' ?
+                    data?.arrayText?.map((item, index) =>
+                        item.link ?
+                        <a
+                            key={index}
+                            className={editingMode ? 'disabled-link' : 'link'}
+                            href={item.word}
+                            target='_blank'
+                            rel='noopener nereferrer'
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            {item.word}
+                        </a> :
+                        item.word == '\n' ? <br /> :
+                        index == data?.arrayText.length-1 ?
+                        `${item.word}` :
+                        `${item.word} `
+                    ) :
+                    data?.plainText
+                }
+            </div>
+        </MessageBoxContainer>
     );
 };
 
@@ -80,7 +78,7 @@ const MessageBoxContainer = styled.div`
     border-radius: ${props => props.data.boxRoundRadius};
     margin: ${props => props.data.boxMargin};
     padding: ${props => props.data.boxPadding};
-    background-color: ${props => props.data.editingMode ? '#ffffff00' : props.data.selected ? 'var(--bg-hover)' : 'var(--bg)'};
+    background-color: ${props => props.data.editingMode ? '#ffffff00' : props.data.selected ? 'var(--bg-hover)' : '#161616'};
     background-image: linear-gradient(
         90deg,
         #ffffff00 20%,

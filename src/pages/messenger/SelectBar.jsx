@@ -13,22 +13,20 @@ const SelectBar = () => {
     const { selectedMessages, nonLocalSelected } = useSelector(store => store.selectStore);
     const { clearSelectedMessages, copySelectedMessages, moveToTrashSelectedMessages } = useSelect();
     return (
-        <>
-            <SelectBarContainer {...framerMotionAttributes(selectBarVariants)}>
-                <button className='close' onClick={clearSelectedMessages}><IoClose /></button>
-                <div className='counter'><Counter num={selectedMessages?.length} size={1} /></div>
-                <div className='options'>
-                    <button className='copy' onClick={copySelectedMessages}>
-                        <i><AiFillCopy /></i>
-                        <p>Copy</p>
-                    </button>
-                    <button className='delete' disabled={nonLocalSelected} onClick={moveToTrashSelectedMessages}>
-                        <i><AiFillDelete /></i>
-                        <p>Delete</p>
-                    </button>
-                </div>
-            </SelectBarContainer>
-        </>
+        <SelectBarContainer {...framerMotionAttributes(selectBarVariants)}>
+            <button className='close' onClick={clearSelectedMessages}><IoClose /></button>
+            <div className='counter'><Counter num={selectedMessages?.length} size={1} /></div>
+            <div className='options'>
+                <button className='copy' onClick={copySelectedMessages}>
+                    <i><AiFillCopy /></i>
+                    <p>Copy</p>
+                </button>
+                <button className='delete' disabled={nonLocalSelected} onClick={moveToTrashSelectedMessages}>
+                    <i><AiFillDelete /></i>
+                    <p>Delete</p>
+                </button>
+            </div>
+        </SelectBarContainer>
     );
 };
 

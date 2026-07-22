@@ -2,9 +2,9 @@ import { db } from '../config/firebase';
 import { doc, deleteDoc, updateDoc } from 'firebase/firestore';
 import { useDispatch, useSelector } from 'react-redux';
 import { useModal } from './useModal';
-import { useToast } from './useToast';
 import { setInputReply, setEditReply, setNewReplyId } from '../redux/appSlice';
 import { setOptionsButtonsStage, setEditedText } from '../redux/optionsSlice';
+import { openToast } from '../functions/ToastHandler';
 
 export const useOptions = () => {
     const dispatch = useDispatch();
@@ -12,7 +12,6 @@ export const useOptions = () => {
     const { messages } = useSelector(store => store.firestoreStore);
     const { inputReply, editReply: editReplyData } = useSelector(store => store.appStore);
     const { selectedMessages } = useSelector(store => store.selectStore);
-    const { openToast } = useToast();
     const { closeModal } = useModal();
 
     const reply = (id, message) => {
@@ -20,7 +19,7 @@ export const useOptions = () => {
             unReply();
             setTimeout(() => {
                 dispatch(setInputReply({ id, message }));
-            }, 300);
+            }, 400);
         } else if (inputReply.id == id) {
             unReply();
         } else {
@@ -34,7 +33,7 @@ export const useOptions = () => {
 
     const copy = (messagePlainText) => {
         navigator.clipboard.writeText(messagePlainText);
-        openToast('Message copied', 'GENERAL');
+        openToast(dispatch, 'Message copied', 'GENERAL');
     };
 
     const editText = (id, closeOptions) => {
@@ -43,10 +42,10 @@ export const useOptions = () => {
             updateDoc(docRef, {
                 message: editedText,
             });
-            openToast('Message was edited', 'GENERAL');
+            openToast(dispatch, 'Message was edited', 'GENERAL');
             closeOptions();
         } else {
-            openToast("Can't change your message into nothing", 'ERROR');
+            openToast(dispatch, "Can't change your message into nothing", 'ERROR');
             closeOptions();
         }
     };
@@ -64,7 +63,7 @@ export const useOptions = () => {
                 // modalMessages?.replyTo.id,
         });
         deactivateEditReply();
-        openToast('Reply changed', 'GENERAL');
+        openToast(dispatch, 'Reply changed', 'GENERAL');
     };
 
     const moveToTrash = (id) => {
@@ -73,7 +72,7 @@ export const useOptions = () => {
             updateDoc(docRef, {
                 deleted: true,
             });
-            openToast('Message was moved to trash', 'GENERAL');
+            openToast(dispatch, 'Message was moved to trash', 'GENERAL');
             if (id == inputReply?.id) {
                 unReply();
             }
@@ -123,7 +122,7 @@ export const useOptions = () => {
             replyId: replyToId,
         }));
         setTimeout(() => {
-            openToast('Tap on the message you want to reply', 'GENERAL');
+            openToast(dispatch, 'Tap on the message you want to reply', 'GENERAL');
         }, 600);
     };
 

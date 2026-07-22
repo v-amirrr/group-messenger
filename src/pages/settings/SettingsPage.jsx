@@ -14,7 +14,6 @@ const SettingsPage = () => {
     const [height, setHeight] = useState(false);
 
     return (
-        <>
             <Settings>
                 <motion.div className='settings-container' {...framerMotionAttributes(settingsContainerVariants)}>
                     <header className='header'>
@@ -36,7 +35,6 @@ const SettingsPage = () => {
                     />
                 </motion.div>
             </Settings>
-        </>
     );
 };
 

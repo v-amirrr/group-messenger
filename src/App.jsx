@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import MessengerPage from './pages/messenger/MessengerPage';
 import AuthPage from './pages/auth/AuthPage';
 import SettingsPage from './pages/settings/SettingsPage';
@@ -9,24 +9,16 @@ import Toast from './components/Toast';
 import Loader from './components/Loader';
 import { useRedirection } from './hooks/useRedirection';
 import { useFirestore } from './hooks/useFirestore';
-import { useSelect } from './hooks/useSelect';
 import { AnimatePresence } from 'framer-motion';
 
 const App = () => {
-    const location = useLocation();
     const { getMessages, getUsers } = useFirestore();
-    const { clearSelectedMessages } = useSelect();
-    const { autoRedirection } = useRedirection();
+    useRedirection();
 
     useEffect(() => {
         getUsers();
         getMessages();
     }, []);
-
-    useEffect(() => {
-        autoRedirection(location.pathname);
-        clearSelectedMessages();
-    }, [location.pathname]);
 
     return (
         <>

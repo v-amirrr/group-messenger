@@ -10,16 +10,14 @@ const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visib
 const EditReplyBar = () => {
     const { deactivateEditReply, editReply } = useOptions();
     return (
-        <>
-            <EditReplyContainer {...framerMotionAttributes(editReplyBarVariatns)}>
-                <button className='ok' onClick={editReply}>
-                    <Check scale={1.4} />
-                </button>
-                <button className='cancel' onClick={deactivateEditReply}>
-                    <i><IoIosClose /></i>
-                </button>
-            </EditReplyContainer>
-        </>
+        <EditReplyContainer {...framerMotionAttributes(editReplyBarVariatns)}>
+            <button className='ok' onClick={editReply}>
+                <Check scale={1.4} />
+            </button>
+            <button className='cancel' onClick={deactivateEditReply}>
+                <i><IoIosClose /></i>
+            </button>
+        </EditReplyContainer>
     );
 };
 

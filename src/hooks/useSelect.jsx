@@ -1,16 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
 import { addSelectedMessages, setSelectedMessages, plusNonLocalSelected, minusNonLocalSelected, clearNonLocalSelected } from '../redux/selectSlice';
 import { useOptions } from "./useOptions";
-import { useToast } from "./useToast";
 import { useModal } from "./useModal";
 import { useSkeletonEffect } from "./useSkeletonEffect";
+import { openToast } from "../functions/ToastHandler";
 
 export const useSelect = () => {
     const dispatch = useDispatch();
     const { selectedMessages } = useSelector(store => store.selectStore);
     const { moveToTrash, restore, permanentDelete } = useOptions();
     const { closeModal } = useModal();
-    const { openToast } = useToast();
     const { addSkeletonEffect } = useSkeletonEffect();
 
     const select = (message) => {
@@ -47,7 +46,7 @@ export const useSelect = () => {
         ToastText = selectedMessages.length == 1 ? 'Message copied' : 'Messages copied';
         clearSelectedMessages();
         setTimeout(() => {
-            openToast(ToastText, 'GENERAL');
+            openToast(dispatch, ToastText, 'GENERAL');
         }, 300);
     };
 
@@ -57,7 +56,7 @@ export const useSelect = () => {
         });
         let ToastText = selectedMessages.length == 1 ? 'Message was moved to trash' : 'Messages were moved to trash';
         setTimeout(() => {
-            openToast(ToastText, 'GENERAL');
+            openToast(dispatch, ToastText, 'GENERAL');
         }, 300);
         clearSelectedMessages();
     };
@@ -81,7 +80,7 @@ export const useSelect = () => {
             });
             let ToastText = modalMessages.length == 1 ? 'Message was permenately deleted' : 'Messages were permenately deleted';
             setTimeout(() => {
-                openToast(ToastText, 'GENERAL');
+                openToast(dispatch, ToastText, 'GENERAL');
             }, 300);
         }, 400);
         clearSelectedMessages();

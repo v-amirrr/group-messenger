@@ -12,25 +12,23 @@ const MenuButton = () => {
     const navigate = useNavigate();
     const { logout } = useAuth();
     return (
-        <>
-            <MenuButtonContainer {...framerMotionAttributes(menuButtonVariants)}>
-                <div className='buttons'>
-                    <button onClick={() => navigate('/trash')}>
-                        <i className='trash-icon'><FcFullTrash /></i>
-                        <p>Trash</p>
-                    </button>
-                    <button onClick={() => logout()}>
-                        <i className='logout-icon'><FcRedo /></i>
-                        <p>Logout</p>
-                    </button>
-                    <button onClick={() => navigate('/settings')}>
-                        <i className='settings-icon'><FcSettings /></i>
-                        <p>Settings</p>
-                    </button>
-                </div>
-                <i className='icon'><HiDotsVertical /></i>
-            </MenuButtonContainer>
-        </>
+        <MenuButtonContainer {...framerMotionAttributes(menuButtonVariants)}>
+            <div className='buttons'>
+                <button onClick={() => navigate('/trash')}>
+                    <i className='trash-icon'><FcFullTrash /></i>
+                    <p>Trash</p>
+                </button>
+                <button onClick={() => logout()}>
+                    <i className='logout-icon'><FcRedo /></i>
+                    <p>Logout</p>
+                </button>
+                <button onClick={() => navigate('/settings')}>
+                    <i className='settings-icon'><FcSettings /></i>
+                    <p>Settings</p>
+                </button>
+            </div>
+            <i className='icon'><HiDotsVertical /></i>
+        </MenuButtonContainer>
     );
 };
 
@@ -90,7 +88,7 @@ const MenuButtonContainer = styled(motion.div)`
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 0.1rem 0;
+            margin: 0.13rem 0;
             background-color: var(--bg);
             box-shadow: var(--shadow);
             border-radius: 50px;

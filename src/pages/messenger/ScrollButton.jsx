@@ -7,11 +7,9 @@ const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visib
 
 const ScrollButton = ({ click, arrow }) => {
     return (
-        <>
-            <ScrollButtonContainer {...framerMotionAttributes(scrollButtonVariants)} arrow={arrow == 'UP' ? 1 : 0}>
-                <i className='icon' onClick={click}><FaArrowDown /></i>
-            </ScrollButtonContainer>
-        </>
+        <ScrollButtonContainer {...framerMotionAttributes(scrollButtonVariants)} arrow={arrow == 'UP' ? 1 : 0}>
+            <i className='icon' onClick={click}><FaArrowDown /></i>
+        </ScrollButtonContainer>
     );
 };
 

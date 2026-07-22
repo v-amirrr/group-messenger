@@ -1,19 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { useModal } from '../../hooks/useModal';
-import { useSelect } from '../../hooks/useSelect';
-import { isPersian } from '../../functions/isPersian';
-import Message from '../messenger/message/Message';
+import { TrashMessages } from './TrashMessages';
+import { TrashSelectBar } from './TrashSelectBar';
 import Counter from '../../common/Counter';
 import Options from '../messenger/options/Options';
-import { TbTrashX } from 'react-icons/tb';
-import { FaTrashRestore } from "react-icons/fa";
 import { IoIosArrowBack } from "react-icons/io";
-import { IoClose } from 'react-icons/io5';
 import { motion, AnimatePresence } from 'framer-motion';
 import styled from 'styled-components';
-import { trashPageVariants, trashSelectBarVariants } from '../../config/varitans';
+import { trashPageVariants } from '../../config/varitans';
 const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const TrashPage = () => {
@@ -22,8 +17,6 @@ const TrashPage = () => {
     const { selectedMessages } = useSelector(store => store.selectStore);
     const { optionsAnimationStatus } = useSelector(store => store.optionsStore);
     const { user } = useSelector(store => store.userStore);
-    const { openModal } = useModal();
-    const { restoreSelectedMessages, clearSelectedMessages } = useSelect();
     const [messages, setMessages] = useState(deletedMessages?.filter(item => item?.uid == user?.uid));
     const [messageOptions, setMessageOptions] = useState({ data: null, animationStatus: 0 });
 
@@ -32,57 +25,22 @@ const TrashPage = () => {
     }, [deletedMessages]);
 
     return (
-        <>
-            <TrasTrashPageContainer {...framerMotionAttributes(trashPageVariants)} data={{ optionsAnimationStatus }}>
-                <div className='trash-container'>
-                    <div className='header'>
-                        <button className='header-back-button' onClick={() => navigate('/')}><IoIosArrowBack /></button>
-                        <p className='header-text'>Trash</p>
-                        <div className='trash-count'><Counter num={messages?.length} size={1} /></div>
-                    </div>
-                    <motion.div className='deleted-messages' layout key='trash-messages'>
-                        <AnimatePresence>
-                            {
-                                messages?.map((messageData) => (
-                                <Message
-                                    key={messageData?.id}
-                                    type="TRASH"
-                                    messageData={{
-                                        ...messageData,
-                                        isLocalMessage: true,
-                                        isTextPersian : isPersian(messageData?.plainText),
-                                        textLetters: messageData?.plainText?.length > 20 ? 20 : messageData?.plainText?.length,
-                                    }}
-                                />
-                                ))
-                            }
-                        </AnimatePresence>
-                    </motion.div>
-                    <AnimatePresence>
-                        {
-                            selectedMessages?.length ?
-                            <motion.div key='trash-select-bar' className='trash-select-bar' {...framerMotionAttributes(trashSelectBarVariants)}>
-                                <div className='counter'><Counter num={selectedMessages?.length} size={1} /></div>
-                                <button className='delete-button' onClick={() => openModal("PERMENANT_DELETE_CONFIRMATION", selectedMessages)}>
-                                    <i><TbTrashX /></i>
-                                    <p>Delete</p>
-                                </button>
-                                <button className='restore-button' onClick={restoreSelectedMessages}>
-                                    <i><FaTrashRestore /></i>
-                                    <p>Restore</p>
-                                </button>
-                                <button className='close' onClick={clearSelectedMessages}><IoClose /></button>
-                            </motion.div> : ''
-                        }
-                    </AnimatePresence>
+        <TrashPageContainer {...framerMotionAttributes(trashPageVariants)} data={{ optionsAnimationStatus }}>
+            <div className='trash-container'>
+                <div className='header'>
+                    <button className='header-back-button' onClick={() => navigate('/')}><IoIosArrowBack /></button>
+                    <p className='header-text'>Trash</p>
+                    <div className='trash-count'><Counter num={messages?.length} size={1} /></div>
                 </div>
-                <Options messageOptions={messageOptions} setMessageOptions={setMessageOptions} type='TRASH' />
-            </TrasTrashPageContainer>
-        </>
+                <TrashMessages messages={messages} />
+                <TrashSelectBar {...{selectedMessages}} />
+            </div>
+            <Options messageOptions={messageOptions} setMessageOptions={setMessageOptions} type='TRASH' />
+        </TrashPageContainer>
     );
 };
 
-const TrasTrashPageContainer = styled(motion.div)`
+const TrashPageContainer = styled(motion.div)`
     position: absolute;
     width: 100vw;
     height: 100dvh;

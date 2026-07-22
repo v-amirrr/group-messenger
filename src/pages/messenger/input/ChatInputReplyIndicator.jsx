@@ -39,29 +39,27 @@ const ChatInputReplyIndicator = ({ inputReply, emojiPicker, emojiAnimation }) =>
     };
 
     return (
-        <>
-            <AnimatePresence>
-                {
-                    inputReply?.id ?
-                    <ChatInputReplyIndicatorContainer
-                        {...framerMotionAttributes(inputReplyIndicator)}
-                        emoji={emojiPicker ? 1 : 0}
-                        emojiAnimation={emojiAnimation ? 1 : 0}
+        <AnimatePresence>
+            {
+                inputReply?.id ?
+                <ChatInputReplyIndicatorContainer
+                    {...framerMotionAttributes(inputReplyIndicator)}
+                    emoji={emojiPicker ? 1 : 0}
+                    emojiAnimation={emojiAnimation ? 1 : 0}
+                >
+                    <div
+                        className='reply-message'
+                        onClick={clickHandler}
+                        onMouseEnter={hoverHandler}
+                        onMouseLeave={unhoverHandler}
                     >
-                        <div
-                            className='reply-message'
-                            onClick={clickHandler}
-                            onMouseEnter={hoverHandler}
-                            onMouseLeave={unhoverHandler}
-                        >
-                            <i className='icon'><BsReplyFill /></i>
-                            <p className='text'>{inputReply.message}</p>
-                        </div>
-                        <button className='reply-close-button' onClick={(e) => clearInputReply(e)}><IoClose /></button>
-                    </ChatInputReplyIndicatorContainer> : ''
-                }
-            </AnimatePresence>
-        </>
+                        <i className='icon'><BsReplyFill /></i>
+                        <p className='text'>{inputReply.message}</p>
+                    </div>
+                    <button className='reply-close-button' onClick={(e) => clearInputReply(e)}><IoClose /></button>
+                </ChatInputReplyIndicatorContainer> : ''
+            }
+        </AnimatePresence>
     );
 };
 

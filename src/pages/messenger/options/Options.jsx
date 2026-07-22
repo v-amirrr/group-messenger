@@ -37,50 +37,48 @@ const ChatOptions = ({ type }) => {
         <>
             {
                 optionsAnimationStatus ?
-                <>
-                    <OptionsContainer
-                        onClick={(e) => optionsClickHandler(e, null)}
-                        styles={{
-                            top: optionsMessage?.top,
-                            left: optionsMessage?.left,
-                            width: optionsMessage?.width,
-                            height: optionsMessage?.height,
-                            isLocalMessage: optionsMessage?.isLocalMessage,
-                            animationStatus: optionsAnimationStatus,
-                        }}
-                    >
-                        <div className='message-box' ref={chatOptionsMessageRef}>
-                            <MessageBox
-                                editingMode={optionsButtonsStage == 3}
-                                data={{
-                                    type: type,
-                                    replyTo: optionsMessage?.replyTo,
-                                    arrayText: optionsMessage?.arrayText,
-                                    plainText: optionsMessage?.plainText,
-                                }}
-                                styles={{
-                                    ...optionsMessage?.styles,
-                                    optionsMessage: true,
-                                    persian: optionsMessage?.isTextPersian ? 1 : 0,
-                                    editingMode: optionsButtonsStage == 3,
-                                }}
+                <OptionsContainer
+                    onClick={(e) => optionsClickHandler(e, null)}
+                    styles={{
+                        top: optionsMessage?.top,
+                        left: optionsMessage?.left,
+                        width: optionsMessage?.width,
+                        height: optionsMessage?.height,
+                        isLocalMessage: optionsMessage?.isLocalMessage,
+                        animationStatus: optionsAnimationStatus,
+                    }}
+                >
+                    <div className='message-box' ref={chatOptionsMessageRef}>
+                        <MessageBox
+                            editingMode={optionsButtonsStage == 3}
+                            data={{
+                                type: type,
+                                replyTo: optionsMessage?.replyTo,
+                                arrayText: optionsMessage?.arrayText,
+                                plainText: optionsMessage?.plainText,
+                            }}
+                            styles={{
+                                ...optionsMessage?.styles,
+                                optionsMessage: true,
+                                persian: optionsMessage?.isTextPersian ? 1 : 0,
+                                editingMode: optionsButtonsStage == 3,
+                            }}
+                        />
+                        <AnimatePresence>
+                        {
+                            optionsAnimationStatus == 2 &&
+                            <OptionsButtonHandler
+                                type={type}
+                                optionsClickHandler={optionsClickHandler}
+                                closeOptions={closeOptions}
                             />
-                            <AnimatePresence>
-                            {
-                                optionsAnimationStatus == 2 &&
-                                <OptionsButtonHandler
-                                    type={type}
-                                    optionsClickHandler={optionsClickHandler}
-                                    closeOptions={closeOptions}
-                                />
-                            }
-                            </AnimatePresence>
-                        </div>
-                        <AnimatePresence exitBeforeEnter>
-                            {optionsAnimationStatus == 2 && <OptionsGlass {...framerMotionAttributes(optionsGlassVariants)} />}
+                        }
                         </AnimatePresence>
-                    </OptionsContainer>
-                </> : ''
+                    </div>
+                    <AnimatePresence exitBeforeEnter>
+                        {optionsAnimationStatus == 2 && <OptionsGlass {...framerMotionAttributes(optionsGlassVariants)} />}
+                    </AnimatePresence>
+                </OptionsContainer> : ''
             }
         </>
     );
@@ -106,7 +104,7 @@ const OptionsContainer = styled.div`
         flex-direction: column;
         z-index: 6;
         opacity: ${props => props.styles.zeroScale ? 0 : 1};
-        transform: ${props => props.styles.animationStatus == 2 ? 'scale(1.1)' : 'scale(1)'};
+        transform: ${props => props.styles.animationStatus == 2 ? 'scale(1.07)' : 'scale(1)'};
         transition: ${props => props.styles.animationStatus == 2 ? 'transform .6s cubic-bezier(0.3, 0, 0, 1.55)' : 'transform .2s'}, opacity .3s;
     }
 `;

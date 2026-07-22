@@ -10,12 +10,10 @@ const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visib
 const MessageEditReplyIndicator = () => {
     const { addNewReplyId } = useOptions();
     return (
-        <>
-            <MessageEditReplyIndicatorContainer {...framerMotionAttributes(replyIconVariants)} onClick={() => addNewReplyId(null)}>
-                <i className='reply'><BsReplyFill /></i>
-                <i className='close'><IoClose /></i>
-            </MessageEditReplyIndicatorContainer>
-        </>
+        <MessageEditReplyIndicatorContainer {...framerMotionAttributes(replyIconVariants)} onClick={() => addNewReplyId(null)}>
+            <i className='reply'><BsReplyFill /></i>
+            <i className='close'><IoClose /></i>
+        </MessageEditReplyIndicatorContainer>
     );
 };
 

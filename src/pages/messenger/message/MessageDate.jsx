@@ -6,16 +6,14 @@ const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visib
 
 const MessageDate = ({ data }) => {
     return (
-        <>
-            <MessageDateContainer {...framerMotionAttributes(chatDateVariants)}>
-                <div className='date'>
-                    <p className='year'>{data?.year}</p>
-                    <p className='month'>{data?.month}</p>
-                    <p className='day'>{data?.day}</p>
-                    <p className='time'>{data?.hour}:{data?.minute} {data?.format}</p>
-                </div>
-            </MessageDateContainer>
-        </>
+        <MessageDateContainer {...framerMotionAttributes(chatDateVariants)}>
+            <div className='date'>
+                <p className='year'>{data?.year}</p>
+                <p className='month'>{data?.month}</p>
+                <p className='day'>{data?.day}</p>
+                <p className='time'>{data?.hour}:{data?.minute} {data?.format}</p>
+            </div>
+        </MessageDateContainer>
     );
 };
 

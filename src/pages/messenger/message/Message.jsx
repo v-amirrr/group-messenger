@@ -47,42 +47,40 @@ const Message = ({ messageData, type }) => {
     const setVariants = () => isLocalMessage ? localMessageVariants : nonLocalMessageVariants;
 
     return (
-        <>
-            <MessageContainer
-                {...framerMotionAttributes(setVariants())}
-                layout
-                layoutId={id}
-                ref={messageRef}
-                styles={{ ...styles }}
-            >
-                {showMessageDate() && <MessageDate data={time} />}
+        <MessageContainer
+            {...framerMotionAttributes(setVariants())}
+            layout
+            layoutId={id}
+            ref={messageRef}
+            styles={{ ...styles }}
+        >
+            {showMessageDate() && <MessageDate data={time} />}
+            <AnimatePresence>
+                {showMessageUsername() && <MessageUsername uid={uid} showMessageDate={showMessageDate()} />}
+            </AnimatePresence>
+            <MessageBox
+                messageClickHandler={messageClickHandler}
+                data={{
+                    type: type,
+                    replyTo: replyTo,
+                    arrayText: arrayText,
+                    plainText: plainText,
+                }}
+                styles={{
+                    ...styles,
+                    selected: selected,
+                    persian: isTextPersian ? 1 : 0,
+                    skeletonEffect: messageSkeletonEffect ? 1 : 0,
+                }}
+            />
+            {showRepliedTo() ? <MessageRepliedTo replyTo={replyTo} type={type} isLocalMessage={isLocalMessage} /> : ''}
+            <div className='next-to-message'>
                 <AnimatePresence>
-                    {showMessageUsername() && <MessageUsername uid={uid} showMessageDate={showMessageDate()} />}
+                    {showEditReplyIndicator() ? <MessageEditReplyIndicator key='MessageEditReplyIndicator' /> : ''}
                 </AnimatePresence>
-                <MessageBox
-                    messageClickHandler={messageClickHandler}
-                    data={{
-                        type: type,
-                        replyTo: replyTo,
-                        arrayText: arrayText,
-                        plainText: plainText,
-                    }}
-                    styles={{
-                        ...styles,
-                        selected: selected,
-                        persian: isTextPersian ? 1 : 0,
-                        skeletonEffect: messageSkeletonEffect ? 1 : 0,
-                    }}
-                />
-                {showRepliedTo() ? <MessageRepliedTo replyTo={replyTo} type={type} isLocalMessage={isLocalMessage} /> : ''}
-                <div className='next-to-message'>
-                    <AnimatePresence>
-                        {showEditReplyIndicator() ? <MessageEditReplyIndicator key='MessageEditReplyIndicator' /> : ''}
-                    </AnimatePresence>
-                    <MessageSendStatus status={status} />
-                </div>
-            </MessageContainer>
-        </>
+                <MessageSendStatus status={status} />
+            </div>
+        </MessageContainer>
     );
 };
 

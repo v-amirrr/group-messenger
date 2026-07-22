@@ -9,12 +9,10 @@ const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visib
 const MessageUsername = ({ uid, showMessageDate }) => {
     const { usernames } = useSelector(store => store.firestoreStore);
     return (
-        <>
-            <MessageUsernameContainer {...framerMotionAttributes(messageUsernameVariants)} data={{ showMessageDate }}>
-                <i><TiUser /></i>
-                {usernames[uid]}
-            </MessageUsernameContainer>
-        </>
+        <MessageUsernameContainer {...framerMotionAttributes(messageUsernameVariants)} data={{ showMessageDate }}>
+            <i><TiUser /></i>
+            {usernames[uid]}
+        </MessageUsernameContainer>
     );
 };
 

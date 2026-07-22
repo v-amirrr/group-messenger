@@ -220,7 +220,7 @@ export const nonLocalMessageRepliedToVariants = {
         opacity: 1,
         x: 0,
         transition: {
-            delay: 2,
+            delay: 0.5,
             type: 'spring',
             stiffness: 120,
         },
@@ -236,7 +236,7 @@ export const localMessageRepliedToVariants = {
         opacity: 1,
         x: 0,
         transition: {
-            delay: 2,
+            delay: 0.5,
             type: 'spring',
             stiffness: 120,
         },
@@ -260,9 +260,7 @@ export const localMessageVariants = {
         y: 0,
         x: 0,
         transition: {
-            duration: 0.5,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
+            duration: 0.3,
         },
     },
     exit: {
@@ -286,9 +284,7 @@ export const nonLocalMessageVariants = {
         y: 0,
         x: 0,
         transition: {
-            duration: 0.5,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
+            duration: 0.3,
         },
     },
     exit: {
@@ -488,26 +484,6 @@ export const settingsItemVariants = {
     },
 };
 
-export const notificationSettingsVariants = {
-    hidden: { opacity: 0, y: 40 },
-    visible: {
-        opacity: 1,
-        y: 0,
-        transition: {
-            duration: 0.7,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
-        },
-    },
-    exit: {
-        opacity: 0,
-        transition: {
-            delay: 0.2,
-            duration: 0.4,
-        },
-    },
-};
-
 export const userSettingsVariants = {
     hidden: { opacity: 0, y: 40 },
     visible: {
@@ -679,21 +655,21 @@ export const inputButtonVariants = {
 export const inputReplyIndicator = {
     hidden: {
         opacity: 0,
-        y: 10,
+        y: 20,
     },
     visible: {
         opacity: 1,
         y: 0,
         transition: {
             type: 'spring',
-            stiffness: 100,
+            stiffness: 80,
         },
     },
     exit: {
-        opacity: 0,
-        y: 10,
+        opacity: [1, 1, 1, 1, 1, 1, 0.8, 0.5, 0.2, 0],
+        y: 45,
         transition: {
-            duration: 0.2,
+            duration: 0.4,
         },
     },
 };

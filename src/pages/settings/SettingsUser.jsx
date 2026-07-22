@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useModal } from '../../hooks/useModal';
-import { useToast } from '../../hooks/useToast';
 import { FcBusinessman } from "react-icons/fc";
 import { FaUserEdit } from "react-icons/fa";
 import { RiArrowRightSLine } from "react-icons/ri";
@@ -11,18 +10,18 @@ import { userSettingsVariants } from '../../config/varitans';
 const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const SettingsUser = ({ open, setOpen, setHeight }) => {
+    const dispatch = useDispatch();
     const { user, enterAsAGuest } = useSelector(store => store.userStore);
     const { usernames } = useSelector(store => store.firestoreStore);
     const { modalShow } = useSelector(store => store.modalStore);
     const { openModal } = useModal();
-    const { openToast } = useToast();
     const [changeUsernameInput, setChangeUsernameInput] = useState(usernames[user?.uid]);
     const [inputEnabled, setInputEnabled] = useState(false);
 
     const itemSwitch = () => {
         cancelHandler();
         if (enterAsAGuest) {
-            openToast("To use this feature you need to ", "GUEST");
+            openToast(dispatch, "To use this feature you need to ", "GUEST");
         } else {
             if (open == "SETTINGS_USER") {
                 setOpen(false);
@@ -37,9 +36,9 @@ const SettingsUser = ({ open, setOpen, setHeight }) => {
         if (changeUsernameInput && changeUsernameInput != usernames[user?.uid]) {
             openModal('CHANGE_USERNAME_CONFIRMATION', null, changeUsernameInput);
         } else if (changeUsernameInput == usernames[user?.uid]) {
-            openToast("The old and the new usernames are the same", "ERROR");
+            openToast(dispatch, "The old and the new usernames are the same", "ERROR");
         } else {
-            openToast("Type a new username", "ERROR");
+            openToast(dispatch, "Type a new username", "ERROR");
         }
     };
 

@@ -1,82 +1,51 @@
-import React, { useRef } from 'react';
+import React, { memo } from 'react'
+import Message from './message/Message';
 import { useSelector } from 'react-redux';
-import { useScroll } from '../../hooks/useScroll';
 import { isPersian } from '../../functions/isPersian';
-import MenuButton from './MenuButton';
-import ScrollButton from './ScrollButton';
-import ChatInput from './input/ChatInput';
-import SelectBar from './SelectBar';
-import Options from './options/Options';
-import EditReplyBar from './EditReplyBar';
-import MessagesList from './MessagesList';
-import styled from 'styled-components';
-import { AnimatePresence, motion } from 'framer-motion';
 import { chatMessagesVariants, messagesVariants } from '../../config/varitans';
-const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
+import { motion, AnimatePresence } from 'framer-motion';
+import { useScroll } from '../../hooks/useScroll';
 
-const ChatMessages = () => {
-    const chatRef = useRef();
-    const chatEndRef = useRef();
-    const { optionsAnimationStatus } = useSelector(store => store.optionsStore);
-    const { selectedMessages } = useSelector(store => store.selectStore);
+const ChatMessages = ({ chatRef, chatEndRef }) => {
     const { editReply } = useSelector(store => store.appStore);
-    const { arrow, scrollButtonClickHandler, onChatScrollHandler } = useScroll(chatRef, chatEndRef);
-    
+    const { messages } = useSelector(store => store.firestoreStore);
+    const { user } = useSelector(store => store.userStore);
+    const { onChatScrollHandler } = useScroll(chatRef, chatEndRef);
+
     return (
-        <>
-            <Options type='CHAT' />
-
-            <ChatMessagesContainer {...framerMotionAttributes(chatMessagesVariants)} data={{ optionsAnimationStatus }}>
-                <AnimatePresence exitBeforeEnter>
+        <motion.div className='messages' layout variants={messagesVariants} ref={chatRef} onScroll={onChatScrollHandler}>
+            <AnimatePresence>
                 {
-                    !editReply?.show &&
-                    <>
-                        <MenuButton key='MenuButton' />
-                        <ScrollButton key='ScrollButton' click={scrollButtonClickHandler} arrow={arrow} />
-                    </>
+                    editReply?.show ?
+                    editReply?.messages?.map((messageData) => (
+                        <Message
+                            key={messageData.id}
+                            type='EDIT_REPLY'
+                            messageData={{
+                                ...messageData,
+                                isLocalMessage: user?.uid == messageData.uid,
+                                isTextPersian : isPersian(messageData.plainText),
+                                textLetters: messageData.plainText.length > 20 ? 20 : messageData.plainText.length,
+                            }}
+                        />
+                    )) :
+                    messages?.map((messageData) => (
+                        <Message
+                            key={messageData.id}
+                            type='CHAT'
+                            messageData={{
+                                ...messageData,
+                                isLocalMessage: user?.uid == messageData.uid,
+                                isTextPersian : isPersian(messageData.plainText),
+                                textLetters: messageData.plainText.length > 20 ? 20 : messageData.plainText.length,
+                            }}
+                        />
+                    ))
                 }
-                </AnimatePresence>
-
-                <AnimatePresence>
-                    {
-                        editReply?.show ?
-                        <EditReplyBar key='edit-reply' /> :
-                        selectedMessages.length ?
-                        <SelectBar key='select' /> :
-                        <ChatInput key='input' />
-                    }
-                </AnimatePresence>
-
-                <MessagesList {...{chatRef, chatEndRef}} />
-            </ChatMessagesContainer>
-        </>
+            </AnimatePresence>
+            <div ref={chatEndRef} />
+        </motion.div>
     );
 };
 
-const ChatMessagesContainer = styled(motion.div)`
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transform: ${props => props.data.optionsAnimationStatus == 2 ? 'scale(0.96)' : 'scale(1)'};
-    transition: ${props => props.data.optionsAnimationStatus == 2 ? 'transform .3s' : 'transform .2s'};
-
-    .messages {
-        position: relative;
-        width: 47%;
-        height: 100%;
-        padding: 5rem 2rem 9rem 2rem;
-        scroll-behavior: smooth;
-        overflow: hidden scroll;
-    }
-
-    @media (max-width: 768px) {
-        .messages {
-            padding: 5rem 1rem 10rem 1rem;
-            width: 100%;
-        }
-    }
-`;
-
-export default ChatMessages;
+export default memo(ChatMessages);

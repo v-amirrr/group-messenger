@@ -31,26 +31,24 @@ const MessageRepliedTo = ({ replyTo, type, isLocalMessage }) => {
     };
 
     return (
-        <>
-            <MessageRepliedToContainer
-                {...framerMotionAttributes(isLocalMessage ? localMessageRepliedToVariants : nonLocalMessageRepliedToVariants)}
-                onClick={(e) => replyTo != 'DELETED_REPLY' ? clickHandler(e) : ''}
-                onMouseEnter={hoverHandler}
-                onMouseLeave={() => mouseSituation = 'OUT'}
-                data={{
-                    chatType: type == 'CHAT',
-                    deletedReply: replyTo == 'DELETED_REPLY',
-                    isLocalMessage,
-                }}
-            >
-                <i className='reply-icon'><BsReplyFill /></i>
-                {
-                    replyTo != 'DELETED_REPLY' ?
-                    <p className='reply-message'>{replyTo?.plainText}</p> :
-                    <p className='reply-message'>Deleted Message</p>
-                }
-            </MessageRepliedToContainer>
-        </>
+        <MessageRepliedToContainer
+            {...framerMotionAttributes(isLocalMessage ? localMessageRepliedToVariants : nonLocalMessageRepliedToVariants)}
+            onClick={(e) => replyTo != 'DELETED_REPLY' ? clickHandler(e) : ''}
+            onMouseEnter={hoverHandler}
+            onMouseLeave={() => mouseSituation = 'OUT'}
+            data={{
+                chatType: type == 'CHAT',
+                deletedReply: replyTo == 'DELETED_REPLY',
+                isLocalMessage,
+            }}
+        >
+            <i className='reply-icon'><BsReplyFill /></i>
+            {
+                replyTo != 'DELETED_REPLY' ?
+                <p className='reply-message'>{replyTo?.plainText}</p> :
+                <p className='reply-message'>Deleted Message</p>
+            }
+        </MessageRepliedToContainer>
     );
 };
 

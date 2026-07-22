@@ -5,12 +5,11 @@ import { doc, setDoc } from 'firebase/firestore';
 import { createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { setUser, setEnterAsAGuest } from '../redux/userSlice';
 import { setLoader } from '../redux/appSlice';
-import { useToast } from './useToast';
+import { openToast } from '../functions/ToastHandler';
 
 export const useAuth = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { openToast } = useToast();
 
     const login = (email, password) => {
         dispatch(setLoader(true));
@@ -23,7 +22,7 @@ export const useAuth = () => {
             })
             .catch(err => {
                 dispatch(setLoader(false));
-                openToast(err.message, "ERROR");
+                openToast(dispatch, err.message, "ERROR");
             });
     };
 
@@ -46,7 +45,7 @@ export const useAuth = () => {
             })
             .catch((err) => {
                 dispatch(setLoader(false));
-                openToast(err.message, 'ERROR');
+                openToast(dispatch, err.message, 'ERROR');
             });
     };
 
@@ -64,7 +63,7 @@ export const useAuth = () => {
             dispatch(setUser(null));
             dispatch(setEnterAsAGuest(false));
             setTimeout(() => {
-                openToast("You've logged out successfully", 'GENERAL');
+                openToast(dispatch, "You've logged out successfully", 'GENERAL');
             }, 200);
         }, 200);
     };
@@ -93,7 +92,7 @@ export const useAuth = () => {
     //     dispatch(setGoogleLogin({ loading: false }));
     //     localStorage.removeItem('user');
     //     dispatch(setUser(null));
-    //     openToast("Authentication got canceled", "GENERAL");
+    //     openToast(dispatch, "Authentication got canceled", "GENERAL");
     // };
 
     return {

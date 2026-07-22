@@ -8,21 +8,19 @@ const ChatInputEmojiPicker = ({ setInputText, emojiPicker }) => {
         setInputText(pre => `${pre}${e.native}`);
     };
     return (
-        <>
-            <ChatInputEmojiPickerContainer inputbaremojipicker={emojiPicker ? 1 : 0}>
-                <div className='picker'>
-                    <Picker
-                        set="apple"
-                        data={data}
-                        emojiSize={30}
-                        showPreview={false}
-                        showSkinTones={false}
-                        onEmojiSelect={(e) => emojiHandler(e)}
-                        previewPosition='none'
-                    />
-                </div>
-            </ChatInputEmojiPickerContainer>
-        </>
+        <ChatInputEmojiPickerContainer inputbaremojipicker={emojiPicker ? 1 : 0}>
+            <div className='picker'>
+                <Picker
+                    set="apple"
+                    data={data}
+                    emojiSize={30}
+                    showPreview={false}
+                    showSkinTones={false}
+                    onEmojiSelect={(e) => emojiHandler(e)}
+                    previewPosition='none'
+                />
+            </div>
+        </ChatInputEmojiPickerContainer>
     );
 };
 

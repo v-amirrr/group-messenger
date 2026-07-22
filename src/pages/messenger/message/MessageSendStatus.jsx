@@ -6,16 +6,14 @@ import { AnimatePresence } from 'framer-motion';
 
 const MessageSendStatus = ({ status }) => {
     return (
-        <>
-            <MessageSendStatusContainer>
-                <AnimatePresence exitBeforeEnter>
-                    {
-                        status == 1 ? <DotsLoader key='loader' scale={1.4} /> :
-                        status == 2 ? <Check key='check' scale={1.4} /> : ''
-                    }
-                </AnimatePresence>
-            </MessageSendStatusContainer>
-        </>
+        <MessageSendStatusContainer>
+            <AnimatePresence exitBeforeEnter>
+                {
+                    status == 1 ? <DotsLoader key='loader' scale={1.4} /> :
+                    status == 2 ? <Check key='check' scale={1.4} /> : ''
+                }
+            </AnimatePresence>
+        </MessageSendStatusContainer>
     );
 };
 

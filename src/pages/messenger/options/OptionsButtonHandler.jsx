@@ -4,23 +4,23 @@ import TrashButtons from './TrashButtons';
 import OptionsEditMenu from './OptionsEditMenu';
 import OptionsEditConfirmation from './OptionsEditConfirmation';
 import DetailsButtons from './DetailsButtons';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useOptions } from '../../../hooks/useOptions';
 import { useSelect } from '../../../hooks/useSelect';
 import { useModal } from '../../../hooks/useModal';
-import { useToast } from '../../../hooks/useToast';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { optionsVariants, optionLocalVariants, optionNonLocalVariants } from '../../../config/varitans';
+import { openToast } from '../../../functions/ToastHandler';
 const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const OptionsButtonHandler = ({ type, optionsClickHandler, closeOptions }) => {
+    const dispatch = useDispatch();
     const { inputReply } = useSelector(store => store.appStore);
     const { optionsMessage, optionsButtonsStage } = useSelector(store => store.optionsStore);
     const { copy, reply, editText, moveToTrash, restore, changeButtonsStage, activateEditReply } = useOptions();
     const { openModal } = useModal();
     const { select } = useSelect();
-    const { openToast } = useToast();
 
     const setVariants = () => optionsMessage?.isLocalMessage ? optionLocalVariants : optionNonLocalVariants;
 
@@ -87,60 +87,55 @@ const OptionsButtonHandler = ({ type, optionsClickHandler, closeOptions }) => {
                 closeOptions();
                 setTimeout(() => {
                     restore(optionsMessage?.id);
-                    openToast('Message restored', 'GENERAL');
+                    openToast(dispatch, 'Message restored', 'GENERAL');
                 }, 300);
                 break;
         }
     };
 
     return (
-        <>
-            <OptionsButtonHandlerContainer
-                {...framerMotionAttributes(optionsVariants)}
-                styles={{ isLocalMessage: optionsMessage?.isLocalMessage }}
-            >
-                <AnimatePresence exitBeforeEnter>
-                    {
-                        optionsButtonsStage == 2 ?
-                        <OptionsEditMenu
-                            key='OptionsButtonsEdit'
-                            optionClick={optionClick}
-                            setVariants={setVariants}
-                            optionsMessageReplyTo={optionsMessage?.replyTo?.id}
-                        /> :
-                        optionsButtonsStage == 3 ?
-                        <OptionsEditConfirmation
-                            key='OptionsButtonsEditing'
-                            optionClick={optionClick}
-                            setVariants={setVariants}
-                        /> :
-                        optionsButtonsStage == 1 ?
-                        <>
-                            {
-                                type == 'TRASH' ?
-                                <TrashButtons
-                                    key='OptionsButtonsTrash'
-                                    optionClick={optionClick}
-                                    setVariants={setVariants}
-                                /> :
-                                <ChatButtons
-                                    key='OptionsButtonsChat'
-                                    optionClick={optionClick}
-                                    setVariants={setVariants}
-                                    replyAlreadyClicked={inputReply?.id == optionsMessage?.id}
-                                    isMessageLocal={optionsMessage?.isLocalMessage}
-                                />
-                            }
-                            <DetailsButtons
-                                key='OptionsButtonsDetail'
-                                time={optionsMessage?.time}
+        <OptionsButtonHandlerContainer {...framerMotionAttributes(optionsVariants)} styles={{ isLocalMessage: optionsMessage?.isLocalMessage }}>
+            <AnimatePresence exitBeforeEnter>
+                {
+                    optionsButtonsStage == 2 ?
+                    <OptionsEditMenu
+                        key='OptionsButtonsEdit'
+                        optionClick={optionClick}
+                        setVariants={setVariants}
+                        optionsMessageReplyTo={optionsMessage?.replyTo?.id}
+                    /> :
+                    optionsButtonsStage == 3 ?
+                    <OptionsEditConfirmation
+                        key='OptionsButtonsEditing'
+                        optionClick={optionClick}
+                        setVariants={setVariants}
+                    /> :
+                    optionsButtonsStage == 1 ?
+                    <>
+                        {
+                            type == 'TRASH' ?
+                            <TrashButtons
+                                key='OptionsButtonsTrash'
+                                optionClick={optionClick}
                                 setVariants={setVariants}
+                            /> :
+                            <ChatButtons
+                                key='OptionsButtonsChat'
+                                optionClick={optionClick}
+                                setVariants={setVariants}
+                                replyAlreadyClicked={inputReply?.id == optionsMessage?.id}
+                                isMessageLocal={optionsMessage?.isLocalMessage}
                             />
-                        </> : ''
-                    }
-                </AnimatePresence>
-            </OptionsButtonHandlerContainer>
-        </>
+                        }
+                        <DetailsButtons
+                            key='OptionsButtonsDetail'
+                            time={optionsMessage?.time}
+                            setVariants={setVariants}
+                        />
+                    </> : ''
+                }
+            </AnimatePresence>
+        </OptionsButtonHandlerContainer>
     );
 };
 
@@ -154,8 +149,8 @@ const OptionsButtonHandlerContainer = styled(motion.div)`
 
     .reply, .copy, .edit, .trash, .select, .details, .delete, .restore, .edit-text, .edit-reply, .edit-back, .edit-ok, .edit-close {
         position: relative;
-        top: 2.3rem;
-        height: 2.16rem;
+        top: 2.35rem;
+        height: 2.1rem;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -163,6 +158,7 @@ const OptionsButtonHandlerContainer = styled(motion.div)`
         margin: .2rem 0 0 .2rem;
         padding: 0 .6rem 0 .5rem;
         background-color: var(--bg);
+        box-shadow: var(--shadow);
         border: solid 0.1px #202020;
         cursor: pointer;
         transition: background .2s;

@@ -22,35 +22,33 @@ const messages = [
     { width: '7rem', height: '2rem', position: 3, local: false },
 ];
 
-const ChatLoader = () => {
+const MessengerLoader = () => {
     return (
-        <>
-            <ChatLoaderContainer {...framerMotionAttributes(chatLoaderVariants)}>
-                <div className='menu'></div>
-                <div className='scroll'></div>
-                <div className='input'></div>
-                <div className='messages'>
-                    {
-                        messages.map((message, index) => (
-                        <MessageContainer
-                            key={index}
-                            className='message-container'
-                            width={message.width}
-                            height={message.height}
-                            position={message.position}
-                            local={message.local ? 1 : 0}
-                        >
-                            <div className={message.position == 4 ? 'date' : 'message'}></div>
-                        </MessageContainer>
-                        ))
-                    }
-                </div>
-            </ChatLoaderContainer>
-        </>
+        <MessengerLoaderContainer {...framerMotionAttributes(chatLoaderVariants)}>
+            <div className='menu'></div>
+            <div className='scroll'></div>
+            <div className='input'></div>
+            <div className='messages'>
+                {
+                    messages.map((message, index) => (
+                    <MessageContainer
+                        key={index}
+                        className='message-container'
+                        width={message.width}
+                        height={message.height}
+                        position={message.position}
+                        local={message.local ? 1 : 0}
+                    >
+                        <div className={message.position == 4 ? 'date' : 'message'}></div>
+                    </MessageContainer>
+                    ))
+                }
+            </div>
+        </MessengerLoaderContainer>
     );
 };
 
-const ChatLoaderContainer = styled(motion.div)`
+const MessengerLoaderContainer = styled(motion.div)`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -211,4 +209,4 @@ const MessageContainer = styled.div`
     }
 `;
 
-export default ChatLoader;
+export default MessengerLoader;

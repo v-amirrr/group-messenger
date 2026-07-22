@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import MessengerPage from './pages/messenger/MessengerPage';
 import AuthPage from './pages/auth/AuthPage';
 import SettingsPage from './pages/settings/SettingsPage';
@@ -12,6 +12,7 @@ import { useFirestore } from './hooks/useFirestore';
 import { AnimatePresence } from 'framer-motion';
 
 const App = () => {
+    const location = useLocation();
     const { getMessages, getUsers } = useFirestore();
     useRedirection();
 

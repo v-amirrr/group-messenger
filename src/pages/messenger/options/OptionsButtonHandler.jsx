@@ -192,6 +192,7 @@ const OptionsButtonHandlerContainer = styled(motion.div)`
         align-items: flex-start;
         flex-direction: column;
         border: none;
+        box-shadow: none;
 
         .clock, .calendar {
             display: flex;
@@ -273,7 +274,7 @@ const OptionsButtonHandlerContainer = styled(motion.div)`
         justify-content: flex-start;
 
         .reply, .copy, .edit, .trash, .select, .details, .delete, .restore {
-            top: 4.9rem;
+            top: ${props => props.styles.isLocalMessage ? '4.65rem' : '2.35rem'};
         }
     }
 `;

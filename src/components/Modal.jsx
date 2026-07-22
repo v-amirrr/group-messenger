@@ -68,7 +68,7 @@ const ModalContainer = styled(motion.section)`
 
         .modal-message {
             font-size: 1rem;
-            font-weight: 400;
+            font-weight: 300;
         }
 
         .modal-buttons {
@@ -78,6 +78,8 @@ const ModalContainer = styled(motion.section)`
                 border: none;
                 border-radius: 50px;
                 background-color: var(--bg);
+                border-top: solid 0.1px #2c2c2c;
+                border-bottom: solid 0.1px #2c2c2c;
                 margin: 0 0.3rem;
                 width: 5rem;
                 height: 2.3rem;
@@ -96,6 +98,8 @@ const ModalContainer = styled(motion.section)`
             .delete {
                 color: var(--red);
                 background-color: #ff000030;
+                border-top: solid 0.1px #500000;
+                border-bottom: solid 0.1px #500000;
 
                 @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
                     &:hover {
@@ -107,6 +111,8 @@ const ModalContainer = styled(motion.section)`
             .change {
                 color: var(--green);
                 background-color: #00ff0030;
+                border-top: solid 0.1px #005000;
+                border-bottom: solid 0.1px #005000;
 
                 @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
                     &:hover {

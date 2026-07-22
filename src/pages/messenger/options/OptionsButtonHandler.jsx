@@ -240,7 +240,7 @@ const OptionsButtonHandlerContainer = styled(motion.div)`
 
     .edit-back {
         padding: 0;
-        width: 2.25rem;
+        width: 2.1rem;
 
         i {
             margin: 0;
@@ -250,7 +250,7 @@ const OptionsButtonHandlerContainer = styled(motion.div)`
 
     .edit-close {
         padding: 0;
-        width: 2.25rem;
+        width: 2.1rem;
 
         i {
             margin: 0;
@@ -260,10 +260,11 @@ const OptionsButtonHandlerContainer = styled(motion.div)`
 
     .edit-ok {
         padding: .3rem;
-        width: 2.25rem;
+        width: 2.1rem;
 
         i {
             margin: 0;
+            font-size: 1.3rem;
         }
     }
 

@@ -20,11 +20,11 @@ const SettingsItemContainer = styled.div`
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    border: var(--border);
+    border: solid 0.1px #2c2c2c;
     border-radius: ${props => props.open ? "20px" : "50px"};
     margin: .18rem;
-    /* background-color: #ffffff05; */
-    box-shadow: var(--shadow);
+    background-color: #ffffff05;
+    /* box-shadow: var(--shadow); */
     opacity: ${props => props.hide ? '0' : '1'};
     overflow: hidden;
     transition: ${props => props.hide ?

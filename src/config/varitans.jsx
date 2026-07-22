@@ -655,14 +655,13 @@ export const inputButtonVariants = {
 export const inputReplyIndicator = {
     hidden: {
         opacity: 0,
-        y: 20,
+        y: 45,
     },
     visible: {
         opacity: 1,
         y: 0,
         transition: {
-            type: 'spring',
-            stiffness: 80,
+            duration: 0.4,
         },
     },
     exit: {

@@ -174,6 +174,7 @@ const UserContainer = styled(motion.div)`
             .submit-button, .cancel-button {
                 width: 4.3rem;
                 height: 2rem;
+                border: solid 0.1px #2c2c2c;
                 border-radius: 50px;
                 background-color: var(--bg);
                 display: flex;
@@ -195,6 +196,7 @@ const UserContainer = styled(motion.div)`
             .submit-button {
                 color: var(--green);
                 background-color: #00ff0030;
+                border: solid 0.1px #005000;
 
                 @media (hover: hover) and (pointer: fine) and (min-width: 745px) {
                     &:hover {

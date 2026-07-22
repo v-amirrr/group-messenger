@@ -60,7 +60,7 @@ const MessengerChatContainer = styled(motion.div)`
     justify-content: center;
     align-items: center;
     transform: ${props => props.data.optionsAnimationStatus == 2 ? 'scale(0.96)' : 'scale(1)'};
-    transition: ${props => props.data.optionsAnimationStatus == 2 ? 'transform .5s' : 'transform .2s'};
+    transition: ${props => props.data.optionsAnimationStatus == 2 ? 'transform .3s' : 'transform .2s'};
 
     .messages {
         position: relative;

@@ -59,7 +59,6 @@ const ChangeUsernamePopupContainer = styled.div`
         min-width: 16rem;
         padding: .7rem 0;
         border-radius: 20px;
-
         .old-username, .new-username {
             margin: 0 1rem;
             width: 50%;

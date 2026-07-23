@@ -4,6 +4,7 @@ import { useModal } from '../../hooks/useModal';
 import { FcBusinessman } from "react-icons/fc";
 import { FaUserEdit } from "react-icons/fa";
 import { RiArrowRightSLine } from "react-icons/ri";
+import { openToast } from '../../functions/ToastHandler';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { userSettingsVariants } from '../../config/varitans';

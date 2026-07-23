@@ -6,15 +6,19 @@ import { FcSettings, FcRedo, FcInfo, FcEmptyTrash, FcFullTrash } from 'react-ico
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { menuButtonVariants } from '../../config/varitans';
+import { useDispatch, useSelector } from 'react-redux';
+import { openToast } from '../../functions/ToastHandler';
 const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const MenuButton = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const { enterAsAGuest } = useSelector(store => store.userStore);
     const { logout } = useAuth();
     return (
         <MenuButtonContainer {...framerMotionAttributes(menuButtonVariants)}>
             <div className='buttons'>
-                <button onClick={() => navigate('/trash')}>
+                <button onClick={() => enterAsAGuest ? openToast(dispatch, "To use this feature you need to ", "GUEST") : navigate('/trash')}>
                     <i className='trash-icon'><FcFullTrash /></i>
                     <p>Trash</p>
                 </button>

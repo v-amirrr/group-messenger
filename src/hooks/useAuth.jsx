@@ -82,7 +82,7 @@ export const useAuth = () => {
             })
             .catch((err) => {
                 dispatch(setLoader(false));
-                openToast(err.message, 'ERROR');
+                openToast(dispatch, err.message, 'ERROR');
             });
     };
 

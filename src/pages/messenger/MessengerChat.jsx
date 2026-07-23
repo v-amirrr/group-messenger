@@ -47,7 +47,7 @@ const MessengerChat = () => {
                     }
                 </AnimatePresence>
 
-                <ChatMessages {...{chatRef, chatEndRef}} />
+                <ChatMessages {...{chatRef, chatEndRef, onChatScrollHandler}} />
             </MessengerChatContainer>
         </>
     );

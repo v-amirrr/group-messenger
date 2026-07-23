@@ -3,6 +3,7 @@ import { db } from "../config/firebase";
 import { doc, updateDoc } from "firebase/firestore";
 import { setUser } from '../redux/userSlice';
 import { useModal } from "./useModal";
+import { openToast } from "../functions/ToastHandler";
 
 export const useUser = () => {
     const dispatch = useDispatch();

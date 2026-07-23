@@ -16,7 +16,6 @@ export const useUser = () => {
             username: newUsername
         }).then(() => {
             dispatch(setUser({ ...user, displayName: newUsername }));
-            localStorage.setItem("user", JSON.stringify(user));
             openToast(dispatch, "Username was changed", "GENERAL");
         }).catch((err) => {
             openToast(dispatch, err.message, "ERROR");

@@ -71,6 +71,7 @@ const AuthPage = () => {
                         placeholder='Username' 
                         className='username'
                         key='username'
+                        autoFocus
                     />
                 }
                 <motion.input 

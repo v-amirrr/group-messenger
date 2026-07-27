@@ -3,12 +3,13 @@ import { db } from "../config/firebase";
 import { doc, updateDoc } from "firebase/firestore";
 import { setUser } from '../redux/userSlice';
 import { useModal } from "./useModal";
-import { openToast } from "../functions/ToastHandler";
+import { useToast } from './useToast';
 
 export const useUser = () => {
     const dispatch = useDispatch();
     const { user } = useSelector(store => store.userStore);
     const { closeModal } = useModal();
+    const { openToast } = useToast();
 
     const changeUsername = (newUsername) => {
         closeModal();
@@ -16,9 +17,9 @@ export const useUser = () => {
             username: newUsername
         }).then(() => {
             dispatch(setUser({ ...user, displayName: newUsername }));
-            openToast(dispatch, "Username was changed", "GENERAL");
+            openToast("Username was changed", "GENERAL");
         }).catch((err) => {
-            openToast(dispatch, err.message, "ERROR");
+            openToast(err.message, "ERROR");
         });
     };
 

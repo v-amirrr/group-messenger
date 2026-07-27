@@ -5,11 +5,12 @@ import { doc, setDoc } from 'firebase/firestore';
 import { createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { setUser, setEnterAsAGuest } from '../redux/userSlice';
 import { setLoader } from '../redux/appSlice';
-import { openToast } from '../functions/ToastHandler';
+import { useToast } from './useToast';
 
 export const useAuth = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { openToast } = useToast();
 
     const login = (email, password) => {
         dispatch(setLoader(true));
@@ -22,7 +23,7 @@ export const useAuth = () => {
             })
             .catch(err => {
                 dispatch(setLoader(false));
-                openToast(dispatch, err.message, "ERROR");
+                openToast(err.message, "ERROR");
             });
     };
 
@@ -45,7 +46,7 @@ export const useAuth = () => {
             })
             .catch((err) => {
                 dispatch(setLoader(false));
-                openToast(dispatch, err.message, 'ERROR');
+                openToast(err.message, 'ERROR');
             });
     };
 
@@ -62,9 +63,6 @@ export const useAuth = () => {
         setTimeout(() => {
             dispatch(setUser(null));
             dispatch(setEnterAsAGuest(false));
-            setTimeout(() => {
-                openToast(dispatch, "You've logged out successfully", 'GENERAL');
-            }, 200);
         }, 200);
     };
 
@@ -82,7 +80,7 @@ export const useAuth = () => {
             })
             .catch((err) => {
                 dispatch(setLoader(false));
-                openToast(dispatch, err.message, 'ERROR');
+                openToast(err.message, 'ERROR');
             });
     };
 

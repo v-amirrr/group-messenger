@@ -3,7 +3,7 @@ import { addSelectedMessages, setSelectedMessages, plusNonLocalSelected, minusNo
 import { useOptions } from "./useOptions";
 import { useModal } from "./useModal";
 import { useSkeletonEffect } from "./useSkeletonEffect";
-import { openToast } from "../functions/ToastHandler";
+import { useToast } from './useToast';
 
 export const useSelect = () => {
     const dispatch = useDispatch();
@@ -11,6 +11,7 @@ export const useSelect = () => {
     const { moveToTrash, restore, permanentDelete } = useOptions();
     const { closeModal } = useModal();
     const { addSkeletonEffect } = useSkeletonEffect();
+    const { openToast } = useToast();
 
     const select = (message) => {
         dispatch(addSelectedMessages({ message }));
@@ -46,7 +47,7 @@ export const useSelect = () => {
         ToastText = selectedMessages.length == 1 ? 'Message copied' : 'Messages copied';
         clearSelectedMessages();
         setTimeout(() => {
-            openToast(dispatch, ToastText, 'GENERAL');
+            openToast(ToastText, 'GENERAL');
         }, 300);
     };
 
@@ -56,7 +57,7 @@ export const useSelect = () => {
         });
         let ToastText = selectedMessages.length == 1 ? 'Message was moved to trash' : 'Messages were moved to trash';
         setTimeout(() => {
-            openToast(dispatch, ToastText, 'GENERAL');
+            openToast(ToastText, 'GENERAL');
         }, 300);
         clearSelectedMessages();
     };
@@ -80,7 +81,7 @@ export const useSelect = () => {
             });
             let ToastText = modalMessages.length == 1 ? 'Message was permenately deleted' : 'Messages were permenately deleted';
             setTimeout(() => {
-                openToast(dispatch, ToastText, 'GENERAL');
+                openToast(ToastText, 'GENERAL');
             }, 300);
         }, 400);
         clearSelectedMessages();

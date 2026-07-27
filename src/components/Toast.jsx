@@ -1,22 +1,22 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useAuth } from '../hooks/useAuth';
 import { IoClose } from 'react-icons/io5';
 import { FcAdvertising, FcHighPriority, FcKey } from 'react-icons/fc';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { toastSlowVariants, toastFastVariants } from '../config/varitans';
-import { closeToast } from '../functions/ToastHandler';
+import { useToast } from '../hooks/useToast';
 const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const Toast = () => {
-    const dispatch = useDispatch();
+    const { openToast, closeToast } = useToast();
     const { toasts } = useSelector(store => store.appStore);
     const { logout } = useAuth();
 
     useEffect(() => {
         let firstItemTime = toasts[0]?.time;
-        toasts.length > 1 && closeToast(dispatch, firstItemTime);
+        toasts.length > 1 && closeToast(firstItemTime);
     }, [toasts]);
 
     return (
@@ -31,7 +31,7 @@ const Toast = () => {
                         exit='exit'
                         variants={toasts?.length > 1 ? toastSlowVariants : toastFastVariants}
                     >
-                        <button className='close-button' onClick={() => closeToast(dispatch, toast.time)}>
+                        <button className='close-button' onClick={() => closeToast(toast.time)}>
                             <IoClose />
                         </button>
                         {

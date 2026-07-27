@@ -11,7 +11,7 @@ import { useModal } from '../../../hooks/useModal';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { optionsVariants, optionLocalVariants, optionNonLocalVariants } from '../../../config/varitans';
-import { openToast } from '../../../functions/ToastHandler';
+import { useToast } from '../../../hooks/useToast';
 const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const OptionsButtonHandler = ({ type, optionsClickHandler, closeOptions }) => {
@@ -21,6 +21,7 @@ const OptionsButtonHandler = ({ type, optionsClickHandler, closeOptions }) => {
     const { copy, reply, editText, moveToTrash, restore, changeButtonsStage, activateEditReply } = useOptions();
     const { openModal } = useModal();
     const { select } = useSelect();
+    const { openToast } = useToast();
 
     const setVariants = () => optionsMessage?.isLocalMessage ? optionLocalVariants : optionNonLocalVariants;
 
@@ -87,7 +88,7 @@ const OptionsButtonHandler = ({ type, optionsClickHandler, closeOptions }) => {
                 closeOptions();
                 setTimeout(() => {
                     restore(optionsMessage?.id);
-                    openToast(dispatch, 'Message restored', 'GENERAL');
+                    openToast('Message restored', 'GENERAL');
                 }, 300);
                 break;
         }

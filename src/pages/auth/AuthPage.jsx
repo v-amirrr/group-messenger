@@ -7,8 +7,7 @@ import { FaRegEye, FaUserLock, FaEyeSlash } from 'react-icons/fa';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { loginVariants, loginItemVariants, loginPasswordIconVariants, loginPasswordInputVariants } from '../../config/varitans';
-import { useDispatch } from 'react-redux';
-import { openToast } from '../../functions/ToastHandler';
+import { useToast } from '../../hooks/useToast';
 const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const signupSchema = z.object({
@@ -23,7 +22,7 @@ const loginSchema = z.object({
 });
 
 const AuthPage = () => {
-    const dispatch = useDispatch();
+    const { openToast } = useToast();
     const { signup, login, enterAsAGuest, googleLogin } = useAuth();
 
     // mode 1 sign up, mode 2 login
@@ -51,7 +50,7 @@ const AuthPage = () => {
         const hasErrors = Object.keys(errors).length > 0;
         const errorMessage = errors?.username?.message || errors?.email?.message || errors?.password?.message;
 
-        hasErrors && openToast(dispatch, errorMessage, 'ERROR');
+        hasErrors && openToast(errorMessage, 'ERROR');
     }, [errors]);
 
     return (

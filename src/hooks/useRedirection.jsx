@@ -3,13 +3,14 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { clearNonLocalSelected, setSelectedMessages } from "../redux/selectSlice";
 import { setClearToasts } from "../redux/appSlice";
 import { useEffect } from "react";
-import { clearToasts, openToast } from "../functions/ToastHandler";
+import { useToast } from '../hooks/useToast';
 
 export const useRedirection = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const dispatch = useDispatch();
     const { user, enterAsAGuest } = useSelector(store => store.userStore);
+    const { openToast, clearToasts } = useToast();
 
     useEffect(() => {
         autoRedirection(location.pathname);
@@ -21,7 +22,7 @@ export const useRedirection = () => {
     };
 
     const ClearToasts = () => {
-        clearToasts(dispatch);
+        clearToasts();
     };
 
     const messengerRedirection = () => {
@@ -44,13 +45,13 @@ export const useRedirection = () => {
 
     const trashRedirection = () => {
         if (enterAsAGuest) {
-            openToast(dispatch, "To use this feature you need to ", "GUEST");
+            openToast("To use this feature you need to ", "GUEST");
             navigate("/", { replace: true });
         }
     };
 
     const autoRedirection = (path) => {
-        ClearToasts(dispatch);
+        ClearToasts();
         clearSelectedMessages();
         switch (path) {
             case '/':

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useModal } from './useModal';
 import { setInputReply, setEditReply, setNewReplyId } from '../redux/appSlice';
 import { setOptionsButtonsStage, setEditedText } from '../redux/optionsSlice';
-import { openToast } from '../functions/ToastHandler';
+import { useToast } from './useToast';
 
 export const useOptions = () => {
     const dispatch = useDispatch();
@@ -13,6 +13,7 @@ export const useOptions = () => {
     const { inputReply, editReply: editReplyData } = useSelector(store => store.appStore);
     const { selectedMessages } = useSelector(store => store.selectStore);
     const { closeModal } = useModal();
+    const { openToast } = useToast();
 
     const reply = (id, message) => {
         if (inputReply.id && inputReply.id != id) {
@@ -33,7 +34,7 @@ export const useOptions = () => {
 
     const copy = (messagePlainText) => {
         navigator.clipboard.writeText(messagePlainText);
-        openToast(dispatch, 'Message copied', 'GENERAL');
+        openToast('Message copied', 'GENERAL');
     };
 
     const editText = (id, closeOptions) => {
@@ -42,10 +43,10 @@ export const useOptions = () => {
             updateDoc(docRef, {
                 message: editedText,
             });
-            openToast(dispatch, 'Message was edited', 'GENERAL');
+            openToast('Message was edited', 'GENERAL');
             closeOptions();
         } else {
-            openToast(dispatch, "Can't change your message into nothing", 'ERROR');
+            openToast("Can't change your message into nothing", 'ERROR');
             closeOptions();
         }
     };
@@ -63,7 +64,7 @@ export const useOptions = () => {
                 // modalMessages?.replyTo.id,
         });
         deactivateEditReply();
-        openToast(dispatch, 'Reply changed', 'GENERAL');
+        openToast('Reply changed', 'GENERAL');
     };
 
     const moveToTrash = (id) => {
@@ -72,7 +73,7 @@ export const useOptions = () => {
             updateDoc(docRef, {
                 deleted: true,
             });
-            openToast(dispatch, 'Message was moved to trash', 'GENERAL');
+            openToast('Message was moved to trash', 'GENERAL');
             if (id == inputReply?.id) {
                 unReply();
             }

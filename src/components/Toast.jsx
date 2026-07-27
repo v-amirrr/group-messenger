@@ -11,7 +11,7 @@ const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visib
 
 const Toast = () => {
     const { openToast, closeToast } = useToast();
-    const { toasts } = useSelector(store => store.appStore);
+    const { toasts } = useSelector(store => store.toastStore);
     const { logout } = useAuth();
 
     useEffect(() => {

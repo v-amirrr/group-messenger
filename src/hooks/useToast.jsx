@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux';
-import { setToasts, setCloseToast, setClearToasts } from '../redux/appSlice';
+import { setToasts, setCloseToast, setClearToasts } from '../redux/toastSlice';
 
 export const useToast = () => {
     const dispatch = useDispatch();

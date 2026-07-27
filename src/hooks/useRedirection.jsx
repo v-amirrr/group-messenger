@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { clearNonLocalSelected, setSelectedMessages } from "../redux/selectSlice";
-import { setClearToasts } from "../redux/appSlice";
+import { setClearToasts } from "../redux/toastSlice";
 import { useEffect } from "react";
 import { useToast } from '../hooks/useToast';
 

@@ -21,6 +21,8 @@ const MessengerChat = () => {
     const { selectedMessages } = useSelector(store => store.selectStore);
     const { editReply } = useSelector(store => store.appStore);
     const { arrow, scrollButtonClickHandler, onChatScrollHandler } = useScroll(chatRef, chatEndRef);
+    console.log('s');
+    
     return (
         <>
             <Options type='CHAT' />

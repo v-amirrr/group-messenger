@@ -12,42 +12,22 @@ import ChatMessages from './ChatMessages';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { chatMessagesVariants, messagesVariants } from '../../config/varitans';
+import { MessengerBars } from './MessengerBars';
+import { MessengerButtons } from './MessengerButtons';
 const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const MessengerChat = () => {
     const chatRef = useRef();
     const chatEndRef = useRef();
     const { optionsAnimationStatus } = useSelector(store => store.optionsStore);
-    const { selectedMessages } = useSelector(store => store.selectStore);
-    const { editReply } = useSelector(store => store.appStore);
     const { arrow, scrollButtonClickHandler, onChatScrollHandler } = useScroll(chatRef, chatEndRef);
-    console.log('s');
-    
     return (
         <>
             <Options type='CHAT' />
 
             <MessengerChatContainer {...framerMotionAttributes(chatMessagesVariants)} data={{ optionsAnimationStatus }}>
-                <AnimatePresence exitBeforeEnter>
-                {
-                    !editReply?.show &&
-                    <>
-                        <MenuButton key='MenuButton' />
-                        <ScrollButton key='ScrollButton' click={scrollButtonClickHandler} arrow={arrow} />
-                    </>
-                }
-                </AnimatePresence>
-
-                <AnimatePresence>
-                    {
-                        editReply?.show ?
-                        <EditReplyBar key='edit-reply' /> :
-                        selectedMessages.length ?
-                        <SelectBar key='select' /> :
-                        <ChatInput key='input' />
-                    }
-                </AnimatePresence>
-
+                <MessengerButtons {...{scrollButtonClickHandler, arrow}} />
+                <MessengerBars />
                 <ChatMessages {...{chatRef, chatEndRef, onChatScrollHandler}} />
             </MessengerChatContainer>
         </>

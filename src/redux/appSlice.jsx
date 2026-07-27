@@ -5,8 +5,6 @@ const initialState = {
     messagesScrollPosition: {},
     skeletonEffect: null,
     scrollToMessage: null,
-    inputReply: { id: null, message: null },
-    inputStoredText: {},
     editReply: {
         show: false,
         editedMessageId: null,
@@ -45,7 +43,7 @@ const appSlice = createSlice({
         setClearToasts: (state) => {
             return {
                 ...state,
-                toasts: []
+                toasts: [],
             };
         },
         setMessagesScrollPosition: (state, action) => {
@@ -54,7 +52,7 @@ const appSlice = createSlice({
                 messagesScrollPosition: {
                     ...state.messagesScrollPosition,
                     [action.payload.id]: action.payload.position
-                }
+                },
             };
         },
         setSkeletonEffect: (state, action) => {
@@ -67,15 +65,6 @@ const appSlice = createSlice({
             return {
                 ...state,
                 scrollToMessage: action.payload
-            };
-        },
-        setInputReply: (state, action) => {
-            return {
-                ...state,
-                inputReply: {
-                    id: action.payload.id,
-                    message: action.payload.message,
-                },
             };
         },
         setEditReply: (state, action) => {
@@ -114,7 +103,6 @@ export const {
     setMessagesScrollPosition,
     setSkeletonEffect,
     setScrollToMessage,
-    setInputReply,
     setEditReply,
     setNewReplyId,
     setLoader,

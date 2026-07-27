@@ -1,13 +1,13 @@
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from '../config/firebase';
 import { useDispatch, useSelector } from 'react-redux';
-import { setInputReply } from '../redux/appSlice';
+import { setInputReply } from '../redux/inputSlice';
 import { useToast } from './useToast';
 
 export const useSend = () => {
     const dispatch = useDispatch();
     const firebaseRef = collection(db, 'messages');
-    const { inputReply } = useSelector(store => store.appStore);
+    const { inputReply } = useSelector(store => store.inputStore);
     const { user, enterAsAGuest } = useSelector(store => store.userStore);
     const { openToast } = useToast();
 

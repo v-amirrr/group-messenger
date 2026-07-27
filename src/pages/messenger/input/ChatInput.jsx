@@ -14,7 +14,8 @@ const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visib
 const ChatInput = () => {
     const inputRef = useRef();
 
-    const { inputReply, editReply } = useSelector(store => store.appStore);
+    const { editReply } = useSelector(store => store.appStore);
+    const { inputReply } = useSelector(store => store.inputStore);
     const { modalShow } = useSelector(store => store.modalStore);
     const { selectedMessages } = useSelector(store => store.selectStore);
     const { optionsAnimationStatus } = useSelector(store => store.optionsStore);

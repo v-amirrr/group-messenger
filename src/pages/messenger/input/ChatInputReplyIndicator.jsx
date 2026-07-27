@@ -29,7 +29,7 @@ const ChatInputReplyIndicator = ({ inputReply, emojiPicker, emojiAnimation }) =>
     const clickHandler = () => {
         scrollToMessage(inputReply?.id);
         setTimeout(() => {
-            addSkeletonEffect(inputReply.id);
+            addSkeletonEffect(inputReply?.id);
         }, 1000);
     };
 
@@ -54,7 +54,7 @@ const ChatInputReplyIndicator = ({ inputReply, emojiPicker, emojiAnimation }) =>
                         onMouseLeave={unhoverHandler}
                     >
                         <i className='icon'><BsReplyFill /></i>
-                        <p className='text'>{inputReply.message}</p>
+                        <p className='text'>{inputReply?.message}</p>
                     </div>
                     <button className='reply-close-button' onClick={(e) => clearInputReply(e)}><IoClose /></button>
                 </ChatInputReplyIndicatorContainer> : ''

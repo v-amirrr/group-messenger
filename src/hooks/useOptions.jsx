@@ -2,7 +2,8 @@ import { db } from '../config/firebase';
 import { doc, deleteDoc, updateDoc } from 'firebase/firestore';
 import { useDispatch, useSelector } from 'react-redux';
 import { useModal } from './useModal';
-import { setInputReply, setEditReply, setNewReplyId } from '../redux/appSlice';
+import { setEditReply, setNewReplyId } from '../redux/appSlice';
+import { setInputReply } from '../redux/inputSlice';
 import { setOptionsButtonsStage, setEditedText } from '../redux/optionsSlice';
 import { useToast } from './useToast';
 
@@ -10,7 +11,8 @@ export const useOptions = () => {
     const dispatch = useDispatch();
     const editedText = useSelector(store => store.optionsStore.editedText);
     const { messages } = useSelector(store => store.firestoreStore);
-    const { inputReply, editReply: editReplyData } = useSelector(store => store.appStore);
+    const { editReply: editReplyData } = useSelector(store => store.appStore);
+    const { inputReply } = useSelector(store => store.inputStore);
     const { selectedMessages } = useSelector(store => store.selectStore);
     const { closeModal } = useModal();
     const { openToast } = useToast();

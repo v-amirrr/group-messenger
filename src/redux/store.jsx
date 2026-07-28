@@ -7,6 +7,7 @@ import selectSlice from './selectSlice';
 import modalSlice from './modalSlice';
 import inputSlice from './inputSlice';
 import toastSlice from './toastSlice';
+import scrollSlice from './scrollSlice';
 
 export const store = configureStore({
     reducer: {
@@ -18,6 +19,7 @@ export const store = configureStore({
         modalStore: modalSlice,
         inputStore: inputSlice,
         toastStore: toastSlice,
+        scrollStore: scrollSlice,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({

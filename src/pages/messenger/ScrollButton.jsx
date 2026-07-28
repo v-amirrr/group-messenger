@@ -1,14 +1,18 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setScrollButtonClicked } from '../../redux/scrollSlice';
 import { FaArrowDown } from "react-icons/fa";
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { scrollButtonVariants } from '../../config/varitans';
 const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
-const ScrollButton = ({ click, arrow }) => {
+const ScrollButton = () => {
+    const dispatch = useDispatch();
+    const { arrow } = useSelector(store => store.scrollStore);
     return (
         <ScrollButtonContainer {...framerMotionAttributes(scrollButtonVariants)} arrow={arrow == 'UP' ? 1 : 0}>
-            <i className='icon' onClick={click}><FaArrowDown /></i>
+            <i className='icon' onClick={() => dispatch(setScrollButtonClicked())}><FaArrowDown /></i>
         </ScrollButtonContainer>
     );
 };

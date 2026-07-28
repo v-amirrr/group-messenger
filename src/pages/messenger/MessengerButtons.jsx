@@ -4,7 +4,7 @@ import MenuButton from './MenuButton';
 import ScrollButton from './ScrollButton';
 import { AnimatePresence } from 'framer-motion';
 
-export const MessengerButtons = ({ scrollButtonClickHandler, arrow }) => {
+const MessengerButtons = () => {
     const { editReply } = useSelector(store => store.appStore);
     return (
         <AnimatePresence>
@@ -12,9 +12,11 @@ export const MessengerButtons = ({ scrollButtonClickHandler, arrow }) => {
                 !editReply?.show &&
                 <>
                     <MenuButton key='MenuButton' />
-                    <ScrollButton key='ScrollButton' click={scrollButtonClickHandler} arrow={arrow} />
+                    <ScrollButton key='ScrollButton' />
                 </>
             }
         </AnimatePresence>
     );
 };
+
+export default MessengerButtons;

@@ -1,34 +1,24 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
-import { useScroll } from '../../hooks/useScroll';
-import { isPersian } from '../../functions/isPersian';
-import MenuButton from './MenuButton';
-import ScrollButton from './ScrollButton';
-import ChatInput from './input/ChatInput';
-import SelectBar from './SelectBar';
 import Options from './options/Options';
-import EditReplyBar from './EditReplyBar';
 import ChatMessages from './ChatMessages';
+import MessengerBars from './MessengerBars';
+import MessengerButtons from './MessengerButtons';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { chatMessagesVariants, messagesVariants } from '../../config/varitans';
-import { MessengerBars } from './MessengerBars';
-import { MessengerButtons } from './MessengerButtons';
 const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const MessengerChat = () => {
-    const chatRef = useRef();
-    const chatEndRef = useRef();
     const { optionsAnimationStatus } = useSelector(store => store.optionsStore);
-    const { arrow, scrollButtonClickHandler, onChatScrollHandler } = useScroll(chatRef, chatEndRef);
     return (
         <>
             <Options type='CHAT' />
 
             <MessengerChatContainer {...framerMotionAttributes(chatMessagesVariants)} data={{ optionsAnimationStatus }}>
-                <MessengerButtons {...{scrollButtonClickHandler, arrow}} />
+                <MessengerButtons />
                 <MessengerBars />
-                <ChatMessages {...{chatRef, chatEndRef, onChatScrollHandler}} />
+                <ChatMessages />
             </MessengerChatContainer>
         </>
     );

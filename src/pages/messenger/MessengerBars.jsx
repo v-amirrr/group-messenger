@@ -5,7 +5,7 @@ import SelectBar from './SelectBar';
 import ChatInput from './input/ChatInput';
 import { useSelector } from 'react-redux';
 
-export const MessengerBars = () => {
+const MessengerBars = () => {
     const { editReply } = useSelector(store => store.appStore);
     const { selectedMessages } = useSelector(store => store.selectStore);
     return (
@@ -20,3 +20,5 @@ export const MessengerBars = () => {
         </AnimatePresence>
     );
 };
+
+export default MessengerBars;

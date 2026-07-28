@@ -1,10 +1,12 @@
 import { useEffect, useLayoutEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setArrowUp, setArrowDown, setScrollButtonUnclicked } from "../redux/scrollSlice";
 
 export const useScroll = (chatRef, chatEndRef) => {
+    const dispatch = useDispatch();
     const { messages } = useSelector(store => store.firestoreStore);
     const { messagesScrollPosition, scrollToMessage } = useSelector(store => store.appStore);
-    const [arrow, setArrow] = useState(true);
+    const scrollButton = useSelector(store => store.scrollStore.scrollButton);
     const [lastMessageID, setLastMessageID] = useState(messages[messages?.length - 1]?.id);
     let scrollLastPosition = chatRef?.current?.scrollTop;
     let scrollBarHeight = chatRef?.current?.scrollHeight-chatRef?.current?.clientHeight;
@@ -47,6 +49,11 @@ export const useScroll = (chatRef, chatEndRef) => {
         }
     }, [scrollToMessage]);
 
+    useEffect(() => {
+        if (scrollButton.clicked) scrollButtonClickHandler()
+        dispatch(setScrollButtonUnclicked());
+    }, [scrollButton.clicked]);
+
     const scrollUp = (mode) => {
         chatRef.current.scrollTo({
             top: 0,
@@ -56,7 +63,7 @@ export const useScroll = (chatRef, chatEndRef) => {
     };
 
     const scrollDown = (mode) => {
-        chatRef.current.scrollTo({
+        chatRef?.current?.scrollTo({
             top: chatRef?.current?.scrollHeight - chatRef?.current?.clientHeight,
             left: 0,
             behavior: mode,
@@ -64,7 +71,7 @@ export const useScroll = (chatRef, chatEndRef) => {
     };
 
     const scrollTo = (position, mode) => {
-        chatRef.current.scrollTo({
+        chatRef?.current?.scrollTo({
             top: position,
             left: 0,
             behavior: mode,
@@ -73,20 +80,20 @@ export const useScroll = (chatRef, chatEndRef) => {
 
     const detectScrollDirection = () => {
         if (chatRef?.current?.scrollTop > scrollLastPosition) {
-            setArrow('DOWN');
+            dispatch(setArrowDown());
         } else if (chatRef?.current?.scrollTop < scrollLastPosition) {
-            setArrow('UP');
+            dispatch(setArrowUp());
         }
         if (chatRef?.current?.scrollTop <= 200) {
-            setArrow('DOWN');
+            dispatch(setArrowDown());
         } else if (~~chatRef?.current?.scrollTop + 200 >= chatRef?.current?.scrollHeight - chatRef?.current?.clientHeight) {
-            setArrow('UP');
+            dispatch(setArrowUp());
         }
         scrollLastPosition = chatRef?.current?.scrollTop;
     };
 
     const scrollButtonClickHandler = () => {
-        if (arrow == 'UP') {
+        if (scrollButton.direction == 'UP') {
             scrollUp('smooth');
         } else {
             scrollDown('smooth');
@@ -109,9 +116,7 @@ export const useScroll = (chatRef, chatEndRef) => {
     };
 
     return {
-        arrow,
         onChatScrollHandler,
-        scrollButtonClickHandler,
-        scrollToMessage
+        scrollToMessage,
     };
 };

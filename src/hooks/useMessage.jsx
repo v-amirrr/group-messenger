@@ -6,7 +6,7 @@ import { setNewReplyId } from '../redux/appSlice';
 import { useSkeletonEffect } from "./useSkeletonEffect";
 import { useOptions } from "./useOptions";
 
-export const useMessage = (messageData, type, messageRef) => {
+export const useMessage = (messageData, type, messageRef, isLocalMessage) => {
     // types (places that message component is used): chat, options, trash, edit reply
     // status: 1 means loading, 2 means check animation, 0 means fully sent
 
@@ -21,7 +21,6 @@ export const useMessage = (messageData, type, messageRef) => {
         nextMessageUid,
         previousMessageDifferentDate,
         nextMessageDifferentDate,
-        isLocalMessage,
         isTextPersian,
         textLetters,
     } = messageData;
@@ -67,7 +66,7 @@ export const useMessage = (messageData, type, messageRef) => {
             !isLocalMessage && messagePosition == 3 && '15px 20px 20px 20px',
         boxPadding:
             textLetters <= 3 ? '.45rem 1rem' :
-            textLetters > 3 ? '.45rem .6rem' : '',
+            textLetters > 3 || type == 'TRASH' ? '.45rem .6rem' : '',
         boxJustify: isLocalMessage ? 'flex-start' : 'flex-end',
         boxVisibility: isOptionsActive ? 'hidden' : 'visible',
         boxWidth: type == 'TRASH' ? '84%' : '65%',
@@ -164,6 +163,7 @@ export const useMessage = (messageData, type, messageRef) => {
     const openOptions = () => {
         dispatch(setOptionsMessage({
             ...messageData,
+            isLocalMessage,
             top: messageRef?.current?.getBoundingClientRect()?.top,
             left: messageRef?.current?.getBoundingClientRect()?.left,
             width: messageRef?.current?.getBoundingClientRect()?.width,

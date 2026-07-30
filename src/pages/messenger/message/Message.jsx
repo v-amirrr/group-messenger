@@ -12,7 +12,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { localMessageVariants, nonLocalMessageVariants } from '../../../config/varitans';
 const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
-const Message = ({ messageData, type }) => {
+const Message = ({ messageData, type, isLocalMessage }) => {
     const {
         uid,
         plainText,
@@ -24,7 +24,6 @@ const Message = ({ messageData, type }) => {
         nextMessageUid,
         previousMessageDifferentDate,
         nextMessageDifferentDate,
-        isLocalMessage,
         isTextPersian,
         textLetters,
     } = messageData;
@@ -38,7 +37,7 @@ const Message = ({ messageData, type }) => {
         messageSkeletonEffect,
         status,
         styles
-    } = useMessage(messageData, type, messageRef);
+    } = useMessage(messageData, type, messageRef, isLocalMessage);
 
     const showMessageDate = () => previousMessageDifferentDate && time?.year;
     const showMessageUsername = () => !isLocalMessage && messagePosition < 2;

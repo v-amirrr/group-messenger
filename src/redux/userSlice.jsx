@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     user: JSON.parse(localStorage.getItem('user')),
-    googleLogin: { loading: false, error: null },
     enterAsAGuest: JSON.parse(localStorage.getItem('guest-login')),
 };
 

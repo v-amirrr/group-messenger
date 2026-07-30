@@ -7,6 +7,7 @@ import { detectHours } from "../functions/detectHours";
 import { setHour } from "../functions/setHour";
 import { setMinute } from "../functions/setMinute";
 import { findReplyId } from "../functions/findReplyId";
+import { isPersian } from "../functions/isPersian";
 
 export const useFirestore = () => {
     const dispatch = useDispatch();
@@ -98,6 +99,8 @@ export const useFirestore = () => {
                             dates.thisMessageDate != dates.nextMessageDate ? true : false
                         : false,
                         replyTo: item.replyTo ? findReplyId(messages, item.replyTo, index) : 'NO_REPLY',
+                        isTextPersian : isPersian(item.plainText),
+                        textLetters: item.plainText.length > 20 ? 20 : item.plainText.length,
                     };
                     delete newItem.deleted;
                     return newItem;

@@ -22,24 +22,16 @@ const ChatMessages = () => {
                         <Message
                             key={messageData.id}
                             type='EDIT_REPLY'
-                            messageData={{
-                                ...messageData,
-                                isLocalMessage: user?.uid == messageData.uid,
-                                isTextPersian : isPersian(messageData.plainText),
-                                textLetters: messageData.plainText.length > 20 ? 20 : messageData.plainText.length,
-                            }}
+                            messageData={messageData}
+                            isLocalMessage={user?.uid == messageData.uid}
                         />
                     )) :
                     messages?.map((messageData) => (
                         <Message
                             key={messageData.id}
                             type='CHAT'
-                            messageData={{
-                                ...messageData,
-                                isLocalMessage: user?.uid == messageData.uid,
-                                isTextPersian : isPersian(messageData.plainText),
-                                textLetters: messageData.plainText.length > 20 ? 20 : messageData.plainText.length,
-                            }}
+                            messageData={messageData}
+                            isLocalMessage={user?.uid == messageData.uid}
                         />
                     ))
                 }

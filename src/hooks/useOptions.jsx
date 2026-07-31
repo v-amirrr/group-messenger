@@ -6,6 +6,7 @@ import { setEditReply, setNewReplyId } from '../redux/appSlice';
 import { setInputReply } from '../redux/inputSlice';
 import { setOptionsButtonsStage, setEditedText } from '../redux/optionsSlice';
 import { useToast } from './useToast';
+import { setMessages } from '../redux/firestoreSlice';
 
 export const useOptions = () => {
     const dispatch = useDispatch();
@@ -125,7 +126,7 @@ export const useOptions = () => {
             replyId: replyToId,
         }));
         setTimeout(() => {
-            openToast(dispatch, 'Tap on the message you want to reply', 'GENERAL');
+            openToast('Tap on the message you want to reply', 'GENERAL');
         }, 600);
     };
 

@@ -4,7 +4,7 @@ import { useOptions } from '../../hooks/useOptions';
 import { IoIosClose } from "react-icons/io";
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { editReplyBarVariatns } from '../../config/varitans';
+import { editReplyBarVariatns } from '../../config/variants';
 const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const EditReplyBar = () => {

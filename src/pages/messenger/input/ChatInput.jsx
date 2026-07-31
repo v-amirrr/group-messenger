@@ -8,7 +8,7 @@ import { GrEmoji } from 'react-icons/gr';
 import { IoSend, IoClose } from 'react-icons/io5';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
-import { chatInputVariants, inputButtonVariants } from '../../../config/varitans';
+import { chatInputVariants, inputButtonVariants } from '../../../config/variants';
 const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const ChatInput = () => {

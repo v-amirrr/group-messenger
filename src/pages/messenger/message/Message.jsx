@@ -9,7 +9,7 @@ import MessageEditReplyIndicator from './MessageEditReplyIndicator';
 import MessageRepliedTo from './MessageRepliedTo';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
-import { localMessageVariants, nonLocalMessageVariants } from '../../../config/varitans';
+import { localMessageVariants, nonLocalMessageVariants } from '../../../config/variants';
 const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const Message = ({ messageData, type, isLocalMessage }) => {

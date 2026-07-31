@@ -4,7 +4,7 @@ import { setScrollButtonClicked } from '../../redux/scrollSlice';
 import { FaArrowDown } from "react-icons/fa";
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { scrollButtonVariants } from '../../config/varitans';
+import { scrollButtonVariants } from '../../config/variants';
 const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const ScrollButton = () => {

@@ -1,9 +1,9 @@
 import React from 'react'
-import { AnimatePresence } from 'framer-motion';
 import EditReplyBar from './EditReplyBar';
 import SelectBar from './SelectBar';
 import ChatInput from './input/ChatInput';
 import { useSelector } from 'react-redux';
+import { AnimatePresence } from 'framer-motion';
 
 const MessengerBars = () => {
     const { editReply } = useSelector(store => store.appStore);

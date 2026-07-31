@@ -10,7 +10,7 @@ import { useSelect } from '../../../hooks/useSelect';
 import { useModal } from '../../../hooks/useModal';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
-import { optionsVariants, optionLocalVariants, optionNonLocalVariants } from '../../../config/varitans';
+import { optionsVariants, optionLocalVariants, optionNonLocalVariants } from '../../../config/variants';
 import { useToast } from '../../../hooks/useToast';
 const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 

@@ -5,7 +5,7 @@ import MessengerError from './MessengerError';
 import MessengerChat from './MessengerChat';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
-import { messengerVariants } from '../../config/varitans';
+import { messengerVariants } from '../../config/variants';
 const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const MessengerPage = () => {

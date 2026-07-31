@@ -5,7 +5,7 @@ import { IoClose } from 'react-icons/io5';
 import { BsReplyFill } from 'react-icons/bs';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
-import { inputReplyIndicator } from '../../../config/varitans';
+import { inputReplyIndicator } from '../../../config/variants';
 const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const ChatInputReplyIndicator = ({ inputReply, emojiPicker, emojiAnimation }) => {

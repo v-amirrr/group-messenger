@@ -7,7 +7,7 @@ import { FaUserEdit } from "react-icons/fa";
 import { RiArrowRightSLine } from "react-icons/ri";
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
-import { userSettingsVariants } from '../../config/varitans';
+import { userSettingsVariants } from '../../config/variants';
 const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const SettingsUser = ({ open, setOpen, setHeight }) => {

@@ -1,13 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { useAuth } from '../../hooks/useAuth';
+import { useToast } from '../../hooks/useToast';
 import { HiDotsVertical } from 'react-icons/hi';
 import { FcSettings, FcRedo, FcInfo, FcEmptyTrash, FcFullTrash } from 'react-icons/fc';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { menuButtonVariants } from '../../config/varitans';
-import { useSelector } from 'react-redux';
-import { useToast } from '../../hooks/useToast';
+import { menuButtonVariants } from '../../config/variants';
 const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const MenuButton = () => {

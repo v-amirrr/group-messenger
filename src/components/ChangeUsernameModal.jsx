@@ -3,7 +3,7 @@ import { useUser } from '../hooks/useUser';
 import { MdKeyboardArrowRight  } from "react-icons/md";
 import styled from 'styled-components';
 
-const ChangeUsernamePopup = ({ closePopup, newUsername, oldUsername }) => {
+const ChangeUsernameModal = ({ closePopup, newUsername, oldUsername }) => {
     const { changeUsername } = useUser();
 
     const pressEnter = (e) => {
@@ -14,7 +14,7 @@ const ChangeUsernamePopup = ({ closePopup, newUsername, oldUsername }) => {
 
     return (
         <>
-            <ChangeUsernamePopupContainer onKeyDown={(e) => pressEnter(e)}>
+            <ChangeUsernameModalContainer onKeyDown={(e) => pressEnter(e)}>
                 <p className='modal-message'>Are you sure you want to change your username?</p>
                 <div className='usernames'>
                     <div className='old-username'>
@@ -38,12 +38,12 @@ const ChangeUsernamePopup = ({ closePopup, newUsername, oldUsername }) => {
                         Change
                     </button>
                 </div>
-            </ChangeUsernamePopupContainer>
+            </ChangeUsernameModalContainer>
         </>
     );
 };
 
-const ChangeUsernamePopupContainer = styled.div`
+const ChangeUsernameModalContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -124,4 +124,4 @@ const ChangeUsernamePopupContainer = styled.div`
     }
 `;
 
-export default ChangeUsernamePopup;
+export default ChangeUsernameModal;

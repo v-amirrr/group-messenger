@@ -2,7 +2,7 @@ import React, { memo, useRef } from 'react'
 import Message from './message/Message';
 import { useSelector } from 'react-redux';
 import { isPersian } from '../../functions/isPersian';
-import { chatMessagesVariants, messagesVariants } from '../../config/varitans';
+import { chatMessagesVariants, messagesVariants } from '../../config/variants';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useScroll } from '../../hooks/useScroll';
 

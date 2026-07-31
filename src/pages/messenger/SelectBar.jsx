@@ -6,14 +6,12 @@ import { IoClose } from 'react-icons/io5';
 import { AiFillDelete, AiFillCopy } from 'react-icons/ai';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { selectBarVariants } from '../../config/varitans';
+import { selectBarVariants } from '../../config/variants';
 const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const SelectBar = () => {
     const { selectedMessages, nonLocalSelected } = useSelector(store => store.selectStore);
     const { clearSelectedMessages, copySelectedMessages, moveToTrashSelectedMessages } = useSelect();
-    console.log(nonLocalSelected);
-    
     return (
         <SelectBarContainer {...framerMotionAttributes(selectBarVariants)}>
             <button className='close' onClick={clearSelectedMessages}><IoClose /></button>

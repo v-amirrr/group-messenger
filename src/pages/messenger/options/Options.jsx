@@ -5,7 +5,7 @@ import MessageBox from '../message/MessageBox';
 import OptionsButtonHandler from './OptionsButtonHandler';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
-import { optionsGlassVariants } from '../../../config/varitans';
+import { optionsGlassVariants } from '../../../config/variants';
 const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const ChatOptions = ({ type }) => {

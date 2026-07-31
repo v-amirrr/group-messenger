@@ -8,7 +8,7 @@ import Options from '../messenger/options/Options';
 import { IoIosArrowBack } from "react-icons/io";
 import { motion, AnimatePresence } from 'framer-motion';
 import styled from 'styled-components';
-import { trashPageVariants } from '../../config/varitans';
+import { trashPageVariants } from '../../config/variants';
 const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const TrashPage = () => {

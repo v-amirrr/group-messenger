@@ -1,12 +1,12 @@
 import React from 'react'
-import { motion, AnimatePresence } from 'framer-motion';
-import { trashSelectBarVariants } from '../../config/varitans';
+import { useModal } from '../../hooks/useModal';
+import { useSelect } from '../../hooks/useSelect';
 import Counter from '../../common/Counter';
 import { TbTrashX } from 'react-icons/tb';
 import { FaTrashRestore } from 'react-icons/fa';
 import { IoClose } from 'react-icons/io5';
-import { useModal } from '../../hooks/useModal';
-import { useSelect } from '../../hooks/useSelect';
+import { motion, AnimatePresence } from 'framer-motion';
+import { trashSelectBarVariants } from '../../config/variants';
 const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 export const TrashSelectBar = ({ selectedMessages }) => {

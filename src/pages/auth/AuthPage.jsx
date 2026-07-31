@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { FaRegEye, FaUserLock, FaEyeSlash } from 'react-icons/fa';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
-import { loginVariants, loginItemVariants, loginPasswordIconVariants, loginPasswordInputVariants } from '../../config/varitans';
+import { loginVariants, loginItemVariants, loginPasswordIconVariants, loginPasswordInputVariants } from '../../config/variants';
 import { useToast } from '../../hooks/useToast';
 const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 

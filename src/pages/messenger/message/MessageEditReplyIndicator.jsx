@@ -4,7 +4,7 @@ import { BsReplyFill } from 'react-icons/bs';
 import { IoClose } from 'react-icons/io5';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { replyIconVariants } from '../../../config/varitans';
+import { replyIconVariants } from '../../../config/variants';
 const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const MessageEditReplyIndicator = () => {

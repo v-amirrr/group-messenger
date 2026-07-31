@@ -79,9 +79,9 @@ export const useSelect = () => {
             modalMessages.map((message) => {
                 permanentDelete(message.id);
             });
-            let ToastText = modalMessages.length == 1 ? 'Message was permenately deleted' : 'Messages were permenately deleted';
+            let permanentDeleteToast = `Message${modalMessages.length == 1 ? ' was' : 's were'} permanently deleted`;
             setTimeout(() => {
-                openToast(ToastText, 'GENERAL');
+                openToast(permanentDeleteToast, 'GENERAL');
             }, 300);
         }, 400);
         clearSelectedMessages();

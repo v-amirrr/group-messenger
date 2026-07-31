@@ -5,18 +5,18 @@ import ChangeUsernameModal from './ChangeUsernameModal';
 import { useModal } from '../hooks/useModal';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
-import { popupPageVariants, popupContainerVariants } from '../config/varitans';
+import { popupPageVariants, pageVariants } from '../config/variants';
 const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const Modal = () => {
     const { modalShow, modalName, modalMessages, modalEditedUsername } = useSelector(store => store.modalStore);
     const { user } = useSelector(store => store.userStore);
     const { usernames } = useSelector(store => store.firestoreStore);
-    const popupPageRef = useRef();
+    const modealRef = useRef();
     const { closeModal } = useModal();
 
     const closePopupByTap = (e) => {
-        if (!popupPageRef?.current?.contains(e.target)) {
+        if (!modealRef?.current?.contains(e.target)) {
             closeModal();
         }
     };
@@ -27,7 +27,7 @@ const Modal = () => {
                 {
                     modalShow ?
                     <ModalContainer {...framerMotionAttributes(popupPageVariants)} onClick={(e) => closePopupByTap(e)}>
-                        <motion.div className='modal' variants={popupContainerVariants} ref={popupPageRef}>
+                        <motion.div className='modal' variants={pageVariants} ref={modealRef}>
                             {
                                 modalName == 'PERMENANT_DELETE_CONFIRMATION' ?
                                 <DeleteModal modalMessages={modalMessages} /> :

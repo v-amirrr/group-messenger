@@ -3,7 +3,7 @@ import { useSkeletonEffect } from '../../../hooks/useSkeletonEffect';
 import { BsReplyFill } from 'react-icons/bs';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { nonLocalMessageRepliedToVariants, localMessageRepliedToVariants } from '../../../config/varitans';
+import { nonLocalMessageRepliedToVariants, localMessageRepliedToVariants } from '../../../config/variants';
 const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const MessageRepliedTo = ({ replyTo, type, isLocalMessage }) => {

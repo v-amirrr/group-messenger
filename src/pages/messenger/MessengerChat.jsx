@@ -6,7 +6,7 @@ import MessengerBars from './MessengerBars';
 import MessengerButtons from './MessengerButtons';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
-import { chatMessagesVariants, messagesVariants } from '../../config/varitans';
+import { chatMessagesVariants, messagesVariants } from '../../config/variants';
 const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const MessengerChat = () => {

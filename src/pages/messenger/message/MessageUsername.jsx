@@ -3,7 +3,7 @@ import { TiUser } from 'react-icons/ti';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { messageUsernameVariants } from '../../../config/varitans';
+import { messageUsernameVariants } from '../../../config/variants';
 const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const MessageUsername = ({ uid, showMessageDate }) => {

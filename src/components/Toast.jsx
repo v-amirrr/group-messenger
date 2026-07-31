@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useAuth } from '../hooks/useAuth';
+import { useToast } from '../hooks/useToast';
 import { IoClose } from 'react-icons/io5';
 import { FcAdvertising, FcHighPriority, FcKey } from 'react-icons/fc';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
-import { toastSlowVariants, toastFastVariants } from '../config/varitans';
-import { useToast } from '../hooks/useToast';
+import { toastSlowVariants, toastFastVariants } from '../config/variants';
 const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const Toast = () => {

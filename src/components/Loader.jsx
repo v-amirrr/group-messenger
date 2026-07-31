@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import DotsLoader from '../common/DotsLoader';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
-import { loaderVariants } from '../config/varitans';
+import { loaderVariants } from '../config/variants';
 const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const Loader = () => {

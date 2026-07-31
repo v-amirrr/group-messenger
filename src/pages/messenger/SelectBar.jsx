@@ -12,6 +12,8 @@ const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visib
 const SelectBar = () => {
     const { selectedMessages, nonLocalSelected } = useSelector(store => store.selectStore);
     const { clearSelectedMessages, copySelectedMessages, moveToTrashSelectedMessages } = useSelect();
+    console.log(nonLocalSelected);
+    
     return (
         <SelectBarContainer {...framerMotionAttributes(selectBarVariants)}>
             <button className='close' onClick={clearSelectedMessages}><IoClose /></button>

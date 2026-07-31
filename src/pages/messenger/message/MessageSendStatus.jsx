@@ -9,8 +9,8 @@ const MessageSendStatus = ({ status }) => {
         <MessageSendStatusContainer>
             <AnimatePresence exitBeforeEnter>
                 {
-                    status == 1 ? <DotsLoader key='loader' scale={1.4} /> :
-                    status == 2 ? <Check key='check' scale={1.4} /> : ''
+                    status == 1 ? <DotsLoader key='loader' scale={1.3} /> :
+                    status == 2 ? <Check key='check' scale={1.6} /> : ''
                 }
             </AnimatePresence>
         </MessageSendStatusContainer>
@@ -18,7 +18,7 @@ const MessageSendStatus = ({ status }) => {
 };
 
 const MessageSendStatusContainer = styled.div`
-    margin: 0 .3rem;
+    margin: 0 .8rem;
 `;
 
 export default memo(MessageSendStatus);

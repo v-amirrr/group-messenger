@@ -66,14 +66,12 @@ const TrashPageContainer = styled(motion.div)`
         transition: ${props => props.data.optionsAnimationStatus == 2 ? 'transform .3s .05s' : 'transform .2s'}, opacity .3s;
 
         .header {
-            /* position: absolute; */
             top: 0;
             width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: .8rem 0;
-            /* backdrop-filter: var(--glass); */
             z-index: 3;
 
             .header-text {
@@ -84,12 +82,15 @@ const TrashPageContainer = styled(motion.div)`
 
             .trash-count {
                 position: absolute;
+                min-width: 2rem;
+                height: 1.5rem;
                 right: .8rem;
                 margin: .2rem;
-                border-radius: 50%;
+                border-radius: 10px;
+                border-top: var(--button-border);
+                border-bottom: var(--button-border);
                 background-color: var(--bg);
                 color: var(--grey);
-                padding: .8rem;
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -152,6 +153,8 @@ const TrashPageContainer = styled(motion.div)`
                 background-color: var(--bg);
                 overflow: hidden;
                 backdrop-filter: var(--glass);
+                border-top: var(--button-border);
+                border-bottom: var(--button-border);
             }
 
             .delete-button, .restore-button {
@@ -187,6 +190,8 @@ const TrashPageContainer = styled(motion.div)`
             .delete-button {
                 background-color: #ff000030;
                 color: var(--red);
+                border-top: var(--button-border-red);
+                border-bottom: var(--button-border-red);
 
                 i {
                     font-size: 1.2rem;
@@ -203,6 +208,8 @@ const TrashPageContainer = styled(motion.div)`
             .restore-button {
                 background-color: #00ff0030;
                 color: var(--green);
+                border-top: var(--button-border-green);
+                border-bottom: var(--button-border-green);
 
                 i {
                     font-size: .9rem;
@@ -225,6 +232,8 @@ const TrashPageContainer = styled(motion.div)`
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                border-top: solid 1px #2c2c2c;
+                border-bottom: solid 1px #2c2c2c;
                 border-radius: 50%;
                 background-color: var(--bg);
                 backdrop-filter: var(--glass);

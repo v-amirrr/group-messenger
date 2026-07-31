@@ -12,7 +12,7 @@ const EditReplyBar = () => {
     return (
         <EditReplyContainer {...framerMotionAttributes(editReplyBarVariatns)}>
             <button className='ok' onClick={editReply}>
-                <Check scale={1.4} />
+                <Check scale={1.5} />
             </button>
             <button className='cancel' onClick={deactivateEditReply}>
                 <i><IoIosClose /></i>
@@ -36,6 +36,8 @@ const EditReplyContainer = styled(motion.div)`
         width: 2.25rem;
         height: 2.25rem;
         margin: 0 .2rem;
+        border-top: solid 0.1px #2c2c2c;
+        border-bottom: solid 0.1px #2c2c2c;
         border-radius: 50%;
         box-shadow: var(--shadow);
         backdrop-filter: var(--glass);

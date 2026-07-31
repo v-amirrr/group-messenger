@@ -28,16 +28,15 @@ const CheckContainer = styled(motion.div)`
         background-color: var(--blue);
         border-radius: 50px;
         position: absolute;
-        right: .1rem;
-
+        
         &:nth-child(1) {
-            margin: .16rem .55rem 0 0;
+            margin: .1rem 0 0 .2rem;
             transform: rotate(45deg);
             animation: checkmark-one .2s forwards;
         }
-
+        
         &:nth-child(2) {
-            margin: .4rem .85rem 0 0;
+            margin: .3rem .4rem 0 0;
             transform: rotate(-40deg);
             animation: checkmark-two .15s .1s forwards;
         }

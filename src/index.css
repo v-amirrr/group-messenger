@@ -10,6 +10,9 @@
     --blue: #00b7ff;
 
     --border: solid 2.5px #ffffff10;
+    --button-border: solid 1px #2c2c2c;
+    --button-border-green: solid 1px #005000;
+    --button-border-red: solid 1px #500000;
 
     --glass: blur(18px) saturate(150%);
 

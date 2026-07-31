@@ -13,7 +13,7 @@ export const useSelect = () => {
     const { addSkeletonEffect } = useSkeletonEffect();
     const { openToast } = useToast();
 
-    const select = (message) => {
+    const select = (message, isLocalMessage) => {
         dispatch(addSelectedMessages({ message }));
         if (!message?.isLocalMessage) {
             dispatch(plusNonLocalSelected());

@@ -117,15 +117,7 @@ export const useMessage = (messageData, type, messageRef, isLocalMessage) => {
 
     // handling status state when message gets sent (so that user can see the message loader)
     useEffect(() => {
-        if (!time?.year) {
-            setTimeout(() => {
-                if (time?.year) {
-                    showCheck();
-                } else {
-                    setStatus(1);
-                }
-            }, 600);
-        }
+        if (!time?.year) time?.year ? showCheck() : setStatus(1)
     }, []);
 
     const isMessageLoading = () => status > 0;

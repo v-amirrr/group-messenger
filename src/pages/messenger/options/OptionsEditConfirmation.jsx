@@ -1,7 +1,6 @@
 import React from 'react';
 import Check from '../../../common/Check';
 import { IoIosClose } from "react-icons/io";
-import { FcCheckmark } from "react-icons/fc";
 import { motion } from 'framer-motion';
 const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
@@ -21,7 +20,7 @@ const OptionsEditConfirmation = ({ optionClick, setVariants }) => {
                 onClick={() => optionClick('EDIT_OK')}
                 key='edit-ok1' {...framerMotionAttributes(setVariants())}
             >
-                <i><FcCheckmark /></i>
+                <Check scale={1.4} />
             </motion.div>
         </>
     );

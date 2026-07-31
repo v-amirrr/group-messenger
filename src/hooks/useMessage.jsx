@@ -140,14 +140,13 @@ export const useMessage = (messageData, type, messageRef, isLocalMessage) => {
 
     const selectHandler = () => {
         if (selected) {
-            deselect(id, messageData.isLocalMessage);
+            deselect(id, isLocalMessage);
             setSelected(false);
         } else {
             select({
                 id: messageData.id,
                 plainText: messageData.plainText,
-                isLocalMessage: messageData.isLocalMessage,
-                time: messageData.time,
+                isLocalMessage: isLocalMessage,
             });
         }
     };

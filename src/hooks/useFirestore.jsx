@@ -56,6 +56,7 @@ export const useFirestore = () => {
                             minute: setMinute(doc.data().time?.toDate()?.getMinutes()),
                             format: detectHours(doc.data().time?.toDate()?.getHours()),
                         },
+                        plainTime: doc.data().time?.toMillis(),
                         id: doc.id,
                         replyTo: doc.data().replyTo ? doc.data().replyTo : null,
                         deleted: doc.data().deleted,

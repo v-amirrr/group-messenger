@@ -41,7 +41,7 @@ const Message = ({ messageData, type, isLocalMessage }) => {
 
     const showMessageDate = () => previousMessageDifferentDate && time?.year;
     const showMessageUsername = () => !isLocalMessage && messagePosition < 2;
-    const showEditReplyIndicator = () => editReply?.replyId == id;
+    const showEditReplyIndicator = () => editReply?.editingMessageReplyId == id;
     const showRepliedTo = () =>  replyTo != 'NO_REPLY' && type != 'TRASH';
     const setVariants = () => isLocalMessage ? localMessageVariants : nonLocalMessageVariants;
 

@@ -1,4 +1,4 @@
-import React, { memo, useRef } from 'react'
+import React, { memo, useMemo, useRef } from 'react'
 import Message from './message/Message';
 import { useSelector } from 'react-redux';
 import { isPersian } from '../../functions/isPersian';
@@ -13,23 +13,21 @@ const ChatMessages = () => {
     const { messages } = useSelector(store => store.firestoreStore);
     const { user } = useSelector(store => store.userStore);
     const { onChatScrollHandler } = useScroll(chatRef, chatEndRef);
+
+    const visibleMessages = useMemo(() => {
+        if (!editReply?.show) return messages;
+        const index = messages.findIndex(message => message.id === editReply.editingMessageId);
+        return messages.slice(0, index);
+    }, [messages, editReply.show]);
+
     return (
         <motion.div className='messages' layout variants={messagesVariants} ref={chatRef} onScroll={onChatScrollHandler}>
             <AnimatePresence>
                 {
-                    editReply?.show ?
-                    editReply?.messages?.map((messageData) => (
+                    visibleMessages?.map((messageData) => (
                         <Message
                             key={messageData.id}
-                            type='EDIT_REPLY'
-                            messageData={messageData}
-                            isLocalMessage={user?.uid == messageData.uid}
-                        />
-                    )) :
-                    messages?.map((messageData) => (
-                        <Message
-                            key={messageData.id}
-                            type='CHAT'
+                            type={editReply.show ? 'EDIT_REPLY' : 'CHAT'}
                             messageData={messageData}
                             isLocalMessage={user?.uid == messageData.uid}
                         />

@@ -6,9 +6,8 @@ const initialState = {
     scrollToMessage: null,
     editReply: {
         show: false,
-        editedMessageId: null,
-        messages: null,
-        replyId: null,
+        editingMessageId: null,
+        editingMessageReplyId: null,
     },
     loader: false,
 };
@@ -43,9 +42,8 @@ const appSlice = createSlice({
                 ...state,
                 editReply: {
                     show: action.payload.show,
-                    editedMessageId: action.payload.editedMessageId,
-                    messages: action.payload.messages,
-                    replyId: action.payload.replyId,
+                    editingMessageId: action.payload.editingMessageId,
+                    editingMessageReplyId: action.payload.editingMessageReplyId,
                 },
             };
         },
@@ -54,7 +52,7 @@ const appSlice = createSlice({
                 ...state,
                 editReply: {
                     ...state.editReply,
-                    replyId: action.payload,
+                    editingMessageReplyId: action.payload,
                 },
             };
         },

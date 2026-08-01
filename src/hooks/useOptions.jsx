@@ -55,9 +55,9 @@ export const useOptions = () => {
     };
 
     const editReply = () => {
-        const docRef = doc(db, 'messages', editReplyData?.editedMessageId);
+        const docRef = doc(db, 'messages', editReplyData?.editingMessageId);
         updateDoc(docRef, {
-            replyTo: editReplyData?.replyId
+            replyTo: editReplyData?.editingMessageReplyId
                 // editedReply == 'deleted' ?
                 // null :
                 // editedReply?.id ?
@@ -110,20 +110,11 @@ export const useOptions = () => {
         dispatch(setEditedText(text));
     };
 
-    const activateEditReply = (id, replyToId) => {
-        let messagesBeforeEditingMessage = [];
-        for (let i = 0; i < messages.length; i++) {
-            if (messages[i].id == id) {
-                break;
-            } else {
-                messagesBeforeEditingMessage.push(messages[i]);
-            }
-        }
+    const activateEditReply = (id, time, replyToId) => {
         dispatch(setEditReply({
             show: true,
-            editedMessageId: id,
-            messages: messagesBeforeEditingMessage,
-            replyId: replyToId,
+            editingMessageId: id,
+            editingMessageReplyId: replyToId,
         }));
         setTimeout(() => {
             openToast('Tap on the message you want to reply', 'GENERAL');
@@ -133,9 +124,8 @@ export const useOptions = () => {
     const deactivateEditReply = () => {
         dispatch(setEditReply({
             show: false,
-            editedMessageId: null,
-            messages: null,
-            replyId: null
+            editingMessageId: null,
+            editingMessageReplyId: null,
         }));
     };
 

@@ -69,7 +69,7 @@ const OptionsButtonHandler = ({ type, optionsClickHandler, closeOptions }) => {
             case 'EDIT_REPLY':
                 optionsClickHandler(null, 'CHAT');
                 setTimeout(() => {
-                    activateEditReply(optionsMessage?.id, optionsMessage?.replyTo?.id);
+                    activateEditReply(optionsMessage?.id, optionsMessage?.plainTime, optionsMessage?.replyTo?.id);
                 }, 350);
                 break;
             case 'TRASH':

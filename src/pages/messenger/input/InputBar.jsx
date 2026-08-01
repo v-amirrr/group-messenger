@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-import ChatInputReplyIndicator from './ChatInputReplyIndicator';
-import ChatInputEmojiPicker from './ChatInputEmojiPicker';
+import InputBarReplyIndicator from './InputBarReplyIndicator';
+import InputBarEmojiPicker from './InputBarEmojiPicker';
 import { useSelector } from 'react-redux';
 import { useSend } from '../../../hooks/useSend';
 import { isPersian } from '../../../functions/isPersian';
@@ -11,7 +11,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { chatInputVariants, inputButtonVariants } from '../../../config/variants';
 const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
-const ChatInput = () => {
+const InputBar = () => {
     const inputRef = useRef();
 
     const { editReply } = useSelector(store => store.appStore);
@@ -100,9 +100,9 @@ const ChatInput = () => {
 
     return (
         <>
-            <ChatInputReplyIndicator inputReply={selectedMessages.length || editReply?.show ? null : inputReply} emojiPicker={emojiPicker} emojiAnimation={emojiAnimation} />
+            <InputBarReplyIndicator inputReply={selectedMessages.length || editReply?.show ? null : inputReply} emojiPicker={emojiPicker} emojiAnimation={emojiAnimation} />
 
-            <ChatInputContainer
+            <InputBarContainer
                 {...framerMotionAttributes(chatInputVariants)}
                 stylesData={{
                     multiline: multiline ? 1 : 0,
@@ -149,13 +149,13 @@ const ChatInput = () => {
 
                 <button className='emoji-button' onClick={openEmojiPicker}><GrEmoji /></button>
 
-                <ChatInputEmojiPicker setInputText={setInputText} emojiPicker={emojiPicker} />
-            </ChatInputContainer>
+                <InputBarEmojiPicker setInputText={setInputText} emojiPicker={emojiPicker} />
+            </InputBarContainer>
         </>
     );
 };
 
-const ChatInputContainer = styled(motion.div)`
+const InputBarContainer = styled(motion.div)`
     box-sizing: content-box;
     position: absolute;
     bottom: ${props => props.stylesData.emojiAnimation ? '3rem' : '1rem'};
@@ -276,4 +276,4 @@ const ChatInputContainer = styled(motion.div)`
     }
 `;
 
-export default ChatInput;
+export default InputBar;

@@ -10,12 +10,12 @@ import { chatMessagesVariants, messagesVariants } from '../../config/variants';
 const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const MessengerChat = () => {
-    const { optionsAnimationStatus } = useSelector(store => store.optionsStore);
+    const optionsAnimationStatus = useSelector(store => store.optionsStore.optionsAnimationStatus);
     return (
         <>
             <Options type='CHAT' />
 
-            <MessengerChatContainer {...framerMotionAttributes(chatMessagesVariants)} data={{ optionsAnimationStatus }}>
+            <MessengerChatContainer {...framerMotionAttributes(chatMessagesVariants)} optionsAnimationStatus={optionsAnimationStatus}>
                 <MessengerButtons />
                 <MessengerBars />
                 <ChatMessages />
@@ -30,8 +30,8 @@ const MessengerChatContainer = styled(motion.div)`
     display: flex;
     justify-content: center;
     align-items: center;
-    transform: ${props => props.data.optionsAnimationStatus == 2 ? 'scale(0.96)' : 'scale(1)'};
-    transition: ${props => props.data.optionsAnimationStatus == 2 ? 'transform .3s' : 'transform .2s'};
+    transform: ${props => props.optionsAnimationStatus === 2 ? 'scale(0.96)' : 'scale(1)'};
+    transition: ${props => props.optionsAnimationStatus === 2 ? 'transform .3s' : 'transform .2s'};
 
     .messages {
         position: relative;

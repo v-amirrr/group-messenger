@@ -8,7 +8,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { inputReplyIndicator } from '../../../config/variants';
 const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
-const ChatInputReplyIndicator = ({ inputReply, emojiPicker, emojiAnimation }) => {
+const InputBarReplyIndicator = ({ inputReply, emojiPicker, emojiAnimation }) => {
     const { addSkeletonEffect, scrollToMessage } = useSkeletonEffect();
     const { unReply } = useOptions();
     let mouseLocation = 'OUT';
@@ -42,7 +42,7 @@ const ChatInputReplyIndicator = ({ inputReply, emojiPicker, emojiAnimation }) =>
         <AnimatePresence>
             {
                 inputReply?.id ?
-                <ChatInputReplyIndicatorContainer
+                <InputBarReplyIndicatorContainer
                     {...framerMotionAttributes(inputReplyIndicator)}
                     emoji={emojiPicker ? 1 : 0}
                     emojiAnimation={emojiAnimation ? 1 : 0}
@@ -57,13 +57,13 @@ const ChatInputReplyIndicator = ({ inputReply, emojiPicker, emojiAnimation }) =>
                         <p className='text'>{inputReply?.message}</p>
                     </div>
                     <button className='reply-close-button' onClick={(e) => clearInputReply(e)}><IoClose /></button>
-                </ChatInputReplyIndicatorContainer> : ''
+                </InputBarReplyIndicatorContainer> : ''
             }
         </AnimatePresence>
     );
 };
 
-const ChatInputReplyIndicatorContainer = styled(motion.div)`
+const InputBarReplyIndicatorContainer = styled(motion.div)`
     position: absolute;
     bottom: ${props => props.emoji ? '13.4rem' : '3.4rem'};
     max-width: 17rem;
@@ -137,4 +137,4 @@ const ChatInputReplyIndicatorContainer = styled(motion.div)`
     }
 `;
 
-export default ChatInputReplyIndicator;
+export default InputBarReplyIndicator;

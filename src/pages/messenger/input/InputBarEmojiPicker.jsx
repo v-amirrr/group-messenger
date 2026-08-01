@@ -3,12 +3,12 @@ import data from '@emoji-mart/data/sets/14/twitter.json';
 import Picker from '@emoji-mart/react';
 import styled from 'styled-components';
 
-const ChatInputEmojiPicker = ({ setInputText, emojiPicker }) => {
+const InputBarEmojiPicker = ({ setInputText, emojiPicker }) => {
     const emojiHandler = (e) => {
         setInputText(pre => `${pre}${e.native}`);
     };
     return (
-        <ChatInputEmojiPickerContainer inputbaremojipicker={emojiPicker ? 1 : 0}>
+        <InputBarEmojiPickerContainer inputbaremojipicker={emojiPicker ? 1 : 0}>
             <div className='picker'>
                 <Picker
                     set="apple"
@@ -20,11 +20,11 @@ const ChatInputEmojiPicker = ({ setInputText, emojiPicker }) => {
                     previewPosition='none'
                 />
             </div>
-        </ChatInputEmojiPickerContainer>
+        </InputBarEmojiPickerContainer>
     );
 };
 
-const ChatInputEmojiPickerContainer = styled.div`
+const InputBarEmojiPickerContainer = styled.div`
     position: absolute;
     top: 2.6rem;
     z-index: 3;
@@ -46,4 +46,4 @@ const ChatInputEmojiPickerContainer = styled.div`
     }
 `;
 
-export default ChatInputEmojiPicker;
+export default InputBarEmojiPicker;

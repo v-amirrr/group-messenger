@@ -1,15 +1,15 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { useSelector } from 'react-redux';
 import MenuButton from './MenuButton';
 import ScrollButton from './ScrollButton';
 import { AnimatePresence } from 'framer-motion';
 
-const MessengerButtons = () => {
-    const { editReply } = useSelector(store => store.appStore);
+const MessengerButtons = memo(() => {
+    const editReplyBarShow = useSelector(store => store.appStore.editReply.show);
     return (
         <AnimatePresence>
             {
-                !editReply?.show &&
+                !editReplyBarShow &&
                 <>
                     <MenuButton key='MenuButton' />
                     <ScrollButton key='ScrollButton' />
@@ -17,6 +17,6 @@ const MessengerButtons = () => {
             }
         </AnimatePresence>
     );
-};
+});
 
 export default MessengerButtons;

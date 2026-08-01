@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import MessengerLoader from './MessengerLoader';
 import MessengerError from './MessengerError';
@@ -10,25 +10,15 @@ const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visib
 
 const MessengerPage = () => {
     const { messages, error } = useSelector(store => store.firestoreStore);
-    const [status, setStatus] = useState('LOADER');
-
-    useEffect(() => {
-        if (messages?.length) {
-            setStatus('CHAT');
-        } else if (messages === undefined || error) {
-            setStatus('ERROR');
-        }
-    }, [messages]);
-
     return (
         <MessengerPageContainer {...framerMotionAttributes(messengerVariants)}>
             <AnimatePresence exitBeforeEnter>
                 {
-                    status == 'LOADER' ?
+                    !messages?.length && !error ?
                     <MessengerLoader key='loader' /> :
-                    status == 'ERROR' ?
+                    messages === undefined || error ?
                     <MessengerError key='error' /> :
-                    status == 'CHAT' ?
+                    messages?.length ?
                     <MessengerChat key='chat' /> : ''
                 }
             </AnimatePresence>

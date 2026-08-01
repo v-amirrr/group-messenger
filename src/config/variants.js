@@ -668,26 +668,35 @@ export const chatInputVariants = {
 };
 
 export const inputButtonVariants = {
-    hidden: { opacity: 0, scale: 0.8, x: 40 },
-    visible: { opacity: 1, scale: 1, x: 0, transition: { duration: 0.25 } },
-    exit: { opacity: 0, scale: 0.8, x: 40, transition: { duration: 0.25 } },
+    hidden: { scale: 0, x: 40 },
+    visible: { scale: 1, x: 0, transition: { duration: 0.25 } },
+    exit: { scale: 0, x: 40, transition: { duration: 0.25 } },
 };
 
 export const inputReplyIndicator = {
     hidden: {
         opacity: 0,
-        y: 45,
+        y: 15,
     },
     visible: {
         opacity: 1,
         y: 0,
         transition: {
-            duration: 0.4,
+            duration: 0.3,
         },
     },
     exit: {
         opacity: [1, 1, 1, 1, 1, 1, 0.8, 0.5, 0.2, 0],
         y: 45,
+        transition: {
+            duration: 0.3,
+        },
+    },
+};
+
+export const inputEmojiPicker = {
+    exit: {
+        opacity: 0,
         transition: {
             duration: 0.4,
         },

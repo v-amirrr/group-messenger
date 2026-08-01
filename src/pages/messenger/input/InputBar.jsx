@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import InputBarReplyIndicator from './InputBarReplyIndicator';
 import InputBarEmojiPicker from './InputBarEmojiPicker';
 import { useSelector } from 'react-redux';
@@ -10,117 +10,79 @@ import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { chatInputVariants, inputButtonVariants } from '../../../config/variants';
 const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
+const onMobile = navigator.userAgentData.mobile;
 
 const InputBar = () => {
     const inputRef = useRef();
-
-    const { editReply } = useSelector(store => store.appStore);
-    const { inputReply } = useSelector(store => store.inputStore);
-    const { modalShow } = useSelector(store => store.modalStore);
-    const { selectedMessages } = useSelector(store => store.selectStore);
-    const { optionsAnimationStatus } = useSelector(store => store.optionsStore);
-
+    const optionsAnimationStatus = useSelector(store => store.optionsStore.optionsAnimationStatus);
+    const [inputText, setInputText] = useState(() => localStorage.getItem('input-text') || '');
+    const [emojiPickerShow, setEmojiPickerShow] = useState(false);
     const { sendMessage } = useSend();
 
-    const [emojiAnimation, setEmojiAnimation] = useState(false);
-    const [multiline, setMultiline] = useState(false);
-    const [inputText, setInputText] = useState(localStorage.getItem('input-text') ? localStorage.getItem('input-text') : '');
-    const [emojiPicker, setEmojiPicker] = useState(false);
-
+    const submit = () => {
+        sendMessage(inputText.trim(), setInputText);
+    };
+    
     const inputKeyHandler = (e) => {
-        if (e.keyCode == 13 && !e.shiftKey && !navigator.userAgentData.mobile) {
+        if (e.key === 'Enter' && !e.shiftKey && !onMobile) {
             e.preventDefault();
-            sendMessage(inputText.trim(), setInputText);
+            submit();
         }
     };
 
-    const blurHandler = () => {
-        if (!navigator.userAgentData.mobile && !modalShow && !emojiPicker && !optionsAnimationStatus) {
+    const blurHandler = (e) => {
+        if (!onMobile && !emojiPickerShow && !optionsAnimationStatus) {
             inputRef.current.focus();
-        } else if (modalShow || optionsAnimationStatus) {
+        } else if (optionsAnimationStatus) {
             inputRef.current.blur();
         }
     };
 
-    const sendClickHandler = () => {
-        sendMessage(inputText.trim(), setInputText);
-        if (navigator.userAgentData.mobile) {
-            inputRef.current.focus();
-        }
+    const sendHandler = () => {
+        submit();
+        if (onMobile) inputRef.current.focus()
     };
 
     const openEmojiPicker = () => {
-        setEmojiPicker(!emojiPicker);
-        if (navigator.userAgentData.mobile && document.activeElement === inputRef.current) {
+        setEmojiPickerShow(previous => !previous);
+        if (onMobile && document.activeElement === inputRef.current) {
             inputRef.current.focus();
         }
     };
 
-    const clearInput = () => {
+    const clearHandler = () => {
         setInputText('');
-        if (navigator.userAgentData.mobile && document.activeElement === inputRef.current) {
+        if (onMobile && document.activeElement === inputRef.current) {
             inputRef.current.focus();
         }
     };
 
-    // unfocusing input in times of: opnening a modal, opening emoji picker and opening options
     useEffect(() => {
         blurHandler();
-    }, [modalShow, emojiPicker, optionsAnimationStatus]);
+    }, [emojiPickerShow, optionsAnimationStatus]);
 
-    // storing input text in local storage, detecting whehter text has multiple lines
     useEffect(() => {
-        if (multiline) {
-            setMultiline(false);
-        }
-        inputText.split('').map((item) => {
-            if (item == '\n') {
-                setMultiline(true);
-            }
-        });
         localStorage.setItem('input-text', inputText);
     }, [inputText]);
 
-    // closing emoji picker when user is selecting
-    useEffect(() => {
-        if (selectedMessages.length) {
-            setEmojiPicker(false);
-        }
-    }, [selectedMessages]);
-
-    // playing animation for opening emoji picker
-    useEffect(() => {
-        if (emojiPicker) {
-            setEmojiAnimation(true);
-            setTimeout(() => {
-                setEmojiAnimation(false);
-            }, 250);
-        }
-    }, [emojiPicker]);
-
     return (
         <>
-            <InputBarReplyIndicator inputReply={selectedMessages.length || editReply?.show ? null : inputReply} emojiPicker={emojiPicker} emojiAnimation={emojiAnimation} />
+            <InputBarReplyIndicator emojiPickerShow={emojiPickerShow} />
 
             <InputBarContainer
                 {...framerMotionAttributes(chatInputVariants)}
-                stylesData={{
-                    multiline: multiline ? 1 : 0,
-                    isPerian: isPersian(inputText) ? 1 : 0,
-                    inputText: inputText ? 1 : 0,
-                    emoji: emojiPicker ? 1 : 0,
-                    emojiAnimation: emojiAnimation ? 1 : 0,
-                }}
+                isPerian={isPersian(inputText) ? 1 : 0}
+                inputText={inputText.length>0 ? 1 : 0}
+                emojiPickerShow={emojiPickerShow ? 1 : 0}
             >
                 <textarea
-                    className='input'
                     dir='auto'
                     value={inputText}
                     ref={inputRef}
                     onChange={(e) => setInputText(e.target.value)}
-                    onKeyDown={(e) => inputKeyHandler(e)}
+                    onKeyDown={inputKeyHandler}
                     onBlur={blurHandler}
-                    autoFocus={document.documentElement.offsetWidth > 500 && !modalShow ? true : false}
+                    autoFocus={document.documentElement.offsetWidth > 500 ? true : false}
                 />
 
                 <p className='placeholder'>Send a message...</p>
@@ -128,28 +90,16 @@ const InputBar = () => {
                 <AnimatePresence>
                     {
                         inputText ?
-                        <>
-                            <motion.button
-                                {...framerMotionAttributes(inputButtonVariants)}
-                                className='clear-button'
-                                onClick={clearInput}
-                            >
-                                <IoClose />
-                            </motion.button>
-                            <motion.button
-                                {...framerMotionAttributes(inputButtonVariants)}
-                                className='send-button'
-                                onClick={sendClickHandler}
-                            >
-                                <IoSend />
-                            </motion.button>
-                        </> : ''
+                        <motion.button className='send-button' {...framerMotionAttributes(inputButtonVariants)} onClick={sendHandler}>
+                            <IoSend />
+                        </motion.button>
+                        : null
                     }
                 </AnimatePresence>
 
                 <button className='emoji-button' onClick={openEmojiPicker}><GrEmoji /></button>
 
-                <InputBarEmojiPicker setInputText={setInputText} emojiPicker={emojiPicker} />
+                <InputBarEmojiPicker setInputText={setInputText} emojiPickerShow={emojiPickerShow} />
             </InputBarContainer>
         </>
     );
@@ -158,29 +108,29 @@ const InputBar = () => {
 const InputBarContainer = styled(motion.div)`
     box-sizing: content-box;
     position: absolute;
-    bottom: ${props => props.stylesData.emojiAnimation ? '3rem' : '1rem'};
+    bottom: 1rem;
     width: 18rem;
     height: 2.4rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-bottom: ${props => props.stylesData.emoji ? '10rem' : '0'};
+    padding-bottom: ${props => props.emojiPickerShow ? '10rem' : '0'};
     border: var(--border);
-    border-radius: ${props => props.stylesData.emoji ? '25px' : '50px'};
+    border-radius: ${props => props.emojiPickerShow ? '25px' : '50px'};
     box-shadow: #000000cc 0px 0px 10px;
     backdrop-filter: var(--glass);
     z-index: 4;
     overflow: hidden;
     transition: ${props =>
-        props.stylesData.emoji ?
-        'padding .3s cubic-bezier(.53,0,0,.98), bottom .6s' :
-        'padding .3s cubic-bezier(.53,0,0,.98), bottom .6s, border-radius 2s .2s'
+        props.emojiPickerShow ?
+        'padding .6s cubic-bezier(.53,0,0,.98)' :
+        'padding .4s cubic-bezier(.53,0,0,.98), border-radius 2s .2s'
     };
 
-    .input {
+    textarea {
         position: absolute;
         left: 0;
-        width: 12.7rem;
+        width: 14rem;
         height: 2.4rem;
         display: flex;
         justify-content: center;
@@ -188,25 +138,15 @@ const InputBarContainer = styled(motion.div)`
         border: none;
         padding: .6rem 0 .6rem 1rem;
         background-color: #ffffff00;
-        font-family: ${props => props.stylesData.isPersian ? 'Vazirmatn' : 'Outfit'}, 'Vazirmatn', sans-serif;
+        font-family: ${props => props.isPersian ? 'Vazirmatn' : 'Outfit'}, 'Vazirmatn', sans-serif;
         font-size: 1rem;
         font-weight: 300;
         resize: none;
         vertical-align: middle;
-        overflow: ${props => props.stylesData.inputText ? 'hidden scroll' : ''};
+        overflow: ${props => props.inputText ? 'hidden scroll' : ''};
 
         ::-webkit-scrollbar {
-            width: 0.1rem;
-        }
-
-        ::-webkit-scrollbar-track {
-            border-radius: 50px;
-            background-color: #ffffff00;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background-color: ${props => props.stylesData.multiline ? '#ffffff10' : '#ffffff00'};
-            border-radius: 50px;
+            width: 0;
         }
     }
 
@@ -216,9 +156,9 @@ const InputBarContainer = styled(motion.div)`
         white-space: nowrap;
         font-size: 1rem;
         position: absolute;
-        opacity: ${props => props.stylesData.inputText ? "0" : "1"};
-        left: ${props => props.stylesData.inputText ? "2rem" : "1rem"};
-        letter-spacing: ${props => props.stylesData.inputText ? "1px" : "0"};
+        opacity: ${props => props.inputText ? "0" : "1"};
+        left: ${props => props.inputText ? "2rem" : "1rem"};
+        letter-spacing: ${props => props.inputText ? "1px" : "0"};
         z-index: -1;
         transition: left .3s, opacity .3s, letter-spacing .5s;
     }
@@ -255,7 +195,7 @@ const InputBarContainer = styled(motion.div)`
 
     .emoji-button {
         position: absolute;
-        right: ${props => props.stylesData.inputText ? '1.8rem' : '0'};
+        right: ${props => props.inputText ? '1.8rem' : '0'};
         width: 2.5rem;
         height: 2.4rem;
         display: flex;
@@ -270,9 +210,9 @@ const InputBarContainer = styled(motion.div)`
 
     @media (max-width: 768px) {
         width: 17rem;
-        bottom: ${props => props.stylesData.emojiAnimation ? '2rem' : '.9rem'};
-        padding-bottom: ${props => props.stylesData.emoji ? '10rem' : '0'};
-        border-radius: ${props => props.stylesData.emoji ? '20px' : '50px'};
+        bottom: .9rem;
+        padding-bottom: ${props => props.emojiPickerShow ? '10rem' : '0'};
+        border-radius: ${props => props.emojiPickerShow ? '20px' : '50px'};
     }
 `;
 

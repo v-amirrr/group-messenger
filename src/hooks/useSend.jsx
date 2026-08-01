@@ -7,7 +7,7 @@ import { useToast } from './useToast';
 export const useSend = () => {
     const dispatch = useDispatch();
     const firebaseRef = collection(db, 'messages');
-    const { inputReply } = useSelector(store => store.inputStore);
+    const inputReply = useSelector(store => store.inputStore.inputReply);
     const { user, enterAsAGuest } = useSelector(store => store.userStore);
     const { openToast } = useToast();
 
@@ -16,14 +16,14 @@ export const useSend = () => {
         if (enterAsAGuest) {
             openToast("To use this feature you need to ", "GUEST");
         } else {
-            if (inputText && inputText.charCodeAt(0) != 8204) {
+            if (inputText && inputText.charCodeAt(0) !== 8204) {
                 if (navigator.onLine) {
                     setInputText('');
                     dispatch(setInputReply({ id: null, message: null }));
                     addDoc(firebaseRef, {
                         message: inputText,
                         uid: user.uid,
-                        username: user?.displayName,
+                        username: user.displayName,
                         time: serverTimestamp(),
                         replyTo: inputReply.id,
                     })

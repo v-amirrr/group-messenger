@@ -1,30 +1,36 @@
-import React from 'react';
+import React, { memo } from 'react';
 import data from '@emoji-mart/data/sets/14/twitter.json';
 import Picker from '@emoji-mart/react';
 import styled from 'styled-components';
+import { AnimatePresence, motion } from 'framer-motion';
+import { inputEmojiPicker } from '../../../config/variants';
+const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
-const InputBarEmojiPicker = ({ setInputText, emojiPicker }) => {
-    const emojiHandler = (e) => {
-        setInputText(pre => `${pre}${e.native}`);
-    };
+const InputBarEmojiPicker = memo(({ setInputText, emojiPickerShow }) => {
+    const emojiHandler = (e) => setInputText(previous => `${previous}${e.native}`);
     return (
-        <InputBarEmojiPickerContainer inputbaremojipicker={emojiPicker ? 1 : 0}>
-            <div className='picker'>
-                <Picker
-                    set="apple"
-                    data={data}
-                    emojiSize={30}
-                    showPreview={false}
-                    showSkinTones={false}
-                    onEmojiSelect={(e) => emojiHandler(e)}
-                    previewPosition='none'
-                />
-            </div>
-        </InputBarEmojiPickerContainer>
+        <AnimatePresence>
+            {
+                emojiPickerShow ?
+                <InputBarEmojiPickerContainer {...framerMotionAttributes(inputEmojiPicker)}>
+                    <div className='emoji-picker'>
+                        <Picker
+                            set="apple"
+                            data={data}
+                            emojiSize={30}
+                            showPreview={false}
+                            showSkinTones={false}
+                            onEmojiSelect={(e) => emojiHandler(e)}
+                            previewPosition='none'
+                        />
+                    </div>
+                </InputBarEmojiPickerContainer> : null
+            }
+        </AnimatePresence>
     );
-};
+});
 
-const InputBarEmojiPickerContainer = styled.div`
+const InputBarEmojiPickerContainer = styled(motion.div)`
     position: absolute;
     top: 2.6rem;
     z-index: 3;
@@ -32,7 +38,7 @@ const InputBarEmojiPickerContainer = styled.div`
     overflow: hidden;
     border-radius: 15px;
 
-    .picker {
+    .emoji-picker {
         display: flex;
         justify-content: center;
         align-items: center;

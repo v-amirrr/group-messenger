@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { useOptions } from '../../../hooks/useOptions';
 import { useSkeletonEffect } from '../../../hooks/useSkeletonEffect';
 import { IoClose } from 'react-icons/io5';
@@ -6,9 +6,11 @@ import { BsReplyFill } from 'react-icons/bs';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { inputReplyIndicator } from '../../../config/variants';
+import { useSelector } from 'react-redux';
 const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
-const InputBarReplyIndicator = ({ inputReply, emojiPicker, emojiAnimation }) => {
+const InputBarReplyIndicator = memo(({ emojiPickerShow }) => {
+    const inputReply = useSelector(store => store.inputStore.inputReply);
     const { addSkeletonEffect, scrollToMessage } = useSkeletonEffect();
     const { unReply } = useOptions();
     let mouseLocation = 'OUT';
@@ -42,17 +44,8 @@ const InputBarReplyIndicator = ({ inputReply, emojiPicker, emojiAnimation }) => 
         <AnimatePresence>
             {
                 inputReply?.id ?
-                <InputBarReplyIndicatorContainer
-                    {...framerMotionAttributes(inputReplyIndicator)}
-                    emoji={emojiPicker ? 1 : 0}
-                    emojiAnimation={emojiAnimation ? 1 : 0}
-                >
-                    <div
-                        className='reply-message'
-                        onClick={clickHandler}
-                        onMouseEnter={hoverHandler}
-                        onMouseLeave={unhoverHandler}
-                    >
+                <InputBarReplyIndicatorContainer {...framerMotionAttributes(inputReplyIndicator)} emojiPickerShow={emojiPickerShow}>
+                    <div className='reply-message' onClick={clickHandler} onMouseEnter={hoverHandler} onMouseLeave={unhoverHandler}>
                         <i className='icon'><BsReplyFill /></i>
                         <p className='text'>{inputReply?.message}</p>
                     </div>
@@ -61,11 +54,11 @@ const InputBarReplyIndicator = ({ inputReply, emojiPicker, emojiAnimation }) => 
             }
         </AnimatePresence>
     );
-};
+});
 
 const InputBarReplyIndicatorContainer = styled(motion.div)`
     position: absolute;
-    bottom: ${props => props.emoji ? '13.4rem' : '3.4rem'};
+    bottom: ${props => props.emojiPickerShow ? '13.4rem' : '3.4rem'};
     max-width: 17rem;
     min-width: 6rem;
     height: 2rem;
@@ -79,9 +72,9 @@ const InputBarReplyIndicatorContainer = styled(motion.div)`
     backdrop-filter: var(--glass);
     border-top: solid 0.1px #202020;
     cursor: pointer;
-    margin-bottom: ${props => props.emojiAnimation ? '2rem' : '0'} !important;
     z-index: 3;
-    transition: bottom .3s cubic-bezier(.53,0,0,.98), margin .6s;
+    transition: bottom .6s cubic-bezier(.53,0,0,.98), margin .6s;
+    transition: ${props => props.emojiPickerShow ? 'bottom .6s cubic-bezier(.53,0,0,.98)' : 'bottom .4s cubic-bezier(.53,0,0,.98)'};
 
     .reply-message {
         display: flex;
@@ -91,7 +84,7 @@ const InputBarReplyIndicatorContainer = styled(motion.div)`
         height: 100%;
         margin: 0 .4rem;
         overflow: hidden;
-        font-family: ${props => (props.isrlt ? 'Vazirmatn' : 'Outfit')}, 'Vazirmatn', sans-serif;
+        font-family: 'Outfit', 'Vazirmatn', sans-serif;
         color: var(--grey);
         font-weight: 300;
 
@@ -133,7 +126,6 @@ const InputBarReplyIndicatorContainer = styled(motion.div)`
 
     @media (max-width: 768px) {
         max-width: 16rem;
-        border-radius: 15px 15px 0 0;
     }
 `;
 

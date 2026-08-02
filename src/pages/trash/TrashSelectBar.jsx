@@ -10,8 +10,12 @@ import { trashSelectBarVariants } from '../../config/variants';
 const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 export const TrashSelectBar = ({ selectedMessages }) => {
-    const { openModal } = useModal();
+    const { openModal, closeModal } = useModal();
     const { restoreSelectedMessages, clearSelectedMessages } = useSelect();
+    const restoreHandler = () => {
+        closeModal();
+        restoreSelectedMessages();
+    };
     return (
         <AnimatePresence>
             {
@@ -22,7 +26,7 @@ export const TrashSelectBar = ({ selectedMessages }) => {
                         <i><TbTrashX /></i>
                         <p>Delete</p>
                     </button>
-                    <button className='restore-button' onClick={restoreSelectedMessages}>
+                    <button className='restore-button' onClick={restoreHandler}>
                         <i><FaTrashRestore /></i>
                         <p>Restore</p>
                     </button>

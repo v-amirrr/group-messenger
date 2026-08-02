@@ -1,87 +1,71 @@
 import { useDispatch, useSelector } from "react-redux";
-import { addSelectedMessages, setSelectedMessages, plusNonLocalSelected, minusNonLocalSelected, clearNonLocalSelected } from '../redux/selectSlice';
+import { addSelectedMessages, setSelectedMessages, plusNonLocalSelected, minusNonLocalSelected, clearSelectSlice } from '../redux/selectSlice';
 import { useOptions } from "./useOptions";
-import { useModal } from "./useModal";
 import { useSkeletonEffect } from "./useSkeletonEffect";
 import { useToast } from './useToast';
 
 export const useSelect = () => {
     const dispatch = useDispatch();
-    const { selectedMessages } = useSelector(store => store.selectStore);
+    const selectedMessages = useSelector(store => store.selectStore.selectedMessages);
     const { moveToTrash, restore, permanentDelete } = useOptions();
-    const { closeModal } = useModal();
     const { addSkeletonEffect } = useSkeletonEffect();
     const { openToast } = useToast();
 
     const select = (message) => {
         dispatch(addSelectedMessages({ message }));
-        if (!message?.isLocalMessage) {
-            dispatch(plusNonLocalSelected());
-        }
+        if (!message?.isLocalMessage) dispatch(plusNonLocalSelected());
         addSkeletonEffect(message.id);
     };
 
     const deselect = (id, isLocalMessage) => {
-        let newSelectedMessages = selectedMessages.filter(item => item.id != id ? item : '');
-        if (!isLocalMessage) {
-            dispatch(minusNonLocalSelected());
-        }
+        let newSelectedMessages = selectedMessages.filter(message => message.id !== id ? message : '');
+        if (!isLocalMessage) dispatch(minusNonLocalSelected());
         dispatch(setSelectedMessages(newSelectedMessages));
     };
 
     const clearSelectedMessages = () => {
-        dispatch(clearNonLocalSelected());
-        dispatch(setSelectedMessages([]));
+        dispatch(clearSelectSlice());
     };
 
     const copySelectedMessages = () => {
-        let text = '', ToastText = '';
-        selectedMessages.map((message, index) => {
-            if (index == 0 && index == selectedMessages.length-1) {
-                text+=`${message.plainText} `;
+        let copiedText = '';
+        selectedMessages.forEach((message, index) => {
+            if (selectedMessages.length === 1 || index+1 === selectedMessages.length) {
+                copiedText+=`${message.plainText}`;
             } else {
-                text+=`${message.plainText}\n`;
+                copiedText+=`${message.plainText}\n`;
             }
         });
-        navigator.clipboard.writeText(text);
-        ToastText = selectedMessages.length == 1 ? 'Message copied' : 'Messages copied';
+        navigator.clipboard.writeText(copiedText);
+        const toastText = `Message${selectedMessages.length === 1 ? '' : 's'} copied`;
         clearSelectedMessages();
-        setTimeout(() => {
-            openToast(ToastText, 'GENERAL');
-        }, 300);
+        openToast(toastText, 'GENERAL');
     };
 
-    const moveToTrashSelectedMessages = () => {
-        selectedMessages.map((message) => {
-            moveToTrash(message.id);
-        });
-        let ToastText = selectedMessages.length == 1 ? 'Message was moved to trash' : 'Messages were moved to trash';
+    const trashSelectedMessages = () => {
+        selectedMessages.forEach(message => moveToTrash(message.id));
+        const toastText = `Message${selectedMessages.length === 1 ? '' : 's'} moved to trash`;
         setTimeout(() => {
-            openToast(ToastText, 'GENERAL');
+            openToast(toastText, 'GENERAL');
         }, 300);
         clearSelectedMessages();
     };
 
     const restoreSelectedMessages = () => {
-        selectedMessages.map((message) => {
-            restore(message.id);
-        });
-        let ToastText = selectedMessages.length == 1 ? 'Message was restored' : 'Messages were restored';
+        selectedMessages.forEach(message => restore(message.id));
+        const toastText = `Message${selectedMessages.length === 1 ? '' : 's'} restored`;
         setTimeout(() => {
-            openToast(ToastText, 'GENERAL');
+            openToast(toastText, 'GENERAL');
         }, 300);
         clearSelectedMessages();
     };
 
-    const permanentDeleteSelectedMessages = (modalMessages) => {
-        closeModal();
+    const deleteSelectedMessages = (modalMessages) => {
         setTimeout(() => {
-            modalMessages.map((message) => {
-                permanentDelete(message.id);
-            });
-            let permanentDeleteToast = `Message${modalMessages.length == 1 ? ' was' : 's were'} permanently deleted`;
+            modalMessages.forEach(message => permanentDelete(message.id));
+            const toastText = `Message${modalMessages.length == 1 ? 's' : 's'} permanently deleted`;
             setTimeout(() => {
-                openToast(permanentDeleteToast, 'GENERAL');
+                openToast(toastText, 'GENERAL');
             }, 300);
         }, 400);
         clearSelectedMessages();
@@ -92,8 +76,8 @@ export const useSelect = () => {
         deselect,
         clearSelectedMessages,
         copySelectedMessages,
-        moveToTrashSelectedMessages,
+        trashSelectedMessages,
         restoreSelectedMessages,
-        permanentDeleteSelectedMessages,
+        deleteSelectedMessages,
     };
 };

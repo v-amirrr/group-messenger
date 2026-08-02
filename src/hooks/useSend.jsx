@@ -8,12 +8,12 @@ export const useSend = () => {
     const dispatch = useDispatch();
     const firebaseRef = collection(db, 'messages');
     const inputReply = useSelector(store => store.inputStore.inputReply);
-    const { user, enterAsAGuest } = useSelector(store => store.userStore);
+    const { user, guestLogin } = useSelector(store => store.userStore);
     const { openToast } = useToast();
 
     const sendMessage = (inputText, setInputText) => {
         let storedInputText = localStorage.getItem('input-text');
-        if (enterAsAGuest) {
+        if (guestLogin) {
             openToast("To use this feature you need to ", "GUEST");
         } else {
             if (inputText && inputText.charCodeAt(0) !== 8204) {

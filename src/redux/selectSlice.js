@@ -27,8 +27,8 @@ const selectSlice = createSlice({
         minusNonLocalSelected: (state) => {
             return { ...state, nonLocalSelected: state.nonLocalSelected-1 };
         },
-        clearNonLocalSelected: (state) => {
-            return { ...state, nonLocalSelected: 0 };
+        clearSelectSlice: () => {
+            return { selectedMessages: [], nonLocalSelected: 0 };
         },
     },
 });
@@ -38,7 +38,7 @@ export const {
     setSelectedMessages,
     plusNonLocalSelected,
     minusNonLocalSelected,
-    clearNonLocalSelected,
+    clearSelectSlice,
 } = selectSlice.actions;
 
 export default selectSlice.reducer;

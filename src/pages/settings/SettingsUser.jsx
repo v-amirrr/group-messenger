@@ -11,7 +11,7 @@ import { userSettingsVariants } from '../../config/variants';
 const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const SettingsUser = ({ open, setOpen, setHeight }) => {
-    const { user, enterAsAGuest } = useSelector(store => store.userStore);
+    const { user, guestLogin } = useSelector(store => store.userStore);
     const { usernames } = useSelector(store => store.firestoreStore);
     const { modalShow } = useSelector(store => store.modalStore);
     const { openModal } = useModal();
@@ -21,7 +21,7 @@ const SettingsUser = ({ open, setOpen, setHeight }) => {
 
     const itemSwitch = () => {
         cancelHandler();
-        if (enterAsAGuest) {
+        if (guestLogin) {
             openToast("To use this feature you need to ", "GUEST");
         } else {
             if (open == "SETTINGS_USER") {

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { clearNonLocalSelected, setSelectedMessages } from "../redux/selectSlice";
+import { clearSelectSlice } from "../redux/selectSlice";
 import { setClearToasts } from "../redux/toastSlice";
 import { useEffect } from "react";
 import { useToast } from '../hooks/useToast';
@@ -9,24 +9,15 @@ export const useRedirection = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const dispatch = useDispatch();
-    const { user, enterAsAGuest } = useSelector(store => store.userStore);
+    const { user, guestLogin } = useSelector(store => store.userStore);
     const { openToast, clearToasts } = useToast();
 
     useEffect(() => {
         autoRedirection(location.pathname);
     }, [location.pathname]);
 
-    const clearSelectedMessages = () => {
-        dispatch(clearNonLocalSelected());
-        dispatch(setSelectedMessages([]));
-    };
-
-    const ClearToasts = () => {
-        clearToasts();
-    };
-
     const messengerRedirection = () => {
-        if (!user && !enterAsAGuest) {
+        if (!user && !guestLogin) {
             navigate("/auth", { replace: true });
         }
     };
@@ -38,21 +29,21 @@ export const useRedirection = () => {
     };
 
     const settingsRedirection = () => {
-        if (!user && !enterAsAGuest) {
+        if (!user && !guestLogin) {
             navigate("/auth", { replace: true });
         }
     };
 
     const trashRedirection = () => {
-        if (enterAsAGuest) {
+        if (guestLogin) {
             openToast("To use this feature you need to ", "GUEST");
             navigate("/", { replace: true });
         }
     };
 
     const autoRedirection = (path) => {
-        ClearToasts();
-        clearSelectedMessages();
+        clearToasts();
+        dispatch(clearSelectSlice());
         switch (path) {
             case '/':
                 messengerRedirection();

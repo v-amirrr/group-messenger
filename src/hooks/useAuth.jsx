@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { auth, db, googleProvider } from '../config/firebase';
 import { doc, setDoc } from 'firebase/firestore';
 import { createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
-import { setUser, setEnterAsAGuest } from '../redux/userSlice';
+import { setUser, setGuestLogin } from '../redux/userSlice';
 import { setLoader } from '../redux/appSlice';
 import { useToast } from './useToast';
 
@@ -34,15 +34,15 @@ export const useAuth = () => {
                 updateProfile(auth.currentUser, {
                     displayName: username,
                 })
-                    .then(() => {
-                        setDoc(doc(db, 'users', res.user.uid), {
-                            username: username
-                        });
-                        dispatch(setLoader(false));
-                        localStorage.setItem('user', JSON.stringify(res.user));
-                        dispatch(setUser(res.user));
-                        navigate('/');
-                    })
+                .then(() => {
+                    setDoc(doc(db, 'users', res.user.uid), {
+                        username: username
+                    });
+                    dispatch(setLoader(false));
+                    localStorage.setItem('user', JSON.stringify(res.user));
+                    dispatch(setUser(res.user));
+                    navigate('/');
+                })
             })
             .catch((err) => {
                 dispatch(setLoader(false));
@@ -50,9 +50,9 @@ export const useAuth = () => {
             });
     };
 
-    const enterAsAGuest = () => {
+    const guestLogin = () => {
         localStorage.setItem('guest-login', 'true');
-        dispatch(setEnterAsAGuest(true));
+        dispatch(setGuestLogin(true));
         navigate('/', { replace: true });
     };
 
@@ -62,7 +62,7 @@ export const useAuth = () => {
         navigate('/auth');
         setTimeout(() => {
             dispatch(setUser(null));
-            dispatch(setEnterAsAGuest(false));
+            dispatch(setGuestLogin(false));
         }, 200);
     };
 
@@ -84,21 +84,11 @@ export const useAuth = () => {
             });
     };
 
-    // const cancelAuth = () => {
-    //     dispatch(setLogin({ loading: false }));
-    //     dispatch(setSignup({ loading: false }));
-    //     dispatch(setGoogleLogin({ loading: false }));
-    //     localStorage.removeItem('user');
-    //     dispatch(setUser(null));
-    //     openToast(dispatch, "Authentication got canceled", "GENERAL");
-    // };
-
     return {
         login,
         signup,
-        enterAsAGuest,
+        guestLogin,
         logout,
         googleLogin,
-        // cancelAuth
     };
 };

@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     user: JSON.parse(localStorage.getItem('user')),
-    enterAsAGuest: JSON.parse(localStorage.getItem('guest-login')),
+    guestLogin: JSON.parse(localStorage.getItem('guest-login')),
 };
 
 const userSlice = createSlice({
@@ -12,15 +12,15 @@ const userSlice = createSlice({
         setUser: (state, action) => {
             return { ...state, user: action.payload };
         },
-        setEnterAsAGuest: (state, action) => {
-            return { ...state, enterAsAGuest: action.payload };
+        setGuestLogin: (state, action) => {
+            return { ...state, guestLogin: action.payload };
         },
     },
 });
 
 export const {
     setUser,
-    setEnterAsAGuest,
+    setGuestLogin,
 } = userSlice.actions;
 
 export default userSlice.reducer;

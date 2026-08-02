@@ -18,7 +18,7 @@ const OptionsButtonHandler = ({ type, optionsClickHandler, closeOptions }) => {
     const dispatch = useDispatch();
     const inputReplyId = useSelector(store => store.inputStore.inputReply.id);
     const { optionsMessage, optionsButtonsStage } = useSelector(store => store.optionsStore);
-    const { copy, reply, editText, moveToTrash, restore, changeButtonsStage, activateEditReply } = useOptions();
+    const { copy, reply, unReply, editText, moveToTrash, restore, changeButtonsStage, activateEditReply } = useOptions();
     const { openModal } = useModal();
     const { select } = useSelect();
     const { openToast } = useToast();
@@ -29,13 +29,18 @@ const OptionsButtonHandler = ({ type, optionsClickHandler, closeOptions }) => {
         switch (option) {
             case 'REPLY':
                 closeOptions();
-                setTimeout(() => {
-                    reply(
-                        optionsMessage?.id,
-                        optionsMessage?.plainText,
-                        optionsMessage?.username,
-                    );
-                }, 250);
+                if (inputReplyId === optionsMessage?.id) {
+                    setTimeout(() => unReply(), 250);
+                } else if (inputReplyId) {
+                    setTimeout(() => unReply(), 250);
+                    setTimeout(() => {
+                        reply(optionsMessage?.id, optionsMessage?.plainText, optionsMessage?.username);
+                    }, 500);
+                } else {
+                    setTimeout(() => {
+                        reply(optionsMessage?.id, optionsMessage?.plainText, optionsMessage?.username);
+                    }, 250);
+                }
                 break;
             case 'SELECT':
                 closeOptions();
@@ -74,6 +79,7 @@ const OptionsButtonHandler = ({ type, optionsClickHandler, closeOptions }) => {
                 break;
             case 'TRASH':
                 closeOptions();
+                if (inputReplyId === optionsMessage?.id) unReply()
                 setTimeout(() => {
                     moveToTrash(optionsMessage?.id);
                 }, 300);

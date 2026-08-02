@@ -13,22 +13,12 @@ export const useOptions = () => {
     const editedText = useSelector(store => store.optionsStore.editedText);
     const { messages } = useSelector(store => store.firestoreStore);
     const { editReply: editReplyData } = useSelector(store => store.appStore);
-    const { inputReply } = useSelector(store => store.inputStore);
     const { selectedMessages } = useSelector(store => store.selectStore);
     const { closeModal } = useModal();
     const { openToast } = useToast();
 
     const reply = (id, message) => {
-        if (inputReply.id && inputReply.id != id) {
-            unReply();
-            setTimeout(() => {
-                dispatch(setInputReply({ id, message }));
-            }, 400);
-        } else if (inputReply.id == id) {
-            unReply();
-        } else {
-            dispatch(setInputReply({ id, message }));
-        }
+        dispatch(setInputReply({ id, message }));
     };
 
     const unReply = () => {
@@ -77,9 +67,6 @@ export const useOptions = () => {
                 deleted: true,
             });
             openToast('Message was moved to trash', 'GENERAL');
-            if (id == inputReply?.id) {
-                unReply();
-            }
         } else {
             const docRef = doc(db, 'messages', id);
             updateDoc(docRef, {

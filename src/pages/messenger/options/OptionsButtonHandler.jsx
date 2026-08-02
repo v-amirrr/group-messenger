@@ -16,7 +16,7 @@ const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visib
 
 const OptionsButtonHandler = ({ type, optionsClickHandler, closeOptions }) => {
     const dispatch = useDispatch();
-    const { inputReply } = useSelector(store => store.appStore);
+    const inputReplyId = useSelector(store => store.inputStore.inputReply.id);
     const { optionsMessage, optionsButtonsStage } = useSelector(store => store.optionsStore);
     const { copy, reply, editText, moveToTrash, restore, changeButtonsStage, activateEditReply } = useOptions();
     const { openModal } = useModal();
@@ -124,7 +124,7 @@ const OptionsButtonHandler = ({ type, optionsClickHandler, closeOptions }) => {
                                 key='OptionsButtonsChat'
                                 optionClick={optionClick}
                                 setVariants={setVariants}
-                                replyAlreadyClicked={inputReply?.id == optionsMessage?.id}
+                                replyAlreadyClicked={inputReplyId == optionsMessage?.id}
                                 isMessageLocal={optionsMessage?.isLocalMessage}
                             />
                         }

@@ -12,13 +12,13 @@ const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visib
 
 const MenuButton = () => {
     const navigate = useNavigate();
-    const { enterAsAGuest } = useSelector(store => store.userStore);
+    const { guestLogin } = useSelector(store => store.userStore);
     const { logout } = useAuth();
     const { openToast } = useToast();
     return (
         <MenuButtonContainer {...framerMotionAttributes(menuButtonVariants)}>
             <div className='buttons'>
-                <button onClick={() => enterAsAGuest ? openToast("To use this feature you need to ", "GUEST") : navigate('/trash')}>
+                <button onClick={() => guestLogin ? openToast("To use this feature you need to ", "GUEST") : navigate('/trash')}>
                     <i className='trash-icon'><FcFullTrash /></i>
                     <p>Trash</p>
                 </button>

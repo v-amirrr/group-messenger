@@ -8,7 +8,7 @@ import Options from '../messenger/options/Options';
 import { IoIosArrowBack } from "react-icons/io";
 import { motion, AnimatePresence } from 'framer-motion';
 import styled from 'styled-components';
-import { trashPageVariants } from '../../config/variants';
+import { pageVariants } from '../../config/variants';
 const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const TrashPage = () => {
@@ -25,7 +25,7 @@ const TrashPage = () => {
     }, [deletedMessages]);
 
     return (
-        <TrashPageContainer {...framerMotionAttributes(trashPageVariants)} data={{ optionsAnimationStatus }}>
+        <TrashPageContainer {...framerMotionAttributes(pageVariants)} data={{ optionsAnimationStatus }}>
             <div className='trash-container'>
                 <div className='header'>
                     <button className='header-back-button' onClick={() => navigate('/')}><IoIosArrowBack /></button>

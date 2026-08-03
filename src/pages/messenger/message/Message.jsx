@@ -43,11 +43,10 @@ const Message = ({ messageData, type, isLocalMessage }) => {
     const showMessageUsername = () => !isLocalMessage && messagePosition < 2;
     const showEditReplyIndicator = () => editReply?.editingMessageReplyId == id;
     const showRepliedTo = () =>  replyTo != 'NO_REPLY' && type != 'TRASH';
-    const setVariants = () => isLocalMessage ? localMessageVariants : nonLocalMessageVariants;
 
     return (
         <MessageContainer
-            {...framerMotionAttributes(setVariants())}
+            {...framerMotionAttributes(isLocalMessage ? localMessageVariants : nonLocalMessageVariants)}
             layout
             layoutId={id}
             ref={messageRef}

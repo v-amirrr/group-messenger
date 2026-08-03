@@ -9,37 +9,16 @@ export const pageVariants = {
         opacity: 1,
         scale: 1,
         transition: {
-            duration: 0.3,
+            duration: 0.2,
+            when: 'beforeChildren'
         },
     },
     exit: {
         opacity: 0,
         scale: 0.95,
         transition: {
-            duration: 0.2
-        }
-    },
-};
-
-export const errorBoxVariants = {
-    hidden: {
-        opacity: 0,
-        scale: 0.9
-    },
-    visible: {
-        opacity: 1,
-        scale: 1,
-        transition: {
-            duration: 0.5,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
-        },
-    },
-    exit: {
-        opacity: 0,
-        scale: 0.9,
-        transition: {
-            duration: 0.2
+            duration: 0.2,
+            when: 'beforeChildren'
         }
     },
 };
@@ -91,25 +70,7 @@ export const toastFastVariants = {
 
 // --------------------------------------
 
-export const loginVariants = {
-    hidden: {
-        opacity: 0,
-    },
-    visible: {
-        opacity: 1,
-        transition: {
-            duration: 0.2,
-        },
-    },
-    exit: {
-        opacity: 0,
-        transition: {
-            duration: 0.2
-        }
-    },
-};
-
-export const loginItemVariants = {
+export const authInputVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
         opacity: 1,
@@ -123,7 +84,7 @@ export const loginItemVariants = {
     },
 };
 
-export const loginPasswordIconVariants = {
+export const authShowPasswordIconVariants = {
     hidden: {
         opacity: 0,
         scale: 0.8,
@@ -140,48 +101,9 @@ export const loginPasswordIconVariants = {
     },
 };
 
-export const loginPasswordInputVariants = {
-    hidden: {
-        opacity: 0,
-        x: -5,
-    },
-    visible: {
-        opacity: 1,
-        x: 0,
-        transition: { duration: 0.2 },
-    },
-    exit: {
-        opacity: 0,
-        x: 5,
-        transition: { duration: 0.2 },
-    },
-};
-
 // --------------------------------------
 
-export const messengerVariants = {
-    hidden: {
-        opacity: 0,
-        // scale: 0.9
-    },
-    visible: {
-        opacity: 1,
-        // scale: 1,
-        transition: {
-            duration: 0.2,
-            when: "beforeChildren"
-        },
-    },
-    exit: {
-        opacity: 0,
-        scale: 0.9,
-        transition: {
-            duration: 0.2
-        }
-    },
-};
-
-export const chatMessagesVariants = {
+export const messengerChatVariants = {
     hidden: {
         opacity: 0,
         // scale: 0.9
@@ -203,7 +125,7 @@ export const chatMessagesVariants = {
     // },
 };
 
-export const messagesVariants = {
+export const chatMessagesVariants = {
     hidden: {
         opacity: 0,
         // scale: 0.9
@@ -264,7 +186,7 @@ export const localMessageRepliedToVariants = {
     },
 };
 
-export const chatDateVariants = {
+export const messageDateVariants = {
     hidden: { opacity: 0, scale: 0.8 },
     visible: { opacity: 1, scale: 1, transition: { duration: 0.4 } },
     exit: { opacity: 0, scale: 0.8, transition: { duration: 0.2 } },
@@ -332,7 +254,7 @@ export const messageLoaderVariants = {
     },
 };
 
-export const replyIconVariants = {
+export const messageEditReplyIndicatorVariants = {
     hidden: { opacity: 0, scale: 0 },
     visible: {
         opacity: 1,
@@ -391,7 +313,7 @@ export const optionsVariants = {
     },
 };
 
-export const optionLocalVariants = {
+export const optionsLocalVariants = {
     hidden: {
         opacity: 0,
         x: 10,
@@ -413,7 +335,7 @@ export const optionLocalVariants = {
     },
 };
 
-export const optionNonLocalVariants = {
+export const optionsNonLocalVariants = {
     hidden: {
         opacity: 0,
         x: -10,
@@ -437,59 +359,13 @@ export const optionNonLocalVariants = {
 
 // --------------------------------------
 
-export const popupPageVariants = {
+export const modalPageVariants = {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { duration: 0.2 } },
     exit: { opacity: 0, transition: { duration: 0.2, when: 'afterChildren' } },
 };
 
-export const popupContainerVariants = {
-    hidden: {
-        opacity: 0,
-        scale: 0.9
-    },
-    visible: {
-        opacity: 1,
-        scale: 1,
-        transition: {
-            duration: 0.5,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
-        },
-    },
-    exit: {
-        opacity: 0,
-        scale: 0.9,
-        transition: {
-            duration: 0.2
-        }
-    },
-};
-
 // --------------------------------------
-
-export const settingsContainerVariants = {
-    hidden: {
-        opacity: 0,
-        scale: 0.9
-    },
-    visible: {
-        opacity: 1,
-        scale: 1,
-        transition: {
-            duration: 0.5,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
-        },
-    },
-    exit: {
-        opacity: 0,
-        scale: 0.9,
-        transition: {
-            duration: 0.2
-        }
-    },
-};
 
 export const settingsItemVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -526,107 +402,6 @@ export const userSettingsVariants = {
 
 // --------------------------------------
 
-export const featuresPageVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 0.2 } },
-    exit: { opacity: 0, transition: { duration: 0.1, when: 'afterChildren' } },
-};
-
-export const featuresContainerVariants = {
-    hidden: {
-        opacity: 0,
-        scale: 0.9
-    },
-    visible: {
-        opacity: 1,
-        scale: 1,
-        transition: {
-            duration: 0.5,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
-        },
-    },
-    exit: {
-        opacity: 0,
-        scale: 0.9,
-        transition: {
-            duration: 0.2
-        }
-    },
-};
-
-export const featuresIconVariants = {
-    hidden: { opacity: 0, scale: 0.5 },
-    visible: {
-        opacity: 1,
-        scale: 1,
-        transition: {
-            duration: 0.2,
-        },
-    },
-    exit: { opacity: 0, scale: 0.5, transition: { duration: 0.2 } },
-};
-
-export const featuresListVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-        opacity: 1,
-        transition: {
-            duration: 0.1,
-            staggerChildren: 0.03,
-            when: 'beforeChildren',
-        },
-    },
-    exit: {
-        opacity: 0,
-        transition: {
-            duration: 0.1,
-            when: 'afterChildren',
-        },
-    },
-};
-
-export const featuresItemVariants = {
-    hidden: { opacity: 0, y: 50, scaleY: 0.8 },
-    visible: {
-        opacity: 1,
-        y: 0,
-        scaleY: 1,
-        transition: {
-            duration: 0.8,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
-        },
-    },
-    exit: { opacity: 0, y: 30, scaleY: 0.9, transition: { duration: 0.3 } },
-};
-
-export const featuresSectionUpVariatns = {
-    hidden: { opacity: 0, y: -50 },
-    visible: {
-        opacity: 1,
-        y: 0,
-        transition: {
-            duration: 0.3,
-        },
-    },
-    exit: { opacity: 0, y: 50, transition: { duration: 0.3 } },
-};
-
-export const featuresSectionDownVariatns = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-        opacity: 1,
-        y: 0,
-        transition: {
-            duration: 0.3,
-        },
-    },
-    exit: { opacity: 0, y: -50, transition: { duration: 0.3 } },
-};
-
-// --------------------------------------
-
 export const selectBarVariants = {
     hidden: {
         y: 80
@@ -647,7 +422,7 @@ export const selectBarVariants = {
     },
 };
 
-export const chatInputVariants = {
+export const inputBarVariants = {
     hidden: {
         y: 80
     },
@@ -667,22 +442,23 @@ export const chatInputVariants = {
     },
 };
 
-export const inputButtonVariants = {
+export const inputBarButtonVariants = {
     hidden: { scale: 0, x: 40 },
     visible: { scale: 1, x: 0, transition: { duration: 0.25 } },
     exit: { scale: 0, x: 40, transition: { duration: 0.25 } },
 };
 
-export const inputReplyIndicator = {
+export const inputBarReplyIndicator = {
     hidden: {
         opacity: 0,
-        y: 15,
+        y: 20,
     },
     visible: {
         opacity: 1,
         y: 0,
         transition: {
-            duration: 0.3,
+            type: 'spring',
+            stiffness: 100,
         },
     },
     exit: {
@@ -694,7 +470,7 @@ export const inputReplyIndicator = {
     },
 };
 
-export const inputEmojiPicker = {
+export const inputBarEmojiPicker = {
     exit: {
         opacity: 0,
         transition: {
@@ -725,29 +501,6 @@ export const editReplyBarVariatns = {
 
 // --------------------------------------
 
-export const trashPageVariants = {
-    hidden: {
-        opacity: 0,
-        scale: 0.95
-    },
-    visible: {
-        opacity: 1,
-        scale: 1,
-        transition: {
-            duration: 0.5,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
-        },
-    },
-    exit: {
-        opacity: 0,
-        scale: 0.95,
-        transition: {
-            duration: 0.2
-        }
-    },
-};
-
 export const trashSelectBarVariants = {
     hidden: {
         y: 80
@@ -765,22 +518,6 @@ export const trashSelectBarVariants = {
             duration: 0.6,
             ease: [0.53, 0, 0, 0.98],
             time: [0.53, 0, 0, 0.98],
-        },
-    },
-};
-
-export const trashSelectBarSwitchIconVariants = {
-    hidden: { scale: 0 },
-    visible: {
-        scale: 1,
-        transition: {
-            duration: 0.3,
-        },
-    },
-    exit: {
-        scale: 0,
-        transition: {
-            duration: 0.3,
         },
     },
 };
@@ -862,29 +599,6 @@ export const menuButtonVariants = {
 };
 
 // --------------------------------------
-
-export const chatLoaderVariants = {
-    hidden: {
-        opacity: 0,
-        scale: 0.9
-    },
-    visible: {
-        opacity: 1,
-        scale: 1,
-        transition: {
-            duration: 0.5,
-            ease: [0.53, 0, 0, 0.98],
-            time: [0.53, 0, 0, 0.98],
-        },
-    },
-    exit: {
-        opacity: 0,
-        scale: 0.9,
-        transition: {
-            duration: 0.2
-        }
-    },
-};
 
 export const loaderVariants = {
     hidden: {

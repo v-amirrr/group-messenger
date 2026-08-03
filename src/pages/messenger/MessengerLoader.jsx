@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { chatLoaderVariants } from '../../config/variants';
+import { pageVariants } from '../../config/variants';
 const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const messages = [
@@ -24,7 +24,7 @@ const messages = [
 
 const MessengerLoader = () => {
     return (
-        <MessengerLoaderContainer {...framerMotionAttributes(chatLoaderVariants)}>
+        <MessengerLoaderContainer {...framerMotionAttributes(pageVariants)}>
             <div className='menu'></div>
             <div className='scroll'></div>
             <div className='input'></div>

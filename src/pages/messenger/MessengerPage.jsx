@@ -5,13 +5,13 @@ import MessengerError from './MessengerError';
 import MessengerChat from './MessengerChat';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
-import { messengerVariants } from '../../config/variants';
+import { pageVariants } from '../../config/variants';
 const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const MessengerPage = () => {
     const { messages, error } = useSelector(store => store.firestoreStore);
     return (
-        <MessengerPageContainer {...framerMotionAttributes(messengerVariants)}>
+        <MessengerPageContainer {...framerMotionAttributes(pageVariants)}>
             <AnimatePresence exitBeforeEnter>
                 {
                     !messages?.length && !error ?

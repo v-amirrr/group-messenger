@@ -3,7 +3,7 @@ import data from '@emoji-mart/data/sets/14/twitter.json';
 import Picker from '@emoji-mart/react';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
-import { inputEmojiPicker } from '../../../config/variants';
+import { inputBarEmojiPicker } from '../../../config/variants';
 const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const InputBarEmojiPicker = memo(({ setInputText, emojiPickerShow }) => {
@@ -12,7 +12,7 @@ const InputBarEmojiPicker = memo(({ setInputText, emojiPickerShow }) => {
         <AnimatePresence>
             {
                 emojiPickerShow ?
-                <InputBarEmojiPickerContainer {...framerMotionAttributes(inputEmojiPicker)}>
+                <InputBarEmojiPickerContainer {...framerMotionAttributes(inputBarEmojiPicker)}>
                     <div className='emoji-picker'>
                         <Picker
                             set="apple"

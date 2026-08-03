@@ -5,7 +5,7 @@ import { IoClose } from 'react-icons/io5';
 import { BsReplyFill } from 'react-icons/bs';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
-import { inputReplyIndicator } from '../../../config/variants';
+import { inputBarReplyIndicator } from '../../../config/variants';
 import { useSelector } from 'react-redux';
 const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
@@ -44,7 +44,7 @@ const InputBarReplyIndicator = memo(({ emojiPickerShow }) => {
         <AnimatePresence>
             {
                 inputReply?.id ?
-                <InputBarReplyIndicatorContainer {...framerMotionAttributes(inputReplyIndicator)} emojiPickerShow={emojiPickerShow}>
+                <InputBarReplyIndicatorContainer {...framerMotionAttributes(inputBarReplyIndicator)} emojiPickerShow={emojiPickerShow}>
                     <div className='reply-message' onClick={clickHandler} onMouseEnter={hoverHandler} onMouseLeave={unhoverHandler}>
                         <i className='icon'><BsReplyFill /></i>
                         <p className='text'>{inputReply?.message}</p>
@@ -58,9 +58,9 @@ const InputBarReplyIndicator = memo(({ emojiPickerShow }) => {
 
 const InputBarReplyIndicatorContainer = styled(motion.div)`
     position: absolute;
-    bottom: ${props => props.emojiPickerShow ? '13.4rem' : '3.4rem'};
-    max-width: 17rem;
-    min-width: 6rem;
+    bottom: ${props => props.emojiPickerShow ? '12.5rem' : '2.5rem'};
+    max-width: 16.5rem;
+    min-width: 2rem;
     height: 2rem;
     display: flex;
     justify-content: center;

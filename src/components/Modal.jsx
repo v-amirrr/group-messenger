@@ -5,7 +5,7 @@ import ChangeUsernameModal from './ChangeUsernameModal';
 import { useModal } from '../hooks/useModal';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
-import { popupPageVariants, pageVariants } from '../config/variants';
+import { modalPageVariants, pageVariants } from '../config/variants';
 const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const Modal = () => {
@@ -26,7 +26,7 @@ const Modal = () => {
             <AnimatePresence>
                 {
                     modalShow ?
-                    <ModalContainer {...framerMotionAttributes(popupPageVariants)} onClick={(e) => closePopupByTap(e)}>
+                    <ModalContainer {...framerMotionAttributes(modalPageVariants)} onClick={(e) => closePopupByTap(e)}>
                         <motion.div className='modal' variants={pageVariants} ref={modealRef}>
                             {
                                 modalName == 'PERMENANT_DELETE_CONFIRMATION' ?

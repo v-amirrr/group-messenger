@@ -2,13 +2,13 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { errorBoxVariants } from '../../config/variants';
+import { pageVariants } from '../../config/variants';
 const framerMotionAttributes = variants => ({ initial: 'hidden', animate: 'visible', exit: 'exit', variants });
 
 const MessengerError = () => {
     const { error } = useSelector(store => store.firestoreStore);
     return (
-        <MessengerErrorContainer {...framerMotionAttributes(errorBoxVariants)}>
+        <MessengerErrorContainer {...framerMotionAttributes(pageVariants)}>
             <h2>Looks like there's a problem</h2>
             <p>{error}</p>
         </MessengerErrorContainer>
